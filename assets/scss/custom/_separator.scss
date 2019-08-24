@@ -1,0 +1,45 @@
+.separator {
+    position: absolute;
+    top: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 150px;
+    z-index: 1;
+    transform: translateZ(0);
+    overflow: hidden;
+    pointer-events: none;
+
+    svg {
+        position: absolute;
+        pointer-events: none;
+    }
+}
+
+.separator-top {
+    top: 0;
+    bottom: auto;
+    
+    svg {
+        top: 0;
+    }
+}
+
+.separator-bottom {
+    top: auto;
+    bottom: 0;
+
+    svg {
+        bottom: 0;
+    }
+}
+
+.separator-inverse {
+    transform: rotate(180deg);
+}
+
+// Styles
+
+.separator-skew {
+    height: 60px;
+}

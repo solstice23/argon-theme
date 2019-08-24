@@ -1,0 +1,67 @@
+.badge {
+    text-transform: $badge-text-transfom;
+
+    a {
+        color: #FFF;
+    }
+}
+
+// Variations
+.badge-pill {
+    padding-right: $badge-pill-padding-x;
+    padding-left: $badge-pill-padding-x;
+}
+
+.badge-circle {
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    font-size: .875rem;
+}
+
+// Multiple inline badges
+.badge-inline {
+    margin-right: .625rem;
+}
+
+.badge-inline + span {
+    top: 2px;
+    position: relative;
+}
+
+.badge-inline + span > a {
+    text-decoration: underline;
+} 
+
+// Sizes
+.badge-md {
+    padding: .65em 1em;
+}
+
+.badge-lg {
+    padding: .85em 1.375em;
+}
+
+
+// Color variations
+
+.badge-secondary {
+    color: $gray-800;
+}
+
+// Link badges
+
+.btn {
+    .badge {
+        &:not(:first-child) {
+            margin-left: .5rem;
+        }
+        &:not(:last-child) {
+            margin-right: .5rem;
+        }
+    }
+}

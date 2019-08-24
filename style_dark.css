@@ -1,0 +1,179 @@
+html.darkmode body{
+	background: #303030 !important;
+	color: #eee;
+}
+html.darkmode body:before {
+	content: '';
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	height: 100vh;
+	width: 100vw;
+	background: rgba(0, 0, 0, 0.2);
+	z-index: 999999999;
+	pointer-events: none;
+}
+html.darkmode .h1,html.darkmode .h2,html.darkmode .h3,html.darkmode .h4,html.darkmode .h5,html.darkmode .h6,html.darkmode h1,html.darkmode h2,html.darkmode h3,html.darkmode h4,html.darkmode h5,html.darkmode h6{
+	color: #eee;
+}
+html.darkmode a{
+	color: #96a5ff;
+}
+html.darkmode a:hover{
+	color: #7588ff;
+}
+
+html.darkmode ::-webkit-scrollbar{
+	width: 8px;
+	height: 8px;
+background-color: rgba(255, 255, 255, 0);
+}
+html.darkmode ::-webkit-scrollbar-track{
+	background-color: rgba(255, 255, 255, 0.05);
+}
+html.darkmode ::-webkit-scrollbar-thumb{
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+html.darkmode .leftbar-menu-item > a{
+	color: #eee;
+}
+
+html.darkmode .leftbar-menu-item > a:hover , 
+html.darkmode .leftbar-menu-item.current > a {
+	background-color: #606060;
+}
+
+html.darkmode .site-state-item-count , 
+html.darkmode .site-author-links-item > a , 
+html.darkmode .site-friend-links-item > a{
+	color: #eee !important;
+}
+
+html.darkmode .site-state-item-name{
+	color: #aaa;
+}
+
+html.darkmode .banner{
+	background: #212121;
+}
+html.darkmode .leftbar-banner{
+	background: #353535;
+}
+
+html.darkmode .bg-white , html.darkmode .card , html.darkmode #footer{
+	background: #424242 !important;
+}
+
+html.darkmode .modal-content{
+	background: #505050;
+}
+html.darkmode .modal-header{
+	border-bottom: 1px solid #666;
+}
+html.darkmode .close>span:not(.sr-only) {
+	color: #eee;
+}
+
+html.darkmode .fab{
+	background: #424242;
+	color: #eee;
+}
+html.darkmode .fab:hover{
+	background: #606060 !important;
+}
+html.darkmode #fab_reading_progress_bar{
+	background: #ccc;
+}
+
+html.darkmode .tag.badge{
+	background: #555;
+	color: #eee;
+}
+
+html.darkmode .dropdown-menu , html.darkmode .dropdown-menu:before{
+	background: #424242;
+}
+html.darkmode .dropdown-item:focus , html.darkmode .dropdown-item:hover{
+	background: #666;
+}
+html.darkmode .dropdown-item:active{
+	background: #777;
+}
+
+html.darkmode #leftbar_catalog .index-item , html.darkmode #leftbar_catalog .index-link{
+	color: #eee;
+}
+html.darkmode #leftbar_catalog .index-item.current > .index-link{
+	color: #96a5ff;
+}
+html.darkmode #leftbar_catalog .index-link:hover{
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+html.darkmode article .post-content blockquote{
+	border-left: 4px solid rgba(255, 255, 255, .12);
+}
+
+html.darkmode article .post-content pre{
+	border: 1px solid rgba(255, 255, 255, .12);
+	background: #525252;
+	color: #eee;
+}
+html.darkmode article .post-content code{
+	background: #525252;
+	color: #eee;
+}
+
+html.darkmode .form-control{
+	background: #555;
+	color: #eee;
+}
+html.darkmode .input-group-text{
+	background: #555;
+}
+html.darkmode input[disabled] , html.darkmode textarea[disabled] , html.darkmode #post_comment.logged #post_comment_name , html.darkmode #post_comment.logged #post_comment_email{
+	background-color: #555;
+	opacity: .3;
+}
+
+html.darkmode .post-comment-reply{
+	border: 1.2px solid #777;
+}
+html.darkmode .comment-item-inner{
+	border-bottom: #555 solid 1px;
+}
+
+html.darkmode .badge{
+	color: #eee;
+}
+html.darkmode .custom-control-label::before{
+	background: #555;
+	border-color: #666;
+}
+
+html.darkmode .page-link {
+	background: #666;
+	border-color: #777;
+	color: #eee !important;
+}
+
+html.darkmode article img.lazyload[src^='data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg']{
+	background-color: rgba(255, 255, 255, .1);
+}
+
+html.darkmode .zoomify-shadow{
+	background: rgba(0, 0, 0, .6);
+}
+
+html.darkmode #share .icon-wechat .wechat-qrcode{
+	background: #505050;
+}
+html.darkmode #share .wechat-qrcode:before{
+	background: #505050;
+}
+html.darkmode #share .wechat-qrcode .help{
+	color: #eee;
+}
