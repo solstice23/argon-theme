@@ -1,1 +1,2 @@
 *.css linguist-language=php
+*.scss linguist-language=php
