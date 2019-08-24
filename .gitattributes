@@ -1,2 +1,1 @@
-*.css linguist-language=php
-*.hack linguist-language=php
+*.css linguist-vendored
