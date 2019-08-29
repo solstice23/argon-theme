@@ -43,3 +43,11 @@ Argon - 一个轻盈、简洁、美观的 WordPress 主题
 ![截图3](https://abc233.site/argon-theme-docs/img/screenshot3.png)
 
 ![截图4](https://abc233.site/argon-theme-docs/img/screenshot4.png)
+
+# 更新日志
+## 20190829 v0.2
++ 修复一些 BUG
++ checkbox 增加可选的 `inline` 属性
++ 针对 Wordpress 管理条进行处理
++ 修复夜间模式的一些问题
++ 修改一些细节
