@@ -28,7 +28,7 @@ html.darkmode a:hover{
 html.darkmode ::-webkit-scrollbar{
 	width: 8px;
 	height: 8px;
-background-color: rgba(255, 255, 255, 0);
+	background-color: rgba(255, 255, 255, 0);
 }
 html.darkmode ::-webkit-scrollbar-track{
 	background-color: rgba(255, 255, 255, 0.05);
@@ -46,6 +46,9 @@ html.darkmode .leftbar-menu-item.current > a {
 	background-color: #606060;
 }
 
+html.darkmode .site-author-links-item:hover {
+	background: #555;
+}
 html.darkmode .site-state-item-count , 
 html.darkmode .site-author-links-item > a , 
 html.darkmode .site-friend-links-item > a{

@@ -29,7 +29,7 @@
 		        <div class="row">
 		          <div class="col-lg-6 col-sm-12">
 		            <div class="display-1 text-white">404</div>
-		            <p class="lead text-white">You get lost.<br>这个页面不见了</p>
+		            <p class="lead text-white">Page not found.<br>这个页面不见了</p>
 		            <div class="btn-wrapper">
 						<a href="javascript:window.history.back(-1);" ondragstart="return false;" class="btn btn-info btn-icon mb-3 mb-sm-0">
 							<span class="btn-inner--icon"><i class="fa fa-chevron-left"></i></span>

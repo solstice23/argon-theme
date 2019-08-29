@@ -2,8 +2,8 @@
 Theme Name: Argon
 Author: abc2237512422
 Author URI: https://abc233.site/
-Description: 轻盈、简洁、美观的 Wordpress 主题 (暂未开发完成)
-Version: 0.1
+Description: 轻盈、简洁、美观的 Wordpress 主题 (Beta)
+Version: 0.2
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -182,7 +182,27 @@ article table > thead > tr > th{
 	/*width: calc(100% - 280px);*/
 	overflow: visible;
 }
-
+/*pjax加载动画 & 卡片动画*/
+@keyframes card-show{
+	0%{
+		opacity: 0;
+		transform: scale(0.8);
+	}
+	100%{
+		opacity: 1;
+		transform: none;
+	}
+}
+#primary{
+	transition: all .3s ease;
+}
+.card{
+	animation: card-show 0.25s ease-out;
+    transform-origin: center top;
+}
+.card .card{
+	animation: none;
+}
 /*顶栏和 Banner 部分*/
 @media (min-width: 1700px){
 	.navbar-main .container {
@@ -303,7 +323,10 @@ article table > thead > tr > th{
 	padding: 10px;
 }
 #leftbar_part2_inner::-webkit-scrollbar{
-	display: none;
+	width: 5px;
+}
+#leftbar_part2_inner::-webkit-scrollbar-track{
+	background: transparent;
 }
 .sidebar-tab-switcher{
 	font-size: 13px;
@@ -931,6 +954,10 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 	display: block;
 	cursor: text !important;
 }
+.shortcode-todo.inline{
+	display: inline-block;
+	margin-right: 10px;
+}
 
 /*短代码-警告与折叠块*/
 .admonition , .collapse-block{
@@ -1385,4 +1412,40 @@ article img.lazyload[src^='data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg'
 }
 #share .icon-copy-link:before{
 	content: "复制链接";
+}
+
+/*Wordpress Adminbar*/
+#wpadminbar{
+	width: max-content !important;
+	height: max-content !important;
+	width: -moz-max-content !important;
+	height: -moz-max-content !important;
+	min-height: 55px;
+	max-width: 100vw;
+	background: #5a61ca !important;
+	box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+	border-radius: 0 100px 100px 0;
+	padding: 10px 20px;
+	top: calc(50vh - 27.5px) !important;
+	left: 0 !important;
+	transform: translateX(calc(-100% + 25px));
+	transition: all .3s ease;
+}
+#wpadminbar:hover{
+	transform: none !important;
+}
+#wpadminbar:after{
+	content: "\f105";
+	font: normal normal normal 20px/1 FontAwesome;
+	position: absolute;
+	top: 50%;
+	transform: translateY(calc(-50% - 2px));
+	right: 10px;
+	transition: all .3s ease;
+}
+#wpadminbar:hover:after{
+	opacity: 0;
+}
+html[class] , html[lang]{
+    margin-top: 0 !important;
 }

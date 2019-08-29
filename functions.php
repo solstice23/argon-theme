@@ -447,7 +447,12 @@ function shortcode_progressbar($attr,$content=""){
 add_shortcode('checkbox','shortcode_checkbox');
 function shortcode_checkbox($attr,$content=""){
 	$checked = isset($attr['checked']) ? $attr['checked'] : 'false';
-	$out = "<div class='shortcode-todo custom-control custom-checkbox'>
+	$inline = isset($attr['inline']) ? $attr['checked'] : 'false';
+	$out = "<div class='shortcode-todo custom-control custom-checkbox";
+	if ($inline == 'true'){
+		$out .= " inline";
+	}
+	$out .= "'>
 				<input class='custom-control-input' type='checkbox'" . ($checked == 'true' ? ' checked' : '') . ">
 				<label class='custom-control-label'>
 					<span>" . $content . "</span>
@@ -974,7 +979,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_enable_v2ex_gravatar', $_POST['argon_enable_v2ex_gravatar']);
 	update_option('argon_footer_html', stripslashes($_POST['argon_footer_html']));
 	update_option('argon_show_readingtime', $_POST['argon_show_readingtime']);
-	update_option('argon_reading_speed', stripslashes($_POST['argon_reading_speed']));
+	update_option('argon_reading_speed', $_POST['argon_reading_speed']);
 	update_option('argon_show_sharebtn', $_POST['argon_show_sharebtn']);
 
 	//LazyLoad 相关
@@ -997,8 +1002,8 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_mathjax_show_menu', $_POST['argon_mathjax_show_menu']);
 
 	//页头页尾脚本
-	update_option('argon_custom_html_head', $_POST['argon_custom_html_head']);
-	update_option('argon_custom_html_foot', $_POST['argon_custom_html_foot']);
+	update_option('argon_custom_html_head', stripslashes($_POST['argon_custom_html_head']));
+	update_option('argon_custom_html_foot', stripslashes($_POST['argon_custom_html_foot']));
 }
 /*主题菜单*/
 register_nav_menus( array(

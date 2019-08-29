@@ -549,6 +549,14 @@ $(document).ready(function(){
 	});
 });
 
+/*Tags Dialog pjax 加载后自动关闭*/
+$(document).on("click" , "#blog_tags .tag" , function(){
+	$("#blog_tags button.close").trigger("click");
+});
+$(document).on("click" , "#blog_categories .tag" , function(){
+	$("#blog_categories button.close").trigger("click");
+});
+
 /*侧栏手机适配*/
 !function(){
 	$(document).on("click" , "#fab_open_sidebar" , function(){

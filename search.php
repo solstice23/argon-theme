@@ -31,7 +31,5 @@
 		get_template_part( 'template-parts/content', 'none-search' );
 	endif;
 	?>
-	</main>
-</div>
 
 <?php get_footer(); ?>
