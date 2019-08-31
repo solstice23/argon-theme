@@ -9,7 +9,7 @@ add_action('after_setup_theme','theme_slug_setup');
 //检测更新
 require_once(get_template_directory() . '/theme-update-checker.php'); 
 $argonThemeUpdateChecker = new ThemeUpdateChecker(
-	'argon',
+	'Argon',
 	'https://raw.githubusercontent.com/abc2237512422/argon-theme/master/theme_update_info.json'
 );
 //注册小工具
