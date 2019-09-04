@@ -472,11 +472,13 @@ function pjaxLoadUrl(url , pushstate){
 						$("#leftbar_part2_inner").html($("#leftbar_part2_inner" , $vdom)[0].innerHTML);
 						$("#primary").html($("#primary" , $vdom)[0].innerHTML);
 						$("#leftbar_part1_menu").html($("#leftbar_part1_menu" , $vdom)[0].innerHTML);
+						$("#wpadminbar").html($("#wpadminbar" , $vdom).html());
 
 						$("#content .page-infomation-card").remove();
 						if ($(".page-infomation-card" , $vdom).length > 0){
 							$("#content").prepend($(".page-infomation-card" , $vdom)[0].outerHTML);
 						}
+
 						
 						NProgress.inc();
 						
@@ -504,6 +506,7 @@ function pjaxLoadUrl(url , pushstate){
 							window.pjaxLoaded();
 						}
 					}catch (err){
+						NProgress.done();
 						if (pjaxUrlChanged){
 							pjaxLoading = false;
 							window.location.reload();
@@ -528,6 +531,7 @@ function pjaxLoadUrl(url , pushstate){
 			window.location.href = url;
 		}
 	}
+	NProgress.done();
 }
 $(document).ready(function(){
 	$(document).on("click" , "a[href]:not([no-pjax]):not(.no-pjax):not([href^='#']):not([target='_blink'])" , function(){

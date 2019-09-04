@@ -191,7 +191,7 @@ function argon_comment_format($comment, $args, $depth){
 		<div class="comment-item-inner" id="comment-inner-<?php comment_ID();?>">
 			<div class="comment-item-title">
 				<?php echo get_comment_author_link();?>
-				<?php if( user_can($comment->user_id , "update_core") ){
+				<?php if( user_can($comment -> user_id , "update_core") ){
 					echo '<span class="badge badge-primary badge-admin">博主</span>';}
 				?>
 			</div>
@@ -244,11 +244,45 @@ function get_comment_captcha($captchaSeed){
 			break;
 	}
 }
+function get_comment_captcha_answer($captchaSeed){
+	mt_srand($captchaSeed + 10007);
+	$oper = mt_rand(1 , 4);
+	$num1 = 0;
+	$num2 = 0;
+	switch ($oper){
+		case 1:
+			$num1 = mt_rand(1 , 20);
+			$num2 = mt_rand(0 , 20 - $num1);
+			return $num1 + $num2;
+			break;
+		case 2:
+			$num1 = mt_rand(10 , 20);
+			$num2 = mt_rand(1 , $num1);
+			return $num1 - $num2;
+			break;
+		case 3:
+			$num1 = mt_rand(3 , 9);
+			$num2 = mt_rand(3 , 9);
+			return $num1 * $num2;
+			break;
+		case 4:
+			$num2 = mt_rand(2 , 9);
+			$num1 = $num2 * mt_rand(2 , 9);
+			return $num1 / $num2;
+			break;
+		default:
+			break;
+	}
+	return "";
+}
 function wrong_captcha(){
 	wp_die('验证码错误，评论失败');
 }
 function check_comment_captcha($comment){
 	$answer = $_POST['comment_captcha'];
+	if(current_user_can('level_7')){
+		return $comment;
+	}
 	mt_srand($_POST['comment_captcha_seed'] + 10007);
 	$oper = mt_rand(1 , 4);
 	$num1 = 0;

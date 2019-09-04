@@ -48,8 +48,17 @@
 	#primary{
 		width: 100%;
 	}
+	#main{
+		padding: 5px;
+	}
 }
 
+@media screen and (max-width:900px){
+	/*TimeLine*/
+	.argon-timeline {
+		margin-left: 75px;
+	}
+}
 
 @media screen and (max-width:690px){
 	/*文章分享的浮动二维码*/

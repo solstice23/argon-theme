@@ -45,6 +45,14 @@ Argon - 一个轻盈、简洁、美观的 WordPress 主题
 ![截图4](https://abc233.site/argon-theme-docs/img/screenshot4.png)
 
 # 更新日志
+
+## 20190904 v0.3
++ Pjax 加载时替换 WordPress Adminbar
++ 修复后台评论提示验证码错误问题
++ 手机减小文章页面 margin
++ Pjax 加载逻辑修改
++ 博主评论免验证码
+
 ## 20190829 v0.2
 + 修复一些 BUG
 + checkbox 增加可选的 `inline` 属性
