@@ -531,7 +531,6 @@ function pjaxLoadUrl(url , pushstate){
 			window.location.href = url;
 		}
 	}
-	NProgress.done();
 }
 $(document).ready(function(){
 	$(document).on("click" , "a[href]:not([no-pjax]):not(.no-pjax):not([href^='#']):not([target='_blink'])" , function(){
