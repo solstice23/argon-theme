@@ -45,6 +45,7 @@
 
 	<script src="<?php bloginfo('template_url'); ?>/assets/js/argon.min.js"></script>
 	<?php wp_head(); ?>
+	<meta name="theme-color" content="#5e72e4">
 </head>
 
 <?php echo get_option('argon_custom_html_head'); ?>
@@ -123,15 +124,17 @@
 								}
 							}
 						}
-						echo "<ul class='navbar-nav navbar-nav-hover align-items-lg-center'>";
-						wp_nav_menu( array(
-							'container'  => '',
-							'theme_location'  => 'toolbar_menu',
-							'items_wrap'  => '%3$s',
-							'depth' => 0,
-							'walker' => new toolbarMenuWalker()
-						) );
-						echo "</ul>";
+						if ( has_nav_menu('toolbar_menu') ){
+							echo "<ul class='navbar-nav navbar-nav-hover align-items-lg-center'>";
+							wp_nav_menu( array(
+								'container'  => '',
+								'theme_location'  => 'toolbar_menu',
+								'items_wrap'  => '%3$s',
+								'depth' => 0,
+								'walker' => new toolbarMenuWalker()
+							) );
+							echo "</ul>";
+						}
 					?>
 					<ul class="navbar-nav align-items-lg-center ml-lg-auto">
 						<li class="nav-item" data-toggle="modal" data-target="#argon_search_modal">
@@ -163,7 +166,7 @@
 	</div>
 </div>
 <!--Banner-->
-<section id="banner" class="banner section section-lg section-shaped">
+<section id="banner" class="banner section section-lg section-shaped banner-background-loading">
 	<div class="shape <?php echo get_option('argon_banner_background_hide_shapes') == 'true' ? '' : 'shape-style-1' ?> <?php echo get_option('argon_banner_background_color_type') == '' ? 'shape-primary' : get_option('argon_banner_background_color_type'); ?>">
 		<span></span>
 		<span></span>
@@ -181,7 +184,7 @@
 	<?php if (get_option('argon_banner_background_url') != '') { ?>
 		<style>
 			section.banner{
-				background-image: url(<?php echo get_option('argon_banner_background_url') ?>) !important;
+				background-image: url(<?php echo get_banner_background_url();; ?>) !important;
 			}
 		</style>
 	<?php } ?>

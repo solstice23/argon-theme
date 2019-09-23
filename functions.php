@@ -9,7 +9,7 @@ add_action('after_setup_theme','theme_slug_setup');
 //检测更新
 require_once(get_template_directory() . '/theme-update-checker.php'); 
 $argonThemeUpdateChecker = new ThemeUpdateChecker(
-	'Argon',
+	'argon',
 	'https://raw.githubusercontent.com/abc2237512422/argon-theme/master/info.json'
 );
 //注册小工具
@@ -194,6 +194,9 @@ function argon_comment_format($comment, $args, $depth){
 				<?php if( user_can($comment -> user_id , "update_core") ){
 					echo '<span class="badge badge-primary badge-admin">博主</span>';}
 				?>
+				<?php if( $comment -> comment_approved == 0 ){
+					echo '<span class="badge badge-warning badge-unapproved">待审核</span>';}
+				?>
 			</div>
 			<div class="comment-item-text">
 				<?php comment_text();?>
@@ -323,6 +326,28 @@ function check_comment_captcha($comment){
 }
 if($comment_data['comment_type'] == ''){
 	add_filter('preprocess_comment' , 'check_comment_captcha');
+}
+//获取顶部 Banner 背景图（用户指定或必应日图）
+function get_banner_background_url(){
+	$url = get_option("argon_banner_background_url");
+	if ($url == "--bing--"){
+		$lastUpdated = get_option("argon_bing_banner_background_last_updated_time");
+		if ($lastUpdated == ""){
+			$lastUpdated = 0;
+		}
+		$now = time();
+		if ($now - $lastUpdated < 3600){
+			return get_option("argon_bing_banner_background_last_updated_url");
+		}else{
+			$data = json_decode(@file_get_contents('https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1') , true);
+			$url = "//bing.com" . $data['images'][0]['url'];
+			update_option("argon_bing_banner_background_last_updated_time" , $now);
+			update_option("argon_bing_banner_background_last_updated_url" , $url);
+			return $url;
+		}
+	}else{
+		return $url;
+	}
 }
 //Lazyload 对 <img> 标签预处理和加入 <script> 以加载 Lazyload
 function argon_lazyload($content){
@@ -662,7 +687,7 @@ function shortcode_friend_link($attr,$content=""){
 						<div class='friend-link-avatar'>
 							<a target='_blink' href='" . $now[1] . "'>";
 			if (!ctype_space($now[4]) && $now[4] != '' && isset($now[4])){
-				$out .= "<img src='" . $now[4] . "' class='icon bg-gradient-secondary rounded-circle text-white'>
+				$out .= "<img src='" . $now[4] . "' class='icon bg-gradient-secondary rounded-circle text-white' style='pointer-events: none;'>
 						</img>";
 			}else{
 				$out .= "<div class='icon icon-shape bg-gradient-primary rounded-circle text-white'>" . mb_substr($now[2], 0, 1) . "
@@ -724,6 +749,23 @@ function shortcode_timeline($attr,$content=""){
 	$out .= "</div>";
 	return $out;
 }
+add_shortcode('hidden','shortcode_hidden');
+function shortcode_hidden($attr,$content=""){
+	$out = "<span class='argon-hidden-text";
+	$tip = isset($attr['tip']) ? $attr['tip'] : '';
+	$type = isset($attr['type']) ? $attr['type'] : 'blur';
+	if ($type == "background"){
+		$out .= " argon-hidden-text-background";
+	}else{
+		$out .= " argon-hidden-text-blur";
+	}
+	$out .= "'";
+	if ($tip != ''){
+		$out .= " title='" . $tip ."'";
+	}
+	$out .= ">" . $content . "</span>";
+	return $out;
+}
 add_shortcode('hide_reading_time','shortcode_hide_reading_time');
 function shortcode_hide_reading_time($attr,$content=""){
 	return "";
@@ -736,6 +778,7 @@ function themeoptions_admin_menu(){
 function themeoptions_page(){
 	/*具体选项*/
 ?>
+	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/jquery/jquery.min.js"></script>
 	<div>
 		<h1>Argon 主题设置</h1>
 		<form method="POST" action="">
@@ -750,8 +793,8 @@ function themeoptions_page(){
 			<h4>Banner 标题</h4>
 			<p><input type="text" name="argon_banner_title" value="<?php echo get_option('argon_banner_title'); ?>"/> 留空则显示博客名称</p>
 			<h4>Banner 背景图</h4>
-			<p><input type="text" name="argon_banner_background_url" value="<?php echo get_option('argon_banner_background_url'); ?>"/> 需带上 http(s)
-			，留空则显示默认背景 (即将支持必应每日一图)</p>
+			<p><input type="text" name="argon_banner_background_url" id="argon_banner_background_url" value="<?php echo get_option('argon_banner_background_url'); ?>"/> 需带上 http(s)
+			，留空则显示默认背景 <button onclick="$('input#argon_banner_background_url').val('--bing--');" class="button">使用必应每日一图</button></p>
 			<h4>Banner 渐变背景样式（如果设置了背景图则不生效）</h4>
 			<p>
 				<select name="argon_banner_background_color_type">
@@ -990,7 +1033,7 @@ window.pjaxLoaded = function(){
 					<option value="disabled" <?php if ($enable_smoothscroll_type=='disabled'){echo 'selected';} ?>>不使用平滑滚动</option>
 				</select>
 			</p>
-			<input type="submit" name="admin_options" value="确认"/></p>
+			<input type="submit" name="admin_options" value="保存" class="button"/></p>
 		</form>
 	</div>
 <?php

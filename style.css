@@ -1,5 +1,5 @@
 /*
-Theme Name: Argon
+Theme Name: argon
 Author: abc2237512422
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题 (Beta)
@@ -51,6 +51,12 @@ article h6{
 article img{
 	max-width: 100%;
 	height: auto;
+}
+article img{
+	image-rendering: pixelated;
+}
+article .wp-caption{
+	max-width: 100%;
 }
 article .post-content a{
 	position: relative;
@@ -126,7 +132,7 @@ article .post-content kbd{
 }
 article table{
 	max-width: 100%;
-    word-break: break-word;
+	word-break: break-word;
 }
 article table > tbody > tr > td,
 article table > tbody > tr > th,
@@ -134,9 +140,9 @@ article table > tfoot > tr > td,
 article table > tfoot > tr > th,
 article table > thead > tr > td,
 article table > thead > tr > th{
-    padding: 1rem;
-    vertical-align: top;
-    border: 1px solid #dee2e6;
+	padding: 1rem;
+	vertical-align: top;
+	border: 1px solid #dee2e6;
 }
 ::-webkit-scrollbar{
 	width: 8px;
@@ -151,6 +157,15 @@ article table > thead > tr > th{
 }
 ::-webkit-scrollbar-thumb:hover{
 	background-color: rgba(94, 114, 228, 0.8);
+}
+*::selection{
+	background-color: #cce2ff;
+}
+*::-moz-selection{
+	background-color: #cce2ff;
+}
+*::-webkit-selection{
+	background-color: #cce2ff;
 }
 /*页面框架*/
 #content{
@@ -167,7 +182,7 @@ article table > thead > tr > th{
 #primary{
 	/*width: 100%;*/
 	width: calc(100% - 280px);
-    float: right;
+	float: right;
 }
 
 #leftbar{
@@ -198,7 +213,7 @@ article table > thead > tr > th{
 }
 .card{
 	animation: card-show 0.25s ease-out;
-    transform-origin: center top;
+	transform-origin: center top;
 }
 .card .card{
 	animation: none;
@@ -791,7 +806,7 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 	font-size: 16px;
 	font-weight: bold;
 }
-.comment-item-title .badge-admin{
+.comment-item-title .badge-admin , .comment-item-title .badge-unapproved{
 	transform: translateY(-2px);
 	margin-left: 3px;
 }
@@ -980,7 +995,7 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 	transition: all .2s ease;
 }
 .collapse-block.collapsed .collapse-icon{
-    transform: rotateZ(0deg);
+	transform: rotateZ(0deg);
 }
 .admonition-title , .collapse-block-title{
 	padding: 10px 15px;
@@ -1108,6 +1123,29 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 	font-weight: bold;
 	margin-bottom: 5px;
 }
+
+/*短代码-隐藏文本*/
+.argon-hidden-text{
+	transition: all .3s ease;
+}
+.argon-hidden-text.argon-hidden-text-blur{
+	filter: blur(4px);
+}
+.argon-hidden-text.argon-hidden-text-blur:hover{
+	filter: blur(0px);
+}
+.argon-hidden-text.argon-hidden-text-background{
+	background: #000;
+	color: transparent;
+	border-radius: 1px;
+}
+.argon-hidden-text.argon-hidden-text-background:hover{
+	background: transparent;
+	color: inherit;
+	border-radius: 0px;
+}
+
+
 /*nprogress 加载进度条*/
 #nprogress {
 	pointer-events: none;
@@ -1257,6 +1295,9 @@ article img.lazyload[src^='data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg'
 .noscroll{
 	overflow: hidden !important;
 }
+body.noscroll:before{
+	opacity: 0 !important;
+}
 
 /*Share.js*/
 #share_container{
@@ -1305,7 +1346,7 @@ article img.lazyload[src^='data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg'
 	margin-left: 5px;
 	margin-right: 0;
 	margin-bottom: 15px;
-    min-width: 50px;
+	min-width: 50px;
 }
 #share .icon-wechat{
 	position: relative;
@@ -1448,5 +1489,5 @@ article img.lazyload[src^='data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg'
 	opacity: 0;
 }
 html[class] , html[lang]{
-    margin-top: 0 !important;
+	margin-top: 0 !important;
 }

@@ -28,13 +28,15 @@
 					}
 				}
 				echo "<ul id='leftbar_part1_menu' class='leftbar-menu'>";
-				wp_nav_menu( array(
-					'container'  => '',
-				    'theme_location'  => 'leftbar_menu',
-					'items_wrap'  => '%3$s',
-				    'depth' => 0,
-					'walker' => new leftbarMenuWalker()
-				) );
+				if ( has_nav_menu('leftbar_menu') ){
+					wp_nav_menu( array(
+						'container'  => '',
+						'theme_location'  => 'leftbar_menu',
+						'items_wrap'  => '%3$s',
+						'depth' => 0,
+						'walker' => new leftbarMenuWalker()
+					) );
+				}
 				echo "</ul>";
 			?>
 			<div class="card-body text-center leftbar-search-button">
@@ -124,15 +126,18 @@
 										}
 									}
 								}
-								echo "<div class='site-author-links'>";
-								wp_nav_menu( array(
-									'container'  => '',
-								    'theme_location'  => 'leftbar_author_links',
-									'items_wrap'  => '%3$s',
-								    'depth' => 0,
-									'walker' => new leftbarAuthorLinksWalker()
-								) );
-								echo "</div>";
+
+								if ( has_nav_menu('leftbar_author_links') ){
+									echo "<div class='site-author-links'>";
+									wp_nav_menu( array(
+										'container'  => '',
+										'theme_location'  => 'leftbar_author_links',
+										'items_wrap'  => '%3$s',
+										'depth' => 0,
+										'walker' => new leftbarAuthorLinksWalker()
+									) );
+									echo "</div>";
+								}
 							?>
 							<?php
 								/*侧栏友情链接*/
@@ -150,17 +155,22 @@
 										}
 									}
 								}
-								echo "<div class='site-friend-links'>
-										<div class='site-friend-links-title'><i class='fa fa-fw fa-link'></i> Links</div>
-										<ul class='site-friend-links-ul'>";
-								wp_nav_menu( array(
-									'container'  => '',
-								    'theme_location'  => 'leftbar_friend_links',
-									'items_wrap'  => '%3$s',
-								    'depth' => 0,
-									'walker' => new leftbarFriendLinksWalker()
-								) );
-								echo "</ul></div>";
+
+								if ( has_nav_menu('leftbar_friend_links') ){
+									echo "<div class='site-friend-links'>
+											<div class='site-friend-links-title'><i class='fa fa-fw fa-link'></i> Links</div>
+											<ul class='site-friend-links-ul'>";
+									wp_nav_menu( array(
+										'container'  => '',
+									    'theme_location'  => 'leftbar_friend_links',
+										'items_wrap'  => '%3$s',
+									    'depth' => 0,
+										'walker' => new leftbarFriendLinksWalker()
+									) );
+									echo "</ul></div>";
+								}else{
+									echo "<div style='height: 20px;'></div>";
+								}
 							?>
 						</div>
 						<?php if ( is_active_sidebar( 'leftbar-tools' ) ){?>

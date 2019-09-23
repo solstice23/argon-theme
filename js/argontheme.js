@@ -173,7 +173,7 @@
 	});
 
 	//输入框细节
-	$("#post_comment_content").on("change input keyup propertychange" , function(){
+	$(document).on("change input keydown keyup propertychange" , "#post_comment_content" , function(){
 		$("#post_comment_content_hidden")[0].innerText = $("#post_comment_content").val() + "\n";
 		$("#post_comment_content").css("height" , $("#post_comment_content_hidden").outerHeight());
 	});
