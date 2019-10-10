@@ -180,3 +180,12 @@ html.darkmode #share .wechat-qrcode:before{
 html.darkmode #share .wechat-qrcode .help{
 	color: #eee;
 }
+
+html.darkmode .shuoshuo-meta{
+    background: #424242;
+}
+
+
+html.darkmode .github-info-card {
+	background: #24292e !important;
+}

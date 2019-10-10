@@ -492,6 +492,8 @@ function pjaxLoadUrl(url , pushstate){
 							MathJax.Hub.Typeset();
 						}
 
+						getGithubInfoCardContent();
+						
 						let scripts = $("#content script:not([no-pjax]):not(.no-pjax)" , $vdom);
 						for (let script of scripts){
 							eval(script.innerHTML);
@@ -584,3 +586,36 @@ $(document).on("click" , ".collapse-block .collapse-block-title" , function(){
 		$(selecter + " .collapse-block-body").stop(true , false).slideDown(200);
 	}
 });
+
+/*获得 Github Repo Shortcode 信息卡内容*/
+function getGithubInfoCardContent(){
+	$(".github-info-card").each(function(){
+		(function($this){
+			author = $this.attr("data-author");
+			project = $this.attr("data-project");
+			$.ajax({
+				url : "https://api.github.com/repos/" + author + "/" + project,
+				type : "GET",
+				dataType : "json",
+				success : function(result){
+					description = result.description;
+					if (result.homepage != ""){
+						description += " <a href='" + result.homepage + "' target='_blank' no-pjax>" + result.homepage + "</a>"
+					}
+					$(".github-info-card-description" , $this).html(description);
+					$(".github-info-card-stars" , $this).html(result.stargazers_count);
+					$(".github-info-card-forks" , $this).html(result.forks_count);
+					console.log(result);
+				},
+				error : function(xhr){
+					if (xhr.status == 404){
+						$(".github-info-card-description" , $this).html("找不到该 Repo");
+					}else{
+						$(".github-info-card-description" , $this).html("获取 Repo 信息失败");
+					}
+				}
+			});
+		})($(this));
+	});
+}
+getGithubInfoCardContent();

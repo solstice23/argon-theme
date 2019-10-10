@@ -16,7 +16,7 @@
 				<?php
 					wp_list_comments(
 						array(
-							'type'       => 'comment',
+							'type'      => 'comment',
 							'callback'  => 'argon_comment_format'
 						)
 					);

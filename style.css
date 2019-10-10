@@ -3,7 +3,7 @@ Theme Name: argon
 Author: abc2237512422
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题 (Beta)
-Version: 0.31
+Version: 0.5
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -51,9 +51,6 @@ article h6{
 article img{
 	max-width: 100%;
 	height: auto;
-}
-article img{
-	image-rendering: pixelated;
 }
 article .wp-caption{
 	max-width: 100%;
@@ -1145,6 +1142,44 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 	border-radius: 0px;
 }
 
+/*短代码-Github*/
+.github-info-card {
+	background: #24292e !important;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 20px 25px;
+	color: #eee;
+}
+.github-info-card a {
+	color: #b8c2ff;
+}
+.github-info-card-header{
+	margin-bottom: 5px;
+}
+.github-info-card-header a {
+	color: #eee !important;
+	font-size:16px;
+}
+.github-info-card-header a:before{
+	display:none;
+}
+.github-info-card-header a i {
+	margin-right: 2px;
+}
+.github-info-card-name-a {
+	font-size: 20px;
+}
+.github-info-card-bottom {
+	margin-top: 15px;
+}
+.github-info-card-bottom .github-info-card-meta {
+	margin-right: 10px;
+	opacity: .7;
+}}
+.github-info-card-bottom .github-info-card-meta i {
+	margin-right: 2px;
+}
+
 
 /*nprogress 加载进度条*/
 #nprogress {
@@ -1490,4 +1525,72 @@ body.noscroll:before{
 }
 html[class] , html[lang]{
 	margin-top: 0 !important;
+}
+
+/*说说*/
+.shuoshuo-container{
+	margin-bottom: 25px;
+}
+.shuoshuo-meta{
+	text-align: center;
+	background: #fff;
+	border-radius: 5px 5px 0 0;
+	width: max-content;
+	width: -moz-max-content;
+	padding: 3px 15px;
+	font-size: 15px;
+	opacity: .95;
+}
+.shuoshuo-meta i.fa{
+	margin-right: 3px;
+}
+.shuoshuo-date-date , .shuoshuo-date-month{
+	font-size: 18px;
+}
+.shuoshuo-main{
+	border-top-left-radius: 0;
+	padding: 20px 20px;
+}
+.shuoshuo-title{
+	font-size: 18px;
+	color: #555;
+	font-weight: bold;
+	margin-bottom: 10px;
+	width: max-content;
+	width: -moz-max-content;
+}
+.shuoshuo-content{
+	padding-bottom: 10px;
+}
+.shuoshuo-content p{
+	margin-bottom: 0;
+	line-height: 1.8;
+}
+.shuoshuo-comments{
+	font-size: 14px;
+	opacity: .85;
+	margin-top: 10px;
+}
+.shuoshuo-comments li{
+	list-style: none;
+}
+.shuoshuo-comment-item-title{
+	font-weight: bold;
+}
+.shuoshuo-comment-item-title .badge-admin , .shuoshuo-comment-item-title .badge-unapproved{
+	transform: translateY(-2px);
+	padding: 3px 5px;
+}
+.shuoshuo-comments .comment-item-inner {
+	margin-top: 2px;
+	padding-bottom: 3px;
+	border: none !important;
+}
+.shuoshuo-comments ul.children{
+	padding-inline-start: 20px;
+}
+.shuoshuo-preview-add-comment , .shuoshuo-preview-add-comment-out-container-a{
+	margin-left: auto;
+	width: max-content;
+	width: -moz-max-content;
 }

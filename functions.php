@@ -212,6 +212,28 @@ function argon_comment_format($comment, $args, $depth){
 	<li class="comment-divider"></li>
 	<li>
 <?php }
+//评论样式格式化 (说说预览界面)
+function argon_comment_shuoshuo_preview_format($comment, $args, $depth){
+	$GLOBALS['comment'] = $comment;?>
+	<li class="comment-item" id="comment-<?php comment_ID(); ?>">
+		<div class="comment-item-inner " id="comment-inner-<?php comment_ID();?>">
+			<span class="shuoshuo-comment-item-title">
+				<?php echo get_comment_author_link();?>
+				<?php if( user_can($comment -> user_id , "update_core") ){
+					echo '<span class="badge badge-primary badge-admin">博主</span>';}
+				?>
+				<?php if( $comment -> comment_approved == 0 ){
+					echo '<span class="badge badge-warning badge-unapproved">待审核</span>';}
+				?>
+				: 
+			</span>
+			<span class="shuoshuo-comment-item-text">
+				<?php echo strip_tags(get_comment_text());?>
+			</span>
+		</div>
+	</li>
+	<li>
+<?php }
 //评论验证码生成 & 验证
 function get_comment_captcha_seed(){
 	$captchaSeed = rand(0 , 500000000);
@@ -766,6 +788,32 @@ function shortcode_hidden($attr,$content=""){
 	$out .= ">" . $content . "</span>";
 	return $out;
 }
+add_shortcode('github','shortcode_github');
+function shortcode_github($attr,$content=""){
+	$github_info_card_id = mt_rand(1000000000 , 9999999999);
+	$author = isset($attr['author']) ? $attr['author'] : '';
+	$project = isset($attr['project']) ? $attr['project'] : '';
+	$out = "<div class='github-info-card card shadow-sm' data-author='" . $author . "' data-project='" . $project . "' githubinfo-card-id='" . $github_info_card_id . "'>";
+	$out .= "<div class='github-info-card-header'><a href='https://github.com/' ref='nofollow' target='_blank' title='Github' no-pjax><span><i class='fa fa-github'></i> Github</span></a></div>";
+	$out .= "<div class='github-info-card-body'>
+			<div class='github-info-card-name-a'>
+				<a href='https://github.com/" . $author . "/" . $project . "' target='_blank' no-pjax>
+					<span class='github-info-card-name'>" . $author . "/" . $project . "</span>
+				</a>
+				</div>
+			<div class='github-info-card-description'>Loading...</div>
+		</div>";
+	$out .= "<div class='github-info-card-bottom'>
+				<span class='github-info-card-meta'>
+					<i class='fa fa-star'></i> <span class='github-info-card-stars'>-</span>
+				</span>
+				<span class='github-info-card-meta'>
+					<i class='fa fa-code-fork'></i> <span class='github-info-card-forks'>-</span>
+				</span>
+			</div>";
+	$out .= "</div>";
+	return $out;
+}
 add_shortcode('hide_reading_time','shortcode_hide_reading_time');
 function shortcode_hide_reading_time($attr,$content=""){
 	return "";
@@ -1093,3 +1141,39 @@ register_nav_menus( array(
 
 //隐藏 admin 管理条
 /*show_admin_bar(false);*/
+
+/*说说*/
+add_action('init', 'init_shuoshuo');
+function init_shuoshuo(){
+	$labels = array(
+		'name' => '说说',
+		'singular_name' => '说说',
+		'add_new' => '发表说说',
+		'add_new_item' => '发表说说',
+		'edit_item' => '编辑说说',
+		'new_item' => '新说说',
+		'view_item' => '查看说说',
+		'search_items' => '搜索说说',
+		'not_found' => '暂无说说',
+		'not_found_in_trash' => '没有已遗弃的说说',
+		'parent_item_colon' => '',
+		'menu_name' => '说说'
+	);
+	$args = array(
+		'labels' => $labels,
+		'public' => true, 
+		'publicly_queryable' => true,
+		'show_ui' => true,
+		'show_in_menu' => true,
+		'exclude_from_search' => true,
+		'query_var' => true, 
+		'rewrite' => true,
+		'capability_type' => 'post',
+		'has_archive' => 'ddd',
+		'hierarchical' => false, 
+		'menu_position' => null,
+		'menu_icon' => 'dashicons-format-quote',
+		'supports' => array('editor', 'author', 'title', 'custom-fields', 'comments')
+	);
+	register_post_type('shuoshuo', $args); 
+}
