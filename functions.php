@@ -12,6 +12,31 @@ $argonThemeUpdateChecker = new ThemeUpdateChecker(
 	'argon',
 	'https://raw.githubusercontent.com/abc2237512422/argon-theme/master/info.json'
 );
+//初次使用时发送安装量统计信息
+function post_analytics_info(){
+	if(function_exists('file_get_contents')){
+		$contexts = stream_context_create(
+			array(
+				'http' => array(
+					'method'=>"GET",
+					'header'=>"User-Agent: ArgonTheme\r\n"
+				)
+			)
+		);
+		$result = file_get_contents('http://api.abc233.site/argon_analytics/index.php?domain=' . $_SERVER['HTTP_HOST'], false, $contexts);
+		update_option('argon_has_inited', 'true');
+		return $result;
+	}else{
+		update_option('argon_has_inited', 'true');
+	}
+}
+if (get_option('argon_has_inited') != 'true'){
+	post_analytics_info();
+}
+//时区修正
+if (get_option('argon_enable_timezone_fix') == 'true'){
+	date_default_timezone_set('UTC');
+}
 //注册小工具
 function argon_widgets_init() {
 	register_sidebar(
@@ -1123,6 +1148,15 @@ window.pjaxLoaded = function(){
 					<option value="disabled" <?php if ($enable_smoothscroll_type=='disabled'){echo 'selected';} ?>>不使用平滑滚动</option>
 				</select>
 			</p>
+			<h4>是否修正时区错误</h4>
+			<p>
+				如遇到时区错误（例如一条刚发的评论显示 8 小时前），这个选项<strong>可能</strong>可以修复这个问题</br>
+				<select name="argon_enable_timezone_fix">
+					<?php $argon_enable_timezone_fix = get_option('argon_enable_timezone_fix'); ?>
+					<option value="false" <?php if ($argon_enable_timezone_fix=='false'){echo 'selected';} ?>>关闭</option>
+					<option value="true" <?php if ($argon_enable_timezone_fix=='true'){echo 'selected';} ?>>开启</option>	
+				</select>
+			</p>
 			<input type="submit" name="admin_options" value="保存" class="button"/></p>
 		</form>
 	</div>
@@ -1148,6 +1182,8 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_show_readingtime', $_POST['argon_show_readingtime']);
 	update_option('argon_reading_speed', $_POST['argon_reading_speed']);
 	update_option('argon_show_sharebtn', $_POST['argon_show_sharebtn']);
+	update_option('argon_enable_timezone_fix', $_POST['argon_enable_timezone_fix']);
+	
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);
