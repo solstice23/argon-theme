@@ -30,5 +30,8 @@
 			$withcomments = true;
 			comments_template( '/comments-shuoshuo-preview.php' );
 		?>
+		<?php
+			get_template_part( 'template-parts/shuoshuo', 'operations' );
+		?>
 	</article>
 </div>

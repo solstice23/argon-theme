@@ -456,6 +456,48 @@ function get_avatar_from_v2ex($avatar){
 if (get_option('argon_enable_v2ex_gravatar') == 'true'){
 	add_filter('get_avatar', 'get_avatar_from_v2ex');
 }
+//说说点赞
+function get_shuoshuo_upvotes($ID){
+    $count_key = 'upvotes';
+    $count = get_post_meta($ID, $count_key, true);
+    if ($count==''){
+        delete_post_meta($ID, $count_key);
+        add_post_meta($ID, $count_key, '0');
+        $count = '0';
+    }
+    return number_format_i18n($count);
+}
+function set_shuoshuo_upvotes($ID){
+    $count_key = 'upvotes';
+	$count = get_post_meta($ID, $count_key, true);
+	if ($count==''){
+		delete_post_meta($ID, $count_key);
+		add_post_meta($ID, $count_key, '1');
+	} else {
+		update_post_meta($ID, $count_key, $count + 1);
+	}
+}
+function upvote_shuoshuo(){
+	header('Content-Type:application/json; charset=utf-8');
+	$ID = $_POST["shuoshuo_id"];
+	if (isset($_COOKIE['argon_shuoshuo_' . $ID . '_upvoted'])){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => '该说说已被赞过',
+			'total_upvote' => get_shuoshuo_upvotes($ID)
+		)));
+	}
+	set_shuoshuo_upvotes($ID);
+	setcookie('argon_shuoshuo_' . $ID . '_upvoted' , 'true' , time() + 3153600000 , '/');
+	exit(json_encode(array(
+		'ID' => $ID,
+		'status' => 'success',
+		'msg' => '点赞成功',
+		'total_upvote' => get_shuoshuo_upvotes($ID)
+	)));
+}
+add_action('wp_ajax_upvote_shuoshuo' , 'upvote_shuoshuo');
+add_action('wp_ajax_nopriv_upvote_shuoshuo' , 'upvote_shuoshuo');
 //主题文章短代码解析
 add_shortcode('br','shortcode_br');
 function shortcode_br($attr,$content=""){

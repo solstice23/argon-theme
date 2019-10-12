@@ -25,5 +25,14 @@
 		<div class="shuoshuo-content">
 			<?php the_content(); ?>
 		</div>
+
+		<?php
+			get_template_part( 'template-parts/shuoshuo', 'operations' );
+		?>
+		<style>
+			.shuoshuo-preview-add-comment-out-container-a{
+				display: none;
+			}
+		</style>
 	</article>
 </div>

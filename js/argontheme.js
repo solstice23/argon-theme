@@ -233,7 +233,7 @@
 			iziToast.show({
 				title: '评论格式错误',
 				message: errorMsg,
-				class: 'shadow',
+				class: 'shadow-sm',
 				position: 'topRight',
 				backgroundColor: '#f5365c',
 				titleColor: '#ffffff',
@@ -261,14 +261,14 @@
 		iziToast.show({
 			title: '正在发送',
 			message: "评论正在发送中...",
-			class: 'shadow',
+			class: 'shadow-sm',
 			position: 'topRight',
 			backgroundColor: '#5e72e4',
 			titleColor: '#ffffff',
 			messageColor: '#ffffff',
 			iconColor: '#ffffff',
 			progressBarColor: '#ffffff',
-			icon: 'fa fa-spinner',
+			icon: 'fa fa-spinner fa-spin',
 			close: false,
 			timeout: 999999999
 		});
@@ -310,7 +310,7 @@
 					iziToast.show({
 						title: '评论发送失败',
 						message: $.trim($("#body" , $vbody)[0].innerText),
-						class: 'shadow',
+						class: 'shadow-sm',
 						position: 'topRight',
 						backgroundColor: '#f5365c',
 						titleColor: '#ffffff',
@@ -328,7 +328,7 @@
 				iziToast.show({
 					title: '发送成功',
 					message: "您的评论已发送",
-					class: 'shadow',
+					class: 'shadow-sm',
 					position: 'topRight',
 					backgroundColor: '#2dce89',
 					titleColor: '#ffffff',
@@ -358,7 +358,7 @@
 					iziToast.show({
 						title: '评论发送失败',
 						message: "未知原因",
-						class: 'shadow',
+						class: 'shadow-sm',
 						position: 'topRight',
 						backgroundColor: '#f5365c',
 						titleColor: '#ffffff',
@@ -382,7 +382,7 @@
 					iziToast.show({
 						title: '评论发送失败',
 						message: $.trim($("#body" , $vbody)[0].innerText),
-						class: 'shadow',
+						class: 'shadow-sm',
 						position: 'topRight',
 						backgroundColor: '#f5365c',
 						titleColor: '#ffffff',
@@ -398,7 +398,7 @@
 					iziToast.show({
 						title: '评论发送失败',
 						message: "未知原因",
-						class: 'shadow',
+						class: 'shadow-sm',
 						position: 'topRight',
 						backgroundColor: '#f5365c',
 						titleColor: '#ffffff',
@@ -619,3 +619,69 @@ function getGithubInfoCardContent(){
 	});
 }
 getGithubInfoCardContent();
+
+/*说说点赞*/
+$(document).on("click" , ".shuoshuo-upvote" , function(){
+	$this = $(this);
+	ID = $this.attr("data-id");
+	$this.addClass("shuoshuo-upvoting");
+	$.ajax({
+		url : "/wp-admin/admin-ajax.php",
+		type : "POST",
+		dataType : "json",
+		data : {
+			action: "upvote_shuoshuo",
+			shuoshuo_id : ID,
+		},
+		success : function(result){
+			$this.removeClass("shuoshuo-upvoting");
+			if (result.status == "success"){
+				$(".shuoshuo-upvote-num" , $this).html(result.total_upvote);
+				$("i.fa-thumbs-o-up" , $this).addClass("fa-thumbs-up").removeClass("fa-thumbs-o-up");
+				$this.addClass("upvoted");
+				$this.addClass("shuoshuo-upvoted-animation");
+				iziToast.show({
+					title: result.msg,
+					class: 'shadow-sm',
+					position: 'topRight',
+					backgroundColor: '#2dce89',
+					titleColor: '#ffffff',
+					messageColor: '#ffffff',
+					iconColor: '#ffffff',
+					progressBarColor: '#ffffff',
+					icon: 'fa fa-check',
+					timeout: 5000
+				});
+			}else{
+				$(".shuoshuo-upvote-num" , $this).html(result.total_upvote);
+				iziToast.show({
+					title: result.msg,
+					class: 'shadow-sm',
+					position: 'topRight',
+					backgroundColor: '#f5365c',
+					titleColor: '#ffffff',
+					messageColor: '#ffffff',
+					iconColor: '#ffffff',
+					progressBarColor: '#ffffff',
+					icon: 'fa fa-close',
+					timeout: 5000
+				});
+			}
+		},
+		error : function(xhr){
+			$this.removeClass("shuoshuo-upvoting");
+			iziToast.show({
+				title: "点赞失败",
+				class: 'shadow-sm',
+				position: 'topRight',
+				backgroundColor: '#f5365c',
+				titleColor: '#ffffff',
+				messageColor: '#ffffff',
+				iconColor: '#ffffff',
+				progressBarColor: '#ffffff',
+				icon: 'fa fa-close',
+				timeout: 5000
+			});
+		}
+	});
+});
