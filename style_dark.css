@@ -60,7 +60,7 @@ html.darkmode .site-state-item-name{
 }
 
 html.darkmode .banner{
-	background: #212121;
+	background-color: #212121;
 }
 html.darkmode .leftbar-banner{
 	background: #353535;
@@ -179,6 +179,13 @@ html.darkmode #share .wechat-qrcode:before{
 }
 html.darkmode #share .wechat-qrcode .help{
 	color: #eee;
+}
+
+html.darkmode .post-donate .donate-qrcode{
+	background: #505050 !important;
+}
+html.darkmode .post-donate .donate-qrcode:before{
+	background: #505050;
 }
 
 html.darkmode .shuoshuo-meta{

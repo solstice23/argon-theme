@@ -66,7 +66,11 @@
 
 	<div class="post-content">
 		<?php
-			$preview = wp_trim_words(get_the_content(), 175);
+			if (get_option("argon_hide_shortcode_in_preview") == 'true'){
+				$preview = wp_trim_words(apply_filters('the_content', get_the_content()), 175);
+			}else{
+				$preview = wp_trim_words(get_the_content(), 175);
+			}
 			if (post_password_required()){
 				$preview = "这篇文章受密码保护，输入密码才能阅读";
 			}

@@ -480,6 +480,10 @@ function pjaxLoadUrl(url , pushstate){
 						}
 
 						
+						$("body,html").animate({
+							scrollTop: 0
+						}, 600);
+						
 						NProgress.inc();
 						
 						if (pushstate == true){
@@ -537,9 +541,6 @@ function pjaxLoadUrl(url , pushstate){
 $(document).ready(function(){
 	$(document).on("click" , "a[href]:not([no-pjax]):not(.no-pjax):not([href^='#']):not([target='_blink'])" , function(){
 		let url = this.getAttribute("href");
-		$("body,html").animate({
-			scrollTop: 0
-		}, 600)
 		pjaxLoadUrl(url , true);
 		return false;
 	});

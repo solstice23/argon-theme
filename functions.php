@@ -881,6 +881,27 @@ function shortcode_github($attr,$content=""){
 	$out .= "</div>";
 	return $out;
 }
+add_shortcode('video','shortcode_video');
+function shortcode_video($attr,$content=""){
+	$url = isset($attr['url']) ? $attr['url'] : '';
+	$width = isset($attr['width']) ? $attr['width'] : '';
+	$height = isset($attr['height']) ? $attr['height'] : '';
+	$autoplay = isset($attr['autoplay']) ? $attr['autoplay'] : 'false';
+	$out = "<video";
+	if ($width != ''){
+		$out .= " width='" . $width . "'";
+	}
+	if ($height != ''){
+		$out .= " height='" . $height . "'";
+	}
+	if ($autoplay == 'true'){
+		$out .= " autoplay";
+	}
+	$out .= " controls>";
+	$out .= "<source src='" . $url . "'>";
+	$out .= "</video>";
+	return $out;
+}
 add_shortcode('hide_reading_time','shortcode_hide_reading_time');
 function shortcode_hide_reading_time($attr,$content=""){
 	return "";
@@ -973,6 +994,12 @@ function themeoptions_page(){
 					<option value="true" <?php if ($argon_show_sharebtn=='true'){echo 'selected';} ?>>显示</option>	
 					<option value="false" <?php if ($argon_show_sharebtn=='false'){echo 'selected';} ?>>不显示</option>
 				</select>
+			</p>
+
+			<h2>赞赏</h2>
+			<h4>赞赏二维码图片链接</h4>
+			<p>
+				<input type="text" name="argon_donate_qrcode_url" value="<?php echo get_option('argon_donate_qrcode_url'); ?>"/> 填写赞赏二维码图片链接，填写后会在文章最后显示赞赏按钮，留空则不显示赞赏按钮
 			</p>
 			
 			<h2>页脚</h2>
@@ -1157,6 +1184,14 @@ window.pjaxLoaded = function(){
 					<option value="true" <?php if ($argon_enable_timezone_fix=='true'){echo 'selected';} ?>>开启</option>	
 				</select>
 			</p>
+			<h4>是否在文章列表内容预览中隐藏短代码</h4>
+			<p>
+				<select name="argon_hide_shortcode_in_preview">
+					<?php $argon_hide_shortcode_in_preview = get_option('argon_hide_shortcode_in_preview'); ?>
+					<option value="false" <?php if ($argon_hide_shortcode_in_preview=='false'){echo 'selected';} ?>>否</option>
+					<option value="true" <?php if ($argon_hide_shortcode_in_preview=='true'){echo 'selected';} ?>>是</option>	
+				</select>
+			</p>
 			<input type="submit" name="admin_options" value="保存" class="button"/></p>
 		</form>
 	</div>
@@ -1183,6 +1218,8 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_reading_speed', $_POST['argon_reading_speed']);
 	update_option('argon_show_sharebtn', $_POST['argon_show_sharebtn']);
 	update_option('argon_enable_timezone_fix', $_POST['argon_enable_timezone_fix']);
+	update_option('argon_donate_qrcode_url', $_POST['argon_donate_qrcode_url']);
+	update_option('argon_hide_shortcode_in_preview', $_POST['argon_hide_shortcode_in_preview']);
 	
 
 	//LazyLoad 相关

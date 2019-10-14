@@ -89,6 +89,15 @@
 		?>
 	</div>
 
+	<?php if (get_option("argon_donate_qrcode_url") != '') { ?>
+		<div class="post-donate">
+			<button class="btn donate-btn btn-danger">赞赏</button>
+			<div class="donate-qrcode card shadow-sm bg-white">
+				<img src="<?php echo get_option("argon_donate_qrcode_url"); ?>">
+			</div>
+		</div>
+	<?php } ?>
+
 	<?php if (has_tag()) { ?>
 		<div class="post-tags">
 			<i class="fa fa-tags" aria-hidden="true"></i>

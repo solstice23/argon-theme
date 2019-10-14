@@ -3,7 +3,7 @@ Theme Name: argon
 Author: abc2237512422
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题 (Beta)
-Version: 0.52
+Version: 0.53
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -51,6 +51,10 @@ article h6{
 article img{
 	max-width: 100%;
 	height: auto;
+}
+article video {
+	max-width: 100%;
+	outline: none;
 }
 article .wp-caption{
 	max-width: 100%;
@@ -756,7 +760,52 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 	padding-left: 10px;
 	text-align: right;
 }
-
+/*文章赞赏*/
+.post-donate {
+	text-align: center;
+	position: relative;
+}
+.post-donate img {
+	width: max-content;
+	width: -moz-max-content;
+}
+.post-donate .donate-qrcode {
+	width: max-content;
+	width: -moz-max-content;
+	position: absolute;
+	left: 50%;
+	top: 85px;
+	padding: 25px;
+	z-index: 2;
+	transition: visibility .25s,opacity .25s,transform .25s;
+	transform: translate(0,10px) perspective(200px) rotateX(-2deg) translateX(-50%);
+	opacity: 0;
+	pointer-events: none;
+}
+.post-donate .donate-btn:focus ~ .donate-qrcode {
+	transform: translateX(-50%);
+	opacity: 1;
+}
+.post-donate .donate-btn {
+	margin-right: 0;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+.post-donate .donate-qrcode:before {
+	position: absolute;
+	z-index: 3;
+	top: 0;
+	left: 50%;
+	display: block;
+	width: 16px;
+	height: 16px;
+	content: '';
+	transform: rotate(-45deg) translateY(-10px);
+	border-radius: .2rem;
+	background: #fff;
+	z-index: 1;
+	box-shadow: 2px -2px 5px 0px rgba(0,0,0,.05);
+}
 /*评论区*/
 #comments{
 	margin-bottom: 25px;
