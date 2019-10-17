@@ -3,7 +3,7 @@ Theme Name: argon
 Author: abc2237512422
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题 (Beta)
-Version: 0.53
+Version: 0.54
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -768,6 +768,7 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 .post-donate img {
 	width: max-content;
 	width: -moz-max-content;
+	max-width: 30vw;
 }
 .post-donate .donate-qrcode {
 	width: max-content;
@@ -1687,4 +1688,361 @@ html[class] , html[lang]{
 .shuoshuo-upvote.shuoshuo-upvoting{
 	opacity: .8;
 	pointer-events: none;
+}
+
+
+/*==========Style-Dark==========*/
+
+html.darkmode body{
+	background: #303030 !important;
+	color: #eee;
+}
+html.darkmode body:before {
+	content: '';
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	height: 100vh;
+	width: 100vw;
+	background: rgba(0, 0, 0, 0.2);
+	z-index: 999999999;
+	pointer-events: none;
+}
+html.darkmode .h1,html.darkmode .h2,html.darkmode .h3,html.darkmode .h4,html.darkmode .h5,html.darkmode .h6,html.darkmode h1,html.darkmode h2,html.darkmode h3,html.darkmode h4,html.darkmode h5,html.darkmode h6{
+	color: #eee;
+}
+html.darkmode a{
+	color: #96a5ff;
+}
+html.darkmode a:hover{
+	color: #7588ff;
+}
+
+html.darkmode ::-webkit-scrollbar{
+	width: 8px;
+	height: 8px;
+	background-color: rgba(255, 255, 255, 0);
+}
+html.darkmode ::-webkit-scrollbar-track{
+	background-color: rgba(255, 255, 255, 0.05);
+}
+html.darkmode ::-webkit-scrollbar-thumb{
+	background-color: rgba(255, 255, 255, 0.2);
+}
+@media screen and (max-width:900px){
+	html.darkmode #leftbar{
+		background: #424242;
+	}
+}
+html.darkmode .leftbar-menu-item > a{
+	color: #eee;
+}
+
+html.darkmode .leftbar-menu-item > a:hover , 
+html.darkmode .leftbar-menu-item.current > a {
+	background-color: #606060;
+}
+
+html.darkmode .site-author-links-item:hover {
+	background: #555;
+}
+html.darkmode .site-state-item-count , 
+html.darkmode .site-author-links-item > a , 
+html.darkmode .site-friend-links-item > a{
+	color: #eee !important;
+}
+
+html.darkmode .site-state-item-name{
+	color: #aaa;
+}
+
+html.darkmode .banner{
+	background-color: #212121;
+}
+html.darkmode .leftbar-banner{
+	background: #353535;
+}
+
+html.darkmode .bg-white , html.darkmode .card , html.darkmode #footer{
+	background: #424242 !important;
+}
+
+html.darkmode .modal-content{
+	background: #505050;
+}
+html.darkmode .modal-header{
+	border-bottom: 1px solid #666;
+}
+html.darkmode .close>span:not(.sr-only) {
+	color: #eee;
+}
+
+html.darkmode .fab{
+	background: #424242;
+	color: #eee;
+}
+html.darkmode .fab:hover{
+	background: #606060 !important;
+}
+html.darkmode #fab_reading_progress_bar{
+	background: #ccc;
+}
+
+html.darkmode .tag.badge{
+	background: #555;
+	color: #eee;
+}
+
+html.darkmode .dropdown-menu , html.darkmode .dropdown-menu:before{
+	background: #424242;
+}
+html.darkmode .dropdown-item:focus , html.darkmode .dropdown-item:hover{
+	background: #666;
+}
+html.darkmode .dropdown-item:active{
+	background: #777;
+}
+
+html.darkmode #leftbar_catalog .index-item , html.darkmode #leftbar_catalog .index-link{
+	color: #eee;
+}
+html.darkmode #leftbar_catalog .index-item.current > .index-link{
+	color: #96a5ff;
+}
+html.darkmode #leftbar_catalog .index-link:hover{
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+html.darkmode article .post-content blockquote{
+	border-left: 4px solid rgba(255, 255, 255, .12);
+}
+
+html.darkmode article .post-content pre{
+	border: 1px solid rgba(255, 255, 255, .12);
+	background: #525252;
+	color: #eee;
+}
+html.darkmode article .post-content code{
+	background: #525252;
+	color: #eee;
+}
+
+html.darkmode .form-control{
+	background: #555;
+	color: #eee;
+}
+html.darkmode .input-group-text{
+	background: #555;
+}
+html.darkmode input[disabled] , html.darkmode textarea[disabled] , html.darkmode #post_comment.logged #post_comment_name , html.darkmode #post_comment.logged #post_comment_email{
+	background-color: #555;
+	opacity: .3;
+}
+
+html.darkmode .post-comment-reply{
+	border: 1.2px solid #777;
+}
+html.darkmode .comment-item-inner{
+	border-bottom: #555 solid 1px;
+}
+
+html.darkmode .badge{
+	color: #eee;
+}
+html.darkmode .custom-control-label::before{
+	background: #555;
+	border-color: #666;
+}
+
+html.darkmode .page-link {
+	background: #666;
+	border-color: #777;
+	color: #eee !important;
+}
+
+html.darkmode article img.lazyload[src^='data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg']{
+	background-color: rgba(255, 255, 255, .1);
+}
+
+html.darkmode .zoomify-shadow{
+	background: rgba(0, 0, 0, .6);
+}
+
+html.darkmode #share .icon-wechat .wechat-qrcode{
+	background: #505050;
+}
+html.darkmode #share .wechat-qrcode:before{
+	background: #505050;
+}
+html.darkmode #share .wechat-qrcode .help{
+	color: #eee;
+}
+
+html.darkmode .post-donate .donate-qrcode{
+	background: #505050 !important;
+}
+html.darkmode .post-donate .donate-qrcode:before{
+	background: #505050;
+}
+
+html.darkmode .shuoshuo-meta{
+    background: #424242;
+}
+
+
+html.darkmode .github-info-card {
+	background: #24292e !important;
+}
+
+
+/*==========Style-Mobile==========*/
+
+@media screen and (max-width:900px){
+	#float_action_buttons #fab_open_sidebar{
+		display: block;
+	}
+	#leftbar{
+		position: fixed;
+		background: #fff;
+		top: 0;
+		left: -300px;
+		height: 100%;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		margin-bottom: 0;
+		overflow: auto;
+		z-index: 1002;
+		box-shadow: 0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba(0,0,0,.07)!important;
+		transition: all .3s ease;
+	}
+	#leftbar_part1 , #leftbar_part2{
+		box-shadow: none !important;
+	}
+	#leftbar_part2_inner{
+		max-height: unset;
+		height: max-content;
+		height: -moz-max-content;
+	}
+	#leftbar_part2_inner:before{
+		content: '';
+		display: block;
+		margin: auto;
+		margin-bottom: 15px;
+		transform: translateY(-10px);
+		width: 80%;
+		height: 1px;
+		background: rgba(127, 127, 127, 0.1);
+	}
+	#leftbar::-webkit-scrollbar{
+		display: none;
+	}
+	.leftbar-opened #leftbar{
+		left: 0px;
+		padding: 0;
+	}
+	#sidebar_mask{
+		position: fixed;
+		display: block;
+		opacity: 0;
+		left: 0;
+		right: 0;
+		width: 0;
+		height: 0;
+		z-index: 1001;
+		background: rgba(0, 0, 0, .5);
+		transition: opacity .3s ease;
+	}
+	.leftbar-opened #sidebar_mask{
+		opacity: 1;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 100vw;
+		height: 100vh;
+		z-index: 1001;
+	}
+	.leftbar-banner{
+		padding-top: 40px;
+		padding-bottom: 40px;
+		padding-left: 20px;
+		text-align: left;
+	}
+	.leftbar-banner-subtitle{
+		margin-top: 10px;
+	}
+	#primary{
+		width: 100%;
+	}
+	#main{
+		padding: 5px;
+	}
+	.navbar-main{
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.navbar-toggler-icon{
+		width: 20px;
+		height: 20px;
+	}
+	.navbar-toggler{
+		outline: none !important;
+	}
+}
+
+@media screen and (max-width:900px){
+	/*TimeLine*/
+	.argon-timeline {
+		margin-left: 75px;
+	}
+}
+
+@media screen and (max-width:690px){
+	/*文章分享的浮动二维码*/
+	#share .icon-wechat .wechat-qrcode{
+		position: fixed;
+		z-index: 2000;
+		left: 50%;
+		top: 50%;
+		bottom: unset;
+		right: unset;
+		width: max-content;
+		width: -moz-max-content;
+		background: #fff;
+		box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+		text-align: center;
+		padding: 15px 30px;
+		transition: visibility .25s,opacity .25s,transform .25s;
+		transform: translate(-50%,calc(-50% + 10px));
+		opacity: 0;
+		pointer-events: none;
+	}
+	#share .icon-wechat:hover .wechat-qrcode{
+		transform: translate(-50%,-50%);
+		opacity: 1;
+	}
+	#share .wechat-qrcode:before{
+		display: none;
+	}
+	#share .icon-wechat:before{
+		content: '';
+		display: block;
+		position: fixed;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		height: 100%;
+		width: 100%;
+		z-index: 1999;
+		pointer-events: none;
+		transform: none;
+		background: rgba(0, 0, 0, .6);
+		opacity: 0;
+	}
+	#share .icon-wechat:hover:before{
+		opacity: 1;
+	}
 }

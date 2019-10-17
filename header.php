@@ -13,8 +13,6 @@
 	<link href="<?php bloginfo('template_url'); ?>/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link type="text/css" href="<?php bloginfo('template_url'); ?>/assets/css/argon.min.css" rel="stylesheet">
 	<link href="<?php bloginfo('template_url'); ?>/style.css" type='text/css' media='all' rel='stylesheet'>
-	<link href="<?php bloginfo('template_url'); ?>/style_dark.css" type='text/css' media='all' rel='stylesheet'>
-	<link href="<?php bloginfo('template_url'); ?>/style_mobile.css" type='text/css' media='all' rel='stylesheet'>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/jquery/jquery.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/bootstrap/bootstrap.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/popper/popper.min.js"></script>

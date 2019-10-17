@@ -138,6 +138,9 @@ function get_post_views($post_id){
     echo number_format_i18n($count);
 }
 function set_post_views(){
+	if (post_password_required($post_id)){
+		return;
+	}
     global $post;   
     $post_id = $post -> ID;
     $count_key = 'views';
