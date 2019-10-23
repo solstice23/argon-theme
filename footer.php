@@ -7,7 +7,7 @@
 				</main>
 			</div>
 		</div>
-		<script src="<?php bloginfo('template_url'); ?>/js/argontheme.js"></script>
+		<script src="<?php bloginfo('template_url'); ?>/argontheme.js?v<?php echo wp_get_theme('argon' )-> Version; ?>"></script>
 		<?php if (get_option('argon_mathjax_enable') == 'true') { /*Mathjax*/?>
 			<script type="text/x-mathjax-config" id="mathjax_script">
 				MathJax.Hub.Config({

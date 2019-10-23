@@ -7,10 +7,11 @@ function theme_slug_setup() {
 }
 add_action('after_setup_theme','theme_slug_setup');
 //检测更新
-require_once(get_template_directory() . '/theme-update-checker.php'); 
-$argonThemeUpdateChecker = new ThemeUpdateChecker(
-	'argon',
-	'https://raw.githubusercontent.com/abc2237512422/argon-theme/master/info.json'
+require_once(get_template_directory() . '/theme-update-checker/plugin-update-checker.php'); 
+$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://raw.githubusercontent.com/abc2237512422/argon-theme/master/info.json',
+	get_template_directory() . '/functions.php',
+	'argon'
 );
 //初次使用时发送安装量统计信息
 function post_analytics_info(){
@@ -912,7 +913,7 @@ function shortcode_hide_reading_time($attr,$content=""){
 //主题选项页面
 function themeoptions_admin_menu(){
 	/*后台管理面板侧栏添加选项*/
-	add_theme_page("Argon 主题设置", "Argon 主题选项", 'edit_themes', basename(__FILE__), 'themeoptions_page');
+	add_menu_page("Argon 主题设置", "Argon 主题选项", 'edit_themes', basename(__FILE__), 'themeoptions_page');
 }
 function themeoptions_page(){
 	/*具体选项*/

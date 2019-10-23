@@ -12,7 +12,7 @@
 	<link href="<?php bloginfo('template_url'); ?>/assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
 	<link href="<?php bloginfo('template_url'); ?>/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link type="text/css" href="<?php bloginfo('template_url'); ?>/assets/css/argon.min.css" rel="stylesheet">
-	<link href="<?php bloginfo('template_url'); ?>/style.css" type='text/css' media='all' rel='stylesheet'>
+	<link href="<?php bloginfo('template_url'); ?>/style.css?v<?php echo wp_get_theme('argon' )-> Version; ?>" type='text/css' media='all' rel='stylesheet'>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/jquery/jquery.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/bootstrap/bootstrap.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/popper/popper.min.js"></script>
