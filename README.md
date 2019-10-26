@@ -47,7 +47,7 @@ Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
 # 更新日志
 
-## 20191026 v0.66
+## 20191026 v0.56
 + 提升 Mathjax 版本到 3.0
 + 更换默认 Mathjax CDN
 + 允许自定义 Mathjax CDN
