@@ -7,27 +7,27 @@
 				</main>
 			</div>
 		</div>
-		<script src="<?php bloginfo('template_url'); ?>/argontheme.js?v<?php echo wp_get_theme('argon' )-> Version; ?>"></script>
+		<script src="<?php bloginfo('template_url'); ?>/argontheme.js?v<?php echo wp_get_theme('argon')-> Version; ?>"></script>
 		<?php if (get_option('argon_mathjax_enable') == 'true') { /*Mathjax*/?>
-			<script type="text/x-mathjax-config" id="mathjax_script">
-				MathJax.Hub.Config({
-					messageStyle: "<?php echo (get_option('argon_mathjax_loading_msg_type') == '' ? 'none' : get_option('argon_mathjax_loading_msg_type'));?>",
-					tex2jax: {
+			<script>
+				window.MathJax = {
+					tex: {
 						inlineMath: [["$", "$"], ["\\\\(", "\\\\)"]],
 						displayMath: [['$$','$$']],
 						processEscapes: true,
-						skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+						packages: {'[+]': ['noerrors']}
 					},
-					menuSettings: {
-						zoom: "<?php echo (get_option('argon_mathjax_zoom_cond') == '' ? 'Hover' : get_option('argon_mathjax_zoom_cond'));?>",
-						zscale: "<?php echo (get_option('argon_mathjax_zoom_scale') == '' ? '200' : get_option('argon_mathjax_zoom_scale')); ?>%"
+					options: {
+						skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+						ignoreHtmlClass: 'tex2jax_ignore',
+						processHtmlClass: 'tex2jax_process'
 					},
-					"HTML-CSS": {
-						showMathMenu: <?php echo (get_option('argon_mathjax_show_menu') == 'true' ? 'true' : 'false');?>
+					loader: {
+						load: ['[tex]/noerrors']
 					}
-				});
+				};
 			</script>
-			<script src="//cdn.bootcss.com/mathjax/2.6.0/MathJax.js?config=TeX-AMS_HTML"></script>
+			<script src="<?php echo get_option('argon_mathjax_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js' : get_option('argon_mathjax_cdn_url'); ?>" id="MathJax-script" async></script>
 		<?php }?>
 	</div>
 </div>

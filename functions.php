@@ -1015,10 +1015,10 @@ function themeoptions_page(){
 			<h2>Mathjax 渲染</h2>
 			<p>
 				Mathjax 是一个 Latex 前端渲染库，可以自动解析文章中的 Latex 公式并渲染。</br>
-				Argon 主题内置了 Mathjax 库的引用 (2.6.0 版本)</br>
+				Argon 主题内置了 Mathjax 库的引用 (3.0.0 版本, jsdelivr CDN)</br>
 				如果你需要用到公式，请打开这个选项</br>
 				Argon 主题提供了一些 Mathjax 的常用配置项</br>
-				或者，如果你需要更详细的配置选项，你可以在这里禁用 Mathjax ，然后在 "页脚代码" 中引用 Mathjax 并编写配置 JSON (当然你也可以用插件来实现)</br>
+				或者，如果需要更详细的配置选项，你可以在这里禁用 Mathjax ，然后在 "页脚代码" 中引用 Mathjax 并编写配置 JSON (当然也可以用插件来实现)</br>
 				一般来说，这里的配置选项已经够用，使用 Argon 主题提供的默认配置即可</br>
 				使用 $xxx$ 或 \\xxx\\ 来标记一个行内公式，$$xxx$$ 来标记一个独立公式</br>
 				<h4>启用 Mathjax</h4>
@@ -1029,7 +1029,9 @@ function themeoptions_page(){
 						<option value="true" <?php if ($argon_mathjax_enable=='true'){echo 'selected';} ?>>启用</option>	
 					</select>
 				</p>
-				<h4>在页面左下角显示 Mathjax 加载信息</h4>
+				<h4>Mathjax CDN 地址</h4>
+				<p><input type="text" name="argon_mathjax_cdn_url" value="<?php echo get_option('argon_mathjax_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js' : get_option('argon_mathjax_cdn_url'); ?>"/> Mathjax 3.0+，默认为 <code>//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js</code></p>
+				<!--<h4>在页面左下角显示 Mathjax 加载信息</h4>
 				<p>
 					<select name="argon_mathjax_loading_msg_type">
 						<?php $argon_mathjax_loading_msg_type = get_option('argon_mathjax_loading_msg_type'); ?>
@@ -1061,7 +1063,7 @@ function themeoptions_page(){
 						<option value="false" <?php if ($argon_mathjax_show_menu=='false'){echo 'selected';} ?>>不显示</option>
 						<option value="true" <?php if ($argon_mathjax_show_menu=='true'){echo 'selected';} ?>>显示</option>
 					</select>
-				</p>
+				</p>-->
 			</p>
 
 			<h2>Lazyload</h2>
@@ -1240,10 +1242,11 @@ if ($_POST['update_themeoptions']== 'true'){
 
 	//Mathjax 相关配置项
 	update_option('argon_mathjax_enable', $_POST['argon_mathjax_enable']);
-	update_option('argon_mathjax_loading_msg_type', $_POST['argon_mathjax_loading_msg_type']);
+	update_option('argon_mathjax_cdn_url', $_POST['argon_mathjax_cdn_url']);
+	/*update_option('argon_mathjax_loading_msg_type', $_POST['argon_mathjax_loading_msg_type']);
 	update_option('argon_mathjax_zoom_cond', $_POST['argon_mathjax_zoom_cond']);
 	update_option('argon_mathjax_zoom_scale', $_POST['argon_mathjax_zoom_scale']);
-	update_option('argon_mathjax_show_menu', $_POST['argon_mathjax_show_menu']);
+	update_option('argon_mathjax_show_menu', $_POST['argon_mathjax_show_menu']);*/
 
 	//页头页尾脚本
 	update_option('argon_custom_html_head', stripslashes($_POST['argon_custom_html_head']));

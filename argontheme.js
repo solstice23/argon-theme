@@ -492,8 +492,8 @@ function pjaxLoadUrl(url , pushstate){
 						pjaxLoading = false;
 						pjaxUrlChanged = true;
 						
-						if ($("script#mathjax_script" , $vdom).length > 0){
-							MathJax.Hub.Typeset();
+						if (MathJax != undefined){
+							MathJax.typeset()
 						}
 
 						getGithubInfoCardContent();
