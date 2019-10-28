@@ -4,6 +4,7 @@ if (version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' )) {
 }
 function theme_slug_setup() {
    add_theme_support('title-tag');
+   add_theme_support('post-thumbnails');
 }
 add_action('after_setup_theme','theme_slug_setup');
 //检测更新
@@ -990,6 +991,16 @@ function themeoptions_page(){
 				字/分钟
 			</p>
 
+			<h2>文章头图 (特色图片)</h2>
+			<h4>阅读界面中文章头图的位置</h4>
+			<p>
+				<select name="argon_show_thumbnail_in_banner_in_content_page">
+					<?php $argon_show_thumbnail_in_banner_in_content_page = get_option('argon_show_thumbnail_in_banner_in_content_page'); ?>
+					<option value="false" <?php if ($argon_show_thumbnail_in_banner_in_content_page=='false'){echo 'selected';} ?>>文章卡片顶端</option>
+					<option value="true" <?php if ($argon_show_thumbnail_in_banner_in_content_page=='true'){echo 'selected';} ?>>Banner (顶部背景)</option>	
+				</select>
+			</p>
+
 			<h2>分享</h2>
 			<h4>显示文章分享按钮</h4>
 			<p>
@@ -1226,6 +1237,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_enable_timezone_fix', $_POST['argon_enable_timezone_fix']);
 	update_option('argon_donate_qrcode_url', $_POST['argon_donate_qrcode_url']);
 	update_option('argon_hide_shortcode_in_preview', $_POST['argon_hide_shortcode_in_preview']);
+	update_option('argon_show_thumbnail_in_banner_in_content_page', $_POST['argon_show_thumbnail_in_banner_in_content_page']);
 	
 
 	//LazyLoad 相关

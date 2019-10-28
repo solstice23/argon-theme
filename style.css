@@ -3,7 +3,7 @@ Theme Name: argon
 Author: abc2237512422
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.56
+Version: 0.57
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -653,6 +653,37 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 .post-meta-detail-catagory-space{
 	margin-left: 2px;
 	margin-right: 2px;
+}
+.post-header.post-header-with-thumbnail {
+	margin: -30px -30px 35px -30px;
+	border-radius: .25rem .25rem 0 0;
+	overflow: hidden;
+	position: relative;
+}
+.post-thumbnail {
+	width: 100%;
+	min-height: 200px;
+	max-height: 25vh;
+	object-fit: cover;
+	pointer-events: none;
+}
+.single .post-thumbnail , .page .post-thumbnail {
+	max-height: 30vh;
+}
+.post-header.post-header-with-thumbnail .post-header-text-container {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	color: #fff;
+	opacity: 0.9;
+	padding-bottom: 35px;
+	padding-top: 35px;
+	background: rgba(0,0,0,.05);
+	background: linear-gradient(to top, rgba(0,0,0,.3) 20%, rgba(0,0,0,0));
+}
+.post-header.post-header-with-thumbnail .post-header-text-container a {
+    color: #8f95ff !important;
 }
 .post-content{
 	line-height: 1.8;

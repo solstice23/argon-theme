@@ -1,5 +1,21 @@
 <article class="post card bg-white shadow-sm border-0" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="post-header text-center">
+	<header class="post-header text-center<?php if (has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') != 'true'){echo " post-header-with-thumbnail";}?>">
+		<?php
+			if (has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') != 'true'){
+				$thumbnail_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), full)[0];
+				echo "<img class='post-thumbnail' src='" . $thumbnail_url . "'></img>";
+				echo "<div class='post-header-text-container'>";
+			}
+			if (has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') == 'true'){
+				$thumbnail_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), full)[0];
+				echo "
+				<style>
+					body section.banner {
+						background-image: url(" . $thumbnail_url . ") !important;
+					}
+				</style>";
+			}
+		?>
 		<a class="post-title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 		<div class="post-meta">
 			<?php if ( is_sticky() && is_home() && ! is_paged() ) : ?>
@@ -64,6 +80,11 @@
 				</div>
 			<?php } ?>
 		</div>
+		<?php
+			if (has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') != 'true'){
+				echo "</div>";
+			}
+		?>
 	</header>
 
 	<div class="post-content" id="post_content">

@@ -1,5 +1,12 @@
 <article class="post card bg-white shadow-sm border-0" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="post-header text-center">
+	<header class="post-header text-center<?php if (has_post_thumbnail()){echo " post-header-with-thumbnail";}?>">
+		<?php
+			if (has_post_thumbnail()){
+				$thumbnail_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), full)[0];
+				echo "<img class='post-thumbnail' src='" . $thumbnail_url . "'></img>";
+				echo "<div class='post-header-text-container'>";
+			}
+		?>
 		<a class="post-title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 		<div class="post-meta">
 			<?php if ( is_sticky() && is_home() && ! is_paged() ) : ?>
@@ -62,6 +69,11 @@
 				</div>
 			<?php } ?>
 		</div>
+		<?php
+			if (has_post_thumbnail()){
+				echo "</div>";
+			}
+		?>
 	</header>
 
 	<div class="post-content">
