@@ -53,7 +53,7 @@
 				<div class="col-md-12">
 					<textarea id="post_comment_content" class="form-control form-control-alternative" placeholder="评论内容" name="comment" style="height: 80px;"></textarea>
 				</div>
-				<div class="col-md-12">
+				<div class="col-md-12" style="height: 0;overflow: hidden;">
 					<pre id="post_comment_content_hidden" class=""></pre>
 				</div>
 			</div>

@@ -14,7 +14,7 @@ $argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	get_template_directory() . '/functions.php',
 	'argon'
 );
-//初次使用时发送安装量统计信息
+//初次使用时发送安装量统计信息 (数据仅用于统计安装量)
 function post_analytics_info(){
 	if(function_exists('file_get_contents')){
 		$contexts = stream_context_create(
@@ -528,6 +528,19 @@ function upvote_shuoshuo(){
 }
 add_action('wp_ajax_upvote_shuoshuo' , 'upvote_shuoshuo');
 add_action('wp_ajax_nopriv_upvote_shuoshuo' , 'upvote_shuoshuo');
+//检测页面底部版权是否被修改
+function alert_footer_copyright_changed(){ ?>
+	<div class='notice notice-warning is-dismissible'>
+		<p>警告：你可能修改了 Argon 主题页脚的版权声明，Argon 主题要求你至少保留主题的 Github 链接或主题的发布文章链接。</p>
+	</div>
+<?php }
+function check_footer_copyright(){
+	$footer = file_get_contents(get_theme_root() . "/argon/footer.php");
+	if ((strpos($footer, "github.com/abc2237512422/argon-theme") === false) && (strpos($footer, "abc233.site") === false)){
+		add_action('admin_notices', 'alert_footer_copyright_changed');
+	}
+}
+check_footer_copyright();
 //主题文章短代码解析
 add_shortcode('br','shortcode_br');
 function shortcode_br($attr,$content=""){
@@ -921,295 +934,377 @@ function themeoptions_page(){
 ?>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/jquery/jquery.min.js"></script>
 	<div>
+		<style type="text/css">
+			h2{
+				font-size: 22px;
+			}
+			h3{
+				font-size: 18px;
+			}
+			th.subtitle {
+				padding: 0;
+			}
+		</style>
 		<h1>Argon 主题设置</h1>
 		<form method="POST" action="">
 			<input type="hidden" name="update_themeoptions" value="true" />
-			<h2>顶栏</h2>
-			<h4>顶栏标题</h4>
-			<p><input type="text" name="argon_toolbar_title" value="<?php echo get_option('argon_toolbar_title'); ?>"/> 留空则显示博客名称</p>
-			<h4>顶栏图标</h4>
-			<p><input type="text" name="argon_toolbar_icon" value="<?php echo get_option('argon_toolbar_icon'); ?>"/> 图片地址，留空则不显示</p>
-			<p><input type="text" name="argon_toolbar_icon_link" value="<?php echo get_option('argon_toolbar_icon_link'); ?>"/> 图片链接</p>
-			<h2>顶部 Banner (封面)</h2>
-			<h4>Banner 标题</h4>
-			<p><input type="text" name="argon_banner_title" value="<?php echo get_option('argon_banner_title'); ?>"/> 留空则显示博客名称</p>
-			<h4>Banner 背景图</h4>
-			<p><input type="text" name="argon_banner_background_url" id="argon_banner_background_url" value="<?php echo get_option('argon_banner_background_url'); ?>"/> 需带上 http(s)
-			，留空则显示默认背景 <button onclick="$('input#argon_banner_background_url').val('--bing--');" class="button">使用必应每日一图</button></p>
-			<h4>Banner 渐变背景样式（如果设置了背景图则不生效）</h4>
-			<p>
-				<select name="argon_banner_background_color_type">
-					<?php $color_type = get_option('argon_banner_background_color_type'); ?>
-					<option value="shape-primary" <?php if ($color_type=='shape-primary'){echo 'selected';} ?>>样式1</option>
-					<option value="shape-default" <?php if ($color_type=='shape-default'){echo 'selected';} ?>>样式2</option>
-					<option value="shape-dark" <?php if ($color_type=='shape-dark'){echo 'selected';} ?>>样式3</option>
-					<option value="bg-gradient-success" <?php if ($color_type=='bg-gradient-success'){echo 'selected';} ?>>样式4</option>
-					<option value="bg-gradient-info" <?php if ($color_type=='bg-gradient-info'){echo 'selected';} ?>>样式5</option>
-					<option value="bg-gradient-warning" <?php if ($color_type=='bg-gradient-warning'){echo 'selected';} ?>>样式6</option>
-					<option value="bg-gradient-danger" <?php if ($color_type=='bg-gradient-danger'){echo 'selected';} ?>>样式7</option>
-				</select>
-				<?php $hide_shapes = get_option('argon_banner_background_hide_shapes'); ?>
-				<input type="checkbox" name="argon_banner_background_hide_shapes" value="true" <?php if ($hide_shapes=='true'){echo 'checked';}?>/>
-				隐藏背景半透明圆
-				</br></br>样式预览 (推荐选择前三个样式)</br>
-				<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#281483 15%,#8f6ed5 70%,#d782d9 94%);">样式1</div>
-				<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);">样式2</div>
-				<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#32325d 15%,#32325d 70%,#32325d 94%);">样式3</div>
-				<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#2dce89 0,#2dcecc 100%);">样式4</div>
-				<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#11cdef 0,#1171ef 100%);">样式5</div>
-				<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#fb6340 0,#fbb140 100%);">样式6</div>
-				<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#f5365c 0,#f56036 100%);">样式7</div>
-				<style>
-					div.banner-background-color-type-preview{width:100px;height:50px;line-height:50px;color:#fff;margin-right:10px;font-size:15px;text-align:center;display:inline-block;border-radius:10px;transition:all .3s ease;}
-					div.banner-background-color-type-preview:hover{transform: scale(2);}
-				</style>
-			</p>
-
-			<h2>左侧栏</h2>
-			<h4>左侧栏标题</h4>
-			<p><input type="text" name="argon_sidebar_banner_title" value="<?php echo get_option('argon_sidebar_banner_title'); ?>"/> 留空则显示博客名称</p>
-			<h4>左侧栏子标题（格言）</h4>
-			<p><input type="text" name="argon_sidebar_banner_subtitle" value="<?php echo get_option('argon_sidebar_banner_subtitle'); ?>"/> 
-			<h4>左侧栏作者名称</h4>
-			<p><input type="text" name="argon_sidebar_auther_name" value="<?php echo get_option('argon_sidebar_auther_name'); ?>"/> 留空则显示博客名</p>
-			<h4>左侧栏作者头像地址</h4>
-			<p><input type="text" name="argon_sidebar_auther_image" value="<?php echo get_option('argon_sidebar_auther_image'); ?>"/> 需带上 http(s)开头</p>
-
-			<h2>文章 Meta 信息</h2>
-			<h4>显示字数和预计阅读时间</h4>
-			<p>
-				<select name="argon_show_readingtime">
-					<?php $argon_show_readingtime = get_option('argon_show_readingtime'); ?>
-					<option value="true" <?php if ($argon_show_readingtime=='true'){echo 'selected';} ?>>显示</option>	
-					<option value="false" <?php if ($argon_show_readingtime=='false'){echo 'selected';} ?>>不显示</option>
-				</select>
-			</p>
-			<h4>每分钟阅读字数</h4>
-			<p>
-				预计阅读时间由每分钟阅读字数计算</br>
-				<input type="number" name="argon_reading_speed" min="1" max="5000"  value="<?php echo (get_option('argon_reading_speed') == '' ? '300' : get_option('argon_reading_speed')); ?>"/>
-				字/分钟
-			</p>
-
-			<h2>文章头图 (特色图片)</h2>
-			<h4>阅读界面中文章头图的位置</h4>
-			<p>
-				<select name="argon_show_thumbnail_in_banner_in_content_page">
-					<?php $argon_show_thumbnail_in_banner_in_content_page = get_option('argon_show_thumbnail_in_banner_in_content_page'); ?>
-					<option value="false" <?php if ($argon_show_thumbnail_in_banner_in_content_page=='false'){echo 'selected';} ?>>文章卡片顶端</option>
-					<option value="true" <?php if ($argon_show_thumbnail_in_banner_in_content_page=='true'){echo 'selected';} ?>>Banner (顶部背景)</option>	
-				</select>
-			</p>
-
-			<h2>分享</h2>
-			<h4>显示文章分享按钮</h4>
-			<p>
-				<select name="argon_show_sharebtn">
-					<?php $argon_show_sharebtn = get_option('argon_show_sharebtn'); ?>
-					<option value="true" <?php if ($argon_show_sharebtn=='true'){echo 'selected';} ?>>显示</option>	
-					<option value="false" <?php if ($argon_show_sharebtn=='false'){echo 'selected';} ?>>不显示</option>
-				</select>
-			</p>
-
-			<h2>赞赏</h2>
-			<h4>赞赏二维码图片链接</h4>
-			<p>
-				<input type="text" name="argon_donate_qrcode_url" value="<?php echo get_option('argon_donate_qrcode_url'); ?>"/> 填写赞赏二维码图片链接，填写后会在文章最后显示赞赏按钮，留空则不显示赞赏按钮
-			</p>
-			
-			<h2>页脚</h2>
-			<h4>页脚内容</h4>
-			<p><textarea type="text" rows="15" cols="100" name="argon_footer_html"><?php echo htmlspecialchars(get_option('argon_footer_html')); ?></textarea>
-			</br>
-			HTML , 支持 script 等标签</p>
-
-			<h2>Mathjax 渲染</h2>
-			<p>
-				Mathjax 是一个 Latex 前端渲染库，可以自动解析文章中的 Latex 公式并渲染。</br>
-				Argon 主题内置了 Mathjax 库的引用 (3.0.0 版本, jsdelivr CDN)</br>
-				如果你需要用到公式，请打开这个选项</br>
-				Argon 主题提供了一些 Mathjax 的常用配置项</br>
-				或者，如果需要更详细的配置选项，你可以在这里禁用 Mathjax ，然后在 "页脚代码" 中引用 Mathjax 并编写配置 JSON (当然也可以用插件来实现)</br>
-				一般来说，这里的配置选项已经够用，使用 Argon 主题提供的默认配置即可</br>
-				使用 $xxx$ 或 \\xxx\\ 来标记一个行内公式，$$xxx$$ 来标记一个独立公式</br>
-				<h4>启用 Mathjax</h4>
-				<p>
-					<select name="argon_mathjax_enable">
-						<?php $argon_mathjax_enable = get_option('argon_mathjax_enable'); ?>
-						<option value="false" <?php if ($argon_mathjax_enable=='false'){echo 'selected';} ?>>不启用</option>
-						<option value="true" <?php if ($argon_mathjax_enable=='true'){echo 'selected';} ?>>启用</option>	
-					</select>
-				</p>
-				<h4>Mathjax CDN 地址</h4>
-				<p><input type="text" name="argon_mathjax_cdn_url" value="<?php echo get_option('argon_mathjax_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js' : get_option('argon_mathjax_cdn_url'); ?>"/> Mathjax 3.0+，默认为 <code>//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js</code></p>
-				<!--<h4>在页面左下角显示 Mathjax 加载信息</h4>
-				<p>
-					<select name="argon_mathjax_loading_msg_type">
-						<?php $argon_mathjax_loading_msg_type = get_option('argon_mathjax_loading_msg_type'); ?>
-						<option value="none" <?php if ($argon_mathjax_loading_msg_type=='none'){echo 'selected';} ?>>隐藏</option>
-						<option value="normal" <?php if ($argon_mathjax_loading_msg_type=='normal'){echo 'selected';} ?>>显示</option>
-						<option value="simple" <?php if ($argon_mathjax_loading_msg_type=='simple'){echo 'selected';} ?>>显示 (不显示进度，只显示状态)</option>
-					</select>
-				</p>
-				<h4>公式缩放触发条件</h4>
-				<p>
-					选择触发公式放大浏览框的条件</br>
-					<select name="argon_mathjax_zoom_cond">
-						<?php $argon_mathjax_zoom_cond = get_option('argon_mathjax_zoom_cond'); ?>
-						<option value="Hover" <?php if ($argon_mathjax_zoom_cond=='Hover'){echo 'selected';} ?>>鼠标悬停</option>
-						<option value="Click" <?php if ($argon_mathjax_zoom_cond=='Click'){echo 'selected';} ?>>鼠标单击</option>
-						<option value="Double-Click" <?php if ($argon_mathjax_zoom_cond=='Double-Click'){echo 'selected';} ?>>鼠标双击</option>
-						<option value="None" <?php if ($argon_mathjax_zoom_cond=='None'){echo 'selected';} ?>>永不显示</option>
-					</select>
-				</p>
-				<h4>公式缩放放大比例</h4>
-				<p>
-					<input type="number" name="argon_mathjax_zoom_scale" min="100" max="999"  value="<?php echo (get_option('argon_mathjax_zoom_scale') == '' ? '200' : get_option('argon_mathjax_zoom_scale')); ?>"/>
-					%
-				</p>
-				<h4>在公式上右键是否显示 Mathjax 菜单</h4>
-				<p>
-					<select name="argon_mathjax_show_menu">
-						<?php $argon_mathjax_show_menu = get_option('argon_mathjax_show_menu'); ?>
-						<option value="false" <?php if ($argon_mathjax_show_menu=='false'){echo 'selected';} ?>>不显示</option>
-						<option value="true" <?php if ($argon_mathjax_show_menu=='true'){echo 'selected';} ?>>显示</option>
-					</select>
-				</p>-->
-			</p>
-
-			<h2>Lazyload</h2>
-			<h4>是否启用 Lazyload 加载文章内图片</h4>
-			<p>
-				<select name="argon_enable_lazyload">
-					<?php $argon_enable_lazyload = get_option('argon_enable_lazyload'); ?>
-					<option value="true" <?php if ($argon_enable_lazyload=='true'){echo 'selected';} ?>>启用</option>
-					<option value="false" <?php if ($argon_enable_lazyload=='false'){echo 'selected';} ?>>禁用</option>
-				</select>
-			</p>
-			<h4>提前加载阈值</h4>
-			<p>
-				图片距离页面底部还有多少距离就开始提前加载</br>
-				<input type="number" name="argon_lazyload_threshold" min="0" max="2500"  value="<?php echo (get_option('argon_lazyload_threshold') == '' ? '800' : get_option('argon_lazyload_threshold')); ?>"/>
-				px
-			</p>
-			<h4>LazyLoad 图片加载完成过渡</h4>
-			<p>
-				<select name="argon_lazyload_effect">
-					<?php $argon_lazyload_effect = get_option('argon_lazyload_effect'); ?>
-					<option value="fadeIn" <?php if ($argon_lazyload_effect=='fadeIn'){echo 'selected';} ?>>fadeIn</option>
-					<option value="slideDown" <?php if ($argon_lazyload_effect=='slideDown'){echo 'selected';} ?>>slideDown</option>
-					<option value="none" <?php if ($argon_lazyload_effect=='none'){echo 'selected';} ?>>不使用过渡</option>
-				</select>
-			</p>
-			<h4>LazyLoad 图片加载动效</h4>
-			<p>
-				在图片被加载之前显示的加载效果 , <a target="_blink" href="<?php bloginfo('template_url'); ?>/assets/vendor/svg-loaders">预览所有效果</a></br>
-				<select name="argon_lazyload_loading_style">
-					<?php $argon_lazyload_loading_style = get_option('argon_lazyload_loading_style'); ?>
-					<option value="1" <?php if ($argon_lazyload_loading_style=='1'){echo 'selected';} ?>>加载动画 1</option>
-					<option value="2" <?php if ($argon_lazyload_loading_style=='2'){echo 'selected';} ?>>加载动画 2</option>
-					<option value="3" <?php if ($argon_lazyload_loading_style=='3'){echo 'selected';} ?>>加载动画 3</option>
-					<option value="4" <?php if ($argon_lazyload_loading_style=='4'){echo 'selected';} ?>>加载动画 4</option>
-					<option value="5" <?php if ($argon_lazyload_loading_style=='5'){echo 'selected';} ?>>加载动画 5</option>
-					<option value="6" <?php if ($argon_lazyload_loading_style=='6'){echo 'selected';} ?>>加载动画 6</option>
-					<option value="7" <?php if ($argon_lazyload_loading_style=='7'){echo 'selected';} ?>>加载动画 7</option>
-					<option value="8" <?php if ($argon_lazyload_loading_style=='8'){echo 'selected';} ?>>加载动画 8</option>
-					<option value="9" <?php if ($argon_lazyload_loading_style=='9'){echo 'selected';} ?>>加载动画 9</option>
-					<option value="10" <?php if ($argon_lazyload_loading_style=='10'){echo 'selected';} ?>>加载动画 10</option>
-					<option value="11" <?php if ($argon_lazyload_loading_style=='11'){echo 'selected';} ?>>加载动画 11</option>
-					<option value="none" <?php if ($argon_lazyload_loading_style=='none'){echo 'selected';} ?>>不使用</option>
-				</select>
-			</p>
-
-			<h2>图片放大浏览</h2>
-			<p>开启后，文章中图片被单击时会放大预览</p>
-			<h4>是否启用图片放大浏览</h4>
-			<p>
-				<select name="argon_enable_zoomify">
-					<?php $argon_enable_zoomify = get_option('argon_enable_zoomify'); ?>
-					<option value="true" <?php if ($argon_enable_zoomify=='true'){echo 'selected';} ?>>启用</option>
-					<option value="false" <?php if ($argon_enable_zoomify=='false'){echo 'selected';} ?>>禁用</option>
-				</select>
-			</p>
-			<h4>缩放动画长度</h4>
-			<p>
-				图片被单击后缩放到全屏动画的时间长度</br>
-				<input type="number" name="argon_zoomify_duration" min="0" max="10000" value="<?php echo (get_option('argon_zoomify_duration') == '' ? '200' : get_option('argon_zoomify_duration')); ?>"/>
-				ms
-			</p>
-			<h4>缩放动画曲线</h4>
-			<p>
-				例： <code>ease</code> , <code>ease-in-out</code> , <code>ease-out</code> , <code>linear</code> , <code>cubic-bezier(0.68,-0.55,0.27,1.55)</code></br>
-				如果你不知道这是什么，参考<a href="https://www.w3school.com.cn/cssref/pr_animation-timing-function.asp" target="_blink">这里</a></br>
-				<input type="text" name="argon_zoomify_easing" value="<?php echo (get_option('argon_zoomify_easing') == '' ? 'ease-out' : get_option('argon_zoomify_easing')); ?>"/></p>
-			<h4>图片最大缩放比例</h4>
-			<p>
-				图片相对于页面的最大缩放比例 (0 ~ 1 的小数)</br>
-				<input type="number" name="argon_zoomify_scale" min="0.01" max="1" step="0.01" value="<?php echo (get_option('argon_zoomify_scale') == '' ? '0.9' : get_option('argon_zoomify_scale')); ?>"/>
-			</p>
-
-			<h2>脚本</h2>
-			<p>
-				<div style="border-left: 3px solid rgba(0, 0, 0, .1);padding-left: 15px;">
-					<strong style="color:#ff0000;">注意： Argon 使用 pjax 方式加载页面 (无刷新加载) , 所以您的脚本除非页面手动刷新，否则只会被执行一次。</br>
-					如果您想让每次页面跳转(加载新页面)时都执行脚本，请将脚本写入 <code>window.pjaxLoaded</code> 中</strong> ，示例写法:
-					<pre>
+			<table class="form-table">
+				<tbody>
+					<tr><th class="subtitle"><h2>顶栏</h2></th></tr>
+					<tr><th class="subtitle"><h3>标题</h3></th></tr>
+					<tr>
+						<th><label>顶栏标题</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_toolbar_title" value="<?php echo get_option('argon_toolbar_title'); ?>"/></p>
+							<p class="description">留空则显示博客名称</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h3>顶栏图标</h3></th></tr>
+					<tr>
+						<th><label>图标地址</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_toolbar_icon" value="<?php echo get_option('argon_toolbar_icon'); ?>"/>
+							<p class="description">图片地址，留空则不显示</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>图标链接</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_toolbar_icon_link" value="<?php echo get_option('argon_toolbar_icon_link'); ?>"/>
+							<p class="description">点击图标后会跳转到的链接，留空则不跳转</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>顶部 Banner (封面)</h2></th></tr>
+					<tr>
+						<th><label>Banner 标题</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_banner_title" value="<?php echo get_option('argon_banner_title'); ?>"/>
+							<p class="description">留空则显示博客名称</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>Banner 背景图 (地址)</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_banner_background_url" value="<?php echo get_option('argon_banner_background_url'); ?>"/>
+							<p class="description">需带上 http(s) ，留空则显示默认背景</br>输入 <code>--bing--</code> 调用必应每日一图</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>Banner 渐变背景样式</label></th>
+						<td>
+							<select name="argon_banner_background_color_type">
+								<?php $color_type = get_option('argon_banner_background_color_type'); ?>
+								<option value="shape-primary" <?php if ($color_type=='shape-primary'){echo 'selected';} ?>>样式1</option>
+								<option value="shape-default" <?php if ($color_type=='shape-default'){echo 'selected';} ?>>样式2</option>
+								<option value="shape-dark" <?php if ($color_type=='shape-dark'){echo 'selected';} ?>>样式3</option>
+								<option value="bg-gradient-success" <?php if ($color_type=='bg-gradient-success'){echo 'selected';} ?>>样式4</option>
+								<option value="bg-gradient-info" <?php if ($color_type=='bg-gradient-info'){echo 'selected';} ?>>样式5</option>
+								<option value="bg-gradient-warning" <?php if ($color_type=='bg-gradient-warning'){echo 'selected';} ?>>样式6</option>
+								<option value="bg-gradient-danger" <?php if ($color_type=='bg-gradient-danger'){echo 'selected';} ?>>样式7</option>
+							</select>
+							<?php $hide_shapes = get_option('argon_banner_background_hide_shapes'); ?>
+							<label>
+								<input type="checkbox" name="argon_banner_background_hide_shapes" value="true" <?php if ($hide_shapes=='true'){echo 'checked';}?>/>	隐藏背景半透明圆
+							</label>
+							<p class="description"><strong>如果设置了背景图则不生效</strong>
+								</br><div style="margin-top: 15px;">样式预览 (推荐选择前三个样式)</div>
+								<div style="margin-top: 10px;">
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#281483 15%,#8f6ed5 70%,#d782d9 94%);">样式1</div>
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);">样式2</div>
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#32325d 15%,#32325d 70%,#32325d 94%);">样式3</div>
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#2dce89 0,#2dcecc 100%);">样式4</div>
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#11cdef 0,#1171ef 100%);">样式5</div>
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#fb6340 0,#fbb140 100%);">样式6</div>
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#f5365c 0,#f56036 100%);">样式7</div>
+								</div>
+								<style>
+									div.banner-background-color-type-preview{width:100px;height:50px;line-height:50px;color:#fff;margin-right:0px;font-size:15px;text-align:center;display:inline-block;border-radius:5px;transition:all .3s ease;}
+									div.banner-background-color-type-preview:hover{transform: scale(1.2);}
+								</style>
+							</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>左侧栏</h2></th></tr>
+					<tr>
+						<th><label>左侧栏标题</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_sidebar_banner_title" value="<?php echo get_option('argon_sidebar_banner_title'); ?>"/>
+							<p class="description">留空则显示博客名称</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>左侧栏子标题（格言）</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_sidebar_banner_subtitle" value="<?php echo get_option('argon_sidebar_banner_subtitle'); ?>"/>
+							<p class="description">留空则不显示</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>左侧栏作者名称</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_sidebar_auther_name" value="<?php echo get_option('argon_sidebar_auther_name'); ?>"/>
+							<p class="description">留空则显示博客名</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>左侧栏作者头像地址</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_sidebar_auther_image" value="<?php echo get_option('argon_sidebar_auther_image'); ?>"/>
+							<p class="description">需带上 http(s) 开头</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>文章 Meta 信息</h2></th></tr>
+					<tr>
+						<th><label>显示字数和预计阅读时间</label></th>
+						<td>
+							<select name="argon_show_readingtime">
+								<?php $argon_show_readingtime = get_option('argon_show_readingtime'); ?>
+								<option value="true" <?php if ($argon_show_readingtime=='true'){echo 'selected';} ?>>显示</option>	
+								<option value="false" <?php if ($argon_show_readingtime=='false'){echo 'selected';} ?>>不显示</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th><label>每分钟阅读字数</label></th>
+						<td>
+							<input type="number" name="argon_reading_speed" min="1" max="5000"  value="<?php echo (get_option('argon_reading_speed') == '' ? '300' : get_option('argon_reading_speed')); ?>"/>
+							字/分钟
+							<p class="description">预计阅读时间由每分钟阅读字数计算</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>文章头图 (特色图片)</h2></th></tr>
+					<tr>
+						<th><label>文章头图的位置</label></th>
+						<td>
+							<select name="argon_show_thumbnail_in_banner_in_content_page">
+								<?php $argon_show_thumbnail_in_banner_in_content_page = get_option('argon_show_thumbnail_in_banner_in_content_page'); ?>
+								<option value="false" <?php if ($argon_show_thumbnail_in_banner_in_content_page=='false'){echo 'selected';} ?>>文章卡片顶端</option>
+								<option value="true" <?php if ($argon_show_thumbnail_in_banner_in_content_page=='true'){echo 'selected';} ?>>Banner (顶部背景)</option>	
+							</select>
+							<p class="description">阅读界面中文章头图的位置</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>分享</h2></th></tr>
+					<tr>
+						<th><label>显示文章分享按钮</label></th>
+						<td>
+							<select name="argon_show_sharebtn">
+								<?php $argon_show_sharebtn = get_option('argon_show_sharebtn'); ?>
+								<option value="true" <?php if ($argon_show_sharebtn=='true'){echo 'selected';} ?>>显示</option>	
+								<option value="false" <?php if ($argon_show_sharebtn=='false'){echo 'selected';} ?>>不显示</option>
+							</select>
+							<p class="description"></p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>赞赏</h2></th></tr>
+					<tr>
+						<th><label>赞赏二维码图片链接</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_donate_qrcode_url" value="<?php echo get_option('argon_donate_qrcode_url'); ?>"/>				
+							<p class="description">赞赏二维码图片链接，填写后会在文章最后显示赞赏按钮，留空则不显示赞赏按钮</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>页脚</h2></th></tr>
+					<tr>
+						<th><label>页脚内容</label></th>
+						<td>
+							<textarea type="text" rows="15" cols="100" name="argon_footer_html"><?php echo htmlspecialchars(get_option('argon_footer_html')); ?></textarea>
+							<p class="description">HTML , 支持 script 等标签</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>Mathjax 渲染</h2></th></tr>
+					<tr>
+						<th><label>启用 Mathjax</label></th>
+						<td>
+							<select name="argon_mathjax_enable">
+								<?php $argon_mathjax_enable = get_option('argon_mathjax_enable'); ?>
+								<option value="false" <?php if ($argon_mathjax_enable=='false'){echo 'selected';} ?>>不启用</option>
+								<option value="true" <?php if ($argon_mathjax_enable=='true'){echo 'selected';} ?>>启用</option>	
+							</select>
+							<p class="description">
+								Mathjax 是一个 Latex 前端渲染库，可以自动解析文章中的 Latex 公式并渲染。</br>
+								Argon 主题内置了 Mathjax 库的引用 (3.0.0 版本, jsdelivr CDN)</br>
+								如果你需要用到公式，请打开这个选项</br>
+								Argon 主题提供了一些 Mathjax 的常用配置项</br>
+								或者，如果需要更详细的配置选项，你可以在这里禁用 Mathjax ，然后在 "页脚代码" 中引用 Mathjax 并编写配置 JSON (当然也可以用插件来实现)</br>
+								一般来说，这里的配置选项已经够用，使用 Argon 主题提供的默认配置即可</br>
+								使用 $xxx$ 或 \\xxx\\ 来标记一个行内公式，$$xxx$$ 来标记一个独立公式</br>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>Mathjax CDN 地址</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_mathjax_cdn_url" value="<?php echo get_option('argon_mathjax_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js' : get_option('argon_mathjax_cdn_url'); ?>"/>
+							<p class="description">Mathjax 3.0+，默认为 <code>//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js</code></p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>Lazyload</h2></th></tr>
+					<tr>
+						<th><label>是否启用 Lazyload</label></th>
+						<td>
+							<select name="argon_enable_lazyload">
+								<?php $argon_enable_lazyload = get_option('argon_enable_lazyload'); ?>
+								<option value="true" <?php if ($argon_enable_lazyload=='true'){echo 'selected';} ?>>启用</option>
+								<option value="false" <?php if ($argon_enable_lazyload=='false'){echo 'selected';} ?>>禁用</option>
+							</select>
+							<p class="description">是否启用 Lazyload 加载文章内图片</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>提前加载阈值</label></th>
+						<td>
+							<input type="number" name="argon_lazyload_threshold" min="0" max="2500"  value="<?php echo (get_option('argon_lazyload_threshold') == '' ? '800' : get_option('argon_lazyload_threshold')); ?>"/>
+							<p class="description">图片距离页面底部还有多少距离就开始提前加载</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>LazyLoad 图片加载完成过渡</label></th>
+						<td>
+							<select name="argon_lazyload_effect">
+								<?php $argon_lazyload_effect = get_option('argon_lazyload_effect'); ?>
+								<option value="fadeIn" <?php if ($argon_lazyload_effect=='fadeIn'){echo 'selected';} ?>>fadeIn</option>
+								<option value="slideDown" <?php if ($argon_lazyload_effect=='slideDown'){echo 'selected';} ?>>slideDown</option>
+								<option value="none" <?php if ($argon_lazyload_effect=='none'){echo 'selected';} ?>>不使用过渡</option>
+							</select>
+							<p class="description"></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>LazyLoad 图片加载动效</label></th>
+						<td>
+							<select name="argon_lazyload_loading_style">
+								<?php $argon_lazyload_loading_style = get_option('argon_lazyload_loading_style'); ?>
+								<option value="1" <?php if ($argon_lazyload_loading_style=='1'){echo 'selected';} ?>>加载动画 1</option>
+								<option value="2" <?php if ($argon_lazyload_loading_style=='2'){echo 'selected';} ?>>加载动画 2</option>
+								<option value="3" <?php if ($argon_lazyload_loading_style=='3'){echo 'selected';} ?>>加载动画 3</option>
+								<option value="4" <?php if ($argon_lazyload_loading_style=='4'){echo 'selected';} ?>>加载动画 4</option>
+								<option value="5" <?php if ($argon_lazyload_loading_style=='5'){echo 'selected';} ?>>加载动画 5</option>
+								<option value="6" <?php if ($argon_lazyload_loading_style=='6'){echo 'selected';} ?>>加载动画 6</option>
+								<option value="7" <?php if ($argon_lazyload_loading_style=='7'){echo 'selected';} ?>>加载动画 7</option>
+								<option value="8" <?php if ($argon_lazyload_loading_style=='8'){echo 'selected';} ?>>加载动画 8</option>
+								<option value="9" <?php if ($argon_lazyload_loading_style=='9'){echo 'selected';} ?>>加载动画 9</option>
+								<option value="10" <?php if ($argon_lazyload_loading_style=='10'){echo 'selected';} ?>>加载动画 10</option>
+								<option value="11" <?php if ($argon_lazyload_loading_style=='11'){echo 'selected';} ?>>加载动画 11</option>
+								<option value="none" <?php if ($argon_lazyload_loading_style=='none'){echo 'selected';} ?>>不使用</option>
+							</select>
+							<p class="description">在图片被加载之前显示的加载效果 , <a target="_blink" href="<?php bloginfo('template_url'); ?>/assets/vendor/svg-loaders">预览所有效果</a></p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>图片放大浏览</h2></th></tr>
+					<tr>
+						<th><label>是否启用图片放大浏览</label></th>
+						<td>
+							<select name="argon_enable_zoomify">
+								<?php $argon_enable_zoomify = get_option('argon_enable_zoomify'); ?>
+								<option value="true" <?php if ($argon_enable_zoomify=='true'){echo 'selected';} ?>>启用</option>
+								<option value="false" <?php if ($argon_enable_zoomify=='false'){echo 'selected';} ?>>禁用</option>
+							</select>
+							<p class="description">开启后，文章中图片被单击时会放大预览</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>缩放动画长度</label></th>
+						<td>
+							<input type="number" name="argon_zoomify_duration" min="0" max="10000" value="<?php echo (get_option('argon_zoomify_duration') == '' ? '200' : get_option('argon_zoomify_duration')); ?>"/>	ms
+							<p class="description">图片被单击后缩放到全屏动画的时间长度</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>缩放动画曲线</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_zoomify_easing" value="<?php echo (get_option('argon_zoomify_easing') == '' ? 'ease-out' : get_option('argon_zoomify_easing')); ?>"/>
+							<p class="description">
+								例： <code>ease</code> , <code>ease-in-out</code> , <code>ease-out</code> , <code>linear</code> , <code>cubic-bezier(0.4,0,0,1)</code></br>如果你不知道这是什么，参考<a href="https://www.w3school.com.cn/cssref/pr_animation-timing-function.asp" target="_blink">这里</a>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>图片最大缩放比例</label></th>
+						<td>
+							<input type="number" name="argon_zoomify_scale" min="0.01" max="1" step="0.01" value="<?php echo (get_option('argon_zoomify_scale') == '' ? '0.9' : get_option('argon_zoomify_scale')); ?>"/>
+							<p class="description">图片相对于页面的最大缩放比例 (0 ~ 1 的小数)</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>脚本</h2></th></tr>
+					<tr>
+						<th><label><strong style="color:#ff0000;">注意</strong></label></th>
+						<td>
+							<p class="description"><strong style="color:#ff0000;">Argon 使用 pjax 方式加载页面 (无刷新加载) , 所以您的脚本除非页面手动刷新，否则只会被执行一次。</br>
+							如果您想让每次页面跳转(加载新页面)时都执行脚本，请将脚本写入 <code>window.pjaxLoaded</code> 中</strong> ，示例写法:
+							<pre>
 window.pjaxLoaded = function(){
 	//页面每次跳转都会执行这里的代码
 	//do something...
 }
-					</pre>
-					<strong style="color:#ff0000;">当页面第一次载入时，<code>window.pjaxLoaded</code> 中的脚本不会执行，所以您可以手动执行 <code>window.pjaxLoaded();</code> 来让页面初次加载时也执行脚本</strong>
-				</div>
-				<h4>页头脚本</h4>
-				<p><textarea type="text" rows="15" cols="100" name="argon_custom_html_head"><?php echo htmlspecialchars(get_option('argon_custom_html_head')); ?></textarea>
-				</br>
-				HTML , 支持 script 等标签</br>插入到 body 之前</p>
-				<h4>页尾脚本</h4>
-				<p><textarea type="text" rows="15" cols="100" name="argon_custom_html_foot"><?php echo htmlspecialchars(get_option('argon_custom_html_foot')); ?></textarea>
-				</br>
-				HTML , 支持 script 等标签</br>插入到 body 之后</p>
-			</p>
-
-			<h2>其他</h2>
-			<h4>是否使用 v2ex CDN 代理的 gravatar</h4>
-			<p>
-				建议使用，可以大幅增加 gravatar 头像加载的速度</br>
-				<select name="argon_enable_v2ex_gravatar">
-					<?php $enable_v2ex_gravatar = get_option('argon_enable_v2ex_gravatar'); ?>
-					<option value="false" <?php if ($enable_v2ex_gravatar=='false'){echo 'selected';} ?>>不使用</option>
-					<option value="true" <?php if ($enable_v2ex_gravatar=='true'){echo 'selected';} ?>>使用</option>	
-				</select>
-			</p>
-			<h4>是否启用平滑滚动</h4>
-			<p>
-				能增强浏览体验，但可能出现一些小问题，如果有问题请切换方案或关闭平滑滚动</br>
-				<select name="argon_enable_smoothscroll_type">
-					<?php $enable_smoothscroll_type = get_option('argon_enable_smoothscroll_type'); ?>
-					<option value="1" <?php if ($enable_smoothscroll_type=='1'){echo 'selected';} ?>>使用平滑滚动方案1 (推荐)</option>
-					<option value="2" <?php if ($enable_smoothscroll_type=='2'){echo 'selected';} ?>>使用平滑滚动方案2 (较稳)</option>
-					<option value="3" <?php if ($enable_smoothscroll_type=='3'){echo 'selected';} ?>>使用平滑滚动方案3</option>
-					<option value="disabled" <?php if ($enable_smoothscroll_type=='disabled'){echo 'selected';} ?>>不使用平滑滚动</option>
-				</select>
-			</p>
-			<h4>是否修正时区错误</h4>
-			<p>
-				如遇到时区错误（例如一条刚发的评论显示 8 小时前），这个选项<strong>可能</strong>可以修复这个问题</br>
-				<select name="argon_enable_timezone_fix">
-					<?php $argon_enable_timezone_fix = get_option('argon_enable_timezone_fix'); ?>
-					<option value="false" <?php if ($argon_enable_timezone_fix=='false'){echo 'selected';} ?>>关闭</option>
-					<option value="true" <?php if ($argon_enable_timezone_fix=='true'){echo 'selected';} ?>>开启</option>	
-				</select>
-			</p>
-			<h4>是否在文章列表内容预览中隐藏短代码</h4>
-			<p>
-				<select name="argon_hide_shortcode_in_preview">
-					<?php $argon_hide_shortcode_in_preview = get_option('argon_hide_shortcode_in_preview'); ?>
-					<option value="false" <?php if ($argon_hide_shortcode_in_preview=='false'){echo 'selected';} ?>>否</option>
-					<option value="true" <?php if ($argon_hide_shortcode_in_preview=='true'){echo 'selected';} ?>>是</option>	
-				</select>
-			</p>
-			<input type="submit" name="admin_options" value="保存" class="button"/></p>
+							</pre>
+							<strong style="color:#ff0000;">当页面第一次载入时，<code>window.pjaxLoaded</code> 中的脚本不会执行，所以您可以手动执行 <code>window.pjaxLoaded();</code> 来让页面初次加载时也执行脚本</strong></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>页头脚本</label></th>
+						<td>
+							<textarea type="text" rows="15" cols="100" name="argon_custom_html_head"><?php echo htmlspecialchars(get_option('argon_custom_html_head')); ?></textarea>
+							<p class="description">HTML , 支持 script 等标签</br>插入到 body 之前</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>页尾脚本</label></th>
+						<td>
+							<textarea type="text" rows="15" cols="100" name="argon_custom_html_foot"><?php echo htmlspecialchars(get_option('argon_custom_html_foot')); ?></textarea>
+							<p class="description">HTML , 支持 script 等标签</br>插入到 body 之前</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>其他</h2></th></tr>
+					<tr>
+						<th><label>是否使用 v2ex CDN 代理的 gravatar</label></th>
+						<td>
+							<select name="argon_enable_v2ex_gravatar">
+								<?php $enable_v2ex_gravatar = get_option('argon_enable_v2ex_gravatar'); ?>
+								<option value="false" <?php if ($enable_v2ex_gravatar=='false'){echo 'selected';} ?>>不使用</option>
+								<option value="true" <?php if ($enable_v2ex_gravatar=='true'){echo 'selected';} ?>>使用</option>	
+							</select>
+							<p class="description">建议使用，可以大幅增加国内 gravatar 头像加载的速度</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>是否启用平滑滚动</label></th>
+						<td>
+							<select name="argon_enable_smoothscroll_type">
+								<?php $enable_smoothscroll_type = get_option('argon_enable_smoothscroll_type'); ?>
+								<option value="1" <?php if ($enable_smoothscroll_type=='1'){echo 'selected';} ?>>使用平滑滚动方案1 (推荐)</option>
+								<option value="2" <?php if ($enable_smoothscroll_type=='2'){echo 'selected';} ?>>使用平滑滚动方案2 (较稳)</option>
+								<option value="3" <?php if ($enable_smoothscroll_type=='3'){echo 'selected';} ?>>使用平滑滚动方案3</option>
+								<option value="disabled" <?php if ($enable_smoothscroll_type=='disabled'){echo 'selected';} ?>>不使用平滑滚动</option>
+							</select>
+							<p class="description">能增强浏览体验，但可能出现一些小问题，如果有问题请切换方案或关闭平滑滚动</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>是否修正时区错误</label></th>
+						<td>
+							<select name="argon_enable_timezone_fix">
+								<?php $argon_enable_timezone_fix = get_option('argon_enable_timezone_fix'); ?>
+								<option value="false" <?php if ($argon_enable_timezone_fix=='false'){echo 'selected';} ?>>关闭</option>
+								<option value="true" <?php if ($argon_enable_timezone_fix=='true'){echo 'selected';} ?>>开启</option>	
+							</select>
+							<p class="description">如遇到时区错误（例如一条刚发的评论显示 8 小时前），这个选项<strong>可能</strong>可以修复这个问题</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>是否在文章列表内容预览中隐藏短代码</label></th>
+						<td>
+							<select name="argon_hide_shortcode_in_preview">
+								<?php $argon_hide_shortcode_in_preview = get_option('argon_hide_shortcode_in_preview'); ?>
+								<option value="false" <?php if ($argon_hide_shortcode_in_preview=='false'){echo 'selected';} ?>>否</option>
+								<option value="true" <?php if ($argon_hide_shortcode_in_preview=='true'){echo 'selected';} ?>>是</option>	
+							</select>
+							<p class="description"></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改"></p>
 		</form>
 	</div>
 <?php
