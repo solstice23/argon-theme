@@ -9,11 +9,20 @@ function theme_slug_setup() {
 add_action('after_setup_theme','theme_slug_setup');
 //检测更新
 require_once(get_template_directory() . '/theme-update-checker/plugin-update-checker.php'); 
-$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-	'https://raw.githubusercontent.com/abc2237512422/argon-theme/master/info.json',
-	get_template_directory() . '/functions.php',
-	'argon'
-);
+if (get_option('argon_update_source') == 'abc233site'){
+	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+		'https://api.abc233.site/argon/info.json',
+		get_template_directory() . '/functions.php',
+		'argon'
+	);
+}else{
+	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+		'https://raw.githubusercontent.com/abc2237512422/argon-theme/master/info.json',
+		get_template_directory() . '/functions.php',
+		'argon'
+	);
+}
+
 //初次使用时发送安装量统计信息 (数据仅用于统计安装量)
 function post_analytics_info(){
 	if(function_exists('file_get_contents')){
@@ -1302,6 +1311,17 @@ window.pjaxLoaded = function(){
 							<p class="description"></p>
 						</td>
 					</tr>
+					<tr>
+						<th><label>检测更新源</label></th>
+						<td>
+							<select name="argon_update_source">
+								<?php $argon_update_source = get_option('argon_update_source'); ?>
+								<option value="github" <?php if ($argon_update_source=='github'){echo 'selected';} ?>>Github</option>
+								<option value="abc233site" <?php if ($argon_update_source=='abc233site'){echo 'selected';} ?>>abc233.site</option>	
+							</select>
+							<p class="description">如主机访问 Github 较慢，选择 abc233.site 源可能可以增加更新速度</p>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 			<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改"></p>
@@ -1333,6 +1353,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_donate_qrcode_url', $_POST['argon_donate_qrcode_url']);
 	update_option('argon_hide_shortcode_in_preview', $_POST['argon_hide_shortcode_in_preview']);
 	update_option('argon_show_thumbnail_in_banner_in_content_page', $_POST['argon_show_thumbnail_in_banner_in_content_page']);
+	update_option('argon_update_source', $_POST['argon_update_source']);
 	
 
 	//LazyLoad 相关
