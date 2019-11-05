@@ -1,6 +1,10 @@
 # Argon-Theme
 Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
+[![GitHub release](https://img.shields.io/github/v/release/abc2237512422/argon-theme?color=%235e72e4&style=for-the-badge)](https://github.com/abc2237512422/argon-theme/releases) [![GitHub All Releases](https://img.shields.io/github/downloads/abc2237512422/argon-theme/total?style=for-the-badge)](https://github.com/abc2237512422/argon-theme/releases) [![GitHub](https://img.shields.io/github/license/abc2237512422/argon-theme?color=blue&style=for-the-badge)](https://github.com/abc2237512422/argon-theme/blob/master/LICENSE) [![Author]( https://img.shields.io/badge/author-abc2237512422-yellow?style=for-the-badge)](https://github.com/abc2237512422) [![GitHub stars](https://img.shields.io/github/stars/abc2237512422/argon-theme?color=ff69b4&style=for-the-badge)](https://github.com/abc2237512422/argon-theme/stargazers)
+
+[![GitHub last commit](https://img.shields.io/github/last-commit/abc2237512422/argon-theme?style=flat-square)](https://github.com/abc2237512422/argon-theme/commits/master) [![GitHub Release Date](https://img.shields.io/github/release-date/abc2237512422/argon-theme?style=flat-square)](https://github.com/abc2237512422/argon-theme/releases) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/abc2237512422/argon-theme?style=flat-square) 
+
 # 特性
 
 - 使用 Argon Design System 前端框架，轻盈美观
