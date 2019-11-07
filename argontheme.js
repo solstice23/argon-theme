@@ -492,9 +492,11 @@ function pjaxLoadUrl(url , pushstate){
 						pjaxLoading = false;
 						pjaxUrlChanged = true;
 						
-						if (MathJax != undefined){
-							MathJax.typeset()
-						}
+						try{
+							if (MathJax != undefined){
+								MathJax.typeset()
+							}
+						}catch (err){}
 
 						getGithubInfoCardContent();
 						
