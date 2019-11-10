@@ -3,7 +3,7 @@ Theme Name: argon
 Author: abc2237512422
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.582
+Version: 0.59
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -456,6 +456,23 @@ article table > thead > tr > th{
 	text-overflow: ellipsis;
 	color: #32325d;
 	border-bottom: 1px solid #999;
+}
+#leftbar_announcement {
+	margin-bottom: 10px;
+	background: linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);
+}
+.leftbar-announcement-body {
+	padding: 15px 1.2em;
+	padding-bottom: 22px;
+}
+.leftbar-announcement-title {
+	font-size: 18px;
+}
+.leftbar-announcement-content {
+	font-size: 15px;
+	line-height: 1.8;
+	padding-top: 8px;
+	opacity: .9;
 }
 /*底栏*/
 #footer{
@@ -2014,6 +2031,10 @@ html.darkmode .CtxtMenu_Menu {
 	}
 	.leftbar-banner-subtitle{
 		margin-top: 10px;
+	}
+	#leftbar_announcement{
+		border-radius: 0;
+		margin-bottom: 0;
 	}
 	#primary{
 		width: 100%;

@@ -1062,6 +1062,14 @@ function themeoptions_page(){
 							<p class="description">需带上 http(s) 开头</p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h2>博客公告</h2></th></tr>
+					<tr>
+						<th><label>公告内容</label></th>
+						<td>
+							<textarea type="text" rows="5" cols="50" name="argon_sidebar_announcement"><?php echo htmlspecialchars(get_option('argon_sidebar_announcement')); ?></textarea>
+							<p class="description">显示在左侧栏顶部，留空则不显示，支持 HTML 标签</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>文章 Meta 信息</h2></th></tr>
 					<tr>
 						<th><label>显示字数和预计阅读时间</label></th>
@@ -1379,6 +1387,9 @@ if ($_POST['update_themeoptions']== 'true'){
 	//页头页尾脚本
 	update_option('argon_custom_html_head', stripslashes($_POST['argon_custom_html_head']));
 	update_option('argon_custom_html_foot', stripslashes($_POST['argon_custom_html_foot']));
+
+	//公告
+	update_option('argon_sidebar_announcement', stripslashes($_POST['argon_sidebar_announcement']));
 }
 /*主题菜单*/
 register_nav_menus( array(
