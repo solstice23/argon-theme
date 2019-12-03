@@ -1272,18 +1272,7 @@ window.pjaxLoaded = function(){
 							<p class="description">HTML , 支持 script 等标签</br>插入到 body 之前</p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>其他</h2></th></tr>
-					<tr>
-						<th><label>是否使用 v2ex CDN 代理的 gravatar</label></th>
-						<td>
-							<select name="argon_enable_v2ex_gravatar">
-								<?php $enable_v2ex_gravatar = get_option('argon_enable_v2ex_gravatar'); ?>
-								<option value="false" <?php if ($enable_v2ex_gravatar=='false'){echo 'selected';} ?>>不使用</option>
-								<option value="true" <?php if ($enable_v2ex_gravatar=='true'){echo 'selected';} ?>>使用</option>	
-							</select>
-							<p class="description">建议使用，可以大幅增加国内 gravatar 头像加载的速度</p>
-						</td>
-					</tr>
+					<tr><th class="subtitle"><h2>动画</h2></th></tr>
 					<tr>
 						<th><label>是否启用平滑滚动</label></th>
 						<td>
@@ -1295,6 +1284,29 @@ window.pjaxLoaded = function(){
 								<option value="disabled" <?php if ($enable_smoothscroll_type=='disabled'){echo 'selected';} ?>>不使用平滑滚动</option>
 							</select>
 							<p class="description">能增强浏览体验，但可能出现一些小问题，如果有问题请切换方案或关闭平滑滚动</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>是否启用进入文章动画（测试）</label></th>
+						<td>
+							<select name="argon_enable_into_article_animation">
+								<?php $argon_enable_into_article_animation = get_option('argon_enable_into_article_animation'); ?>
+								<option value="false" <?php if ($argon_enable_into_article_animation=='false'){echo 'selected';} ?>>不启用</option>
+								<option value="true" <?php if ($argon_enable_into_article_animation=='true'){echo 'selected';} ?>>启用</option>	
+							</select>
+							<p class="description">从首页或分类目录进入文章时，使用平滑过渡（性能可能较差）</p>
+						</td>
+					</tr>				
+					<tr><th class="subtitle"><h2>其他</h2></th></tr>
+					<tr>
+						<th><label>是否使用 v2ex CDN 代理的 gravatar</label></th>
+						<td>
+							<select name="argon_enable_v2ex_gravatar">
+								<?php $enable_v2ex_gravatar = get_option('argon_enable_v2ex_gravatar'); ?>
+								<option value="false" <?php if ($enable_v2ex_gravatar=='false'){echo 'selected';} ?>>不使用</option>
+								<option value="true" <?php if ($enable_v2ex_gravatar=='true'){echo 'selected';} ?>>使用</option>	
+							</select>
+							<p class="description">建议使用，可以大幅增加国内 gravatar 头像加载的速度</p>
 						</td>
 					</tr>
 					<tr>
@@ -1362,6 +1374,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_hide_shortcode_in_preview', $_POST['argon_hide_shortcode_in_preview']);
 	update_option('argon_show_thumbnail_in_banner_in_content_page', $_POST['argon_show_thumbnail_in_banner_in_content_page']);
 	update_option('argon_update_source', $_POST['argon_update_source']);
+	update_option('argon_enable_into_article_animation', $_POST['argon_enable_into_article_animation']);
 	
 
 	//LazyLoad 相关

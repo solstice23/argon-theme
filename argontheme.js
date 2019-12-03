@@ -542,6 +542,19 @@ function pjaxLoadUrl(url , pushstate){
 }
 $(document).ready(function(){
 	$(document).on("click" , "a[href]:not([no-pjax]):not(.no-pjax):not([href^='#']):not([target='_blink'])" , function(){
+		//对文章预览卡片使用过渡动画
+		if ($(this).is("#main article.post-preview a.post-title")){
+			let $card = $($(this).parents("article.post-preview")[0]);
+			$card.append("<div class='loading-css-animation'><div class='loading-dot loading-dot-1' ></div><div class='loading-dot loading-dot-2' ></div><div class='loading-dot loading-dot-3' ></div><div class='loading-dot loading-dot-4' ></div><div class='loading-dot loading-dot-5' ></div><div class='loading-dot loading-dot-6' ></div><div class='loading-dot loading-dot-7' ></div><div class='loading-dot loading-dot-8' ></div></div></div>");
+			$card.addClass("post-pjax-loading");
+			$("#main").addClass("post-list-pjax-loading");
+			let offsetTop = $($card).offset().top - $("#main").offset().top;
+			$card.css("transform" , "translateY(-" + offsetTop + "px)");
+			$("body,html").animate({
+				scrollTop: 0
+			}, 450);
+		}
+		//Pjax 加载
 		let url = this.getAttribute("href");
 		pjaxLoadUrl(url , true);
 		return false;

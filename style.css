@@ -3,7 +3,7 @@ Theme Name: argon
 Author: abc2237512422
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.590
+Version: 0.591
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -635,6 +635,20 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 	margin-bottom: 25px;
 	padding: 30px 30px;
 	padding-bottom: 35px;
+}
+.post-preview{
+	transition: all .5s ease;
+}
+.post-preview .loading-css-animation{
+	padding-top: 20px;
+	padding-bottom: 10px;
+	width: 100%;
+}
+.post-preview.post-pjax-loading{
+	opacity: 1 !important;
+}
+.post-list-pjax-loading .post-preview{
+	opacity: 0;
 }
 .post-title{
 	font-size: 26px;
@@ -1741,6 +1755,54 @@ html[class] , html[lang]{
 .shuoshuo-upvote.shuoshuo-upvoting{
 	opacity: .8;
 	pointer-events: none;
+}
+/*CSS 加载动画*/
+.loading-css-animation {
+	text-align: center;
+}
+.loading-dot {
+	display: inline-block;
+	background: #5e72e4;
+	height: 6px;
+	width: 6px;
+	opacity: 0;
+	border-radius: 50%;
+	transform: translateX(-300px);
+	animation: loading-animation 4s infinite ease;
+}
+.loading-dot-1 {
+	animation-delay: .8s
+}
+.loading-dot-2 {
+	animation-delay: .7s
+}
+.loading-dot-3 {
+	animation-delay: .6s
+}
+.loading-dot-4 {
+	animation-delay: .5s
+}
+.loading-dot-5 {
+	animation-delay: .4s
+}
+.loading-dot-6 {
+	animation-delay: .3s
+}
+.loading-dot-7 {
+	animation-delay: .2s
+}
+.loading-dot-8 {
+	animation-delay: .1s
+}
+@keyframes loading-animation {
+	40% {
+		transform:translateX(0);
+		opacity:.8
+	}
+	100% {
+		transform:translateX(300px);
+		opacity:0
+	}
 }
 
 
