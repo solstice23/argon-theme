@@ -3,7 +3,7 @@ Theme Name: argon
 Author: abc2237512422
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.591
+Version: 0.592
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -167,6 +167,9 @@ article table > thead > tr > th{
 }
 *::-webkit-selection{
 	background-color: #cce2ff;
+}
+html.use-serif p , html.use-serif span , html.use-serif div{
+	font-family: 'Noto Serif SC',serif !important;
 }
 /*页面框架*/
 #content{
@@ -613,6 +616,9 @@ article table > thead > tr > th{
 html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 	content: "日间模式";
 }
+#float_action_buttons #fab_toggle_blog_settings_popup:before{
+	content: "设置";
+}
 #float_action_buttons #fab_open_sidebar{
 	display: none;
 }
@@ -620,7 +626,147 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 	display: none;
 	opacity: 0;
 }
-
+#fab_blog_settings_popup {
+	position: fixed;
+	right: 85px;
+	bottom: 35px;
+	padding: 10px 25px;
+	opacity: 0;
+	width: max-content;
+	width: -moz-max-content;
+	min-width: 200px;
+	max-width: calc(100vh - 170px);
+	max-height: calc(100vh - 70px);
+	pointer-events: none;
+	transform: translateX(10px);
+	transition: all .3s ease;
+	animation: none !important;
+}
+#float_action_buttons.fabs-float-left #fab_blog_settings_popup {
+	left: 85px;
+	right: unset;
+	transform: translateX(-10px);
+}
+.blog_settings_opened #fab_blog_settings_popup {
+	opacity: 1 !important;
+	transform: translateX(0);
+	pointer-events: unset;
+}
+.blog_settings_opened #fab_toggle_blog_settings_popup{
+	opacity: 1 !important;
+	color: #fff !important;
+	background-color: #5e72e4 !important;
+	pointer-events: unset !important;
+}
+.blog_settings_opened .fab {
+	pointer-events: none;
+	opacity: .25;
+	overflow: hidden;
+}
+.blog_settings_opened #fab_toggle_sides{
+	opacity: 0 !important;
+}
+#close_blog_settings {
+	text-align: right;
+	font-size: 12px;
+	margin-right: -12px;
+	cursor: pointer;
+}
+.blog-setting-item{
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+}
+.blog-setting-font{
+	text-transform: none;
+	padding: 3px 10px;
+}
+.blog-setting-font:hover{
+	color: #5e72e4;
+	background-color: transparent;
+}
+#blog_setting_font_sans_serif{
+	margin-right: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	transform: none !important;
+}
+#blog_setting_font_serif{
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	margin-left: 0;
+	transform: none !important;
+	border-left: 0;
+}
+html:not(.use-serif) #blog_setting_font_sans_serif{
+	color: #fff;
+	background: #5e72e4;
+}
+html.use-serif #blog_setting_font_serif{
+	color: #fff;
+	background: #5e72e4;
+}
+.blog-setting-filter-btn {
+	border-radius: 50%;
+	outline: none !important;
+	border: none;
+	height: 50px;
+	width: 50px;
+	margin-left: 5px;
+	cursor: pointer;
+	font-size: 14px;
+	transition: all .3s ease;
+}
+.blog-setting-filter-btn:hover{
+	box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+}
+#blog_setting_filter_off{
+	background: rgba(94, 114, 228, .05);
+	color: #5e72e4;
+}
+#blog_setting_filter_sunset{
+	background: rgba(255, 255, 200, 1);
+	color: #6e5a00;
+}
+#blog_setting_filter_darkness{
+	background: rgba(80, 80, 80, .7);
+	color: #eee;
+}
+#blog_setting_filter_grayscale{
+	background: rgba(200, 200, 200, .8);
+	color: #333;
+}
+#blog_setting_filter_off.active{
+	border: 1px solid #5e72e4;
+}
+#blog_setting_filter_sunset.active{
+	border: 1px solid #6e5a00;
+}
+#blog_setting_filter_darkness.active{
+	border: 1px solid #111;
+}
+#blog_setting_filter_grayscale.active{
+	border: 1px solid #333;
+}
+html.filter-sunset{
+	filter: sepia(30%);
+}
+html.filter-darkness body:after{
+	content: '';
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	height: 100vh;
+	width: 100vw;
+	background: rgba(0, 0, 0, .4);
+	z-index: 999999999;
+	pointer-events: none;
+}
+html.filter-grayscale{
+	filter: grayscale(1);
+}
 /*页码*/
 .pagination{
 	width: max-content;
@@ -2104,9 +2250,15 @@ html.darkmode .CtxtMenu_Menu {
 	#main{
 		padding: 5px;
 	}
+}
+@media screen and (max-width:1000px){
 	.navbar-main{
 		padding-left: 10px;
 		padding-right: 10px;
+	}
+	.navbar-main .container{
+		margin: 0;
+		max-width: 100vw;
 	}
 	.navbar-toggler-icon{
 		width: 20px;
@@ -2116,8 +2268,6 @@ html.darkmode .CtxtMenu_Menu {
 		outline: none !important;
 	}
 }
-
-
 @media screen and (max-width:900px){
 	/*TimeLine*/
 	.argon-timeline {

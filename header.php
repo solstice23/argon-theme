@@ -20,6 +20,7 @@
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/headroom/headroom.min.js"></script>
 	<link href="<?php bloginfo('template_url'); ?>/assets/vendor/izitoast/css/iziToast.css" rel="stylesheet">
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/izitoast/js/iziToast.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300&display=swap" rel="stylesheet">
 
 	<?php if (get_option('argon_enable_smoothscroll_type') == '2') { /*平滑滚动*/?>
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll2.js"></script>
@@ -182,7 +183,7 @@
 	<?php if (get_option('argon_banner_background_url') != '') { ?>
 		<style>
 			section.banner{
-				background-image: url(<?php echo get_banner_background_url();; ?>) !important;
+				background-image: url(<?php echo get_banner_background_url(); ?>) !important;
 			}
 		</style>
 	<?php } ?>
@@ -196,9 +197,37 @@
 	<button id="fab_back_to_top" class="btn btn-icon btn-neutral fab shadow-sm" type="button">
 		<span class="btn-inner--icon"><i class="fa fa-angle-up"></i></span>
 	</button>
-	<button id="fab_toggle_darkmode" class="btn btn-icon btn-neutral fab shadow-sm" type="button">
+	<button id="fab_toggle_darkmode" class="btn btn-icon btn-neutral fab shadow-sm" type="button" <?php if (get_option('argon_fab_show_darkmode_button') != 'true') echo " style='display: none;'";?>>
 		<span class="btn-inner--icon"><i class="fa fa-moon-o"></i></span>
 	</button>
+	<button id="fab_toggle_blog_settings_popup" class="btn btn-icon btn-neutral fab shadow-sm" type="button">
+		<span class="btn-inner--icon"><i class="fa fa-cog"></i></span>
+	</button>
+	<div id="fab_blog_settings_popup" class="card shadow-sm" style="opacity: 0;">
+		<div id="close_blog_settings"><i class="fa fa-close"></i></div>
+		<div class="blog-setting-item mt-3">
+			<div style="flex: 1;transform: translateY(-4px);">夜间模式</div>
+			<label class="custom-toggle">
+				<input id="blog_setting_darkmode_switch" type="checkbox">
+				<span class="custom-toggle-slider rounded-circle"></span>
+			</label>
+		</div>
+		<div class="blog-setting-item mt-3">
+			<div style="flex: 1;">字体</div>
+			<div style="display: inline-block;padding-left: 20px;">
+				<button id="blog_setting_font_sans_serif" type="button" class="blog-setting-font btn btn-outline-primary">Sans Serif</button><button id="blog_setting_font_serif" type="button" class="blog-setting-font btn btn-outline-primary">Serif</button>
+			</div>
+		</div>
+		<div class="blog-setting-item mt-4 mb-3">
+			<div style="flex: 1;">滤镜</div>
+			<div id="blog_setting_filters" class="ml-3">
+				<button id="blog_setting_filter_off" type="button" class="blog-setting-filter-btn ml-0" filter-name="off">关闭</button>
+				<button id="blog_setting_filter_sunset" type="button" class="blog-setting-filter-btn" filter-name="sunset">日落</button>
+				<button id="blog_setting_filter_darkness" type="button" class="blog-setting-filter-btn" filter-name="darkness">暗化</button>
+				<button id="blog_setting_filter_grayscale" type="button" class="blog-setting-filter-btn" filter-name="grayscale">灰度</button>
+			</div>
+		</div>
+	</div>
 	<button id="fab_open_sidebar" class="btn btn-icon btn-neutral fab shadow-sm" type="button">
 		<span class="btn-inner--icon"><i class="fa fa-bars"></i></span>
 	</button>

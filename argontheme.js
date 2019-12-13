@@ -67,6 +67,7 @@
 	let $backToTopBtn = $('#fab_back_to_top');
 	let $toggleSidesBtn = $('#fab_toggle_sides');
 	let $toggleDarkmode = $('#fab_toggle_darkmode');
+	let $toggleBlogSettings = $('#fab_toggle_blog_settings_popup');
 
 	let $readingProgressBar = $('#fab_reading_progress_bar');
 	let $readingProgressDetails = $('#fab_reading_progress_details');
@@ -88,9 +89,11 @@
 		$("html").toggleClass("darkmode");
 		if ($("html").hasClass("darkmode")){
 			$('#fab_toggle_darkmode .btn-inner--icon').html("<i class='fa fa-lightbulb-o'></i>");
+			$("#blog_setting_darkmode_switch")[0].checked = true;
 			localStorage['Argon_Enable_Dark_Mode'] = "true";
 		}else{
 			$('#fab_toggle_darkmode .btn-inner--icon').html("<i class='fa fa-moon-o'></i>");
+			$("#blog_setting_darkmode_switch")[0].checked = false;
 			localStorage['Argon_Enable_Dark_Mode'] = "false";
 		}
 		$(window).trigger("scroll");
@@ -117,6 +120,50 @@
 			$fabs.removeClass("fabs-unloaded");
 		} , 300);
 	});
+	//博客设置
+	$toggleBlogSettings.on("click" , function(){
+		$("#float_action_buttons").toggleClass("blog_settings_opened");
+	});
+	$("#close_blog_settings").on("click" , function(){
+		$("#float_action_buttons").removeClass("blog_settings_opened");
+	});
+	$("#blog_setting_darkmode_switch").on("input" , function(){
+		toggleDarkmode();
+	});
+
+	$("#blog_setting_font_sans_serif").on("click" , function(){
+		$("html").removeClass("use-serif");
+		localStorage['Argon_Use_Serif'] = "false";
+	});
+	$("#blog_setting_font_serif").on("click" , function(){
+		$("html").addClass("use-serif");
+		localStorage['Argon_Use_Serif'] = "true";
+	});
+	if (localStorage['Argon_Use_Serif'] == "true"){
+		$("html").addClass("use-serif");
+	}else{
+		$("html").removeClass("use-serif");
+	}
+	//滤镜
+	function setBlogFilter(name){
+		if (name == undefined || name == ""){
+			name = "off";
+		}
+		if (!$("html").hasClass("filter-" + name)){
+			$("html").removeClass("filter-sunset filter-darkness filter-grayscale");
+			if (name != "off"){
+				$("html").addClass("filter-" + name);
+			}
+		}
+		$("#blog_setting_filters .blog-setting-filter-btn").removeClass("active");
+		$("#blog_setting_filters .blog-setting-filter-btn[filter-name='" + name + "']").addClass("active");
+		localStorage['Argon_Filter'] = name;
+	}
+	setBlogFilter(localStorage['Argon_Filter']);
+	$(".blog-setting-filter-btn").on("click" , function(){
+		setBlogFilter(this.getAttribute("filter-name"));
+	});
+
 	function changeFabDisplayStatus(){
 		//阅读进度
 		let readingProgress = $(window).scrollTop() / ($(document).height() - $(window).height());

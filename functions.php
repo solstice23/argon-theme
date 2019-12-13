@@ -1070,6 +1070,18 @@ function themeoptions_page(){
 							<p class="description">显示在左侧栏顶部，留空则不显示，支持 HTML 标签</p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h2>浮动操作按钮</h2></th></tr>
+					<tr>
+						<th><label>显示夜间模式切换按钮</label></th>
+						<td>	
+							<select name="argon_fab_show_darkmode_button">
+							<?php $argon_fab_show_darkmode_button = get_option('argon_fab_show_darkmode_button'); ?>
+								<option value="false" <?php if ($argon_fab_show_darkmode_button=='false'){echo 'selected';} ?>>不显示</option>
+								<option value="true" <?php if ($argon_fab_show_darkmode_button=='true'){echo 'selected';} ?>>显示</option>	
+							</select>
+							<p class="description">浮动操作按钮位于页面右下角（或左下角）</br><strong>夜间模式选项在设置按钮中已经存在</strong>，此选项可以控制其是否在浮动操作按钮栏中直接显示</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>文章 Meta 信息</h2></th></tr>
 					<tr>
 						<th><label>显示字数和预计阅读时间</label></th>
@@ -1294,7 +1306,7 @@ window.pjaxLoaded = function(){
 								<option value="false" <?php if ($argon_enable_into_article_animation=='false'){echo 'selected';} ?>>不启用</option>
 								<option value="true" <?php if ($argon_enable_into_article_animation=='true'){echo 'selected';} ?>>启用</option>	
 							</select>
-							<p class="description">从首页或分类目录进入文章时，使用平滑过渡（性能可能较差）</p>
+							<p class="description">从首页或分类目录进入文章时，使用平滑过渡（可能影响加载文章时的性能）</p>
 						</td>
 					</tr>				
 					<tr><th class="subtitle"><h2>其他</h2></th></tr>
@@ -1375,7 +1387,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_show_thumbnail_in_banner_in_content_page', $_POST['argon_show_thumbnail_in_banner_in_content_page']);
 	update_option('argon_update_source', $_POST['argon_update_source']);
 	update_option('argon_enable_into_article_animation', $_POST['argon_enable_into_article_animation']);
-	
+	update_option('argon_fab_show_darkmode_button', $_POST['argon_fab_show_darkmode_button']);
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);
