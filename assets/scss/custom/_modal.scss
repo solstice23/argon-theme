@@ -4,7 +4,10 @@
         border-radius: $modal-content-border-radius;
     } @else {
         border-radius: 0;
-    }  
+    }
+    .modal-header .close{
+      margin: -1.25rem -1.25rem -1.25rem auto;
+    }
 }
 
 
@@ -23,4 +26,3 @@
         @include modal-variant($value);
     }
 }
-

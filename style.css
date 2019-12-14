@@ -3,7 +3,7 @@ Theme Name: argon
 Author: abc2237512422
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.592
+Version: 0.593
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -170,6 +170,9 @@ article table > thead > tr > th{
 }
 html.use-serif p , html.use-serif span , html.use-serif div{
 	font-family: 'Noto Serif SC',serif !important;
+}
+html.use-big-shadow *.shadow-sm{
+	box-shadow: 0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba(0,0,0,.07)!important;
 }
 /*页面框架*/
 #content{
@@ -580,6 +583,8 @@ html.use-serif p , html.use-serif span , html.use-serif div{
 	transition: all .3s ease;
 	transform: translateX(5px);
 	opacity: 0;
+	width: max-content;
+	width: -moz-max-content;
 }
 #float_action_buttons .fab.fab-hidden:before{
 	opacity: 0 !important;
@@ -649,7 +654,7 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 }
 .blog_settings_opened #fab_blog_settings_popup {
 	opacity: 1 !important;
-	transform: translateX(0);
+	transform: none !important;
 	pointer-events: unset;
 }
 .blog_settings_opened #fab_toggle_blog_settings_popup{
@@ -677,21 +682,21 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 	flex-flow: row;
 	align-items: center;
 }
-.blog-setting-font{
+.blog-setting-font , .blog-setting-shadow{
 	text-transform: none;
 	padding: 3px 10px;
 }
-.blog-setting-font:hover{
+.blog-setting-font:hover , .blog-setting-shadow:hover{
 	color: #5e72e4;
 	background-color: transparent;
 }
-#blog_setting_font_sans_serif{
+#blog_setting_font_sans_serif , #blog_setting_shadow_small{
 	margin-right: 0;
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 	transform: none !important;
 }
-#blog_setting_font_serif{
+#blog_setting_font_serif , #blog_setting_shadow_big{
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 	margin-left: 0;
@@ -703,6 +708,14 @@ html:not(.use-serif) #blog_setting_font_sans_serif{
 	background: #5e72e4;
 }
 html.use-serif #blog_setting_font_serif{
+	color: #fff;
+	background: #5e72e4;
+}
+html:not(.use-big-shadow) #blog_setting_shadow_small{
+	color: #fff;
+	background: #5e72e4;
+}
+html.use-big-shadow #blog_setting_shadow_big{
 	color: #fff;
 	background: #5e72e4;
 }
@@ -860,7 +873,7 @@ html.filter-grayscale{
 	background: linear-gradient(to top, rgba(0,0,0,.3) 20%, rgba(0,0,0,0));
 }
 .post-header.post-header-with-thumbnail .post-header-text-container a {
-    color: #8f95ff !important;
+	color: #8f95ff !important;
 }
 .post-content{
 	line-height: 1.8;
@@ -1175,6 +1188,8 @@ html.filter-grayscale{
 	transition: all .3s ease;
 	transform: translateY(5px);
 	opacity: 0;
+	width: max-content;
+	width: -moz-max-content;
 }
 .post-comment-link-container:hover:before , .post-comment-link-container.active:before , 
 .post-comment-captcha-container:hover:before , .post-comment-captcha-container.active:before , 
@@ -1500,8 +1515,8 @@ html.filter-grayscale{
 	font-size: 18px !important;
 }
 .iziToast > .iziToast-body i.fa-spin:before {
-    animation: fa-spin 2s infinite linear;
-    display: inline-block;
+	animation: fa-spin 2s infinite linear;
+	display: inline-block;
 }
 /*Mathjax 相关*/
 .MathJax {
@@ -1873,10 +1888,10 @@ html[class] , html[lang]{
 	margin-left: 3px;
 }
 .shuoshuo-operations button.upvoted{
-    color: #fff;
-    border-color: #5e72e4;
-    background-color: #5e72e4;
-    pointer-events: none;
+	color: #fff;
+	border-color: #5e72e4;
+	background-color: #5e72e4;
+	pointer-events: none;
 }
 @keyframes shuoshuo-upvoted-animation{
 	0%{
@@ -2149,7 +2164,7 @@ html.darkmode .post-donate .donate-qrcode:before{
 }
 
 html.darkmode .shuoshuo-meta{
-    background: #424242;
+	background: #424242;
 }
 
 
@@ -2274,7 +2289,26 @@ html.darkmode .CtxtMenu_Menu {
 		margin-left: 75px;
 	}
 }
-
+@media screen and (max-width:450px){
+	/*Fab 设置菜单*/
+	#fab_blog_settings_popup {
+		position: fixed;
+		left: 0 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		z-index: 1005;
+		width: 100vw;
+		padding: 10px 25px;
+		opacity: 0;
+		pointer-events: none;
+		transform: translateY(15px);
+		transition: all .3s ease;
+		animation: none !important;
+	}
+	#close_blog_settings {
+		margin-right: -10px;
+	}
+}
 @media screen and (max-width:690px){
 	/*文章分享的浮动二维码*/
 	#share .icon-wechat .wechat-qrcode{

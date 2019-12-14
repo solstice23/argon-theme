@@ -22,7 +22,7 @@
 }
 
 .icon-xl + .icon-text {
-	width: calc(100% - $icon-size-xl - 1);
+	width: calc(100% - #{$icon-size-xl} - 1);
 }
 
 .icon-lg {
@@ -35,7 +35,7 @@
 }
 
 .icon-lg + .icon-text {
-	width: calc(100% - $icon-size-lg - 1);
+	width: calc(100% - #{$icon-size-lg} - 1);
 }
 
 .icon-sm {
@@ -48,7 +48,7 @@
 }
 
 .icon-sm + .icon-text {
-	width: calc(100% - $icon-size-sm - 1);
+	width: calc(100% - #{$icon-size-sm} - 1);
 }
 
 
@@ -60,7 +60,7 @@
 	align-items: center;
 	justify-content: center;
 	border-radius: 50%;
-	
+
 
 	i, svg {
 		font-size: 1.25rem;
@@ -69,13 +69,13 @@
 	&.icon-lg {
 		i, svg {
 			font-size: 1.625rem;
-		}	
+		}
 	}
 
 	&.icon-sm {
 		i, svg {
 			font-size: .875rem;
-		}	
+		}
 	}
 
 	svg {
@@ -89,4 +89,4 @@
 	.icon-shape-#{$color} {
 		@include icon-shape-variant(theme-color($color));
 	}
-} 
+}

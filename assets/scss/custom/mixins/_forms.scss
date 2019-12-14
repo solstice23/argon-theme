@@ -1,4 +1,4 @@
-@mixin form-control-focus() {  
+@mixin form-control-focus() {
   &:focus {
     color: $input-focus-color;
     background-color: $input-focus-bg;
@@ -14,7 +14,7 @@
 }
 
 
-@mixin form-validation-state($state, $color) {
+@mixin form-validation-state($state, $color, $icon) {
   .#{$state}-feedback {
     display: none;
     width: 100%;
@@ -125,4 +125,3 @@
     }
   }
 }
-

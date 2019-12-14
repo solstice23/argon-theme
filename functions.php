@@ -1071,6 +1071,18 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>浮动操作按钮</h2></th></tr>
+					<p class="description">浮动操作按钮位于页面右下角（或左下角）</p>
+					<tr>
+						<th><label>显示设置按钮</label></th>
+						<td>	
+							<select name="argon_fab_show_settings_button">
+							<?php $argon_fab_show_settings_button = get_option('argon_fab_show_settings_button'); ?>
+								<option value="true" <?php if ($argon_fab_show_settings_button=='true'){echo 'selected';} ?>>显示</option>
+								<option value="false" <?php if ($argon_fab_show_settings_button=='false'){echo 'selected';} ?>>不显示</option>	
+							</select>
+							<p class="description">是否在浮动操作按钮栏中显示设置按钮。点击设置按钮可以唤出设置菜单修改夜间模式/字体/滤镜等外观选项。</p>
+						</td>
+					</tr>
 					<tr>
 						<th><label>显示夜间模式切换按钮</label></th>
 						<td>	
@@ -1079,7 +1091,7 @@ function themeoptions_page(){
 								<option value="false" <?php if ($argon_fab_show_darkmode_button=='false'){echo 'selected';} ?>>不显示</option>
 								<option value="true" <?php if ($argon_fab_show_darkmode_button=='true'){echo 'selected';} ?>>显示</option>	
 							</select>
-							<p class="description">浮动操作按钮位于页面右下角（或左下角）</br><strong>夜间模式选项在设置按钮中已经存在</strong>，此选项可以控制其是否在浮动操作按钮栏中直接显示</p>
+							<p class="description">如果开启了设置按钮显示，建议关闭此选项。（夜间模式选项在设置菜单中已经存在）</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>文章 Meta 信息</h2></th></tr>
@@ -1388,6 +1400,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_update_source', $_POST['argon_update_source']);
 	update_option('argon_enable_into_article_animation', $_POST['argon_enable_into_article_animation']);
 	update_option('argon_fab_show_darkmode_button', $_POST['argon_fab_show_darkmode_button']);
+	update_option('argon_fab_show_settings_button', $_POST['argon_fab_show_settings_button']);
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);

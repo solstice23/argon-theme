@@ -200,7 +200,7 @@
 	<button id="fab_toggle_darkmode" class="btn btn-icon btn-neutral fab shadow-sm" type="button" <?php if (get_option('argon_fab_show_darkmode_button') != 'true') echo " style='display: none;'";?>>
 		<span class="btn-inner--icon"><i class="fa fa-moon-o"></i></span>
 	</button>
-	<button id="fab_toggle_blog_settings_popup" class="btn btn-icon btn-neutral fab shadow-sm" type="button">
+	<button id="fab_toggle_blog_settings_popup" class="btn btn-icon btn-neutral fab shadow-sm" type="button" <?php if (get_option('argon_fab_show_settings_button') == 'false') echo " style='display: none;'";?>>
 		<span class="btn-inner--icon"><i class="fa fa-cog"></i></span>
 	</button>
 	<div id="fab_blog_settings_popup" class="card shadow-sm" style="opacity: 0;">
@@ -214,11 +214,17 @@
 		</div>
 		<div class="blog-setting-item mt-3">
 			<div style="flex: 1;">字体</div>
-			<div style="display: inline-block;padding-left: 20px;">
+			<div>
 				<button id="blog_setting_font_sans_serif" type="button" class="blog-setting-font btn btn-outline-primary">Sans Serif</button><button id="blog_setting_font_serif" type="button" class="blog-setting-font btn btn-outline-primary">Serif</button>
 			</div>
 		</div>
-		<div class="blog-setting-item mt-4 mb-3">
+		<div class="blog-setting-item mt-3">
+			<div style="flex: 1;">阴影</div>
+			<div>
+				<button id="blog_setting_shadow_small" type="button" class="blog-setting-shadow btn btn-outline-primary">浅阴影</button><button id="blog_setting_shadow_big" type="button" class="blog-setting-shadow btn btn-outline-primary">深阴影</button>
+			</div>
+		</div>
+		<div class="blog-setting-item mt-3 mb-3">
 			<div style="flex: 1;">滤镜</div>
 			<div id="blog_setting_filters" class="ml-3">
 				<button id="blog_setting_filter_off" type="button" class="blog-setting-filter-btn ml-0" filter-name="off">关闭</button>

@@ -127,10 +127,10 @@
 	$("#close_blog_settings").on("click" , function(){
 		$("#float_action_buttons").removeClass("blog_settings_opened");
 	});
-	$("#blog_setting_darkmode_switch").on("input" , function(){
+	$("#blog_setting_darkmode_switch").on("change" , function(){
 		toggleDarkmode();
 	});
-
+	//字体
 	$("#blog_setting_font_sans_serif").on("click" , function(){
 		$("html").removeClass("use-serif");
 		localStorage['Argon_Use_Serif'] = "false";
@@ -143,6 +143,20 @@
 		$("html").addClass("use-serif");
 	}else{
 		$("html").removeClass("use-serif");
+	}
+	//阴影
+	$("#blog_setting_shadow_small").on("click" , function(){
+		$("html").removeClass("use-big-shadow");
+		localStorage['Argon_Use_Big_Shadow'] = "false";
+	});
+	$("#blog_setting_shadow_big").on("click" , function(){
+		$("html").addClass("use-big-shadow");
+		localStorage['Argon_Use_Big_Shadow'] = "true";
+	});
+	if (localStorage['Argon_Use_Big_Shadow'] == "true"){
+		$("html").addClass("use-big-shadow");
+	}else{
+		$("html").removeClass("use-big-shadow");
 	}
 	//滤镜
 	function setBlogFilter(name){

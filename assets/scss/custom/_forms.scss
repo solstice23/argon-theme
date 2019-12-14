@@ -6,7 +6,7 @@ label {
 
 .form-control {
     font-size: $input-btn-font-size;
-    
+    height: calc(2.75rem + 2px);
     &:focus {
         &::placeholder {
             color: $input-focus-placeholder-color;
@@ -57,7 +57,7 @@ textarea[resize="horizontal"] {
     }
 }
 
-// Sizes 
+// Sizes
 
 .form-control-lg {
     font-size: $font-size-base;

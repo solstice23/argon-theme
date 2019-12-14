@@ -14,7 +14,6 @@
 
 				<?php if (get_option('argon_sidebar_banner_subtitle') != '') { /*左侧栏子标题/格言(如果选项中开启)*/?>
 					<span class="leftbar-banner-subtitle text-white"><?php echo get_option('argon_sidebar_banner_subtitle'); ?></span>
-				</a>
 				<?php } /*顶栏标题*/?>
 
 			</div>
@@ -48,7 +47,7 @@
 				echo "</ul>";
 			?>
 			<div class="card-body text-center leftbar-search-button">
-				<button class="btn btn-secondary btn-lg active btn-sm btn-block" role="button" aria-pressed="true" data-toggle="modal" data-target="#argon_search_modal"><i class="menu-item-icon fa fa-search"></i> 搜索</button>
+				<button class="btn btn-secondary btn-lg active btn-sm btn-block border-0" role="button" aria-pressed="true" data-toggle="modal" data-target="#argon_search_modal"><i class="menu-item-icon fa fa-search"></i> 搜索</button>
 			</div>
 		</div>
 		<div id="leftbar_part2" class="widget widget_search card bg-white shadow-sm border-0">

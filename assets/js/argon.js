@@ -1,11 +1,11 @@
 /*!
 
 =========================================================
-* Argon Design System - v1.0.1
+* Argon Design System - v1.1.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/argon-design-system
-* Copyright 2018 Creative Tim (https://www.creative-tim.com)
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
 * Licensed under MIT (https://github.com/creativetimofficial/argon-design-system/blob/master/LICENSE.md)
 
 * Coded by www.creative-tim.com
@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
- 
+
 "use strict";
 $(document).ready(function() {
 
@@ -52,7 +52,7 @@ $(document).ready(function() {
         });
         headroom.init();
     }
-    
+
     // Datepicker
     $('.datepicker')[0] && $('.datepicker').each(function() {
         $('.datepicker').datepicker({
@@ -75,12 +75,12 @@ $(document).ready(function() {
             template: '<div class="popover '+ popoverClass +'" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
         })
     });
-    
+
     // Additional .focus class on form-groups
     $('.form-control').on('focus blur', function(e) {
         $(this).parents('.form-group').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
-    }).trigger('blur');    
-    
+    }).trigger('blur');
+
     // NoUI Slider
     if ($(".input-slider-container")[0]) {
         $('.input-slider-container').each(function() {
@@ -160,4 +160,4 @@ $(document).ready(function() {
 
         event.preventDefault();
     });
- });   
+ });

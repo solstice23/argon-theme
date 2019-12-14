@@ -19,7 +19,7 @@
 .separator-top {
     top: 0;
     bottom: auto;
-    
+
     svg {
         top: 0;
     }
@@ -42,4 +42,10 @@
 
 .separator-skew {
     height: 60px;
+}
+
+@media (max-width: 992px){
+  .separator-skew {
+    z-index: 0;
+  }
 }

@@ -5,6 +5,8 @@
     @include transition($transition-base);
 }
 .headroom--pinned {
+  width: 100%;
+  z-index: 3;
 	@extend .position-fixed;
     transform: translateY(0%);
 }
