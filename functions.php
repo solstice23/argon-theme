@@ -942,6 +942,7 @@ function themeoptions_page(){
 	/*具体选项*/
 ?>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/jquery/jquery.min.js"></script>
+	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/headindex/headindex.js"></script>
 	<div>
 		<style type="text/css">
 			h2{
@@ -955,7 +956,7 @@ function themeoptions_page(){
 			}
 		</style>
 		<h1>Argon 主题设置</h1>
-		<form method="POST" action="">
+		<form method="POST" action="" id="main_form">
 			<input type="hidden" name="update_themeoptions" value="true" />
 			<table class="form-table">
 				<tbody>
@@ -1060,6 +1061,18 @@ function themeoptions_page(){
 						<td>
 							<input type="text" class="regular-text" name="argon_sidebar_auther_image" value="<?php echo get_option('argon_sidebar_auther_image'); ?>"/>
 							<p class="description">需带上 http(s) 开头</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>左侧栏文章目录</h2></th></tr>
+					<tr>
+						<th><label>在目录中显示序号</label></th>
+						<td>
+							<select name="argon_show_headindex_number">
+								<?php $argon_show_headindex_number = get_option('argon_show_headindex_number'); ?>
+								<option value="false" <?php if ($argon_show_headindex_number=='false'){echo 'selected';} ?>>不显示</option>
+								<option value="true" <?php if ($argon_show_headindex_number=='true'){echo 'selected';} ?>>显示</option>	
+							</select>
+							<p class="description">例：3.2.5</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>博客公告</h2></th></tr>
@@ -1371,6 +1384,88 @@ window.pjaxLoaded = function(){
 			<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改"></p>
 		</form>
 	</div>
+	<div id="headindex_box">
+		<button id="headindex_toggler" onclick="$('#headindex_box').toggleClass('folded');">收起</button>
+		<div id="headindex"></div>
+	</div>
+	<script type="text/javascript">
+		$(function () {
+			$(document).headIndex({
+				articleWrapSelector: '#main_form',
+				indexBoxSelector: '#headindex',
+				subItemBoxClass: "index-subItem-box",
+				itemClass: "index-item",
+				linkClass: "index-link",
+				offset: 80,
+			});
+		})
+	</script>
+	<style>
+		#headindex_box {
+			position: fixed;
+			right: 10px;
+			top: 50px;
+			max-width: 180px;
+			max-height: calc(100vh - 100px);
+			opacity: .8;
+			transition: all .3s ease;
+			background: #fff;
+			box-shadow: 0 1px 1px rgba(0,0,0,.04);
+			padding: 6px 30px 6px 20px;
+			overflow-y: auto;
+		}
+		.index-subItem-box {
+			margin-left: 20px;
+			margin-top: 10px;
+		}
+		.index-link {
+			color: #23282d;
+			text-decoration: unset;
+			transition: all .3s ease;
+			box-shadow: none !important;
+		}
+		.index-item {
+			padding: 1px 0;
+		}
+		.index-item.current > a {
+			color: #0073aa;
+			font-weight: 600;
+			box-shadow: none !important;
+		}
+		#headindex_toggler{
+			position: absolute;
+			right: 5px;
+			top: 5px;
+			color: #555;
+			background: #f7f7f7;
+			box-shadow: 0 1px 0 #ccc;
+			outline: none !important;
+			border: 1px solid #ccc;
+			border-radius: 2px;
+			cursor: pointer;
+			width: 40px;
+			height: 25px;
+			font-size: 12px;
+		}
+		#headindex_box.folded {
+			right: -185px;
+		}
+		#headindex_box.folded #headindex_toggler{
+			position: fixed;
+			right: 15px;
+			top: 55px;
+			font-size: 0px;
+		}
+		#headindex_box.folded #headindex_toggler:before{
+			content: '展开';
+			font-size: 12px;
+		}
+		@media screen and (max-width:960px){
+			#headindex_box {
+				display: none;
+			}
+		}
+	</style>
 <?php
 }
 add_action('admin_menu', 'themeoptions_admin_menu');
@@ -1401,6 +1496,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_enable_into_article_animation', $_POST['argon_enable_into_article_animation']);
 	update_option('argon_fab_show_darkmode_button', $_POST['argon_fab_show_darkmode_button']);
 	update_option('argon_fab_show_settings_button', $_POST['argon_fab_show_settings_button']);
+	update_option('argon_show_headindex_number', $_POST['argon_show_headindex_number']);
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);

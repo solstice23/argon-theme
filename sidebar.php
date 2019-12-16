@@ -82,7 +82,7 @@
 								<div id="leftbar_catalog"></div>
 								<script type="text/javascript">
 									$(function () {
-									    $(document).headIndex({
+										$(document).headIndex({
 											articleWrapSelector: '#post_content',
 											indexBoxSelector: '#leftbar_catalog',
 											subItemBoxClass: "index-subItem-box",
@@ -92,6 +92,17 @@
 										});
 									})
 								</script>
+								<?php if (get_option('argon_show_headindex_number') == 'true') {?>
+									<style>
+										#leftbar_catalog ul {
+											counter-reset: blog_catalog_number;
+										}
+										#leftbar_catalog li.index-item > a:before {
+											content: counters(blog_catalog_number, '.') " ";
+											counter-increment: blog_catalog_number;
+										}
+									</style>
+								<?php }?>
 							</div>
 						<?php } ?>
 						<div class="tab-pane fade text-center<?php if ($nowActiveTab == 1) { echo ' active show'; }?>" id="leftbar_tab_overview" role="tabpanel" aria-labelledby="leftbar_tab_overview_btn">
