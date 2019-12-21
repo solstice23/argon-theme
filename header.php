@@ -26,6 +26,8 @@
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll2.js"></script>
 	<?php }else if (get_option('argon_enable_smoothscroll_type') == '3'){?>
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll3.min.js"></script>
+	<?php }else if (get_option('argon_enable_smoothscroll_type') == '1_pulse'){?>
+		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll1_pulse.js"></script>
 	<?php }else if (get_option('argon_enable_smoothscroll_type') != 'disabled'){?>
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll1.js"></script>
 	<?php }?>

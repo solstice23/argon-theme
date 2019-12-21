@@ -1315,9 +1315,10 @@ window.pjaxLoaded = function(){
 						<td>
 							<select name="argon_enable_smoothscroll_type">
 								<?php $enable_smoothscroll_type = get_option('argon_enable_smoothscroll_type'); ?>
-								<option value="1" <?php if ($enable_smoothscroll_type=='1'){echo 'selected';} ?>>使用平滑滚动方案1 (推荐)</option>
-								<option value="2" <?php if ($enable_smoothscroll_type=='2'){echo 'selected';} ?>>使用平滑滚动方案2 (较稳)</option>
-								<option value="3" <?php if ($enable_smoothscroll_type=='3'){echo 'selected';} ?>>使用平滑滚动方案3</option>
+								<option value="1" <?php if ($enable_smoothscroll_type=='1'){echo 'selected';} ?>>使用平滑滚动方案 1 (平滑) (推荐)</option>
+								<option value="1_pulse" <?php if ($enable_smoothscroll_type=='1_pulse'){echo 'selected';} ?>>使用平滑滚动方案 1 (脉冲式滚动) (仿 Edge) (推荐)</option>
+								<option value="2" <?php if ($enable_smoothscroll_type=='2'){echo 'selected';} ?>>使用平滑滚动方案 2 (较稳)</option>
+								<option value="3" <?php if ($enable_smoothscroll_type=='3'){echo 'selected';} ?>>使用平滑滚动方案 3</option>
 								<option value="disabled" <?php if ($enable_smoothscroll_type=='disabled'){echo 'selected';} ?>>不使用平滑滚动</option>
 							</select>
 							<p class="description">能增强浏览体验，但可能出现一些小问题，如果有问题请切换方案或关闭平滑滚动</p>
