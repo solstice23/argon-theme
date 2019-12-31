@@ -1084,7 +1084,7 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>浮动操作按钮</h2></th></tr>
-					<p class="description">浮动操作按钮位于页面右下角（或左下角）</p>
+					<tr><th class="subtitle"><p class="description">浮动操作按钮位于页面右下角（或左下角）</p></th></tr>
 					<tr>
 						<th><label>显示设置按钮</label></th>
 						<td>	
