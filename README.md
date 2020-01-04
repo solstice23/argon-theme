@@ -38,6 +38,12 @@ Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
 [abc233.site](https://abc233.site)
 
+# 注意
+
+Argon 使用 [GPL V3.0](https://github.com/abc2237512422/argon-theme/blob/master/LICENSE) 协议开源，请遵守此协议进行二次开发等。
+
+您`必须`在页脚保留 Argon 主题的名称及其链接，否则请不要使用 Argon 主题。
+
 
 # 截图
 
@@ -50,6 +56,9 @@ Argon - 一个轻盈、简洁、美观的 WordPress 主题
 ![截图4](https://abc233.site/argon-theme-docs/img/screenshot4.png)
 
 # 更新日志
+
+## 20200104
++ 更改协议为 GPL V3.0
 
 ## 20191231 v0.596
 + 修复设置界面的小问题
