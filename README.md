@@ -44,6 +44,8 @@ Argon 使用 [GPL V3.0](https://github.com/abc2237512422/argon-theme/blob/master
 
 您**必须在页脚保留 Argon 主题的名称及其链接**，否则请不要使用 Argon 主题。
 
+您**可以**删除页脚的作者信息，但是**不能删除**Argon 主题的名称和链接。
+
 # 截图
 
 ![截图1](https://abc233.site/argon-theme-docs/img/screenshot1.png)
