@@ -42,7 +42,7 @@ Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
 Argon 使用 [GPL V3.0](https://github.com/abc2237512422/argon-theme/blob/master/LICENSE) 协议开源，请遵守此协议进行二次开发等。
 
-您*必须在页脚保留 Argon 主题的名称及其链接*，否则请不要使用 Argon 主题。
+您**必须在页脚保留 Argon 主题的名称及其链接**，否则请不要使用 Argon 主题。
 
 # 截图
 
