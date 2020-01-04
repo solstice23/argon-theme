@@ -56,6 +56,9 @@ Argon 使用 [GPL V3.0](https://github.com/abc2237512422/argon-theme/blob/master
 
 # 更新日志
 
+## 20200105 v0.597
++ 修复之前没发现的一个无关紧要的小问题
+
 ## 20200104
 + 更改协议为 GPL V3.0
 

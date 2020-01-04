@@ -1565,7 +1565,7 @@ function init_shuoshuo(){
 		'query_var' => true, 
 		'rewrite' => true,
 		'capability_type' => 'post',
-		'has_archive' => 'ddd',
+		'has_archive' => 'shuoshuo',
 		'hierarchical' => false, 
 		'menu_position' => null,
 		'menu_icon' => 'dashicons-format-quote',
