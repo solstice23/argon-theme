@@ -6,8 +6,11 @@
 
 	let startTransitionHeight;
 	let endTransitionHeight;
+
+	let themecolor = $("meta[name='theme-color-rgb']").attr("content");
 	function changeToolbarTransparency(){
-		let toolbarRgb = "94, 114, 228";
+		//let toolbarRgb = "94, 114, 228";
+		let toolbarRgb = themecolor;
 		if ($("html").hasClass("darkmode")){
 			toolbarRgb = "33, 33, 33";
 		}

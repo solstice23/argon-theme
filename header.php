@@ -1,8 +1,21 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js">
+<?php
+	$themecolor = get_option('argon_theme_color');
+	if ($themecolor == ""){
+		$themecolor = "#5e72e4";
+	}
+?>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="<?php echo wp_get_document_title();?>">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="<?php echo home_url(add_query_arg(array(),$wp->request));?>">
+	<?php if ((is_single() || is_page()) && !post_password_required()){?>
+		<meta property="og:description" content="<?php global $post;echo 
+			htmlspecialchars(mb_substr(str_replace("\n", '', strip_tags(get_post($post -> ID) -> post_content)), 0, 30)) . "...";?>">
+	<?php } ?>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
 	<link rel="pingback" href="<?php echo esc_url( get_bloginfo( 'pingback_url' ) ); ?>">
@@ -46,10 +59,103 @@
 
 	<script src="<?php bloginfo('template_url'); ?>/assets/js/argon.min.js"></script>
 	<?php wp_head(); ?>
-	<meta name="theme-color" content="#5e72e4">
+	<meta name="theme-color" content="<?php echo $themecolor; ?>">
+	<meta name="theme-color-rgb" content="<?php echo hex2str($themecolor); ?>">
 </head>
 
 <?php echo get_option('argon_custom_html_head'); ?>
+
+<style id="themecolor_css">
+	<?php
+		$RGB = hex2rgb($themecolor);
+		$HSL = rgb2hsl($RGB['R'], $RGB['G'], $RGB['B']);
+
+		$RGB_dark0 = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.025, 0));
+		$themecolor_dark0 = rgb2hex($RGB_dark0['R'],$RGB_dark0['G'],$RGB_dark0['B']);
+
+		$RGB_dark = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.1, 0));
+		$themecolor_dark = rgb2hex($RGB_dark['R'], $RGB_dark['G'], $RGB_dark['B']);
+
+		$RGB_dark2 = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.15, 0));
+		$themecolor_dark2 = rgb2hex($RGB_dark2['R'],$RGB_dark2['G'],$RGB_dark2['B']);
+
+		$RGB_dark3 = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.22, 0));
+		$themecolor_dark3 = rgb2hex($RGB_dark3['R'],$RGB_dark3['G'],$RGB_dark3['B']);
+
+		$RGB_light = hsl2rgb($HSL['h'], $HSL['s'], min($HSL['l'] + 0.1, 1));
+		$themecolor_light = rgb2hex($RGB_light['R'],$RGB_light['G'],$RGB_light['B']);
+	?>
+	.themecolor-color{
+		color: <?php echo $themecolor; ?>;
+	}
+	.themecolor-background{
+		background-color: <?php echo $themecolor; ?>;
+	}
+	.themecolor-border{
+		border-color: <?php echo $themecolor; ?>;
+	}
+	a ,
+	html.darkmode a:hover,
+	.btn-neutral{
+		color: <?php echo $themecolor; ?>;
+	}
+	a:hover{
+		color: <?php echo $themecolor_dark; ?>;
+	}
+	html.darkmode a{
+		color: <?php echo $themecolor_light; ?>;
+	}
+	.sidebar-tab-switcher > a.active,
+	.custom-toggle input:checked+.custom-toggle-slider{
+		border-color: <?php echo $themecolor; ?>;
+	}
+	.btn-primary{
+		border-color: <?php echo $themecolor; ?>;
+		background-color: <?php echo $themecolor; ?>;
+	}
+	.btn-primary:hover,
+	.fab:hover,
+	.btn-outline-primary:hover{
+		border-color: <?php echo $themecolor_dark; ?>;
+		background-color: <?php echo $themecolor_dark; ?>;
+	}
+	.btn-primary:active,
+	.fab:active,
+	.btn-outline-primary:active{
+		background-color: <?php echo $themecolor_dark2; ?> !important;
+		border-color: <?php echo $themecolor_dark2; ?> !important;
+	}
+	.btn-outline-primary {
+		color: <?php echo $themecolor; ?>;
+		border-color: <?php echo $themecolor; ?>;
+	}
+	#fab_reading_progress_bar,
+	html:not(.use-serif) #blog_setting_font_sans_serif,
+	html.use-serif #blog_setting_font_serif,
+	html:not(.use-big-shadow) #blog_setting_shadow_small,
+	html.use-big-shadow #blog_setting_shadow_big,
+	.custom-toggle input:checked+.custom-toggle-slider:before{
+		background-color: <?php echo $themecolor; ?>;
+	}
+	#navbar-main{
+		background-color: <?php echo $themecolor; ?> !important;
+	}
+	.blog-setting-font:hover , .blog-setting-shadow:hover{
+		color: <?php echo $themecolor; ?>;
+	}
+	.page-item.active .page-link{
+		background-color: <?php echo $themecolor; ?>;
+		border-color: <?php echo $themecolor; ?>;
+	}
+	.blog_settings_opened #fab_toggle_blog_settings_popup{
+		background-color: <?php echo $themecolor_dark3; ?> !important;
+	}
+	.leftbar-banner,
+	#leftbar_announcement,
+	#footer{
+		background: linear-gradient(150deg,<?php echo $themecolor_light; ?> 15%,<?php echo $themecolor; ?> 70%,<?php echo $themecolor_dark0; ?> 94%);
+	}
+</style>
 
 <body <?php body_class(); ?>>
 <?php /*wp_body_open();*/ ?>

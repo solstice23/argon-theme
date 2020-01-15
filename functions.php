@@ -550,6 +550,121 @@ function check_footer_copyright(){
 	}
 }
 check_footer_copyright();
+//RGB/HSL 互转
+function rgb2hsl($R,$G,$B){
+	$r = $R / 255;
+	$g = $G / 255;
+	$b = $B / 255;
+
+	$var_Min = min($r, $g, $b);
+	$var_Max = max($r, $g, $b);
+	$del_Max = $var_Max - $var_Min;
+
+	$L = ($var_Max + $var_Min) / 2;
+
+	if ($del_Max == 0){
+		$H = 0;
+		$S = 0;
+	}else{
+		if ($L < 0.5){
+			$S = $del_Max / ($var_Max + $var_Min);
+		}else{
+			$S = $del_Max / (2 - $var_Max - $var_Min);
+		}
+
+		$del_R = ((($var_Max - $r) / 6) + ($del_Max / 2)) / $del_Max;
+		$del_G = ((($var_Max - $g) / 6) + ($del_Max / 2)) / $del_Max;
+		$del_B = ((($var_Max - $b) / 6) + ($del_Max / 2)) / $del_Max;
+
+		if ($r == $var_Max){
+			$H = $del_B - $del_G;
+		}
+		else if ($g == $var_Max){
+			$H = (1 / 3) + $del_R - $del_B;
+		}
+		else if ($b == $var_Max){
+			$H = (2 / 3) + $del_G - $del_R;
+		}
+		if ($H < 0) $H += 1;
+		if ($H > 1) $H -= 1;
+	}
+	return array(
+		'h' => $H,//0~1
+		's' => $S,
+		'l' => $L
+	);
+}
+function Hue_2_RGB($v1,$v2,$vH){
+   if ($vH < 0) $vH += 1;
+   if ($vH > 1) $vH -= 1;
+   if ((6 * $vH) < 1) return ($v1 + ($v2 - $v1) * 6 * $vH);
+   if ((2 * $vH) < 1) return $v2;
+   if ((3 * $vH) < 2) return ($v1 + ($v2 - $v1) * ((2 / 3) - $vH) * 6);
+   return $v1;
+}
+function hsl2rgb($h,$s,$l){
+	if ($s == 0){
+		$r = $l;
+		$g = $l;
+		$b = $l;
+	}
+	else{
+		if ($l < 0.5){
+			$var_2 = $l * (1 + $s);
+		}
+		else{
+			$var_2 = ($l + $s) - ($s * $l);
+		}
+		$var_1 = 2 * $l - $var_2;
+		$r = Hue_2_RGB($var_1, $var_2, $h + (1 / 3));
+		$g = Hue_2_RGB($var_1, $var_2, $h);
+		$b = Hue_2_RGB($var_1, $var_2, $h - (1 / 3));
+	}
+	return array(
+		'R' => round($r * 255),//0~255
+		'G' => round($g * 255),
+		'B' => round($b * 255),
+		'r' => $r,//0~1
+		'g' => $g,
+		'b' => $b
+	);
+}
+function rgb2hex($r,$g,$b){
+	$hex = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F');
+	$rh = "";
+	$gh = "";
+	$bh = "";
+	while (strlen($rh) < 2){
+		$rh = $hex[$r%16] . $rh;
+		$r = floor($r / 16);
+	}
+	while (strlen($gh) < 2){
+		$gh = $hex[$g%16] . $gh;
+		$g = floor($g / 16);
+	}
+	while (strlen($bh) < 2){
+		$bh = $hex[$b%16] . $bh;
+		$b = floor($b / 16);
+	}
+	return "#".$rh.$gh.$bh;
+}
+function hex2rgb($hex){
+	//$hex: #XXXXXX
+	return array(
+		'R' => hexdec(substr($hex,1,2)),//0~255
+		'G' => hexdec(substr($hex,3,2)),
+		'B' => hexdec(substr($hex,5,2)),
+		'r' => hexdec(substr($hex,1,2)) / 255,//0~1
+		'g' => hexdec(substr($hex,3,2)) / 255,
+		'b' => hexdec(substr($hex,5,2)) / 255
+	);
+}
+function rgb2str($rgb){
+	return $rgb['R']. "," .$rgb['G']. "," .$rgb['B'];
+}
+function hex2str($hex){
+	return rgb2str(hex2rgb($hex));
+}
 //主题文章短代码解析
 add_shortcode('br','shortcode_br');
 function shortcode_br($attr,$content=""){
@@ -960,6 +1075,56 @@ function themeoptions_page(){
 			<input type="hidden" name="update_themeoptions" value="true" />
 			<table class="form-table">
 				<tbody>
+					<tr><th class="subtitle"><h2>主题色</h2></th></tr>
+					<tr>
+						<th><label>主题颜色</label></th>
+						<td>
+							<input type="color" class="regular-text" name="argon_theme_color" value="<?php echo get_option('argon_theme_color') == "" ? "#5e72e4" : get_option('argon_theme_color'); ?>" style="height:40px;width: 80px;cursor: pointer;"/>
+							<input type="text" readonly name="argon_theme_color_hex_preview" value="<?php echo get_option('argon_theme_color') == "" ? "#5e72e4" : get_option('argon_theme_color'); ?>" style="height: 40px;width: 80px;vertical-align: bottom;background: #fff;cursor: pointer;" onclick="$('input[name=\'argon_theme_color\']').click()"/></p>
+							<p class="description"><div style="margin-top: 15px;">选择预置颜色 或 <span onclick="$('input[name=\'argon_theme_color\']').click()" style="text-decoration: underline;cursor: pointer;">自定义色值</span>
+								</br></br>预置颜色：</div>
+								<div class="themecolor-preview-container">
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#5e72e4;" color="#5e72e4"></div><div class="themecolor-name">Argon (默认)</div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#fa7298;" color="#fa7298"></div><div class="themecolor-name">粉</div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#009688;" color="#009688"></div><div class="themecolor-name">水鸭青</div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#607d8b;" color="#607d8b"></div><div class="themecolor-name">蓝灰</div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#2196f3;" color="#2196f3"></div><div class="themecolor-name">天蓝</div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#3f51b5;" color="#3f51b5"></div><div class="themecolor-name">靛蓝</div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#ff9700;" color="#ff9700"></div><div class="themecolor-name">橙</div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#109d58;" color="#109d58"></div><div class="themecolor-name">绿</div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#dc4437;" color="#dc4437"></div><div class="themecolor-name">红</div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#673bb7;" color="#673bb7"></div><div class="themecolor-name">紫</div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#212121;" color="#212121"></div><div class="themecolor-name">黑</div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#795547;" color="#795547"></div><div class="themecolor-name">棕</div></div>
+								</div>
+								</br>主题色与 <strong onclick="$('#headindex_box a[href=\'#header-id-5\']').click()" style="text-decoration: underline;cursor: pointer;">Banner 渐变背景样式</strong> 选项搭配使用效果更佳
+								<script>
+									$("input[name='argon_theme_color']").on("change" , function(){
+										$("input[name='argon_theme_color_hex_preview']").val($("input[name='argon_theme_color']").val());
+									});
+									$(".themecolor-preview").on("click" , function(){
+										$("input[name='argon_theme_color']").val($(this).attr("color"));
+										$("input[name='argon_theme_color']").trigger("change");
+									});
+								</script>
+								<style>
+									.themecolor-name{width: 100px;text-align: center;}
+									.themecolor-preview{width: 50px;height: 50px;margin: 20px 25px 5px 25px;line-height: 50px;color: #fff;margin-right: 0px;font-size: 15px;text-align: center;display: inline-block;border-radius: 50px;transition: all .3s ease;cursor: pointer;}
+									.themecolor-preview-box{width: max-content;width: -moz-max-content;display: inline-block;}
+									div.themecolor-preview:hover{transform: scale(1.1);}
+									div.themecolor-preview:active{transform: scale(1.2);}
+									.themecolor-preview-container{
+										max-width: calc(100% - 180px);
+									}
+									@media screen and (max-width:960px){
+										.themecolor-preview-container{
+											max-width: unset;
+										}
+									}
+								</style>
+							</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>顶栏</h2></th></tr>
 					<tr><th class="subtitle"><h3>标题</h3></th></tr>
 					<tr>
@@ -1498,6 +1663,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_fab_show_darkmode_button', $_POST['argon_fab_show_darkmode_button']);
 	update_option('argon_fab_show_settings_button', $_POST['argon_fab_show_settings_button']);
 	update_option('argon_show_headindex_number', $_POST['argon_show_headindex_number']);
+	update_option('argon_theme_color', $_POST['argon_theme_color']);
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);
