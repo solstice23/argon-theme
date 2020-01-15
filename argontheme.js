@@ -508,7 +508,7 @@ function pjaxLoadUrl(url , pushstate){
 						throw "Cross Domain";
 					}
 					if (window.location.href.match(/https?:\/\//)[0] != url.match(/https?:\/\//)[0]){
-						throw "Different Agreements";
+						throw "Different Protocols";
 					}
 				}
 			}
@@ -529,7 +529,6 @@ function pjaxLoadUrl(url , pushstate){
 							throw "HTML struct not simular";
 						}
 						document.body.setAttribute("class" , vdom.getElementsByTagName('body')[0].getAttribute("class"));
-						$("title").html($("title" , $vdom)[0].innerHTML);
 						$("#leftbar_part2_inner").html($("#leftbar_part2_inner" , $vdom)[0].innerHTML);
 						$("#primary").html($("#primary" , $vdom)[0].innerHTML);
 						$("#leftbar_part1_menu").html($("#leftbar_part1_menu" , $vdom)[0].innerHTML);
@@ -546,16 +545,18 @@ function pjaxLoadUrl(url , pushstate){
 						}, 600);
 						
 						NProgress.inc();
-						
+
 						if (pushstate == true){
 							window.history.pushState({} , '' , url);
 						}
 						pjaxLoading = false;
 						pjaxUrlChanged = true;
 						
+						$("title").html($("title" , $vdom)[0].innerHTML);
+
 						try{
 							if (MathJax != undefined){
-								MathJax.typeset()
+								MathJax.typeset();
 							}
 						}catch (err){}
 
