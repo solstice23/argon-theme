@@ -67,19 +67,20 @@
 
 <style id="themecolor_css">
 	<?php
+		$themecolor_rgbstr = hex2str($themecolor);
 		$RGB = hex2rgb($themecolor);
 		$HSL = rgb2hsl($RGB['R'], $RGB['G'], $RGB['B']);
 
 		$RGB_dark0 = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.025, 0));
 		$themecolor_dark0 = rgb2hex($RGB_dark0['R'],$RGB_dark0['G'],$RGB_dark0['B']);
 
-		$RGB_dark = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.1, 0));
+		$RGB_dark = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.05, 0));
 		$themecolor_dark = rgb2hex($RGB_dark['R'], $RGB_dark['G'], $RGB_dark['B']);
 
-		$RGB_dark2 = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.15, 0));
+		$RGB_dark2 = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.1, 0));
 		$themecolor_dark2 = rgb2hex($RGB_dark2['R'],$RGB_dark2['G'],$RGB_dark2['B']);
 
-		$RGB_dark3 = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.22, 0));
+		$RGB_dark3 = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.15, 0));
 		$themecolor_dark3 = rgb2hex($RGB_dark3['R'],$RGB_dark3['G'],$RGB_dark3['B']);
 
 		$RGB_light = hsl2rgb($HSL['h'], $HSL['s'], min($HSL['l'] + 0.1, 1));
@@ -94,9 +95,17 @@
 	.themecolor-border{
 		border-color: <?php echo $themecolor; ?>;
 	}
+	.text-primary{
+		color: <?php echo $themecolor; ?> !important;
+	}
+	a.text-primary:focus,
+	a.text-primary:hover {
+		color: <?php echo $themecolor_dark; ?> !important;
+	}
 	a ,
 	html.darkmode a:hover,
-	.btn-neutral{
+	.btn-neutral,
+	#leftbar_catalog .index-item.current > .index-link{
 		color: <?php echo $themecolor; ?>;
 	}
 	a:hover{
@@ -105,25 +114,34 @@
 	html.darkmode a{
 		color: <?php echo $themecolor_light; ?>;
 	}
+	.github-info-card a{
+		color: <?php echo $themecolor_light; ?>;
+	}
+	.argon-timeline{
+		border-color: rgba(<?php echo $themecolor_rgbstr;?>,0.2);
+	}
 	.sidebar-tab-switcher > a.active,
 	.custom-toggle input:checked+.custom-toggle-slider{
 		border-color: <?php echo $themecolor; ?>;
 	}
-	.btn-primary{
+	.btn-primary,
+	.fab:hover{
 		border-color: <?php echo $themecolor; ?>;
 		background-color: <?php echo $themecolor; ?>;
 	}
 	.btn-primary:hover,
-	.fab:hover,
 	.btn-outline-primary:hover{
 		border-color: <?php echo $themecolor_dark; ?>;
 		background-color: <?php echo $themecolor_dark; ?>;
 	}
 	.btn-primary:active,
-	.fab:active,
 	.btn-outline-primary:active{
 		background-color: <?php echo $themecolor_dark2; ?> !important;
 		border-color: <?php echo $themecolor_dark2; ?> !important;
+	}
+	.fab:active{
+		border-color: <?php echo $themecolor_dark; ?> !important;
+		background-color: <?php echo $themecolor_dark; ?> !important;
 	}
 	.btn-outline-primary {
 		color: <?php echo $themecolor; ?>;
@@ -137,23 +155,33 @@
 	.custom-toggle input:checked+.custom-toggle-slider:before{
 		background-color: <?php echo $themecolor; ?>;
 	}
-	#navbar-main{
+	#navbar-main,
+	.loading-dot,
+	.argon-timeline-card:before,
+	article .post-content a:before{
 		background-color: <?php echo $themecolor; ?> !important;
 	}
 	.blog-setting-font:hover , .blog-setting-shadow:hover{
 		color: <?php echo $themecolor; ?>;
 	}
-	.page-item.active .page-link{
+	.page-item.active .page-link,
+	.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
 		background-color: <?php echo $themecolor; ?>;
 		border-color: <?php echo $themecolor; ?>;
 	}
 	.blog_settings_opened #fab_toggle_blog_settings_popup{
-		background-color: <?php echo $themecolor_dark3; ?> !important;
+		background-color: <?php echo $themecolor_dark2; ?> !important;
 	}
 	.leftbar-banner,
 	#leftbar_announcement,
 	#footer{
 		background: linear-gradient(150deg,<?php echo $themecolor_light; ?> 15%,<?php echo $themecolor; ?> 70%,<?php echo $themecolor_dark0; ?> 94%);
+	}
+	::-webkit-scrollbar-thumb:hover{
+		background-color: rgba(<?php echo $themecolor_rgbstr;?>,0.8);
+	}
+	#wpadminbar{
+		background-color: <?php echo $themecolor; ?> !important;
 	}
 </style>
 

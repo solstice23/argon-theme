@@ -59,6 +59,9 @@ Argon 使用 [GPL V3.0](https://github.com/abc2237512422/argon-theme/blob/master
 
 # 更新日志
 
+## 20200116 v0.601
++ 进一步适配主题色 (如滚动条颜色，a 标签下划线颜色等)
+
 ## 20200116 v0.600
 + 增加博客主题色选项，可自定义主题色
 + 增加 SEO Meta 标签

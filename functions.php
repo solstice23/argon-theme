@@ -1471,7 +1471,7 @@ window.pjaxLoaded = function(){
 						<th><label>页尾脚本</label></th>
 						<td>
 							<textarea type="text" rows="15" cols="100" name="argon_custom_html_foot"><?php echo htmlspecialchars(get_option('argon_custom_html_foot')); ?></textarea>
-							<p class="description">HTML , 支持 script 等标签</br>插入到 body 之前</p>
+							<p class="description">HTML , 支持 script 等标签</br>插入到 body 之后</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>动画</h2></th></tr>
@@ -1490,7 +1490,7 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
-						<th><label>是否启用进入文章动画（测试）</label></th>
+						<th><label>是否启用进入文章动画</label></th>
 						<td>
 							<select name="argon_enable_into_article_animation">
 								<?php $argon_enable_into_article_animation = get_option('argon_enable_into_article_animation'); ?>
