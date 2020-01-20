@@ -3,7 +3,7 @@ Theme Name: argon
 Author: abc2237512422
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.601
+Version: 0.610
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -11,6 +11,9 @@ Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, �
 
 body{
 	background: #f4f5f7 !important;
+}
+a{
+	transition: color .25s ease;
 }
 audio , canvas , progress , video{
 	display: inline-block;
@@ -70,7 +73,7 @@ article .post-content a:before{
 	left: 0;
 	width: 100%;
 	height: 1px;
-	background-color: #5e72e4;
+	background-color: var(--themecolor);
 	transition: all .2s;
 	transform: scaleX(0);
 	backface-visibility: hidden;
@@ -157,7 +160,7 @@ article table > thead > tr > th{
 	background-color: rgba(0, 0, 0, 0.2);
 }
 ::-webkit-scrollbar-thumb:hover{
-	background-color: rgba(94, 114, 228, 0.8);
+	background-color: rgba(var(--themecolor-rgbstr), 0.8);
 }
 *::selection{
 	background-color: #cce2ff;
@@ -173,6 +176,46 @@ html.use-serif p , html.use-serif span , html.use-serif div{
 }
 html.use-big-shadow *.shadow-sm{
 	box-shadow: 0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba(0,0,0,.07)!important;
+}
+/*主题色适配*/
+.text-primary{
+	color: var(--themecolor) !important;
+}
+a , .btn-neutral{
+	color: var(--themecolor);
+}
+a:hover{
+	color: var(--themecolor-dark);
+}
+a.text-primary:focus , a.text-primary:hover {
+	color: var(--themecolor) !important;
+}
+.custom-toggle input:checked+.custom-toggle-slider{
+	border-color: var(--themecolor);
+}
+.custom-toggle input:checked+.custom-toggle-slider:before{
+	background-color: var(--themecolor);
+}
+.btn-primary{
+	border-color: var(--themecolor);
+	background-color: var(--themecolor);
+}
+.btn-outline-primary{
+	border-color: var(--themecolor) !important;
+	color: var(--themecolor);
+}
+.btn-primary:hover , .btn-outline-primary:hover{
+	border-color: var(--themecolor-dark);
+	background-color: var(--themecolor-dark);
+}
+.btn-primary:active , .btn-outline-primary:active{
+	border-color: var(--themecolor-dark2) !important;
+	background-color: var(--themecolor-dark2) !important;
+}
+.page-item.active .page-link , 
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+	border-color: var(--themecolor);
+	background-color: var(--themecolor);
 }
 /*页面框架*/
 #content{
@@ -244,7 +287,7 @@ html.use-big-shadow *.shadow-sm{
 }
 #navbar-main{
 	transition: background 0s, padding .15s ease;
-	background-color: rgba(94, 114, 228 , 1) !important;
+	background-color: var(--themecolor) !important;
 }
 #navbar-main.navbar-ontop{
 	padding-top: 1rem;
@@ -274,7 +317,8 @@ html.use-big-shadow *.shadow-sm{
 
 /*左侧栏*/
 .leftbar-banner{
-	background: linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);
+	/*background: linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);*/
+	background: var(--themecolor-gradient);
 	text-align: center;
 }
 .leftbar-banner-title{
@@ -358,7 +402,7 @@ html.use-big-shadow *.shadow-sm{
 	transition: border-bottom .2s ease;
 }
 .sidebar-tab-switcher > a.active{
-	border-bottom: 1px solid #5e72e4;
+	border-bottom: 1px solid var(--themecolor);
 }
 
 #leftbar_overview_author_name{
@@ -463,7 +507,7 @@ html.use-big-shadow *.shadow-sm{
 }
 #leftbar_announcement {
 	margin-bottom: 10px;
-	background: linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);
+	background: var(--themecolor-gradient);
 }
 .leftbar-announcement-body {
 	padding: 15px 1.2em;
@@ -480,7 +524,7 @@ html.use-big-shadow *.shadow-sm{
 }
 /*底栏*/
 #footer{
-	background: linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);
+	background: var(--themecolor-gradient);
 	color: #fff;
 	width: 100%;
 	float: right;
@@ -531,11 +575,11 @@ html.use-big-shadow *.shadow-sm{
 }
 .fab:hover{
 	color: #fff !important;
-	/*background-color: #5e72e4 !important;*/
+	background-color: var(--themecolor) !important;
 }
 .fab:active{
 	color: #fff !important;
-	/*background-color: #324cdd !important;*/
+	background-color: var(--themecolor-dark) !important;
 }
 .fab.fab-hidden{
 	height: 0;
@@ -563,7 +607,7 @@ html.use-big-shadow *.shadow-sm{
 	top: 0;
 	height: 100%;
 	border-radius: 4px;
-	background: #324cdd;
+	background: var(--themecolor);
 	opacity: .08;
 }
 #float_action_buttons .fab:before{
@@ -658,7 +702,7 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 .blog_settings_opened #fab_toggle_blog_settings_popup{
 	opacity: 1 !important;
 	color: #fff !important;
-	background-color: #5e72e4 !important;
+	background-color: var(--themecolor-dark2) !important;
 	pointer-events: unset !important;
 }
 .blog_settings_opened .fab {
@@ -685,37 +729,37 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 	padding: 3px 10px;
 }
 .blog-setting-font:hover , .blog-setting-shadow:hover{
-	/*color: #5e72e4;*/
-	background-color: transparent !important;
+	color: #fff/*var(--themecolor)*/;
+	/*background-color: transparent !important;*/
 }
-#blog_setting_font_sans_serif , #blog_setting_shadow_small{
-	margin-right: 0;
+.blog-setting-selector-left{
+	margin-right: 0 !important;
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 	transform: none !important;
 }
-#blog_setting_font_serif , #blog_setting_shadow_big{
+.blog-setting-selector-right{
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
-	margin-left: 0;
+	margin-left: 0 !important;
 	transform: none !important;
 	border-left: 0;
 }
 html:not(.use-serif) #blog_setting_font_sans_serif{
 	color: #fff;
-	background: #5e72e4;
+	background: var(--themecolor);
 }
 html.use-serif #blog_setting_font_serif{
 	color: #fff;
-	background: #5e72e4;
+	background: var(--themecolor);
 }
 html:not(.use-big-shadow) #blog_setting_shadow_small{
 	color: #fff;
-	background: #5e72e4;
+	background: var(--themecolor);
 }
 html.use-big-shadow #blog_setting_shadow_big{
 	color: #fff;
-	background: #5e72e4;
+	background: var(--themecolor);
 }
 .blog-setting-filter-btn {
 	border-radius: 50%;
@@ -732,8 +776,8 @@ html.use-big-shadow #blog_setting_shadow_big{
 	box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
 }
 #blog_setting_filter_off{
-	background: rgba(94, 114, 228, .05);
-	color: #5e72e4;
+	background: rgba(var(--themecolor-rgbstr), .05);
+	color: var(--themecolor);
 }
 #blog_setting_filter_sunset{
 	background: rgba(255, 255, 200, 1);
@@ -748,7 +792,7 @@ html.use-big-shadow #blog_setting_shadow_big{
 	color: #333;
 }
 #blog_setting_filter_off.active{
-	border: 1px solid #5e72e4;
+	border: 1px solid var(--themecolor);
 }
 #blog_setting_filter_sunset.active{
 	border: 1px solid #6e5a00;
@@ -935,7 +979,7 @@ html.filter-grayscale{
 	border-radius: 3px;
 }
 #leftbar_catalog .index-item.current > .index-link {
-	color: #5e72e4;
+	color: var(--themecolor);
 	font-weight: bold;
 }
 #leftbar_catalog .index-link:hover {
@@ -1361,7 +1405,7 @@ html.filter-grayscale{
 /*短代码-时间线*/
 .argon-timeline{
 	margin-left: 110px;
-	border-left: 3px solid #5e72e433;
+	border-left: 3px solid rgba(var(--themecolor-rgbstr),0.2);
 	padding-left: 25px;
 	position: relative;
 	padding-top: 30px;
@@ -1385,7 +1429,7 @@ html.filter-grayscale{
 	position: absolute;
 	left: -35px;
 	top: 17px;
-	background: #5e72e4;
+	background: var(--themecolor);
 	width: 14px;
 	height: 14px;
 	border-radius: 50%;
@@ -1426,7 +1470,7 @@ html.filter-grayscale{
 	color: #eee;
 }
 .github-info-card a {
-	color: #b8c2ff;
+	color: var(--themecolor-light);
 }
 .github-info-card-header{
 	margin-bottom: 5px;
@@ -1790,7 +1834,7 @@ body.noscroll:before{
 	height: -moz-max-content !important;
 	min-height: 55px;
 	max-width: 100vw;
-	background: #5a61ca !important;
+	background: var(--themecolor) !important;
 	box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
 	border-radius: 0 100px 100px 0;
 	padding: 10px 20px;
@@ -1892,8 +1936,8 @@ html[class] , html[lang]{
 }
 .shuoshuo-operations button.upvoted{
 	color: #fff;
-	border-color: #5e72e4;
-	background-color: #5e72e4;
+	border-color: var(--themecolor);
+	background-color: var(--themecolor);
 	pointer-events: none;
 }
 @keyframes shuoshuo-upvoted-animation{
@@ -1926,7 +1970,7 @@ html[class] , html[lang]{
 }
 .loading-dot {
 	display: inline-block;
-	background: #5e72e4;
+	background: var(--themecolor);
 	height: 6px;
 	width: 6px;
 	opacity: 0;
@@ -1993,10 +2037,10 @@ html.darkmode .h1,html.darkmode .h2,html.darkmode .h3,html.darkmode .h4,html.dar
 	color: #eee;
 }
 html.darkmode a{
-	color: #96a5ff;
+	color: var(--themecolor-light);
 }
 html.darkmode a:hover{
-	color: #7588ff;
+	color: var(--themecolor);
 }
 
 html.darkmode ::-webkit-scrollbar{
@@ -2088,7 +2132,7 @@ html.darkmode #leftbar_catalog .index-item , html.darkmode #leftbar_catalog .ind
 	color: #eee;
 }
 html.darkmode #leftbar_catalog .index-item.current > .index-link{
-	color: #96a5ff;
+	color: var(--themecolor-light);
 }
 html.darkmode #leftbar_catalog .index-link:hover{
 	background-color: rgba(255, 255, 255, 0.1);

@@ -86,102 +86,16 @@
 		$RGB_light = hsl2rgb($HSL['h'], $HSL['s'], min($HSL['l'] + 0.1, 1));
 		$themecolor_light = rgb2hex($RGB_light['R'],$RGB_light['G'],$RGB_light['B']);
 	?>
-	.themecolor-color{
-		color: <?php echo $themecolor; ?>;
-	}
-	.themecolor-background{
-		background-color: <?php echo $themecolor; ?>;
-	}
-	.themecolor-border{
-		border-color: <?php echo $themecolor; ?>;
-	}
-	.text-primary{
-		color: <?php echo $themecolor; ?> !important;
-	}
-	a.text-primary:focus,
-	a.text-primary:hover {
-		color: <?php echo $themecolor_dark; ?> !important;
-	}
-	a ,
-	html.darkmode a:hover,
-	.btn-neutral,
-	#leftbar_catalog .index-item.current > .index-link{
-		color: <?php echo $themecolor; ?>;
-	}
-	a:hover{
-		color: <?php echo $themecolor_dark; ?>;
-	}
-	html.darkmode a{
-		color: <?php echo $themecolor_light; ?>;
-	}
-	.github-info-card a{
-		color: <?php echo $themecolor_light; ?>;
-	}
-	.argon-timeline{
-		border-color: rgba(<?php echo $themecolor_rgbstr;?>,0.2);
-	}
-	.sidebar-tab-switcher > a.active,
-	.custom-toggle input:checked+.custom-toggle-slider{
-		border-color: <?php echo $themecolor; ?>;
-	}
-	.btn-primary,
-	.fab:hover{
-		border-color: <?php echo $themecolor; ?>;
-		background-color: <?php echo $themecolor; ?>;
-	}
-	.btn-primary:hover,
-	.btn-outline-primary:hover{
-		border-color: <?php echo $themecolor_dark; ?>;
-		background-color: <?php echo $themecolor_dark; ?>;
-	}
-	.btn-primary:active,
-	.btn-outline-primary:active{
-		background-color: <?php echo $themecolor_dark2; ?> !important;
-		border-color: <?php echo $themecolor_dark2; ?> !important;
-	}
-	.fab:active{
-		border-color: <?php echo $themecolor_dark; ?> !important;
-		background-color: <?php echo $themecolor_dark; ?> !important;
-	}
-	.btn-outline-primary {
-		color: <?php echo $themecolor; ?>;
-		border-color: <?php echo $themecolor; ?>;
-	}
-	#fab_reading_progress_bar,
-	html:not(.use-serif) #blog_setting_font_sans_serif,
-	html.use-serif #blog_setting_font_serif,
-	html:not(.use-big-shadow) #blog_setting_shadow_small,
-	html.use-big-shadow #blog_setting_shadow_big,
-	.custom-toggle input:checked+.custom-toggle-slider:before{
-		background-color: <?php echo $themecolor; ?>;
-	}
-	#navbar-main,
-	.loading-dot,
-	.argon-timeline-card:before,
-	article .post-content a:before{
-		background-color: <?php echo $themecolor; ?> !important;
-	}
-	.blog-setting-font:hover , .blog-setting-shadow:hover{
-		color: <?php echo $themecolor; ?>;
-	}
-	.page-item.active .page-link,
-	.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
-		background-color: <?php echo $themecolor; ?>;
-		border-color: <?php echo $themecolor; ?>;
-	}
-	.blog_settings_opened #fab_toggle_blog_settings_popup{
-		background-color: <?php echo $themecolor_dark2; ?> !important;
-	}
-	.leftbar-banner,
-	#leftbar_announcement,
-	#footer{
-		background: linear-gradient(150deg,<?php echo $themecolor_light; ?> 15%,<?php echo $themecolor; ?> 70%,<?php echo $themecolor_dark0; ?> 94%);
-	}
-	::-webkit-scrollbar-thumb:hover{
-		background-color: rgba(<?php echo $themecolor_rgbstr;?>,0.8);
-	}
-	#wpadminbar{
-		background-color: <?php echo $themecolor; ?> !important;
+	:root{
+		--themecolor: <?php echo $themecolor; ?>;
+		--themecolor-dark0: <?php echo $themecolor_dark0; ?>;
+		--themecolor-dark: <?php echo $themecolor_dark; ?>;
+		--themecolor-dark2: <?php echo $themecolor_dark2; ?>;
+		--themecolor-dark3: <?php echo $themecolor_dark3; ?>;
+		--themecolor-light: <?php echo $themecolor_light; ?>;
+		--themecolor-rgbstr: <?php echo $themecolor_rgbstr; ?>;
+		--themecolor-gradient: linear-gradient(150deg,<?php echo $themecolor_light; ?> 15%,<?php echo $themecolor; ?> 70%,<?php echo $themecolor_dark0; ?> 94%);
+
 	}
 </style>
 
@@ -351,13 +265,13 @@
 		<div class="blog-setting-item mt-3">
 			<div style="flex: 1;">字体</div>
 			<div>
-				<button id="blog_setting_font_sans_serif" type="button" class="blog-setting-font btn btn-outline-primary">Sans Serif</button><button id="blog_setting_font_serif" type="button" class="blog-setting-font btn btn-outline-primary">Serif</button>
+				<button id="blog_setting_font_sans_serif" type="button" class="blog-setting-font btn btn-outline-primary blog-setting-selector-left">Sans Serif</button><button id="blog_setting_font_serif" type="button" class="blog-setting-font btn btn-outline-primary blog-setting-selector-right">Serif</button>
 			</div>
 		</div>
 		<div class="blog-setting-item mt-3">
 			<div style="flex: 1;">阴影</div>
 			<div>
-				<button id="blog_setting_shadow_small" type="button" class="blog-setting-shadow btn btn-outline-primary">浅阴影</button><button id="blog_setting_shadow_big" type="button" class="blog-setting-shadow btn btn-outline-primary">深阴影</button>
+				<button id="blog_setting_shadow_small" type="button" class="blog-setting-shadow btn btn-outline-primary blog-setting-selector-left">浅阴影</button><button id="blog_setting_shadow_big" type="button" class="blog-setting-shadow btn btn-outline-primary blog-setting-selector-right">深阴影</button>
 			</div>
 		</div>
 		<div class="blog-setting-item mt-3 mb-3">

@@ -567,7 +567,9 @@ function pjaxLoadUrl(url , pushstate){
 						
 						let scripts = $("#content script:not([no-pjax]):not(.no-pjax)" , $vdom);
 						for (let script of scripts){
-							eval(script.innerHTML);
+							if (script.innerHTML.indexOf("\/*NO-PJAX*\/") == -1){
+								eval(script.innerHTML);
+							}
 						}
 
 						NProgress.done();
@@ -579,6 +581,7 @@ function pjaxLoadUrl(url , pushstate){
 							window.pjaxLoaded();
 						}
 					}catch (err){
+						console.log(err);
 						NProgress.done();
 						if (pjaxUrlChanged){
 							pjaxLoading = false;
@@ -598,6 +601,7 @@ function pjaxLoadUrl(url , pushstate){
 				}
 			});
 		}catch(err){
+			console.log(err);
 			NProgress.done();
 			pjaxLoading = false;
 			pjaxUrlChanged = true;
@@ -606,7 +610,7 @@ function pjaxLoadUrl(url , pushstate){
 	}
 }
 $(document).ready(function(){
-	$(document).on("click" , "a[href]:not([no-pjax]):not(.no-pjax):not([href^='#']):not([target='_blink'])" , function(){
+	$(document).on("click" , "a[href]:not([no-pjax]):not(.no-pjax):not([href^='#']):not([target='_blank'])" , function(){
 		//对文章预览卡片使用过渡动画
 		if ($(this).is("#main article.post-preview a.post-title")){
 			let $card = $($(this).parents("article.post-preview")[0]);
