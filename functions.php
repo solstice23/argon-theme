@@ -550,7 +550,7 @@ function check_footer_copyright(){
 	}
 }
 check_footer_copyright();
-//RGB/HSL 互转
+//颜色计算
 function rgb2hsl($R,$G,$B){
 	$r = $R / 255;
 	$g = $G / 255;
@@ -595,12 +595,12 @@ function rgb2hsl($R,$G,$B){
 	);
 }
 function Hue_2_RGB($v1,$v2,$vH){
-   if ($vH < 0) $vH += 1;
-   if ($vH > 1) $vH -= 1;
-   if ((6 * $vH) < 1) return ($v1 + ($v2 - $v1) * 6 * $vH);
-   if ((2 * $vH) < 1) return $v2;
-   if ((3 * $vH) < 2) return ($v1 + ($v2 - $v1) * ((2 / 3) - $vH) * 6);
-   return $v1;
+	if ($vH < 0) $vH += 1;
+	if ($vH > 1) $vH -= 1;
+	if ((6 * $vH) < 1) return ($v1 + ($v2 - $v1) * 6 * $vH);
+	if ((2 * $vH) < 1) return $v2;
+	if ((3 * $vH) < 2) return ($v1 + ($v2 - $v1) * ((2 / 3) - $vH) * 6);
+	return $v1;
 }
 function hsl2rgb($h,$s,$l){
 	if ($s == 0){
@@ -664,6 +664,15 @@ function rgb2str($rgb){
 }
 function hex2str($hex){
 	return rgb2str(hex2rgb($hex));
+}
+function checkHEX($hex){
+	if (strlen($hex) != 7){
+		return False;
+	}
+	if (substr($hex,0,1) != "#"){
+		return False;
+	}
+	return True;
 }
 //主题文章短代码解析
 add_shortcode('br','shortcode_br');
@@ -1122,6 +1131,13 @@ function themeoptions_page(){
 										}
 									}
 								</style>
+
+								<?php $argon_show_customize_theme_color_picker = get_option('argon_show_customize_theme_color_picker');?>
+								<div style="margin-top: 15px;">
+									<label>
+										<input type="checkbox" name="argon_show_customize_theme_color_picker" value="true" <?php if ($argon_show_customize_theme_color_picker!='false'){echo 'checked';}?>/>	允许用户自定义主题色（位于博客浮动操作栏设置菜单中）
+									</label>
+								</div>
 							</p>
 						</td>
 					</tr>
@@ -1664,6 +1680,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_fab_show_settings_button', $_POST['argon_fab_show_settings_button']);
 	update_option('argon_show_headindex_number', $_POST['argon_show_headindex_number']);
 	update_option('argon_theme_color', $_POST['argon_theme_color']);
+	update_option('argon_show_customize_theme_color_picker', ($_POST['argon_show_customize_theme_color_picker'] == 'true')?'true':'false');
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);

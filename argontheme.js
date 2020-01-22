@@ -7,10 +7,9 @@
 	let startTransitionHeight;
 	let endTransitionHeight;
 
-	let themecolor = $("meta[name='theme-color-rgb']").attr("content");
 	function changeToolbarTransparency(){
 		//let toolbarRgb = "94, 114, 228";
-		let toolbarRgb = themecolor;
+		let toolbarRgb = $("meta[name='theme-color-rgb']").attr("content");
 		if ($("html").hasClass("darkmode")){
 			toolbarRgb = "33, 33, 33";
 		}
@@ -183,7 +182,7 @@
 
 	function changeFabDisplayStatus(){
 		//阅读进度
-		let readingProgress = $(window).scrollTop() / ($(document).height() - $(window).height());
+		let readingProgress = $(window).scrollTop() / Math.max($(document).height() - $(window).height(), 0.01);
 		$readingProgressDetails.html((readingProgress * 100).toFixed(0) + "%");
 		$readingProgressBar.css("width" , (readingProgress * 100).toFixed(0) + "%");
 		//是否显示回顶
@@ -770,3 +769,246 @@ $(document).on("click" , ".shuoshuo-upvote" , function(){
 		}
 	});
 });
+
+//Cookies 操作
+function setCookie(cname, cvalue, exdays) {
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	var expires = "expires="+ d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+} 
+function getCookie(cname) {
+	var name = cname + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for(var i = 0; i <ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+//颜色计算
+function rgb2hsl(R,G,B){
+	let r = R / 255;
+	let g = G / 255;
+	let b = B / 255;
+
+	let var_Min = Math.min(r, g, b);
+	let var_Max = Math.max(r, g, b);
+	let del_Max = var_Max - var_Min;
+
+	let H, S, L = (var_Max + var_Min) / 2;
+
+	if (del_Max == 0){
+		H = 0;
+		S = 0;
+	}else{
+		if (L < 0.5){
+			S = del_Max / (var_Max + var_Min);
+		}else{
+			S = del_Max / (2 - var_Max - var_Min);
+		}
+
+		del_R = (((var_Max - r) / 6) + (del_Max / 2)) / del_Max;
+		del_G = (((var_Max - g) / 6) + (del_Max / 2)) / del_Max;
+		del_B = (((var_Max - b) / 6) + (del_Max / 2)) / del_Max;
+
+		if (r == var_Max){
+			H = del_B - del_G;
+		}
+		else if (g == var_Max){
+			H = (1 / 3) + del_R - del_B;
+		}
+		else if (b == var_Max){
+			H = (2 / 3) + del_G - del_R;
+		}
+		if (H < 0) H += 1;
+		if (H > 1) H -= 1;
+	}
+	return {
+		'h': H,//0~1
+		's': S,
+		'l': L
+	};
+}
+function Hue_2_RGB(v1,v2,vH){
+	if (vH < 0) vH += 1;
+	if (vH > 1) vH -= 1;
+	if ((6 * vH) < 1) return (v1 + (v2 - v1) * 6 * vH);
+	if ((2 * vH) < 1) return v2;
+	if ((3 * vH) < 2) return (v1 + (v2 - v1) * ((2 / 3) - vH) * 6);
+	return v1;
+}
+function hsl2rgb(h,s,l){
+	let r, g, b, var_1, var_2;
+	if (s == 0){
+		r = l;
+		g = l;
+		b = l;
+	}
+	else{
+		if (l < 0.5){
+			var_2 = l * (1 + s);
+		}
+		else{
+			var_2 = (l + s) - (s * l);
+		}
+		var_1 = 2 * l - var_2;
+		r = Hue_2_RGB(var_1, var_2, h + (1 / 3));
+		g = Hue_2_RGB(var_1, var_2, h);
+		b = Hue_2_RGB(var_1, var_2, h - (1 / 3));
+	}
+	return {
+		'R': Math.round(r * 255),//0~255
+		'G': Math.round(g * 255),
+		'B': Math.round(b * 255),
+		'r': r,//0~1
+		'g': g,
+		'b': b
+	};
+}
+function rgb2hex(r,g,b){
+	let hex = new Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F');
+	let rh, gh, bh;
+	rh = "", gh ="", bh="";
+	while (rh.length < 2){
+		rh = hex[r%16] + rh;
+		r = Math.floor(r / 16);
+	}
+	while (gh.length < 2){
+		gh = hex[g%16] + gh;
+		g = Math.floor(g / 16);
+	}
+	while (bh.length < 2){
+		bh = hex[b%16] + bh;
+		b = Math.floor(b / 16);
+	}
+	return "#" + rh + gh + bh;
+}
+function hex2rgb(hex){
+	//hex: #XXXXXX
+	let dec = {
+		'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15
+	};
+	return {
+		'R': (dec[hex.substr(1,1)] * 16 + dec[hex.substr(2,1)]),//0~255
+		'G': (dec[hex.substr(3,1)] * 16 + dec[hex.substr(4,1)]),
+		'B': (dec[hex.substr(5,1)] * 16 + dec[hex.substr(6,1)]),
+		'r': (dec[hex.substr(1,1)] * 16 + dec[hex.substr(2,1)]) / 255,//0~1
+		'g': (dec[hex.substr(3,1)] * 16 + dec[hex.substr(4,1)]) / 255,
+		'b': (dec[hex.substr(5,1)] * 16 + dec[hex.substr(6,1)]) / 255
+	};
+}
+function rgb2str(rgb){
+	return rgb['R'] + "," + rgb['G'] + "," + rgb['B'];
+}
+function hex2str(hex){
+	return rgb2str(hex2rgb(hex));
+}
+//颜色选择器 & 切换主题色
+let themeColorPicker = new Pickr({
+	el: '#theme-color-picker',
+	container: 'body',
+	theme: 'monolith',
+	closeOnScroll: false,
+	appClass: 'theme-color-picker-box',
+	useAsButton: false,
+	padding: 8,
+	inline: false,
+	autoReposition: true,
+	sliders: 'h',
+	disabled: false,
+	lockOpacity: true,
+	outputPrecision: 0,
+	comparison: false,
+	default: $("meta[name='theme-color']").attr("content"),
+	swatches: ['#5e72e4', '#fa7298', '#009688', '#607d8b', '#2196f3', '#3f51b5', '#ff9700', '#109d58', '#dc4437', '#673bb7', '#212121', '#795547'],
+	defaultRepresentation: 'HEX',
+	showAlways: false,
+    closeWithKey: 'Escape',
+    position: 'top-start',
+    adjustableNumbers: false,
+    components: {
+        palette: true,
+		preview: true,
+		opacity: false,
+		hue: true,
+
+		interaction: {
+			hex: true,
+			rgba: true,
+			hsla: false,
+			hsva: false,
+			cmyk: false,
+			input: true,
+			clear: false,
+			cancel: true,
+			save: true
+		}
+	},
+	strings: {
+		save: '确定',
+		clear: '清除',
+		cancel: '恢复博客默认'
+	}
+});
+themeColorPicker.on('change', instance => {
+	updateThemeColor(pickrObjectToHEX(instance), true);
+})
+themeColorPicker.on('save', (color, instance) => {
+	updateThemeColor(pickrObjectToHEX(instance._color), true);
+	themeColorPicker.hide();
+})
+themeColorPicker.on('cancel', instance => {
+	themeColorPicker.hide();
+	themeColorPicker.setColor($("meta[name='theme-color-origin']").attr("content").toUpperCase());
+	updateThemeColor($("meta[name='theme-color-origin']").attr("content").toUpperCase(), false);
+	setCookie("argon_custom_theme_color", "", 0);
+});
+function pickrObjectToHEX(color){
+	let HEXA = color.toHEXA();
+	return ("#" + HEXA[0] + HEXA[1] + HEXA[2]).toUpperCase();
+}
+function updateThemeColor(color, setcookie){
+	let themecolor = color;
+	let themecolor_rgbstr = hex2str(themecolor);
+	let RGB = hex2rgb(themecolor);
+	let HSL = rgb2hsl(RGB['R'], RGB['G'], RGB['B']);
+
+	let RGB_dark0 = hsl2rgb(HSL['h'], HSL['s'], Math.max(HSL['l'] - 0.025, 0));
+	let themecolor_dark0 = rgb2hex(RGB_dark0['R'],RGB_dark0['G'],RGB_dark0['B']);
+
+	let RGB_dark = hsl2rgb(HSL['h'], HSL['s'], Math.max(HSL['l'] - 0.05, 0));
+	let themecolor_dark = rgb2hex(RGB_dark['R'], RGB_dark['G'], RGB_dark['B']);
+
+	let RGB_dark2 = hsl2rgb(HSL['h'], HSL['s'], Math.max(HSL['l'] - 0.1, 0));
+	let themecolor_dark2 = rgb2hex(RGB_dark2['R'],RGB_dark2['G'],RGB_dark2['B']);
+
+	let RGB_dark3 = hsl2rgb(HSL['h'], HSL['s'], Math.max(HSL['l'] - 0.15, 0));
+	let themecolor_dark3 = rgb2hex(RGB_dark3['R'],RGB_dark3['G'],RGB_dark3['B']);
+
+	let RGB_light = hsl2rgb(HSL['h'], HSL['s'], Math.min(HSL['l'] + 0.1, 1));
+	let themecolor_light = rgb2hex(RGB_light['R'],RGB_light['G'],RGB_light['B']);
+
+	document.documentElement.style.setProperty('--themecolor', themecolor);
+	document.documentElement.style.setProperty('--themecolor-dark0', themecolor_dark0);
+	document.documentElement.style.setProperty('--themecolor-dark', themecolor_dark);
+	document.documentElement.style.setProperty('--themecolor-dark2', themecolor_dark2);
+	document.documentElement.style.setProperty('--themecolor-dark3', themecolor_dark3);
+	document.documentElement.style.setProperty('--themecolor-light', themecolor_light);
+	document.documentElement.style.setProperty('--themecolor-rgbstr', themecolor_rgbstr);
+
+	$("meta[name='theme-color']").attr("content", themecolor);
+	$("meta[name='theme-color-rgb']").attr("content", themecolor_rgbstr);
+
+	$(window).trigger("scroll");
+
+	if (setcookie){
+		setCookie("argon_custom_theme_color", themecolor, 365*24*60*60);
+	}
+}

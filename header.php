@@ -5,6 +5,10 @@
 	if ($themecolor == ""){
 		$themecolor = "#5e72e4";
 	}
+	$themecolor_origin = $themecolor;
+	if (checkHEX($_COOKIE["argon_custom_theme_color"]) && get_option('argon_show_customize_theme_color_picker') != 'false'){
+		$themecolor = $_COOKIE["argon_custom_theme_color"];
+	}
 ?>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
@@ -16,6 +20,11 @@
 		<meta property="og:description" content="<?php global $post;echo 
 			htmlspecialchars(mb_substr(str_replace("\n", '', strip_tags(get_post($post -> ID) -> post_content)), 0, 30)) . "...";?>">
 	<?php } ?>
+
+	<meta name="theme-color" content="<?php echo $themecolor; ?>">
+	<meta name="theme-color-rgb" content="<?php echo hex2str($themecolor); ?>">
+	<meta name="theme-color-origin" content="<?php echo $themecolor_origin; ?>">
+
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
 	<link rel="pingback" href="<?php echo esc_url( get_bloginfo( 'pingback_url' ) ); ?>">
@@ -57,10 +66,10 @@
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/sharejs/share.min.js"></script>
 	<?php }?>
 
+	<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/assets/vendor/pickr/themes/monolith.min.css"/>
+	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/pickr/pickr.es5.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/js/argon.min.js"></script>
 	<?php wp_head(); ?>
-	<meta name="theme-color" content="<?php echo $themecolor; ?>">
-	<meta name="theme-color-rgb" content="<?php echo hex2str($themecolor); ?>">
 </head>
 
 <?php echo get_option('argon_custom_html_head'); ?>
@@ -94,7 +103,7 @@
 		--themecolor-dark3: <?php echo $themecolor_dark3; ?>;
 		--themecolor-light: <?php echo $themecolor_light; ?>;
 		--themecolor-rgbstr: <?php echo $themecolor_rgbstr; ?>;
-		--themecolor-gradient: linear-gradient(150deg,<?php echo $themecolor_light; ?> 15%,<?php echo $themecolor; ?> 70%,<?php echo $themecolor_dark0; ?> 94%);
+		--themecolor-gradient: linear-gradient(150deg,var(--themecolor-light) 15%, var(--themecolor) 70%, var(--themecolor-dark0) 94%);
 
 	}
 </style>
@@ -283,6 +292,13 @@
 				<button id="blog_setting_filter_grayscale" type="button" class="blog-setting-filter-btn" filter-name="grayscale">灰度</button>
 			</div>
 		</div>
+
+		<?php if (get_option('argon_show_customize_theme_color_picker') != 'false') {?>
+			<div class="blog-setting-item mt-3 mb-3">
+				<div style="flex: 1;">主题色</div>
+				<div id="theme-color-picker" class="ml-3"></div>
+			</div>
+		<?php }?>
 	</div>
 	<button id="fab_open_sidebar" class="btn btn-icon btn-neutral fab shadow-sm" type="button">
 		<span class="btn-inner--icon"><i class="fa fa-bars"></i></span>
