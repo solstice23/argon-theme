@@ -66,8 +66,11 @@
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/sharejs/share.min.js"></script>
 	<?php }?>
 
-	<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/assets/vendor/pickr/themes/monolith.min.css"/>
-	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/pickr/pickr.es5.min.js"></script>
+	<?php if (get_option('argon_show_customize_theme_color_picker') != 'false') { /*Pickr*/?>
+		<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/assets/vendor/pickr/themes/monolith.min.css"/>
+		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/pickr/pickr.es5.min.js"></script>
+	<?php }?>
+
 	<script src="<?php bloginfo('template_url'); ?>/assets/js/argon.min.js"></script>
 	<?php wp_head(); ?>
 </head>
