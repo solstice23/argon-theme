@@ -24,6 +24,7 @@
 	<meta name="theme-color" content="<?php echo $themecolor; ?>">
 	<meta name="theme-color-rgb" content="<?php echo hex2str($themecolor); ?>">
 	<meta name="theme-color-origin" content="<?php echo $themecolor_origin; ?>">
+	<meta name="argon-enable-custom-theme-color" content="<?php echo (get_option('argon_show_customize_theme_color_picker') != 'false' ? 'true' : 'false'); ?>">
 
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>

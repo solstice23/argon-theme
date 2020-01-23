@@ -911,65 +911,66 @@ function hex2str(hex){
 	return rgb2str(hex2rgb(hex));
 }
 //颜色选择器 & 切换主题色
-let themeColorPicker = new Pickr({
-	el: '#theme-color-picker',
-	container: 'body',
-	theme: 'monolith',
-	closeOnScroll: false,
-	appClass: 'theme-color-picker-box',
-	useAsButton: false,
-	padding: 8,
-	inline: false,
-	autoReposition: true,
-	sliders: 'h',
-	disabled: false,
-	lockOpacity: true,
-	outputPrecision: 0,
-	comparison: false,
-	default: $("meta[name='theme-color']").attr("content"),
-	swatches: ['#5e72e4', '#fa7298', '#009688', '#607d8b', '#2196f3', '#3f51b5', '#ff9700', '#109d58', '#dc4437', '#673bb7', '#212121', '#795547'],
-	defaultRepresentation: 'HEX',
-	showAlways: false,
-    closeWithKey: 'Escape',
-    position: 'top-start',
-    adjustableNumbers: false,
-    components: {
-        palette: true,
-		preview: true,
-		opacity: false,
-		hue: true,
-
-		interaction: {
-			hex: true,
-			rgba: true,
-			hsla: false,
-			hsva: false,
-			cmyk: false,
-			input: true,
-			clear: false,
-			cancel: true,
-			save: true
+if ($("meta[name='argon-enable-custom-theme-color']").attr("content") == 'true'){
+	let themeColorPicker = new Pickr({
+		el: '#theme-color-picker',
+		container: 'body',
+		theme: 'monolith',
+		closeOnScroll: false,
+		appClass: 'theme-color-picker-box',
+		useAsButton: false,
+		padding: 8,
+		inline: false,
+		autoReposition: true,
+		sliders: 'h',
+		disabled: false,
+		lockOpacity: true,
+		outputPrecision: 0,
+		comparison: false,
+		default: $("meta[name='theme-color']").attr("content"),
+		swatches: ['#5e72e4', '#fa7298', '#009688', '#607d8b', '#2196f3', '#3f51b5', '#ff9700', '#109d58', '#dc4437', '#673bb7', '#212121', '#795547'],
+		defaultRepresentation: 'HEX',
+		showAlways: false,
+	    closeWithKey: 'Escape',
+	    position: 'top-start',
+	    adjustableNumbers: false,
+	    components: {
+	        palette: true,
+			preview: true,
+			opacity: false,
+			hue: true,
+			interaction: {
+				hex: true,
+				rgba: true,
+				hsla: false,
+				hsva: false,
+				cmyk: false,
+				input: true,
+				clear: false,
+				cancel: true,
+				save: true
+			}
+		},
+		strings: {
+			save: '确定',
+			clear: '清除',
+			cancel: '恢复博客默认'
 		}
-	},
-	strings: {
-		save: '确定',
-		clear: '清除',
-		cancel: '恢复博客默认'
-	}
-});
-themeColorPicker.on('change', instance => {
-	updateThemeColor(pickrObjectToHEX(instance), true);
-})
-themeColorPicker.on('save', (color, instance) => {
-	updateThemeColor(pickrObjectToHEX(instance._color), true);
-	themeColorPicker.hide();
-})
-themeColorPicker.on('cancel', instance => {
-	themeColorPicker.hide();
-	themeColorPicker.setColor($("meta[name='theme-color-origin']").attr("content").toUpperCase());
-	updateThemeColor($("meta[name='theme-color-origin']").attr("content").toUpperCase(), false);
-	setCookie("argon_custom_theme_color", "", 0);
-});
+	});
+	themeColorPicker.on('change', instance => {
+		updateThemeColor(pickrObjectToHEX(instance), true);
+	})
+	themeColorPicker.on('save', (color, instance) => {
+		updateThemeColor(pickrObjectToHEX(instance._color), true);
+		themeColorPicker.hide();
+	})
+	themeColorPicker.on('cancel', instance => {
+		themeColorPicker.hide();
+		themeColorPicker.setColor($("meta[name='theme-color-origin']").attr("content").toUpperCase());
+		updateThemeColor($("meta[name='theme-color-origin']").attr("content").toUpperCase(), false);
+		setCookie("argon_custom_theme_color", "", 0);
+	});
+}
 function pickrObjectToHEX(color){
 	let HEXA = color.toHEXA();
 	return ("#" + HEXA[0] + HEXA[1] + HEXA[2]).toUpperCase();
