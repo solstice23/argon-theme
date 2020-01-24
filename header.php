@@ -59,7 +59,7 @@
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/lazyload/jquery.lazyload.min.js"></script>
 	<?php }?>
 
-	<?php if (get_option('argon_enable_lazyload') != 'false') { /*Zoomify*/?>
+	<?php if (get_option('argon_enable_zoomify') != 'false') { /*Zoomify*/?>
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/zoomify/zoomify.js"></script>
 	<?php }?>
 
