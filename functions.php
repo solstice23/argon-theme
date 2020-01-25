@@ -17,7 +17,7 @@ if (get_option('argon_update_source') == 'abc233site'){
 	);
 }else{
 	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://raw.githubusercontent.com/abc2237512422/argon-theme/master/info.json',
+		'https://raw.githubusercontent.com/solstice23/argon-theme/master/info.json',
 		get_template_directory() . '/functions.php',
 		'argon'
 	);
@@ -545,7 +545,7 @@ function alert_footer_copyright_changed(){ ?>
 <?php }
 function check_footer_copyright(){
 	$footer = file_get_contents(get_theme_root() . "/argon/footer.php");
-	if ((strpos($footer, "github.com/abc2237512422/argon-theme") === false) && (strpos($footer, "abc233.site") === false)){
+	if ((strpos($footer, "github.com/solstice23/argon-theme") === false) && (strpos($footer, "abc233.site") === false)){
 		add_action('admin_notices', 'alert_footer_copyright_changed');
 	}
 }
