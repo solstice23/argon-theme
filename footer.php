@@ -2,7 +2,7 @@
 						<?php
 							echo get_option('argon_footer_html');
 						?>
-						<div>Theme <a href="https://abc233.site/argon"><strong>Argon</strong></a> By abc2237512422</div>
+						<div>Theme <a href="https://abc233.site/argon"><strong>Argon</strong></a> By solstice23</div>
 					</footer>
 				</main>
 			</div>
