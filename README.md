@@ -59,6 +59,9 @@ Argon 使用 [GPL V3.0](https://github.com/abc2237512422/argon-theme/blob/master
 
 # 更新日志
 
+## 20200125 v0.703
++ Github 用户名更换适配 (abc2237512422 -> solstice23)
+
 ## 20200125 v0.702
 + 修复图片全屏预览选项关闭后无效的 BUG
 
