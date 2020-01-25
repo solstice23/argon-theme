@@ -60,7 +60,7 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 # 更新日志
 
 ## 20200125 v0.703
-+ Github 用户名更换适配 (solstice23 -> solstice23)
++ Github 用户名更换适配 (abc2237512422 -> solstice23)
 
 ## 20200125 v0.702
 + 修复图片全屏预览选项关闭后无效的 BUG
