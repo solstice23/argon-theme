@@ -1,9 +1,9 @@
 # Argon-Theme
 Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
-[![GitHub release](https://img.shields.io/github/v/release/abc2237512422/argon-theme?color=%235e72e4&style=for-the-badge)](https://github.com/abc2237512422/argon-theme/releases) [![GitHub All Releases](https://img.shields.io/github/downloads/abc2237512422/argon-theme/total?style=for-the-badge)](https://github.com/abc2237512422/argon-theme/releases) [![GitHub](https://img.shields.io/github/license/abc2237512422/argon-theme?color=blue&style=for-the-badge)](https://github.com/abc2237512422/argon-theme/blob/master/LICENSE) [![Author]( https://img.shields.io/badge/author-abc2237512422-yellow?style=for-the-badge)](https://github.com/abc2237512422) [![GitHub stars](https://img.shields.io/github/stars/abc2237512422/argon-theme?color=ff69b4&style=for-the-badge)](https://github.com/abc2237512422/argon-theme/stargazers)
+[![GitHub release](https://img.shields.io/github/v/release/solstice23/argon-theme?color=%235e72e4&style=for-the-badge)](https://github.com/solstice23/argon-theme/releases) [![GitHub All Releases](https://img.shields.io/github/downloads/solstice23/argon-theme/total?style=for-the-badge)](https://github.com/solstice23/argon-theme/releases) [![GitHub](https://img.shields.io/github/license/solstice23/argon-theme?color=blue&style=for-the-badge)](https://github.com/solstice23/argon-theme/blob/master/LICENSE) [![Author]( https://img.shields.io/badge/author-solstice23-yellow?style=for-the-badge)](https://github.com/solstice23) [![GitHub stars](https://img.shields.io/github/stars/solstice23/argon-theme?color=ff69b4&style=for-the-badge)](https://github.com/solstice23/argon-theme/stargazers)
 
-[![GitHub last commit](https://img.shields.io/github/last-commit/abc2237512422/argon-theme?style=flat-square)](https://github.com/abc2237512422/argon-theme/commits/master) [![GitHub Release Date](https://img.shields.io/github/release-date/abc2237512422/argon-theme?style=flat-square)](https://github.com/abc2237512422/argon-theme/releases) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/abc2237512422/argon-theme?style=flat-square) 
+[![GitHub last commit](https://img.shields.io/github/last-commit/solstice23/argon-theme?style=flat-square)](https://github.com/solstice23/argon-theme/commits/master) [![GitHub Release Date](https://img.shields.io/github/release-date/solstice23/argon-theme?style=flat-square)](https://github.com/solstice23/argon-theme/releases) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/solstice23/argon-theme?style=flat-square) 
 
 # 特性
 
@@ -27,7 +27,7 @@ Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
 # 安装
 
-在 [Release](https://github.com/abc2237512422/argon-theme/releases) 页面下载 .zip 文件，在 WordPress 后台 "主题" 页面上传并安装。
+在 [Release](https://github.com/solstice23/argon-theme/releases) 页面下载 .zip 文件，在 WordPress 后台 "主题" 页面上传并安装。
 
 # 文档
 
@@ -41,7 +41,7 @@ Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
 # 注意
 
-Argon 使用 [GPL V3.0](https://github.com/abc2237512422/argon-theme/blob/master/LICENSE) 协议开源，请遵守此协议进行二次开发等。
+Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LICENSE) 协议开源，请遵守此协议进行二次开发等。
 
 您**必须在页脚保留 Argon 主题的名称及其链接**，否则请不要使用 Argon 主题。
 
@@ -60,7 +60,7 @@ Argon 使用 [GPL V3.0](https://github.com/abc2237512422/argon-theme/blob/master
 # 更新日志
 
 ## 20200125 v0.703
-+ Github 用户名更换适配 (abc2237512422 -> solstice23)
++ Github 用户名更换适配 (solstice23 -> solstice23)
 
 ## 20200125 v0.702
 + 修复图片全屏预览选项关闭后无效的 BUG
