@@ -12,13 +12,23 @@
 ?>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<?php if (get_option('argon_enable_mobile_scale') != 'true'){ ?>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">	
+	<?php }else{ ?>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+	<?php } ?>
 	<meta property="og:title" content="<?php echo wp_get_document_title();?>">
 	<meta property="og:type" content="article">
 	<meta property="og:url" content="<?php echo home_url(add_query_arg(array(),$wp->request));?>">
-	<?php if ((is_single() || is_page()) && !post_password_required()){?>
-		<meta property="og:description" content="<?php global $post;echo 
-			htmlspecialchars(mb_substr(str_replace("\n", '', strip_tags(get_post($post -> ID) -> post_content)), 0, 30)) . "...";?>">
+	<?php
+		$seo_description = get_seo_description();
+		if ($seo_description != ''){ ?>
+			<meta name="description" content="<?php echo $seo_description?>">
+			<meta property="og:description" content="<?php echo $seo_description?>">
+	<?php } ?>
+
+	<?php if (get_option('argon_seo_keywords') != ''){ ?>
+		<meta name="keywords" content="<?php echo get_option('argon_seo_keywords');?>">
 	<?php } ?>
 
 	<meta name="theme-color" content="<?php echo $themecolor; ?>">
@@ -30,19 +40,10 @@
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
 	<link rel="pingback" href="<?php echo esc_url( get_bloginfo( 'pingback_url' ) ); ?>">
 	<?php endif; ?>
-	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/nprogress/nprogress.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-	<link href="<?php bloginfo('template_url'); ?>/assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
-	<link href="<?php bloginfo('template_url'); ?>/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-	<link type="text/css" href="<?php bloginfo('template_url'); ?>/assets/css/argon.min.css" rel="stylesheet">
-	<link href="<?php bloginfo('template_url'); ?>/style.css?v<?php echo wp_get_theme('argon')-> Version; ?>" type='text/css' media='all' rel='stylesheet'>
-	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/bootstrap/bootstrap.min.js"></script>
-	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/popper/popper.min.js"></script>
-	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/headindex/headindex.js"></script>
-	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/headroom/headroom.min.js"></script>
-	<link href="<?php bloginfo('template_url'); ?>/assets/vendor/izitoast/css/iziToast.css" rel="stylesheet">
-	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/izitoast/js/iziToast.min.js"></script>
+	<link href="<?php bloginfo('template_url'); ?>/assets/argon_css_merged.css?v<?php echo wp_get_theme('argon') -> Version; ?>" rel="stylesheet">
+	<link href="<?php bloginfo('template_url'); ?>/style.css?v<?php echo wp_get_theme('argon') -> Version; ?>" type='text/css' media='all' rel='stylesheet'>
+	<script src="<?php bloginfo('template_url'); ?>/assets/argon_js_merged.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300&display=swap" rel="stylesheet">
 
 	<?php if (get_option('argon_enable_smoothscroll_type') == '2') { /*平滑滚动*/?>
@@ -53,23 +54,6 @@
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll1_pulse.js"></script>
 	<?php }else if (get_option('argon_enable_smoothscroll_type') != 'disabled'){?>
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll1.js"></script>
-	<?php }?>
-
-	<?php if (get_option('argon_enable_lazyload') != 'false') { /*LazyLoad*/?>
-		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/lazyload/jquery.lazyload.min.js"></script>
-	<?php }?>
-
-	<?php if (get_option('argon_enable_zoomify') != 'false') { /*Zoomify*/?>
-		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/zoomify/zoomify.js"></script>
-	<?php }?>
-
-	<?php if (get_option('argon_show_sharebtn') != 'false') { /*Share.js*/?>
-		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/sharejs/share.min.js"></script>
-	<?php }?>
-
-	<?php if (get_option('argon_show_customize_theme_color_picker') != 'false') { /*Pickr*/?>
-		<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/assets/vendor/pickr/themes/monolith.min.css"/>
-		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/pickr/pickr.es5.min.js"></script>
 	<?php }?>
 
 	<script src="<?php bloginfo('template_url'); ?>/assets/js/argon.min.js"></script>
@@ -253,17 +237,17 @@
 </section>
 
 <div id="float_action_buttons" class="float-action-buttons fabs-unloaded">
-	<button id="fab_toggle_sides" class="btn btn-icon btn-neutral fab shadow-sm" type="button">
+	<button id="fab_toggle_sides" class="btn btn-icon btn-neutral fab shadow-sm" type="button" aria-hidden="true">
 		<span class="btn-inner--icon fab-show-on-right"><i class="fa fa-caret-left"></i></span>
 		<span class="btn-inner--icon fab-show-on-left"><i class="fa fa-caret-right"></i></span>
 	</button>
-	<button id="fab_back_to_top" class="btn btn-icon btn-neutral fab shadow-sm" type="button">
+	<button id="fab_back_to_top" class="btn btn-icon btn-neutral fab shadow-sm" type="button" aria-label="Back To Top">
 		<span class="btn-inner--icon"><i class="fa fa-angle-up"></i></span>
 	</button>
-	<button id="fab_toggle_darkmode" class="btn btn-icon btn-neutral fab shadow-sm" type="button" <?php if (get_option('argon_fab_show_darkmode_button') != 'true') echo " style='display: none;'";?>>
+	<button id="fab_toggle_darkmode" class="btn btn-icon btn-neutral fab shadow-sm" type="button" <?php if (get_option('argon_fab_show_darkmode_button') != 'true') echo " style='display: none;'";?> aria-label="Switch Darkmode">
 		<span class="btn-inner--icon"><i class="fa fa-moon-o"></i></span>
 	</button>
-	<button id="fab_toggle_blog_settings_popup" class="btn btn-icon btn-neutral fab shadow-sm" type="button" <?php if (get_option('argon_fab_show_settings_button') == 'false') echo " style='display: none;'";?>>
+	<button id="fab_toggle_blog_settings_popup" class="btn btn-icon btn-neutral fab shadow-sm" type="button" <?php if (get_option('argon_fab_show_settings_button') == 'false') echo " style='display: none;'";?> aria-label="Open Blog Settings Menu">
 		<span class="btn-inner--icon"><i class="fa fa-cog"></i></span>
 	</button>
 	<div id="fab_blog_settings_popup" class="card shadow-sm" style="opacity: 0;">
@@ -304,10 +288,10 @@
 			</div>
 		<?php }?>
 	</div>
-	<button id="fab_open_sidebar" class="btn btn-icon btn-neutral fab shadow-sm" type="button">
+	<button id="fab_open_sidebar" class="btn btn-icon btn-neutral fab shadow-sm" type="button" aria-label="Open Sidebar Menu">
 		<span class="btn-inner--icon"><i class="fa fa-bars"></i></span>
 	</button>
-	<button id="fab_reading_progress" class="btn btn-icon btn-neutral fab shadow-sm" type="button">
+	<button id="fab_reading_progress" class="btn btn-icon btn-neutral fab shadow-sm" type="button" aria-hidden="true">
 		<div id="fab_reading_progress_bar" style="width: 0%;"></div>
 		<span id="fab_reading_progress_details">0%</span>
 	</button>

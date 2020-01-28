@@ -117,10 +117,10 @@ function get_argon_formatted_paginate_links(){
 	//生成新页码
 	$html = "";
 	if ($from > 1){
-		$html .= '<li class="page-item"><a class="page-link" href="' . $urls[1] . '"><i class="fa fa-angle-double-left"></i></a></li>';
+		$html .= '<li class="page-item"><a aria-label="First Page" class="page-link" href="' . $urls[1] . '"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>';
 	}
 	if ($current > 1){
-		$html .= '<li class="page-item"><a class="page-link" href="' . $urls[$current - 1] . '"><i class="fa fa-angle-left"></i></a></li>';
+		$html .= '<li class="page-item"><a aria-label="Previous Page" class="page-link" href="' . $urls[$current - 1] . '"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>';
 	}
 	for ($i = $from; $i <= $to; $i++){
 		if ($current == $i){
@@ -130,12 +130,26 @@ function get_argon_formatted_paginate_links(){
 		}
 	}
 	if ($current < $total){
-		$html .= '<li class="page-item"><a class="page-link" href="' . $urls[$current + 1] . '"><i class="fa fa-angle-right"></i></a></li>';
+		$html .= '<li class="page-item"><a aria-label="Next Page" class="page-link" href="' . $urls[$current + 1] . '"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>';
 	}
 	if ($to < $total){
-		$html .= '<li class="page-item"><a class="page-link" href="' . $urls[$total] . '"><i class="fa fa-angle-double-right"></i></a></li>';
+		$html .= '<li class="page-item"><a aria-label="Last Page" class="page-link" href="' . $urls[$total] . '"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>';
 	}
 	return '<nav><ul class="pagination">' . $html . '</ul></nav>';
+}
+//页面 Description Meta
+function get_seo_description(){
+	global $post;
+	if ((is_single() || is_page())){
+		if (!post_password_required()){
+			return  
+			htmlspecialchars(mb_substr(str_replace("\n", '', strip_tags(get_post($post -> ID) -> post_content)), 0, 50)) . "...";
+		}else{
+			return "这是一个加密页面，需要密码来查看";
+		}
+	}else{
+		return get_option('argon_seo_description');
+	}
 }
 //页面浏览量
 function get_post_views($post_id){
@@ -1288,6 +1302,21 @@ function themeoptions_page(){
 							<p class="description">如果开启了设置按钮显示，建议关闭此选项。（夜间模式选项在设置菜单中已经存在）</p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h2>SEO</h2></th></tr>
+					<tr>
+						<th><label>网站描述 (Description Meta 标签)</label></th>
+						<td>
+							<textarea type="text" rows="5" cols="100" name="argon_seo_description"><?php echo htmlspecialchars(get_option('argon_seo_description')); ?></textarea>
+							<p class="description">设置针对搜索引擎的 Description Meta 标签内容。</br>在文章中，Argon 会自动根据文章内容生成描述。在其他页面中，Argon 将使用这里设置的内容。如不填，Argon 将不会在其他页面输出 Description Meta 标签。</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>搜索引擎关键词（Keywords Meta 标签）</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_seo_keywords" value="<?php echo get_option('argon_seo_keywords'); ?>"/>
+							<p class="description">设置针对搜索引擎使用的关键词（Keywords Meta 标签内容）。用英文逗号隔开。不设置则不输出该 Meta 标签。</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>文章 Meta 信息</h2></th></tr>
 					<tr>
 						<th><label>显示字数和预计阅读时间</label></th>
@@ -1551,6 +1580,17 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label>是否允许移动端缩放页面</label></th>
+						<td>
+							<select name="argon_enable_mobile_scale">
+								<?php $argon_enable_mobile_scale = get_option('argon_enable_mobile_scale'); ?>
+								<option value="false" <?php if ($argon_enable_mobile_scale=='false'){echo 'selected';} ?>>否</option>
+								<option value="true" <?php if ($argon_enable_mobile_scale=='true'){echo 'selected';} ?>>是</option>	
+							</select>
+							<p class="description"></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label>检测更新源</label></th>
 						<td>
 							<select name="argon_update_source">
@@ -1681,6 +1721,9 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_show_headindex_number', $_POST['argon_show_headindex_number']);
 	update_option('argon_theme_color', $_POST['argon_theme_color']);
 	update_option('argon_show_customize_theme_color_picker', ($_POST['argon_show_customize_theme_color_picker'] == 'true')?'true':'false');
+	update_option('argon_seo_description', stripslashes($_POST['argon_seo_description']));
+	update_option('argon_seo_keywords', $_POST['argon_seo_keywords']);
+	update_option('argon_enable_mobile_scale', $_POST['argon_enable_mobile_scale']);
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);

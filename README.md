@@ -59,6 +59,14 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200128 v0.800
++ 大幅提升前端加载速度
++ SEO 优化
++ 增加 SEO Description Meta 标签和 Keywords Meta 标签设置选项
++ 增强页面可访问性，优化无障碍体验
++ 修复一些问题
++ 针对打印进行优化
+
 ## 20200125 v0.703
 + Github 用户名更换适配 (abc2237512422 -> solstice23)
 
