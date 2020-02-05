@@ -59,6 +59,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200128 v0.810
++ BUG 修复
+
 ## 20200128 v0.800
 + 大幅提升前端加载速度
 + SEO 优化
