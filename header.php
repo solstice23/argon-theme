@@ -236,6 +236,39 @@
 	<?php } ?>
 </section>
 
+<?php if (get_option('argon_page_background_url') != '') { ?>
+	<style>
+		body:after {
+			content: '';
+			display: block;
+			position: fixed;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			z-index: -2;
+			background: url(<?php echo get_option('argon_page_background_url');?>);
+			background-position: center;
+			background-size: cover;
+			background-repeat: no-repeat;
+			opacity: <?php echo (get_option('argon_page_background_opacity') == '' ? '1' : get_option('argon_page_background_opacity')); ?>;
+		}
+		html.darkmode body:after{
+			filter: brightness(0.65);
+		}
+		<?php if (get_option('argon_page_background_banner_style') != '') { ?>
+			#banner, #banner .shape {
+				background: transparent !important;
+			}
+			<?php if (get_option('argon_page_background_banner_style') != '0') { ?>
+				#banner {
+					backdrop-filter: blur(<?php echo get_option('argon_page_background_banner_style');?>px);
+				}
+			<?php } ?>
+		<?php } ?>
+	</style>
+<?php } ?>
+
 <div id="float_action_buttons" class="float-action-buttons fabs-unloaded">
 	<button id="fab_toggle_sides" class="btn btn-icon btn-neutral fab shadow-sm" type="button" aria-hidden="true">
 		<span class="btn-inner--icon fab-show-on-right"><i class="fa fa-caret-left"></i></span>

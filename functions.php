@@ -1229,6 +1229,28 @@ function themeoptions_page(){
 							</p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h2>页面背景</h2></th></tr>
+					<tr>
+						<th><label>页面背景</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_page_background_url" value="<?php echo get_option('argon_page_background_url'); ?>"/>
+							<p class="description">页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐修改以下选项来增强页面整体观感。</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>背景不透明度</label></th>
+						<td>
+							<input type="number" name="argon_page_background_opacity" min="0" max="1" step="0.01" value="<?php echo (get_option('argon_page_background_opacity') == '' ? '1' : get_option('argon_page_background_opacity')); ?>"/>
+							<p class="description">0 ~ 1 的小数，越小透明度越高，默认为 1 不透明</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>Banner 样式</label></th>
+						<td>
+							<input type="text" style="width:150px" class="regular-text" name="argon_page_background_banner_style" value="<?php echo get_option('argon_page_background_banner_style'); ?>"/>
+							<p class="description">留空则不修改 Banner 样式。填 0 可以将 Banner 设为透明。填入正整数可以将 Banner 设为毛玻璃（高斯模糊）特效，模糊半径为填入的数。推荐填入 0。该选项仅在设置页面背景后才会生效。</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>左侧栏</h2></th></tr>
 					<tr>
 						<th><label>左侧栏标题</label></th>
@@ -1724,6 +1746,9 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_seo_description', stripslashes($_POST['argon_seo_description']));
 	update_option('argon_seo_keywords', $_POST['argon_seo_keywords']);
 	update_option('argon_enable_mobile_scale', $_POST['argon_enable_mobile_scale']);
+	update_option('argon_page_background_url', $_POST['argon_page_background_url']);
+	update_option('argon_page_background_opacity', $_POST['argon_page_background_opacity']);
+	update_option('argon_page_background_banner_style', $_POST['argon_page_background_banner_style']);
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);
