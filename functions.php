@@ -11,7 +11,7 @@ add_action('after_setup_theme','theme_slug_setup');
 require_once(get_template_directory() . '/theme-update-checker/plugin-update-checker.php'); 
 if (get_option('argon_update_source') == 'abc233site'){
 	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://api.abc233.site/argon/info.json',
+		'https://api.solstice23.top/argon/info.json?source=0',
 		get_template_directory() . '/functions.php',
 		'argon'
 	);
@@ -34,7 +34,7 @@ function post_analytics_info(){
 				)
 			)
 		);
-		$result = file_get_contents('http://api.abc233.site/argon_analytics/index.php?domain=' . $_SERVER['HTTP_HOST'], false, $contexts);
+		$result = file_get_contents('http://api.solstice23.top/argon_analytics/index.php?domain=' . urlencode($_SERVER['HTTP_HOST']) . '&version='. urlencode(wp_get_theme('argon') -> Version), false, $contexts);
 		update_option('argon_has_inited', 'true');
 		return $result;
 	}else{
@@ -440,7 +440,7 @@ function argon_lazyload($content){
 	}
 	$lazyload_loading_style = "lazyload-style-" . $lazyload_loading_style;
 
-	if(!is_feed() || !is_robots){
+	if(!is_feed() || !is_robots()){
 		$content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i',"<img class=\"lazyload " . $lazyload_loading_style . "\" src=\"data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+\" \$1data-original=\"\$2\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC\"\$3>\n<noscript>\$0</noscript>" , $content);
 	}
 
@@ -559,7 +559,7 @@ function alert_footer_copyright_changed(){ ?>
 <?php }
 function check_footer_copyright(){
 	$footer = file_get_contents(get_theme_root() . "/argon/footer.php");
-	if ((strpos($footer, "github.com/solstice23/argon-theme") === false) && (strpos($footer, "abc233.site") === false)){
+	if ((strpos($footer, "github.com/solstice23/argon-theme") === false) && (strpos($footer, "solstice23.top") === false) && (strpos($footer, "abc233.site") === false)){
 		add_action('admin_notices', 'alert_footer_copyright_changed');
 	}
 }
@@ -1596,9 +1596,9 @@ window.pjaxLoaded = function(){
 							<select name="argon_update_source">
 								<?php $argon_update_source = get_option('argon_update_source'); ?>
 								<option value="github" <?php if ($argon_update_source=='github'){echo 'selected';} ?>>Github</option>
-								<option value="abc233site" <?php if ($argon_update_source=='abc233site'){echo 'selected';} ?>>abc233.site</option>	
+								<option value="abc233site" <?php if ($argon_update_source=='abc233site'){echo 'selected';} ?>>solstice23.top</option>	
 							</select>
-							<p class="description">如主机访问 Github 较慢，选择 abc233.site 源可能可以增加更新速度</p>
+							<p class="description">如更新主题速度较慢，可考虑更换更新源。</p>
 						</td>
 					</tr>
 				</tbody>
