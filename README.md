@@ -60,6 +60,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200128 v0.820
++ 增加博客背景图片设置选项
++ 增加 沉浸式 Banner (透明) 和 毛玻璃 Banner 选项 来增强背景图片的显示效果
+
 ## 20200128 v0.810
 + BUG 修复
 
