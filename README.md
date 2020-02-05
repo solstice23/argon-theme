@@ -1,3 +1,4 @@
+![Argon](https://abc233.site/argon-theme-docs/img/argon.jpg)
 # Argon-Theme
 Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
@@ -49,13 +50,13 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 截图
 
-![截图1](https://abc233.site/argon-theme-docs/img/screenshot1.png)
+![截图 1](https://abc233.site/argon-theme-docs/img/screenshot1.png)
 
-![截图2](https://abc233.site/argon-theme-docs/img/screenshot2.png)
+![截图 2](https://abc233.site/argon-theme-docs/img/screenshot2.png)
 
-![截图3](https://abc233.site/argon-theme-docs/img/screenshot3.png)
+![截图 3](https://abc233.site/argon-theme-docs/img/screenshot3.png)
 
-![截图4](https://abc233.site/argon-theme-docs/img/screenshot4.png)
+![截图 4](https://abc233.site/argon-theme-docs/img/screenshot4.png)
 
 # 更新日志
 
