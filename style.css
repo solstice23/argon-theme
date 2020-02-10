@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.820
+Version: 0.830
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -1165,6 +1165,72 @@ html.filter-grayscale{
 .comment-item:hover .comment-reply{
 	opacity: 1;
 }
+/*评论内容*/
+.comment-item-text .comment-image br{
+	display: none;
+}
+.comment-item-text .comment-image{
+	color: var(--themecolor) !important;
+	cursor: pointer;
+	user-select: none;
+	position: relative;
+}
+.comment-image-preview-mask{
+	display: none;
+}
+.comment-item-text .comment-image.comment-image-preview-zoomed .comment-image-preview-mask{
+	display: block;
+	background: transparent;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 1501;
+	cursor: zoom-out;
+}
+.comment-item-text .comment-image .comment-image-preview {
+	width: 50px;
+	height: auto;
+	position: absolute;
+	left: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+.comment-item-text .comment-image.comment-image-preview-zoomed .comment-image-preview {
+	z-index: 1502;
+	opacity: 1;
+	pointer-events: unset;
+}
+.comment-item-text b, .comment-item-text strong {
+	font-weight: 600;
+	opacity: .78;
+}
+.comment-item-text pre {
+	font-family: Consolas,Menlo,Monaco,'Andale Mono WT','Andale Mono','Lucida Console','Lucida Sans Typewriter','DejaVu Sans Mono','Bitstream Vera Sans Mono','Liberation Mono','Nimbus Mono L','Courier New',Courier,monospace;
+	font-size: 14px;
+	line-height: 1.375;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	tab-size: 4;
+	hyphens: none;
+	color: #5e6687;
+	background: #f5f7ff;
+	direction: ltr;
+	border: 1px solid rgba(0, 0, 0, .12);
+	padding: 14px;
+	border-radius: 3px;
+}
+.comment-item-text blockquote {
+	padding-left: 1.2em;
+	margin: 1em 3em 1em 0;
+	font-weight: 400;
+	border-left: 3px solid rgba(0, 0, 0, .12);
+}
 /*发送评论区域*/
 #post_comment{
 	margin-bottom: 25px;
@@ -1191,7 +1257,22 @@ html.filter-grayscale{
 	margin-top: 15px;
 	border-left: 2px solid #eee;
 	padding: 8px 15px;
-	padding-top: 10px
+	padding-top: 10px;
+	max-height: 250px;
+	overflow: hidden;
+	position: relative;
+}
+#post_comment_reply_preview:after {
+	content: '';
+	background: linear-gradient(180deg,transparent 0%,#fff 100%);
+	display: block;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 35px;
+	position: absolute;
+	pointer-events: none;
+	transition: all .3s ease;
 }
 #post_comment_reply_cencel{
 	margin-top: 20px;
@@ -1269,6 +1350,11 @@ html.filter-grayscale{
 	opacity: 1;
 	background-color: #e9ecef;
 	pointer-events: none;
+}
+.comment-post-use-markdown{
+	display: inline-block;
+	margin-top: 15px;
+	height: 30px;
 }
 /*短代码适配*/
 /*短代码-checkbox*/
@@ -2171,6 +2257,15 @@ html.darkmode .post-comment-reply{
 }
 html.darkmode .comment-item-inner{
 	border-bottom: #555 solid 1px;
+}
+
+
+html.darkmode #post_comment_reply_preview:after {
+	background: linear-gradient(180deg,transparent 0%,#424242 100%);
+}
+
+html.darkmode .comment-item-text .comment-image{
+	color: var(--themecolor-light) !important;
 }
 
 html.darkmode .badge{

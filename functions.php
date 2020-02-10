@@ -402,6 +402,51 @@ function check_comment_captcha($comment){
 if($comment_data['comment_type'] == ''){
 	add_filter('preprocess_comment' , 'check_comment_captcha');
 }
+//评论 Markdown 解析
+require_once(get_template_directory() . '/parsedown.php');
+function comment_markdown_render($comment_content){
+	if ($_POST['use_markdown'] != 'true'){
+		return $comment_content;
+	}
+	//HTML 过滤
+	global $allowedtags; 
+	//$comment_content = wp_kses($comment_content, $allowedtags);
+	//允许评论中额外的 HTML Tag
+	$allowedtags['pre'] = array('class' => array());
+	$allowedtags['i'] = array('class' => array(), 'aria-hidden' => array()); 
+	$allowedtags['img'] = array('src' => array(), 'alt' => array(), 'class' => array());
+	$allowedtags['ul_'] = array();
+	$allowedtags['li_'] = array();
+	$allowedtags['a']['class'] = array();
+	$allowedtags['a']['data-src'] = array();
+	$allowedtags['a']['target'] = array();
+
+	//解析 Markdown
+	$parsedown = new Parsedown();
+	$res = $parsedown -> text($comment_content);
+	/*$res = preg_replace(
+		'/<code>([\s\S]*?)<\/code>/',
+		'<pre>$1</pre>',
+		$res
+	);*/
+	$res = preg_replace(
+		'/<img src="(.*?)" alt="(.*?)" \/>/',
+		'<a data-src="$1" title="$2" class="comment-image">
+			<i class="fa fa-image" aria-hidden="true"></i>
+			查看图片
+			<img src="" alt="$2" class="comment-image-preview">
+			<i class="comment-image-preview-mask"></i>
+		</a>',
+		$res
+	);
+	$res = preg_replace(
+		'/<a (.*?)>(.*?)<\/a>/',
+		'<a $1 target="_blank">$2</a>',
+		$res
+	);
+	return $res;
+}
+add_filter('pre_comment_content' , 'comment_markdown_render');
 //获取顶部 Banner 背景图（用户指定或必应日图）
 function get_banner_background_url(){
 	$url = get_option("argon_banner_background_url");
@@ -488,7 +533,7 @@ function argon_zoomify($content){
 		);
 	});
 	</script>';
-	
+
 	return $content;
 }
 function the_content_filter($content){
@@ -939,7 +984,7 @@ function shortcode_friend_link($attr,$content=""){
 				<div class='card shadow-sm'>
 					<div class='d-flex'>
 						<div class='friend-link-avatar'>
-							<a target='_blink' href='" . $now[1] . "'>";
+							<a target='_blank' href='" . $now[1] . "'>";
 			if (!ctype_space($now[4]) && $now[4] != '' && isset($now[4])){
 				$out .= "<img src='" . $now[4] . "' class='icon bg-gradient-secondary rounded-circle text-white' style='pointer-events: none;'>
 						</img>";

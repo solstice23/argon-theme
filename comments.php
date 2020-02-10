@@ -116,6 +116,10 @@
 				</div></div>
 			<div class="row" style="margin-top: 5px; margin-bottom: 10px;">
 				<div class="col-md-12">
+					<div class="custom-control custom-checkbox comment-post-use-markdown">
+						<input class="custom-control-input" id="comment_post_use_markdown" type="checkbox" checked="true">
+						<label class="custom-control-label" for="comment_post_use_markdown" style="line-height: 25px;">Markdown</label>
+					</div>
 					<button id="post_comment_send" class="btn btn-icon btn-primary pull-right" type="button">
 						<span class="btn-inner--icon"><i class="fa fa-send"></i></span>
 						<span class="btn-inner--text">发送</span>

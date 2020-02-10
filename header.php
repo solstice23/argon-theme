@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<html <?php language_attributes(); ?> class="no-js">
+<?php
+	$htmlclasses = "";
+	if ($_COOKIE["argon_enable_dark_mode"] == "true"){
+		$htmlclasses .= "darkmode ";
+	}
+?>
+<html <?php language_attributes(); ?> class="no-js <?php echo $htmlclasses;?>">
 <?php
 	$themecolor = get_option('argon_theme_color');
 	if ($themecolor == ""){
