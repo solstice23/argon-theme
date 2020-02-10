@@ -415,8 +415,6 @@ function comment_markdown_render($comment_content){
 	$allowedtags['pre'] = array('class' => array());
 	$allowedtags['i'] = array('class' => array(), 'aria-hidden' => array()); 
 	$allowedtags['img'] = array('src' => array(), 'alt' => array(), 'class' => array());
-	$allowedtags['ul_'] = array();
-	$allowedtags['li_'] = array();
 	$allowedtags['a']['class'] = array();
 	$allowedtags['a']['data-src'] = array();
 	$allowedtags['a']['target'] = array();
