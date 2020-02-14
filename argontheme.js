@@ -270,25 +270,29 @@
 			isError = true;
 			errorMsg += "评论内容不能为空</br>";
 		}
-		if (commentName.match(/^\s*$/)){
-			isError = true;
-			errorMsg += "昵称不能为空</br>";
-		}
-		if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail)){
-			isError = true;
-			errorMsg += "邮箱格式错误</br>";
+		if (!$("#post_comment").hasClass("no-need-name-email")){
+			if (commentName.match(/^\s*$/)){
+				isError = true;
+				errorMsg += "昵称不能为空</br>";
+			}
+			if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail)){
+				isError = true;
+				errorMsg += "邮箱格式错误</br>";
+			}
 		}
 		if (commentLink != "" && !(/https?:\/\//).test(commentLink)){
 			isError = true;
 			errorMsg += "网站格式错误 (不是 http(s):// 开头)</br>";
 		}
-		if (commentCaptcha == ""){
-			isError = true;
-			errorMsg += "验证码未输入";
-		}
-		if (commentCaptcha != "" && !(/^[0-9]+$/).test(commentCaptcha)){
-			isError = true;
-			errorMsg += "验证码格式错误";
+		if (!$("#post_comment").hasClass("no-need-captcha")){
+			if (commentCaptcha == ""){
+				isError = true;
+				errorMsg += "验证码未输入";
+			}
+			if (commentCaptcha != "" && !(/^[0-9]+$/).test(commentCaptcha)){
+				isError = true;
+				errorMsg += "验证码格式错误";
+			}
 		}
 		if (isError){
 			iziToast.show({
@@ -478,25 +482,31 @@
 }();
 
 /*URL 中 # 根据 ID 定位*/
+function gotoHash(hash){
+	if (hash.length == 0){
+		return;
+	}
+	if ($(hash).length == 0){
+		return;
+	}
+	$("body,html").animate({
+		scrollTop: $(hash).offset().top - 80
+	}, 200);
+}
+function getHash(url){
+	return url.substring(url.indexOf('#'));
+}
 !function(){
 	$(window).on("hashchange" , function(){
 		hash = window.location.hash;
-		if (hash.length == 0){
-			return;
-		}
-		if ($(hash).length == 0){
-			return;
-		}
-		$("body,html").animate({
-			scrollTop: $(hash).offset().top + 100
-		}, 200);
+		gotoHash(hash);
 	});
 	$(window).trigger("hashchange");
 }();
 
 /*Pjax*/
 var pjaxUrlChanged , pjaxLoading = false;
-function pjaxLoadUrl(url , pushstate){
+function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop){
 	if (pjaxLoading == false){
 		NProgress.remove();
 		NProgress.start();
@@ -539,16 +549,16 @@ function pjaxLoadUrl(url , pushstate){
 						if ($(".page-infomation-card" , $vdom).length > 0){
 							$("#content").prepend($(".page-infomation-card" , $vdom)[0].outerHTML);
 						}
-
 						
 						$("body,html").animate({
-							scrollTop: 0
+							scrollTop: scrolltop
 						}, 600);
 						
 						NProgress.inc();
 
 						if (pushstate == true){
-							window.history.pushState({} , '' , url);
+							window.history.replaceState({scrolltop: oldscrolltop , reloadonback: true} , '' , '')
+							window.history.pushState('' , '' , url);
 						}
 						pjaxLoading = false;
 						pjaxUrlChanged = true;
@@ -576,6 +586,11 @@ function pjaxLoadUrl(url , pushstate){
 
 						$(window).trigger("hashchange");
 						$(window).trigger("scroll");
+
+
+						if (window.location.hash != ""){
+							gotoHash(window.location.hash);
+						}
 
 						if (typeof(window.pjaxLoaded) == "function"){
 							window.pjaxLoaded();
@@ -609,11 +624,22 @@ function pjaxLoadUrl(url , pushstate){
 		}
 	}
 }
+function removeUrlHash(url){
+	if (url.indexOf('#') != -1){
+		url = url.substring(0, url.indexOf('#'));
+	}
+	if (url.charAt(url.length - 1) == '/'){
+		url = url.substring(0, url.length - 1);
+	}
+	return url;
+}
 $(document).ready(function(){
-	$(document).on("click" , "a[href]:not([no-pjax]):not(.no-pjax):not([href^='#']):not([target='_blank'])" , function(){
+	window.history.scrollRestoration = "manual";
+	$(document).on("click" , "a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank'])" , function(){
 		if (pjaxLoading){
 			return false;
 		}
+		let scrolltop = $(document).scrollTop();
 		//对文章预览卡片使用过渡动画
 		if ($(this).is("#main article.post-preview a.post-title")){
 			let $card = $($(this).parents("article.post-preview")[0]);
@@ -626,18 +652,39 @@ $(document).ready(function(){
 				scrollTop: 0
 			}, 450);
 		}
-		//Pjax 加载
+		//判断是否是同一个页面，只有 Hash 不同
+		let now = window.location.href;
 		let url = this.getAttribute("href");
-		pjaxLoadUrl(url , true);
+		if ((removeUrlHash(url) == removeUrlHash(now) || url.charAt(0) == '#') && url.indexOf("#") != -1){
+			window.history.replaceState({scrolltop: scrolltop , reloadonback: /*false*/true} , '' , url);
+			gotoHash(getHash(url));
+			return false;
+		}
+		//Pjax 加载
+		pjaxLoadUrl(url , true , 0 , scrolltop);
 		return false;
 	});
 	$(window).on("popstate" , function(){
 		try{
 			$("article img.zoomify.zoomed").zoomify('zoomOut');
 		}catch(err){}
-		setTimeout(function(){
-			pjaxLoadUrl(document.location , false);
-		},1);
+		let json = window.history.state;
+		//console.log(json);
+		if (json == null || json == ''){
+			setTimeout(function(){
+				pjaxLoadUrl(document.location , false , 0 , $(window).scrollTop());
+			},1);
+			return false;
+		}
+		if (json.reloadonback == false){
+			$("body,html").animate({
+				scrollTop: json.scrolltop
+			}, 200);
+		}else{
+			setTimeout(function(){
+				pjaxLoadUrl(document.location , false , json.scrolltop , $(window).scrollTop());
+			},1);
+		}
 		return false;
 	});
 });
@@ -693,7 +740,7 @@ function getGithubInfoCardContent(){
 					$(".github-info-card-description" , $this).html(description);
 					$(".github-info-card-stars" , $this).html(result.stargazers_count);
 					$(".github-info-card-forks" , $this).html(result.forks_count);
-					console.log(result);
+					//console.log(result);
 				},
 				error : function(xhr){
 					if (xhr.status == 404){
@@ -1034,7 +1081,6 @@ function updateThemeColor(color, setcookie){
 				invid = setInterval(function(){
 					if (activeImg.width != 0){
 						$("html").trigger("scroll");
-						console.log($(activeImg).parent());
 						$(activeImg).addClass("loaded");
 						clearInterval(invid);
 						activeImg = null;

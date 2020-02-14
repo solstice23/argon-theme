@@ -315,7 +315,11 @@ a.text-primary:focus , a.text-primary:hover {
 	width:  100%;
 	left:  0;
 }
-
+.banner-subtitle{
+	margin-top: 10px;
+	font-size: 16px;
+	opacity: .9;
+}
 
 /*左侧栏*/
 .leftbar-banner{
@@ -808,7 +812,7 @@ html.use-big-shadow #blog_setting_shadow_big{
 html.filter-sunset{
 	filter: sepia(30%);
 }
-html.filter-darkness body:after{
+html.filter-darkness body #content:after{
 	content: '';
 	position: fixed;
 	left: 0;
@@ -911,7 +915,7 @@ html.filter-grayscale{
 	width: 100%;
 	color: #fff;
 	opacity: 0.9;
-	padding-bottom: 35px;
+	padding-bottom: 15px;
 	padding-top: 35px;
 	background: rgba(0,0,0,.05);
 	background: linear-gradient(to top, rgba(0,0,0,.3) 20%, rgba(0,0,0,0));
@@ -1278,7 +1282,7 @@ html.filter-grayscale{
 	margin-top: 20px;
 }
 #post_comment_content{
-	transition: height .15s ease;
+	transition: height .15s ease, box-shadow .3s ease;
 	overflow: hidden;
 	min-height: 80px;
 	resize: none;
@@ -2409,6 +2413,13 @@ html.darkmode .CtxtMenu_Menu {
 	#main{
 		padding: 5px;
 	}
+
+	.post-header.post-header-with-thumbnail .post-header-text-container {
+		padding-bottom: 20px;
+	}
+	.post-thumbnail {
+		max-height: 30vh;
+	}
 }
 @media screen and (max-width:1000px){
 	.navbar-main{
@@ -2423,8 +2434,22 @@ html.darkmode .CtxtMenu_Menu {
 		width: 20px;
 		height: 20px;
 	}
+}
+@media screen and (max-width:991.98px){
 	.navbar-toggler{
 		outline: none !important;
+	}
+	html.darkmode #navbar_global {
+		background: #424242;
+	}
+	html.darkmode #navbar_global * {
+		color: #eee;
+	}
+	html.darkmode #navbar_global .navbar-toggler * {
+		background: #eee;
+	}
+	html.darkmode .navbar-collapse .navbar-collapse-header {
+		border-bottom: 1px solid rgba(255,255,255,.1);
 	}
 }
 @media screen and (min-width:900px) and (max-width:990px){

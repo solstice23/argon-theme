@@ -231,7 +231,7 @@
 		<span></span>
 	</div>
 	<div id="banner_container" class="banner-container container text-center">
-		<h1 class="banner-title text-white"><?php echo get_option('argon_banner_title') == '' ? bloginfo('name') : get_option('argon_banner_title'); ?></h1>
+		<h1 class="banner-title text-white"><?php echo get_option('argon_banner_title') == '' ? bloginfo('name') : get_option('argon_banner_title'); ?><?php echo get_option('argon_banner_subtitle') == '' ? '' : '<p class="banner-subtitle">' . get_option('argon_banner_subtitle') . '</p>'; ?></h1>
 	</div>
 	<?php if (get_option('argon_banner_background_url') != '') { ?>
 		<style>

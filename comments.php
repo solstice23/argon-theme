@@ -37,7 +37,9 @@
 	</div>
 <?php } else { ?>
 
-<div id="post_comment" class="card shadow-sm <?php if (is_user_logged_in()) {echo("logged");}?>">
+<?php $name_and_email_required = get_option('require_name_email')?>
+
+<div id="post_comment" class="card shadow-sm <?php if (is_user_logged_in()) {echo("logged");}?><?php if (!$name_and_email_required) {echo(" no-need-name-email");}?><?php if (get_option('argon_comment_need_captcha') == 'false') {echo(" no-need-captcha");}?>">
 	<div class="card-body">
 		<h2 class="post-comment-title">
 			<i class="fa fa-commenting"></i>
@@ -57,8 +59,34 @@
 					<pre id="post_comment_content_hidden" class=""></pre>
 				</div>
 			</div>
+			<?php 
+				$col1_class = "col-md-4";
+				$col2_class = "col-md-5";
+				$col3_class = "col-md-3";
+				if ((get_option('argon_hide_name_email_site_input') == 'true') && ($name_and_email_required != true)){
+					if (get_option('argon_comment_need_captcha') == 'false'){
+						$col1_class = "d-none";
+						$col2_class = "d-none";
+						$col3_class = "d-none";
+					}else{
+						$col1_class = "d-none";
+						$col2_class = "d-none";
+						$col3_class = "col-md-12";
+					}
+				}else{
+					if (get_option('argon_comment_need_captcha') == 'false'){
+						$col1_class = "col-md-6";
+						$col2_class = "col-md-6";
+						$col3_class = "d-none";
+					}else{
+						$col1_class = "col-md-4";
+						$col2_class = "col-md-5";
+						$col3_class = "col-md-3";
+					}
+				}
+			?>
 			<div class="row" style="margin-bottom: -10px;">
-				<div class="col-md-4">
+				<div class="<?php echo $col1_class;?>">
 					<div class="form-group">
 							
 						<div class="input-group input-group-alternative mb-4">
@@ -69,7 +97,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-5">
+				<div class="<?php echo $col2_class;?>">
 					<div class="form-group">
 						<div class="input-group input-group-alternative mb-4">
 							<div class="input-group-prepend">
@@ -80,7 +108,7 @@
 					</div>
 				</div>
 				<?php $commentCaptchaSeed = get_comment_captcha_seed();?>
-				<div class="col-md-3">
+				<div class="<?php echo $col3_class;?>">
 					<div class="form-group">
 						<div class="input-group input-group-alternative mb-4 post-comment-captcha-container">
 							<div class="input-group-prepend">
@@ -108,7 +136,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row" style="margin-top: 10px; <?php if (is_user_logged_in()) {echo('display: none');}?>">
+			<div class="row <?php if (get_option('argon_hide_name_email_site_input') == 'true') {echo 'd-none';}?>" style="margin-top: 10px; <?php if (is_user_logged_in()) {echo('display: none');}?>">
 				<div class="col-md-12">
 					<button id="post_comment_toggle_extra_input" type="button" class="btn btn-icon btn-outline-primary btn-sm">
                 <span class="btn-inner--icon"><i class="fa fa-angle-down"></i></span>

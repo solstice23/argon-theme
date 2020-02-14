@@ -9,7 +9,8 @@ function theme_slug_setup() {
 add_action('after_setup_theme','theme_slug_setup');
 //检测更新
 require_once(get_template_directory() . '/theme-update-checker/plugin-update-checker.php'); 
-if (get_option('argon_update_source') == 'abc233site'){
+if (get_option('argon_update_source') == 'stop'){}
+else if (get_option('argon_update_source') == 'abc233site'){
 	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 		'https://api.solstice23.top/argon/info.json?source=0',
 		get_template_directory() . '/functions.php',
@@ -357,6 +358,9 @@ function wrong_captcha(){
 	wp_die('验证码错误，评论失败');
 }
 function check_comment_captcha($comment){
+	if (get_option('argon_comment_need_captcha') == 'false'){
+		return $comment;
+	}
 	$answer = $_POST['comment_captcha'];
 	if(current_user_can('level_7')){
 		return $comment;
@@ -1114,6 +1118,16 @@ add_shortcode('hide_reading_time','shortcode_hide_reading_time');
 function shortcode_hide_reading_time($attr,$content=""){
 	return "";
 }
+add_shortcode('post_time','shortcode_post_time');
+function shortcode_post_time($attr,$content=""){
+	$format = isset($attr['format']) ? $attr['format'] : 'Y-n-d G:i:s';
+	return get_the_time($format);
+}
+add_shortcode('post_modified_time','shortcode_post_modified_time');
+function shortcode_post_modified_time($attr,$content=""){
+	$format = isset($attr['format']) ? $attr['format'] : 'Y-n-d G:i:s';
+	return get_the_modified_time($format);
+}
 //主题选项页面
 function themeoptions_admin_menu(){
 	/*后台管理面板侧栏添加选项*/
@@ -1228,6 +1242,13 @@ function themeoptions_page(){
 						<td>
 							<input type="text" class="regular-text" name="argon_banner_title" value="<?php echo get_option('argon_banner_title'); ?>"/>
 							<p class="description">留空则显示博客名称</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>Banner 副标题</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_banner_subtitle" value="<?php echo get_option('argon_banner_subtitle'); ?>"/>
+							<p class="description">显示在 Banner 标题下，留空则不显示</p>
 						</td>
 					</tr>
 					<tr>
@@ -1609,6 +1630,29 @@ window.pjaxLoaded = function(){
 							</select>
 							<p class="description">从首页或分类目录进入文章时，使用平滑过渡（可能影响加载文章时的性能）</p>
 						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>评论区</h2></th></tr>
+					<tr>
+						<th><label>是否隐藏 "昵称"、"邮箱"、"网站" 输入框</label></th>
+						<td>
+							<select name="argon_hide_name_email_site_input">
+								<?php $argon_hide_name_email_site_input = get_option('argon_hide_name_email_site_input'); ?>
+								<option value="false" <?php if ($argon_hide_name_email_site_input=='false'){echo 'selected';} ?>>不隐藏</option>
+								<option value="true" <?php if ($argon_hide_name_email_site_input=='true'){echo 'selected';} ?>>隐藏</option>	
+							</select>
+							<p class="description">该选项仅在 "设置-评论-评论作者必须填入姓名和电子邮件地址" 选项未勾选的前提下生效。如勾选了 "评论作者必须填入姓名和电子邮件地址"，则只有 "网站" 输入框会被隐藏。</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>评论是否需要验证码</label></th>
+						<td>
+							<select name="argon_comment_need_captcha">
+								<?php $argon_comment_need_captcha = get_option('argon_comment_need_captcha'); ?>
+								<option value="true" <?php if ($argon_comment_need_captcha=='true'){echo 'selected';} ?>>需要</option>	
+								<option value="false" <?php if ($argon_comment_need_captcha=='false'){echo 'selected';} ?>>不需要</option>
+							</select>
+							<p class="description"></p>
+						</td>
 					</tr>				
 					<tr><th class="subtitle"><h2>其他</h2></th></tr>
 					<tr>
@@ -1661,7 +1705,8 @@ window.pjaxLoaded = function(){
 							<select name="argon_update_source">
 								<?php $argon_update_source = get_option('argon_update_source'); ?>
 								<option value="github" <?php if ($argon_update_source=='github'){echo 'selected';} ?>>Github</option>
-								<option value="abc233site" <?php if ($argon_update_source=='abc233site'){echo 'selected';} ?>>solstice23.top</option>	
+								<option value="abc233site" <?php if ($argon_update_source=='abc233site'){echo 'selected';} ?>>solstice23.top</option>
+								<option value="stop" <?php if ($argon_update_source=='stop'){echo 'selected';} ?>>暂停更新 (不推荐)</option>
 							</select>
 							<p class="description">如更新主题速度较慢，可考虑更换更新源。</p>
 						</td>
@@ -1766,6 +1811,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_sidebar_auther_name', $_POST['argon_sidebar_auther_name']);
 	update_option('argon_sidebar_auther_image', $_POST['argon_sidebar_auther_image']);
 	update_option('argon_banner_title', $_POST['argon_banner_title']);
+	update_option('argon_banner_subtitle', $_POST['argon_banner_subtitle']);
 	update_option('argon_banner_background_url', $_POST['argon_banner_background_url']);
 	update_option('argon_banner_background_color_type', $_POST['argon_banner_background_color_type']);
 	update_option('argon_banner_background_hide_shapes', $_POST['argon_banner_background_hide_shapes']);
@@ -1792,6 +1838,8 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_page_background_url', $_POST['argon_page_background_url']);
 	update_option('argon_page_background_opacity', $_POST['argon_page_background_opacity']);
 	update_option('argon_page_background_banner_style', $_POST['argon_page_background_banner_style']);
+	update_option('argon_hide_name_email_site_input', $_POST['argon_hide_name_email_site_input']);
+	update_option('argon_comment_need_captcha', $_POST['argon_comment_need_captcha']);
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);
