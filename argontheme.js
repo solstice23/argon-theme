@@ -65,14 +65,14 @@
 
 /*浮动按钮栏相关 (回顶等)*/
 !function(){
-	let $fabs = $('#float_action_buttons');
-	let $backToTopBtn = $('#fab_back_to_top');
-	let $toggleSidesBtn = $('#fab_toggle_sides');
-	let $toggleDarkmode = $('#fab_toggle_darkmode');
-	let $toggleBlogSettings = $('#fab_toggle_blog_settings_popup');
+	let $fabtns = $('#float_action_buttons');
+	let $backToTopBtn = $('#fabtn_back_to_top');
+	let $toggleSidesBtn = $('#fabtn_toggle_sides');
+	let $toggleDarkmode = $('#fabtn_toggle_darkmode');
+	let $toggleBlogSettings = $('#fabtn_toggle_blog_settings_popup');
 
-	let $readingProgressBar = $('#fab_reading_progress_bar');
-	let $readingProgressDetails = $('#fab_reading_progress_details');
+	let $readingProgressBar = $('#fabtn_reading_progress_bar');
+	let $readingProgressDetails = $('#fabtn_reading_progress_details');
 
 	let isScrolling = false;
 	$backToTopBtn.on("click" , function(){
@@ -90,11 +90,11 @@
 	function toggleDarkmode(){
 		$("html").toggleClass("darkmode");
 		if ($("html").hasClass("darkmode")){
-			$('#fab_toggle_darkmode .btn-inner--icon').html("<i class='fa fa-lightbulb-o'></i>");
+			$('#fabtn_toggle_darkmode .btn-inner--icon').html("<i class='fa fa-lightbulb-o'></i>");
 			$("#blog_setting_darkmode_switch")[0].checked = true;
 			setCookie("argon_enable_dark_mode", "true", 365*24*60*60);
 		}else{
-			$('#fab_toggle_darkmode .btn-inner--icon').html("<i class='fa fa-moon-o'></i>");
+			$('#fabtn_toggle_darkmode .btn-inner--icon').html("<i class='fa fa-moon-o'></i>");
 			$("#blog_setting_darkmode_switch")[0].checked = false;
 			setCookie("argon_enable_dark_mode", "false", 365*24*60*60);
 		}
@@ -103,20 +103,23 @@
 	$toggleDarkmode.on("click" , function(){
 		toggleDarkmode();
 	});
-	
-	if (localStorage['Argon_Fabs_Floating_Status'] == "left"){
-		$fabs.addClass("fabs-float-left");
+	if ($("html").hasClass("darkmode")){
+		$("#blog_setting_darkmode_switch")[0].checked = true;
+	}
+
+	if (localStorage['Argon_fabs_Floating_Status'] == "left"){
+		$fabtns.addClass("fabtns-float-left");
 	}
 	$toggleSidesBtn.on("click" , function(){
-		$fabs.addClass("fabs-unloaded");
+		$fabtns.addClass("fabtns-unloaded");
 		setTimeout(function(){
-			$fabs.toggleClass("fabs-float-left");
-			if ($fabs.hasClass("fabs-float-left")){
-				localStorage['Argon_Fabs_Floating_Status'] = "left";
+			$fabtns.toggleClass("fabtns-float-left");
+			if ($fabtns.hasClass("fabtns-float-left")){
+				localStorage['Argon_fabs_Floating_Status'] = "left";
 			}else{
-				localStorage['Argon_Fabs_Floating_Status'] = "right";
+				localStorage['Argon_fabs_Floating_Status'] = "right";
 			}
-			$fabs.removeClass("fabs-unloaded");
+			$fabtns.removeClass("fabtns-unloaded");
 		} , 300);
 	});
 	//博客设置
@@ -177,23 +180,23 @@
 		setBlogFilter(this.getAttribute("filter-name"));
 	});
 
-	function changeFabDisplayStatus(){
+	function changefabtnDisplayStatus(){
 		//阅读进度
 		let readingProgress = $(window).scrollTop() / Math.max($(document).height() - $(window).height(), 0.01);
 		$readingProgressDetails.html((readingProgress * 100).toFixed(0) + "%");
 		$readingProgressBar.css("width" , (readingProgress * 100).toFixed(0) + "%");
 		//是否显示回顶
 		if ($(window).scrollTop() >= 400 || readingProgress >= 0.5){
-			$backToTopBtn.removeClass("fab-hidden");
+			$backToTopBtn.removeClass("fabtn-hidden");
 		}else{
-			$backToTopBtn.addClass("fab-hidden");
+			$backToTopBtn.addClass("fabtn-hidden");
 		}
 	}
-	changeFabDisplayStatus();
+	changefabtnDisplayStatus();
 	$(window).scroll(function(){
-		changeFabDisplayStatus();
+		changefabtnDisplayStatus();
 	});
-	$fabs.removeClass("fabs-unloaded");
+	$fabtns.removeClass("fabtns-unloaded");
 }();
 
 /*评论区 & 发送评论*/
@@ -557,7 +560,7 @@ function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop){
 						NProgress.inc();
 
 						if (pushstate == true){
-							window.history.replaceState({scrolltop: oldscrolltop , reloadonback: true} , '' , '')
+							window.history.replaceState({scrolltop: oldscrolltop , reloadonback: true , lastreloadscrolltop: null} , '' , '')
 							window.history.pushState('' , '' , url);
 						}
 						pjaxLoading = false;
@@ -634,7 +637,7 @@ function removeUrlHash(url){
 	return url;
 }
 $(document).ready(function(){
-	window.history.scrollRestoration = "manual";
+	window.history.scrollRestoration = "manual"; //接管浏览器滚动复位管理
 	$(document).on("click" , "a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank'])" , function(){
 		if (pjaxLoading){
 			return false;
@@ -656,7 +659,7 @@ $(document).ready(function(){
 		let now = window.location.href;
 		let url = this.getAttribute("href");
 		if ((removeUrlHash(url) == removeUrlHash(now) || url.charAt(0) == '#') && url.indexOf("#") != -1){
-			window.history.replaceState({scrolltop: scrolltop , reloadonback: /*false*/true} , '' , url);
+			window.history.replaceState({scrolltop: scrolltop , reloadonback: /*false*/true , lastreloadscrolltop: null} , '' , url);
 			gotoHash(getHash(url));
 			return false;
 		}
@@ -669,14 +672,13 @@ $(document).ready(function(){
 			$("article img.zoomify.zoomed").zoomify('zoomOut');
 		}catch(err){}
 		let json = window.history.state;
-		//console.log(json);
 		if (json == null || json == ''){
 			setTimeout(function(){
 				pjaxLoadUrl(document.location , false , 0 , $(window).scrollTop());
 			},1);
 			return false;
 		}
-		if (json.reloadonback == false){
+		if (json.reloadonback != true){
 			$("body,html").animate({
 				scrollTop: json.scrolltop
 			}, 200);
@@ -687,6 +689,26 @@ $(document).ready(function(){
 		}
 		return false;
 	});
+	function recordScrollTop(){
+		let json = window.history.state;
+		if (json == null || json == ""){
+			json = {};
+		}
+		json.scrolltop = $(document).scrollTop();
+		window.history.replaceState(json , '' , '');
+	}
+	$(window).on("beforeunload" , function(){
+		recordScrollTop();
+	});
+	//网页被载入时检测是否保存了刷新时滚动高度
+	let json = window.history.state;
+	if (json != null){
+		if (json.scrolltop != undefined){
+			$(window).scrollTop(json.scrolltop);
+			//json.scrolltop = undefined;
+			//window.history.replaceState(json , '' , '');
+		}
+	}
 });
 
 /*Tags Dialog pjax 加载后自动关闭*/
@@ -699,7 +721,7 @@ $(document).on("click" , "#blog_categories .tag" , function(){
 
 /*侧栏手机适配*/
 !function(){
-	$(document).on("click" , "#fab_open_sidebar" , function(){
+	$(document).on("click" , "#fabtn_open_sidebar" , function(){
 		$("html").addClass("leftbar-opened");
 	});
 	$(document).on("click" , "#sidebar_mask" , function(){

@@ -275,21 +275,21 @@
 	</style>
 <?php } ?>
 
-<div id="float_action_buttons" class="float-action-buttons fabs-unloaded">
-	<button id="fab_toggle_sides" class="btn btn-icon btn-neutral fab shadow-sm" type="button" aria-hidden="true">
-		<span class="btn-inner--icon fab-show-on-right"><i class="fa fa-caret-left"></i></span>
-		<span class="btn-inner--icon fab-show-on-left"><i class="fa fa-caret-right"></i></span>
+<div id="float_action_buttons" class="float-action-buttons fabtns-unloaded">
+	<button id="fabtn_toggle_sides" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" aria-hidden="true">
+		<span class="btn-inner--icon fabtn-show-on-right"><i class="fa fa-caret-left"></i></span>
+		<span class="btn-inner--icon fabtn-show-on-left"><i class="fa fa-caret-right"></i></span>
 	</button>
-	<button id="fab_back_to_top" class="btn btn-icon btn-neutral fab shadow-sm" type="button" aria-label="Back To Top">
+	<button id="fabtn_back_to_top" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" aria-label="Back To Top">
 		<span class="btn-inner--icon"><i class="fa fa-angle-up"></i></span>
 	</button>
-	<button id="fab_toggle_darkmode" class="btn btn-icon btn-neutral fab shadow-sm" type="button" <?php if (get_option('argon_fab_show_darkmode_button') != 'true') echo " style='display: none;'";?> aria-label="Switch Darkmode">
+	<button id="fabtn_toggle_darkmode" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" <?php if (get_option('argon_fab_show_darkmode_button') != 'true') echo " style='display: none;'";?> aria-label="Switch Darkmode">
 		<span class="btn-inner--icon"><i class="fa fa-moon-o"></i></span>
 	</button>
-	<button id="fab_toggle_blog_settings_popup" class="btn btn-icon btn-neutral fab shadow-sm" type="button" <?php if (get_option('argon_fab_show_settings_button') == 'false') echo " style='display: none;'";?> aria-label="Open Blog Settings Menu">
+	<button id="fabtn_toggle_blog_settings_popup" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" <?php if (get_option('argon_fab_show_settings_button') == 'false') echo " style='display: none;'";?> aria-label="Open Blog Settings Menu">
 		<span class="btn-inner--icon"><i class="fa fa-cog"></i></span>
 	</button>
-	<div id="fab_blog_settings_popup" class="card shadow-sm" style="opacity: 0;">
+	<div id="fabtn_blog_settings_popup" class="card shadow-sm" style="opacity: 0;">
 		<div id="close_blog_settings"><i class="fa fa-close"></i></div>
 		<div class="blog-setting-item mt-3">
 			<div style="flex: 1;transform: translateY(-4px);">夜间模式</div>
@@ -327,12 +327,12 @@
 			</div>
 		<?php }?>
 	</div>
-	<button id="fab_open_sidebar" class="btn btn-icon btn-neutral fab shadow-sm" type="button" aria-label="Open Sidebar Menu">
+	<button id="fabtn_open_sidebar" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" aria-label="Open Sidebar Menu">
 		<span class="btn-inner--icon"><i class="fa fa-bars"></i></span>
 	</button>
-	<button id="fab_reading_progress" class="btn btn-icon btn-neutral fab shadow-sm" type="button" aria-hidden="true">
-		<div id="fab_reading_progress_bar" style="width: 0%;"></div>
-		<span id="fab_reading_progress_details">0%</span>
+	<button id="fabtn_reading_progress" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" aria-hidden="true">
+		<div id="fabtn_reading_progress_bar" style="width: 0%;"></div>
+		<span id="fabtn_reading_progress_details">0%</span>
 	</button>
 </div>
 

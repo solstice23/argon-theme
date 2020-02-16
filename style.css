@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.840
+Version: 0.841
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -555,21 +555,21 @@ a.text-primary:focus , a.text-primary:hover {
 	z-index: 1000;
 	transition: all .3s ease;
 }
-#float_action_buttons.fabs-float-left{
+#float_action_buttons.fabtns-float-left{
 	left: 20px;
 	right: auto;
 }
-#float_action_buttons.fabs-float-left .fab-show-on-right{
+#float_action_buttons.fabtns-float-left .fabtn-show-on-right{
 	display: none;
 }
-#float_action_buttons:not(.fabs-float-left) .fab-show-on-left{
+#float_action_buttons:not(.fabtns-float-left) .fabtn-show-on-left{
 	display: none;
 }
-.fabs-unloaded{
+.fabtns-unloaded{
 	opacity: 0;
 	pointer-events: none;
 }
-.fab{
+.fabtn{
 	width: 42px;
 	height: 42px;
 	padding: 0;
@@ -579,35 +579,35 @@ a.text-primary:focus , a.text-primary:hover {
 	border: none !important;
 	transition: all .3s ease;
 }
-.fab:hover{
+.fabtn:hover{
 	color: #fff !important;
 	background-color: var(--themecolor) !important;
 }
-.fab:active{
+.fabtn:active{
 	color: #fff !important;
 	background-color: var(--themecolor-dark) !important;
 }
-.fab.fab-hidden{
+.fabtn.fabtn-hidden{
 	height: 0;
 	opacity: 0;
 	margin-top: 0;
 	box-shadow: none;
 	pointer-events: none;
 }
-#fab_toggle_sides{
+#fabtn_toggle_sides{
 	height: 30px !important;
 	transform: translateY(8px);
 	opacity: 0;
 }
-#float_action_buttons:hover #fab_toggle_sides{
+#float_action_buttons:hover #fabtn_toggle_sides{
 	height: 30px !important;
 	transform: translateY(0px);
 	opacity: 1;
 }
-#fab_reading_progress{
+#fabtn_reading_progress{
 	height: 30px;
 }
-#fab_reading_progress_bar{
+#fabtn_reading_progress_bar{
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -616,7 +616,7 @@ a.text-primary:focus , a.text-primary:hover {
 	background: var(--themecolor);
 	opacity: .08;
 }
-#float_action_buttons .fab:before{
+#float_action_buttons .fabtn:before{
 	pointer-events: none;
 	position: absolute;
 	top: 7px;
@@ -634,52 +634,52 @@ a.text-primary:focus , a.text-primary:hover {
 	width: max-content;
 	width: -moz-max-content;
 }
-#float_action_buttons .fab.fab-hidden:before{
+#float_action_buttons .fabtn.fabtn-hidden:before{
 	opacity: 0 !important;
 }
-#float_action_buttons.fabs-float-left .fab:before{
+#float_action_buttons.fabtns-float-left .fabtn:before{
 	left: 50px;
 	right: unset;
 	transform: translateX(-5px);
 }
-#float_action_buttons .fab:hover:before{
+#float_action_buttons .fabtn:hover:before{
 	transform: translateX(0px);
 	opacity: .7;
 }
-#float_action_buttons #fab_toggle_sides:before{
+#float_action_buttons #fabtn_toggle_sides:before{
 	content: "移至左侧";
 	top: 1px;
 }
-#float_action_buttons.fabs-float-left #fab_toggle_sides:before{
+#float_action_buttons.fabtns-float-left #fabtn_toggle_sides:before{
 	content: "移至右侧";
 }
-#float_action_buttons #fab_back_to_top:before{
+#float_action_buttons #fabtn_back_to_top:before{
 	content: "回到顶部";
 }
-#float_action_buttons #fab_reading_progress:before{
+#float_action_buttons #fabtn_reading_progress:before{
 	content: "阅读进度";
 	top: 1px;
 }
-#float_action_buttons #fab_open_sidebar:before{
+#float_action_buttons #fabtn_open_sidebar:before{
 	content: "菜单";
 }
-#float_action_buttons #fab_toggle_darkmode:before{
+#float_action_buttons #fabtn_toggle_darkmode:before{
 	content: "夜间模式";
 }
-html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
+html.darkmode #float_action_buttons #fabtn_toggle_darkmode:before{
 	content: "日间模式";
 }
-#float_action_buttons #fab_toggle_blog_settings_popup:before{
+#float_action_buttons #fabtn_toggle_blog_settings_popup:before{
 	content: "设置";
 }
-#float_action_buttons #fab_open_sidebar{
+#float_action_buttons #fabtn_open_sidebar{
 	display: none;
 }
 #sidebar_mask{
 	display: none;
 	opacity: 0;
 }
-#fab_blog_settings_popup {
+#fabtn_blog_settings_popup {
 	position: fixed;
 	right: 85px;
 	bottom: 35px;
@@ -695,28 +695,28 @@ html.darkmode #float_action_buttons #fab_toggle_darkmode:before{
 	transition: all .3s ease;
 	animation: none !important;
 }
-#float_action_buttons.fabs-float-left #fab_blog_settings_popup {
+#float_action_buttons.fabtns-float-left #fabtn_blog_settings_popup {
 	left: 85px;
 	right: unset;
 	transform: translateX(-10px);
 }
-.blog_settings_opened #fab_blog_settings_popup {
+.blog_settings_opened #fabtn_blog_settings_popup {
 	opacity: 1 !important;
 	transform: none !important;
 	pointer-events: unset;
 }
-.blog_settings_opened #fab_toggle_blog_settings_popup{
+.blog_settings_opened #fabtn_toggle_blog_settings_popup{
 	opacity: 1 !important;
 	color: #fff !important;
 	background-color: var(--themecolor-dark2) !important;
 	pointer-events: unset !important;
 }
-.blog_settings_opened .fab {
+.blog_settings_opened .fabtn {
 	pointer-events: none;
 	opacity: .25;
 	overflow: hidden;
 }
-.blog_settings_opened #fab_toggle_sides{
+.blog_settings_opened #fabtn_toggle_sides{
 	opacity: 0 !important;
 }
 #close_blog_settings {
@@ -915,7 +915,7 @@ html.filter-grayscale{
 	width: 100%;
 	color: #fff;
 	opacity: 0.9;
-	padding-bottom: 15px;
+	padding-bottom: 35px;
 	padding-top: 35px;
 	background: rgba(0,0,0,.05);
 	background: linear-gradient(to top, rgba(0,0,0,.3) 20%, rgba(0,0,0,0));
@@ -2194,14 +2194,14 @@ html.darkmode .close>span:not(.sr-only) {
 	color: #eee;
 }
 
-html.darkmode .fab{
+html.darkmode .fabtn{
 	background: #424242;
 	color: #eee;
 }
-html.darkmode .fab:hover{
+html.darkmode .fabtn:hover{
 	background: #606060 !important;
 }
-html.darkmode #fab_reading_progress_bar{
+html.darkmode #fabtn_reading_progress_bar{
 	background: #ccc;
 }
 
@@ -2327,7 +2327,7 @@ html.darkmode .CtxtMenu_Menu {
 /*==========Style-Mobile==========*/
 
 @media screen and (max-width:900px){
-	#float_action_buttons #fab_open_sidebar{
+	#float_action_buttons #fabtn_open_sidebar{
 		display: block;
 	}
 	#leftbar{
@@ -2420,6 +2420,9 @@ html.darkmode .CtxtMenu_Menu {
 	.post-thumbnail {
 		max-height: 30vh;
 	}
+	.post-header.post-header-with-thumbnail .post-header-text-container {
+		padding-bottom: 20px;
+	}
 }
 @media screen and (max-width:1000px){
 	.navbar-main{
@@ -2464,8 +2467,8 @@ html.darkmode .CtxtMenu_Menu {
 	}
 }
 @media screen and (max-width:450px){
-	/*Fab 设置菜单*/
-	#fab_blog_settings_popup {
+	/*fabtn 设置菜单*/
+	#fabtn_blog_settings_popup {
 		position: fixed;
 		left: 0 !important;
 		right: 0 !important;
