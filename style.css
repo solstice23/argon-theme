@@ -2467,7 +2467,7 @@ html.darkmode .CtxtMenu_Menu {
 	}
 }
 @media screen and (max-width:450px){
-	/*fabtn 设置菜单*/
+	/*Fab 设置菜单*/
 	#fabtn_blog_settings_popup {
 		position: fixed;
 		left: 0 !important;
