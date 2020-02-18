@@ -573,6 +573,11 @@ function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop){
 								MathJax.typeset();
 							}
 						}catch (err){}
+						try{
+							if ($("script#mathjax_v2_script" , $vdom).length > 0){
+								MathJax.Hub.Typeset();
+							}
+						}catch (err){}
 
 						getGithubInfoCardContent();
 						

@@ -1464,7 +1464,7 @@ function themeoptions_page(){
 					</tr>
 					<tr><th class="subtitle"><h2>Mathjax 渲染</h2></th></tr>
 					<tr>
-						<th><label>启用 Mathjax</label></th>
+						<th><label>启用 Mathjax (v3)</label></th>
 						<td>
 							<select name="argon_mathjax_enable">
 								<?php $argon_mathjax_enable = get_option('argon_mathjax_enable'); ?>
@@ -1489,6 +1489,38 @@ function themeoptions_page(){
 							<p class="description">Mathjax 3.0+，默认为 <code>//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js</code></p>
 						</td>
 					</tr>
+					<tr style="opacity: .6;" class="opacity-on-hover-1">
+						<th><label>启用旧版 Mathjax (v2)</label></th>
+						<td>
+							<select name="argon_mathjax_v2_enable">
+								<?php $argon_mathjax_v2_enable = get_option('argon_mathjax_v2_enable'); ?>
+								<option value="false" <?php if ($argon_mathjax_v2_enable=='false'){echo 'selected';} ?>>不启用</option>
+								<option value="true" <?php if ($argon_mathjax_v2_enable=='true'){echo 'selected';} ?>>启用</option>	
+							</select>
+							<p class="description">
+								为了兼容性，Argon 保留了 Mathjax v2 旧版库的引用 (2.7.5 版本, jsdelivr CDN)</br>
+								推荐使用 Mathjax 3.0，而不要开启此选项</br>
+								该选项仅在 <strong>Mathjax 3.0 选项关闭时才生效</strong></br>
+							</p>
+						</td>
+					</tr>
+					<tr style="opacity: .6;" class="opacity-on-hover-1">
+						<th><label>Mathjax V2 CDN 地址</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_mathjax_v2_cdn_url" value="<?php echo get_option('argon_mathjax_v2_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML' : get_option('argon_mathjax_v2_cdn_url'); ?>"/>
+							<p class="description">Mathjax 2.0+，默认为 <code>//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML</code></br>
+								该地址仅对 Mathjax V2 生效
+							</p>
+						</td>
+					</tr>
+					<style>
+						.opacity-on-hover-1{
+							transition: all .3s ease;
+						}
+						.opacity-on-hover-1:hover{
+							opacity: 1 !important;
+						}
+					</style>
 					<tr><th class="subtitle"><h2>Lazyload</h2></th></tr>
 					<tr>
 						<th><label>是否启用 Lazyload</label></th>
@@ -1856,6 +1888,8 @@ if ($_POST['update_themeoptions']== 'true'){
 	//Mathjax 相关配置项
 	update_option('argon_mathjax_enable', $_POST['argon_mathjax_enable']);
 	update_option('argon_mathjax_cdn_url', $_POST['argon_mathjax_cdn_url']);
+	update_option('argon_mathjax_v2_enable', $_POST['argon_mathjax_v2_enable']);
+	update_option('argon_mathjax_v2_cdn_url', $_POST['argon_mathjax_v2_cdn_url']);
 	/*update_option('argon_mathjax_loading_msg_type', $_POST['argon_mathjax_loading_msg_type']);
 	update_option('argon_mathjax_zoom_cond', $_POST['argon_mathjax_zoom_cond']);
 	update_option('argon_mathjax_zoom_scale', $_POST['argon_mathjax_zoom_scale']);

@@ -60,6 +60,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200219 v0.842
++ 添加 Mathjax 2，现在有 Mathjax 3 和 2 两个版本可以选择
+
 ## 20200217 v0.841
 + 增加 "留言板" 页面模板
 + 修复浮动操作按钮与 Font Awesome 5 的类名冲突兼容问题

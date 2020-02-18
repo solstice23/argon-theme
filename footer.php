@@ -29,6 +29,27 @@
 			</script>
 			<script src="<?php echo get_option('argon_mathjax_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js' : get_option('argon_mathjax_cdn_url'); ?>" id="MathJax-script" async></script>
 		<?php }?>
+		<?php if (get_option('argon_mathjax_v2_enable') == 'true' && get_option('argon_mathjax_enable') != 'true') { /*Mathjax V2 旧版本*/?>
+			<script type="text/x-mathjax-config" id="mathjax_v2_script">
+				MathJax.Hub.Config({
+					messageStyle: "none",
+					tex2jax: {
+						inlineMath: [["$", "$"], ["\\\\(", "\\\\)"]],
+						displayMath: [['$$','$$']],
+						processEscapes: true,
+						skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+					},
+					menuSettings: {
+						zoom: "Hover",
+						zscale: "200%"
+					},
+					"HTML-CSS": {
+						showMathMenu: "false"
+					}
+				});
+			</script>
+			<script src="<?php echo get_option('argon_mathjax_v2_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML' : get_option('argon_mathjax_v2_cdn_url'); ?>"></script>
+		<?php }?>
 	</div>
 </div>
 <?php wp_footer(); ?>
