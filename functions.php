@@ -1743,6 +1743,17 @@ window.pjaxLoaded = function(){
 							<p class="description">如更新主题速度较慢，可考虑更换更新源。</p>
 						</td>
 					</tr>
+					<tr>
+						<th><label>页脚附加内容</label></th>
+						<td>
+							<select name="argon_hide_footer_author">
+								<?php $argon_hide_footer_author = get_option('argon_hide_footer_author'); ?>
+								<option value="false" <?php if ($argon_hide_footer_author=='false'){echo 'selected';} ?>>Theme Argon By solstice23</option>
+								<option value="true" <?php if ($argon_hide_footer_author=='true'){echo 'selected';} ?>>Theme Argon</option>
+							</select>
+							<p class="description"></p>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 			<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改"></p>
@@ -1872,6 +1883,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_page_background_banner_style', $_POST['argon_page_background_banner_style']);
 	update_option('argon_hide_name_email_site_input', $_POST['argon_hide_name_email_site_input']);
 	update_option('argon_comment_need_captcha', $_POST['argon_comment_need_captcha']);
+	update_option('argon_hide_footer_author', $_POST['argon_hide_footer_author']);
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);

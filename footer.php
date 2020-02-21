@@ -2,7 +2,7 @@
 						<?php
 							echo get_option('argon_footer_html');
 						?>
-						<div>Theme <a href="https://github.com/solstice23/argon-theme"><strong>Argon</strong></a></div>
+						<div>Theme <a href="https://github.com/solstice23/argon-theme"><strong>Argon</strong></a><?php if (get_option('argon_hide_footer_author') != 'true') {echo " By solstice23"; }?></div>
 					</footer>
 				</main>
 			</div>
