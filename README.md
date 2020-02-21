@@ -60,6 +60,11 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200222 v0.843
++ 修复顶栏二级菜单点击时菜单项高度跳动的 BUG
++ 细节修复
++ 删除页脚作者信息，只保留主题名称和链接
+
 ## 20200219 v0.842
 + 添加 Mathjax 2，现在有 Mathjax 3 和 2 两个版本可以选择
 

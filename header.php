@@ -42,6 +42,8 @@
 	<meta name="theme-color-origin" content="<?php echo $themecolor_origin; ?>">
 	<meta name="argon-enable-custom-theme-color" content="<?php echo (get_option('argon_show_customize_theme_color_picker') != 'false' ? 'true' : 'false'); ?>">
 
+	<meta name="theme-version" content="<?php echo wp_get_theme('argon') -> Version; ?>">
+
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
 	<link rel="pingback" href="<?php echo esc_url( get_bloginfo( 'pingback_url' ) ); ?>">

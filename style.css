@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.842
+Version: 0.843
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -284,6 +284,9 @@ a.text-primary:focus , a.text-primary:hover {
 		max-width: 100%;
 	}
 }
+.dropdown-menu .dropdown-item {
+	line-height: 1.5;
+}
 .navbar-brand {
 	text-transform: none;
 }
@@ -326,6 +329,7 @@ a.text-primary:focus , a.text-primary:hover {
 	/*background: linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);*/
 	background: var(--themecolor-gradient);
 	text-align: center;
+	border-radius: .25rem .25rem 0 0;
 }
 .leftbar-banner-title{
 	font-size: 20px;
