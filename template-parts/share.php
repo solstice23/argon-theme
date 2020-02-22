@@ -5,43 +5,43 @@
 				<span class="btn-inner--icon"><i class="fa fa-weixin"></i></span>
 			</button>
 		</a>
-		<a target="_blink" class="no-pjax icon-douban">
+		<a target="_blank" class="no-pjax icon-douban">
 			<button class="btn btn-icon btn-primary" style="background: #209261;border: none;">
 				豆
 			</button>
 		</a>
-		<a target="_blink" class="no-pjax icon-qq">
+		<a target="_blank" class="no-pjax icon-qq">
 			<button class="btn btn-icon btn-primary" style="background: #2196f3;border: none;">
 				<span class="btn-inner--icon"><i class="fa fa-qq"></i></span>
 			</button>
 		</a>
-		<a target="_blink" class="no-pjax icon-qzone">
+		<a target="_blank" class="no-pjax icon-qzone">
 			<button class="btn btn-icon btn-primary" style="background: #ffc107;border: none;">
 				<span class="btn-inner--icon"><i class="fa fa-star"></i></span>
 			</button>
 		</a>
-		<a target="_blink" class="no-pjax icon-weibo">
+		<a target="_blank" class="no-pjax icon-weibo">
 			<button class="btn btn-icon btn-warning">
 				<span class="btn-inner--icon"><i class="fa fa-weibo"></i></span>
 			</button>
 		</a>
-		<a target="_blink" class="no-pjax icon-facebook">
+		<a target="_blank" class="no-pjax icon-facebook">
 			<button class="btn btn-icon btn-primary" style="background: #283593;border: none;">
 				<span class="btn-inner--icon"><i class="fa fa-facebook"></i></span>
 			</button>
 		</a>
-		<a target="_blink" class="no-pjax icon-twitter">
+		<a target="_blank" class="no-pjax icon-twitter">
 			<button class="btn btn-icon btn-primary" style="background: #03a9f4;border: none;">
 				<span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
 			</button>
 		</a>
-		<a target="_blink" class="no-pjax icon-telegram" href="https://telegram.me/share/url?url=<?php echo urlencode(
+		<a target="_blank" class="no-pjax icon-telegram" href="https://telegram.me/share/url?url=<?php echo urlencode(
 $_SERVER['HTTP_HOST']);?>&text=<?php echo urlencode(get_the_title());?>">
 			<button class="btn btn-icon btn-primary" style="background: #42a5f5;border: none;">
 				<span class="btn-inner--icon"><i class="fa fa-telegram"></i></span>
 			</button>
 		</a>
-		<a target="_blink" class="no-pjax icon-copy-link" id="share_copy_link">
+		<a target="_blank" class="no-pjax icon-copy-link" id="share_copy_link">
 			<button class="btn btn-icon btn-default">
 				<span class="btn-inner--icon"><i class="fa fa-link"></i></span>
 			</button>

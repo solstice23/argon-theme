@@ -998,14 +998,14 @@ function shortcode_friend_link($attr,$content=""){
 			$out .= "		</a>
 						</div>
 						<div class='pl-3'>
-							<div class='friend-link-title title text-primary'><a target='_blink' href='" . $now[1] . "'>" . $now[2] . "</a>
+							<div class='friend-link-title title text-primary'><a target='_blank' href='" . $now[1] . "'>" . $now[2] . "</a>
 						</div>";
 			if (!ctype_space($now[3]) && $now[3] != ''  && isset($now[3])){
 				$out .= "<p class='friend-link-description'>" . $now[3] . "</p>";
 			}else{
 				/*$out .= "<p class='friend-link-description'>&nbsp;</p>";*/
 			}
-			$out .= "		<a target='_blink' href='" . $now[1] . "' class='text-primary opacity-8'>前往</a>
+			$out .= "		<a target='_blank' href='" . $now[1] . "' class='text-primary opacity-8'>前往</a>
 						</div>
 					</div>
 				</div>
@@ -1570,7 +1570,7 @@ function themeoptions_page(){
 								<option value="11" <?php if ($argon_lazyload_loading_style=='11'){echo 'selected';} ?>>加载动画 11</option>
 								<option value="none" <?php if ($argon_lazyload_loading_style=='none'){echo 'selected';} ?>>不使用</option>
 							</select>
-							<p class="description">在图片被加载之前显示的加载效果 , <a target="_blink" href="<?php bloginfo('template_url'); ?>/assets/vendor/svg-loaders">预览所有效果</a></p>
+							<p class="description">在图片被加载之前显示的加载效果 , <a target="_blank" href="<?php bloginfo('template_url'); ?>/assets/vendor/svg-loaders">预览所有效果</a></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>图片放大浏览</h2></th></tr>
@@ -1597,7 +1597,7 @@ function themeoptions_page(){
 						<td>
 							<input type="text" class="regular-text" name="argon_zoomify_easing" value="<?php echo (get_option('argon_zoomify_easing') == '' ? 'ease-out' : get_option('argon_zoomify_easing')); ?>"/>
 							<p class="description">
-								例： <code>ease</code> , <code>ease-in-out</code> , <code>ease-out</code> , <code>linear</code> , <code>cubic-bezier(0.4,0,0,1)</code></br>如果你不知道这是什么，参考<a href="https://www.w3school.com.cn/cssref/pr_animation-timing-function.asp" target="_blink">这里</a>
+								例： <code>ease</code> , <code>ease-in-out</code> , <code>ease-out</code> , <code>linear</code> , <code>cubic-bezier(0.4,0,0,1)</code></br>如果你不知道这是什么，参考<a href="https://www.w3school.com.cn/cssref/pr_animation-timing-function.asp" target="_blank">这里</a>
 							</p>
 						</td>
 					</tr>

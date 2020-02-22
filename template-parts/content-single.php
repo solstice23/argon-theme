@@ -54,7 +54,7 @@
 				<?php
 					$categories = get_the_category();
 					foreach ($categories as $index => $category){
-						echo "<a href='" . get_category_link($category -> term_id) . "' target='_blink' class='post-meta-detail-catagory-link'>" . $category -> cat_name . "</a>";
+						echo "<a href='" . get_category_link($category -> term_id) . "' target='_blank' class='post-meta-detail-catagory-link'>" . $category -> cat_name . "</a>";
 						if ($index != count($categories) - 1){
 							echo "<span class='post-meta-detail-catagory-space'>,</span>";
 						}
@@ -125,7 +125,7 @@
 			<?php
 				$tags = get_the_tags();
 				foreach ($tags as $tag) {
-					echo "<a href='" . get_category_link($tag -> term_id) . "' target='_blink' class='tag badge badge-secondary post-meta-detail-tag'>" . $tag -> name . "</a>";
+					echo "<a href='" . get_category_link($tag -> term_id) . "' target='_blank' class='tag badge badge-secondary post-meta-detail-tag'>" . $tag -> name . "</a>";
 				}
 			?>
 		</div>

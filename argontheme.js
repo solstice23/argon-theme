@@ -92,11 +92,11 @@
 		if ($("html").hasClass("darkmode")){
 			$('#fabtn_toggle_darkmode .btn-inner--icon').html("<i class='fa fa-lightbulb-o'></i>");
 			$("#blog_setting_darkmode_switch")[0].checked = true;
-			setCookie("argon_enable_dark_mode", "true", 365*24*60*60);
+			setCookie("argon_enable_dark_mode", "true", 365);
 		}else{
 			$('#fabtn_toggle_darkmode .btn-inner--icon').html("<i class='fa fa-moon-o'></i>");
 			$("#blog_setting_darkmode_switch")[0].checked = false;
-			setCookie("argon_enable_dark_mode", "false", 365*24*60*60);
+			setCookie("argon_enable_dark_mode", "false", 365);
 		}
 		$(window).trigger("scroll");
 	}
@@ -1088,7 +1088,7 @@ function updateThemeColor(color, setcookie){
 	$(window).trigger("scroll");
 
 	if (setcookie){
-		setCookie("argon_custom_theme_color", themecolor, 365*24*60*60);
+		setCookie("argon_custom_theme_color", themecolor, 365);
 	}
 }
 

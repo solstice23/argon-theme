@@ -60,6 +60,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200223 v0.845
++ 修复以前手滑遗留的在新标签页打开问题
+
 ## 20200222 v0.844
 + 默认显示页脚作者信息，在 Argon 设置中增加了隐藏页脚作者信息的选项
 
