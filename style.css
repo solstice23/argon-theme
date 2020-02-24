@@ -912,7 +912,7 @@ html.filter-grayscale{
 }
 .post-thumbnail {
 	width: 100%;
-	min-height: 200px;
+	min-height: 250px;
 	max-height: 25vh;
 	object-fit: cover;
 	pointer-events: none;
