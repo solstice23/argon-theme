@@ -1,3 +1,26 @@
+/*Cookies 操作*/
+function setCookie(cname, cvalue, exdays) {
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	var expires = "expires="+ d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+} 
+function getCookie(cname) {
+	var name = cname + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for(var i = 0; i <ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+
 /*根据滚动高度改变顶栏透明度*/
 !function(){
 	let $toolbar = $("#navbar-main");
@@ -197,6 +220,39 @@
 		changefabtnDisplayStatus();
 	});
 	$fabtns.removeClass("fabtns-unloaded");
+}();
+
+/*卡片圆角大小调整*/
+!function(){
+	function setCardRadius(radius, setcookie){
+		document.documentElement.style.setProperty('--card-radius', radius + "px");
+		if (setcookie){
+			setCookie("argon_card_radius", radius, 365);
+		}
+	}
+	let slider = document.getElementById('blog_setting_card_radius');
+	noUiSlider.create(slider, {
+		start: [$("meta[name='theme-card-radius']").attr("content")],
+		step: 0.5,
+		connect: [true, false],
+		range: {
+			'min': [0],
+			'max': [30]
+	    }
+	});
+	slider.noUiSlider.on('update', function (values){
+		let value = values[0];
+		setCardRadius(value, false);
+	});
+	slider.noUiSlider.on('set', function (values){
+		let value = values[0];
+		setCardRadius(value, true);
+	});
+	$(document).on("click" , "#blog_setting_card_radius_to_default" , function(){
+		slider.noUiSlider.set($("meta[name='theme-card-radius-origin']").attr("content"));
+		setCardRadius($("meta[name='theme-card-radius-origin']").attr("content"), false);
+		setCookie("argon_card_radius", $("meta[name='theme-card-radius-origin']").attr("content"), 0);
+	});
 }();
 
 /*评论区 & 发送评论*/
@@ -848,28 +904,6 @@ $(document).on("click" , ".shuoshuo-upvote" , function(){
 	});
 });
 
-//Cookies 操作
-function setCookie(cname, cvalue, exdays) {
-	var d = new Date();
-	d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	var expires = "expires="+ d.toUTCString();
-	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-} 
-function getCookie(cname) {
-	var name = cname + "=";
-	var decodedCookie = decodeURIComponent(document.cookie);
-	var ca = decodedCookie.split(';');
-	for(var i = 0; i <ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0) == ' ') {
-			c = c.substring(1);
-		}
-		if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length);
-		}
-	}
-	return "";
-}
 //颜色计算
 function rgb2hsl(R,G,B){
 	let r = R / 255;
@@ -1097,6 +1131,8 @@ function updateThemeColor(color, setcookie){
 	let invid = 0;
 	let activeImg = null;
 	$(document).on("click" , ".comment-item-text .comment-image" , function(){
+		$(".comment-image-preview", this).attr("data-easing", "cubic-bezier(0.4, 0, 0, 1)");
+		$(".comment-image-preview", this).attr("data-duration", "500");
 		if (!$(this).hasClass("comment-image-preview-zoomed")){
 			activeImg = this;
 			$(this).addClass("comment-image-preview-zoomed");

@@ -1212,6 +1212,14 @@ function themeoptions_page(){
 							</p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h2>圆角</h2></th></tr>
+					<tr>
+						<th><label>卡片圆角大小</label></th>
+						<td>
+							<input type="number" name="argon_card_radius" min="0" max="30" step="0.5" value="<?php echo (get_option('argon_card_radius') == '' ? '4' : get_option('argon_card_radius')); ?>"/>	px
+							<p class="description">卡片的圆角大小，默认为 <code>4px</code>。建议设置在 <code>2px</code> 和 <code>15px</code> 之间。</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>顶栏</h2></th></tr>
 					<tr><th class="subtitle"><h3>标题</h3></th></tr>
 					<tr>
@@ -1595,7 +1603,7 @@ function themeoptions_page(){
 					<tr>
 						<th><label>缩放动画曲线</label></th>
 						<td>
-							<input type="text" class="regular-text" name="argon_zoomify_easing" value="<?php echo (get_option('argon_zoomify_easing') == '' ? 'ease-out' : get_option('argon_zoomify_easing')); ?>"/>
+							<input type="text" class="regular-text" name="argon_zoomify_easing" value="<?php echo (get_option('argon_zoomify_easing') == '' ? 'cubic-bezier(0.4,0,0,1)' : get_option('argon_zoomify_easing')); ?>"/>
 							<p class="description">
 								例： <code>ease</code> , <code>ease-in-out</code> , <code>ease-out</code> , <code>linear</code> , <code>cubic-bezier(0.4,0,0,1)</code></br>如果你不知道这是什么，参考<a href="https://www.w3school.com.cn/cssref/pr_animation-timing-function.asp" target="_blank">这里</a>
 							</p>
@@ -1884,6 +1892,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_hide_name_email_site_input', $_POST['argon_hide_name_email_site_input']);
 	update_option('argon_comment_need_captcha', $_POST['argon_comment_need_captcha']);
 	update_option('argon_hide_footer_author', $_POST['argon_hide_footer_author']);
+	update_option('argon_card_radius', $_POST['argon_card_radius']);
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);

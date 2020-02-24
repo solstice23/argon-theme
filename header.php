@@ -16,6 +16,16 @@
 		$themecolor = $_COOKIE["argon_custom_theme_color"];
 	}
 ?>
+<?php
+	$cardradius = get_option('argon_card_radius');
+	if ($cardradius == ""){
+		$cardradius = "4";
+	}
+	$cardradius_origin = $cardradius;
+	if ($_COOKIE["argon_card_radius"] != ""){
+		$cardradius = $_COOKIE["argon_card_radius"];
+	}
+?>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<?php if (get_option('argon_enable_mobile_scale') != 'true'){ ?>
@@ -42,6 +52,10 @@
 	<meta name="theme-color-origin" content="<?php echo $themecolor_origin; ?>">
 	<meta name="argon-enable-custom-theme-color" content="<?php echo (get_option('argon_show_customize_theme_color_picker') != 'false' ? 'true' : 'false'); ?>">
 
+
+	<meta name="theme-card-radius" content="<?php echo $cardradius; ?>">
+	<meta name="theme-card-radius-origin" content="<?php echo $cardradius_origin; ?>">
+
 	<meta name="theme-version" content="<?php echo wp_get_theme('argon') -> Version; ?>">
 
 	<link rel="profile" href="http://gmpg.org/xfn/11">
@@ -64,6 +78,7 @@
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll1.js"></script>
 	<?php }?>
 
+	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/nouislider/js/nouislider.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/js/argon.min.js"></script>
 	<?php wp_head(); ?>
 </head>
@@ -101,6 +116,11 @@
 		--themecolor-rgbstr: <?php echo $themecolor_rgbstr; ?>;
 		--themecolor-gradient: linear-gradient(150deg,var(--themecolor-light) 15%, var(--themecolor) 70%, var(--themecolor-dark0) 94%);
 
+	}
+</style>
+<style id="theme_cardradius_css">
+	:root{
+		--card-radius: <?php echo $cardradius; ?>px;
 	}
 </style>
 
@@ -321,9 +341,14 @@
 				<button id="blog_setting_filter_grayscale" type="button" class="blog-setting-filter-btn" filter-name="grayscale">灰度</button>
 			</div>
 		</div>
-
+		<div class="blog-setting-item mb-3">
+			<div id="blog_setting_card_radius_to_default" style="cursor: pointer;" title="恢复默认">圆角</div>
+			<div style="flex: 1;margin-left: 20px;margin-right: 8px;transform: translateY(2px);">
+				<div id="blog_setting_card_radius"></div>
+			</div>
+		</div>
 		<?php if (get_option('argon_show_customize_theme_color_picker') != 'false') {?>
-			<div class="blog-setting-item mt-3 mb-3">
+			<div class="blog-setting-item mt-1 mb-3">
 				<div style="flex: 1;">主题色</div>
 				<div id="theme-color-picker" class="ml-3"></div>
 			</div>

@@ -3,13 +3,17 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.845
+Version: 0.850
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
 */
 
 @charset "utf-8";
+
+:root{
+	--card-radius: 4px;
+}
 
 body{
 	background: #f4f5f7 !important;
@@ -83,7 +87,7 @@ article .post-content a:before{
 article .post-content a:hover:before{
 	transform: scaleX(1);
 }
-article .post-content pre{
+article pre{
 	font-family: Consolas,Menlo,Monaco,'Andale Mono WT','Andale Mono','Lucida Console','Lucida Sans Typewriter','DejaVu Sans Mono','Bitstream Vera Sans Mono','Liberation Mono','Nimbus Mono L','Courier New',Courier,monospace;
 	font-size: 14px;
 	line-height: 1.375;
@@ -116,7 +120,7 @@ article .post-content u , article .post-content ins{
 	text-decoration: none;
 	border-bottom: 1px solid;
 }
-article .post-content code{
+article code{
 	font-family: Consolas,Menlo,Monaco,'Andale Mono WT','Andale Mono','Lucida Console','Lucida Sans Typewriter','DejaVu Sans Mono','Bitstream Vera Sans Mono','Liberation Mono','Nimbus Mono L','Courier New',Courier,monospace;
 	color: #5e6687;
 	background: #f5f7ff;
@@ -178,6 +182,10 @@ html.use-serif p , html.use-serif span , html.use-serif div{
 }
 html.use-big-shadow *.shadow-sm{
 	box-shadow: 0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba(0,0,0,.07)!important;
+}
+/*卡片圆角*/
+.card{
+	border-radius: var(--card-radius);
 }
 /*主题色适配*/
 .text-primary{
@@ -329,7 +337,7 @@ a.text-primary:focus , a.text-primary:hover {
 	/*background: linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);*/
 	background: var(--themecolor-gradient);
 	text-align: center;
-	border-radius: .25rem .25rem 0 0;
+	border-radius: var(--card-radius) var(--card-radius) 0 0;
 }
 .leftbar-banner-title{
 	font-size: 20px;
@@ -898,7 +906,7 @@ html.filter-grayscale{
 }
 .post-header.post-header-with-thumbnail {
 	margin: -30px -30px 35px -30px;
-	border-radius: .25rem .25rem 0 0;
+	border-radius: var(--card-radius) var(--card-radius) 0 0;
 	overflow: hidden;
 	position: relative;
 }
@@ -911,6 +919,7 @@ html.filter-grayscale{
 }
 .single .post-thumbnail , .page .post-thumbnail {
 	max-height: 30vh;
+	min-height: 250px;
 }
 .post-header.post-header-with-thumbnail .post-header-text-container {
 	position: absolute;
@@ -1595,6 +1604,29 @@ html.filter-grayscale{
 	margin-right: 2px;
 }
 
+/*noUiSlidebar*/
+.noUi-connect , .noUi-handle{
+	background: var(--themecolor) !important;
+}
+.noUi-handle:before {
+	content: attr(aria-valuenow) " px";
+	position: absolute;
+	left: -36px;
+	top: -20px;
+	font-size: 10px;
+	display: block;
+	width: 90px;
+	text-align: center;
+	transition: opacity .15s ease;
+	opacity: 0;
+	pointer-events: none;
+}
+.noUi-handle.noUi-active:before {
+	opacity: 1;
+}
+.noUi-target {
+	background: rgba(190, 190, 190, 0.2);
+}
 
 /*nprogress 加载进度条*/
 #nprogress {
@@ -2485,6 +2517,7 @@ html.darkmode .CtxtMenu_Menu {
 		transform: translateY(15px);
 		transition: all .3s ease;
 		animation: none !important;
+		border-radius: var(--card-radius) var(--card-radius) 0 0;
 	}
 	#close_blog_settings {
 		margin-right: -10px;
