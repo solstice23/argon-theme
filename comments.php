@@ -4,7 +4,7 @@
 	}
 ?>
 
-<div id="comments" class="comments-area card shadow-sm">
+<div id="comments" class="comments-area card shadow-sm<?php if (get_option('argon_comment_avatar_vcenter') == 'true'){echo " comment-avatar-vertical-center";} ?>">
 	<div class="card-body">
 		<?php if ( have_comments() ){?>
 			<h2 class="comments-title">

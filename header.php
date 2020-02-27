@@ -342,7 +342,7 @@
 			</div>
 		</div>
 		<div class="blog-setting-item mb-3">
-			<div id="blog_setting_card_radius_to_default" style="cursor: pointer;" title="恢复默认">圆角</div>
+			<div id="blog_setting_card_radius_to_default" style="cursor: pointer;">圆角</div>
 			<div style="flex: 1;margin-left: 20px;margin-right: 8px;transform: translateY(2px);">
 				<div id="blog_setting_card_radius"></div>
 			</div>

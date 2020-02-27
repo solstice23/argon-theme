@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.850
+Version: 0.851
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -840,6 +840,32 @@ html.filter-darkness body #content:after{
 html.filter-grayscale{
 	filter: grayscale(1);
 }
+#blog_setting_card_radius_to_default {
+	position: relative;
+}
+#blog_setting_card_radius_to_default:before {
+	content: '恢复默认';
+	position: absolute;
+	top: -30px;
+	left: 50%;
+	line-height: 22px;
+	font-weight: normal;
+	color: #fff;
+	background: #32325d;
+	padding: 3px 10px;
+	font-size: 12px;
+	border-radius: 3px;
+	transition: all .3s ease;
+	transform: translateX(-50%) translateY(5px);
+	opacity: 0;
+	width: max-content;
+	width: -moz-max-content;
+	pointer-events: none;
+}
+#blog_setting_card_radius_to_default:hover:before {
+	transform: translateX(-50%);
+	opacity: .7;
+}
 /*页码*/
 .pagination{
 	width: max-content;
@@ -1115,7 +1141,11 @@ html.filter-grayscale{
 }
 .comment-item-avatar{
 	display: block;
-	width: 40px;
+	width: 40px; 
+	margin-top: 26px;
+	margin-right: 15px;
+}
+.comment-avatar-vertical-center .comment-item-avatar {
 	margin: auto;
 	margin-right: 15px;
 }
@@ -2435,6 +2465,7 @@ html.darkmode .CtxtMenu_Menu {
 		padding-bottom: 40px;
 		padding-left: 20px;
 		text-align: left;
+		border-radius: 0;
 	}
 	.leftbar-banner-subtitle{
 		margin-top: 10px;
@@ -2442,6 +2473,30 @@ html.darkmode .CtxtMenu_Menu {
 	#leftbar_announcement{
 		border-radius: 0;
 		margin-bottom: 0;
+		background: linear-gradient(180deg, var(--themecolor-dark), var(--themecolor) 90%);
+	}
+	html.darkmode #leftbar_announcement {
+		background: linear-gradient(180deg, #303030, #353535 90%) !important;
+	}
+	#leftbar_announcement:after {
+		content: '';
+		height: 1px;
+		background: #fff;
+		opacity: .2;
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+	.leftbar-announcement-body{
+		opacity: .8;
+		padding-top: 20px;
+	}
+	#leftbar_announcement ~ #leftbar_part1 .leftbar-banner {
+		background: var(--themecolor) !important;
+		padding-top: 25px;
+		padding-bottom: 25px;
+	}
+	html.darkmode #leftbar_announcement~ #leftbar_part1 .leftbar-banner {
+		background: #353535 !important;
 	}
 	#primary{
 		width: 100%;
@@ -2458,6 +2513,10 @@ html.darkmode .CtxtMenu_Menu {
 	}
 	.post-header.post-header-with-thumbnail .post-header-text-container {
 		padding-bottom: 20px;
+	}
+
+	#comments .children {
+		padding-inline-start: 15px;
 	}
 }
 @media screen and (max-width:1000px){

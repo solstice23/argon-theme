@@ -1128,6 +1128,10 @@ function shortcode_post_modified_time($attr,$content=""){
 	$format = isset($attr['format']) ? $attr['format'] : 'Y-n-d G:i:s';
 	return get_the_modified_time($format);
 }
+add_shortcode('noshortcode','shortcode_noshortcode');
+function shortcode_noshortcode($attr,$content=""){
+	return $content;
+}
 //主题选项页面
 function themeoptions_admin_menu(){
 	/*后台管理面板侧栏添加选项*/
@@ -1671,7 +1675,8 @@ window.pjaxLoaded = function(){
 							<p class="description">从首页或分类目录进入文章时，使用平滑过渡（可能影响加载文章时的性能）</p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>评论区</h2></th></tr>
+					<tr><th class="subtitle"><h2>评论</h2></th></tr>
+					<tr><th class="subtitle"><h3>发送评论</h3></th></tr>
 					<tr>
 						<th><label>是否隐藏 "昵称"、"邮箱"、"网站" 输入框</label></th>
 						<td>
@@ -1693,7 +1698,19 @@ window.pjaxLoaded = function(){
 							</select>
 							<p class="description"></p>
 						</td>
-					</tr>				
+					</tr>
+					<tr><th class="subtitle"><h3>评论区</h3></th></tr>
+					<tr>
+						<th><label>评论头像垂直位置</label></th>
+						<td>
+							<select name="argon_comment_avatar_vcenter">
+								<?php $argon_comment_avatar_vcenter = get_option('argon_comment_avatar_vcenter'); ?>
+								<option value="false" <?php if ($argon_comment_avatar_vcenter=='false'){echo 'selected';} ?>>居上</option>
+								<option value="true" <?php if ($argon_comment_avatar_vcenter=='true'){echo 'selected';} ?>>居中</option>	
+							</select>
+							<p class="description"></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>其他</h2></th></tr>
 					<tr>
 						<th><label>是否使用 v2ex CDN 代理的 gravatar</label></th>
@@ -1893,6 +1910,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_comment_need_captcha', $_POST['argon_comment_need_captcha']);
 	update_option('argon_hide_footer_author', $_POST['argon_hide_footer_author']);
 	update_option('argon_card_radius', $_POST['argon_card_radius']);
+	update_option('argon_comment_avatar_vcenter', $_POST['argon_comment_avatar_vcenter']);
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);
