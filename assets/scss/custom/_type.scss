@@ -84,7 +84,10 @@ article {
 	}
 
 	figure {
-		margin: 3rem 0;
+                &:first-child {
+                        margin: 0 0 1rem;
+                }
+                margin: 3rem 0;
 	}
 
 	h5 + figure {
