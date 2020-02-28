@@ -32,7 +32,7 @@ Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
 # 文档
 
-[Argon-Theme 文档 : https://solstice23.top/argon-theme-docs](https://solstice23.top/argon-theme-docs)
+[Argon-Theme 文档 : https://argon-docs.solstice23.top](https://argon-docs.solstice23.top/)
 
 # Demo
 
