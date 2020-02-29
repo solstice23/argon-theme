@@ -61,7 +61,7 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 # 更新日志
 
 ## 20200229 v0.852
-+ 友情链接短代码增加随机顺序可选属性
++ 友情链接短代码增加随机顺序可选参数
 
 ## 20200228 v0.851
 + 修复手机端侧栏的一系列问题
