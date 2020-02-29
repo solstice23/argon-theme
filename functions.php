@@ -965,6 +965,33 @@ add_shortcode('friendlinks','shortcode_friend_link');
 function shortcode_friend_link($attr,$content=""){
 	$content = trim(strip_tags($content));
 	$entries = explode("\n" , $content);
+
+	$shuffle = isset($attr['shuffle']) ? $attr['shuffle'] : 'false';
+	if ($shuffle == "true"){
+		mt_srand();
+		$group_start = 0;
+		foreach ($entries as $index => $value){
+			$now = explode("|" , $value);
+			if ($now[0] == 'category'){
+				echo ($index-1).",".$group_start." | ";
+				for ($i = $index - 1; $i >= $group_start; $i--){
+					echo $i."#";
+					$tar = mt_rand($group_start , $index - 1);
+					$tmp = $entries[$tar];
+					$entries[$tar] = $entries[$i];
+					$entries[$i] = $tmp;
+				}
+				$group_start = $index + 1;
+			}
+		}
+		for ($i = count($entries) - 1; $i >= $group_start; $i--){
+			$tar = mt_rand($group_start , count($entries) - 1);
+			$tmp = $entries[$tar];
+			$entries[$tar] = $entries[$i];
+			$entries[$i] = $tmp;
+		}
+	}
+
 	$row_tag_open = False;
 	$out = "<div class='friend-links'>";
 	foreach($entries as $index => $value){
