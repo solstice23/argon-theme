@@ -976,7 +976,7 @@ function shortcode_friend_link($attr,$content=""){
 				echo ($index-1).",".$group_start." | ";
 				for ($i = $index - 1; $i >= $group_start; $i--){
 					echo $i."#";
-					$tar = mt_rand($group_start , $index - 1);
+					$tar = mt_rand($group_start , $i);
 					$tmp = $entries[$tar];
 					$entries[$tar] = $entries[$i];
 					$entries[$i] = $tmp;
@@ -985,7 +985,7 @@ function shortcode_friend_link($attr,$content=""){
 			}
 		}
 		for ($i = count($entries) - 1; $i >= $group_start; $i--){
-			$tar = mt_rand($group_start , count($entries) - 1);
+			$tar = mt_rand($group_start , $i);
 			$tmp = $entries[$tar];
 			$entries[$tar] = $entries[$i];
 			$entries[$i] = $tmp;
