@@ -698,6 +698,9 @@ function removeUrlHash(url){
 	return url;
 }
 $(document).ready(function(){
+	if ($("html").hasClass("no-pjax")){
+		return;
+	}
 	window.history.scrollRestoration = "manual"; //接管浏览器滚动复位管理
 	$(document).on("click" , "a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank'])" , function(){
 		if (pjaxLoading){

@@ -1090,8 +1090,8 @@ html.filter-grayscale{
 	top: 85px;
 	padding: 25px;
 	z-index: 2;
-	transition: visibility .25s,opacity .25s,transform .25s;
-	transform: translate(0,10px) perspective(200px) rotateX(-2deg) translateX(-50%);
+	transition: all .3s ease;
+	transform: translate(-50%,-10px) scale(0.9);
 	opacity: 0;
 	pointer-events: none;
 }
@@ -2513,6 +2513,10 @@ html.darkmode .CtxtMenu_Menu {
 	}
 	.post-header.post-header-with-thumbnail .post-header-text-container {
 		padding-bottom: 20px;
+	}
+
+	.post-donate img{
+		max-width: 70vw;
 	}
 
 	#comments .children {

@@ -4,6 +4,9 @@
 	if ($_COOKIE["argon_enable_dark_mode"] == "true"){
 		$htmlclasses .= "darkmode ";
 	}
+	if (get_option('argon_pjax_disabled') == "true"){
+		$htmlclasses .= "no-pjax ";
+	}
 ?>
 <html <?php language_attributes(); ?> class="no-js <?php echo $htmlclasses;?>">
 <?php

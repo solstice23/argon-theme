@@ -154,31 +154,31 @@ function get_seo_description(){
 }
 //页面浏览量
 function get_post_views($post_id){
-    $count_key = 'views';
-    $count = get_post_meta($post_id, $count_key, true);
-    if ($count==''){
-        delete_post_meta($post_id, $count_key);
-        add_post_meta($post_id, $count_key, '0');
-        $count = '0';
-    }
-    echo number_format_i18n($count);
+	$count_key = 'views';
+	$count = get_post_meta($post_id, $count_key, true);
+	if ($count==''){
+		delete_post_meta($post_id, $count_key);
+		add_post_meta($post_id, $count_key, '0');
+		$count = '0';
+	}
+	echo number_format_i18n($count);
 }
 function set_post_views(){
 	if (post_password_required($post_id)){
 		return;
 	}
-    global $post;   
-    $post_id = $post -> ID;
-    $count_key = 'views';
-    $count = get_post_meta($post_id, $count_key, true);
-    if (is_single() || is_page()) {
-        if ($count==''){
-            delete_post_meta($post_id, $count_key);
-            add_post_meta($post_id, $count_key, '0');
-        } else {
-            update_post_meta($post_id, $count_key, $count + 1);
-        }
-    }
+	global $post;
+	$post_id = $post -> ID;
+	$count_key = 'views';
+	$count = get_post_meta($post_id, $count_key, true);
+	if (is_single() || is_page()) {
+		if ($count==''){
+			delete_post_meta($post_id, $count_key);
+			add_post_meta($post_id, $count_key, '0');
+		} else {
+			update_post_meta($post_id, $count_key, $count + 1);
+		}
+	}
 }
 add_action('get_header', 'set_post_views');
 //字数和预计阅读时间
@@ -228,10 +228,14 @@ function have_catalog(){
 }
 //当前文章是否隐藏 阅读时间 Meta
 function is_readingtime_meta_hidden(){
-	if (strpos(get_the_content() , "[hide_reading_time][/hide_reading_time]") === False){
-		return False;
+	if (strpos(get_the_content() , "[hide_reading_time][/hide_reading_time]") !== False){
+		return True;
 	}
-	return True;
+	global $post;
+	if (get_post_meta($post -> ID, 'argon_hide_readingtime', true) == 'true'){
+		return True;
+	}
+	return False;
 }
 //评论样式格式化
 function argon_comment_format($comment, $args, $depth){
@@ -558,17 +562,17 @@ if (get_option('argon_enable_v2ex_gravatar') == 'true'){
 }
 //说说点赞
 function get_shuoshuo_upvotes($ID){
-    $count_key = 'upvotes';
-    $count = get_post_meta($ID, $count_key, true);
-    if ($count==''){
-        delete_post_meta($ID, $count_key);
-        add_post_meta($ID, $count_key, '0');
-        $count = '0';
-    }
-    return number_format_i18n($count);
+	$count_key = 'upvotes';
+	$count = get_post_meta($ID, $count_key, true);
+	if ($count==''){
+		delete_post_meta($ID, $count_key);
+		add_post_meta($ID, $count_key, '0');
+		$count = '0';
+	}
+return number_format_i18n($count);
 }
 function set_shuoshuo_upvotes($ID){
-    $count_key = 'upvotes';
+	$count_key = 'upvotes';
 	$count = get_post_meta($ID, $count_key, true);
 	if ($count==''){
 		delete_post_meta($ID, $count_key);
@@ -606,7 +610,7 @@ function alert_footer_copyright_changed(){ ?>
 <?php }
 function check_footer_copyright(){
 	$footer = file_get_contents(get_theme_root() . "/argon/footer.php");
-	if ((strpos($footer, "github.com/solstice23/argon-theme") === false) && (strpos($footer, "solstice23.top") === false) && (strpos($footer, "abc233.site") === false)){
+	if ((strpos($footer, "github.com/solstice23/argon-theme") === false) && (strpos($footer, "solstice23.top") === false) && (strpos($footer, "solstice23.top") === false)){
 		add_action('admin_notices', 'alert_footer_copyright_changed');
 	}
 }
@@ -735,6 +739,48 @@ function checkHEX($hex){
 	}
 	return True;
 }
+//编辑文章界面新增 Meta 编辑模块
+function argon_meta_box_1(){
+	wp_nonce_field("argon_meta_box_nonce_action", "argon_meta_box_nonce");
+	global $post;
+	?>
+		<h4>显示字数和预计阅读时间</h4>
+		<?php $argon_meta_hide_readingtime = get_post_meta($post->ID, "argon_hide_readingtime", true);?>
+		<select name="argon_meta_hide_readingtime" id="argon_meta_hide_readingtime">
+			<option value="false" <?php if ($argon_meta_hide_readingtime=='false'){echo 'selected';} ?>>跟随全局设置</option>
+			<option value="true" <?php if ($argon_meta_hide_readingtime=='true'){echo 'selected';} ?>>不显示</option>
+		</select>
+		<p style="margin-top: 15px;">是否显示字数和预计阅读时间 Meta 信息</p>
+	<?php
+}
+function argon_add_meta_boxes(){
+	add_meta_box('argon_meta_box_1', "文章设置", 'argon_meta_box_1', array('post', 'page'), 'side', 'low');
+}
+add_action('admin_menu', 'argon_add_meta_boxes');
+function argon_save_meta_data($post_id){
+	if (!isset($_POST['argon_meta_box_nonce'])){
+		return $post_id; 
+	}
+	$nonce = $_POST['argon_meta_box_nonce'];
+	if (!wp_verify_nonce($nonce, 'argon_meta_box_nonce_action')){
+		return $post_id; 
+	}
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
+		return $post_id; 
+	}
+	if ($_POST['post_type'] == 'post'){
+		if (!current_user_can('edit_post', $post_id)){
+			return $post_id;
+		}
+	}
+	if ($_POST['post_type'] == 'page'){
+		if (!current_user_can('edit_page', $post_id)){
+			return $post_id;
+		}
+	}
+	update_post_meta($post_id, 'argon_hide_readingtime', $_POST['argon_meta_hide_readingtime']);
+}
+add_action('save_post', 'argon_save_meta_data');
 //主题文章短代码解析
 add_shortcode('br','shortcode_br');
 function shortcode_br($attr,$content=""){
@@ -1182,6 +1228,7 @@ function themeoptions_page(){
 			}
 		</style>
 		<h1>Argon 主题设置</h1>
+		<p>按下 <kbd style="font-family: sans-serif;">Ctrl + F</kbd> 来查找设置，或在右侧目录中查找设置</p>
 		<form method="POST" action="" id="main_form">
 			<input type="hidden" name="update_themeoptions" value="true" />
 			<table class="form-table">
@@ -1390,7 +1437,7 @@ function themeoptions_page(){
 							<select name="argon_show_headindex_number">
 								<?php $argon_show_headindex_number = get_option('argon_show_headindex_number'); ?>
 								<option value="false" <?php if ($argon_show_headindex_number=='false'){echo 'selected';} ?>>不显示</option>
-								<option value="true" <?php if ($argon_show_headindex_number=='true'){echo 'selected';} ?>>显示</option>	
+								<option value="true" <?php if ($argon_show_headindex_number=='true'){echo 'selected';} ?>>显示</option>
 							</select>
 							<p class="description">例：3.2.5</p>
 						</td>
@@ -1411,7 +1458,7 @@ function themeoptions_page(){
 							<select name="argon_fab_show_settings_button">
 							<?php $argon_fab_show_settings_button = get_option('argon_fab_show_settings_button'); ?>
 								<option value="true" <?php if ($argon_fab_show_settings_button=='true'){echo 'selected';} ?>>显示</option>
-								<option value="false" <?php if ($argon_fab_show_settings_button=='false'){echo 'selected';} ?>>不显示</option>	
+								<option value="false" <?php if ($argon_fab_show_settings_button=='false'){echo 'selected';} ?>>不显示</option>
 							</select>
 							<p class="description">是否在浮动操作按钮栏中显示设置按钮。点击设置按钮可以唤出设置菜单修改夜间模式/字体/滤镜等外观选项。</p>
 						</td>
@@ -1422,7 +1469,7 @@ function themeoptions_page(){
 							<select name="argon_fab_show_darkmode_button">
 							<?php $argon_fab_show_darkmode_button = get_option('argon_fab_show_darkmode_button'); ?>
 								<option value="false" <?php if ($argon_fab_show_darkmode_button=='false'){echo 'selected';} ?>>不显示</option>
-								<option value="true" <?php if ($argon_fab_show_darkmode_button=='true'){echo 'selected';} ?>>显示</option>	
+								<option value="true" <?php if ($argon_fab_show_darkmode_button=='true'){echo 'selected';} ?>>显示</option>
 							</select>
 							<p class="description">如果开启了设置按钮显示，建议关闭此选项。（夜间模式选项在设置菜单中已经存在）</p>
 						</td>
@@ -1448,7 +1495,7 @@ function themeoptions_page(){
 						<td>
 							<select name="argon_show_readingtime">
 								<?php $argon_show_readingtime = get_option('argon_show_readingtime'); ?>
-								<option value="true" <?php if ($argon_show_readingtime=='true'){echo 'selected';} ?>>显示</option>	
+								<option value="true" <?php if ($argon_show_readingtime=='true'){echo 'selected';} ?>>显示</option>
 								<option value="false" <?php if ($argon_show_readingtime=='false'){echo 'selected';} ?>>不显示</option>
 							</select>
 						</td>
@@ -1740,12 +1787,23 @@ window.pjaxLoaded = function(){
 					</tr>
 					<tr><th class="subtitle"><h2>其他</h2></th></tr>
 					<tr>
+						<th><label>是否启用 Pjax</label></th>
+						<td>
+							<select name="argon_pjax_disabled">
+								<?php $argon_pjax_disabled = get_option('argon_pjax_disabled'); ?>
+								<option value="false" <?php if ($argon_pjax_disabled=='false'){echo 'selected';} ?>>启用</option>
+								<option value="true" <?php if ($argon_pjax_disabled=='true'){echo 'selected';} ?>>不启用</option>
+							</select>
+							<p class="description">Pjax 可以增强页面的跳转体验</p>
+						</td>
+					</tr>
+					<tr>
 						<th><label>是否使用 v2ex CDN 代理的 gravatar</label></th>
 						<td>
 							<select name="argon_enable_v2ex_gravatar">
 								<?php $enable_v2ex_gravatar = get_option('argon_enable_v2ex_gravatar'); ?>
 								<option value="false" <?php if ($enable_v2ex_gravatar=='false'){echo 'selected';} ?>>不使用</option>
-								<option value="true" <?php if ($enable_v2ex_gravatar=='true'){echo 'selected';} ?>>使用</option>	
+								<option value="true" <?php if ($enable_v2ex_gravatar=='true'){echo 'selected';} ?>>使用</option>
 							</select>
 							<p class="description">建议使用，可以大幅增加国内 gravatar 头像加载的速度</p>
 						</td>
@@ -1756,7 +1814,7 @@ window.pjaxLoaded = function(){
 							<select name="argon_enable_timezone_fix">
 								<?php $argon_enable_timezone_fix = get_option('argon_enable_timezone_fix'); ?>
 								<option value="false" <?php if ($argon_enable_timezone_fix=='false'){echo 'selected';} ?>>关闭</option>
-								<option value="true" <?php if ($argon_enable_timezone_fix=='true'){echo 'selected';} ?>>开启</option>	
+								<option value="true" <?php if ($argon_enable_timezone_fix=='true'){echo 'selected';} ?>>开启</option>
 							</select>
 							<p class="description">如遇到时区错误（例如一条刚发的评论显示 8 小时前），这个选项<strong>可能</strong>可以修复这个问题</p>
 						</td>
@@ -1767,7 +1825,7 @@ window.pjaxLoaded = function(){
 							<select name="argon_hide_shortcode_in_preview">
 								<?php $argon_hide_shortcode_in_preview = get_option('argon_hide_shortcode_in_preview'); ?>
 								<option value="false" <?php if ($argon_hide_shortcode_in_preview=='false'){echo 'selected';} ?>>否</option>
-								<option value="true" <?php if ($argon_hide_shortcode_in_preview=='true'){echo 'selected';} ?>>是</option>	
+								<option value="true" <?php if ($argon_hide_shortcode_in_preview=='true'){echo 'selected';} ?>>是</option>
 							</select>
 							<p class="description"></p>
 						</td>
@@ -1896,7 +1954,7 @@ window.pjaxLoaded = function(){
 <?php
 }
 add_action('admin_menu', 'themeoptions_admin_menu');
-if ($_POST['update_themeoptions']== 'true'){
+if ($_POST['update_themeoptions'] == 'true'){
 	//配置项
 	update_option('argon_toolbar_icon', $_POST['argon_toolbar_icon']);
 	update_option('argon_toolbar_icon_link', $_POST['argon_toolbar_icon_link']);
@@ -1938,6 +1996,7 @@ if ($_POST['update_themeoptions']== 'true'){
 	update_option('argon_hide_footer_author', $_POST['argon_hide_footer_author']);
 	update_option('argon_card_radius', $_POST['argon_card_radius']);
 	update_option('argon_comment_avatar_vcenter', $_POST['argon_comment_avatar_vcenter']);
+	update_option('argon_pjax_disabled', $_POST['argon_pjax_disabled']);
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);
