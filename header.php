@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <?php
 	$htmlclasses = "";
-	if ($_COOKIE["argon_enable_dark_mode"] == "true"){
-		$htmlclasses .= "darkmode ";
-	}
 	if (get_option('argon_pjax_disabled') == "true"){
 		$htmlclasses .= "no-pjax ";
 	}
@@ -70,6 +67,22 @@
 	<link href="<?php bloginfo('template_url'); ?>/style.css?v<?php echo wp_get_theme('argon') -> Version; ?>" type='text/css' media='all' rel='stylesheet'>
 	<script src="<?php bloginfo('template_url'); ?>/assets/argon_js_merged.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300&display=swap" rel="stylesheet">
+
+	<script>
+		function toggleDarkmode(){
+			$("html").toggleClass("darkmode");
+			if ($("html").hasClass("darkmode")){
+				localStorage.setItem("Argon_Enable_Dark_Mode", "true");
+			}else{
+				localStorage.setItem("Argon_Enable_Dark_Mode", "false");
+			}
+			$(window).trigger("scroll");
+		}
+		console.log(localStorage.getItem("Argon_Enable_Dark_Mode"));
+		if (localStorage.getItem("Argon_Enable_Dark_Mode") == "true"){
+			toggleDarkmode();
+		}
+	</script>
 
 	<?php if (get_option('argon_enable_smoothscroll_type') == '2') { /*平滑滚动*/?>
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll2.js"></script>
@@ -308,8 +321,8 @@
 	<button id="fabtn_back_to_top" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" aria-label="Back To Top">
 		<span class="btn-inner--icon"><i class="fa fa-angle-up"></i></span>
 	</button>
-	<button id="fabtn_toggle_darkmode" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" <?php if (get_option('argon_fab_show_darkmode_button') != 'true') echo " style='display: none;'";?> aria-label="Switch Darkmode">
-		<span class="btn-inner--icon"><i class="fa fa-moon-o"></i></span>
+	<button id="fabtn_toggle_darkmode" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" <?php if (get_option('argon_fab_show_darkmode_button') != 'true') echo " style='display: none;'";?> aria-label="Toggle Darkmode">
+		<span class="btn-inner--icon"><i class="fa fa-moon-o"></i><i class='fa fa-lightbulb-o'></i></span>
 	</button>
 	<button id="fabtn_toggle_blog_settings_popup" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" <?php if (get_option('argon_fab_show_settings_button') == 'false') echo " style='display: none;'";?> aria-label="Open Blog Settings Menu">
 		<span class="btn-inner--icon"><i class="fa fa-cog"></i></span>
@@ -318,8 +331,7 @@
 		<div id="close_blog_settings"><i class="fa fa-close"></i></div>
 		<div class="blog-setting-item mt-3">
 			<div style="flex: 1;transform: translateY(-4px);">夜间模式</div>
-			<label class="custom-toggle">
-				<input id="blog_setting_darkmode_switch" type="checkbox">
+			<label id="blog_setting_darkmode_switch" class="custom-toggle">
 				<span class="custom-toggle-slider rounded-circle"></span>
 			</label>
 		</div>

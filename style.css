@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://abc233.site/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.852
+Version: 0.860
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -683,6 +683,18 @@ html.darkmode #float_action_buttons #fabtn_toggle_darkmode:before{
 }
 #float_action_buttons #fabtn_toggle_blog_settings_popup:before{
 	content: "设置";
+}
+#fabtn_toggle_darkmode i.fa{
+	margin: 0;
+}
+#fabtn_toggle_darkmode i.fa-lightbulb-o{
+	display: none;
+}
+html.darkmode #fabtn_toggle_darkmode i.fa-moon-o{
+	display: none;
+}
+html.darkmode #fabtn_toggle_darkmode i.fa-lightbulb-o{
+	display: inline-block;
 }
 #float_action_buttons #fabtn_open_sidebar{
 	display: none;
@@ -2336,6 +2348,14 @@ html.darkmode #post_comment_reply_preview:after {
 
 html.darkmode .comment-item-text .comment-image{
 	color: var(--themecolor-light) !important;
+}
+
+html.darkmode #blog_setting_darkmode_switch .custom-toggle-slider {
+	border-color: var(--themecolor);
+}
+html.darkmode #blog_setting_darkmode_switch .custom-toggle-slider:before {
+	transform: translateX(1.625rem);
+	background-color: var(--themecolor);
 }
 
 html.darkmode .badge{

@@ -110,25 +110,9 @@ function getCookie(cname) {
 		}
 	});
 
-	function toggleDarkmode(){
-		$("html").toggleClass("darkmode");
-		if ($("html").hasClass("darkmode")){
-			$('#fabtn_toggle_darkmode .btn-inner--icon').html("<i class='fa fa-lightbulb-o'></i>");
-			$("#blog_setting_darkmode_switch")[0].checked = true;
-			setCookie("argon_enable_dark_mode", "true", 365);
-		}else{
-			$('#fabtn_toggle_darkmode .btn-inner--icon').html("<i class='fa fa-moon-o'></i>");
-			$("#blog_setting_darkmode_switch")[0].checked = false;
-			setCookie("argon_enable_dark_mode", "false", 365);
-		}
-		$(window).trigger("scroll");
-	}
 	$toggleDarkmode.on("click" , function(){
 		toggleDarkmode();
 	});
-	if ($("html").hasClass("darkmode")){
-		$("#blog_setting_darkmode_switch")[0].checked = true;
-	}
 
 	if (localStorage['Argon_fabs_Floating_Status'] == "left"){
 		$fabtns.addClass("fabtns-float-left");
@@ -152,7 +136,7 @@ function getCookie(cname) {
 	$("#close_blog_settings").on("click" , function(){
 		$("#float_action_buttons").removeClass("blog_settings_opened");
 	});
-	$("#blog_setting_darkmode_switch").on("change" , function(){
+	$("#blog_setting_darkmode_switch .custom-toggle-slider").on("click" , function(){
 		toggleDarkmode();
 	});
 	//字体
