@@ -50,13 +50,13 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 截图
 
-![截图 1](https://solstice23.top/argon-theme-docs/img/screenshot1.png)
+![截图 1](https://solstice23.top/argon-theme-docs-old/img/screenshot1.png)
 
-![截图 2](https://solstice23.top/argon-theme-docs/img/screenshot2.png)
+![截图 2](https://solstice23.top/argon-theme-docs-old/img/screenshot2.png)
 
-![截图 3](https://solstice23.top/argon-theme-docs/img/screenshot3.png)
+![截图 3](https://solstice23.top/argon-theme-docs-old/img/screenshot3.png)
 
-![截图 4](https://solstice23.top/argon-theme-docs/img/screenshot4.png)
+![截图 4](https://solstice23.top/argon-theme-docs-old/img/screenshot4.png)
 
 # 更新日志
 
