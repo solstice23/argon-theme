@@ -60,7 +60,7 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
-## 20200229 v0.853
+## 20200303 v0.853
 + 编辑文章界面侧栏增加 "隐藏字数及阅读时间提示 Meta 信息" 选项
 + 优化夜间模式相关逻辑
 + 修复赞赏二维码的显示和过渡动画问题
