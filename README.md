@@ -1,4 +1,4 @@
-![Argon](https://solstice23.top/argon-theme-docs/img/argon.jpg)
+![Argon](https://solstice23.top/argon-theme-docs-old/img/argon.jpg)
 # Argon-Theme
 Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
