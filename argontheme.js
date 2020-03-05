@@ -32,27 +32,23 @@ function getCookie(cname) {
 
 	function changeToolbarTransparency(){
 		//let toolbarRgb = "94, 114, 228";
-		let toolbarRgb = $("meta[name='theme-color-rgb']").attr("content");
-		if ($("html").hasClass("darkmode")){
-			toolbarRgb = "33, 33, 33";
-		}
 		let scrollTop = $(window).scrollTop();
 		startTransitionHeight = $bannerContainer.offset().top - 75;
 		endTransitionHeight = $content.offset().top - 75;
 		if ($(window).scrollTop() < startTransitionHeight){
-			$toolbar.css("cssText","background-color: rgba(" + toolbarRgb + ", 0) !important;");
+			$toolbar.css("cssText","background-color: rgba(var(--toolbar-color) , 0) !important;");
 			$toolbar.css("box-shadow","none");
 			$toolbar.addClass("navbar-ontop");
 			return;
 		}
 		if ($(window).scrollTop() > endTransitionHeight){
-			$toolbar.css("cssText","background-color: rgba(" + toolbarRgb + ", 0.85) !important;");
+			$toolbar.css("cssText","background-color: rgba(var(--toolbar-color) , 0.85) !important;");
 			$toolbar.css("box-shadow","");
 			$toolbar.removeClass("navbar-ontop");
 			return;
 		}
 		let transparency = (scrollTop - startTransitionHeight) / (endTransitionHeight - startTransitionHeight) * 0.85;
-		$toolbar.css("cssText","background-color: rgba(" + toolbarRgb + ", " + transparency + ") !important;");
+		$toolbar.css("cssText","background-color: rgba(var(--toolbar-color) , " + transparency + ") !important;");
 		$toolbar.css("box-shadow","");
 		$toolbar.removeClass("navbar-ontop");
 	}
@@ -62,6 +58,25 @@ function getCookie(cname) {
 	});
 }();
 
+/*顶栏搜索*/
+$(document).on("click" , "#navbar_search_input_container" , function(){
+	$(this).addClass("open");
+	$("#navbar_search_input").focus();
+});
+$(document).on("blur" , "#navbar_search_input_container" , function(){
+	$(this).removeClass("open");
+});
+$(document).on("keydown" , "#navbar_search_input_container #navbar_search_input" , function(e){
+	if (e.keyCode != 13){
+		return;
+	}
+	let word = $(this).val();
+	if (word == ""){
+		return;
+	}
+	let scrolltop = $(document).scrollTop();
+	pjaxLoadUrl("/?s=" + encodeURI(word) , true , 0 , scrolltop);
+});
 
 /*左侧栏随页面滚动浮动*/
 !function(){
@@ -222,7 +237,7 @@ function getCookie(cname) {
 		range: {
 			'min': [0],
 			'max': [30]
-	    }
+		}
 	});
 	slider.noUiSlider.on('update', function (values){
 		let value = values[0];
@@ -767,7 +782,7 @@ $(document).on("click" , "#blog_categories .tag" , function(){
 	$("#blog_categories button.close").trigger("click");
 });
 
-/*侧栏手机适配*/
+/*侧栏 & 顶栏菜单手机适配*/
 !function(){
 	$(document).on("click" , "#fabtn_open_sidebar" , function(){
 		$("html").addClass("leftbar-opened");
@@ -777,6 +792,12 @@ $(document).on("click" , "#blog_categories .tag" , function(){
 	});
 	$(document).on("click" , "#leftbar a[href]:not([no-pjax]):not([href^='#'])" , function(){
 		$("html").removeClass("leftbar-opened");
+	});
+	$(document).on("click" , "#navbar_global .navbar-nav a[href]:not([no-pjax]):not([href^='#'])" , function(){
+		$("#navbar_global .navbar-toggler").click();
+	});
+	$(document).on("click" , "#navbar_global #navbar_search_btn_mobile" , function(){
+		$("#navbar_global .navbar-toggler").click();
 	});
 }();
 
@@ -1030,11 +1051,11 @@ if ($("meta[name='argon-enable-custom-theme-color']").attr("content") == 'true')
 		swatches: ['#5e72e4', '#fa7298', '#009688', '#607d8b', '#2196f3', '#3f51b5', '#ff9700', '#109d58', '#dc4437', '#673bb7', '#212121', '#795547'],
 		defaultRepresentation: 'HEX',
 		showAlways: false,
-	    closeWithKey: 'Escape',
-	    position: 'top-start',
-	    adjustableNumbers: false,
-	    components: {
-	        palette: true,
+		closeWithKey: 'Escape',
+		position: 'top-start',
+		adjustableNumbers: false,
+		components: {
+			palette: true,
 			preview: true,
 			opacity: false,
 			hue: true,
@@ -1105,8 +1126,6 @@ function updateThemeColor(color, setcookie){
 
 	$("meta[name='theme-color']").attr("content", themecolor);
 	$("meta[name='theme-color-rgb']").attr("content", themecolor_rgbstr);
-
-	$(window).trigger("scroll");
 
 	if (setcookie){
 		setCookie("argon_custom_theme_color", themecolor, 365);

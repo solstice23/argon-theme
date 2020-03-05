@@ -78,7 +78,6 @@
 			}
 			$(window).trigger("scroll");
 		}
-		console.log(localStorage.getItem("Argon_Enable_Dark_Mode"));
 		if (localStorage.getItem("Argon_Enable_Dark_Mode") == "true"){
 			toggleDarkmode();
 		}
@@ -94,7 +93,6 @@
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll1.js"></script>
 	<?php }?>
 
-	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/nouislider/js/nouislider.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/js/argon.min.js"></script>
 	<?php wp_head(); ?>
 </head>
@@ -227,7 +225,17 @@
 						}
 					?>
 					<ul class="navbar-nav align-items-lg-center ml-lg-auto">
-						<li class="nav-item" data-toggle="modal" data-target="#argon_search_modal">
+						<li id="navbar_search_container" class="nav-item" data-toggle="modal">
+							<div id="navbar_search_input_container">
+								<div class="input-group input-group-alternative">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fa fa-search"></i></span>
+									</div>
+									<input name="s" class="form-control" placeholder="搜索什么..." type="text" autocomplete="off" id="navbar_search_input">
+								</div>
+							</div>
+						</li>
+						<li id="navbar_search_btn_mobile" class="nav-item" data-toggle="modal" data-target="#argon_search_modal">
 							<a class="nav-link nav-link-icon">
 								<i class="fa fa-search"></i>
 								<span class="nav-link-inner--text d-lg-none">搜索</span>

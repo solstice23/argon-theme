@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.860
+Version: 0.870
 License: GNU General Public License v3.0GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -200,6 +200,10 @@ a:hover{
 a.text-primary:focus , a.text-primary:hover {
 	color: var(--themecolor) !important;
 }
+.btn-primary.disabled, .btn-primary:disabled {
+	border-color: var(--themecolor);
+	background-color: var(--themecolor);
+}
 .custom-toggle input:checked+.custom-toggle-slider{
 	border-color: var(--themecolor);
 }
@@ -277,6 +281,12 @@ a.text-primary:focus , a.text-primary:hover {
 	animation: none;
 }
 /*顶栏和 Banner 部分*/
+#navbar-main{
+	--toolbar-color: var(--themecolor-rgbstr);
+}
+html.darkmode #navbar-main{
+	--toolbar-color: 33, 33, 33;
+}
 @media (min-width: 1700px){
 	.navbar-main .container {
 		max-width: 1500px !important;
@@ -300,12 +310,45 @@ a.text-primary:focus , a.text-primary:hover {
 }
 #navbar-main{
 	transition: background 0s, padding .15s ease;
-	background-color: var(--themecolor) !important;
+	background-color: var(--toolbar-color) !important;
 }
 #navbar-main.navbar-ontop{
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 }
+
+#navbar_search_input_container:not(.open){
+	cursor: pointer;
+}
+#navbar_search_input_container .input-group{
+	box-shadow: none;
+}
+#navbar_search_input_container:not(.open) .input-group-text{
+	background: transparent;
+	color: #fff;
+}
+#navbar_search_input_container .input-group-text i.fa{
+	font-size: 16px;
+}
+#navbar_search_input_container:not(.open) input.form-control{
+	width: 0 !important;
+	padding: 0 !important;
+	background: transparent;
+}
+#navbar_search_input_container .input-group-prepend {
+	margin-right: 0px;
+}
+#navbar_search_input_container .input-group-text{
+	transition: all .5s ease;
+}
+#navbar_search_input_container input.form-control {
+	width: 200px;
+	transition: all .5s ease;
+}
+#navbar_search_btn_mobile{
+	display: none;
+}
+
 .banner{
 	margin-bottom:  25px;
 	height: 71.8vh;
@@ -659,30 +702,30 @@ a.text-primary:focus , a.text-primary:hover {
 	opacity: .7;
 }
 #float_action_buttons #fabtn_toggle_sides:before{
-	content: "移至左侧";
+	content: "\79fb\81f3\5de6\4fa7";
 	top: 1px;
 }
 #float_action_buttons.fabtns-float-left #fabtn_toggle_sides:before{
-	content: "移至右侧";
+	content: "\79fb\81f3\53f3\4fa7";
 }
 #float_action_buttons #fabtn_back_to_top:before{
-	content: "回到顶部";
+	content: "\56de\5230\9876\90e8";
 }
 #float_action_buttons #fabtn_reading_progress:before{
-	content: "阅读进度";
+	content: "\9605\8bfb\8fdb\5ea6";
 	top: 1px;
 }
 #float_action_buttons #fabtn_open_sidebar:before{
-	content: "菜单";
+	content: "\83dc\5355";
 }
 #float_action_buttons #fabtn_toggle_darkmode:before{
-	content: "夜间模式";
+	content: "\591c\95f4\6a21\5f0f";
 }
 html.darkmode #float_action_buttons #fabtn_toggle_darkmode:before{
-	content: "日间模式";
+	content: "\65e5\95f4\6a21\5f0f";
 }
 #float_action_buttons #fabtn_toggle_blog_settings_popup:before{
-	content: "设置";
+	content: "\8bbe\7f6e";
 }
 #fabtn_toggle_darkmode i.fa{
 	margin: 0;
@@ -856,7 +899,7 @@ html.filter-grayscale{
 	position: relative;
 }
 #blog_setting_card_radius_to_default:before {
-	content: '恢复默认';
+	content: '\6062\590d\9ed8\8ba4';
 	position: absolute;
 	top: -30px;
 	left: 50%;
@@ -1389,10 +1432,10 @@ html.filter-grayscale{
 	content: "http(s)://";
 }
 #post_comment_toggle_extra_input:before{
-	content: "展开附加字段";
+	content: "\5c55\5f00\9644\52a0\5b57\6bb5";
 }
 .show-extra-input #post_comment_toggle_extra_input:before{
-	content: "折叠附加字段";
+	content: "\6298\53e0\9644\52a0\5b57\6bb5";
 }
 #post_comment_toggle_extra_input{
 	border-radius: 100px;
@@ -1965,34 +2008,34 @@ body.noscroll:before{
 	opacity: .7;
 }
 #share_show:before{
-	content: "分享";
+	content: "\5206\4eab";
 	top: -40px;
 	height: max-content;
 	height: -moz-max-content;
 }
 #share .icon-douban:before{
-	content: "分享到豆瓣";
+	content: "\5206\4eab\5230\8c46\74e3";
 }
 #share .icon-qq:before{
-	content: "分享到 QQ";
+	content: "\5206\4eab\5230\0020\0051\0051";
 }
 #share .icon-qzone:before{
-	content: "分享到 QQ 空间";
+	content: "\5206\4eab\5230\0020\0051\0051\0020\7a7a\95f4";
 }
 #share .icon-weibo:before{
-	content: "分享到 微博";
+	content: "\5206\4eab\5230\0020\5fae\535a";
 }
 #share .icon-facebook:before{
-	content: "分享到 Facebook";
+	content: "\5206\4eab\5230\0020\0046\0061\0063\0065\0062\006f\006f\006b";
 }
 #share .icon-twitter:before{
-	content: "分享到 Twitter";
+	content: "\5206\4eab\5230\0020\0054\0077\0069\0074\0074\0065\0072";
 }
 #share .icon-telegram:before{
-	content: "分享到 Telegram";
+	content: "\5206\4eab\5230\0020\0054\0065\006c\0065\0067\0072\0061\006d";
 }
 #share .icon-copy-link:before{
-	content: "复制链接";
+	content: "\590d\5236\94fe\63a5";
 }
 
 /*Wordpress Adminbar*/
@@ -2133,6 +2176,59 @@ html[class] , html[lang]{
 .shuoshuo-upvote.shuoshuo-upvoting{
 	opacity: .8;
 	pointer-events: none;
+}
+
+.shuoshuo-preview-container{
+	margin-bottom: 20px;
+	padding: 25px 35px;
+}
+.shuoshuo-preview-container:before{
+	content: '';
+	display: block;
+	position: absolute;
+	left: -20px;
+	top: -10px;
+	width: 40px;
+	height: 30px;
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTgzNDIzNDcwNTE4IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjMwOTciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNzc1Ljk5MTUxIDQzNy43MjYzOWM0OC4xMzEyMDctNzQuODg3NTk0IDExNi4yODY0Ny0xMzguMjQ5NjkxIDE4My4wMzg3OC0xODMuNTU2NTczbC03NS4xMzQyMTEtNzkuNDAxMzk4Yy0xNzIuNDgwMzA2IDY3LjY0MDU0LTMzNi43ODMzNzMgMjQyLjYxMTU3My0zMzYuNzgzMzczIDQ0OC40MzkzODJsMS4zMjcyMjggMGMtMC41Njg5NTggNi4yMzE5MzUtMC44NzQ5MjcgMTIuNTQwNjE3LTAuODc0OTI3IDE4LjkyMDkzMiAwIDExMy41ODU5NjUgOTIuMDc3MDkyIDIwNS42NjMwNTYgMjA1LjY2MzA1NiAyMDUuNjYzMDU2IDExMy41ODE4NzEgMCAyMDUuNjYzMDU2LTkyLjA3NzA5MiAyMDUuNjYzMDU2LTIwNS42NjMwNTZDOTU4Ljg5MjE0MyA1MzYuMjM5MDU0IDg3OC44NjAzODkgNDQ5LjA1NTQxMiA3NzUuOTkxNTEgNDM3LjcyNjM5ek00NzIuOTE2ODY2IDI1NC4xNjk4MTdsLTc1LjEzNDIxMS03OS40MDEzOThjLTE3Mi40ODAzMDYgNjcuNjQwNTQtMzM2Ljc4MzM3MyAyNDIuNjExNTczLTMzNi43ODMzNzMgNDQ4LjQzOTM4MmwxLjMyNzIyOCAwYy0wLjU2ODk1OCA2LjIzMTkzNS0wLjg3NDkyNyAxMi41NDA2MTctMC44NzQ5MjcgMTguOTIwOTMyIDAgMTEzLjU4NTk2NSA5Mi4wNzcwOTIgMjA1LjY2MzA1NiAyMDUuNjYzMDU2IDIwNS42NjMwNTZzMjA1LjY2MzA1Ni05Mi4wNzcwOTIgMjA1LjY2MzA1Ni0yMDUuNjYzMDU2YzAtMTA1Ljg5MDcwMi04MC4wMjg2ODUtMTkzLjA3NTM2Ny0xODIuOTAwNjMzLTIwNC40MDMzNjdDMzM4LjAwODI3IDM2Mi44Mzg3OTUgNDA2LjE2MzUzMyAyOTkuNDc2Njk5IDQ3Mi45MTY4NjYgMjU0LjE2OTgxN3oiIHAtaWQ9IjMwOTgiIGZpbGw9IiNmZmZmZmYiIGRhdGEtc3BtLWFuY2hvci1pZD0iYTMxM3guNzc4MTA2OS4wLmkyIiBjbGFzcz0ic2VsZWN0ZWQiPjwvcGF0aD48L3N2Zz4=);
+	background-color: var(--themecolor);
+	background-position: 40% 35%;
+	border-radius: 20px;
+	background-size: 32%;
+	background-repeat: no-repeat;
+	transition: all .3s ease;
+}
+.shuoshuo-preview-container:hover:before {
+	left: -20px;
+	top: -10px;
+	width: 40px;
+	height: 40px;
+	background-position: 45% 45%;
+	border-radius: 20px;
+	background-size: 40%;
+	background-repeat: no-repeat;
+}
+.shuoshuo-preview-meta{
+	font-size: 14px;
+	opacity: .6;
+	transition: all .3s ease;
+	margin-top: 10px;
+}
+.shuoshuo-preview-container .shuoshuo-preview-meta:hover{
+	opacity: .8;
+}
+.shuoshuo-preview-meta .shuoshuo-date-date, .shuoshuo-preview-meta .shuoshuo-date-month{
+	font-size: 14px;
+}
+.shuoshuo-preview-link {
+	position: absolute;
+	right: 20px;
+	bottom: 25px;
+	opacity: 0;
+	transition: all .3s ease;
+}
+.shuoshuo-preview-container:hover .shuoshuo-preview-link {
+	opacity: 1;
 }
 /*CSS 加载动画*/
 .loading-css-animation {
@@ -2573,6 +2669,13 @@ html.darkmode .CtxtMenu_Menu {
 	html.darkmode .navbar-collapse .navbar-collapse-header {
 		border-bottom: 1px solid rgba(255,255,255,.1);
 	}
+
+	#navbar_search_btn_mobile{
+		display: list-item;
+	}
+	#navbar_search_container{
+		display: none;
+	}
 }
 @media screen and (min-width:900px) and (max-width:990px){
 	#leftbar_part2.sticky {
@@ -2603,6 +2706,20 @@ html.darkmode .CtxtMenu_Menu {
 		border-radius: var(--card-radius) var(--card-radius) 0 0;
 	}
 	#close_blog_settings {
+		margin-right: -10px;
+	}
+}
+@media screen and (max-width:600px){
+	/*浮动操作按钮透明*/
+	#float_action_buttons{
+		opacity: .5;
+	}
+	#float_action_buttons:hover{
+		opacity: 1;
+	}
+	/*文章边界缩小*/
+	.post-full{
+		margin-left: -10px;
 		margin-right: -10px;
 	}
 }

@@ -416,6 +416,9 @@ function comment_markdown_render($comment_content){
 	if ($_POST['use_markdown'] != 'true'){
 		return $comment_content;
 	}
+	if (get_option("argon_comment_allow_markdown") == "false"){
+		return $comment_content;
+	}
 	//HTML 过滤
 	global $allowedtags; 
 	//$comment_content = wp_kses($comment_content, $allowedtags);
@@ -1773,6 +1776,17 @@ window.pjaxLoaded = function(){
 							<p class="description"></p>
 						</td>
 					</tr>
+					<tr>
+						<th><label>是否允许在评论中使用 Markdown 语法</label></th>
+						<td>
+							<select name="argon_comment_allow_markdown">
+								<?php $argon_comment_allow_markdown = get_option('argon_comment_allow_markdown'); ?>
+								<option value="true" <?php if ($argon_comment_allow_markdown=='true'){echo 'selected';} ?>>允许</option>	
+								<option value="false" <?php if ($argon_comment_allow_markdown=='false'){echo 'selected';} ?>>不允许</option>
+							</select>
+							<p class="description"></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h3>评论区</h3></th></tr>
 					<tr>
 						<th><label>评论头像垂直位置</label></th>
@@ -1795,6 +1809,17 @@ window.pjaxLoaded = function(){
 								<option value="true" <?php if ($argon_pjax_disabled=='true'){echo 'selected';} ?>>不启用</option>
 							</select>
 							<p class="description">Pjax 可以增强页面的跳转体验</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>博客首页是否显示说说</label></th>
+						<td>
+							<select name="argon_home_show_shuoshuo">
+								<?php $argon_home_show_shuoshuo = get_option('argon_home_show_shuoshuo'); ?>
+								<option value="false" <?php if ($argon_home_show_shuoshuo=='false'){echo 'selected';} ?>>不显示</option>
+								<option value="true" <?php if ($argon_home_show_shuoshuo=='true'){echo 'selected';} ?>>显示</option>
+							</select>
+							<p class="description">开启后，博客首页文章和说说穿插显示</p>
 						</td>
 					</tr>
 					<tr>
@@ -1997,6 +2022,8 @@ if ($_POST['update_themeoptions'] == 'true'){
 	update_option('argon_card_radius', $_POST['argon_card_radius']);
 	update_option('argon_comment_avatar_vcenter', $_POST['argon_comment_avatar_vcenter']);
 	update_option('argon_pjax_disabled', $_POST['argon_pjax_disabled']);
+	update_option('argon_comment_allow_markdown', $_POST['argon_comment_allow_markdown']);
+	update_option('argon_home_show_shuoshuo', $_POST['argon_home_show_shuoshuo']);
 
 	//LazyLoad 相关
 	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);
