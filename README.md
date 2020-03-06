@@ -304,6 +304,6 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 + 修改一些细节
 
 ## 捐赠
-如果你觉得 Argon 主题不错，可以请作者一杯咖啡来帮助开发。
+如果你觉得 Argon 主题不错，可以请我一杯咖啡来支持我的开发。
 
-![微信捐赠码](https://img.solstice23.top/2020/03/07/441560f50ad6c.png)
+![微信捐赠码](https://img.solstice23.top/2020/03/07/fc4b804bf938b.png)
