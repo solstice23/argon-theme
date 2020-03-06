@@ -60,6 +60,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200306 v0.871
++ BUG 修复
+
+
 ## 20200306 v0.870
 + 优化搜索体验，将搜索框嵌入导航栏中，同时搜索支持 Pjax
 + 增加首页文章和说说同时显示的选项

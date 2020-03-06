@@ -315,7 +315,11 @@ $(document).on("keydown" , "#navbar_search_input_container #navbar_search_input"
 		commentEmail = $("#post_comment_email").val();
 		commentLink = $("#post_comment_link").val();
 		commentCaptcha = $("#post_comment_captcha").val();
-		useMarkdown = $("#comment_post_use_markdown")[0].checked;
+		if ($("#comment_post_use_markdown").length > 0){
+			useMarkdown = $("#comment_post_use_markdown")[0].checked;
+		}else{
+			useMarkdown = false;
+		}
 
 		postID = $("#post_comment_post_id").val();
 		commentCaptchaSeed = $("#post_comment_captcha_seed").val();
