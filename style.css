@@ -3,8 +3,8 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.871
-License: GNU General Public License v3.0GNU General Public License v3.0
+Version: 0.872
+License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
 */
@@ -2785,7 +2785,7 @@ html.darkmode .CtxtMenu_Menu {
 	article{
 		width: 100% !important;
 	}
-	article a {
+	article .post-content a {
 		text-decoration: underline!important;
 	}
 	article a::after {
@@ -2800,4 +2800,27 @@ html.darkmode .CtxtMenu_Menu {
 	article {
 		font: 13pt Georgia, "Nimbus Roman No9 L", "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "AR PL New Sung", "AR PL SungtiL GB", NSimSun, SimSun, "TW\-Sung", "WenQuanYi Bitmap Song", "AR PL UMing CN", "AR PL UMing HK", "AR PL UMing TW", "AR PL UMing TW MBE", PMingLiU, MingLiU, serif!important;
 	}
+}
+
+/*Safari 兼容*/
+html.using-safari #float_action_buttons .fabtn:before,
+html.using-safari #share > a:before, html.using-safari #share_show:before,
+html.using-safari .post-comment-link-container:before, html.using-safari .post-comment-captcha-container:before, html.using-safari #post_comment_toggle_extra_input:before,
+html.using-safari .comment-reply-time-details,
+html.using-safari #share .icon-wechat .wechat-qrcode{
+	-webkit-transform: translate3d(0,0,0) !important;
+	width: unset !important;
+	white-space: nowrap;
+}
+@media screen and (max-width: 690px){
+	html.using-safari #share .icon-wechat .wechat-qrcode {
+		transform: translate3d(-50%,-50% , 0) !important;
+	}
+}
+html.using-safari #fabtn_blog_settings_popup{
+	-webkit-transform: translate3d(0,0,0) !important;
+}
+html.using-safari #blog_setting_card_radius_to_default:before{
+	transform: translate3d(-50%, 0, 0) !important;
+	white-space: nowrap;
 }

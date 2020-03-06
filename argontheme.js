@@ -23,34 +23,39 @@ function getCookie(cname) {
 
 /*根据滚动高度改变顶栏透明度*/
 !function(){
-	let $toolbar = $("#navbar-main");
+	let toolbar = document.getElementById("navbar-main");
 	let $bannerContainer = $("#banner_container");
 	let $content = $("#content");
 
 	let startTransitionHeight;
 	let endTransitionHeight;
 
-	function changeToolbarTransparency(){
-		//let toolbarRgb = "94, 114, 228";
-		let scrollTop = $(window).scrollTop();
+	startTransitionHeight = $bannerContainer.offset().top - 75;
+	endTransitionHeight = $content.offset().top - 75;
+
+	$(window).resize(function(){
 		startTransitionHeight = $bannerContainer.offset().top - 75;
 		endTransitionHeight = $content.offset().top - 75;
-		if ($(window).scrollTop() < startTransitionHeight){
-			$toolbar.css("cssText","background-color: rgba(var(--toolbar-color) , 0) !important;");
-			$toolbar.css("box-shadow","none");
-			$toolbar.addClass("navbar-ontop");
+	});
+
+	function changeToolbarTransparency(){
+		let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+		if (scrollTop < startTransitionHeight){
+			toolbar.style.setProperty('background-color', 'rgba(var(--toolbar-color), 0)', 'important');
+			toolbar.style.setProperty('box-shadow', 'none');
+			toolbar.classList.add("navbar-ontop");
 			return;
 		}
-		if ($(window).scrollTop() > endTransitionHeight){
-			$toolbar.css("cssText","background-color: rgba(var(--toolbar-color) , 0.85) !important;");
-			$toolbar.css("box-shadow","");
-			$toolbar.removeClass("navbar-ontop");
+		if (scrollTop > endTransitionHeight){
+			toolbar.style.setProperty('background-color', 'rgba(var(--toolbar-color), 0.85)', 'important');
+			toolbar.style.setProperty('box-shadow', '');
+			toolbar.classList.remove("navbar-ontop");
 			return;
 		}
 		let transparency = (scrollTop - startTransitionHeight) / (endTransitionHeight - startTransitionHeight) * 0.85;
-		$toolbar.css("cssText","background-color: rgba(var(--toolbar-color) , " + transparency + ") !important;");
-		$toolbar.css("box-shadow","");
-		$toolbar.removeClass("navbar-ontop");
+		toolbar.style.setProperty('background-color', 'rgba(var(--toolbar-color), ' + transparency, 'important');
+		toolbar.style.setProperty('box-shadow', '');
+		toolbar.classList.remove("navbar-ontop");
 	}
 	changeToolbarTransparency();
 	$(window).scroll(function(){
@@ -82,13 +87,15 @@ $(document).on("keydown" , "#navbar_search_input_container #navbar_search_input"
 !function(){
 	let $leftbarPart1 = $('#leftbar_part1');
 	let $leftbarPart2 = $('#leftbar_part2');
+	let leftbarPart2 = document.getElementById('leftbar_part2');
 	function changeLeftbarStickyStatus(){
-		if( $('#leftbar_part1').offset().top + $('#leftbar_part1').outerHeight() + 10 - $(window).scrollTop() <= 90 ){
+		let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+		if( $('#leftbar_part1').offset().top + $('#leftbar_part1').outerHeight() + 10 - scrollTop <= 90 ){
 			//滚动条在页面中间浮动状态
-			$leftbarPart2.addClass('sticky');
+			leftbarPart2.classList.add('sticky');
 		}else{
 			//滚动条在顶部 不浮动状态
-			$leftbarPart2.removeClass('sticky');
+			leftbarPart2.classList.remove('sticky');
 		}
 	}
 	changeLeftbarStickyStatus();
@@ -797,10 +804,10 @@ $(document).on("click" , "#blog_categories .tag" , function(){
 	$(document).on("click" , "#leftbar a[href]:not([no-pjax]):not([href^='#'])" , function(){
 		$("html").removeClass("leftbar-opened");
 	});
-	$(document).on("click" , "#navbar_global .navbar-nav a[href]:not([no-pjax]):not([href^='#'])" , function(){
+	$(document).on("click" , "#navbar_global.show .navbar-nav a[href]:not([no-pjax]):not([href^='#'])" , function(){
 		$("#navbar_global .navbar-toggler").click();
 	});
-	$(document).on("click" , "#navbar_global #navbar_search_btn_mobile" , function(){
+	$(document).on("click" , "#navbar_global.show #navbar_search_btn_mobile" , function(){
 		$("#navbar_global .navbar-toggler").click();
 	});
 }();

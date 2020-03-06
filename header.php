@@ -4,6 +4,9 @@
 	if (get_option('argon_pjax_disabled') == "true"){
 		$htmlclasses .= "no-pjax ";
 	}
+	if(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== false && strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') === false){
+		$htmlclasses .= ' using-safari';
+	}
 ?>
 <html <?php language_attributes(); ?> class="no-js <?php echo $htmlclasses;?>">
 <?php

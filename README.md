@@ -60,9 +60,13 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200306 v0.872
++ 修复 Safari 上的一系列显示问题
++ 修复点击导航栏时高度跳动的 BUG
++ 略微优化性能
+
 ## 20200306 v0.871
 + BUG 修复
-
 
 ## 20200306 v0.870
 + 优化搜索体验，将搜索框嵌入导航栏中，同时搜索支持 Pjax
@@ -298,3 +302,8 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 + 针对 Wordpress 管理条进行处理
 + 修复夜间模式的一些问题
 + 修改一些细节
+
+## 捐赠
+如果你觉得 Argon 主题不错，可以请作者一杯咖啡来帮助开发。
+
+![微信捐赠码](https://img.solstice23.top/2020/03/07/441560f50ad6c.png)
