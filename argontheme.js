@@ -77,8 +77,33 @@ $(document).on("keydown" , "#navbar_search_input_container #navbar_search_input"
 	}
 	let word = $(this).val();
 	if (word == ""){
+		$("#navbar_search_input_container").blur();
 		return;
 	}
+	let scrolltop = $(document).scrollTop();
+	pjaxLoadUrl("/?s=" + encodeURI(word) , true , 0 , scrolltop);
+});
+/*侧栏搜索*/
+$(document).on("click" , "#leftbar_search_container" , function(){
+	$(".leftbar-search-button").addClass("open");
+	$("#leftbar_search_input").removeAttr("readonly").focus();
+	$("#leftbar_search_input").focus();
+	return false;
+});
+$(document).on("blur" , "#leftbar_search_container" , function(){
+	$(".leftbar-search-button").removeClass("open");
+	$("#leftbar_search_input").attr("readonly", "readonly");
+});
+$(document).on("keydown" , "#leftbar_search_input" , function(e){
+	if (e.keyCode != 13){
+		return;
+	}
+	let word = $(this).val();
+	if (word == ""){
+		$("#leftbar_search_container").blur();
+		return;
+	}
+	$("html").removeClass("leftbar-opened");
 	let scrolltop = $(document).scrollTop();
 	pjaxLoadUrl("/?s=" + encodeURI(word) , true , 0 , scrolltop);
 });

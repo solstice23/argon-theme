@@ -234,7 +234,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text"><i class="fa fa-search"></i></span>
 									</div>
-									<input name="s" class="form-control" placeholder="搜索什么..." type="text" autocomplete="off" id="navbar_search_input">
+									<input id="navbar_search_input" class="form-control" placeholder="搜索什么..." type="text" autocomplete="off">
 								</div>
 							</div>
 						</li>

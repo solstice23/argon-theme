@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.872
+Version: 0.873
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -17,6 +17,7 @@ Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, �
 
 body{
 	background: #f4f5f7 !important;
+	font-family: 'Open Sans', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;
 }
 a{
 	transition: color .25s ease;
@@ -339,11 +340,11 @@ html.darkmode #navbar-main{
 	margin-right: 0px;
 }
 #navbar_search_input_container .input-group-text{
-	transition: all .5s ease;
+	transition: all .5s cubic-bezier(0.4, 0, 0, 1);
 }
 #navbar_search_input_container input.form-control {
 	width: 200px;
-	transition: all .5s ease;
+	transition: all .5s cubic-bezier(0.4, 0, 0, 1);
 }
 #navbar_search_btn_mobile{
 	display: none;
@@ -432,6 +433,39 @@ html.darkmode #navbar-main{
 
 .leftbar-search-button{
 	padding-top: 0;
+	transition: all .3s cubic-bezier(0.4, 0, 0, 1);
+}
+.leftbar-search-button.open{
+	padding: 0 15px 18px 15px;
+	margin-top: -9px;
+}
+#leftbar_search_container{
+	transition: width .3s cubic-bezier(0.4, 0, 0, 1), height .3s cubic-bezier(0.4, 0, 0, 1), box-shadow .15s ease, transform .15s ease;
+	height: 30px;
+	transform: unset !important;
+}
+.leftbar-search-button.open #leftbar_search_container{
+	height: 45px;
+}
+.leftbar-search-button:not(.open) #leftbar_search_container:focus-within{
+	box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+}
+#leftbar_search_input{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	transition: all .3s cubic-bezier(0.4, 0, 0, 1);
+	opacity: 0;
+	cursor: pointer;
+	user-select: none;
+}
+.leftbar-search-button.open #leftbar_search_input{
+	opacity: 1;
+	cursor: text;
+	user-select: all;
+	box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
 }
 
 #leftbar_part2{
@@ -594,6 +628,7 @@ html.darkmode #navbar-main{
 	text-align: center;
 	padding: 25px 20px;
 	line-height: 1.8;
+	transition: none;
 }
 #footer a{
 	color: #fff;
@@ -754,8 +789,8 @@ html.darkmode #fabtn_toggle_darkmode i.fa-lightbulb-o{
 	opacity: 0;
 	width: max-content;
 	width: -moz-max-content;
-	min-width: 200px;
-	max-width: calc(100vh - 170px);
+	min-width: 350px;
+	max-width: calc(100vw - 170px);
 	max-height: calc(100vh - 70px);
 	pointer-events: none;
 	transform: translateX(10px);
@@ -2699,6 +2734,7 @@ html.darkmode .CtxtMenu_Menu {
 		width: 100vw;
 		padding: 10px 25px;
 		opacity: 0;
+		max-width: unset;
 		pointer-events: none;
 		transform: translateY(15px);
 		transition: all .3s ease;

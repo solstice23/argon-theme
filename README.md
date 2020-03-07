@@ -60,6 +60,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200308 v0.873
++ 优化侧栏的搜索体验
++ 修复 Safari 上的渲染问题
+
 ## 20200306 v0.872
 + 修复 Safari 上的一系列显示问题
 + 修复点击导航栏时高度跳动的 BUG
@@ -69,7 +73,7 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 + BUG 修复
 
 ## 20200306 v0.870
-+ 优化搜索体验，将搜索框嵌入导航栏中，同时搜索支持 Pjax
++ 优化顶栏搜索体验，将搜索框嵌入导航栏中，同时搜索支持 Pjax
 + 增加首页文章和说说同时显示的选项
 + 修复 Safari 上的一个性能问题
 + 增加评论禁用 Markdown 选项

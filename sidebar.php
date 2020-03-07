@@ -47,7 +47,10 @@
 				echo "</ul>";
 			?>
 			<div class="card-body text-center leftbar-search-button">
-				<button class="btn btn-secondary btn-lg active btn-sm btn-block border-0" role="button" aria-pressed="true" data-toggle="modal" data-target="#argon_search_modal"><i class="menu-item-icon fa fa-search"></i> 搜索</button>
+				<button id="leftbar_search_container" class="btn btn-secondary btn-lg active btn-sm btn-block border-0" role="button">
+					<i class="menu-item-icon fa fa-search mr-0"></i> 搜索
+					<input id="leftbar_search_input" type="text" placeholder="搜索什么..." class="form-control form-control-alternative" autocomplete="off">
+				</button>
 			</div>
 		</div>
 		<div id="leftbar_part2" class="widget widget_search card bg-white shadow-sm border-0">
