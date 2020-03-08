@@ -58,9 +58,7 @@ function getCookie(cname) {
 		toolbar.classList.remove("navbar-ontop");
 	}
 	changeToolbarTransparency();
-	$(window).scroll(function(){
-		changeToolbarTransparency();
-	});
+	document.addEventListener("scroll", changeToolbarTransparency, {passive: true});
 }();
 
 /*顶栏搜索*/
@@ -112,10 +110,15 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 !function(){
 	let $leftbarPart1 = $('#leftbar_part1');
 	let $leftbarPart2 = $('#leftbar_part2');
+	let leftbarPart1 = document.getElementById('leftbar_part1');
 	let leftbarPart2 = document.getElementById('leftbar_part2');
+	
+	let part1OffsetTop = $('#leftbar_part1').offset().top;
+	let part1OuterHeight = $('#leftbar_part1').outerHeight();
+
 	function changeLeftbarStickyStatus(){
 		let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-		if( $('#leftbar_part1').offset().top + $('#leftbar_part1').outerHeight() + 10 - scrollTop <= 90 ){
+		if( part1OffsetTop + part1OuterHeight + 10 - scrollTop <= 90 ){
 			//滚动条在页面中间浮动状态
 			leftbarPart2.classList.add('sticky');
 		}else{
@@ -124,12 +127,17 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		}
 	}
 	changeLeftbarStickyStatus();
-	$(window).scroll(function(){
-		changeLeftbarStickyStatus();
-	});
+	document.addEventListener("scroll", changeLeftbarStickyStatus, {passive: true});
 	$(window).resize(function(){
+		part1OffsetTop = $('#leftbar_part1').offset().top;
+		part1OuterHeight = $('#leftbar_part1').outerHeight();
 		changeLeftbarStickyStatus();
 	});
+	new MutationObserver(function(){
+		part1OffsetTop = $('#leftbar_part1').offset().top;
+		part1OuterHeight = $('#leftbar_part1').outerHeight();
+		changeLeftbarStickyStatus();
+	}).observe(leftbarPart1, {attributes: true, childList: true, subtree: true});
 }();
 
 

@@ -65,24 +65,72 @@
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
 	<link rel="pingback" href="<?php echo esc_url( get_bloginfo( 'pingback_url' ) ); ?>">
 	<?php endif; ?>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-	<link href="<?php bloginfo('template_url'); ?>/assets/argon_css_merged.css?v<?php echo wp_get_theme('argon') -> Version; ?>" rel="stylesheet">
-	<link href="<?php bloginfo('template_url'); ?>/style.css?v<?php echo wp_get_theme('argon') -> Version; ?>" type='text/css' media='all' rel='stylesheet'>
-	<script src="<?php bloginfo('template_url'); ?>/assets/argon_js_merged.js"></script>
-	<link href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300&display=swap" rel="stylesheet">
-
+	<?php
+		wp_enqueue_style("argon_css_merged", get_bloginfo('template_url') . "/assets/argon_css_merged.css", null, wp_get_theme('argon') -> Version);
+		wp_enqueue_style("style", get_bloginfo('template_url') . "/style.css", null, wp_get_theme('argon') -> Version);
+		wp_enqueue_style("googlefont", "//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Serif+SC:300,600&display=swap");
+		wp_enqueue_script("argon_js_merged", get_bloginfo('template_url') . "/assets/argon_js_merged.js", null, wp_get_theme('argon') -> Version);
+		wp_enqueue_script("argonjs", get_bloginfo('template_url') . "/assets/js/argon.min.js", null, wp_get_theme('argon') -> Version);
+	?>
+	<?php wp_head(); ?>
 	<script>
-		function toggleDarkmode(){
-			$("html").toggleClass("darkmode");
-			if ($("html").hasClass("darkmode")){
-				localStorage.setItem("Argon_Enable_Dark_Mode", "true");
+		var darkmodeAutoSwitch = "<?php echo (get_option("argon_darkmode_autoswitch") == '' ? 'false' : get_option("argon_darkmode_autoswitch"));?>";
+		function setDarkmode(enable){
+			if (enable == true){
+				$("html").addClass("darkmode");
 			}else{
-				localStorage.setItem("Argon_Enable_Dark_Mode", "false");
+				$("html").removeClass("darkmode");
 			}
 			$(window).trigger("scroll");
 		}
-		if (localStorage.getItem("Argon_Enable_Dark_Mode") == "true"){
-			toggleDarkmode();
+		function toggleDarkmode(){
+			if ($("html").hasClass("darkmode")){
+				setDarkmode(false);
+				localStorage.setItem("Argon_Enable_Dark_Mode", "false");
+			}else{
+				setDarkmode(true);
+				localStorage.setItem("Argon_Enable_Dark_Mode", "true");
+			}
+		}
+		if (sessionStorage.getItem("Argon_Enable_Dark_Mode") == "true"){
+			setDarkmode("true");
+		}
+		function toggleDarkmodeByPrefersColorScheme(media){
+			if (sessionStorage.getItem('Argon_Enable_Dark_Mode') == "true"){
+				return;
+			}
+			if (media.matches){
+				setDarkmode(true);
+			}else{
+				setDarkmode(false);
+			}
+		}
+		function toggleDarkmodeByTime(){
+			if (sessionStorage.getItem('Argon_Enable_Dark_Mode') == "true"){
+				return;
+			}
+			let hour = new Date().getHours();
+			if (hour < 7 || hour >= 21){
+				setDarkmode(true);
+			}else{
+				setDarkmode(false);
+			}
+		}
+		if (darkmodeAutoSwitch == 'system'){
+			var darkmodeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+			darkmodeMediaQuery.addListener(toggleDarkmodeByPrefersColorScheme);
+			toggleDarkmodeByPrefersColorScheme(darkmodeMediaQuery);
+		}
+		if (darkmodeAutoSwitch == 'time'){
+			toggleDarkmodeByTime();
+		}
+		if (darkmodeAutoSwitch == 'alwayson'){
+			setDarkmode(true);
+		}
+	</script>
+	<script>
+		if (navigator.userAgent.indexOf("Safari") !== -1 && navigator.userAgent.indexOf("Chrome") === -1){
+			$("html").addClass("using-safari");
 		}
 	</script>
 
@@ -95,9 +143,6 @@
 	<?php }else if (get_option('argon_enable_smoothscroll_type') != 'disabled'){?>
 		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll1.js"></script>
 	<?php }?>
-
-	<script src="<?php bloginfo('template_url'); ?>/assets/js/argon.min.js"></script>
-	<?php wp_head(); ?>
 </head>
 
 <?php echo get_option('argon_custom_html_head'); ?>

@@ -60,6 +60,11 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200309 v0.880
++ 增加夜间模式切换方案 (默认日间/默认夜间/跟随系统自动切换/根据时间自动切换)
++ 优化性能
++ 修 BUG
+
 ## 20200308 v0.873
 + 优化侧栏的搜索体验
 + 修复 Safari 上的渲染问题

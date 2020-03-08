@@ -52,6 +52,9 @@
 		<?php }?>
 	</div>
 </div>
+<?php 
+	wp_enqueue_script("argonjs", get_bloginfo('template_url') . "/assets/js/argon.min.js", null, wp_get_theme('argon') -> Version, true);
+?>
 <?php wp_footer(); ?>
 </body>
 

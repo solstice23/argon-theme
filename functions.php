@@ -1236,7 +1236,8 @@ function themeoptions_page(){
 			<input type="hidden" name="update_themeoptions" value="true" />
 			<table class="form-table">
 				<tbody>
-					<tr><th class="subtitle"><h2>主题色</h2></th></tr>
+					<tr><th class="subtitle"><h2>全局</h2></th></tr>
+					<tr><th class="subtitle"><h3>主题色</h3></th></tr>
 					<tr>
 						<th><label>主题颜色</label></th>
 						<td>
@@ -1293,7 +1294,21 @@ function themeoptions_page(){
 							</p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>圆角</h2></th></tr>
+					<tr><th class="subtitle"><h3>夜间模式</h3></th></tr>
+					<tr>
+						<th><label>夜间模式方案</label></th>
+						<td>
+							<select name="argon_darkmode_autoswitch">
+								<?php $argon_darkmode_autoswitch = get_option('argon_darkmode_autoswitch'); ?>
+								<option value="false" <?php if ($argon_darkmode_autoswitch=='false'){echo 'selected';} ?>>默认使用日间模式</option>
+								<option value="alwayson" <?php if ($argon_darkmode_autoswitch=='alwayson'){echo 'selected';} ?>>默认使用夜间模式</option>
+								<option value="system" <?php if ($argon_darkmode_autoswitch=='system'){echo 'selected';} ?>>跟随系统夜间模式</option>
+								<option value="time" <?php if ($argon_darkmode_autoswitch=='time'){echo 'selected';} ?>>根据时间切换夜间模式 (21:00 ~ 7:00)</option>
+							</select>
+							<p class="description">Argon 主题会根据这里的选项来决定是否默认使用夜间模式。</br>用户也可以手动切换夜间模式，用户的设置将保留到标签页关闭为止。</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h3>圆角</h3></th></tr>
 					<tr>
 						<th><label>卡片圆角大小</label></th>
 						<td>
@@ -1979,80 +1994,83 @@ window.pjaxLoaded = function(){
 <?php
 }
 add_action('admin_menu', 'themeoptions_admin_menu');
+function argon_update_option($name){
+	update_option($name, htmlspecialchars(stripslashes($_POST[$name])));
+}
+function argon_update_option_allow_tags($name){
+	update_option($name, stripslashes($_POST[$name]));
+}
 if ($_POST['update_themeoptions'] == 'true'){
 	//配置项
-	update_option('argon_toolbar_icon', $_POST['argon_toolbar_icon']);
-	update_option('argon_toolbar_icon_link', $_POST['argon_toolbar_icon_link']);
-	update_option('argon_toolbar_title', $_POST['argon_toolbar_title']);
-	update_option('argon_sidebar_banner_title', $_POST['argon_sidebar_banner_title']);
-	update_option('argon_sidebar_banner_subtitle', $_POST['argon_sidebar_banner_subtitle']);
-	update_option('argon_sidebar_auther_name', $_POST['argon_sidebar_auther_name']);
-	update_option('argon_sidebar_auther_image', $_POST['argon_sidebar_auther_image']);
-	update_option('argon_banner_title', $_POST['argon_banner_title']);
-	update_option('argon_banner_subtitle', $_POST['argon_banner_subtitle']);
-	update_option('argon_banner_background_url', $_POST['argon_banner_background_url']);
-	update_option('argon_banner_background_color_type', $_POST['argon_banner_background_color_type']);
-	update_option('argon_banner_background_hide_shapes', $_POST['argon_banner_background_hide_shapes']);
-	update_option('argon_enable_smoothscroll_type', $_POST['argon_enable_smoothscroll_type']);
-	update_option('argon_enable_v2ex_gravatar', $_POST['argon_enable_v2ex_gravatar']);
-	update_option('argon_footer_html', stripslashes($_POST['argon_footer_html']));
-	update_option('argon_show_readingtime', $_POST['argon_show_readingtime']);
-	update_option('argon_reading_speed', $_POST['argon_reading_speed']);
-	update_option('argon_show_sharebtn', $_POST['argon_show_sharebtn']);
-	update_option('argon_enable_timezone_fix', $_POST['argon_enable_timezone_fix']);
-	update_option('argon_donate_qrcode_url', $_POST['argon_donate_qrcode_url']);
-	update_option('argon_hide_shortcode_in_preview', $_POST['argon_hide_shortcode_in_preview']);
-	update_option('argon_show_thumbnail_in_banner_in_content_page', $_POST['argon_show_thumbnail_in_banner_in_content_page']);
-	update_option('argon_update_source', $_POST['argon_update_source']);
-	update_option('argon_enable_into_article_animation', $_POST['argon_enable_into_article_animation']);
-	update_option('argon_fab_show_darkmode_button', $_POST['argon_fab_show_darkmode_button']);
-	update_option('argon_fab_show_settings_button', $_POST['argon_fab_show_settings_button']);
-	update_option('argon_show_headindex_number', $_POST['argon_show_headindex_number']);
-	update_option('argon_theme_color', $_POST['argon_theme_color']);
+	argon_update_option('argon_toolbar_icon');
+	argon_update_option('argon_toolbar_icon_link');
+	argon_update_option('argon_toolbar_title');
+	argon_update_option('argon_sidebar_banner_title');
+	argon_update_option('argon_sidebar_banner_subtitle');
+	argon_update_option('argon_sidebar_auther_name');
+	argon_update_option('argon_sidebar_auther_image');
+	argon_update_option('argon_banner_title');
+	argon_update_option('argon_banner_subtitle');
+	argon_update_option('argon_banner_background_url');
+	argon_update_option('argon_banner_background_color_type');
+	argon_update_option('argon_banner_background_hide_shapes');
+	argon_update_option('argon_enable_smoothscroll_type');
+	argon_update_option('argon_enable_v2ex_gravatar');
+	argon_update_option_allow_tags('argon_footer_html');
+	argon_update_option('argon_show_readingtime');
+	argon_update_option('argon_reading_speed');
+	argon_update_option('argon_show_sharebtn');
+	argon_update_option('argon_enable_timezone_fix');
+	argon_update_option('argon_donate_qrcode_url');
+	argon_update_option('argon_hide_shortcode_in_preview');
+	argon_update_option('argon_show_thumbnail_in_banner_in_content_page');
+	argon_update_option('argon_update_source');
+	argon_update_option('argon_enable_into_article_animation');
+	argon_update_option('argon_fab_show_darkmode_button');
+	argon_update_option('argon_fab_show_settings_button');
+	argon_update_option('argon_show_headindex_number');
+	argon_update_option('argon_theme_color');
 	update_option('argon_show_customize_theme_color_picker', ($_POST['argon_show_customize_theme_color_picker'] == 'true')?'true':'false');
-	update_option('argon_seo_description', stripslashes($_POST['argon_seo_description']));
-	update_option('argon_seo_keywords', $_POST['argon_seo_keywords']);
-	update_option('argon_enable_mobile_scale', $_POST['argon_enable_mobile_scale']);
-	update_option('argon_page_background_url', $_POST['argon_page_background_url']);
-	update_option('argon_page_background_opacity', $_POST['argon_page_background_opacity']);
-	update_option('argon_page_background_banner_style', $_POST['argon_page_background_banner_style']);
-	update_option('argon_hide_name_email_site_input', $_POST['argon_hide_name_email_site_input']);
-	update_option('argon_comment_need_captcha', $_POST['argon_comment_need_captcha']);
-	update_option('argon_hide_footer_author', $_POST['argon_hide_footer_author']);
-	update_option('argon_card_radius', $_POST['argon_card_radius']);
-	update_option('argon_comment_avatar_vcenter', $_POST['argon_comment_avatar_vcenter']);
-	update_option('argon_pjax_disabled', $_POST['argon_pjax_disabled']);
-	update_option('argon_comment_allow_markdown', $_POST['argon_comment_allow_markdown']);
-	update_option('argon_home_show_shuoshuo', $_POST['argon_home_show_shuoshuo']);
+	argon_update_option_allow_tags('argon_seo_description');
+	argon_update_option('argon_seo_keywords');
+	argon_update_option('argon_enable_mobile_scale');
+	argon_update_option('argon_page_background_url');
+	argon_update_option('argon_page_background_opacity');
+	argon_update_option('argon_page_background_banner_style');
+	argon_update_option('argon_hide_name_email_site_input');
+	argon_update_option('argon_comment_need_captcha');
+	argon_update_option('argon_hide_footer_author');
+	argon_update_option('argon_card_radius');
+	argon_update_option('argon_comment_avatar_vcenter');
+	argon_update_option('argon_pjax_disabled');
+	argon_update_option('argon_comment_allow_markdown');
+	argon_update_option('argon_home_show_shuoshuo');
+	argon_update_option('argon_darkmode_autoswitch');
 
 	//LazyLoad 相关
-	update_option('argon_enable_lazyload', $_POST['argon_enable_lazyload']);
-	update_option('argon_lazyload_effect', $_POST['argon_lazyload_effect']);
-	update_option('argon_lazyload_threshold', $_POST['argon_lazyload_threshold']);
-	update_option('argon_lazyload_loading_style', $_POST['argon_lazyload_loading_style']);
+	argon_update_option('argon_enable_lazyload');
+	argon_update_option('argon_lazyload_effect');
+	argon_update_option('argon_lazyload_threshold');
+	argon_update_option('argon_lazyload_loading_style');
 
 	//Zoomify 相关
-	update_option('argon_enable_zoomify', $_POST['argon_enable_zoomify']);
-	update_option('argon_zoomify_duration', $_POST['argon_zoomify_duration']);
-	update_option('argon_zoomify_easing', $_POST['argon_zoomify_easing']);
-	update_option('argon_zoomify_scale', $_POST['argon_zoomify_scale']);
+	argon_update_option('argon_enable_zoomify');
+	argon_update_option('argon_zoomify_duration');
+	argon_update_option('argon_zoomify_easing');
+	argon_update_option('argon_zoomify_scale');
 
 	//Mathjax 相关配置项
-	update_option('argon_mathjax_enable', $_POST['argon_mathjax_enable']);
-	update_option('argon_mathjax_cdn_url', $_POST['argon_mathjax_cdn_url']);
-	update_option('argon_mathjax_v2_enable', $_POST['argon_mathjax_v2_enable']);
-	update_option('argon_mathjax_v2_cdn_url', $_POST['argon_mathjax_v2_cdn_url']);
-	/*update_option('argon_mathjax_loading_msg_type', $_POST['argon_mathjax_loading_msg_type']);
-	update_option('argon_mathjax_zoom_cond', $_POST['argon_mathjax_zoom_cond']);
-	update_option('argon_mathjax_zoom_scale', $_POST['argon_mathjax_zoom_scale']);
-	update_option('argon_mathjax_show_menu', $_POST['argon_mathjax_show_menu']);*/
+	argon_update_option('argon_mathjax_enable');
+	argon_update_option('argon_mathjax_cdn_url');
+	argon_update_option('argon_mathjax_v2_enable');
+	argon_update_option('argon_mathjax_v2_cdn_url');
 
 	//页头页尾脚本
-	update_option('argon_custom_html_head', stripslashes($_POST['argon_custom_html_head']));
-	update_option('argon_custom_html_foot', stripslashes($_POST['argon_custom_html_foot']));
+	argon_update_option_allow_tags('argon_custom_html_head');
+	argon_update_option_allow_tags('argon_custom_html_foot');
 
 	//公告
-	update_option('argon_sidebar_announcement', stripslashes($_POST['argon_sidebar_announcement']));
+	argon_update_option_allow_tags('argon_sidebar_announcement');
 }
 /*主题菜单*/
 register_nav_menus( array(
