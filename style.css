@@ -2219,7 +2219,7 @@ html[class] , html[lang]{
 .shuoshuo-preview-container{
 	margin-bottom: 20px;
 	padding: 25px 35px;
-	transition: all .3s ease;
+	transition: opacity .5s ease;
 }
 .shuoshuo-preview-container:before{
 	content: '';
@@ -2235,7 +2235,7 @@ html[class] , html[lang]{
 	border-radius: 20px;
 	background-size: 32%;
 	background-repeat: no-repeat;
-	transition: opacity .5s ease;
+	transition: all .3s ease;
 }
 .shuoshuo-preview-container:hover:before {
 	left: -20px;
