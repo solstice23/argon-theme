@@ -60,6 +60,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200309 v0.884
++ 增加夜间模式的另一种配色: 暗黑 (AMOLED Black)
++ 修复夜间模式相关的 BUG
+
 ## 20200309 v0.883
 + 修复过渡动画的一个问题
 

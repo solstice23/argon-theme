@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.883
+Version: 0.884
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -290,6 +290,9 @@ a.text-primary:focus , a.text-primary:hover {
 html.darkmode #navbar-main{
 	--toolbar-color: 33, 33, 33;
 }
+html.darkmode.amoled-dark #navbar-main{
+	--toolbar-color: 0, 0, 0;
+}
 @media (min-width: 1700px){
 	.navbar-main .container {
 		max-width: 1500px !important;
@@ -454,10 +457,10 @@ html.darkmode #navbar-main{
 }
 #leftbar_search_input{
 	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
+	left: -1px;
+	top: -1px;
+	width: calc(100% + 2px);
+	height: calc(100% + 2px);
 	transition: all .3s cubic-bezier(0.4, 0, 0, 1);
 	opacity: 0;
 	cursor: pointer;
@@ -758,6 +761,9 @@ html.darkmode #navbar-main{
 #float_action_buttons #fabtn_toggle_darkmode:before{
 	content: "\591c\95f4\6a21\5f0f";
 }
+html.amoled-dark #float_action_buttons #fabtn_toggle_darkmode:before{
+	content: "\6697\9ed1\6a21\5f0f";
+}
 html.darkmode #float_action_buttons #fabtn_toggle_darkmode:before{
 	content: "\65e5\95f4\6a21\5f0f";
 }
@@ -833,6 +839,41 @@ html.darkmode #fabtn_toggle_darkmode i.fa-lightbulb-o{
 	display: flex;
 	flex-flow: row;
 	align-items: center;
+}
+#blog_setting_toggle_darkmode_and_amoledarkmode{
+	cursor: pointer;
+}
+html:not(.amoled-dark) #blog_setting_toggle_darkmode_and_amoledarkmode span:nth-of-type(2){
+	display: none;
+}
+html.amoled-dark #blog_setting_toggle_darkmode_and_amoledarkmode span:first-of-type{
+	display: none;
+}
+#blog_setting_toggle_darkmode_and_amoledarkmode:before {
+	content: '\5207\6362\5230\6697\9ed1\6a21\5f0f';
+	position: absolute;
+	top: -32px;
+	left: 50%;
+	line-height: 22px;
+	font-weight: normal;
+	color: #fff;
+	background: #32325d;
+	padding: 3px 10px;
+	font-size: 12px;
+	border-radius: 3px;
+	transition: all .3s ease;
+	transform: translateX(-50%) translateY(5px);
+	opacity: 0;
+	width: max-content;
+	width: -moz-max-content;
+	pointer-events: none;
+}
+html.amoled-dark #blog_setting_toggle_darkmode_and_amoledarkmode:before{
+	content: '\5207\6362\5230\591c\95f4\6a21\5f0f';
+}
+#blog_setting_toggle_darkmode_and_amoledarkmode:hover:before {
+	transform: translateX(-50%);
+	opacity: .7;
 }
 .blog-setting-font , .blog-setting-shadow{
 	text-transform: none;
@@ -2549,6 +2590,102 @@ html.darkmode .CtxtMenu_Menu {
 	filter: invert(0.8);
 }
 
+/*==========Style-Dark-For-AMOLED==========*/
+
+html.darkmode.amoled-dark body{
+	background: #111 !important;
+}
+@media screen and (max-width:900px){
+	html.darkmode #leftbar{
+		background: #000;
+	}
+}
+html.darkmode.amoled-dark .leftbar-menu-item > a:hover , 
+html.darkmode.amoled-dark .leftbar-menu-item.current > a {
+	background-color: #222;
+}
+
+html.darkmode.amoled-dark .site-author-links-item:hover {
+	background: #222;
+}
+html.darkmode.amoled-dark .banner{
+	background-color: #151515 !important;
+}
+html.darkmode.amoled-dark .leftbar-banner{
+	background: #000;
+}
+
+html.darkmode.amoled-dark .bg-white , html.darkmode.amoled-dark .card , html.darkmode.amoled-dark #footer{
+	background: #000 !important;
+}
+
+html.darkmode.amoled-dark .modal-content{
+	background: #111;
+}
+html.darkmode.amoled-dark .modal-header{
+	border-bottom: 1px solid #222;
+}
+html.darkmode.amoled-dark .fabtn{
+	background: #000;
+}
+html.darkmode.amoled-dark .fabtn:hover{
+	background: #222 !important;
+}
+html.darkmode.amoled-dark .tag.badge{
+	background: #222;
+}
+
+html.darkmode.amoled-dark .dropdown-menu , html.darkmode.amoled-dark .dropdown-menu:before{
+	background: #111;
+	box-shadow: none;
+}
+html.darkmode.amoled-dark article .post-content pre{
+	background: #000;
+}
+html.darkmode.amoled-dark article .post-content code{
+	background: #000;
+	border: 1px solid rgba(255, 255, 255, .12);
+}
+
+html.darkmode.amoled-dark .form-control{
+	background: #151515;
+}
+html.darkmode.amoled-dark .input-group-text{
+	background: #151515;
+}
+html.darkmode.amoled-dark .post-comment-reply{
+	border-color: #222;
+}
+html.darkmode.amoled-dark .comment-item-inner{
+	border-bottom-color: #222;
+}
+
+html.darkmode.amoled-dark #post_comment_reply_preview:after {
+	background: linear-gradient(180deg,transparent 0%,#000 100%);
+}
+html.darkmode.amoled-dark .page-link {
+	background: #222;
+	border-color: #222;
+}
+html.darkmode.amoled-dark .post-donate .donate-qrcode{
+	background: #222 !important;
+}
+html.darkmode.amoled-dark .post-donate .donate-qrcode:before{
+	background: #222;
+}
+html.darkmode.amoled-dark .shuoshuo-meta{
+	background: #222;
+}
+
+html.darkmode.amoled-dark .github-info-card {
+	background: #000 !important;
+	border: 1px solid #222;
+}
+
+html.darkmode.amoled-dark body:after{
+	display: none;
+}
+
 /*==========Style-Mobile==========*/
 
 @media screen and (max-width:900px){
@@ -2869,6 +3006,7 @@ html.using-safari #share .icon-wechat .wechat-qrcode{
 html.using-safari #fabtn_blog_settings_popup{
 	-webkit-transform: translate3d(0,0,0) !important;
 }
+html.using-safari #blog_setting_toggle_darkmode_and_amoledarkmode:before ,
 html.using-safari #blog_setting_card_radius_to_default:before{
 	transform: translate3d(-50%, 0, 0) !important;
 	white-space: nowrap;

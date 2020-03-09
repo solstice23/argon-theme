@@ -147,6 +147,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 	let $backToTopBtn = $('#fabtn_back_to_top');
 	let $toggleSidesBtn = $('#fabtn_toggle_sides');
 	let $toggleDarkmode = $('#fabtn_toggle_darkmode');
+	let $toggleAmoledMode = $('#blog_setting_toggle_darkmode_and_amoledarkmode');
 	let $toggleBlogSettings = $('#fabtn_toggle_blog_settings_popup');
 
 	let $readingProgressBar = $('#fabtn_reading_progress_bar');
@@ -167,6 +168,10 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 
 	$toggleDarkmode.on("click" , function(){
 		toggleDarkmode();
+	});
+
+	$toggleAmoledMode.on("click" , function(){
+		toggleAmoledDarkMode();
 	});
 
 	if (localStorage['Argon_fabs_Floating_Status'] == "left"){

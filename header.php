@@ -4,6 +4,9 @@
 	if (get_option('argon_pjax_disabled') == "true"){
 		$htmlclasses .= "no-pjax ";
 	}
+	if (get_option('argon_enable_amoled_dark') == "true"){
+		$htmlclasses .= "amoled-dark ";
+	}
 	if(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== false && strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') === false){
 		$htmlclasses .= ' using-safari';
 	}
@@ -86,17 +89,17 @@
 		function toggleDarkmode(){
 			if ($("html").hasClass("darkmode")){
 				setDarkmode(false);
-				localStorage.setItem("Argon_Enable_Dark_Mode", "false");
+				sessionStorage.setItem("Argon_Enable_Dark_Mode", "false");
 			}else{
 				setDarkmode(true);
-				localStorage.setItem("Argon_Enable_Dark_Mode", "true");
+				sessionStorage.setItem("Argon_Enable_Dark_Mode", "true");
 			}
 		}
 		if (sessionStorage.getItem("Argon_Enable_Dark_Mode") == "true"){
-			setDarkmode("true");
+			setDarkmode(true);
 		}
 		function toggleDarkmodeByPrefersColorScheme(media){
-			if (sessionStorage.getItem('Argon_Enable_Dark_Mode') == "true"){
+			if (sessionStorage.getItem('Argon_Enable_Dark_Mode') == "false"){
 				return;
 			}
 			if (media.matches){
@@ -106,7 +109,7 @@
 			}
 		}
 		function toggleDarkmodeByTime(){
-			if (sessionStorage.getItem('Argon_Enable_Dark_Mode') == "true"){
+			if (sessionStorage.getItem('Argon_Enable_Dark_Mode') == "false"){
 				return;
 			}
 			let hour = new Date().getHours();
@@ -126,6 +129,20 @@
 		}
 		if (darkmodeAutoSwitch == 'alwayson'){
 			setDarkmode(true);
+		}
+
+		function toggleAmoledDarkMode(){
+			$("html").toggleClass("amoled-dark");
+			if ($("html").hasClass("amoled-dark")){
+				localStorage.setItem("Argon_Enable_Amoled_Dark_Mode", "true");
+			}else{
+				localStorage.setItem("Argon_Enable_Amoled_Dark_Mode", "false");
+			}
+		}
+		if (localStorage.getItem("Argon_Enable_Amoled_Dark_Mode") == "true"){
+			$("html").addClass("amoled-dark");
+		}else if (localStorage.getItem("Argon_Enable_Amoled_Dark_Mode") == "false"){
+			$("html").removeClass("amoled-dark");
 		}
 	</script>
 	<script>
@@ -386,7 +403,8 @@
 	<div id="fabtn_blog_settings_popup" class="card shadow-sm" style="opacity: 0;">
 		<div id="close_blog_settings"><i class="fa fa-close"></i></div>
 		<div class="blog-setting-item mt-3">
-			<div style="flex: 1;transform: translateY(-4px);">夜间模式</div>
+			<div style="transform: translateY(-4px);"><div id="blog_setting_toggle_darkmode_and_amoledarkmode"><span>夜间模式</span><span>暗黑模式</span></div></div>
+			<div style="flex: 1;"></div>
 			<label id="blog_setting_darkmode_switch" class="custom-toggle">
 				<span class="custom-toggle-slider rounded-circle"></span>
 			</label>

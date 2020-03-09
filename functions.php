@@ -1306,7 +1306,7 @@ function themeoptions_page(){
 					</tr>
 					<tr><th class="subtitle"><h3>夜间模式</h3></th></tr>
 					<tr>
-						<th><label>夜间模式方案</label></th>
+						<th><label>夜间模式切换方案</label></th>
 						<td>
 							<select name="argon_darkmode_autoswitch">
 								<?php $argon_darkmode_autoswitch = get_option('argon_darkmode_autoswitch'); ?>
@@ -1316,6 +1316,17 @@ function themeoptions_page(){
 								<option value="time" <?php if ($argon_darkmode_autoswitch=='time'){echo 'selected';} ?>>根据时间切换夜间模式 (21:00 ~ 7:00)</option>
 							</select>
 							<p class="description">Argon 主题会根据这里的选项来决定是否默认使用夜间模式。</br>用户也可以手动切换夜间模式，用户的设置将保留到标签页关闭为止。</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>夜间模式颜色方案</label></th>
+						<td>
+							<select name="argon_enable_amoled_dark">
+								<?php $argon_enable_amoled_dark = get_option('argon_enable_amoled_dark'); ?>
+								<option value="false" <?php if ($argon_enable_amoled_dark=='false'){echo 'selected';} ?>>灰黑</option>
+								<option value="true" <?php if ($argon_enable_amoled_dark=='true'){echo 'selected';} ?>>暗黑 (AMOLED Black)</option>
+							</select>
+							<p class="description">夜间模式默认的配色方案。</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3>圆角</h3></th></tr>
@@ -2056,6 +2067,7 @@ if ($_POST['update_themeoptions'] == 'true'){
 	argon_update_option('argon_comment_allow_markdown');
 	argon_update_option('argon_home_show_shuoshuo');
 	argon_update_option('argon_darkmode_autoswitch');
+	argon_update_option('argon_enable_amoled_dark');
 
 	//LazyLoad 相关
 	argon_update_option('argon_enable_lazyload');
