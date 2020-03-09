@@ -60,6 +60,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200309 v0.882
++ 修复首页显示说说选项开启后，置顶文章不能正常显示的 BUG
+
 ## 20200309 v0.881
 + 修 BUG
 

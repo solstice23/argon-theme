@@ -784,6 +784,18 @@ function argon_save_meta_data($post_id){
 	update_post_meta($post_id, 'argon_hide_readingtime', $_POST['argon_meta_hide_readingtime']);
 }
 add_action('save_post', 'argon_save_meta_data');
+
+function argon_home_add_post_type_shuoshuo($query){
+	if (is_home() && $query -> is_main_query()){
+		$query -> set('post_type', array('post', 'shuoshuo'));
+	}
+	return $query;
+}
+if (get_option("argon_home_show_shuoshuo") == "true"){
+	add_action('pre_get_posts', 'argon_home_add_post_type_shuoshuo');
+}
+
+
 //主题文章短代码解析
 add_shortcode('br','shortcode_br');
 function shortcode_br($attr,$content=""){

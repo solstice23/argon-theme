@@ -3,13 +3,6 @@
 
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
-	<?php
-		if (get_option("argon_home_show_shuoshuo") == "true"){
-			global $wp_query;
-			$args = array_merge($wp_query->query_vars, array('post_type' => array('post','shuoshuo')));
-			query_posts($args);
-		}
-	?>
 	<?php if ( have_posts() ) : ?>
 		<?php
 			while ( have_posts() ) :
