@@ -33,7 +33,7 @@ query_posts("post_type=shuoshuo&post_status=publish&posts_per_page=-1");
 			endwhile;
 		?>
 		<?php
-			echo get_argon_formatted_paginate_links();
+			echo get_argon_formatted_paginate_links_for_all_platforms();
 		?>
 		<?php
 	else :

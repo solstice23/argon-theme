@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.884
+Version: 0.885
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -313,6 +313,9 @@ html.darkmode.amoled-dark #navbar-main{
 }
 .navbar-brand {
 	text-transform: none;
+}
+.navbar-brand:focus , .navbar-brand:hover{
+	color: #fff !important;
 }
 #navbar-main{
 	transition: background 0s, padding .15s ease;
@@ -758,6 +761,9 @@ html.darkmode.amoled-dark #navbar-main{
 #float_action_buttons #fabtn_open_sidebar:before{
 	content: "\83dc\5355";
 }
+#float_action_buttons #fabtn_go_to_comment:before{
+	content: "\8bc4\8bba";
+}
 #float_action_buttons #fabtn_toggle_darkmode:before{
 	content: "\591c\95f4\6a21\5f0f";
 }
@@ -1007,6 +1013,9 @@ html.filter-grayscale{
 	padding-bottom: 15px;
 	margin: auto;
 }
+.pagination.pagination-mobile{
+	display: none;
+}
 
 /*文章*/
 .post{
@@ -1099,6 +1108,22 @@ html.filter-grayscale{
 }
 .post-header.post-header-with-thumbnail .post-header-text-container .post-meta {
 	text-shadow: 0 2px 3px rgba(0,0,0,.3);
+}
+.post-outdated-info {
+	color: var(--themecolor);
+	border-left: 2px solid var(--themecolor);
+	padding: 5px 20px;
+	margin-top: 10px;
+	margin-bottom: 25px;
+background: rgba(var(--themecolor-rgbstr), .1);
+}
+.post-outdated-info > i {
+	font-size: 20px;
+	margin-right: 15px;
+	transform: translateY(2px);
+}
+.post-header-with-thumbnail + .post-content > .post-outdated-info {
+	margin-top: -15px;
 }
 .post-content{
 	line-height: 1.8;
@@ -1856,6 +1881,9 @@ html.filter-grayscale{
 	animation: fa-spin 2s infinite linear;
 	display: inline-block;
 }
+.iziToast.iziToast-noprogressbar .iziToast-progressbar {
+	display: none;
+}
 /*Mathjax 相关*/
 .MathJax {
 	outline: none !important;
@@ -2609,7 +2637,7 @@ html.darkmode.amoled-dark .site-author-links-item:hover {
 	background: #222;
 }
 html.darkmode.amoled-dark .banner{
-	background-color: #151515 !important;
+	background: #151515 !important;
 }
 html.darkmode.amoled-dark .leftbar-banner{
 	background: #000;
@@ -2900,13 +2928,20 @@ html.darkmode.amoled-dark body:after{
 	#float_action_buttons{
 		opacity: .5;
 	}
-	#float_action_buttons:hover{
+	#float_action_buttons:hover , #float_action_buttons.blog_settings_opened{
 		opacity: 1;
 	}
 	/*文章边界缩小*/
 	.post-full{
 		margin-left: -10px;
 		margin-right: -10px;
+	}
+	/*显示更少的页码*/
+	.pagination:not(.pagination-mobile){
+		display: none;
+	}
+	.pagination.pagination-mobile{
+		display: flex;
 	}
 }
 @media screen and (max-width:690px){

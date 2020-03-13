@@ -24,7 +24,7 @@
 			endwhile;
 		?>
 		<?php
-			echo get_argon_formatted_paginate_links();
+			echo get_argon_formatted_paginate_links_for_all_platforms();
 		?>
 		<?php
 	else :

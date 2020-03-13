@@ -15,11 +15,9 @@
 			endwhile;
 		?>
 		<?php
-			echo get_argon_formatted_paginate_links();
+			echo get_argon_formatted_paginate_links_for_all_platforms();
 		?>
 		<?php
-	else :
-		get_template_part( 'template-parts/content', 'none' );
 	endif;
 	?>
 

@@ -105,6 +105,7 @@
 			</div>
 		<?php
 			}else{
+				echo argon_get_post_outdated_info();
 				the_content();
 			}
 		?>

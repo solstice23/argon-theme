@@ -65,7 +65,7 @@ function argon_widgets_init() {
 }
 add_action('widgets_init','argon_widgets_init');
 //输出分页页码
-function get_argon_formatted_paginate_links(){
+function get_argon_formatted_paginate_links($maxPageNumbers, $extraClasses = ''){
 	$args = array(
 		'prev_text' => '',
 		'next_text' => '',
@@ -109,11 +109,11 @@ function get_argon_formatted_paginate_links(){
 	}
 
 	//计算页码起始
-	$from = max($current - 3 , 1);
-	$to = min($current + 7 - ( $current - $from + 1 ) , $total);
-	if ($to - $from + 1 < 7){
-		$to = min($current + 3 , $total);
-		$from = max($current -( 7 - ( $to - $current + 1 ) ) , 1);
+	$from = max($current - ($maxPageNumbers - 1) / 2 , 1);
+	$to = min($current + $maxPageNumbers - ( $current - $from + 1 ) , $total);
+	if ($to - $from + 1 < $maxPageNumbers){
+		$to = min($current + ($maxPageNumbers - 1) / 2 , $total);
+		$from = max($current - ( $maxPageNumbers - ( $to - $current + 1 ) ) , 1);
 	}
 	//生成新页码
 	$html = "";
@@ -136,7 +136,10 @@ function get_argon_formatted_paginate_links(){
 	if ($to < $total){
 		$html .= '<li class="page-item"><a aria-label="Last Page" class="page-link" href="' . $urls[$total] . '"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>';
 	}
-	return '<nav><ul class="pagination">' . $html . '</ul></nav>';
+	return '<nav><ul class="pagination' . $extraClasses . '">' . $html . '</ul></nav>';
+}
+function get_argon_formatted_paginate_links_for_all_platforms(){
+	return get_argon_formatted_paginate_links(7) . get_argon_formatted_paginate_links(5, " pagination-mobile");
 }
 //页面 Description Meta
 function get_seo_description(){
@@ -794,6 +797,31 @@ function argon_home_add_post_type_shuoshuo($query){
 if (get_option("argon_home_show_shuoshuo") == "true"){
 	add_action('pre_get_posts', 'argon_home_add_post_type_shuoshuo');
 }
+//文章过时信息显示
+function argon_get_post_outdated_info(){
+	if (get_option("argon_outdated_info_tip_type") == "toast"){
+		$before = "<div id='post_outdate_toast' style='display:none;' data-text='";
+		$after = "'></div>";
+	}else{
+		$before = "<div class='post-outdated-info'><i class='fa fa-info-circle' aria-hidden='true'></i>";
+		$after = "</div>";
+	}
+	$content = get_option('argon_outdated_info_tip_content') == '' ? '本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。' : get_option('argon_outdated_info_tip_content');
+	$delta = get_option('argon_outdated_info_days') == '' ? (-1) : get_option('argon_outdated_info_days');
+	if ($delta == -1){
+		$delta = 2147483647;
+	}
+	if (get_option("argon_outdated_info_time_type") == "createdtime"){
+		$post_delta = floor((time() - get_the_time("U")) / (60 * 60 * 24));
+	}else{
+		$post_delta = floor((time() - get_the_modified_time("U")) / (60 * 60 * 24));
+	}
+	if ($post_delta <= $delta){
+		return "";
+	}
+	$content = str_replace("%date_delta%", $post_delta, $content);
+	return $before . $content . $after;
+}
 //主题文章短代码解析
 add_shortcode('br','shortcode_br');
 function shortcode_br($attr,$content=""){
@@ -1231,7 +1259,16 @@ function themeoptions_page(){
 	<div>
 		<style type="text/css">
 			h2{
-				font-size: 22px;
+				font-size: 25px;
+			}
+			h2:before {
+				content: '';
+				background: #000;
+				height: 16px;
+				width: 6px;
+				display: inline-block;
+				border-radius: 15px;
+				margin-right: 15px;
 			}
 			h3{
 				font-size: 18px;
@@ -1434,10 +1471,20 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr>
-						<th><label>Banner 样式</label></th>
+						<th><label>Banner 透明化</label></th>
 						<td>
-							<input type="text" style="width:150px" class="regular-text" name="argon_page_background_banner_style" value="<?php echo get_option('argon_page_background_banner_style'); ?>"/>
-							<p class="description">留空则不修改 Banner 样式。填 0 可以将 Banner 设为透明。填入正整数可以将 Banner 设为毛玻璃（高斯模糊）特效，模糊半径为填入的数。推荐填入 0。该选项仅在设置页面背景后才会生效。</p>
+							<select name="argon_page_background_banner_style">
+								<?php $argon_page_background_banner_style = get_option('argon_page_background_banner_style'); ?>
+								<option value="false" <?php if ($argon_page_background_banner_style=='false'){echo 'selected';} ?>>关闭</option>	
+								<option value="transparent" <?php if ($argon_page_background_banner_style=='transparent'){echo 'selected';} ?>>开启</option>
+							</select>
+							<div style="margin-top: 15px;margin-bottom: 15px;">
+								<label>
+									<?php $argon_show_toolbar_mask = get_option('argon_show_toolbar_mask');?>
+									<input type="checkbox" name="argon_show_toolbar_mask" value="true" <?php if ($argon_show_toolbar_mask=='true'){echo 'checked';}?>/>	在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）
+								</label>
+							</div>
+							<p class="description">Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置页面背景时生效。</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>左侧栏</h2></th></tr>
@@ -1467,18 +1514,6 @@ function themeoptions_page(){
 						<td>
 							<input type="text" class="regular-text" name="argon_sidebar_auther_image" value="<?php echo get_option('argon_sidebar_auther_image'); ?>"/>
 							<p class="description">需带上 http(s) 开头</p>
-						</td>
-					</tr>
-					<tr><th class="subtitle"><h2>左侧栏文章目录</h2></th></tr>
-					<tr>
-						<th><label>在目录中显示序号</label></th>
-						<td>
-							<select name="argon_show_headindex_number">
-								<?php $argon_show_headindex_number = get_option('argon_show_headindex_number'); ?>
-								<option value="false" <?php if ($argon_show_headindex_number=='false'){echo 'selected';} ?>>不显示</option>
-								<option value="true" <?php if ($argon_show_headindex_number=='true'){echo 'selected';} ?>>显示</option>
-							</select>
-							<p class="description">例：3.2.5</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>博客公告</h2></th></tr>
@@ -1513,6 +1548,17 @@ function themeoptions_page(){
 							<p class="description">如果开启了设置按钮显示，建议关闭此选项。（夜间模式选项在设置菜单中已经存在）</p>
 						</td>
 					</tr>
+					<tr>
+						<th><label>显示跳转到评论按钮</label></th>
+						<td>	
+							<select name="argon_fab_show_gotocomment_button">
+							<?php $argon_fab_show_gotocomment_button = get_option('argon_fab_show_gotocomment_button'); ?>
+								<option value="false" <?php if ($argon_fab_show_gotocomment_button=='false'){echo 'selected';} ?>>不显示</option>
+								<option value="true" <?php if ($argon_fab_show_gotocomment_button=='true'){echo 'selected';} ?>>显示</option>
+							</select>
+							<p class="description">仅在允许评论的文章中显示</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>SEO</h2></th></tr>
 					<tr>
 						<th><label>网站描述 (Description Meta 标签)</label></th>
@@ -1528,7 +1574,8 @@ function themeoptions_page(){
 							<p class="description">设置针对搜索引擎使用的关键词（Keywords Meta 标签内容）。用英文逗号隔开。不设置则不输出该 Meta 标签。</p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>文章 Meta 信息</h2></th></tr>
+					<tr><th class="subtitle"><h2>文章</h2></th></tr>
+					<tr><th class="subtitle"><h3>文章 Meta 信息</h3></th></tr>
 					<tr>
 						<th><label>显示字数和预计阅读时间</label></th>
 						<td>
@@ -1547,7 +1594,7 @@ function themeoptions_page(){
 							<p class="description">预计阅读时间由每分钟阅读字数计算</p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>文章头图 (特色图片)</h2></th></tr>
+					<tr><th class="subtitle"><h3>文章头图 (特色图片)</h3></th></tr>
 					<tr>
 						<th><label>文章头图的位置</label></th>
 						<td>
@@ -1559,7 +1606,7 @@ function themeoptions_page(){
 							<p class="description">阅读界面中文章头图的位置</p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>分享</h2></th></tr>
+					<tr><th class="subtitle"><h3>分享</h3></th></tr>
 					<tr>
 						<th><label>显示文章分享按钮</label></th>
 						<td>
@@ -1571,12 +1618,48 @@ function themeoptions_page(){
 							<p class="description"></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>赞赏</h2></th></tr>
+					<tr><th class="subtitle"><h3>左侧栏文章目录</h3></th></tr>
+					<tr>
+						<th><label>在目录中显示序号</label></th>
+						<td>
+							<select name="argon_show_headindex_number">
+								<?php $argon_show_headindex_number = get_option('argon_show_headindex_number'); ?>
+								<option value="false" <?php if ($argon_show_headindex_number=='false'){echo 'selected';} ?>>不显示</option>
+								<option value="true" <?php if ($argon_show_headindex_number=='true'){echo 'selected';} ?>>显示</option>
+							</select>
+							<p class="description">例：3.2.5</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h3>赞赏</h3></th></tr>
 					<tr>
 						<th><label>赞赏二维码图片链接</label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_donate_qrcode_url" value="<?php echo get_option('argon_donate_qrcode_url'); ?>"/>				
 							<p class="description">赞赏二维码图片链接，填写后会在文章最后显示赞赏按钮，留空则不显示赞赏按钮</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h3>其他</h3></th></tr>
+					<tr>
+						<th><label>文章过时信息显示</label></th>
+						<td>
+							当一篇文章的
+							<select name="argon_outdated_info_time_type">
+								<?php $argon_outdated_info_time_type = get_option('argon_outdated_info_time_type'); ?>
+								<option value="modifiedtime" <?php if ($argon_outdated_info_time_type=='modifiedtime'){echo 'selected';} ?>>最后修改时间</option>
+								<option value="createdtime" <?php if ($argon_outdated_info_time_type=='createdtime'){echo 'selected';} ?>>发布时间</option>
+							</select>
+							距离现在超过 
+							<input type="number" name="argon_outdated_info_days" min="-1" max="99999"  value="<?php echo (get_option('argon_outdated_info_days') == '' ? '-1' : get_option('argon_outdated_info_days')); ?>"/>
+							天时，用
+							<select name="argon_outdated_info_tip_type">
+								<?php $argon_outdated_info_tip_type = get_option('argon_outdated_info_tip_type'); ?>
+								<option value="inpost" <?php if ($argon_outdated_info_tip_type=='inpost'){echo 'selected';} ?>>在文章顶部显示信息条</option>
+								<option value="toast" <?php if ($argon_outdated_info_tip_type=='toast'){echo 'selected';} ?>>在页面右上角弹出提示条</option>
+							</select>
+							的方式提示
+							</br>
+							<textarea type="text" name="argon_outdated_info_tip_content" rows="3" cols="100" style="margin-top: 15px;"><?php echo get_option('argon_outdated_info_tip_content') == '' ? '本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。' : get_option('argon_outdated_info_tip_content'); ?></textarea>	
+							<p class="description">天数为 -1 表示永不提示。</br>%date_delta% 表示文章发布/修改时间与当前时间的差距（单位: 天）。</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>页脚</h2></th></tr>
@@ -2049,6 +2132,7 @@ if ($_POST['update_themeoptions'] == 'true'){
 	argon_update_option('argon_enable_into_article_animation');
 	argon_update_option('argon_fab_show_darkmode_button');
 	argon_update_option('argon_fab_show_settings_button');
+	argon_update_option('argon_fab_show_gotocomment_button');
 	argon_update_option('argon_show_headindex_number');
 	argon_update_option('argon_theme_color');
 	update_option('argon_show_customize_theme_color_picker', ($_POST['argon_show_customize_theme_color_picker'] == 'true')?'true':'false');
@@ -2068,6 +2152,11 @@ if ($_POST['update_themeoptions'] == 'true'){
 	argon_update_option('argon_home_show_shuoshuo');
 	argon_update_option('argon_darkmode_autoswitch');
 	argon_update_option('argon_enable_amoled_dark');
+	argon_update_option('argon_outdated_info_time_type');
+	argon_update_option('argon_outdated_info_days');
+	argon_update_option('argon_outdated_info_tip_type');
+	argon_update_option('argon_outdated_info_tip_content');
+	update_option('argon_show_toolbar_mask', ($_POST['argon_show_toolbar_mask'] == 'true')?'true':'false');
 
 	//LazyLoad 相关
 	argon_update_option('argon_enable_lazyload');

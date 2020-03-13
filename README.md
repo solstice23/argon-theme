@@ -40,6 +40,8 @@ Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
 [solstice23.top](https://solstice23.top)
 
+[argon-demo.solstice23.top](http://argon-demo.solstice23.top)
+
 # 注意
 
 Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LICENSE) 协议开源，请遵守此协议进行二次开发等。
@@ -59,6 +61,13 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 ![截图 4](https://img.solstice23.top/2020/03/05/44312dbe25c71.png)
 
 # 更新日志
+
+## 20200309 v0.885
++ 新增文章过时信息提示选项
++ 增加在浮动按钮栏显示跳到评论区按钮选项
++ 增加 Banner 遮罩和 Banner 标题阴影选项
++ 修复手机上的一系列小问题
++ 略微优化后台设置界面
 
 ## 20200309 v0.884
 + 增加夜间模式的另一种配色: 暗黑 (AMOLED Black)

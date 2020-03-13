@@ -373,16 +373,30 @@
 		html.darkmode body:after{
 			filter: brightness(0.65);
 		}
-		<?php if (get_option('argon_page_background_banner_style') != '') { ?>
+		<?php if (get_option('argon_page_background_banner_style') != '' && get_option('argon_page_background_banner_style') != 'false') { ?>
 			#banner, #banner .shape {
 				background: transparent !important;
 			}
-			<?php if (get_option('argon_page_background_banner_style') != '0') { ?>
-				#banner {
-					backdrop-filter: blur(<?php echo get_option('argon_page_background_banner_style');?>px);
-				}
-			<?php } ?>
 		<?php } ?>
+	</style>
+<?php } ?>
+
+<?php if (get_option('argon_show_toolbar_mask') != '') { ?>
+	<style>
+		#banner:after {
+			content: '';
+			width: 100vw;
+			position: absolute;
+			left: 0;
+			top: 0;
+			height: 120px;
+			background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.15) 35%, rgba(0,0,0,0) 100%);
+			display: block;
+			z-index: -1;
+		}
+		.banner-title {
+			text-shadow: 0 5px 15px rgba(0, 0, 0, .2);
+		}
 	</style>
 <?php } ?>
 
@@ -393,6 +407,9 @@
 	</button>
 	<button id="fabtn_back_to_top" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" aria-label="Back To Top">
 		<span class="btn-inner--icon"><i class="fa fa-angle-up"></i></span>
+	</button>
+	<button id="fabtn_go_to_comment" class="btn btn-icon btn-neutral fabtn shadow-sm d-none" type="button" <?php if (get_option('argon_fab_show_gotocomment_button') != 'true') echo " style='display: none;'";?> aria-label="Comment">
+		<span class="btn-inner--icon"><i class="fa fa-comment-o"></i></span>
 	</button>
 	<button id="fabtn_toggle_darkmode" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" <?php if (get_option('argon_fab_show_darkmode_button') != 'true') echo " style='display: none;'";?> aria-label="Toggle Darkmode">
 		<span class="btn-inner--icon"><i class="fa fa-moon-o"></i><i class='fa fa-lightbulb-o'></i></span>

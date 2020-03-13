@@ -149,6 +149,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 	let $toggleDarkmode = $('#fabtn_toggle_darkmode');
 	let $toggleAmoledMode = $('#blog_setting_toggle_darkmode_and_amoledarkmode');
 	let $toggleBlogSettings = $('#fabtn_toggle_blog_settings_popup');
+	let $goToComment = $('#fabtn_go_to_comment');
 
 	let $readingProgressBar = $('#fabtn_reading_progress_bar');
 	let $readingProgressDetails = $('#fabtn_reading_progress_details');
@@ -172,6 +173,16 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 
 	$toggleAmoledMode.on("click" , function(){
 		toggleAmoledDarkMode();
+	})
+
+	if ($("#post_comment").length > 0){
+		$("#fabtn_go_to_comment").removeClass("d-none");
+	}else{
+		$("#fabtn_go_to_comment").addClass("d-none");
+	}
+	$goToComment.on("click" , function(){
+		gotoHash("#post_comment" , 600);
+		$("#post_comment_content").focus();
 	});
 
 	if (localStorage['Argon_fabs_Floating_Status'] == "left"){
@@ -433,9 +444,9 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		iziToast.show({
 			title: '正在发送',
 			message: "评论正在发送中...",
-			class: 'shadow-sm',
+			class: 'shadow-sm iziToast-noprogressbar',
 			position: 'topRight',
-			backgroundColor: '#5e72e4',
+			backgroundColor: 'var(--themecolor)',
 			titleColor: '#ffffff',
 			messageColor: '#ffffff',
 			iconColor: '#ffffff',
@@ -589,16 +600,19 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 }();
 
 /*URL 中 # 根据 ID 定位*/
-function gotoHash(hash){
+function gotoHash(hash , durtion){
 	if (hash.length == 0){
 		return;
 	}
 	if ($(hash).length == 0){
 		return;
 	}
+	if (durtion == null){
+		durtion = 200;
+	}
 	$("body,html").animate({
 		scrollTop: $(hash).offset().top - 80
-	}, 200);
+	}, durtion);
 }
 function getHash(url){
 	return url.substring(url.indexOf('#'));
@@ -610,6 +624,28 @@ function getHash(url){
 	});
 	$(window).trigger("hashchange");
 }();
+
+/*显示文章过时信息 Toast*/
+function showPostOutdateToast(){
+	if ($("#primary #post_outdate_toast").length > 0){
+		iziToast.show({
+			title: '',
+			message: $("#primary #post_outdate_toast").data("text"),
+			class: 'shadow-sm',
+			position: 'topRight',
+			backgroundColor: 'var(--themecolor)',
+			titleColor: '#ffffff',
+			messageColor: '#ffffff',
+			iconColor: '#ffffff',
+			progressBarColor: '#ffffff',
+			icon: 'fa fa-info',
+			close: false,
+			timeout: 8000
+		});
+		$("#primary #post_outdate_toast").remove();
+	}
+}
+showPostOutdateToast();
 
 /*Pjax*/
 var pjaxUrlChanged , pjaxLoading = false;
@@ -656,6 +692,12 @@ function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop){
 						if ($(".page-infomation-card" , $vdom).length > 0){
 							$("#content").prepend($(".page-infomation-card" , $vdom)[0].outerHTML);
 						}
+
+						if ($("#post_comment" , $vdom).length > 0){
+							$("#fabtn_go_to_comment").removeClass("d-none");
+						}else{
+							$("#fabtn_go_to_comment").addClass("d-none");
+						}
 						
 						$("body,html").animate({
 							scrollTop: scrolltop
@@ -684,7 +726,9 @@ function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop){
 						}catch (err){}
 
 						getGithubInfoCardContent();
-						
+
+						showPostOutdateToast();
+
 						let scripts = $("#content script:not([no-pjax]):not(.no-pjax)" , $vdom);
 						for (let script of scripts){
 							if (script.innerHTML.indexOf("\/*NO-PJAX*\/") == -1){
