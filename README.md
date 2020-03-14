@@ -62,6 +62,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200315 v0.891
++ 修 BUG
+
 ## 20200315 v0.890
 + Argon 设置增加 导入/导出 功能
 + 新增日间/夜间模式不同背景选项
