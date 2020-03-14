@@ -1258,6 +1258,25 @@ function updateThemeColor(color, setcookie){
 	});
 }();
 
+/*打字效果*/
+function typeEffect(element, text, now, interval){
+	element.classList.add('typing-effect');
+	if (now > text.length){
+		setTimeout(function(){
+			element.classList.remove('typing-effect');
+		}, 1000 - ((interval * now) % 1000) - 50);
+		return;
+	}
+	element.innerText = text.substring(0, now);
+	setTimeout(function(){typeEffect(element, text, now + 1, interval)}, interval);
+}
+!function(){
+	$bannerTitle = $(".banner-title");
+	if ($bannerTitle.data("text") != undefined){
+		typeEffect($(".banner-title-inner")[0], $bannerTitle.data("text"), 0, $bannerTitle.data("interval"));
+	}
+}();
+
 /*Console*/
 !function(){
 	console.log('%cTheme: %cArgon%cBy solstice23', 'color: rgba(255,255,255,.6); background: #5e72e4; font-size: 15px;border-radius:5px 0 0 5px;padding:10px 0 10px 20px;','color: rgba(255,255,255,1); background: #5e72e4; font-size: 15px;border-radius:0;padding:10px 15px 10px 0px;','color: #fff; background: #92A1F4; font-size: 15px;border-radius:0 5px 5px 0;padding:10px 20px 10px 15px;');

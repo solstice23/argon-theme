@@ -10,9 +10,15 @@ add_action('after_setup_theme','theme_slug_setup');
 //检测更新
 require_once(get_template_directory() . '/theme-update-checker/plugin-update-checker.php'); 
 if (get_option('argon_update_source') == 'stop'){}
-else if (get_option('argon_update_source') == 'abc233site'){
+else if (get_option('argon_update_source') == 'solstice23top' || get_option('argon_update_source') == 'abc233site'){
 	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 		'https://api.solstice23.top/argon/info.json?source=0',
+		get_template_directory() . '/functions.php',
+		'argon'
+	);
+}else if (get_option('argon_update_source') == 'jsdelivr'){
+	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+		'https://api.solstice23.top/argon/info.json?source=jsdelivr',
 		get_template_directory() . '/functions.php',
 		'argon'
 	);
@@ -1281,6 +1287,7 @@ function themeoptions_page(){
 		<p>按下 <kbd style="font-family: sans-serif;">Ctrl + F</kbd> 来查找设置，或在右侧目录中查找设置</p>
 		<form method="POST" action="" id="main_form">
 			<input type="hidden" name="update_themeoptions" value="true" />
+			<?php wp_nonce_field("argon_update_themeoptions", "argon_update_themeoptions_nonce");?>
 			<table class="form-table">
 				<tbody>
 					<tr><th class="subtitle"><h2>全局</h2></th></tr>
@@ -1455,12 +1462,38 @@ function themeoptions_page(){
 							</p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h3>动画</h3></th></tr>
+					<tr>
+						<th><label>Banner 标题打字动画</label></th>
+						<td>
+							<select name="argon_enable_banner_title_typing_effect">
+							<?php $argon_enable_banner_title_typing_effect = get_option('argon_enable_banner_title_typing_effect'); ?>
+								<option value="false" <?php if ($argon_enable_banner_title_typing_effect=='false'){echo 'selected';} ?>>不启用</option>
+								<option value="true" <?php if ($argon_enable_banner_title_typing_effect=='true'){echo 'selected';} ?>>启用</option>
+							</select>
+							<p class="description">启用后 Banner 标题会以打字的形式出现。</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>Banner 标题打字动画时长</label></th>
+						<td>
+							<input type="number" name="argon_banner_typing_effect_interval" min="1" max="10000"  value="<?php echo (get_option('argon_banner_typing_effect_interval') == '' ? '100' : get_option('argon_banner_typing_effect_interval')); ?>"/> ms/字
+							<p class="description"></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>页面背景</h2></th></tr>
 					<tr>
 						<th><label>页面背景</label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_page_background_url" value="<?php echo get_option('argon_page_background_url'); ?>"/>
 							<p class="description">页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐修改以下选项来增强页面整体观感。</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>页面背景（夜间模式时）</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_page_background_dark_url" value="<?php echo get_option('argon_page_background_dark_url'); ?>"/>
+							<p class="description">夜间模式时页面背景的地址，需带上 http(s)。设置后日间模式和夜间模式会使用不同的背景。留空则跟随日间模式背景。该选项仅在设置了日间模式背景时生效。</p>
 						</td>
 					</tr>
 					<tr>
@@ -1476,7 +1509,7 @@ function themeoptions_page(){
 							<select name="argon_page_background_banner_style">
 								<?php $argon_page_background_banner_style = get_option('argon_page_background_banner_style'); ?>
 								<option value="false" <?php if ($argon_page_background_banner_style=='false'){echo 'selected';} ?>>关闭</option>	
-								<option value="transparent" <?php if ($argon_page_background_banner_style=='transparent'){echo 'selected';} ?>>开启</option>
+								<option value="transparent" <?php if ($argon_page_background_banner_style=='transparent' || ($argon_page_background_banner_style!='' && $argon_page_background_banner_style!='false')){echo 'selected';} ?>>开启</option>
 							</select>
 							<div style="margin-top: 15px;margin-bottom: 15px;">
 								<label>
@@ -1991,7 +2024,8 @@ window.pjaxLoaded = function(){
 							<select name="argon_update_source">
 								<?php $argon_update_source = get_option('argon_update_source'); ?>
 								<option value="github" <?php if ($argon_update_source=='github'){echo 'selected';} ?>>Github</option>
-								<option value="abc233site" <?php if ($argon_update_source=='abc233site'){echo 'selected';} ?>>solstice23.top</option>
+								<option value="jsdelivr" <?php if ($argon_update_source=='jsdelivr'){echo 'selected';} ?>>jsdelivr</option>
+								<option value="solstice23top" <?php if ($argon_update_source=='solstice23top' || $argon_update_source=='abc233site'){echo 'selected';} ?>>solstice23.top</option>
 								<option value="stop" <?php if ($argon_update_source=='stop'){echo 'selected';} ?>>暂停更新 (不推荐)</option>
 							</select>
 							<p class="description">如更新主题速度较慢，可考虑更换更新源。</p>
@@ -2010,25 +2044,18 @@ window.pjaxLoaded = function(){
 					</tr>
 				</tbody>
 			</table>
-			<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改"></p>
+			<p class="submit">
+				<input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改">
+				<a class="button button-secondary" style="margin-left: 8px;" onclick="importSettings()">导入设置</a>
+				<a class="button button-secondary" style="margin-left: 5px;" onclick="exportSettings()">导出设置</a>
+			</p>
 		</form>
 	</div>
 	<div id="headindex_box">
 		<button id="headindex_toggler" onclick="$('#headindex_box').toggleClass('folded');">收起</button>
 		<div id="headindex"></div>
 	</div>
-	<script type="text/javascript">
-		$(function () {
-			$(document).headIndex({
-				articleWrapSelector: '#main_form',
-				indexBoxSelector: '#headindex',
-				subItemBoxClass: "index-subItem-box",
-				itemClass: "index-item",
-				linkClass: "index-link",
-				offset: 80,
-			});
-		})
-	</script>
+	<div id="exported_settings_json_box" class="closed"><div>请复制并保存导出后的 JSON</div><textarea id="exported_settings_json" readonly="true" onclick="$(this).select();"></textarea><div style="width: 100%;margin: auto;margin-top: 15px;cursor: pointer;user-select: none;" onclick="$('#exported_settings_json_box').addClass('closed');">关闭</div></div>
 	<style>
 		#headindex_box {
 			position: fixed;
@@ -2094,7 +2121,126 @@ window.pjaxLoaded = function(){
 				display: none;
 			}
 		}
+		#exported_settings_json_box{
+			position: fixed;
+			z-index: 99999;
+			left: calc(50vw - 400px);
+			right: calc(50vw - 400px);
+			top: 50px;
+			width: 800px;
+			height: 500px;
+			max-width: 100vw;
+			max-height: calc(100vh - 50px);
+			background: #fff;
+			padding: 25px;
+			border-radius: 5px;
+			box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+			text-align: center;
+			font-size: 20px;
+			transition: all .3s ease;
+		}
+		#exported_settings_json{
+			width: 100%;
+			height: calc(100% - 70px);
+			margin-top: 25px;
+			font-size: 18px;
+			background: #fff;
+			resize: none;
+		}
+		#exported_settings_json::selection{
+			background: #cce2ff;
+		}
+		#exported_settings_json_box.closed{
+			transform: translateY(-30px) scale(.9);
+			opacity: 0;
+			pointer-events: none;
+		}
+		@media screen and (max-width:800px){
+			#exported_settings_json_box{
+				left: 0;
+				right: 0;
+				top: 0;
+				width: calc(100vw - 50px);
+			}
+		}
 	</style>
+	<script type="text/javascript">
+		$(function () {
+			$(document).headIndex({
+				articleWrapSelector: '#main_form',
+				indexBoxSelector: '#headindex',
+				subItemBoxClass: "index-subItem-box",
+				itemClass: "index-item",
+				linkClass: "index-link",
+				offset: 80,
+			});
+		});
+		function setInputValue(name, value){
+			let input = $("*[name='" + name + "']");
+			let inputType = input.attr("type");
+			if (inputType == "checkbox"){
+				if (value == "true"){
+					value = true;
+				}else if (value == "false"){
+					value = false;
+				}
+				input[0].checked = value;
+			}else{
+				input.val(value);
+			}
+		}
+		function getInputValue(input){
+			let inputType = input.attr("type");
+			if (inputType == "checkbox"){
+				return input[0].checked;
+			}else{
+				return input.val();
+			}
+		}
+		function exportArgonSettings(){
+			let json = {};
+			let pushIntoJson = function (){
+				name = $(this).attr("name");
+				value = getInputValue($(this));
+				json[name] = value;
+			};
+			$("#main_form > .form-table input:not([name='submit']) , #main_form > .form-table select , #main_form > textarea").each(function(){
+				name = $(this).attr("name");
+				value = getInputValue($(this));
+				json[name] = value;
+			});
+			return JSON.stringify(json);
+		}
+		function importArgonSettings(json){
+			if (typeof(json) == "string"){
+				json = JSON.parse(json);
+			}
+			let info = "";
+			for (let name in json){
+				try{
+					if ($("*[name='" + name + "']").length == 0){
+						throw "Input Not Found";
+					}
+					setInputValue(name, json[name]);
+				}catch{
+					info += name + " 字段导入失败\n";
+				}
+			}
+			return info;
+		}
+		function exportSettings(){
+			$("#exported_settings_json").val(exportArgonSettings());
+			$("#exported_settings_json").select();
+			$("#exported_settings_json_box").removeClass("closed");
+		}
+		function importSettings(){
+			let json = prompt("请输入要导入的备份 JSON");
+			if (json){
+				let res = importArgonSettings(json);
+				alert("已导入，请保存更改\n" + res)
+			}
+		}
+	</script>
 <?php
 }
 add_action('admin_menu', 'themeoptions_admin_menu');
@@ -2104,85 +2250,99 @@ function argon_update_option($name){
 function argon_update_option_allow_tags($name){
 	update_option($name, stripslashes($_POST[$name]));
 }
-if ($_POST['update_themeoptions'] == 'true'){
-	//配置项
-	argon_update_option('argon_toolbar_icon');
-	argon_update_option('argon_toolbar_icon_link');
-	argon_update_option('argon_toolbar_title');
-	argon_update_option('argon_sidebar_banner_title');
-	argon_update_option('argon_sidebar_banner_subtitle');
-	argon_update_option('argon_sidebar_auther_name');
-	argon_update_option('argon_sidebar_auther_image');
-	argon_update_option('argon_banner_title');
-	argon_update_option('argon_banner_subtitle');
-	argon_update_option('argon_banner_background_url');
-	argon_update_option('argon_banner_background_color_type');
-	argon_update_option('argon_banner_background_hide_shapes');
-	argon_update_option('argon_enable_smoothscroll_type');
-	argon_update_option('argon_enable_v2ex_gravatar');
-	argon_update_option_allow_tags('argon_footer_html');
-	argon_update_option('argon_show_readingtime');
-	argon_update_option('argon_reading_speed');
-	argon_update_option('argon_show_sharebtn');
-	argon_update_option('argon_enable_timezone_fix');
-	argon_update_option('argon_donate_qrcode_url');
-	argon_update_option('argon_hide_shortcode_in_preview');
-	argon_update_option('argon_show_thumbnail_in_banner_in_content_page');
-	argon_update_option('argon_update_source');
-	argon_update_option('argon_enable_into_article_animation');
-	argon_update_option('argon_fab_show_darkmode_button');
-	argon_update_option('argon_fab_show_settings_button');
-	argon_update_option('argon_fab_show_gotocomment_button');
-	argon_update_option('argon_show_headindex_number');
-	argon_update_option('argon_theme_color');
-	update_option('argon_show_customize_theme_color_picker', ($_POST['argon_show_customize_theme_color_picker'] == 'true')?'true':'false');
-	argon_update_option_allow_tags('argon_seo_description');
-	argon_update_option('argon_seo_keywords');
-	argon_update_option('argon_enable_mobile_scale');
-	argon_update_option('argon_page_background_url');
-	argon_update_option('argon_page_background_opacity');
-	argon_update_option('argon_page_background_banner_style');
-	argon_update_option('argon_hide_name_email_site_input');
-	argon_update_option('argon_comment_need_captcha');
-	argon_update_option('argon_hide_footer_author');
-	argon_update_option('argon_card_radius');
-	argon_update_option('argon_comment_avatar_vcenter');
-	argon_update_option('argon_pjax_disabled');
-	argon_update_option('argon_comment_allow_markdown');
-	argon_update_option('argon_home_show_shuoshuo');
-	argon_update_option('argon_darkmode_autoswitch');
-	argon_update_option('argon_enable_amoled_dark');
-	argon_update_option('argon_outdated_info_time_type');
-	argon_update_option('argon_outdated_info_days');
-	argon_update_option('argon_outdated_info_tip_type');
-	argon_update_option('argon_outdated_info_tip_content');
-	update_option('argon_show_toolbar_mask', ($_POST['argon_show_toolbar_mask'] == 'true')?'true':'false');
+function argon_update_themeoptions(){
+	if ($_POST['update_themeoptions'] == 'true'){
+		if (!isset($_POST['argon_update_themeoptions_nonce'])){
+			return;
+		}
+		$nonce = $_POST['argon_update_themeoptions_nonce'];
+		if (!wp_verify_nonce($nonce, 'argon_update_themeoptions')){
+			return;
+		}
+		//配置项
+		argon_update_option('argon_toolbar_icon');
+		argon_update_option('argon_toolbar_icon_link');
+		argon_update_option('argon_toolbar_title');
+		argon_update_option('argon_sidebar_banner_title');
+		argon_update_option('argon_sidebar_banner_subtitle');
+		argon_update_option('argon_sidebar_auther_name');
+		argon_update_option('argon_sidebar_auther_image');
+		argon_update_option('argon_banner_title');
+		argon_update_option('argon_banner_subtitle');
+		argon_update_option('argon_banner_background_url');
+		argon_update_option('argon_banner_background_color_type');
+		argon_update_option('argon_banner_background_hide_shapes');
+		argon_update_option('argon_enable_smoothscroll_type');
+		argon_update_option('argon_enable_v2ex_gravatar');
+		argon_update_option_allow_tags('argon_footer_html');
+		argon_update_option('argon_show_readingtime');
+		argon_update_option('argon_reading_speed');
+		argon_update_option('argon_show_sharebtn');
+		argon_update_option('argon_enable_timezone_fix');
+		argon_update_option('argon_donate_qrcode_url');
+		argon_update_option('argon_hide_shortcode_in_preview');
+		argon_update_option('argon_show_thumbnail_in_banner_in_content_page');
+		argon_update_option('argon_update_source');
+		argon_update_option('argon_enable_into_article_animation');
+		argon_update_option('argon_fab_show_darkmode_button');
+		argon_update_option('argon_fab_show_settings_button');
+		argon_update_option('argon_fab_show_gotocomment_button');
+		argon_update_option('argon_show_headindex_number');
+		argon_update_option('argon_theme_color');
+		update_option('argon_show_customize_theme_color_picker', ($_POST['argon_show_customize_theme_color_picker'] == 'true')?'true':'false');
+		argon_update_option_allow_tags('argon_seo_description');
+		argon_update_option('argon_seo_keywords');
+		argon_update_option('argon_enable_mobile_scale');
+		argon_update_option('argon_page_background_url');
+		argon_update_option('argon_page_background_dark_url');
+		argon_update_option('argon_page_background_opacity');
+		argon_update_option('argon_page_background_banner_style');
+		argon_update_option('argon_hide_name_email_site_input');
+		argon_update_option('argon_comment_need_captcha');
+		argon_update_option('argon_hide_footer_author');
+		argon_update_option('argon_card_radius');
+		argon_update_option('argon_comment_avatar_vcenter');
+		argon_update_option('argon_pjax_disabled');
+		argon_update_option('argon_comment_allow_markdown');
+		argon_update_option('argon_home_show_shuoshuo');
+		argon_update_option('argon_darkmode_autoswitch');
+		argon_update_option('argon_enable_amoled_dark');
+		argon_update_option('argon_outdated_info_time_type');
+		argon_update_option('argon_outdated_info_days');
+		argon_update_option('argon_outdated_info_tip_type');
+		argon_update_option('argon_outdated_info_tip_content');
+		update_option('argon_show_toolbar_mask', ($_POST['argon_show_toolbar_mask'] == 'true')?'true':'false');
+		argon_update_option('argon_enable_banner_title_typing_effect');
+		argon_update_option('argon_banner_typing_effect_interval');
 
-	//LazyLoad 相关
-	argon_update_option('argon_enable_lazyload');
-	argon_update_option('argon_lazyload_effect');
-	argon_update_option('argon_lazyload_threshold');
-	argon_update_option('argon_lazyload_loading_style');
+		//LazyLoad 相关
+		argon_update_option('argon_enable_lazyload');
+		argon_update_option('argon_lazyload_effect');
+		argon_update_option('argon_lazyload_threshold');
+		argon_update_option('argon_lazyload_loading_style');
 
-	//Zoomify 相关
-	argon_update_option('argon_enable_zoomify');
-	argon_update_option('argon_zoomify_duration');
-	argon_update_option('argon_zoomify_easing');
-	argon_update_option('argon_zoomify_scale');
+		//Zoomify 相关
+		argon_update_option('argon_enable_zoomify');
+		argon_update_option('argon_zoomify_duration');
+		argon_update_option('argon_zoomify_easing');
+		argon_update_option('argon_zoomify_scale');
 
-	//Mathjax 相关配置项
-	argon_update_option('argon_mathjax_enable');
-	argon_update_option('argon_mathjax_cdn_url');
-	argon_update_option('argon_mathjax_v2_enable');
-	argon_update_option('argon_mathjax_v2_cdn_url');
+		//Mathjax 相关配置项
+		argon_update_option('argon_mathjax_enable');
+		argon_update_option('argon_mathjax_cdn_url');
+		argon_update_option('argon_mathjax_v2_enable');
+		argon_update_option('argon_mathjax_v2_cdn_url');
 
-	//页头页尾脚本
-	argon_update_option_allow_tags('argon_custom_html_head');
-	argon_update_option_allow_tags('argon_custom_html_foot');
+		//页头页尾脚本
+		argon_update_option_allow_tags('argon_custom_html_head');
+		argon_update_option_allow_tags('argon_custom_html_foot');
 
-	//公告
-	argon_update_option_allow_tags('argon_sidebar_announcement');
+		//公告
+		argon_update_option_allow_tags('argon_sidebar_announcement');
+	}	
 }
+argon_update_themeoptions();
+
 /*主题菜单*/
 register_nav_menus( array(
 	'toolbar_menu' => '顶部导航',

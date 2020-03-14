@@ -62,6 +62,12 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200315 v0.890
++ 新增日间/夜间模式不同背景选项
++ 新增 Banner 标题打字动画选项
++ 增加 jsdelivr 更新源
++ 修复一个重大 BUG
+
 ## 20200314 v0.885
 + 新增文章过时信息提示选项
 + 增加在浮动按钮栏显示跳到评论区按钮选项

@@ -341,8 +341,18 @@
 		<span></span>
 		<span></span>
 	</div>
+
+	<?php
+		$banner_title = get_option('argon_banner_title') == '' ? get_bloginfo('name') : get_option('argon_banner_title');
+		$enable_banner_title_typing_effect = get_option('argon_enable_banner_title_typing_effect') != 'true' ? "false" : get_option('argon_enable_banner_title_typing_effect');
+	?>
 	<div id="banner_container" class="banner-container container text-center">
-		<h1 class="banner-title text-white"><?php echo get_option('argon_banner_title') == '' ? bloginfo('name') : get_option('argon_banner_title'); ?><?php echo get_option('argon_banner_subtitle') == '' ? '' : '<span class="banner-subtitle d-block">' . get_option('argon_banner_subtitle') . '</span>'; ?></h1>
+		<?php if ($enable_banner_title_typing_effect != "true"){?>
+			<h1 class="banner-title text-white"><span class="banner-title-inner"><?php echo $banner_title; ?></span>
+		<?php } else {?>
+			<h1 class="banner-title text-white" data-text="<?php echo $banner_title; ?>" data-interval="<?php echo (get_option('argon_banner_typing_effect_interval') == '' ? '100' : get_option('argon_banner_typing_effect_interval')); ?>"><span class="banner-title-inner">&nbsp;</span>
+		<?php }?>
+		<?php echo get_option('argon_banner_subtitle') == '' ? '' : '<span class="banner-subtitle d-block">' . get_option('argon_banner_subtitle') . '</span>'; ?></h1>
 	</div>
 	<?php if (get_option('argon_banner_background_url') != '') { ?>
 		<style>
@@ -355,7 +365,7 @@
 
 <?php if (get_option('argon_page_background_url') != '') { ?>
 	<style>
-		body:after {
+		#content:before {
 			content: '';
 			display: block;
 			position: fixed;
@@ -369,10 +379,35 @@
 			background-size: cover;
 			background-repeat: no-repeat;
 			opacity: <?php echo (get_option('argon_page_background_opacity') == '' ? '1' : get_option('argon_page_background_opacity')); ?>;
+			transition: opacity .5s ease;
 		}
-		html.darkmode body:after{
+		html.darkmode #content:before{
 			filter: brightness(0.65);
 		}
+		<?php if (get_option('argon_page_background_dark_url') != '') { ?>
+			#content:after {
+				content: '';
+				display: block;
+				position: fixed;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				z-index: -2;
+				background: url(<?php echo get_option('argon_page_background_dark_url');?>);
+				background-position: center;
+				background-size: cover;
+				background-repeat: no-repeat;
+				opacity: 0;
+				transition: opacity .5s ease;
+			}
+			html.darkmode #content:after {
+				opacity: <?php echo (get_option('argon_page_background_opacity') == '' ? '1' : get_option('argon_page_background_opacity')); ?>;
+			}
+			html.darkmode #content:before {
+				opacity: 0;
+			}
+		<?php } ?>
 		<?php if (get_option('argon_page_background_banner_style') != '' && get_option('argon_page_background_banner_style') != 'false') { ?>
 			#banner, #banner .shape {
 				background: transparent !important;
@@ -381,7 +416,7 @@
 	</style>
 <?php } ?>
 
-<?php if (get_option('argon_show_toolbar_mask') != '') { ?>
+<?php if (get_option('argon_show_toolbar_mask') == 'true') { ?>
 	<style>
 		#banner:after {
 			content: '';
