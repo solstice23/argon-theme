@@ -2204,7 +2204,7 @@ window.pjaxLoaded = function(){
 				value = getInputValue($(this));
 				json[name] = value;
 			};
-			$("#main_form > .form-table input:not([name='submit']) , #main_form > .form-table select , #main_form > textarea").each(function(){
+			$("#main_form > .form-table input:not([name='submit']) , #main_form > .form-table select , #main_form > .form-table textarea").each(function(){
 				name = $(this).attr("name");
 				value = getInputValue($(this));
 				json[name] = value;
