@@ -2742,7 +2742,7 @@ html.darkmode.amoled-dark .github-info-card {
 	border: 1px solid #222;
 }
 
-html.darkmode.amoled-dark body:after{
+html.darkmode.amoled-dark #content:before , html.darkmode.amoled-dark #content:after{
 	display: none;
 }
 
