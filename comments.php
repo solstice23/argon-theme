@@ -43,7 +43,8 @@
 	<div class="card-body">
 		<h2 class="post-comment-title">
 			<i class="fa fa-commenting"></i>
-			发送评论
+			<span class="hide-on-comment-editing">发送评论</span>
+			<span class="hide-on-comment-not-editing">编辑评论</span>
 		</h2>
 		<div id="post_comment_reply_info" class="post-comment-reply" style="display: none;">
 			<span>正在回复 <b><span id="post_comment_reply_name"></span></b> 的评论 :</span>
@@ -85,10 +86,9 @@
 					}
 				}
 			?>
-			<div class="row" style="margin-bottom: -10px;">
+			<div class="row hide-on-comment-editing" style="margin-bottom: -10px;">
 				<div class="<?php echo $col1_class;?>">
 					<div class="form-group">
-							
 						<div class="input-group input-group-alternative mb-4">
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-user-circle"></i></span>
@@ -124,7 +124,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row" id="post_comment_extra_input" style="display: none";>
+			<div class="row hide-on-comment-editing" id="post_comment_extra_input" style="display: none";>
 				<div class="col-md-12" style="margin-bottom: -10px;">
 					<div class="form-group">
 						<div class="input-group input-group-alternative mb-4 post-comment-link-container">
@@ -136,7 +136,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row <?php if (get_option('argon_hide_name_email_site_input') == 'true') {echo 'd-none';}?>" style="margin-top: 10px; <?php if (is_user_logged_in()) {echo('display: none');}?>">
+			<div class="row hide-on-comment-editing <?php if (get_option('argon_hide_name_email_site_input') == 'true') {echo 'd-none';}?>" style="margin-top: 10px; <?php if (is_user_logged_in()) {echo('display: none');}?>">
 				<div class="col-md-12">
 					<button id="post_comment_toggle_extra_input" type="button" class="btn btn-icon btn-outline-primary btn-sm">
                 <span class="btn-inner--icon"><i class="fa fa-angle-down"></i></span>
@@ -145,14 +145,32 @@
 			<div class="row" style="margin-top: 5px; margin-bottom: 10px;">
 				<div class="col-md-12">
 					<?php if (get_option("argon_comment_allow_markdown") != "false") {?>
-						<div class="custom-control custom-checkbox comment-post-use-markdown">
+						<div class="custom-control custom-checkbox comment-post-checkbox comment-post-use-markdown">
 							<input class="custom-control-input" id="comment_post_use_markdown" type="checkbox" checked="true">
-							<label class="custom-control-label" for="comment_post_use_markdown" style="line-height: 25px;">Markdown</label>
+							<label class="custom-control-label" for="comment_post_use_markdown">Markdown</label>
+						</div>
+					<?php } ?>
+					<?php if (get_option("argon_comment_allow_privatemode") == "true") {?>
+						<div class="custom-control custom-checkbox comment-post-checkbox comment-post-privatemode">
+							<input class="custom-control-input" id="comment_post_privatemode" type="checkbox">
+							<label class="custom-control-label" for="comment_post_privatemode">悄悄话</label>
+						</div>
+					<?php } ?>
+					<?php if (get_option("argon_comment_allow_mailnotice") == "true") {?>
+						<div class="custom-control custom-checkbox comment-post-checkbox comment-post-mailnotice">
+							<input class="custom-control-input" id="comment_post_mailnotice" type="checkbox">
+							<label class="custom-control-label" for="comment_post_mailnotice">邮件提醒</label>
 						</div>
 					<?php } ?>
 					<button id="post_comment_send" class="btn btn-icon btn-primary pull-right" type="button">
-						<span class="btn-inner--icon"><i class="fa fa-send"></i></span>
-						<span class="btn-inner--text">发送</span>
+						<span class="btn-inner--icon hide-on-comment-editing"><i class="fa fa-send"></i></span>
+						<span class="btn-inner--icon hide-on-comment-not-editing"><i class="fa fa-pencil"></i></span>
+						<span class="btn-inner--text hide-on-comment-editing" style="margin-right: 0;">发送</span>
+						<span class="btn-inner--text hide-on-comment-not-editing" style="margin-right: 0;">编辑</span>
+					</button>
+					<button id="post_comment_edit_cencel" class="btn btn-icon btn-danger pull-right hide-on-comment-not-editing" type="button" style="margin-right: 8px;">
+						<span class="btn-inner--icon"><i class="fa fa-close"></i></span>
+						<span class="btn-inner--text">取消</span>
 					</button>
 				</div>
 			</div>

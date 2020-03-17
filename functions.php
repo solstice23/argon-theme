@@ -24,7 +24,7 @@ else if (get_option('argon_update_source') == 'solstice23top' || get_option('arg
 	);
 }else{
 	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://raw.githubusercontent.com/solstice23/argon-theme/master/info.json',
+		'https://api.solstice23.top/argon/info.json?source=github',
 		get_template_directory() . '/functions.php',
 		'argon'
 	);
@@ -147,6 +147,18 @@ function get_argon_formatted_paginate_links($maxPageNumbers, $extraClasses = '')
 function get_argon_formatted_paginate_links_for_all_platforms(){
 	return get_argon_formatted_paginate_links(7) . get_argon_formatted_paginate_links(5, " pagination-mobile");
 }
+//访问者 Token
+function get_random_token(){
+	return md5(uniqid(microtime(true), true));
+}
+function set_user_token_cookie(){
+	if (strlen($_COOKIE["argon_user_token"]) != 32){
+		$newToken = get_random_token();
+		setcookie("argon_user_token", $newToken, time() + 10 * 365 * 24 * 60 * 60, "/");
+		$_COOKIE["argon_user_token"] = $newToken;
+	}
+}
+set_user_token_cookie();
 //页面 Description Meta
 function get_seo_description(){
 	global $post;
@@ -175,6 +187,11 @@ function get_post_views($post_id){
 function set_post_views(){
 	if (post_password_required($post_id)){
 		return;
+	}
+	if ($_GET['preview'] == 'true'){
+		if (current_user_can('publish_posts')){
+			return;
+		}
 	}
 	global $post;
 	$post_id = $post -> ID;
@@ -246,10 +263,71 @@ function is_readingtime_meta_hidden(){
 	}
 	return False;
 }
+//根据文章 id 获取标题
+function get_post_title_by_id($id){
+	return get_post($id) -> post_title;
+}
+//发送邮件
+function send_mail($to, $subject, $content){
+	wp_mail($to, $subject, $content, array('Content-Type: text/html; charset=UTF-8'));
+}
+function check_email_address($email){
+	if (!preg_match("/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/", $email)) {
+		return false;
+	}
+	return true;
+}
+//检验评论 Token 和用户 Token 是否一致
+function check_comment_token($id){
+	if (strlen($_COOKIE['argon_user_token']) != 32){
+		return false;
+	}
+	if ($_COOKIE['argon_user_token'] != get_comment_meta($id, "user_token", true)){
+		return false;
+	}
+	return true;
+}
+//检验评论发送者 ID 和当前登录用户 ID 是否一致
+function check_login_user_same($userid){
+	if ($userid == 0){
+		return false;
+	}
+	global $current_user;
+	get_currentuserinfo();
+	if ($userid != ($current_user -> ID)){
+		return false;
+	}
+	return true;
+}
+function get_comment_user_id_by_id($comment_ID){
+	$comment = get_comment($comment_ID);
+	return $comment -> user_id;
+}
+//悄悄话
+function is_comment_private_mode($id){
+	if (strlen(get_comment_meta($id, "private_mode", true)) != 32){
+		return false;
+	}
+	return true;
+}
+function user_can_view_comment($id){
+	if (!is_comment_private_mode($id)){
+		return true;
+	}
+	if (current_user_can("manage_options")){
+		return true;
+	}
+	if ($_COOKIE['argon_user_token'] == get_comment_meta($id, "private_mode", true)){
+		return true;
+	}
+	return false;
+}
 //评论样式格式化
 function argon_comment_format($comment, $args, $depth){
-	$GLOBALS['comment'] = $comment;?>
-	<li class="comment-item" id="comment-<?php comment_ID(); ?>">
+	$GLOBALS['comment'] = $comment;
+	if (user_can_view_comment(get_comment_ID())){
+	?>
+	<li class="comment-item" id="comment-<?php comment_ID(); ?>" data-use-markdown="<?php echo get_comment_meta(get_comment_ID(), "use_markdown", true);?>">
 		<div class="comment-item-avatar">
 			<?php if(function_exists('get_avatar') && get_option('show_avatars')){
 				echo get_avatar($comment, 40);
@@ -258,27 +336,43 @@ function argon_comment_format($comment, $args, $depth){
 		<div class="comment-item-inner" id="comment-inner-<?php comment_ID();?>">
 			<div class="comment-item-title">
 				<?php echo get_comment_author_link();?>
-				<?php if( user_can($comment -> user_id , "update_core") ){
+				<?php if(user_can($comment -> user_id , "update_core")){
 					echo '<span class="badge badge-primary badge-admin">博主</span>';}
 				?>
-				<?php if( $comment -> comment_approved == 0 ){
+				<?php if(is_comment_private_mode(get_comment_ID()) && user_can_view_comment(get_comment_ID())){
+					echo '<span class="badge badge-success badge-private-comment">悄悄话</span>';}
+				?>
+				<?php if($comment -> comment_approved == 0){
 					echo '<span class="badge badge-warning badge-unapproved">待审核</span>';}
 				?>
 			</div>
 			<div class="comment-item-text">
 				<?php comment_text();?>
 			</div>
-			<div class="comment-reply-time">
-				<?php echo human_time_diff(get_comment_time('U') , current_time('timestamp')) . "前";?>
-				<div class="comment-reply-time-details"><?php echo get_comment_time('Y-n-d G:i:s');?></div>
+			<div class="comment-item-source" style="display: none;" aria-hidden="true"><?php echo htmlspecialchars(get_comment_meta(get_comment_ID(), "comment_content_source", true));?></div>
+			<div class="comment-info">
+				<?php if (get_comment_meta(get_comment_ID(), "edited", true) == "true") { ?>
+					<div class="comment-edited">
+						<i class="fa fa-pencil" aria-hidden="true"></i>已编辑
+					</div>
+				<?php } ?>
+				<div class="comment-time">
+					<?php echo human_time_diff(get_comment_time('U') , current_time('timestamp')) . "前";?>
+					<div class="comment-time-details"><?php echo get_comment_time('Y-n-d G:i:s');?></div>
+				</div>
 			</div>
-			<?php /*comment_reply_link(array_merge($args,array('reply_text'=>'回复','depth'=>$depth,'max_depth'=>$args['max_depth'])))*/?>
-			<button class="comment-reply btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button">回复</button>
+
+			<div class="comment-operations">
+				<?php if ((check_comment_token(get_comment_ID()) || check_login_user_same($comment -> user_id)) && (get_option("argon_comment_allow_editing") != "false")) { ?>
+					<button class="comment-edit btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;">编辑</button>
+				<?php } ?>
+				<button class="comment-reply btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button">回复</button>
+			</div>
 		</div>
 	</li>
 	<li class="comment-divider"></li>
 	<li>
-<?php }
+<?php }}
 //评论样式格式化 (说说预览界面)
 function argon_comment_shuoshuo_preview_format($comment, $args, $depth){
 	$GLOBALS['comment'] = $comment;?>
@@ -421,13 +515,7 @@ if($comment_data['comment_type'] == ''){
 }
 //评论 Markdown 解析
 require_once(get_template_directory() . '/parsedown.php');
-function comment_markdown_render($comment_content){
-	if ($_POST['use_markdown'] != 'true'){
-		return $comment_content;
-	}
-	if (get_option("argon_comment_allow_markdown") == "false"){
-		return $comment_content;
-	}
+function comment_markdown_parse($comment_content){
 	//HTML 过滤
 	global $allowedtags; 
 	//$comment_content = wp_kses($comment_content, $allowedtags);
@@ -464,7 +552,127 @@ function comment_markdown_render($comment_content){
 	);
 	return $res;
 }
-add_filter('pre_comment_content' , 'comment_markdown_render');
+//评论发送处理
+function post_comment_preprocessing($comment){
+	//保存评论未经 Markdown 解析的源码
+	$_POST['comment_content_source'] = $comment['comment_content'];
+	//Markdown
+	if ($_POST['use_markdown'] == 'true' && get_option("argon_comment_allow_markdown") != "false"){
+		$comment['comment_content'] = comment_markdown_parse($comment['comment_content']);
+	}
+	return $comment;
+}
+add_filter('preprocess_comment' , 'post_comment_preprocessing');
+//评论发送完成添加 Meta
+function post_comment_updatemetas($id){
+	$parentID = $_POST['comment_parent'];
+	$comment = get_comment($id);
+	$commentPostID = $comment -> comment_post_ID;
+	$commentAuthor = $comment -> comment_author;
+	$mailnoticeUnsubscribeKey = get_random_token();
+	//评论 Markdown 源码
+	update_comment_meta($id, "comment_content_source", $_POST['comment_content_source']);
+	//评论者 Token
+	set_user_token_cookie();
+	update_comment_meta($id, "user_token", $_COOKIE["argon_user_token"]);
+	//是否启用 Markdown
+	if ($_POST['use_markdown'] == 'true' && get_option("argon_comment_allow_markdown") != "false"){
+		update_comment_meta($id, "use_markdown", "true");
+	}else{
+		update_comment_meta($id, "use_markdown", "false");
+	}
+	//是否启用悄悄话模式
+	if ($_POST['private_mode'] == 'true' && get_option("argon_comment_allow_privatemode") == "true"){
+		update_comment_meta($id, "private_mode", $_COOKIE["argon_user_token"]);
+	}else{
+		update_comment_meta($id, "private_mode", "false");	
+	}
+	if (is_comment_private_mode($parentID)){
+		//如果父级评论是悄悄话模式则将当前评论可查看者的 Token 跟随父级评论者的 Token
+		update_comment_meta($id, "private_mode", get_comment_meta($parentID, "private_mode", true));
+	}
+	if ($parentID!= 0 && !is_comment_private_mode($parentID)){
+		//如果父级评论不是悄悄话模式则当前评论也不是悄悄话模式
+		update_comment_meta($id, "private_mode", "false");
+	}
+	//是否启用邮件通知
+	if ($_POST['enable_mailnotice'] == 'true' && get_option("argon_comment_allow_mailnotice") == "true"){
+		update_comment_meta($id, "enable_mailnotice", "true");
+		update_comment_meta($id, "mailnotice_unsubscribe_key", $mailnoticeUnsubscribeKey);
+	}else{
+		update_comment_meta($id, "enable_mailnotice", "false");	
+	}
+	//向父级评论发送邮件
+	if (get_option("argon_comment_allow_mailnotice") == "true"){
+		if ($parentID != 0){
+			$parentComment = get_comment($parentID);
+			$parentEmail =  $parentComment -> comment_author_email;
+			if (get_comment_meta($parentID, "enable_mailnotice", true) == "true"){
+				if (check_email_address($parentEmail)){
+					$title = "您在 「" . wp_trim_words(get_post_title_by_id($commentPostID), 20) . "」 的评论有了新的回复";
+					$content = htmlspecialchars($_POST['comment_content_source']);
+					$link = get_permalink($commentPostID) . "#comment-" . $id;
+					$html = "<div style='background: #fff;box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);border-radius: 6px;margin: 10px 20px;padding: 35px 30px;'>
+							<div style='font-size:30px;text-align:center;margin-bottom:15px;'>" . $title  ."</div>
+							<div style='background: rgba(0, 0, 0, .15);height: 1px;width: 300px;margin: auto;margin-bottom: 35px;'></div>
+							<div style='font-size: 18px;border-left: 4px solid rgba(0, 0, 0, .15);width: max-content;width: -moz-max-content;margin: auto;padding: 20px 30px;background: rgba(0,0,0,.08);border-radius: 6px;box-shadow: 0 2px 4px rgba(0,0,0,.075)!important;min-width: 60%;max-width: 90%;margin-bottom: 60px;'>
+								<div style='margin-bottom: 10px;'><strong><span style='color: #5e72e4;'>@" . $commentAuthor . "</span> 回复了你:</strong></div>
+								" . str_replace("\n", "<div></div>", $content) . " 
+							</div>
+							<div style='width: max-content;width: --moz-max-content;margin: auto;margin-bottom:30px;'>
+								<a href='" . $link . "' style='color: #fff;background-color: #5e72e4;border-color: #5e72e4;box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);padding: 15px 25px;font-size: 18px;border-radius: 4px;text-decoration: none;'>前往查看</a>
+							</div>
+						</div>";
+					send_mail($parentEmail, $title, $html);
+				}
+			}
+		}
+	}
+}
+add_action('comment_post' , 'post_comment_updatemetas');
+//编辑评论
+function user_edit_comment(){
+	header('Content-Type:application/json; charset=utf-8');
+	if (get_option("argon_comment_allow_editing") == "false"){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => '博主关闭了编辑评论功能'
+		)));
+	}
+	$id = $_POST["id"];
+	$content = $_POST["comment"];
+	$contentSource = $content;
+	if (!check_comment_token($id) && !check_login_user_same(get_comment_user_id_by_id($id))){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => '您不是这条评论的作者或 Token 已过期'
+		)));
+	}
+	if (get_comment_meta($id, "use_markdown", true) == "true"){
+		$content = comment_markdown_parse($content);
+	}
+	$res = wp_update_comment(array(
+		'comment_ID' => $id,
+		'comment_content' => $content
+	));
+	if ($res == 1){
+		update_comment_meta($id, "comment_content_source", $contentSource);
+		update_comment_meta($id, "edited", "true");
+		exit(json_encode(array(
+			'status' => 'success',
+			'msg' => '编辑评论成功',
+			'new_comment' => apply_filters('comment_text', get_comment_text($id), $id),
+			'new_comment_source' => htmlspecialchars($contentSource)
+		)));
+	}else{
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => '编辑评论失败，可能原因: 与原评论相同'
+		)));
+	}
+}
+add_action('wp_ajax_user_edit_comment' , 'user_edit_comment');
+add_action('wp_ajax_nopriv_user_edit_comment' , 'user_edit_comment');
 //获取顶部 Banner 背景图（用户指定或必应日图）
 function get_banner_background_url(){
 	$url = get_option("argon_banner_background_url");
@@ -581,7 +789,7 @@ function get_shuoshuo_upvotes($ID){
 		add_post_meta($ID, $count_key, '0');
 		$count = '0';
 	}
-return number_format_i18n($count);
+	return number_format_i18n($count);
 }
 function set_shuoshuo_upvotes($ID){
 	$count_key = 'upvotes';
@@ -1939,6 +2147,39 @@ window.pjaxLoaded = function(){
 							<p class="description"></p>
 						</td>
 					</tr>
+					<tr>
+						<th><label>是否允许评论者再次编辑评论</label></th>
+						<td>
+							<select name="argon_comment_allow_editing">
+								<?php $argon_comment_allow_editing = get_option('argon_comment_allow_editing'); ?>
+								<option value="true" <?php if ($argon_comment_allow_editing=='true'){echo 'selected';} ?>>允许</option>	
+								<option value="false" <?php if ($argon_comment_allow_editing=='false'){echo 'selected';} ?>>不允许</option>
+							</select>
+							<p class="description">同一个评论者可以再次编辑评论。</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>是否允许评论者使用悄悄话模式</label></th>
+						<td>
+							<select name="argon_comment_allow_privatemode">
+								<?php $argon_comment_allow_privatemode = get_option('argon_comment_allow_privatemode'); ?>
+								<option value="false" <?php if ($argon_comment_allow_privatemode=='false'){echo 'selected';} ?>>不允许</option>
+								<option value="true" <?php if ($argon_comment_allow_privatemode=='true'){echo 'selected';} ?>>允许</option>	
+							</select>
+							<p class="description">评论者使用悄悄话模式发送的评论和其下的所有回复只有发送者和博主能看到。</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>是否允许评论者接收评论回复邮件提醒</label></th>
+						<td>
+							<select name="argon_comment_allow_mailnotice">
+								<?php $argon_comment_allow_mailnotice = get_option('argon_comment_allow_mailnotice'); ?>
+								<option value="false" <?php if ($argon_comment_allow_mailnotice=='false'){echo 'selected';} ?>>不允许</option>
+								<option value="true" <?php if ($argon_comment_allow_mailnotice=='true'){echo 'selected';} ?>>允许</option>	
+							</select>
+							<p class="description">评论者开启邮件提醒后，其评论有回复时会有邮件通知。</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h3>评论区</h3></th></tr>
 					<tr>
 						<th><label>评论头像垂直位置</label></th>
@@ -2304,6 +2545,9 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_comment_avatar_vcenter');
 		argon_update_option('argon_pjax_disabled');
 		argon_update_option('argon_comment_allow_markdown');
+		argon_update_option('argon_comment_allow_editing');
+		argon_update_option('argon_comment_allow_privatemode');
+		argon_update_option('argon_comment_allow_mailnotice');
 		argon_update_option('argon_home_show_shuoshuo');
 		argon_update_option('argon_darkmode_autoswitch');
 		argon_update_option('argon_enable_amoled_dark');

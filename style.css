@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.891
+Version: 0.900
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -383,7 +383,7 @@ html.darkmode.amoled-dark #navbar-main{
 	font-size: 16px;
 	opacity: .9;
 }
-.banner-title.typing-effect:after{
+.banner-title-inner.typing-effect:after{
 	content: '';
 	background: #fff;
 	width: 2px;
@@ -392,7 +392,7 @@ html.darkmode.amoled-dark #navbar-main{
 	transform: translateX(5px) translateY(5px);
 	animation: cursor-flash-effect 1s infinite;
 }
-.banner-title.typing-effect {
+.banner-title-inner.typing-effect {
 	transform: translateX(1px) translateY(-50%);
 }
 @keyframes cursor-flash-effect{
@@ -1357,17 +1357,20 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	font-size: 16px;
 	font-weight: bold;
 }
-.comment-item-title .badge-admin , .comment-item-title .badge-unapproved{
+.comment-item-title .badge-admin , .comment-item-title .badge-private-comment , .comment-item-title .badge-unapproved{
 	transform: translateY(-2px);
 	margin-left: 3px;
 }
-.comment-reply-time{
+.comment-info{
 	position: absolute;
 	right: 0;
 	top: 2px;
 	font-size: 12px;
 }
-.comment-reply-time-details{
+.comment-info > div{
+	display: inline-block;
+}
+.comment-time-details{
 	pointer-events: none;
 	position: absolute;
 	top: -35px;
@@ -1384,11 +1387,18 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	transform: translateY(5px);
 	opacity: 0;
 }
-.comment-reply-time:hover .comment-reply-time-details{
+.comment-time:hover .comment-time-details{
 	transform: translateY(0);
 	opacity: .7;
 }
-.comment-reply{
+.comment-edited{
+	margin-right: 3px;
+	opacity: .6;
+}
+.comment-edited > i{
+	margin-right: 4px;
+}
+.comment-operations{
 	position: absolute;
 	right: 0;
 	bottom: 12px;
@@ -1397,7 +1407,7 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	transition: all .3s ease;
 	opacity: 0;
 }
-.comment-item:hover .comment-reply{
+.comment-item:hover .comment-operations{
 	opacity: 1;
 }
 /*评论内容*/
@@ -1482,17 +1492,12 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	border-radius: 3px;
 	padding: 20px 20px;
 }
-.post-comment-reply{
-	margin-top: 25px;
-	border: 1.2px solid #eee;
-	border-radius: 3px;
-	padding: 20px 20px;
-}
 .post-comment-reply-preview{
 	margin-top: 15px;
 	border-left: 2px solid #eee;
 	padding: 8px 15px;
-	padding-top: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	max-height: 250px;
 	overflow: hidden;
 	position: relative;
@@ -1536,7 +1541,7 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	pointer-events: none;
 	opacity: 0;
 }
-.post-comment-link-container:before , .post-comment-captcha-container:before , #post_comment_toggle_extra_input:before{
+.post-comment-link-container:before , .post-comment-captcha-container:before , #post_comment_toggle_extra_input:before , .comment-post-mailnotice:before{
 	pointer-events: none;
 	position: absolute;
 	top: -35px;
@@ -1557,7 +1562,8 @@ background: rgba(var(--themecolor-rgbstr), .1);
 }
 .post-comment-link-container:hover:before , .post-comment-link-container.active:before , 
 .post-comment-captcha-container:hover:before , .post-comment-captcha-container.active:before , 
-#post_comment_toggle_extra_input:hover:before{
+#post_comment_toggle_extra_input:hover:before , 
+.comment-post-mailnotice:hover:before{
 	transform: translateY(0);
 	opacity: .7;
 }
@@ -1586,10 +1592,60 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	background-color: #e9ecef;
 	pointer-events: none;
 }
-.comment-post-use-markdown{
+.comment-post-checkbox{
 	display: inline-block;
 	margin-top: 15px;
 	height: 30px;
+	margin-right: 10px;
+}
+.comment-post-checkbox .custom-control-label{
+	line-height: 28px;
+}
+#post_comment.post-comment-force-privatemode-on .comment-post-privatemode {
+	opacity: .6;
+	pointer-events: none;
+}
+#post_comment.post-comment-force-privatemode-on .comment-post-privatemode .custom-control-label::before {
+	border-color: var(--themecolor);
+	background-color: var(--themecolor);
+	color: #fff;
+	box-shadow: none;
+}
+#post_comment.post-comment-force-privatemode-on .comment-post-privatemode .custom-control-label::after {
+	background-image: url('data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 8 8\'%3e%3cpath fill=\'%23fff\' d=\'M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z\'/%3e%3c/svg%3e');
+}
+#post_comment.post-comment-force-privatemode-off .comment-post-privatemode {
+	opacity: .6;
+	pointer-events: none;
+}
+#post_comment.post-comment-force-privatemode-off .comment-post-privatemode .custom-control-label::before {
+	border-color: #cad1d7;
+	background-color: #fff;
+}
+html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-privatemode .custom-control-label::before {
+	background: #555;
+	border-color: #666;
+}
+#post_comment.post-comment-force-privatemode-off .comment-post-privatemode .custom-control-label::after {
+	background-image: unset;
+}
+.comment-post-mailnotice:before{
+	content: "\6709\56de\590d\65f6\90ae\4ef6\901a\77e5\6211";
+}
+#post_comment.sending .comment-post-checkbox{
+	opacity: .6;
+	pointer-events: none;
+}
+/*发送评论区域-编辑评论*/
+#post_comment:not(.editing) .hide-on-comment-not-editing {
+	display: none !important;
+}
+#post_comment.editing .hide-on-comment-editing {
+	display: none !important;
+}
+#post_comment.editing .comment-post-use-markdown {
+	pointer-events: none;
+	opacity: .6;
 }
 /*短代码适配*/
 /*短代码-checkbox*/
@@ -2262,7 +2318,7 @@ html[class] , html[lang]{
 .shuoshuo-comment-item-title{
 	font-weight: bold;
 }
-.shuoshuo-comment-item-title .badge-admin , .shuoshuo-comment-item-title .badge-unapproved{
+.shuoshuo-comment-item-title .badge-admin , .shuoshuo-comment-item-title .badge-private-comment , .shuoshuo-comment-item-title .badge-unapproved{
 	transform: translateY(-2px);
 	padding: 3px 5px;
 }
@@ -3059,7 +3115,7 @@ html.darkmode.amoled-dark #content:before , html.darkmode.amoled-dark #content:a
 html.using-safari #float_action_buttons .fabtn:before,
 html.using-safari #share > a:before, html.using-safari #share_show:before,
 html.using-safari .post-comment-link-container:before, html.using-safari .post-comment-captcha-container:before, html.using-safari #post_comment_toggle_extra_input:before,
-html.using-safari .comment-reply-time-details,
+html.using-safari .comment-time-details,
 html.using-safari #share .icon-wechat .wechat-qrcode{
 	-webkit-transform: translate3d(0,0,0) !important;
 	width: unset !important;

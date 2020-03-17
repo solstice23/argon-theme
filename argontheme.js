@@ -315,10 +315,16 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 	//回复评论
 	replying = false , replyID = 0;
 	function reply(commentID){
+		cencelEdit();
 		replying = true;
 		replyID = commentID;
 		$("#post_comment_reply_name").html($("#comment-" + commentID + " .comment-item-title")[0].innerHTML);
-		$("#post_comment_reply_preview").html($("#comment-" + commentID + " .comment-item-text")[0].innerHTML);
+		$("#post_comment_reply_preview").html($("#comment-" + commentID + " .comment-item-source")[0].innerHTML);
+		if ($("#comment-" + commentID + " .comment-item-title .badge-private-comment").length > 0){
+			$("#post_comment").addClass("post-comment-force-privatemode-on");
+		}else{
+			$("#post_comment").addClass("post-comment-force-privatemode-off");
+		}
 		$("body,html").animate({
 			scrollTop: $('#post_comment').offset().top - 100
 		}, 300);
@@ -328,12 +334,48 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		replying = false;
 		replyID = 0;
 		$('#post_comment_reply_info').slideUp(300);
+		$("#post_comment").removeClass("post-comment-force-privatemode-on post-comment-force-privatemode-off");
 	}
 	$(document).on("click" , ".comment-reply" , function(){
 		reply(this.getAttribute("data-id"));
 	});
 	$(document).on("click" , "#post_comment_reply_cencel" , function(){
 		cencelReply();
+	});
+	//编辑评论
+	editing = false , editID = 0;
+	function edit(commentID){
+		cencelReply();
+		editing = true;
+		editID = commentID;
+		$('#post_comment').addClass("editing");
+		$("#post_comment_content").val($("#comment-" + editID + " .comment-item-source").text());
+		if ($("#comment-" + editID).data("use-markdown") == true && document.getElementById("comment_post_use_markdown") != null){
+			document.getElementById("comment_post_use_markdown").checked = true;
+		}else{
+			document.getElementById("comment_post_use_markdown").checked = false;
+		}
+		if ($("#comment-" + commentID + " .comment-item-title .badge-private-comment").length > 0){
+			$("#post_comment").addClass("post-comment-force-privatemode-on");
+		}else{
+			$("#post_comment").addClass("post-comment-force-privatemode-off");
+		}
+		$("body,html").animate({
+			scrollTop: $('#post_comment').offset().top - 100
+		}, 300);
+	}
+	function cencelEdit(){
+		editing = false;
+		editID = 0;
+		$("#post_comment").removeClass("post-comment-force-privatemode-on post-comment-force-privatemode-off");
+		$("#post_comment_content").val("");
+		$('#post_comment').removeClass("editing");
+	}
+	$(document).on("click" , ".comment-edit" , function(){
+		edit(this.getAttribute("data-id"));
+	});
+	$(document).on("click" , "#post_comment_edit_cencel" , function(){
+		cencelEdit();
 	});
 
 	//显示/隐藏额外输入框 (评论者网站)
@@ -365,7 +407,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 	});
 
 	//发送评论
-	$(document).on("click" , "#post_comment_send" , function(){
+	function postComment(){
 		commentContent = $("#post_comment_content").val();
 		commentName = $("#post_comment_name").val();
 		commentEmail = $("#post_comment_email").val();
@@ -375,6 +417,16 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 			useMarkdown = $("#comment_post_use_markdown")[0].checked;
 		}else{
 			useMarkdown = false;
+		}
+		if ($("#comment_post_privatemode").length > 0){
+			privateMode = $("#comment_post_privatemode")[0].checked;
+		}else{
+			privateMode = false;
+		}
+		if ($("#comment_post_mailnotice").length > 0){
+			mailNotice = $("#comment_post_mailnotice")[0].checked;
+		}else{
+			mailNotice = false;
 		}
 
 		postID = $("#post_comment_post_id").val();
@@ -396,6 +448,15 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 			if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail)){
 				isError = true;
 				errorMsg += "邮箱格式错误</br>";
+			}
+		}else{
+			if (document.getElementById("comment_post_mailnotice") != null){
+				if (document.getElementById("comment_post_mailnotice").checked == true){
+					if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail)){
+						isError = true;
+						errorMsg += "邮箱格式错误</br>";
+					}
+				}
 			}
 		}
 		if (commentLink != "" && !(/https?:\/\//).test(commentLink)){
@@ -430,6 +491,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		}
 
 		//增加 disabled 属性和其他的表单提示
+		$("#post_comment").addClass("sending");
 		$("#post_comment_content").attr("disabled","disabled");
 		$("#post_comment_name").attr("disabled","disabled");
 		$("#post_comment_email").attr("disabled","disabled");
@@ -437,9 +499,8 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		$("#post_comment_link").attr("disabled","disabled");
 		$("#post_comment_send").attr("disabled","disabled");
 		$("#post_comment_reply_cencel").attr("disabled","disabled");
-		$("#post_comment_send .btn-inner--icon").html("<i class='fa fa-spinner fa-spin'></i>");
-		$("#post_comment_send .btn-inner--text").html("发送中");
-
+		$("#post_comment_send .btn-inner--icon.hide-on-comment-editing").html("<i class='fa fa-spinner fa-spin'></i>");
+		$("#post_comment_send .btn-inner--text.hide-on-comment-editing").html("发送中");
 
 		iziToast.show({
 			title: '正在发送',
@@ -469,8 +530,11 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				comment_captcha_seed: commentCaptchaSeed,
 				comment_captcha: commentCaptcha,
 				use_markdown: useMarkdown,
+				private_mode: privateMode,
+				enable_mailnotice: mailNotice
 			},
 			success: function(result){
+				$("#post_comment").removeClass("sending");
 				$("#post_comment_content").removeAttr("disabled");
 				$("#post_comment_name").removeAttr("disabled");
 				$("#post_comment_email").removeAttr("disabled");
@@ -478,8 +542,9 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				$("#post_comment_link").removeAttr("disabled");
 				$("#post_comment_send").removeAttr("disabled");
 				$("#post_comment_reply_cencel").removeAttr("disabled");
-				$("#post_comment_send .btn-inner--icon").html("<i class='fa fa-send'></i>");
-				$("#post_comment_send .btn-inner--text").html("发送");
+				$("#post_comment_send .btn-inner--icon.hide-on-comment-editing").html("<i class='fa fa-send'></i>");
+				$("#post_comment_send .btn-inner--text.hide-on-comment-editing").html("发送");
+				$("#post_comment").removeClass("post-comment-force-privatemode-on post-comment-force-privatemode-off");
 				let vdom = document.createElement('html');
 				vdom.innerHTML = result;
 				let $vdom = $('<div></div>');
@@ -528,6 +593,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				$("#post_comment").html($("#post_comment" , $vdom)[0].innerHTML);
 			},
 			error: function(result){
+				$("#post_comment").removeClass("sending");
 				$("#post_comment_content").removeAttr("disabled");
 				$("#post_comment_name").removeAttr("disabled");
 				$("#post_comment_email").removeAttr("disabled");
@@ -535,8 +601,9 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				$("#post_comment_link").removeAttr("disabled");
 				$("#post_comment_send").removeAttr("disabled");
 				$("#post_comment_reply_cencel").removeAttr("disabled");
-				$("#post_comment_send .btn-inner--icon").html("<i class='fa fa-send'></i>");
-				$("#post_comment_send .btn-inner--text").html("发送");
+				$("#post_comment_send .btn-inner--icon.hide-on-comment-editing").html("<i class='fa fa-send'></i>");
+				$("#post_comment_send .btn-inner--text.hide-on-comment-editing").html("发送");
+				$("#post_comment").removeClass("post-comment-force-privatemode-on post-comment-force-privatemode-off");
 				if (result.readyState != 4 || result.status == 0){
 					iziToast.destroy();
 					iziToast.show({
@@ -596,6 +663,148 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				}
 			}
 		});
+	}
+	//编辑评论
+	function editComment(){
+		commentContent = $("#post_comment_content").val();
+		isError = false;
+		errorMsg = "";
+		if (commentContent.match(/^\s*$/)){
+			isError = true;
+			errorMsg += "评论内容不能为空</br>";
+		}
+		if (isError){
+			iziToast.show({
+				title: '评论格式错误',
+				message: errorMsg,
+				class: 'shadow-sm',
+				position: 'topRight',
+				backgroundColor: '#f5365c',
+				titleColor: '#ffffff',
+				messageColor: '#ffffff',
+				iconColor: '#ffffff',
+				progressBarColor: '#ffffff',
+				icon: 'fa fa-close',
+				timeout: 5000
+			});
+			return;
+		}
+
+		//增加 disabled 属性和其他的表单提示
+		$("#post_comment_content").attr("disabled","disabled");
+		$("#post_comment_send").attr("disabled","disabled");
+		$("#post_comment_edit_cencel").attr("disabled","disabled");
+		$("#post_comment_send .btn-inner--icon.hide-on-comment-not-editing").html("<i class='fa fa-spinner fa-spin'></i>");
+		$("#post_comment_send .btn-inner--text.hide-on-comment-not-editing").html("编辑中");
+
+		iziToast.show({
+			title: '正在编辑',
+			message: "评论正在编辑中...",
+			class: 'shadow-sm iziToast-noprogressbar',
+			position: 'topRight',
+			backgroundColor: 'var(--themecolor)',
+			titleColor: '#ffffff',
+			messageColor: '#ffffff',
+			iconColor: '#ffffff',
+			progressBarColor: '#ffffff',
+			icon: 'fa fa-spinner fa-spin',
+			close: false,
+			timeout: 999999999
+		});
+
+		$.ajax({
+			type: 'POST',
+			url: "/wp-admin/admin-ajax.php",
+			dataType : "json",
+			data: {
+				action: "user_edit_comment",
+				comment: commentContent,
+				id: editID
+			},
+			success: function(result){
+				$("#post_comment_content").removeAttr("disabled");
+				$("#post_comment_send").removeAttr("disabled");
+				$("#post_comment_edit_cencel").removeAttr("disabled");
+				$("#post_comment_send .btn-inner--icon.hide-on-comment-not-editing").html("<i class='fa fa-pencil'></i>");
+				$("#post_comment_send .btn-inner--text.hide-on-comment-not-editing").html("编辑");
+
+				//判断是否有错误
+				if (result.status == "failed"){
+					iziToast.destroy();
+					iziToast.show({
+						title: '评论编辑失败',
+						message: result.msg,
+						class: 'shadow-sm',
+						position: 'topRight',
+						backgroundColor: '#f5365c',
+						titleColor: '#ffffff',
+						messageColor: '#ffffff',
+						iconColor: '#ffffff',
+						progressBarColor: '#ffffff',
+						icon: 'fa fa-close',
+						timeout: 5000
+					});
+					return;
+				}
+
+				//发送成功，替换原评论
+				$("#comment-" + editID + " .comment-item-text").html(result.new_comment);
+				$("#comment-" + editID + " .comment-item-source").html(result.new_comment_source);
+				if ($("#comment-" + editID + " .comment-info .comment-edited").length == 0){
+					$("#comment-" + editID + " .comment-info").prepend("<div class='comment-edited'><i class='fa fa-pencil' aria-hidden='true'></i>已编辑</div>")
+				}
+
+				iziToast.destroy();
+				iziToast.show({
+					title: '编辑成功',
+					message: "您的评论已编辑",
+					class: 'shadow-sm',
+					position: 'topRight',
+					backgroundColor: '#2dce89',
+					titleColor: '#ffffff',
+					messageColor: '#ffffff',
+					iconColor: '#ffffff',
+					progressBarColor: '#ffffff',
+					icon: 'fa fa-check',
+					timeout: 5000
+				});
+				editing = false;
+				editID = 0;
+				$("#post_comment_content").val("");
+				$('#post_comment').removeClass("editing");
+			},
+			error: function(result){
+				$("#post_comment_content").removeAttr("disabled");
+				$("#post_comment_send").removeAttr("disabled");
+				$("#post_comment_edit_cencel").removeAttr("disabled");
+				$("#post_comment_send .btn-inner--icon.hide-on-comment-not-editing").html("<i class='fa fa-pencil'></i>");
+				$("#post_comment_send .btn-inner--text.hide-on-comment-not-editing").html("编辑");
+				if (result.readyState != 4 || result.status == 0){
+					iziToast.destroy();
+					iziToast.show({
+						title: '评论编辑失败',
+						message: "未知原因",
+						class: 'shadow-sm',
+						position: 'topRight',
+						backgroundColor: '#f5365c',
+						titleColor: '#ffffff',
+						messageColor: '#ffffff',
+						iconColor: '#ffffff',
+						progressBarColor: '#ffffff',
+						icon: 'fa fa-close',
+						timeout: 5000
+					});
+					return;
+				}
+			}
+		});
+	}
+	$(document).on("click" , "#post_comment_send" , function(){
+		if ($("#post_comment").hasClass("editing")){
+			editComment();
+		}else{
+			postComment();
+		}
 	});
 }();
 
