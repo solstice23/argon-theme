@@ -1647,6 +1647,9 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 	pointer-events: none;
 	opacity: .6;
 }
+#post_comment.editing .comment-post-mailnotice {
+	display: none;
+}
 /*短代码适配*/
 /*短代码-checkbox*/
 .shortcode-todo{
