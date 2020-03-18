@@ -79,7 +79,7 @@
 	<div class="post-content">
 		<?php
 			if (get_option("argon_hide_shortcode_in_preview") == 'true'){
-				$preview = wp_trim_words(apply_filters('the_content', get_the_content()), 175);
+				$preview = wp_trim_words(do_shortcode(get_the_content()), 175);
 			}else{
 				$preview = wp_trim_words(get_the_content(), 175);
 			}

@@ -315,11 +315,11 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 	//回复评论
 	replying = false , replyID = 0;
 	function reply(commentID){
-		cencelEdit();
+		cencelEdit(false);
 		replying = true;
 		replyID = commentID;
 		$("#post_comment_reply_name").html($("#comment-" + commentID + " .comment-item-title")[0].innerHTML);
-		$("#post_comment_reply_preview").html($("#comment-" + commentID + " .comment-item-source")[0].innerHTML);
+		$("#post_comment_reply_preview").html($("#comment-" + commentID + " .comment-item-source")[0].innerHTML.replace(/\n/g, "</br>"));
 		if ($("#comment-" + commentID + " .comment-item-title .badge-private-comment").length > 0){
 			$("#post_comment").addClass("post-comment-force-privatemode-on");
 		}else{
@@ -350,6 +350,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		editID = commentID;
 		$('#post_comment').addClass("editing");
 		$("#post_comment_content").val($("#comment-" + editID + " .comment-item-source").text());
+		$("#post_comment_content").trigger("change");
 		if ($("#comment-" + editID).data("use-markdown") == true && document.getElementById("comment_post_use_markdown") != null){
 			document.getElementById("comment_post_use_markdown").checked = true;
 		}else{
@@ -364,18 +365,19 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 			scrollTop: $('#post_comment').offset().top - 100
 		}, 300);
 	}
-	function cencelEdit(){
+	function cencelEdit(clear){
 		editing = false;
 		editID = 0;
 		$("#post_comment").removeClass("post-comment-force-privatemode-on post-comment-force-privatemode-off");
-		$("#post_comment_content").val("");
+		if (clear == true) $("#post_comment_content").val("");
+		$("#post_comment_content").trigger("change");
 		$('#post_comment').removeClass("editing");
 	}
 	$(document).on("click" , ".comment-edit" , function(){
 		edit(this.getAttribute("data-id"));
 	});
 	$(document).on("click" , "#post_comment_edit_cencel" , function(){
-		cencelEdit();
+		cencelEdit(true);
 	});
 
 	//显示/隐藏额外输入框 (评论者网站)
@@ -522,9 +524,9 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 			url: "/wp-comments-post.php",
 			data: {
 				comment: commentContent,
-				author: encodeURI(commentName),
-				email: encodeURI(commentEmail),
-				url: encodeURI(commentLink),
+				author: commentName,
+				email: commentEmail,
+				url: commentLink,
 				comment_post_ID: postID,
 				comment_parent: replyID,
 				comment_captcha_seed: commentCaptchaSeed,
@@ -544,7 +546,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				$("#post_comment_reply_cencel").removeAttr("disabled");
 				$("#post_comment_send .btn-inner--icon.hide-on-comment-editing").html("<i class='fa fa-send'></i>");
 				$("#post_comment_send .btn-inner--text.hide-on-comment-editing").html("发送");
-				$("#post_comment").removeClass("post-comment-force-privatemode-on post-comment-force-privatemode-off");
+				$("#post_comment").removeClass("show-extra-input post-comment-force-privatemode-on post-comment-force-privatemode-off");
 				let vdom = document.createElement('html');
 				vdom.innerHTML = result;
 				let $vdom = $('<div></div>');
@@ -603,7 +605,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				$("#post_comment_reply_cencel").removeAttr("disabled");
 				$("#post_comment_send .btn-inner--icon.hide-on-comment-editing").html("<i class='fa fa-send'></i>");
 				$("#post_comment_send .btn-inner--text.hide-on-comment-editing").html("发送");
-				$("#post_comment").removeClass("post-comment-force-privatemode-on post-comment-force-privatemode-off");
+				$("#post_comment").removeClass("show-extra-input post-comment-force-privatemode-on post-comment-force-privatemode-off");
 				if (result.readyState != 4 || result.status == 0){
 					iziToast.destroy();
 					iziToast.show({
@@ -771,7 +773,8 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				editing = false;
 				editID = 0;
 				$("#post_comment_content").val("");
-				$('#post_comment').removeClass("editing");
+				$('#post_comment').removeClass("editing post-comment-force-privatemode-on post-comment-force-privatemode-off");
+				$("#post_comment_content").trigger("change");
 			},
 			error: function(result){
 				$("#post_comment_content").removeAttr("disabled");

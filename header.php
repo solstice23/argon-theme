@@ -238,6 +238,14 @@
 							</div>
 						</div>
 					</div>
+					<ul id="navbar_search_btn_mobile" class="navbar-nav align-items-lg-center ml-lg-auto">
+						<li class="nav-item" data-toggle="modal" data-target="#argon_search_modal" style="padding-left: 5px;">
+							<a class="nav-link nav-link-icon">
+								<i class="fa fa-search"></i>
+								<span class="nav-link-inner--text d-lg-none">搜索</span>
+							</a>
+						</li>
+					</ul>
 					<?php
 						/*顶栏菜单*/
 						class toolbarMenuWalker extends Walker_Nav_Menu{
@@ -300,14 +308,9 @@
 								</div>
 							</div>
 						</li>
-						<li id="navbar_search_btn_mobile" class="nav-item" data-toggle="modal" data-target="#argon_search_modal">
-							<a class="nav-link nav-link-icon">
-								<i class="fa fa-search"></i>
-								<span class="nav-link-inner--text d-lg-none">搜索</span>
-							</a>
-						</li>
 					</ul>
 				</div>
+				<div id="navbar_menu_mask" data-toggle="collapse" data-target="#navbar_global"></div>
 			</div>
 		</nav>
 	</header>

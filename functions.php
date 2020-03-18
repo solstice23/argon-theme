@@ -3,8 +3,8 @@ if (version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' )) {
 	echo "<div style='background: #5e72e4;color: #fff;font-size: 30px;padding: 50px 30px;position: fixed;width: 100%;left: 0;right: 0;bottom: 0px;z-index: 2147483647;'>Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress</div>";
 }
 function theme_slug_setup() {
-   add_theme_support('title-tag');
-   add_theme_support('post-thumbnails');
+	add_theme_support('title-tag');
+	add_theme_support('post-thumbnails');
 }
 add_action('after_setup_theme','theme_slug_setup');
 //检测更新
@@ -24,7 +24,7 @@ else if (get_option('argon_update_source') == 'solstice23top' || get_option('arg
 	);
 }else{
 	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://api.solstice23.top/argon/info.json?source=github',
+		'https://raw.githubusercontent.com/solstice23/argon-theme/master/info.json',
 		get_template_directory() . '/functions.php',
 		'argon'
 	);
@@ -336,13 +336,13 @@ function argon_comment_format($comment, $args, $depth){
 		<div class="comment-item-inner" id="comment-inner-<?php comment_ID();?>">
 			<div class="comment-item-title">
 				<?php echo get_comment_author_link();?>
-				<?php if(user_can($comment -> user_id , "update_core")){
+				<?php if (user_can($comment -> user_id , "update_core")){
 					echo '<span class="badge badge-primary badge-admin">博主</span>';}
 				?>
-				<?php if(is_comment_private_mode(get_comment_ID()) && user_can_view_comment(get_comment_ID())){
+				<?php if (is_comment_private_mode(get_comment_ID()) && user_can_view_comment(get_comment_ID())){
 					echo '<span class="badge badge-success badge-private-comment">悄悄话</span>';}
 				?>
-				<?php if($comment -> comment_approved == 0){
+				<?php if ($comment -> comment_approved == 0){
 					echo '<span class="badge badge-warning badge-unapproved">待审核</span>';}
 				?>
 			</div>
@@ -523,9 +523,13 @@ function comment_markdown_parse($comment_content){
 	$allowedtags['pre'] = array('class' => array());
 	$allowedtags['i'] = array('class' => array(), 'aria-hidden' => array()); 
 	$allowedtags['img'] = array('src' => array(), 'alt' => array(), 'class' => array());
+	$allowedtags['ol'] = array();
+	$allowedtags['ul'] = array();
+	$allowedtags['li'] = array();
 	$allowedtags['a']['class'] = array();
 	$allowedtags['a']['data-src'] = array();
 	$allowedtags['a']['target'] = array();
+	$allowedtags['h1'] = $allowedtags['h2'] = $allowedtags['h3'] = $allowedtags['h4'] = $allowedtags['h5'] = $allowedtags['h6'] = array();
 
 	//解析 Markdown
 	$parsedown = new Parsedown();
@@ -563,6 +567,48 @@ function post_comment_preprocessing($comment){
 	return $comment;
 }
 add_filter('preprocess_comment' , 'post_comment_preprocessing');
+//发送评论通知邮件
+function comment_mail_notify($comment){
+	if (get_option("argon_comment_allow_mailnotice") != "true"){
+		return;
+	}
+	if ($comment == null){
+		return;
+	}
+	$id = $comment -> comment_ID;
+	$commentPostID = $comment -> comment_post_ID;
+	$commentAuthor = $comment -> comment_author;
+	$parentID = $comment -> comment_parent;
+	if ($parentID == 0){
+		return;
+	}
+	$parentComment = get_comment($parentID);
+	$parentEmail =  $parentComment -> comment_author_email;
+	if (get_comment_meta($parentID, "enable_mailnotice", true) == "true"){
+		if (check_email_address($parentEmail)){
+			$title = "您在 「" . wp_trim_words(get_post_title_by_id($commentPostID), 20) . "」 的评论有了新的回复";
+			$fullTitle = "您在 「" . get_post_title_by_id($commentPostID) . "」 的评论有了新的回复";
+			$content = htmlspecialchars(get_comment_meta($id, "comment_content_source", true));
+			$link = get_permalink($commentPostID) . "#comment-" . $id;
+			$unsubscribeLink = site_url("unsubscribe-comment-mailnotice?comment=" . $parentID . "&token=" . get_comment_meta($parentID, "mailnotice_unsubscribe_key", true));
+			$html = "<div style='background: #fff;box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);border-radius: 6px;margin: 15px auto 50px auto;padding: 35px 30px;max-width: min(calc(100% - 100px), 1200px);'>
+					<div style='font-size:30px;text-align:center;margin-bottom:15px;'>" . htmlspecialchars($fullTitle)  ."</div>
+					<div style='background: rgba(0, 0, 0, .15);height: 1px;width: 300px;margin: auto;margin-bottom: 35px;'></div>
+					<div style='font-size: 18px;border-left: 4px solid rgba(0, 0, 0, .15);width: max-content;width: -moz-max-content;margin: auto;padding: 20px 30px;background: rgba(0,0,0,.08);border-radius: 6px;box-shadow: 0 2px 4px rgba(0,0,0,.075)!important;min-width: 60%;max-width: 90%;margin-bottom: 60px;'>
+						<div style='margin-bottom: 10px;'><strong><span style='color: #5e72e4;'>@" . htmlspecialchars($commentAuthor) . "</span> 回复了你:</strong></div>
+						" . str_replace("\n", "<div></div>", $content) . " 
+					</div>
+					<div style='width: max-content;width: --moz-max-content;margin: auto;margin-bottom:50px;'>
+						<a href='" . $link . "' style='color: #fff;background-color: #5e72e4;border-color: #5e72e4;box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);padding: 15px 25px;font-size: 18px;border-radius: 4px;text-decoration: none;'>前往查看</a>
+					</div>
+					<div style='width: max-content;width: --moz-max-content;margin: auto;margin-bottom:30px;'>
+						<a href='" . $unsubscribeLink . "' style='color: #5e72e4;font-size: 16px;text-decoration: none;'>退订该评论的邮件提醒</a>
+					</div>
+				</div>";
+			send_mail($parentEmail, $title, $html);
+		}
+	}
+}
 //评论发送完成添加 Meta
 function post_comment_updatemetas($id){
 	$parentID = $_POST['comment_parent'];
@@ -603,33 +649,13 @@ function post_comment_updatemetas($id){
 		update_comment_meta($id, "enable_mailnotice", "false");	
 	}
 	//向父级评论发送邮件
-	if (get_option("argon_comment_allow_mailnotice") == "true"){
-		if ($parentID != 0){
-			$parentComment = get_comment($parentID);
-			$parentEmail =  $parentComment -> comment_author_email;
-			if (get_comment_meta($parentID, "enable_mailnotice", true) == "true"){
-				if (check_email_address($parentEmail)){
-					$title = "您在 「" . wp_trim_words(get_post_title_by_id($commentPostID), 20) . "」 的评论有了新的回复";
-					$content = htmlspecialchars($_POST['comment_content_source']);
-					$link = get_permalink($commentPostID) . "#comment-" . $id;
-					$html = "<div style='background: #fff;box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);border-radius: 6px;margin: 10px 20px;padding: 35px 30px;'>
-							<div style='font-size:30px;text-align:center;margin-bottom:15px;'>" . $title  ."</div>
-							<div style='background: rgba(0, 0, 0, .15);height: 1px;width: 300px;margin: auto;margin-bottom: 35px;'></div>
-							<div style='font-size: 18px;border-left: 4px solid rgba(0, 0, 0, .15);width: max-content;width: -moz-max-content;margin: auto;padding: 20px 30px;background: rgba(0,0,0,.08);border-radius: 6px;box-shadow: 0 2px 4px rgba(0,0,0,.075)!important;min-width: 60%;max-width: 90%;margin-bottom: 60px;'>
-								<div style='margin-bottom: 10px;'><strong><span style='color: #5e72e4;'>@" . $commentAuthor . "</span> 回复了你:</strong></div>
-								" . str_replace("\n", "<div></div>", $content) . " 
-							</div>
-							<div style='width: max-content;width: --moz-max-content;margin: auto;margin-bottom:30px;'>
-								<a href='" . $link . "' style='color: #fff;background-color: #5e72e4;border-color: #5e72e4;box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);padding: 15px 25px;font-size: 18px;border-radius: 4px;text-decoration: none;'>前往查看</a>
-							</div>
-						</div>";
-					send_mail($parentEmail, $title, $html);
-				}
-			}
-		}
+	if ($comment -> comment_approved == 1){
+		comment_mail_notify($comment);
 	}
 }
 add_action('comment_post' , 'post_comment_updatemetas');
+add_action('comment_unapproved_to_approved', 'comment_mail_notify');
+add_rewrite_rule('^unsubscribe-comment-mailnotice/?(.*)$', '/wp-content/themes/argon/unsubscribe-comment-mailnotice.php$1', 'top');
 //编辑评论
 function user_edit_comment(){
 	header('Content-Type:application/json; charset=utf-8');
@@ -671,8 +697,8 @@ function user_edit_comment(){
 		)));
 	}
 }
-add_action('wp_ajax_user_edit_comment' , 'user_edit_comment');
-add_action('wp_ajax_nopriv_user_edit_comment' , 'user_edit_comment');
+add_action('wp_ajax_user_edit_comment', 'user_edit_comment');
+add_action('wp_ajax_nopriv_user_edit_comment', 'user_edit_comment');
 //获取顶部 Banner 背景图（用户指定或必应日图）
 function get_banner_background_url(){
 	$url = get_option("argon_banner_background_url");
