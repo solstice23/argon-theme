@@ -1340,7 +1340,7 @@ function shortcode_friend_link($attr,$content=""){
 					<img src='" . $friendlink -> link_image . "' class='friend-link-avatar bg-gradient-secondary'>";
 		}else{
 			$out .= "
-					<div class='friend-link-avatar bg-gradient-secondary'></div>";
+					<img class='friend-link-avatar bg-gradient-secondary'></img>";
 		}
 		$out .= "	<div class='friend-link-content'>
 						<div class='friend-link-title title text-primary'>

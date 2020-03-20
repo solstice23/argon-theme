@@ -70,7 +70,7 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 + 旧的友情链接短代码改名为 `sfriendlinks`
 + 评论会自动填充上一次的姓名、邮箱、网站输入框的内容
 + 增加 "评论时默认勾选 '启用邮件通知'' 复选框" 选项
-+ 文章设置新增 "隐藏文章发布时间和阅读量" 选项
++ 文章设置新增 "隐藏文章发布时间和分类" 选项
 + 更改说说文章页面 URL
 
 ⚠ 在该版本中，友情链接改为从 Wordpress 链接管理器中读取。请将友情链接迁移至 Wordpress 链接管理器中，或将原先的友链短代码改为 `sfriendlinks`。
