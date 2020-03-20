@@ -38,7 +38,7 @@
 <?php } else { ?>
 
 <?php $name_and_email_required = get_option('require_name_email')?>
-
+<?php $current_commenter = wp_get_current_commenter(); ?>
 <div id="post_comment" class="card shadow-sm <?php if (is_user_logged_in()) {echo("logged");}?><?php if (!$name_and_email_required) {echo(" no-need-name-email");}?><?php if (get_option('argon_comment_need_captcha') == 'false') {echo(" no-need-captcha");}?>">
 	<div class="card-body">
 		<h2 class="post-comment-title">
@@ -93,7 +93,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-user-circle"></i></span>
 							</div>
-							<input id="post_comment_name" class="form-control" placeholder="昵称" type="text" name="author" <?php if (is_user_logged_in()) {echo('value="' . wp_get_current_user() -> user_login . '"');}?>>
+							<input id="post_comment_name" class="form-control" placeholder="昵称" type="text" name="author" value="<?php if (is_user_logged_in()) {echo (wp_get_current_user() -> user_login);} else {echo htmlspecialchars($current_commenter['comment_author']);} ?>">
 						</div>
 					</div>
 				</div>
@@ -103,7 +103,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-envelope"></i></span>
 							</div>
-							<input id="post_comment_email" class="form-control" placeholder="邮箱" type="email" name="email" <?php if (is_user_logged_in()) {echo('value="' . wp_get_current_user() -> user_email . '"');}?>>
+							<input id="post_comment_email" class="form-control" placeholder="邮箱" type="email" name="email" value="<?php if (is_user_logged_in()) {echo (wp_get_current_user() -> user_email);} else {echo htmlspecialchars($current_commenter['comment_author_email']);} ?>">
 						</div>
 					</div>
 				</div>
@@ -131,7 +131,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-link"></i></span>
 							</div>
-							<input id="post_comment_link" class="form-control" placeholder="网站" type="text" name="url">
+							<input id="post_comment_link" class="form-control" placeholder="网站" type="text" name="url" value="<?php echo htmlspecialchars($current_commenter['comment_author_url']); ?>">
 						</div>
 					</div>
 				</div>
@@ -158,7 +158,7 @@
 					<?php } ?>
 					<?php if (get_option("argon_comment_allow_mailnotice") == "true") {?>
 						<div class="custom-control custom-checkbox comment-post-checkbox comment-post-mailnotice">
-							<input class="custom-control-input" id="comment_post_mailnotice" type="checkbox">
+							<input class="custom-control-input" id="comment_post_mailnotice" type="checkbox"<?php if (get_option("argon_comment_mailnotice_checkbox_checked") == 'true'){echo ' checked';}?>>
 							<label class="custom-control-label" for="comment_post_mailnotice">邮件提醒</label>
 						</div>
 					<?php } ?>

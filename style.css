@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.901
+Version: 0.902
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -1586,7 +1586,7 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	pointer-events: none;
 	opacity: 0;
 }
-.post-comment-link-container:before , .post-comment-captcha-container:before , #post_comment_toggle_extra_input:before , .comment-post-mailnotice:before{
+.post-comment-link-container:before , .post-comment-captcha-container:before , #post_comment_toggle_extra_input:before , .comment-post-checkbox:before{
 	pointer-events: none;
 	position: absolute;
 	top: -35px;
@@ -1608,7 +1608,7 @@ background: rgba(var(--themecolor-rgbstr), .1);
 .post-comment-link-container:hover:before , .post-comment-link-container.active:before , 
 .post-comment-captcha-container:hover:before , .post-comment-captcha-container.active:before , 
 #post_comment_toggle_extra_input:hover:before , 
-.comment-post-mailnotice:hover:before{
+.comment-post-checkbox:hover:before{
 	transform: translateY(0);
 	opacity: .7;
 }
@@ -1673,6 +1673,9 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 }
 #post_comment.post-comment-force-privatemode-off .comment-post-privatemode .custom-control-label::after {
 	background-image: unset;
+}
+.comment-post-privatemode:before{
+	content: "\8bc4\8bba\4ec5\53d1\9001\8005\548c\535a\4e3b\53ef\89c1";
 }
 .comment-post-mailnotice:before{
 	content: "\6709\56de\590d\65f6\90ae\4ef6\901a\77e5\6211";
@@ -1799,35 +1802,168 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 	background: #88888833;
 }
 
-/*短代码-友链*/
-.friend-links .friend-category-title{
+/*短代码-友链-简洁*/
+.friend-links-simple .friend-category-title{
 	font-size: 22px;
 	text-align: center;
 	font-weight: bold;
 	margin-top: 20px;
 	margin-bottom: 25px;
 }
-.friend-links .link{
+.friend-links-simple .link{
 	padding: 0 10px;
 }
-.friend-links .link .card{
+.friend-links-simple .link .card{
 	padding: 12px 12px;
 }
-.friend-links .link .friend-link-avatar{
+.friend-links-simple .link .friend-link-avatar{
 	margin-top: 8px;
 }
-.friend-links .link .card img{
+.friend-links-simple .link .card img{
 	border: none;
 	max-width: unset;
 }
-.friend-links .link .friend-link-title{
+.friend-links-simple .link .friend-link-title{
 	font-size: 17px;
 	font-weight: bold;
 	margin-bottom: 5px;
 }
-.friend-links .link a:before{
+.friend-links-simple .link a:before{
 	display: none;
 }
+
+/*短代码-友链*/
+.friend-links .link {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 15px;
+}
+.friend-links .friend-link-container {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.friend-links .link a:before {
+	display: none;
+}
+/*短代码-友链-样式 1*/
+.friend-links-style1 .friend-link-avatar {
+	display: inline-block;
+	width: 125px;
+	height: 140px;
+	border-radius: 0 65px 65px 0;
+	object-fit: cover;
+	pointer-events: none;
+}
+.friend-links-style1 .friend-link-content {
+	display: inline-block;
+	width: calc(100% - 125px);
+	height: 140px;
+	vertical-align: middle;
+	padding: 10px 15px 10px 15px;
+	white-space: normal;
+}
+.friend-links-style1 .friend-link-title {
+	font-weight: bold;
+	font-size: 18px;
+	height: 36px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.friend-links-style1 .friend-link-description {
+	height: 50px;
+	overflow: hidden;
+	line-height: 25px;
+	position: relative;
+}
+.friend-links-style1 .friend-link-description:after {
+	content: '';
+	width: 45px;
+	height: 22px;
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 25px;
+	pointer-events: none;
+	background: linear-gradient(90deg,transparent 0%,#fff 100%);
+}
+html.darkmode .friend-links-style1 .friend-link-description:after {
+	background: linear-gradient(90deg,transparent 0%,#424242 100%);
+}
+html.darkmode.amoled-dark .friend-links-style1 .friend-link-description:after {
+	background: linear-gradient(90deg,transparent 0%,#000 100%);
+}
+.friend-links-style1 .friend-link-links {
+	height: 32px;
+	overflow: hidden;
+	font-size: 18px;
+	margin-top: 2px;
+}
+.friend-links-style1 .friend-link-links > a {
+	margin-right: 12px;
+}
+/*短代码-友链-样式 1-方形头像*/
+.friend-links-style1.friend-links-style1-square .friend-link-avatar {
+	border-radius: 0;
+	width: 130px;
+}
+.friend-links-style1.friend-links-style1-square .friend-link-content {
+	width: calc(100% - 130px);
+}
+/*短代码-友链-样式 2*/
+.friend-links-style2 .friend-link-avatar {
+	display: block;
+	width: 100%;
+	height: 160px;
+	object-fit: cover;
+	pointer-events: none;
+}
+.friend-links-style2 .friend-link-content {
+	display: block;
+	width: 100%;
+	padding: 10px 15px 12px 15px;
+}
+.friend-links-style2 .friend-link-title {
+	font-weight: bold;
+	font-size: 18px;
+	height: 36px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.friend-links-style2 .friend-link-description {
+	height: 25px;
+	line-height: 25px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.friend-links-style2 .friend-link-links {
+	height: 30px;
+	overflow: hidden;
+	font-size: 18px;
+	margin-top: 8px;
+}
+.friend-links-style2 .friend-link-links > a {
+	margin-right: 15px;
+}
+/*短代码-友链-样式 2-大头像*/
+.friend-links-style2.friend-links-style2-big .friend-link-avatar {
+	height: calc(100vw * 0.2);
+	min-height: 200px;
+	max-height: 250px;
+}
+.friend-links-style2.friend-links-style2-big .friend-link-links > a {
+	margin-right: 12px;
+}
+@media (min-width: 992px){
+	.friend-links.friend-links-style2-big .link {
+		max-width: 33.33333%;
+		flex: 0 0 33.33333%;
+	}
+}
+
 
 /*短代码-时间线*/
 .argon-timeline{
@@ -3172,7 +3308,7 @@ html.darkmode.amoled-dark #content:before , html.darkmode.amoled-dark #content:a
 /*Safari 兼容*/
 html.using-safari #float_action_buttons .fabtn:before,
 html.using-safari #share > a:before, html.using-safari #share_show:before,
-html.using-safari .post-comment-link-container:before, html.using-safari .post-comment-captcha-container:before, html.using-safari #post_comment_toggle_extra_input:before,
+html.using-safari .post-comment-link-container:before, html.using-safari .post-comment-captcha-container:before, html.using-safari #post_comment_toggle_extra_input:before, html.using-safari .comment-post-checkbox:before,
 html.using-safari .comment-time-details,
 html.using-safari #share .icon-wechat .wechat-qrcode{
 	-webkit-transform: translate3d(0,0,0) !important;

@@ -319,7 +319,11 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		replying = true;
 		replyID = commentID;
 		$("#post_comment_reply_name").html($("#comment-" + commentID + " .comment-item-title")[0].innerHTML);
-		$("#post_comment_reply_preview").html($("#comment-" + commentID + " .comment-item-source")[0].innerHTML.replace(/\n/g, "</br>"));
+		let preview = $("#comment-" + commentID + " .comment-item-text")[0].innerHTML;
+		if ($("#comment-" + commentID + " .comment-item-source")[0].innerHTML != ''){
+			preview = $("#comment-" + commentID + " .comment-item-source")[0].innerHTML.replace(/\n/g, "</br>");
+		}
+		$("#post_comment_reply_preview").html(preview);
 		if ($("#comment-" + commentID + " .comment-item-title .badge-private-comment").length > 0){
 			$("#post_comment").addClass("post-comment-force-privatemode-on");
 		}else{
@@ -531,6 +535,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				comment_parent: replyID,
 				comment_captcha_seed: commentCaptchaSeed,
 				comment_captcha: commentCaptcha,
+				"wp-comment-cookies-consent": "yes",
 				use_markdown: useMarkdown,
 				private_mode: privateMode,
 				enable_mailnotice: mailNotice
@@ -770,6 +775,9 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 					icon: 'fa fa-check',
 					timeout: 5000
 				});
+				$("body,html").animate({
+					scrollTop: $("#comment-" + editID).offset().top - 100
+				}, 300);
 				editing = false;
 				editID = 0;
 				$("#post_comment_content").val("");

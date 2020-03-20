@@ -83,6 +83,16 @@
 				echo "</div>";
 			}
 		?>
+		<?php if (is_meta_simple()){ ?>
+			<style>
+				.post-meta .post-meta-detail-time ,
+				.post-meta .post-meta-detail-time + .post-meta-devide ,
+				.post-meta .post-meta-detail-comments + .post-meta-devide ,
+				.post-meta .post-meta-detail-catagories{
+					display: none;
+				}
+			</style>
+		<?php } ?>
 	</header>
 
 	<div class="post-content" id="post_content">

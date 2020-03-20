@@ -255,13 +255,21 @@ function have_catalog(){
 //当前文章是否隐藏 阅读时间 Meta
 function is_readingtime_meta_hidden(){
 	if (strpos(get_the_content() , "[hide_reading_time][/hide_reading_time]") !== False){
-		return True;
+		return true;
 	}
 	global $post;
 	if (get_post_meta($post -> ID, 'argon_hide_readingtime', true) == 'true'){
-		return True;
+		return true;
 	}
-	return False;
+	return false;
+}
+//当前文章是否隐藏 发布时间和分类 (简洁 Meta)
+function is_meta_simple(){
+	global $post;
+	if (get_post_meta($post -> ID, 'argon_meta_simple', true) == 'true'){
+		return true;
+	}
+	return false;
 }
 //根据文章 id 获取标题
 function get_post_title_by_id($id){
@@ -688,7 +696,7 @@ function user_edit_comment(){
 			'status' => 'success',
 			'msg' => '编辑评论成功',
 			'new_comment' => apply_filters('comment_text', get_comment_text($id), $id),
-			'new_comment_source' => htmlspecialchars($contentSource)
+			'new_comment_source' => htmlspecialchars(stripslashes($contentSource))
 		)));
 	}else{
 		exit(json_encode(array(
@@ -997,6 +1005,13 @@ function argon_meta_box_1(){
 			<option value="true" <?php if ($argon_meta_hide_readingtime=='true'){echo 'selected';} ?>>不显示</option>
 		</select>
 		<p style="margin-top: 15px;">是否显示字数和预计阅读时间 Meta 信息</p>
+		<h4>Meta 中隐藏发布时间和分类</h4>
+		<?php $argon_meta_simple = get_post_meta($post->ID, "argon_meta_simple", true);?>
+		<select name="argon_meta_simple" id="argon_meta_simple">
+			<option value="false" <?php if ($argon_meta_simple=='false'){echo 'selected';} ?>>不隐藏</option>
+			<option value="true" <?php if ($argon_meta_simple=='true'){echo 'selected';} ?>>隐藏</option>
+		</select>
+		<p style="margin-top: 15px;">适合固定的页面，例如友链页面。开启后文章 Meta 的第一行只显示阅读数和评论数。</p>
 	<?php
 }
 function argon_add_meta_boxes(){
@@ -1025,6 +1040,7 @@ function argon_save_meta_data($post_id){
 		}
 	}
 	update_post_meta($post_id, 'argon_hide_readingtime', $_POST['argon_meta_hide_readingtime']);
+	update_post_meta($post_id, 'argon_meta_simple', $_POST['argon_meta_simple']);
 }
 add_action('save_post', 'argon_save_meta_data');
 //首页显示说说
@@ -1290,6 +1306,70 @@ function shortcode_collapse_block($attr,$content=""){
 }
 add_shortcode('friendlinks','shortcode_friend_link');
 function shortcode_friend_link($attr,$content=""){
+	$sort = isset($attr['sort']) ? $attr['sort'] : 'name';
+	$order = isset($attr['order']) ? $attr['order'] : 'ASC';
+	$friendlinks = get_bookmarks( array(
+		'orderby' => $sort ,
+		'order'   => $order
+	));
+	$style = isset($attr['style']) ? $attr['style'] : '1';
+	switch ($style) {
+		case '1':
+			$class = "friend-links-style1";
+			break;
+		case '1-square':
+			$class = "friend-links-style1 friend-links-style1-square";
+			break;
+		case '2':
+			$class = "friend-links-style2";
+			break;
+		case '2-big':
+			$class = "friend-links-style2 friend-links-style2-big";
+			break;
+		default:
+			$class = "friend-links-style1";
+			break;
+	}
+	$out = "<div class='friend-links " . $class . "'><div class='row'>";
+	foreach ($friendlinks as $friendlink){
+		$out .= "
+			<div class='link mb-2 col-lg-6 col-md-6'>
+				<div class='card shadow-sm friend-link-container'>";
+		if ($friendlink -> link_image != ''){
+			$out .= "
+					<img src='" . $friendlink -> link_image . "' class='friend-link-avatar bg-gradient-secondary'>";
+		}else{
+			$out .= "
+					<div class='friend-link-avatar bg-gradient-secondary'></div>";
+		}
+		$out .= "	<div class='friend-link-content'>
+						<div class='friend-link-title title text-primary'>
+							<a target='_blank' href='" . esc_url($friendlink -> link_url) . "'>" . esc_html($friendlink -> link_name) . "</a>
+						</div>
+						<div class='friend-link-description'>" . esc_html($friendlink -> link_description) . "</div>";
+		$out .= "		<div class='friend-link-links'>";
+		foreach (explode("\n", $friendlink -> link_notes) as $line){
+			$item = explode("|", trim($line));
+			if(stripos($item[0], "fa-") !== 0){
+				continue;
+			}
+			$out .= "<a href='" . esc_url($item[1]) . "' target='_blank'><i class='fa " . sanitize_html_class($item[0]) . "'></i></a>";
+		}
+		$out .= "<a href='" . esc_url($friendlink -> link_url) . "' target='_blank' style='float:right; margin-right: 10px;'><i class='fa fa-angle-right' style='font-weight: bold;'></i></a>";
+		$out .= "
+						</div>
+					</div>
+				</div>
+			</div>";
+	}
+	$out .= "</div></div>";
+	?>
+	<?php
+	get_template_part( 'template-parts/friendlinks', "style1" );
+	return $out;
+}
+add_shortcode('sfriendlinks','shortcode_friend_link_simple');
+function shortcode_friend_link_simple($attr,$content=""){
 	$content = trim(strip_tags($content));
 	$entries = explode("\n" , $content);
 
@@ -1320,7 +1400,7 @@ function shortcode_friend_link($attr,$content=""){
 	}
 
 	$row_tag_open = False;
-	$out = "<div class='friend-links'>";
+	$out = "<div class='friend-links-simple'>";
 	foreach($entries as $index => $value){
 		$now = explode("|" , $value);
 		if ($now[0] == 'category'){
@@ -2203,6 +2283,12 @@ window.pjaxLoaded = function(){
 								<option value="false" <?php if ($argon_comment_allow_mailnotice=='false'){echo 'selected';} ?>>不允许</option>
 								<option value="true" <?php if ($argon_comment_allow_mailnotice=='true'){echo 'selected';} ?>>允许</option>	
 							</select>
+							<div style="margin-top: 15px;margin-bottom: 15px;">
+								<label>
+									<?php $argon_comment_mailnotice_checkbox_checked = get_option('argon_comment_mailnotice_checkbox_checked');?>
+									<input type="checkbox" name="argon_comment_mailnotice_checkbox_checked" value="true" <?php if ($argon_comment_mailnotice_checkbox_checked=='true'){echo 'checked';}?>/>	评论时默认勾选 "启用邮件通知" 复选框
+								</label>
+							</div>
 							<p class="description">评论者开启邮件提醒后，其评论有回复时会有邮件通知。</p>
 						</td>
 					</tr>
@@ -2574,6 +2660,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_comment_allow_editing');
 		argon_update_option('argon_comment_allow_privatemode');
 		argon_update_option('argon_comment_allow_mailnotice');
+		update_option('argon_comment_mailnotice_checkbox_checked', ($_POST['argon_comment_mailnotice_checkbox_checked'] == 'true')?'true':'false');
 		argon_update_option('argon_home_show_shuoshuo');
 		argon_update_option('argon_darkmode_autoswitch');
 		argon_update_option('argon_enable_amoled_dark');
@@ -2650,9 +2737,12 @@ function init_shuoshuo(){
 		'show_in_menu' => true,
 		'exclude_from_search' => true,
 		'query_var' => true, 
-		'rewrite' => true,
+		'rewrite' => array(
+			'slug' => 'shuoshuo',
+			'with_front' => false
+		),
 		'capability_type' => 'post',
-		'has_archive' => 'shuoshuo',
+		'has_archive' => false,
 		'hierarchical' => false, 
 		'menu_position' => null,
 		'menu_icon' => 'dashicons-format-quote',
@@ -2660,3 +2750,6 @@ function init_shuoshuo(){
 	);
 	register_post_type('shuoshuo', $args); 
 }
+
+/*恢复链接管理器*/
+add_filter('pre_option_link_manager_enabled', '__return_true');
