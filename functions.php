@@ -193,6 +193,9 @@ function set_post_views(){
 			return;
 		}
 	}
+	if ($_POST['no_post_view'] == 'true'){
+		return;
+	}
 	global $post;
 	$post_id = $post -> ID;
 	$count_key = 'views';
@@ -521,6 +524,52 @@ function check_comment_captcha($comment){
 if($comment_data['comment_type'] == ''){
 	add_filter('preprocess_comment' , 'check_comment_captcha');
 }
+//Ajax 发送评论
+function ajax_post_comment(){
+	$comment = wp_handle_comment_submission(wp_unslash($_POST));
+	if (is_wp_error($comment)){
+		$msg = $comment -> get_error_data();
+		if (!empty($msg)){
+			$msg = $comment -> get_error_message();
+		}
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => $msg,
+			'isAdmin' => current_user_can('level_7')
+		)));
+	}
+	$user = wp_get_current_user();
+	do_action('set_comment_cookies', $comment, $user);
+	$html = wp_list_comments(
+		array(
+			'type'      => 'comment',
+			'callback'  => 'argon_comment_format',
+			'echo'      => false
+		),
+		array($comment)
+	);
+	$newCaptchaSeed = get_comment_captcha_seed();
+	$newCaptcha = get_comment_captcha($newCaptchaSeed);
+	if (current_user_can('level_7')){
+		$newCaptchaAnswer = get_comment_captcha_answer($newCaptchaSeed);
+	}else{
+		$newCaptchaAnswer = "";
+	}
+	exit(json_encode(array(
+		'status' => 'success',
+		'html' => $html,
+		'id' => $comment -> comment_ID,
+		'parentID' => $comment -> comment_parent,
+		'commentOrder' => (get_option("comment_order") == "" ? "desc" : get_option("comment_order")),
+		'newCaptchaSeed' => $newCaptchaSeed,
+		'newCaptcha' => $newCaptcha,
+		'newCaptchaAnswer' => $newCaptchaAnswer,
+		'isAdmin' => current_user_can('level_7'),
+		'isLogin' => is_user_logged_in()
+	)));
+}
+add_action('wp_ajax_ajax_post_comment', 'ajax_post_comment');
+add_action('wp_ajax_nopriv_ajax_post_comment', 'ajax_post_comment');
 //评论 Markdown 解析
 require_once(get_template_directory() . '/parsedown.php');
 function comment_markdown_parse($comment_content){
@@ -682,6 +731,12 @@ function user_edit_comment(){
 			'msg' => '您不是这条评论的作者或 Token 已过期'
 		)));
 	}
+	if ($_POST["comment"] == ""){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => '新的评论为空'
+		)));
+	}
 	if (get_comment_meta($id, "use_markdown", true) == "true"){
 		$content = comment_markdown_parse($content);
 	}
@@ -707,6 +762,109 @@ function user_edit_comment(){
 }
 add_action('wp_ajax_user_edit_comment', 'user_edit_comment');
 add_action('wp_ajax_nopriv_user_edit_comment', 'user_edit_comment');
+//输出评论分页页码
+function get_argon_formatted_comment_paginate_links($maxPageNumbers, $extraClasses = ''){
+	$args = array(
+		'prev_text' => '',
+		'next_text' => '',
+		'before_page_number' => '',
+		'after_page_number' => '',
+		'show_all' => True,
+		'echo' => False
+	);
+	$res = paginate_comments_links($args);
+	//单引号转双引号 & 去除上一页和下一页按钮
+	$res = preg_replace(
+		'/\'/',
+		'"',
+		$res
+	);
+	$res = preg_replace(
+		'/<a class="prev page-numbers" href="(.*?)">(.*?)<\/a>/',
+		'',
+		$res
+	);
+	$res = preg_replace(
+		'/<a class="next page-numbers" href="(.*?)">(.*?)<\/a>/',
+		'',
+		$res
+	);
+	//寻找所有页码标签
+	preg_match_all('/<(.*?)>(.*?)<\/(.*?)>/' , $res , $pages);
+	$total = count($pages[0]);
+	$current = 0;
+	$urls = array();
+	for ($i = 0; $i < $total; $i++){
+		if (preg_match('/<span(.*?)>(.*?)<\/span>/' , $pages[0][$i])){
+			$current = $i + 1;
+		}else{
+			preg_match('/<a(.*?)href="(.*?)">(.*?)<\/a>/' , $pages[0][$i] , $tmp);
+			$urls[$i + 1] = $tmp[2];
+		}
+	}
+
+	if ($total == 0){
+		return "";
+	}
+
+	//计算页码起始
+	$from = max($current - ($maxPageNumbers - 1) / 2 , 1);
+	$to = min($current + $maxPageNumbers - ( $current - $from + 1 ) , $total);
+	if ($to - $from + 1 < $maxPageNumbers){
+		$to = min($current + ($maxPageNumbers - 1) / 2 , $total);
+		$from = max($current - ( $maxPageNumbers - ( $to - $current + 1 ) ) , 1);
+	}
+	//生成新页码
+	$html = "";
+	if ($from > 1){
+		$html .= '<li class="page-item"><div aria-label="First Page" class="page-link" href="' . $urls[1] . '"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></li>';
+	}
+	if ($current > 1){
+		$html .= '<li class="page-item"><div aria-label="Previous Page" class="page-link" href="' . $urls[$current - 1] . '"><i class="fa fa-angle-left" aria-hidden="true"></i></div></li>';
+	}
+	for ($i = $from; $i <= $to; $i++){
+		if ($current == $i){
+			$html .= '<li class="page-item active"><span class="page-link" style="cursor: default;">' . $i . '</span></li>';
+		}else{
+			$html .= '<li class="page-item"><div class="page-link" href="' . $urls[$i] . '">' . $i . '</div></li>';
+		}
+	}
+	if ($current < $total){
+		$html .= '<li class="page-item"><div aria-label="Next Page" class="page-link" href="' . $urls[$current + 1] . '"><i class="fa fa-angle-right" aria-hidden="true"></i></div></li>';
+	}
+	if ($to < $total){
+		$html .= '<li class="page-item"><div aria-label="Last Page" class="page-link" href="' . $urls[$total] . '"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></li>';
+	}
+	return '<nav id="comments_navigation" class="comments-navigation"><ul class="pagination' . $extraClasses . '">' . $html . '</ul></nav>';
+}
+function get_argon_formatted_comment_paginate_links_for_all_platforms(){
+	return get_argon_formatted_comment_paginate_links(7) . get_argon_formatted_comment_paginate_links(5, " pagination-mobile");
+}
+function get_argon_comment_paginate_links_prev_url(){
+	$args = array(
+		'prev_text' => '',
+		'next_text' => '',
+		'before_page_number' => '',
+		'after_page_number' => '',
+		'show_all' => True,
+		'echo' => False
+	);
+	$str = paginate_comments_links($args);
+	//单引号转双引号
+	$str = preg_replace(
+		'/\'/',
+		'"',
+		$str
+	);
+	//获取上一页地址
+	$url = "";
+	preg_match(
+		'/<a class="prev page-numbers" href="(.*?)">(.*?)<\/a>/',
+		$str,
+		$url
+	);
+	return $url[1];
+}
 //获取顶部 Banner 背景图（用户指定或必应日图）
 function get_banner_background_url(){
 	$url = get_option("argon_banner_background_url");
@@ -2219,6 +2377,18 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>评论</h2></th></tr>
+					<tr><th class="subtitle"><h3>评论分页</h3></th></tr>
+					<tr>
+						<th><label>评论分页方式</label></th>
+						<td>
+							<select name="argon_comment_pagination_type">
+								<?php $argon_comment_pagination_type = get_option('argon_comment_pagination_type'); ?>
+								<option value="feed" <?php if ($argon_comment_pagination_type=='feed'){echo 'selected';} ?>>无限加载</option>
+								<option value="page" <?php if ($argon_comment_pagination_type=='page'){echo 'selected';} ?>>页码</option>	
+							</select>
+							<p class="description">无限加载：点击 "加载更多" 按钮来加载更多评论。</br>页码：显示页码来分页。</br>推荐选择"无限加载"时将 Wordpress 设置中的讨论设置项设为 "默认显示最后一页，在每个页面顶部显示新的评论"。</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h3>发送评论</h3></th></tr>
 					<tr>
 						<th><label>是否隐藏 "昵称"、"邮箱"、"网站" 输入框</label></th>
@@ -2661,6 +2831,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_comment_allow_privatemode');
 		argon_update_option('argon_comment_allow_mailnotice');
 		update_option('argon_comment_mailnotice_checkbox_checked', ($_POST['argon_comment_mailnotice_checkbox_checked'] == 'true')?'true':'false');
+		argon_update_option('argon_comment_pagination_type');
 		argon_update_option('argon_home_show_shuoshuo');
 		argon_update_option('argon_darkmode_autoswitch');
 		argon_update_option('argon_enable_amoled_dark');

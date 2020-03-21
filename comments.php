@@ -11,7 +11,6 @@
 				<i class="fa fa-comments"></i>
 				评论
 			</h2>
-			<?php the_comments_navigation(); ?>
 			<ol class="comment-list">
 				<?php
 					wp_list_comments(
@@ -22,7 +21,24 @@
 					);
 				?>
 			</ol>
-			<?php the_comments_navigation(); ?>
+			<?php
+				if (get_option("argon_comment_pagination_type") == "page"){
+					if (get_comment_pages_count() > 1){
+						echo get_argon_formatted_comment_paginate_links_for_all_platforms();
+					}
+				}else{
+					$prevPageUrl = get_argon_comment_paginate_links_prev_url();
+					if (!empty($prevPageUrl)){?>
+						<div class="comments-navigation-more">
+							<button id="comments_more" class="btn btn-lg btn-primary rounded-circle" href="<?php echo $prevPageUrl;?>">
+								<span class="btn-inner--icon">
+									<i class="fa fa-angle-down" style="transform: translateY(2px);font-size: 19.2px;"></i>
+								</span>
+							</button>
+						</div>
+				<?php }
+				}
+			?>
 		<?php } else {?>
 			<span>暂无评论</span>
 		<?php } ?>
@@ -49,7 +65,7 @@
 		<div id="post_comment_reply_info" class="post-comment-reply" style="display: none;">
 			<span>正在回复 <b><span id="post_comment_reply_name"></span></b> 的评论 :</span>
 			<div id="post_comment_reply_preview" class="post-comment-reply-preview"></div>
-			<button id="post_comment_reply_cencel" class="btn btn-outline-primary btn-sm">取消回复</button>
+			<button id="post_comment_reply_cancel" class="btn btn-outline-primary btn-sm">取消回复</button>
 		</div>
 		<form>
 			<div class="row">
@@ -168,7 +184,7 @@
 						<span class="btn-inner--text hide-on-comment-editing" style="margin-right: 0;">发送</span>
 						<span class="btn-inner--text hide-on-comment-not-editing" style="margin-right: 0;">编辑</span>
 					</button>
-					<button id="post_comment_edit_cencel" class="btn btn-icon btn-danger pull-right hide-on-comment-not-editing" type="button" style="margin-right: 8px;">
+					<button id="post_comment_edit_cancel" class="btn btn-icon btn-danger pull-right hide-on-comment-not-editing" type="button" style="margin-right: 8px;">
 						<span class="btn-inner--icon"><i class="fa fa-close"></i></span>
 						<span class="btn-inner--text">取消</span>
 					</button>
