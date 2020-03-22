@@ -63,6 +63,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200323 v0.911
++ 增加单栏模式
+
 ## 20200322 v0.910
 + 评论区支持分页
 + 新增 "无限加载" 和 "页码" 两种评论分页方式

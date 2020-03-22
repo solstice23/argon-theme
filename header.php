@@ -4,6 +4,9 @@
 	if (get_option('argon_pjax_disabled') == "true"){
 		$htmlclasses .= "no-pjax ";
 	}
+	if (get_option('argon_page_layout') == "single"){
+		$htmlclasses .= "single-column ";
+	}
 	if (get_option('argon_enable_amoled_dark') == "true"){
 		$htmlclasses .= "amoled-dark ";
 	}

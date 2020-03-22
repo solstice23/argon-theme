@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.910
+Version: 0.911
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -33,7 +33,7 @@ article .post-content p{
 	line-height: 1.8;
 	word-wrap: break-word;
 }
-article h1 , article h2 , article h3 , article h4 ,  article h5 ,  article h6 , article strong{
+article h1 , article h2 , article h3 , article h4 , article h5 , article h6 , article strong{
 	font-weight: 600;
 }
 article h1 , article h2 , article h3 , article h4 , article h5 , article h6{
@@ -250,7 +250,6 @@ a.text-primary:focus , a.text-primary:hover {
 	width: calc(100% - 280px);
 	float: right;
 }
-
 #leftbar{
 	padding-left: 20px;
 	padding-right: 20px;
@@ -261,6 +260,28 @@ a.text-primary:focus , a.text-primary:hover {
 #main{
 	padding: 0 20px;
 	overflow: visible;
+}
+/*单栏布局*/
+html.single-column #leftbar{
+	display: none;
+}
+html.single-column #primary{
+	width: 100%;
+	float: none;
+	max-width: 1200px;
+	margin: auto;
+}
+html.single-column #main{
+	padding: 0;
+}
+html.single-column #fabtn_open_sidebar{
+	display: none !important;
+}
+html.page-infomation-card{
+	width: 100%;
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
 }
 /*Pjax加载动画 & 卡片动画*/
 @keyframes card-show{

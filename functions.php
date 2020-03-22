@@ -1853,6 +1853,26 @@ function themeoptions_page(){
 							<p class="description">卡片的圆角大小，默认为 <code>4px</code>。建议设置在 <code>2px</code> 和 <code>15px</code> 之间。</p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h3>布局</h3></th></tr>
+					<tr>
+						<th><label>页面布局</label></th>
+						<td>
+							<div class="radio-with-img">
+								<?php $argon_page_layout = (get_option('argon_page_layout') == '' ? 'double' : get_option('argon_page_layout')); ?>
+								<div class="radio-img">
+									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect width="1920" height="1080" style="fill:#e6e6e6"/><g style="opacity:0.5"><rect width="1920" height="381" style="fill:#5e72e4"/></g><rect x="388.5" y="256" width="258" height="179" style="fill:#5e72e4"/><rect x="388.5" y="470" width="258" height="485" style="fill:#fff"/><rect x="689.5" y="256.5" width="842" height="250" style="fill:#fff"/><rect x="689.5" y="536.5" width="842" height="250" style="fill:#fff"/><rect x="689.5" y="817" width="842" height="250" style="fill:#fff"/></svg>
+								</div>
+								<label><input name="argon_page_layout" type="radio" value="double" <?php if ($argon_page_layout=='double'){echo 'checked';} ?>> 双栏</label>
+							</div>
+							<div class="radio-with-img">
+								<div class="radio-img">
+									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect width="1920" height="1080" style="fill:#e6e6e6"/><g style="opacity:0.5"><rect width="1920" height="381" style="fill:#5e72e4"/></g><rect x="428.25" y="256.5" width="1063.5" height="250" style="fill:#fff"/><rect x="428.25" y="536.5" width="1063.5" height="250" style="fill:#fff"/><rect x="428.25" y="817" width="1063.5" height="250" style="fill:#fff"/></svg>
+								</div>
+								<label><input name="argon_page_layout" type="radio" value="single" <?php if ($argon_page_layout=='single'){echo 'checked';} ?>> 单栏</label>
+							</div>
+							<p class="description" style="margin-top: 15px;">使用单栏时，关于侧栏的设置将失效。</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>顶栏</h2></th></tr>
 					<tr><th class="subtitle"><h3>标题</h3></th></tr>
 					<tr>
@@ -2580,6 +2600,18 @@ window.pjaxLoaded = function(){
 	</div>
 	<div id="exported_settings_json_box" class="closed"><div>请复制并保存导出后的 JSON</div><textarea id="exported_settings_json" readonly="true" onclick="$(this).select();"></textarea><div style="width: 100%;margin: auto;margin-top: 15px;cursor: pointer;user-select: none;" onclick="$('#exported_settings_json_box').addClass('closed');">关闭</div></div>
 	<style>
+		.radio-with-img {
+			display: inline-block;
+			margin-right: 15px;
+			text-align: center;
+		}
+		.radio-with-img > .radio-img {
+			cursor: pointer;
+		}
+		.radio-with-img > label {
+			display: inline-block;
+			margin-top: 10px;
+		}
 		#headindex_box {
 			position: fixed;
 			right: 10px;
@@ -2688,6 +2720,9 @@ window.pjaxLoaded = function(){
 		}
 	</style>
 	<script type="text/javascript">
+		$(document).on("click" , ".radio-with-img .radio-img" , function(){
+			$("input", this.parentNode).click();
+		});
 		$(function () {
 			$(document).headIndex({
 				articleWrapSelector: '#main_form',
@@ -2842,6 +2877,7 @@ function argon_update_themeoptions(){
 		update_option('argon_show_toolbar_mask', ($_POST['argon_show_toolbar_mask'] == 'true')?'true':'false');
 		argon_update_option('argon_enable_banner_title_typing_effect');
 		argon_update_option('argon_banner_typing_effect_interval');
+		argon_update_option('argon_page_layout');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');
