@@ -63,7 +63,7 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
-## 20200323 v0.912
+## 20200324 v0.912
 + 增加 Pangu.js 文本格式化选项
 + 需要密码的文章支持 Ajax 加载
 
