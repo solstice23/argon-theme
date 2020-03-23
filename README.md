@@ -63,6 +63,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200323 v0.912
++ 增加 Pangu.js 文本格式化选项
++ 需要密码的文章支持 Ajax 加载
+
 ## 20200323 v0.911
 + 增加单栏模式
 
@@ -118,7 +122,7 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 + 修复手机上的一系列小问题
 + 略微优化后台设置界面
 
-## 20200309 v0.884
+## 20200310 v0.884
 + 增加夜间模式的另一种配色: 暗黑 (AMOLED Black)
 + 修复夜间模式相关的 BUG
 

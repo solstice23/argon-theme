@@ -806,6 +806,16 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		}
 	});
 }();
+/*需要密码的文章加载*/
+$(document).on("submit" , ".post-password-form" , function(){
+	$("input[type='submit']", this).attr("disabled", "disabled");
+	let url = $(this).attr("action");
+	let formdata = $(this).serialize();
+	setTimeout(function(){
+		pjaxLoadUrl(url , false , 0 , 0 , "POST" , formdata);
+	}, 1);
+	return false;
+});
 /*评论分页加载*/
 !function(){
 	$(document).on("click" , "#comments_navigation .page-item > div" , function(){
@@ -916,7 +926,9 @@ showPostOutdateToast();
 
 /*Pjax*/
 var pjaxUrlChanged , pjaxLoading = false;
-function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop){
+function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop , requestType , formdata){
+	requestType = requestType || "GET";
+	formdata = formdata || {};
 	if (pjaxLoading == false){
 		NProgress.remove();
 		NProgress.start();
@@ -934,9 +946,9 @@ function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop){
 				}
 			}
 			NProgress.set(0.618);
-			$.ajax({
+			let ajaxArgs = {
 				url : url,
-				type : "GET",
+				type : requestType,
 				dataType : "html",
 				success : function(result){
 					NProgress.inc();
@@ -1037,7 +1049,11 @@ function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop){
 					pjaxUrlChanged = true;
 					window.location.href = url;
 				}
-			});
+			};
+			if (requestType == "POST"){
+				ajaxArgs.data = formdata;
+			}
+			$.ajax(ajaxArgs);
 		}catch(err){
 			console.log(err);
 			NProgress.done();

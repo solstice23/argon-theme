@@ -335,7 +335,7 @@
 	</div>
 </div>
 <!--Banner-->
-<section id="banner" class="banner section section-lg section-shaped banner-background-loading">
+<section id="banner" class="banner section section-lg section-shaped">
 	<div class="shape <?php echo get_option('argon_banner_background_hide_shapes') == 'true' ? '' : 'shape-style-1' ?> <?php echo get_option('argon_banner_background_color_type') == '' ? 'shape-primary' : get_option('argon_banner_background_color_type'); ?>">
 		<span></span>
 		<span></span>

@@ -473,7 +473,12 @@ function get_comment_captcha_answer($captchaSeed){
 	return "";
 }
 function wrong_captcha(){
-	wp_die('验证码错误，评论失败');
+	exit(json_encode(array(
+		'status' => 'failed',
+		'msg' => '验证码错误',
+		'isAdmin' => current_user_can('level_7')
+	)));
+	//wp_die('验证码错误，评论失败');
 }
 function check_comment_captcha($comment){
 	if (get_option('argon_comment_need_captcha') == 'false'){
@@ -954,12 +959,32 @@ function argon_zoomify($content){
 
 	return $content;
 }
+//Pangu 插入空格
+function argon_pangu($content){
+	$argon_option_enable_pangu = get_option('argon_enable_pangu');
+	$content .= '<script>
+	$(function() {';
+	if (strpos($argon_option_enable_pangu, 'article') !== false){
+		$content .= "pangu.spacingElementById('post_content');";
+	}
+	if (strpos($argon_option_enable_pangu, 'comment') !== false){
+		$content .= "pangu.spacingElementById('comments');";
+	}
+	$content .= '});
+	</script>';
+
+	return $content;
+}
+
 function the_content_filter($content){
 	if (get_option('argon_enable_lazyload') != 'false'){
 		$content = argon_lazyload($content);
 	}
 	if (get_option('argon_enable_zoomify') != 'false'){
 		$content = argon_zoomify($content);
+	}
+	if (get_option('argon_enable_pangu') != 'false' && get_option('argon_enable_pangu') != ''){
+		$content = argon_pangu($content);
 	}
 	return $content;
 }
@@ -2308,7 +2333,7 @@ function themeoptions_page(){
 					</tr>
 					<tr><th class="subtitle"><h2>图片放大浏览</h2></th></tr>
 					<tr>
-						<th><label>是否启用图片放大浏览</label></th>
+						<th><label>是否启用图片放大浏览 (Zoomify)</label></th>
 						<td>
 							<select name="argon_enable_zoomify">
 								<?php $argon_enable_zoomify = get_option('argon_enable_zoomify'); ?>
@@ -2339,6 +2364,20 @@ function themeoptions_page(){
 						<td>
 							<input type="number" name="argon_zoomify_scale" min="0.01" max="1" step="0.01" value="<?php echo (get_option('argon_zoomify_scale') == '' ? '0.9' : get_option('argon_zoomify_scale')); ?>"/>
 							<p class="description">图片相对于页面的最大缩放比例 (0 ~ 1 的小数)</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2>Pangu.js</h2></th></tr>
+					<tr>
+						<th><label>启用 Pangu.js (自动在中英文之间添加空格)</label></th>
+						<td>
+							<select name="argon_enable_pangu">
+								<?php $argon_enable_pangu = get_option('argon_enable_pangu'); ?>
+								<option value="true" <?php if ($argon_enable_pangu=='true'){echo 'selected';} ?>>禁用</option>
+								<option value="article" <?php if ($argon_enable_pangu=='article'){echo 'selected';} ?>>格式化文章内容</option>
+								<option value="comment" <?php if ($argon_enable_pangu=='comment'){echo 'selected';} ?>>格式化评论区</option>
+								<option value="article|comment" <?php if ($argon_enable_pangu=='article|comment'){echo 'selected';} ?>>格式化文章内容和评论区</option>
+							</select>
+							<p class="description">开启后，会自动在中文和英文之间添加空格</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>脚本</h2></th></tr>
@@ -2878,6 +2917,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_enable_banner_title_typing_effect');
 		argon_update_option('argon_banner_typing_effect_interval');
 		argon_update_option('argon_page_layout');
+		argon_update_option('argon_enable_pangu');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');
