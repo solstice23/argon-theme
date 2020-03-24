@@ -1854,7 +1854,7 @@ function themeoptions_page(){
 								<option value="false" <?php if ($argon_darkmode_autoswitch=='false'){echo 'selected';} ?>>默认使用日间模式</option>
 								<option value="alwayson" <?php if ($argon_darkmode_autoswitch=='alwayson'){echo 'selected';} ?>>默认使用夜间模式</option>
 								<option value="system" <?php if ($argon_darkmode_autoswitch=='system'){echo 'selected';} ?>>跟随系统夜间模式</option>
-								<option value="time" <?php if ($argon_darkmode_autoswitch=='time'){echo 'selected';} ?>>根据时间切换夜间模式 (21:00 ~ 7:00)</option>
+								<option value="time" <?php if ($argon_darkmode_autoswitch=='time'){echo 'selected';} ?>>根据时间切换夜间模式 (22:00 ~ 7:00)</option>
 							</select>
 							<p class="description">Argon 主题会根据这里的选项来决定是否默认使用夜间模式。</br>用户也可以手动切换夜间模式，用户的设置将保留到标签页关闭为止。</p>
 						</td>

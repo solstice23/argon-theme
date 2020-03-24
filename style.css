@@ -1619,7 +1619,7 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	pointer-events: none;
 	transition: all .3s ease;
 }
-#post_comment_reply_cencel{
+#post_comment_reply_cancel{
 	margin-top: 20px;
 }
 #post_comment_content{

@@ -116,7 +116,7 @@
 				return;
 			}
 			let hour = new Date().getHours();
-			if (hour < 7 || hour >= 21){
+			if (hour < 7 || hour >= 22){
 				setDarkmode(true);
 			}else{
 				setDarkmode(false);

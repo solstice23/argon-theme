@@ -63,6 +63,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200325 v0.913
++ 夜间模式时间调整 (21:00 改为 22:00)
++ 修复小问题
+
 ## 20200324 v0.912
 + 增加 Pangu.js 文本格式化选项
 + 需要密码的文章支持 Ajax 加载
