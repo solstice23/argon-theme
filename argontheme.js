@@ -619,7 +619,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				//复位评论表单
 				cancelReply();
 				$("#post_comment_content").val("");
-				$("#post_comment_captcha_seed").html(result.newCaptchaSeed);
+				$("#post_comment_captcha_seed").val(result.newCaptchaSeed);
 				$("#post_comment_captcha + style").html(".post-comment-captcha-container:before{content: '" + result.newCaptcha + "';}");
 				$("#post_comment_captcha").val(result.newCaptchaAnswer);
 				$("body,html").animate({

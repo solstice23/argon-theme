@@ -63,6 +63,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200326 v0.914
++ 修复评论相关的一些小 BUG
+
 ## 20200325 v0.913
 + 夜间模式时间调整 (21:00 改为 22:00)
 + 修复小问题

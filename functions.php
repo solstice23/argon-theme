@@ -531,6 +531,17 @@ if($comment_data['comment_type'] == ''){
 }
 //Ajax 发送评论
 function ajax_post_comment(){
+	$parentID = $_POST['comment_parent'];
+	if (is_comment_private_mode($parentID)){
+		if (!user_can_view_comment($parentID)){
+			//如果父级评论是悄悄话模式且当前 Token 与父级不相同则返回
+			exit(json_encode(array(
+				'status' => 'failed',
+				'msg' => '不能回复其他人的悄悄话评论',
+				'isAdmin' => current_user_can('level_7')
+			)));
+		}
+	}
 	$comment = wp_handle_comment_submission(wp_unslash($_POST));
 	if (is_wp_error($comment)){
 		$msg = $comment -> get_error_data();
