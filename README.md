@@ -51,15 +51,17 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 您**可以删除**页脚的作者信息，但是**不能删除** Argon 主题的名称和链接。
 
-# 截图
+# 渲染
 
-![截图 1](https://img.solstice23.top/2020/03/05/580b8012a55ec.png)
+![render1](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-1.jpg)
 
-![截图 2](https://img.solstice23.top/2020/03/05/d6f2faec01ab5.png)
+![render2](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-2.jpg)
 
-![截图 3](https://img.solstice23.top/2020/03/05/f860ff0660ea1.png)
+![render3](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-3.jpg)
 
-![截图 4](https://img.solstice23.top/2020/03/05/44312dbe25c71.png)
+![render4](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-4.jpg)
+
+![render5](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-5.jpg)
 
 # 更新日志
 
