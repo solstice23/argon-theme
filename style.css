@@ -2956,7 +2956,7 @@ html.darkmode.amoled-dark body{
 	background: #111 !important;
 }
 @media screen and (max-width:900px){
-	html.darkmode #leftbar{
+	html.darkmode.amoled-dark #leftbar{
 		background: #000;
 	}
 }
