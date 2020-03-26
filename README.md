@@ -53,15 +53,15 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 渲染
 
-![render1](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-1.jpg)
+![render1](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-small-1.jpg)
 
-![render2](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-2.jpg)
+![render2](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-small-2.jpg)
 
-![render3](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-3.jpg)
+![render3](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-small-3.jpg)
 
-![render4](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-4.jpg)
+![render4](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-small-4.jpg)
 
-![render5](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-5.jpg)
+![render5](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-small-5.jpg)
 
 # 更新日志
 
