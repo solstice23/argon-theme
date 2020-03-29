@@ -69,7 +69,7 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 + 增加查看评论编辑历史记录功能
 + 增加 "谁可以查看评论编辑记录" 选项
 + 赞赏二维码弹框移到赞赏按钮上方
-+ 修复 BUG
++ 修复分类中文章总数统计错误的 BUG
 
 ## 20200326 v0.914
 + 修复评论相关的一些小 BUG
