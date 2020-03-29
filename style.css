@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.914.1
+Version: 0.920
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -1300,11 +1300,12 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	width: -moz-max-content;
 	position: absolute;
 	left: 50%;
-	top: 85px;
+	bottom: 100px;
 	padding: 25px;
 	z-index: 2;
 	transition: all .3s ease;
-	transform: translate(-50%,-10px) scale(0.9);
+	transform: translate(-50%,10px) scale(0.9);
+	transform-origin: bottom;
 	opacity: 0;
 	pointer-events: none;
 }
@@ -1320,17 +1321,17 @@ background: rgba(var(--themecolor-rgbstr), .1);
 .post-donate .donate-qrcode:before {
 	position: absolute;
 	z-index: 3;
-	top: 0;
+	bottom: 0;
 	left: 50%;
 	display: block;
 	width: 16px;
 	height: 16px;
 	content: '';
-	transform: rotate(-45deg) translateY(-10px);
+	transform:  translate(-50%,8px) rotate(-45deg);
 	border-radius: .2rem;
 	background: #fff;
 	z-index: 1;
-	box-shadow: 2px -2px 5px 0px rgba(0,0,0,.05);
+	box-shadow: -2px 2px 5px 0px rgba(0,0,0,.1);
 }
 /*评论区*/
 #comments{
@@ -1429,6 +1430,9 @@ background: rgba(var(--themecolor-rgbstr), .1);
 }
 .comment-edited > i{
 	margin-right: 4px;
+}
+.comment-edited.comment-edithistory-accessible{
+	cursor: pointer;
 }
 .comment-operations{
 	position: absolute;
@@ -1580,6 +1584,39 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	margin-top: 30px;
 	margin-bottom: 10px;
 	opacity: .6;
+}
+/*评论编辑记录*/
+.comment-edit-history-item {
+	border-bottom: 1px solid #e9ecef;
+	margin-bottom: 22px;
+	padding-bottom: 30px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+html.darkmode .comment-edit-history-item {
+	border-bottom-color: #666;
+}
+.comment-edit-history-title {
+	margin-bottom: 6px;
+}
+.comment-edit-history-id {
+	font-size: 22px;
+	font-weight: bold;
+	display: inline-block;
+}
+.comment-edit-history-title .badge {
+	transform: translateY(-3px);
+	margin-left: 8px;
+	display: inline-block;
+}
+.comment-edit-history-time {
+	opacity: .6;
+	font-size: 15px;
+	margin-bottom: 12px;
+}
+#comment_edit_history .modal-body .comment-edit-history-item:last-child {
+	border: navajowhite;
+	padding-bottom: 0;
 }
 /*发送评论区域*/
 #post_comment{
@@ -2671,7 +2708,7 @@ html[class] , html[lang]{
 	opacity: 0;
 	pointer-events: none;
 }
-/*CSS 加载动画*/
+/*Loading Dot*/
 .loading-css-animation {
 	text-align: center;
 }
@@ -2718,6 +2755,50 @@ html[class] , html[lang]{
 		transform:translateX(300px);
 		opacity:0
 	}
+}
+/*Loading Spinner*/
+@keyframes spin{
+	to {
+		transform: rotate(1turn);
+	}
+}
+.spinner-border{
+	display: inline-block;
+	width: 2rem;
+	height: 2rem;
+	vertical-align: text-bottom;
+	border: .25em solid currentColor;
+	border-right-color: transparent;
+	border-radius: 50%;
+	animation: spin .75s linear infinite;
+}
+.spinner-border-sm{
+	width: 1rem;
+	height: 1rem;
+	border-width: .2em;
+}
+/*Loading Spinner Grow*/
+@keyframes grow{
+	0% {
+		transform: scale(0);
+	}
+	50% {
+		opacity: 1;
+	}
+}
+.spinner-grow{
+	display: inline-block;
+	width: 2rem;
+	height: 2rem;
+	vertical-align: text-bottom;
+	background-color: currentColor;
+	border-radius: 50%;
+	opacity: 0;
+	animation: grow .75s linear infinite;
+}
+.spinner-grow-sm{
+	width: 1rem;
+	height: 1rem;
 }
 
 

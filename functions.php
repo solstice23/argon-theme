@@ -314,6 +314,12 @@ function get_comment_user_id_by_id($comment_ID){
 	$comment = get_comment($comment_ID);
 	return $comment -> user_id;
 }
+function check_comment_userid($id){
+	if (!check_login_user_same(get_comment_user_id_by_id($id))){
+		return false;
+	}
+	return true;
+}
 //悄悄话
 function is_comment_private_mode($id){
 	if (strlen(get_comment_meta($id, "private_mode", true)) != 32){
@@ -333,12 +339,72 @@ function user_can_view_comment($id){
 	}
 	return false;
 }
+//是否可以查看评论编辑记录
+function can_visit_comment_edit_history($id){
+	$who_can_visit_comment_edit_history = get_option("argon_who_can_visit_comment_edit_history");
+	if ($who_can_visit_comment_edit_history == ""){
+		$who_can_visit_comment_edit_history = "admin";
+	}
+	switch ($who_can_visit_comment_edit_history) {
+		case 'everyone':
+			return true;
+			break;
+
+		case 'commentsender':
+			if (check_comment_token($id) || check_comment_userid($id)){
+				return true;
+			}
+			return false;
+			break;
+
+		default:
+			if (current_user_can("manage_options")){
+				return true;
+			}
+			return false;
+			break;
+	}
+	return false;
+}
+//获取评论编辑记录
+function get_comment_edit_history(){
+	$id = $_POST['id'];
+	if (!can_visit_comment_edit_history($id)){
+		exit(json_encode(array(
+			'id' => $_POST['id'],
+			'history' => ""
+		)));
+	}
+	$editHistory = json_decode(get_comment_meta($id, "comment_edit_history", true));
+	$editHistory = array_reverse($editHistory);
+	$res = "";
+	$position = count($editHistory) + 1;
+	foreach ($editHistory as $edition){
+		$position -= 1;
+		$res .= "<div class='comment-edit-history-item'>
+					<div class='comment-edit-history-title'>
+						<div class='comment-edit-history-id'>
+							#" . $position . "
+						</div>
+						" . ($edition -> isfirst ? "<span class='badge badge-primary badge-admin'>最初版本</span>" : "") . "
+					</div>
+					<div class='comment-edit-history-time'>" . date('Y-m-d H:i:s', $edition -> time) . "</div>
+					<div class='comment-edit-history-content'>" . $edition -> content . "</div>
+				</div>";
+	}
+	exit(json_encode(array(
+		'id' => $_POST['id'],
+		'history' => $res
+	)));
+}
+add_action('wp_ajax_get_comment_edit_history', 'get_comment_edit_history');
+add_action('wp_ajax_nopriv_get_comment_edit_history', 'get_comment_edit_history');
 //评论样式格式化
 function argon_comment_format($comment, $args, $depth){
 	$GLOBALS['comment'] = $comment;
 	if (user_can_view_comment(get_comment_ID())){
 	?>
-	<li class="comment-item" id="comment-<?php comment_ID(); ?>" data-use-markdown="<?php echo get_comment_meta(get_comment_ID(), "use_markdown", true);?>">
+	<li class="comment-item" id="comment-<?php comment_ID(); ?>" data-id="<?php comment_ID(); ?>" data-use-markdown="<?php echo get_comment_meta(get_comment_ID(), "use_markdown", true);?>">
 		<div class="comment-item-avatar">
 			<?php if(function_exists('get_avatar') && get_option('show_avatars')){
 				echo get_avatar($comment, 40);
@@ -363,7 +429,7 @@ function argon_comment_format($comment, $args, $depth){
 			<div class="comment-item-source" style="display: none;" aria-hidden="true"><?php echo htmlspecialchars(get_comment_meta(get_comment_ID(), "comment_content_source", true));?></div>
 			<div class="comment-info">
 				<?php if (get_comment_meta(get_comment_ID(), "edited", true) == "true") { ?>
-					<div class="comment-edited">
+					<div class="comment-edited<?php if (can_visit_comment_edit_history(get_comment_ID())){echo ' comment-edithistory-accessible';}?>">
 						<i class="fa fa-pencil" aria-hidden="true"></i>已编辑
 					</div>
 				<?php } ?>
@@ -694,6 +760,13 @@ function post_comment_updatemetas($id){
 	//评论者 Token
 	set_user_token_cookie();
 	update_comment_meta($id, "user_token", $_COOKIE["argon_user_token"]);
+	//保存初次编辑记录
+	$editHistory = array(array(
+		'content' => $_POST['comment_content_source'],
+		'time' => time(),
+		'isfirst' => true
+	));
+	update_comment_meta($id, "comment_edit_history", json_encode($editHistory));
 	//是否启用 Markdown
 	if ($_POST['use_markdown'] == 'true' && get_option("argon_comment_allow_markdown") != "false"){
 		update_comment_meta($id, "use_markdown", "true");
@@ -763,11 +836,20 @@ function user_edit_comment(){
 	if ($res == 1){
 		update_comment_meta($id, "comment_content_source", $contentSource);
 		update_comment_meta($id, "edited", "true");
+		//保存编辑历史
+		$editHistory = json_decode(get_comment_meta($id, "comment_edit_history", true));
+		array_push($editHistory, array(
+			'content' => htmlspecialchars(stripslashes($contentSource)),
+			'time' => time(),
+			'isfirst' => false
+		));
+		update_comment_meta($id, "comment_edit_history", json_encode($editHistory));
 		exit(json_encode(array(
 			'status' => 'success',
 			'msg' => '编辑评论成功',
 			'new_comment' => apply_filters('comment_text', get_comment_text($id), $id),
-			'new_comment_source' => htmlspecialchars(stripslashes($contentSource))
+			'new_comment_source' => htmlspecialchars(stripslashes($contentSource)),
+			'can_visit_edit_history' => can_visit_comment_edit_history($id)
 		)));
 	}else{
 		exit(json_encode(array(
@@ -2544,6 +2626,18 @@ window.pjaxLoaded = function(){
 							<p class="description"></p>
 						</td>
 					</tr>
+					<tr>
+						<th><label>谁可以查看评论编辑记录</label></th>
+						<td>
+							<select name="argon_who_can_visit_comment_edit_history">
+								<?php $argon_who_can_visit_comment_edit_history = get_option('argon_who_can_visit_comment_edit_history'); ?>
+								<option value="admin" <?php if ($argon_who_can_visit_comment_edit_history=='admin'){echo 'selected';} ?>>只有博主</option>
+								<option value="commentsender" <?php if ($argon_who_can_visit_comment_edit_history=='commentsender'){echo 'selected';} ?>>评论发送者和博主</option>
+								<option value="everyone" <?php if ($argon_who_can_visit_comment_edit_history=='everyone'){echo 'selected';} ?>>任何人</option>
+							</select>
+							<p class="description">点击评论右侧的 "已编辑" 标记来查看编辑记录</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>其他</h2></th></tr>
 					<tr>
 						<th><label>是否启用 Pjax</label></th>
@@ -2917,6 +3011,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_comment_allow_mailnotice');
 		update_option('argon_comment_mailnotice_checkbox_checked', ($_POST['argon_comment_mailnotice_checkbox_checked'] == 'true')?'true':'false');
 		argon_update_option('argon_comment_pagination_type');
+		argon_update_option('argon_who_can_visit_comment_edit_history');
 		argon_update_option('argon_home_show_shuoshuo');
 		argon_update_option('argon_darkmode_autoswitch');
 		argon_update_option('argon_enable_amoled_dark');
