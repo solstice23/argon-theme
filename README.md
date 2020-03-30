@@ -65,6 +65,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200331 v0.922
++ 修复评论编辑历史记录时间显示错误的问题
+
 ## 20200330 v0.921
 + 修复评论编辑历史记录的 BUG
 + 优化搜索逻辑

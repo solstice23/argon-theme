@@ -379,6 +379,7 @@ function get_comment_edit_history(){
 	$editHistory = array_reverse($editHistory);
 	$res = "";
 	$position = count($editHistory) + 1;
+	date_default_timezone_set(get_option('timezone_string'));
 	foreach ($editHistory as $edition){
 		$position -= 1;
 		$res .= "<div class='comment-edit-history-item'>
