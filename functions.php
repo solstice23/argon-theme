@@ -766,7 +766,7 @@ function post_comment_updatemetas($id){
 		'time' => time(),
 		'isfirst' => true
 	));
-	update_comment_meta($id, "comment_edit_history", json_encode($editHistory));
+	update_comment_meta($id, "comment_edit_history", json_encode($editHistory, JSON_UNESCAPED_UNICODE));
 	//是否启用 Markdown
 	if ($_POST['use_markdown'] == 'true' && get_option("argon_comment_allow_markdown") != "false"){
 		update_comment_meta($id, "use_markdown", "true");
@@ -843,7 +843,7 @@ function user_edit_comment(){
 			'time' => time(),
 			'isfirst' => false
 		));
-		update_comment_meta($id, "comment_edit_history", json_encode($editHistory));
+		update_comment_meta($id, "comment_edit_history", json_encode($editHistory, JSON_UNESCAPED_UNICODE));
 		exit(json_encode(array(
 			'status' => 'success',
 			'msg' => '编辑评论成功',

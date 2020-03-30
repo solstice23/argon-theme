@@ -8,6 +8,6 @@
 		</div>
 	</div>
 	<div class="text-center">
-		<button onclick="document.getElementById('argon_serach_form').submit();" type="button" class="btn btn-primary">搜索</button>
+		<button onclick="if($('#argon_serach_form input[name=\'s\']').val() != '') {document.getElementById('argon_serach_form').submit();}" type="button" class="btn btn-primary">搜索</button>
 	</div>
 </form>
