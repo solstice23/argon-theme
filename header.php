@@ -214,7 +214,7 @@
 		<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light bg-primary headroom--not-bottom headroom--not-top headroom--pinned">
 			<div class="container">
 				<?php if (get_option('argon_toolbar_icon') != '') { /*顶栏ICON(如果选项中开启)*/?>
-					<a class="navbar-brand mr-lg-5" href="<?php echo get_option('argon_toolbar_icon_link'); ?>">
+					<a class="navbar-brand navbar-icon mr-lg-5" href="<?php echo get_option('argon_toolbar_icon_link'); ?>">
 						<img src="<?php echo get_option('argon_toolbar_icon'); ?>">
 					</a>
 				<?php }?>
@@ -226,13 +226,7 @@
 				<div class="navbar-collapse collapse" id="navbar_global">
 					<div class="navbar-collapse-header">
 						<div class="row">
-							<div class="col-6 collapse-brand">
-								<?php if (get_option('argon_toolbar_icon') != '') { /*顶栏ICON(小屏折叠菜单中)(如果选项中开启)*/?>
-									<a class="navbar-brand mr-lg-5" href="<?php echo get_option('argon_toolbar_icon_link'); ?>">
-										<img src="<?php echo get_option('argon_toolbar_icon'); ?>">
-									</a>
-								<?php }?>
-							</div>
+							<div class="col-6 collapse-brand"></div>
 							<div class="col-6 collapse-close">
 								<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
 									<span></span>
@@ -313,6 +307,11 @@
 						</li>
 					</ul>
 				</div>
+				<?php if (get_option('argon_toolbar_icon') != '') { /*顶栏ICON (Mobile)*/?>
+					<a class="navbar-brand navbar-icon-mobile" href="<?php echo get_option('argon_toolbar_icon_link'); ?>">
+						<img src="<?php echo get_option('argon_toolbar_icon'); ?>">
+					</a>
+				<?php }?>
 				<div id="navbar_menu_mask" data-toggle="collapse" data-target="#navbar_global"></div>
 			</div>
 		</nav>
