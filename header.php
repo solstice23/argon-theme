@@ -258,22 +258,21 @@
 								if ($depth == 0){
 									if ($args -> walker -> has_children == 1){
 										$output .= "\n
-										<li class='nav-item dropdown' onclick='return false;'>
-											<a href='" . $object -> url . "' class='nav-link' data-toggle='dropdown' no-pjax onclick='return false;'>
+										<li class='nav-item dropdown'>
+											<a href='" . $object -> url . "' class='nav-link' data-toggle='dropdown' no-pjax onclick='return false;' title='" . $object -> description . "'>
 										  		<i class='ni ni-book-bookmark d-lg-none'></i>
 												<span class='nav-link-inner--text'>" . $object -> title . "</span>
 										  </a>";
 									}else{
 										$output .= "\n
 										<li class='nav-item'>
-											<a href='" . $object -> url . "' class='nav-link'>
+											<a href='" . $object -> url . "' class='nav-link' target='" . $object -> target . "' title='" . $object -> description . "'>
 										  		<i class='ni ni-book-bookmark d-lg-none'></i>
 												<span class='nav-link-inner--text'>" . $object -> title . "</span>
 										  </a>";
 									}
-									
 								}else if ($depth == 1){
-									$output .= "<a href=" . $object -> url . " class='dropdown-item'>" . $object -> title . "</a>";
+									$output .= "<a href=" . $object -> url . " class='dropdown-item' target='" . $object -> target . "' title='" . $object -> description . "'>" . $object -> title . "</a>";
 								}
 							}
 							public function end_el( &$output, $object, $depth = 0, $args = array(), $current_object_id = 0 ) {
