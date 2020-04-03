@@ -24,7 +24,7 @@ else if (get_option('argon_update_source') == 'solstice23top' || get_option('arg
 	);
 }else{
 	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://raw.githubusercontent.com/solstice23/argon-theme/master/info.json',
+		'https://api.solstice23.top/argon/info.json?source=github',
 		get_template_directory() . '/functions.php',
 		'argon'
 	);
@@ -1783,7 +1783,46 @@ function shortcode_github($attr,$content=""){
 	$github_info_card_id = mt_rand(1000000000 , 9999999999);
 	$author = isset($attr['author']) ? $attr['author'] : '';
 	$project = isset($attr['project']) ? $attr['project'] : '';
-	$out = "<div class='github-info-card card shadow-sm' data-author='" . $author . "' data-project='" . $project . "' githubinfo-card-id='" . $github_info_card_id . "'>";
+	$getdata = isset($attr['getdata']) ? $attr['getdata'] : 'frontend';
+
+	$description = "";
+	$stars = "";
+	$forks = "";
+
+	if ($getdata == "backend"){
+		set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext) {
+			if (error_reporting() === 0) {
+				return false;
+			}
+			throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+		});
+		try{
+			$contexts = stream_context_create(
+				array(
+					'http' => array(
+						'method'=>"GET",
+						'header'=>"User-Agent: ArgonTheme\r\n"
+					)
+				)
+			);
+			$json = file_get_contents("https://api.github.com/repos/" . $author . "/" . $project, false, $contexts);
+			if (empty($json)){ 
+				throw new Exception("");
+			}
+			$json = json_decode($json);
+			$description = esc_html($json -> description);
+			if (!empty($json -> homepage)){
+				$description .= esc_html(" <a href='" . $json -> homepage . "' target='_blank' no-pjax>" . $json -> homepage . "</a>");
+			}
+			$stars = $json -> stargazers_count;
+			$forks = $json -> forks_count;
+		}catch (Exception $e){
+			$getdata = "frontend";
+		}
+		restore_error_handler();
+	}
+
+	$out = "<div class='github-info-card card shadow-sm' data-author='" . $author . "' data-project='" . $project . "' githubinfo-card-id='" . $github_info_card_id . "' data-getdata='" . $getdata . "' data-description='" . $description . "' data-stars='" . $stars . "' data-forks='" . $forks . "'>";
 	$out .= "<div class='github-info-card-header'><a href='https://github.com/' ref='nofollow' target='_blank' title='Github' no-pjax><span><i class='fa fa-github'></i> Github</span></a></div>";
 	$out .= "<div class='github-info-card-body'>
 			<div class='github-info-card-name-a'>
@@ -1791,14 +1830,14 @@ function shortcode_github($attr,$content=""){
 					<span class='github-info-card-name'>" . $author . "/" . $project . "</span>
 				</a>
 				</div>
-			<div class='github-info-card-description'>Loading...</div>
+			<div class='github-info-card-description'></div>
 		</div>";
 	$out .= "<div class='github-info-card-bottom'>
 				<span class='github-info-card-meta'>
-					<i class='fa fa-star'></i> <span class='github-info-card-stars'>-</span>
+					<i class='fa fa-star'></i> <span class='github-info-card-stars'></span>
 				</span>
 				<span class='github-info-card-meta'>
-					<i class='fa fa-code-fork'></i> <span class='github-info-card-forks'>-</span>
+					<i class='fa fa-code-fork'></i> <span class='github-info-card-forks'></span>
 				</span>
 			</div>";
 	$out .= "</div>";

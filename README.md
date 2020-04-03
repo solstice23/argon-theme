@@ -65,6 +65,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200403 v0.925
++ Github 短代码增加可选的后端获取模式
++ 修复 "暗化" 滤镜不生效的问题
+
 ## 20200403 v0.924
 + 修复顶栏菜单 "在新标签页打开" 选项不生效的 BUG
 

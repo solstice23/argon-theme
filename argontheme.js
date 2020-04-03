@@ -1232,6 +1232,15 @@ $(document).on("click" , ".collapse-block .collapse-block-title" , function(){
 function getGithubInfoCardContent(){
 	$(".github-info-card").each(function(){
 		(function($this){
+			if ($this.attr("data-getdata") == "backend"){
+				$(".github-info-card-description" , $this).html($this.attr("data-description"));
+				$(".github-info-card-stars" , $this).html($this.attr("data-stars"));
+				$(".github-info-card-forks" , $this).html($this.attr("data-forks"));
+				return;
+			}
+			$(".github-info-card-description" , $this).html("Loading...");
+			$(".github-info-card-stars" , $this).html("-");
+			$(".github-info-card-forks" , $this).html("-");
 			author = $this.attr("data-author");
 			project = $this.attr("data-project");
 			$.ajax({
