@@ -65,7 +65,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
-## 20200403 v0.925
+## 20200405 v0.930
++ 左侧栏顶部菜单支持无限层级嵌套子菜单
+
+## 20200404 v0.925
 + Github 短代码增加可选的后端获取模式
 + 修复 "暗化" 滤镜不生效的问题
 

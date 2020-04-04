@@ -316,7 +316,6 @@
 		</nav>
 	</header>
 </div>
-<!--搜索弹出框-->
 <div class="modal fade" id="argon_search_modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
 		<div class="modal-content">

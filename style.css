@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.925
+Version: 0.930
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -340,7 +340,7 @@ html.darkmode.amoled-dark #navbar-main{
 	color: #fff !important;
 }
 .navbar-brand.navbar-icon-mobile {
-    display: none;
+	display: none;
 }
 #navbar-main{
 	transition: background 0s, padding .15s ease;
@@ -471,6 +471,50 @@ html.darkmode.amoled-dark #navbar-main{
 	line-height: 36px;
 	list-style: none;
 	padding: 0;
+	position: relative;
+}
+.leftbar-menu-item:hover > .leftbar-menu-subitem {
+	opacity: 1;
+	transform: none;
+	pointer-events: unset;
+}
+.leftbar-menu-subitem {
+	position: absolute;
+	left: calc(100% + 8px);
+	top: 0;
+	background: #fff;
+	width: max-content;
+	min-width: 150px;
+	z-index: 1;
+	height: unset;
+	border-radius: 3px;
+	padding: 6px 0;
+	opacity: 0;
+	transform: translateX(-8px);
+	pointer-events: none;
+	transition: all .3s ease;
+}
+.leftbar-menu-subitem:before {
+	content: '';
+	width: 8px;
+	height: calc(100% + 12px);
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -8px;
+}
+#leftbar_part1_menu > .leftbar-menu-item > .leftbar-menu-subitem {
+	left: calc(100% + 12px);
+}
+#leftbar_part1_menu > .leftbar-menu-item > .leftbar-menu-subitem:before {
+	width: 12px;
+	left: -12px;
+}
+.leftbar-menu-subitem > .leftbar-menu-item:first-child a{
+	border-radius: 3px 3px 0 0;
+}
+.leftbar-menu-subitem > .leftbar-menu-item:last-child a{
+	border-radius: 0 0 3px 3px;
 }
 .leftbar-menu-item > a{
 	display: block;
@@ -495,6 +539,23 @@ html.darkmode.amoled-dark #navbar-main{
 	margin-right: 8px;
 	width: 15px;
 }
+.leftbar-menu-item.leftbar-menu-item-haschildren:after {
+	content: "\f0da";
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: 14px;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	position: absolute;
+	right: 16px;
+	top: 0;
+	line-height: 36px;
+	opacity: .6;
+	transform: translateY(1px);
+	transition: all .3s ease;
+	pointer-events: none;
+}
+
 
 .leftbar-search-button{
 	padding-top: 0;
@@ -2850,10 +2911,13 @@ html.darkmode ::-webkit-scrollbar-thumb{
 		background: #424242;
 	}
 }
+
+html.darkmode .leftbar-menu-subitem {
+	background: #424242;
+}
 html.darkmode .leftbar-menu-item > a{
 	color: #eee !important;
 }
-
 html.darkmode .leftbar-menu-item > a:hover , 
 html.darkmode .leftbar-menu-item.current > a {
 	background-color: #606060;
@@ -3044,6 +3108,10 @@ html.darkmode.amoled-dark body{
 		background: #000;
 	}
 }
+
+html.darkmode.amoled-dark .leftbar-menu-subitem {
+	background: #000;
+}
 html.darkmode.amoled-dark .leftbar-menu-item > a:hover , 
 html.darkmode.amoled-dark .leftbar-menu-item.current > a {
 	background-color: #222;
@@ -3204,6 +3272,26 @@ html.darkmode.amoled-dark #content:before , html.darkmode.amoled-dark #content:a
 		width: 100vw;
 		height: 100vh;
 		z-index: 1001;
+	}
+	.leftbar-menu-item{
+		overflow: hidden;
+	}
+	.leftbar-menu-item:hover{
+		height: max-content;
+	}
+	.leftbar-menu-item:hover:after{
+		transform: rotateZ(90deg) translateY(1px);
+	}
+	.leftbar-menu-subitem {
+		position: static;
+		width: calc(100% - 10px) !important;
+		margin-left: 10px;
+		box-shadow: none !important;
+	}
+	.leftbar-menu-item:hover .leftbar-menu-subitem {
+		position: static;
+		width: 100%;
+		box-shadow: none;
 	}
 	.leftbar-banner{
 		padding-top: 40px;

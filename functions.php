@@ -24,7 +24,7 @@ else if (get_option('argon_update_source') == 'solstice23top' || get_option('arg
 	);
 }else{
 	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://api.solstice23.top/argon/info.json?source=github',
+		'https://raw.githubusercontent.com/solstice23/argon-theme/master/info.json',
 		get_template_directory() . '/functions.php',
 		'argon'
 	);
