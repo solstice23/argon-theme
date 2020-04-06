@@ -13,7 +13,7 @@
 #
 #
 
-class Parsedown
+class _Parsedown
 {
     # ~
 

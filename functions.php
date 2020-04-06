@@ -593,8 +593,10 @@ function check_comment_captcha($comment){
 	}
 	return $comment;
 }
-if($comment_data['comment_type'] == ''){
-	add_filter('preprocess_comment' , 'check_comment_captcha');
+if(isset($comment_data)){
+	if ($comment_data['comment_type'] == ''){
+		add_filter('preprocess_comment' , 'check_comment_captcha');
+	}
 }
 //Ajax 发送评论
 function ajax_post_comment(){
@@ -672,7 +674,7 @@ function comment_markdown_parse($comment_content){
 	$allowedtags['h1'] = $allowedtags['h2'] = $allowedtags['h3'] = $allowedtags['h4'] = $allowedtags['h5'] = $allowedtags['h6'] = array();
 
 	//解析 Markdown
-	$parsedown = new Parsedown();
+	$parsedown = new _Parsedown();
 	$res = $parsedown -> text($comment_content);
 	/*$res = preg_replace(
 		'/<code>([\s\S]*?)<\/code>/',

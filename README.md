@@ -65,6 +65,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200407 v0.931
++ 修复新旧版本 `Parsedown` 类库冲突的问题
++ 修复小 BUG
+
 ## 20200405 v0.930
 + 左侧栏顶部菜单支持无限层级嵌套子菜单
 
