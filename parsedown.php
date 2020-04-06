@@ -13,7 +13,7 @@
 #
 #
 
-class Parsedown
+class Parsedown_anti_duplication_orz
 {
     # ~
 
