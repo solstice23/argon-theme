@@ -7,6 +7,34 @@ function theme_slug_setup() {
 	add_theme_support('post-thumbnails');
 }
 add_action('after_setup_theme','theme_slug_setup');
+
+
+$GLOBALS['theme_version'] = wp_get_theme() -> Version;
+if (get_option("argon_assets_path") == "jsdelivr"){
+	$GLOBALS['assets_path'] = "https://cdn.jsdelivr.net/gh/solstice23/argon-theme@" . wp_get_theme() -> Version;
+}else{
+	$GLOBALS['assets_path'] = get_bloginfo('template_url');
+}
+
+//更新主题版本后的兼容
+$argon_last_version = get_option("argon_last_version");
+if ($argon_last_version == ""){
+	$argon_last_version = "0.0";
+}
+if (version_compare($argon_last_version, $GLOBALS['theme_version'], '<' )){
+	if (version_compare($argon_last_version, '0.940', '<' )){
+		if (get_option('argon_mathjax_v2_enable') == 'true' && get_option('argon_mathjax_enable') != 'true'){
+			update_option("argon_math_render", 'mathjax2');
+		}
+		if (get_option('argon_mathjax_enable') == 'true'){
+			update_option("argon_math_render", 'mathjax3');
+		}
+		echo get_option("argon_math_render");
+	}
+	update_option("argon_last_version", $GLOBALS['theme_version']);
+}
+
+
 //检测更新
 require_once(get_template_directory() . '/theme-update-checker/plugin-update-checker.php'); 
 if (get_option('argon_update_source') == 'stop'){}
@@ -278,6 +306,49 @@ function is_meta_simple(){
 function get_post_title_by_id($id){
 	return get_post($id) -> post_title;
 }
+//解析 UA 和相应图标
+require_once(get_template_directory() . '/useragent-parser.php');
+$argon_comment_ua = get_option("argon_comment_ua");
+$argon_comment_show_ua = Array();
+if (strpos($argon_comment_ua, 'platform') !== false){
+	$argon_comment_show_ua['platform'] = true;
+}
+if (strpos($argon_comment_ua, 'browser') !== false){
+	$argon_comment_show_ua['browser'] = true;
+}
+if (strpos($argon_comment_ua, 'version') !== false){
+	$argon_comment_show_ua['version'] = true;
+}
+function parse_ua_and_icon($userAgent){
+	global $argon_comment_ua;
+	global $argon_comment_show_ua;
+	if ($argon_comment_ua == "" || $argon_comment_ua == "hidden"){
+		return "";
+	}
+	$parsed = parse_user_agent($userAgent);
+	$out = "<div class='comment-useragent'>";
+	if ($argon_comment_show_ua['platform'] == true){
+		if (isset($GLOBALS['UA_ICON'][$parsed['platform']])){
+			$out .= $GLOBALS['UA_ICON'][$parsed['platform']] . " ";
+		}else{
+			$out .= $GLOBALS['UA_ICON']['Unknown'] . " ";
+		}
+		$out .= $parsed['platform'];
+	}
+	if ($argon_comment_show_ua['browser'] == true){
+		if (isset($GLOBALS['UA_ICON'][$parsed['browser']])){
+			$out .= " " . $GLOBALS['UA_ICON'][$parsed['browser']];
+		}else{
+			$out .= " " . $GLOBALS['UA_ICON']['Unknown'];
+		}
+		$out .= " " . $parsed['browser'];
+		if ($argon_comment_show_ua['version'] == true){
+			$out .= " " . $parsed['version'];
+		}
+	}
+	$out .= "</div>";
+	return $out;
+}
 //发送邮件
 function send_mail($to, $subject, $content){
 	wp_mail($to, $subject, $content, array('Content-Type: text/html; charset=UTF-8'));
@@ -422,6 +493,9 @@ function argon_comment_format($comment, $args, $depth){
 				?>
 				<?php if ($comment -> comment_approved == 0){
 					echo '<span class="badge badge-warning badge-unapproved">待审核</span>';}
+				?>
+				<?php
+					echo parse_ua_and_icon($comment -> comment_agent);
 				?>
 			</div>
 			<div class="comment-item-text">
@@ -2033,6 +2107,18 @@ function themeoptions_page(){
 							<p class="description" style="margin-top: 15px;">使用单栏时，关于侧栏的设置将失效。</p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h3>CDN</h3></th></tr>
+					<tr>
+						<th><label>CDN</label></th>
+						<td>
+							<select name="argon_assets_path">
+								<?php $argon_assets_path = get_option('argon_assets_path'); ?>
+								<option value="default" <?php if ($argon_assets_path=='default'){echo 'selected';} ?>>不使用</option>
+								<option value="jsdelivr" <?php if ($argon_assets_path=='jsdelivr'){echo 'selected';} ?>>jsdelivr</option>
+							</select>
+							<p class="description">选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>顶栏</h2></th></tr>
 					<tr><th class="subtitle"><h3>标题</h3></th></tr>
 					<tr>
@@ -2355,65 +2441,65 @@ function themeoptions_page(){
 							<p class="description">HTML , 支持 script 等标签</p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>Mathjax 渲染</h2></th></tr>
+					<tr><th class="subtitle"><h2>数学公式</h2></th></tr>
 					<tr>
-						<th><label>启用 Mathjax (v3)</label></th>
+						<th><label>数学公式渲染方案</label></th>
 						<td>
-							<select name="argon_mathjax_enable">
-								<?php $argon_mathjax_enable = get_option('argon_mathjax_enable'); ?>
-								<option value="false" <?php if ($argon_mathjax_enable=='false'){echo 'selected';} ?>>不启用</option>
-								<option value="true" <?php if ($argon_mathjax_enable=='true'){echo 'selected';} ?>>启用</option>	
-							</select>
-							<p class="description">
-								Mathjax 是一个 Latex 前端渲染库，可以自动解析文章中的 Latex 公式并渲染。</br>
-								Argon 主题内置了 Mathjax 库的引用 (3.0.0 版本, jsdelivr CDN)</br>
-								如果你需要用到公式，请打开这个选项</br>
-								Argon 主题提供了一些 Mathjax 的常用配置项</br>
-								或者，如果需要更详细的配置选项，你可以在这里禁用 Mathjax ，然后在 "页脚代码" 中引用 Mathjax 并编写配置 JSON (当然也可以用插件来实现)</br>
-								一般来说，这里的配置选项已经够用，使用 Argon 主题提供的默认配置即可</br>
-								使用 $xxx$ 或 \\xxx\\ 来标记一个行内公式，$$xxx$$ 来标记一个独立公式</br>
-							</p>
+							<table class="form-table form-table-dense form-table-mathrender">
+								<tbody>
+									<?php $argon_math_render = (get_option('argon_math_render') == '' ? 'none' : get_option('argon_math_render')); ?>
+									<tr>
+										<th>
+											<label>
+												<input name="argon_math_render" type="radio" value="none" <?php if ($argon_math_render=='none'){echo 'checked';} ?>>
+												不启用
+											</label>
+										</th>
+									</tr>
+									<tr>
+										<th>
+											<label>
+												<input name="argon_math_render" type="radio" value="mathjax3" <?php if ($argon_math_render=='mathjax3'){echo 'checked';} ?>>
+												Mathjax 3
+												<div>
+													Mathjax 3 CDN 地址: 
+													<input type="text" class="regular-text" name="argon_mathjax_cdn_url" value="<?php echo get_option('argon_mathjax_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js' : get_option('argon_mathjax_cdn_url'); ?>"/>
+													<p class="description">Mathjax 3.0+，默认为 <code>//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js</code></p>
+												</div>
+											</label>
+										</th>
+									</tr>
+									<tr>
+										<th>
+											<label>
+												<input name="argon_math_render" type="radio" value="mathjax2" <?php if ($argon_math_render=='mathjax2'){echo 'checked';} ?>>
+												Mathjax 2
+												<div>
+													Mathjax 2 CDN 地址: 
+													<input type="text" class="regular-text" name="argon_mathjax_v2_cdn_url" value="<?php echo get_option('argon_mathjax_v2_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML' : get_option('argon_mathjax_v2_cdn_url'); ?>"/>
+													<p class="description">Mathjax 2.0+，默认为 <code>//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML</code></p>
+												</div>
+											</label>
+										</th>
+									</tr>
+									<tr>
+										<th>
+											<label>
+												<input name="argon_math_render" type="radio" value="katex" <?php if ($argon_math_render=='katex'){echo 'checked';} ?>>
+												Katex
+												<div>
+													Katex CDN 地址: 
+													<input type="text" class="regular-text" name="argon_katex_cdn_url" value="<?php echo get_option('argon_katex_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/katex@0.11.1/dist/' : get_option('argon_katex_cdn_url'); ?>"/>
+													<p class="description">Argon 会同时引用 <code>katex.min.css</code> 和 <code>katex.min.js</code> 两个文件，所以在此填写的是上层的路径，而不是具体的文件。注意路径后要带一个斜杠。</br>默认为 <code>//cdn.jsdelivr.net/npm/katex@0.11.1/dist/</code></p>
+												</div>
+											</label>
+										</th>
+									</tr>
+								</tbody>
+							</table>
+							<p class="description"></p>
 						</td>
-					</tr>
-					<tr>
-						<th><label>Mathjax CDN 地址</label></th>
-						<td>
-							<input type="text" class="regular-text" name="argon_mathjax_cdn_url" value="<?php echo get_option('argon_mathjax_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js' : get_option('argon_mathjax_cdn_url'); ?>"/>
-							<p class="description">Mathjax 3.0+，默认为 <code>//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js</code></p>
-						</td>
-					</tr>
-					<tr style="opacity: .6;" class="opacity-on-hover-1">
-						<th><label>启用旧版 Mathjax (v2)</label></th>
-						<td>
-							<select name="argon_mathjax_v2_enable">
-								<?php $argon_mathjax_v2_enable = get_option('argon_mathjax_v2_enable'); ?>
-								<option value="false" <?php if ($argon_mathjax_v2_enable=='false'){echo 'selected';} ?>>不启用</option>
-								<option value="true" <?php if ($argon_mathjax_v2_enable=='true'){echo 'selected';} ?>>启用</option>	
-							</select>
-							<p class="description">
-								为了兼容性，Argon 保留了 Mathjax v2 旧版库的引用 (2.7.5 版本, jsdelivr CDN)</br>
-								推荐使用 Mathjax 3.0，而不要开启此选项</br>
-								该选项仅在 <strong>Mathjax 3.0 选项关闭时才生效</strong></br>
-							</p>
-						</td>
-					</tr>
-					<tr style="opacity: .6;" class="opacity-on-hover-1">
-						<th><label>Mathjax V2 CDN 地址</label></th>
-						<td>
-							<input type="text" class="regular-text" name="argon_mathjax_v2_cdn_url" value="<?php echo get_option('argon_mathjax_v2_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML' : get_option('argon_mathjax_v2_cdn_url'); ?>"/>
-							<p class="description">Mathjax 2.0+，默认为 <code>//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML</code></br>
-								该地址仅对 Mathjax V2 生效
-							</p>
-						</td>
-					</tr>
-					<style>
-						.opacity-on-hover-1{
-							transition: all .3s ease;
-						}
-						.opacity-on-hover-1:hover{
-							opacity: 1 !important;
-						}
-					</style>
+					</tr>					
 					<tr><th class="subtitle"><h2>Lazyload</h2></th></tr>
 					<tr>
 						<th><label>是否启用 Lazyload</label></th>
@@ -2680,6 +2766,21 @@ window.pjaxLoaded = function(){
 							<p class="description">点击评论右侧的 "已编辑" 标记来查看编辑记录</p>
 						</td>
 					</tr>
+					<tr>
+						<th><label>评论者 UA 显示</label></th>
+						<td>
+							<select name="argon_comment_ua">
+								<?php $argon_comment_ua = get_option('argon_comment_ua'); ?>
+								<option value="hidden" <?php if ($argon_comment_ua=='hidden'){echo 'selected';} ?>>不显示</option>
+								<option value="browser" <?php if ($argon_comment_ua=='browser'){echo 'selected';} ?>>浏览器</option>
+								<option value="browser,version" <?php if ($argon_comment_ua=='browser,version'){echo 'selected';} ?>>浏览器+版本号</option>
+								<option value="platform,browser,version" <?php if ($argon_comment_ua=='platform,browser,version'){echo 'selected';} ?>>平台+浏览器+版本号</option>
+								<option value="platform,browser" <?php if ($argon_comment_ua=='platform,browser'){echo 'selected';} ?>>平台+浏览器</option>
+								<option value="platform" <?php if ($argon_comment_ua=='platform'){echo 'selected';} ?>>平台</option>
+							</select>
+							<p class="description">设置是否在评论区显示评论者 UA 及显示哪些部分</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>其他</h2></th></tr>
 					<tr>
 						<th><label>是否启用 Pjax</label></th>
@@ -2904,6 +3005,27 @@ window.pjaxLoaded = function(){
 				width: calc(100vw - 50px);
 			}
 		}
+
+		.form-table > tbody > tr:first-child > th{
+			padding-top: 0 !important;
+		}
+		.form-table.form-table-dense > tbody > tr > th{
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+
+		.form-table-mathrender > tbody > tr > th > label > div {
+			margin-top: 10px;
+			padding-left: 24px;
+			opacity: .75;
+			transition: all .3s ease;
+		}
+		.form-table-mathrender > tbody > tr > th > label:hover > div {
+			opacity: 1;
+		}
+		.form-table-mathrender > tbody > tr > th > label > input:not(:checked) + div {
+			display: none;
+		}
 	</style>
 	<script type="text/javascript">
 		$(document).on("click" , ".radio-with-img .radio-img" , function(){
@@ -2929,6 +3051,8 @@ window.pjaxLoaded = function(){
 					value = false;
 				}
 				input[0].checked = value;
+			}else if (inputType == "radio"){
+				$("input[name='" + name + "'][value='" + value + "']").click();
 			}else{
 				input.val(value);
 			}
@@ -2937,6 +3061,15 @@ window.pjaxLoaded = function(){
 			let inputType = input.attr("type");
 			if (inputType == "checkbox"){
 				return input[0].checked;
+			}else if (inputType == "radio"){
+				let name = input.attr("name");
+				let value;
+				$("input[name='" + name + "']").each(function(){
+					if (this.checked){
+						value = $(this).attr("value");
+					}
+				});
+				return value;
 			}else{
 				return input.val();
 			}
@@ -3066,6 +3199,8 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_banner_typing_effect_interval');
 		argon_update_option('argon_page_layout');
 		argon_update_option('argon_enable_pangu');
+		argon_update_option('argon_assets_path');
+		argon_update_option('argon_comment_ua');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');
@@ -3079,11 +3214,11 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_zoomify_easing');
 		argon_update_option('argon_zoomify_scale');
 
-		//Mathjax 相关配置项
-		argon_update_option('argon_mathjax_enable');
+		//数学公式相关配置项
+		argon_update_option('argon_math_render');
 		argon_update_option('argon_mathjax_cdn_url');
-		argon_update_option('argon_mathjax_v2_enable');
 		argon_update_option('argon_mathjax_v2_cdn_url');
+		argon_update_option('argon_katex_cdn_url');
 
 		//页头页尾脚本
 		argon_update_option_allow_tags('argon_custom_html_head');

@@ -1042,6 +1042,17 @@ function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop , requestType , 
 								MathJax.Hub.Typeset();
 							}
 						}catch (err){}
+						try{
+							if (renderMathInElement != undefined){
+								renderMathInElement(document.body,{
+									delimiters: [
+										{left: "$$", right: "$$", display: true},
+										{left: "$", right: "$", display: false},
+										{left: "\\(", right: "\\)", display: false}
+									]
+								});
+							}
+						}catch (err){}
 
 						getGithubInfoCardContent();
 

@@ -65,18 +65,18 @@
 	<meta name="theme-card-radius" content="<?php echo $cardradius; ?>">
 	<meta name="theme-card-radius-origin" content="<?php echo $cardradius_origin; ?>">
 
-	<meta name="theme-version" content="<?php echo wp_get_theme('argon') -> Version; ?>">
+	<meta name="theme-version" content="<?php echo $GLOBALS['theme_version']; ?>">
 
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
 	<link rel="pingback" href="<?php echo esc_url( get_bloginfo( 'pingback_url' ) ); ?>">
 	<?php endif; ?>
 	<?php
-		wp_enqueue_style("argon_css_merged", get_bloginfo('template_url') . "/assets/argon_css_merged.css", null, wp_get_theme('argon') -> Version);
-		wp_enqueue_style("style", get_bloginfo('template_url') . "/style.css", null, wp_get_theme('argon') -> Version);
+		wp_enqueue_style("argon_css_merged", $GLOBALS['assets_path'] . "/assets/argon_css_merged.css", null, $GLOBALS['theme_version']);
+		wp_enqueue_style("style", $GLOBALS['assets_path'] . "/style.css", null, $GLOBALS['theme_version']);
 		wp_enqueue_style("googlefont", "//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Serif+SC:300,600&display=swap");
-		wp_enqueue_script("argon_js_merged", get_bloginfo('template_url') . "/assets/argon_js_merged.js", null, wp_get_theme('argon') -> Version);
-		wp_enqueue_script("argonjs", get_bloginfo('template_url') . "/assets/js/argon.min.js", null, wp_get_theme('argon') -> Version);
+		wp_enqueue_script("argon_js_merged", $GLOBALS['assets_path'] . "/assets/argon_js_merged.js", null, $GLOBALS['theme_version']);
+		wp_enqueue_script("argonjs", $GLOBALS['assets_path'] . "/assets/js/argon.min.js", null, $GLOBALS['theme_version']);
 	?>
 	<?php wp_head(); ?>
 	<script>
@@ -155,13 +155,13 @@
 	</script>
 
 	<?php if (get_option('argon_enable_smoothscroll_type') == '2') { /*平滑滚动*/?>
-		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll2.js"></script>
+		<script src="<?php echo $GLOBALS['assets_path']; ?>/assets/vendor/smoothscroll/smoothscroll2.js"></script>
 	<?php }else if (get_option('argon_enable_smoothscroll_type') == '3'){?>
-		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll3.min.js"></script>
+		<script src="<?php echo $GLOBALS['assets_path']; ?>/assets/vendor/smoothscroll/smoothscroll3.min.js"></script>
 	<?php }else if (get_option('argon_enable_smoothscroll_type') == '1_pulse'){?>
-		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll1_pulse.js"></script>
+		<script src="<?php echo $GLOBALS['assets_path']; ?>/assets/vendor/smoothscroll/smoothscroll1_pulse.js"></script>
 	<?php }else if (get_option('argon_enable_smoothscroll_type') != 'disabled'){?>
-		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/smoothscroll/smoothscroll1.js"></script>
+		<script src="<?php echo $GLOBALS['assets_path']; ?>/assets/vendor/smoothscroll/smoothscroll1.js"></script>
 	<?php }?>
 </head>
 

@@ -7,8 +7,8 @@
 				</main>
 			</div>
 		</div>
-		<script src="<?php bloginfo('template_url'); ?>/argontheme.js?v<?php echo wp_get_theme('argon')-> Version; ?>"></script>
-		<?php if (get_option('argon_mathjax_enable') == 'true') { /*Mathjax*/?>
+		<script src="<?php echo $GLOBALS['assets_path']; ?>/argontheme.js?v<?php echo $GLOBALS['theme_version']; ?>"></script>
+		<?php if (get_option('argon_math_render') == 'mathjax3') { /*Mathjax V3*/?>
 			<script>
 				window.MathJax = {
 					tex: {
@@ -29,7 +29,7 @@
 			</script>
 			<script src="<?php echo get_option('argon_mathjax_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js' : get_option('argon_mathjax_cdn_url'); ?>" id="MathJax-script" async></script>
 		<?php }?>
-		<?php if (get_option('argon_mathjax_v2_enable') == 'true' && get_option('argon_mathjax_enable') != 'true') { /*Mathjax V2 旧版本*/?>
+		<?php if (get_option('argon_math_render') == 'mathjax2') { /*Mathjax V2*/?>
 			<script type="text/x-mathjax-config" id="mathjax_v2_script">
 				MathJax.Hub.Config({
 					messageStyle: "none",
@@ -50,10 +50,26 @@
 			</script>
 			<script src="<?php echo get_option('argon_mathjax_v2_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML' : get_option('argon_mathjax_v2_cdn_url'); ?>"></script>
 		<?php }?>
+		<?php if (get_option('argon_math_render') == 'katex') { /*Katex*/?>
+			<link rel="stylesheet" href="<?php echo get_option('argon_katex_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/katex@0.11.1/dist/' : get_option('argon_katex_cdn_url'); ?>katex.min.css">
+			<script src="<?php echo get_option('argon_katex_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/katex@0.11.1/dist/' : get_option('argon_katex_cdn_url'); ?>katex.min.js"></script>
+			<script src="<?php echo get_option('argon_katex_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/katex@0.11.1/dist/' : get_option('argon_katex_cdn_url'); ?>contrib/auto-render.min.js"></script>
+			<script>
+				document.addEventListener("DOMContentLoaded", function() {
+					renderMathInElement(document.body,{
+						delimiters: [
+							{left: "$$", right: "$$", display: true},
+							{left: "$", right: "$", display: false},
+							{left: "\\(", right: "\\)", display: false}
+						]
+					});
+				});
+			</script>
+		<?php }?>
 	</div>
 </div>
 <?php 
-	wp_enqueue_script("argonjs", get_bloginfo('template_url') . "/assets/js/argon.min.js", null, wp_get_theme('argon') -> Version, true);
+	wp_enqueue_script("argonjs", $GLOBALS['assets_path'] . "/assets/js/argon.min.js", null, $GLOBALS['theme_version'], true);
 ?>
 <?php wp_footer(); ?>
 </body>
