@@ -22,7 +22,7 @@ Argon - 一个轻盈、简洁、美观的 WordPress 主题
 - Pjax 无刷新加载
 - Ajax 评论
 - 内置多种小工具（进度条，TODO 复选框，标签等）
-- 内置 Mathjax、平滑滚动等
+- 内置 Mathjax、Katex、平滑滚动等
 - 支持自定义 CSS 和 JS
 - 适配小屏幕设备
 - 夜间模式支持
@@ -64,6 +64,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 ![render5](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-small-5.jpg)
 
 # 更新日志
+
+## 20200409 v0.940
++ 新增评论区 UA 显示选项
++ 新增 Katex 数学解析方案
 
 ## 20200407 v0.931
 + 修复新旧版本 `Parsedown` 类库冲突的问题
