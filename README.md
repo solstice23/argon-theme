@@ -8,24 +8,17 @@ Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
 # 特性
 
-- 使用 Argon Design System 前端框架，轻盈美观
-- 丰富的自定义选项 （顶栏，侧栏，头图等）
-- 顶栏、侧栏完全自定义 （自定义链接，图标，博客名，二级菜单等）
-- 丰富的可自定义侧栏内容 （作者名称，格言，作者信息，作者链接，友情链接，分类目录，所有标签等）
-- 可设置主题色
-- 内置 "说说" 功能，随时发表想法
-- 评论支持再次编辑、悄悄话模式、回复时邮件通知（可选）
-- 支持在侧栏添加小工具
-- 良好的阅读体验
-- 侧栏浮动文章目录
-- 自动计算字数和阅读时间
-- Pjax 无刷新加载
-- Ajax 评论
-- 内置多种小工具（进度条，TODO 复选框，标签等）
-- 内置 Mathjax、Katex、平滑滚动等
-- 支持自定义 CSS 和 JS
-- 适配小屏幕设备
-- 夜间模式支持
++ **轻盈美观** - 使用 Argon Design System 前端框架，细节精致，轻盈美观
++ **高度可定制化** - 可自定义主题色、页面布局、顶栏、侧栏、Banner、背景图、日夜间模式不同背景、背景沉浸、浮动操作按钮等，提供了丰富的自定义选项
++ **夜间模式** - 支持日间、夜间、纯黑三种模式，并可以根据时间自动切换或跟随系统夜间模式
++ **功能繁多** - Tag 和分类统计、作者链接、额外链接、文章字数和预计阅读时间、文章过时信息显示
++ **Pjax** - 支持 Pjax 无刷新加载，提高浏览体验
++ **友情链接** - 支持使用 Wordpress 自带的链接管理器进行友链管理，支持多种友链样式
++ **"说说" 功能** - 随时发表想法，并在专门的 "说说" 页面展示，也支持说说和首页文章穿插
++ **评论功能扩展** - Ajax 评论，评论支持 Markdown、验证码、再次编辑、显示 UA、悄悄话模式、回复时邮件通知、查看编辑记录、无限加载等功能
++ **诸多功能** - 文章目录、阅读进度、Mathjax 或 Katex 公式解析、图片放大预览、Pangu.js 文本格式化、平滑滚动等
++ **丰富的短代码** - 支持通过短代码在文章中插入 TODO、标签、警告、提示、折叠区块、Github 信息卡、时间线、隐藏文本、视频等模块
++ **其他** - 自适应、精心优化的文章阅读界面 CSS、可切换衬线/非衬线字体、可自定义 CSS 和 JS、支持使用 CDN 加速静态文件访问、SEO 友好、Banner 打字动画、留言板页面等
 
 # 安装
 
@@ -62,6 +55,11 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 ![render4](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-small-4.jpg)
 
 ![render5](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon-render-small-5.jpg)
+
+# Telegram 频道
+[t.me/argontheme](https://t.me/argontheme)
+
+自动推送更新消息以及其他关于 Argon 的消息
 
 # 更新日志
 
@@ -429,11 +427,6 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 + 针对 Wordpress 管理条进行处理
 + 修复夜间模式的一些问题
 + 修改一些细节
-
-# Telegram 频道
-[t.me/argontheme](https://t.me/argontheme)
-
-自动推送更新消息以及其他关于 Argon 的消息
 
 # 捐赠
 如果你觉得 Argon 主题不错，可以请我一杯咖啡来支持我的开发。
