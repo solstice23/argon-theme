@@ -461,7 +461,7 @@ function get_comment_edit_history(){
 						" . ($edition -> isfirst ? "<span class='badge badge-primary badge-admin'>最初版本</span>" : "") . "
 					</div>
 					<div class='comment-edit-history-time'>" . date('Y-m-d H:i:s', $edition -> time) . "</div>
-					<div class='comment-edit-history-content'>" . $edition -> content . "</div>
+					<div class='comment-edit-history-content'>" . str_replace("\n", "</br>", $edition -> content) . "</div>
 				</div>";
 	}
 	exit(json_encode(array(
@@ -843,7 +843,7 @@ function post_comment_updatemetas($id){
 		'time' => time(),
 		'isfirst' => true
 	));
-	update_comment_meta($id, "comment_edit_history", json_encode($editHistory, JSON_UNESCAPED_UNICODE));
+	update_comment_meta($id, "comment_edit_history", addslashes(json_encode($editHistory, JSON_UNESCAPED_UNICODE)));
 	//是否启用 Markdown
 	if ($_POST['use_markdown'] == 'true' && get_option("argon_comment_allow_markdown") != "false"){
 		update_comment_meta($id, "use_markdown", "true");
@@ -915,12 +915,15 @@ function user_edit_comment(){
 		update_comment_meta($id, "edited", "true");
 		//保存编辑历史
 		$editHistory = json_decode(get_comment_meta($id, "comment_edit_history", true));
+		if (is_null($editHistory)){
+			$editHistory = array();
+		}
 		array_push($editHistory, array(
 			'content' => htmlspecialchars(stripslashes($contentSource)),
 			'time' => time(),
 			'isfirst' => false
 		));
-		update_comment_meta($id, "comment_edit_history", json_encode($editHistory, JSON_UNESCAPED_UNICODE));
+		update_comment_meta($id, "comment_edit_history", addslashes(json_encode($editHistory, JSON_UNESCAPED_UNICODE)));
 		exit(json_encode(array(
 			'status' => 'success',
 			'msg' => '编辑评论成功',

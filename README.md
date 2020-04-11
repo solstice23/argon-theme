@@ -63,6 +63,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200411 v0.941
++ 修复评论 UA 图标错误的 BUG
++ 修复评论编辑历史记录显示错误的 BUG
+
 ## 20200409 v0.940
 + 新增评论区 UA 显示选项
 + 新增 Katex 数学解析方案
