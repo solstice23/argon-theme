@@ -12,8 +12,14 @@
 			<div class="leftbar-banner card-body">
 				<span class="leftbar-banner-title text-white"><?php echo get_option('argon_sidebar_banner_title') == '' ? bloginfo('name') : get_option('argon_sidebar_banner_title'); ?></span>
 
-				<?php if (get_option('argon_sidebar_banner_subtitle') != '') { /*左侧栏子标题/格言(如果选项中开启)*/?>
-					<span class="leftbar-banner-subtitle text-white"><?php echo get_option('argon_sidebar_banner_subtitle'); ?></span>
+				<?php 
+					$sidebar_subtitle = get_option('argon_sidebar_banner_subtitle'); 
+					if ($sidebar_subtitle == "--hitokoto--"){
+						$sidebar_subtitle = "<span class='hitokoto'></span>";
+					}
+				?>
+				<?php if ($sidebar_subtitle != '') { /*左侧栏子标题/格言(如果选项中开启)*/?>
+					<span class="leftbar-banner-subtitle text-white"><?php echo $sidebar_subtitle; ?></span>
 				<?php } /*顶栏标题*/?>
 
 			</div>

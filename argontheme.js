@@ -1,3 +1,6 @@
+if (typeof(wp_path) == "undefined"){
+	var wp_path = "/";
+}
 /*Cookies 操作*/
 function setCookie(cname, cvalue, exdays) {
 	var d = new Date();
@@ -79,7 +82,7 @@ $(document).on("keydown" , "#navbar_search_input_container #navbar_search_input"
 		return;
 	}
 	let scrolltop = $(document).scrollTop();
-	pjaxLoadUrl("/?s=" + encodeURI(word) , true , 0 , scrolltop);
+	pjaxLoadUrl(wp_path + "?s=" + encodeURI(word) , true , 0 , scrolltop);
 });
 /*侧栏搜索*/
 $(document).on("click" , "#leftbar_search_container" , function(){
@@ -103,7 +106,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 	}
 	$("html").removeClass("leftbar-opened");
 	let scrolltop = $(document).scrollTop();
-	pjaxLoadUrl("/?s=" + encodeURI(word) , true , 0 , scrolltop);
+	pjaxLoadUrl(wp_path + "?s=" + encodeURI(word) , true , 0 , scrolltop);
 });
 
 /*左侧栏随页面滚动浮动*/
@@ -528,7 +531,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 
 		$.ajax({
 			type: 'POST',
-			url: "/wp-admin/admin-ajax.php",
+			url: wp_path + "wp-admin/admin-ajax.php",
 			dataType : "json",
 			data: {
 				action: "ajax_post_comment",
@@ -709,7 +712,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 
 		$.ajax({
 			type: 'POST',
-			url: "/wp-admin/admin-ajax.php",
+			url: wp_path + "wp-admin/admin-ajax.php",
 			dataType : "json",
 			data: {
 				action: "user_edit_comment",
@@ -818,7 +821,7 @@ function showCommentEditHistory(id){
 	$("#comment_edit_history").modal(null);
 	$.ajax({
 		type: 'POST',
-		url: "/wp-admin/admin-ajax.php",
+		url: wp_path + "wp-admin/admin-ajax.php",
 		dataType : "json",
 		data: {
 			action: "get_comment_edit_history",
@@ -1287,7 +1290,7 @@ $(document).on("click" , ".shuoshuo-upvote" , function(){
 	ID = $this.attr("data-id");
 	$this.addClass("shuoshuo-upvoting");
 	$.ajax({
-		url : "/wp-admin/admin-ajax.php",
+		url : wp_path + "wp-admin/admin-ajax.php",
 		type : "POST",
 		dataType : "json",
 		data : {
@@ -1618,6 +1621,21 @@ function typeEffect(element, text, now, interval){
 		typeEffect($(".banner-title-inner")[0], $bannerTitle.data("text"), 0, $bannerTitle.data("interval"));
 	}
 }();
+
+/*一言*/
+if ($(".hitokoto").length > 0){
+	$.ajax({
+		type: 'GET',
+		url: "https://v1.hitokoto.cn",
+		success: function(result){
+			result = JSON.parse(result);
+			$(".hitokoto").text(result.hitokoto);
+		},
+		error: function(result){
+			$(".hitokoto").text("Hitokoto 获取失败");
+		}
+	});
+}
 
 /*Console*/
 !function(){

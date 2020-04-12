@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.941
+Version: 0.943
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -39,7 +39,7 @@ article h1 , article h2 , article h3 , article h4 , article h5 , article h6 , ar
 }
 article h1 , article h2 , article h3 , article h4 , article h5 , article h6{
 	margin-top: 18px !important;
-	margin-bottom:  15px;
+	margin-bottom: 15px;
 } 
 article h1{
 	font-size: 30px;
@@ -127,8 +127,10 @@ article code{
 	color: #5e6687;
 	background: #f5f7ff;
 	direction: ltr;
-	padding: 2px 3px;
 	border-radius: 3px;
+}
+article > code , article > p > code{
+	padding: 2px 3px;
 }
 article .post-content abbr[title]{
 	text-decoration: none;
@@ -538,6 +540,7 @@ html.darkmode.amoled-dark #navbar-main{
 .leftbar-menu-item > a > i{
 	margin-right: 8px;
 	width: 15px;
+	text-align: center;
 }
 .leftbar-menu-item.leftbar-menu-item-haschildren:after {
 	content: "\f0da";
@@ -1583,12 +1586,24 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	border: 1px solid rgba(0, 0, 0, .12);
 	padding: 14px;
 	border-radius: 3px;
+	margin-top: 15px;
+}
+html.darkmode .comment-item-text pre {
+	border: 1px solid rgba(255, 255, 255, .12);
+	background: #525252;
+	color: #eee;
+}
+html.darkmode.amoled-dark .comment-item-text pre {
+	background: #000;
 }
 .comment-item-text blockquote {
 	padding-left: 1.2em;
 	margin: 1em 3em 1em 0;
 	font-weight: 400;
 	border-left: 3px solid rgba(0, 0, 0, .12);
+}
+html.darkmode .comment-item-text blockquote {
+	border-color: rgba(255, 255, 255, .2);
 }
 .comment-item-text ol li {
 	list-style-type: decimal !important;
@@ -2786,6 +2801,38 @@ html[class] , html[lang]{
 	opacity: 0;
 	pointer-events: none;
 }
+/*归档时间轴*/
+.archive-timeline{
+	padding-top: 10px;
+}
+.archive-timeline-title {
+	box-shadow: none;
+	border: none;
+	background: transparent !important;
+	font-size: 18px;
+	padding: 0;
+	margin-left: 1px;
+	margin-bottom: 25px;
+	padding-top: 7px;
+}
+.archive-timeline-year {
+	font-size: 30px;
+	color: var(--themecolor);
+}
+.archive-timeline-year + .archive-timeline-title {
+	height: 50px;
+	margin-top: 30px;
+}
+.archive-timeline-year + .archive-timeline-title {
+	height: 50px;
+	margin-top: 30px;
+}
+.archive-timeline-title > a:before {
+	display: none;
+}
+.argon-timeline-node:first-child > .archive-timeline-year + .archive-timeline-title {
+	margin-top: 0;
+}
 /*Loading Dot*/
 .loading-css-animation {
 	text-align: center;
@@ -3170,7 +3217,6 @@ html.darkmode.amoled-dark article .post-content pre{
 }
 html.darkmode.amoled-dark article .post-content code{
 	background: #000;
-	border: 1px solid rgba(255, 255, 255, .12);
 }
 
 html.darkmode.amoled-dark .form-control{

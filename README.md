@@ -63,6 +63,13 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200412 v0.943
++ 增加归档时间轴页面模板
++ 侧栏格言支持调用一言 API
++ 增加对 Wordpress 子目录安装方式的兼容性适配选项
++ 修复和 Prism.js 的一个兼容性问题
++ 修复侧栏图标不对齐问题
+
 ## 20200411 v0.941
 + 修复评论 UA 图标错误的 BUG
 + 修复评论编辑历史记录显示错误的 BUG

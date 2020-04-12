@@ -79,6 +79,10 @@
 		wp_enqueue_script("argonjs", $GLOBALS['assets_path'] . "/assets/js/argon.min.js", null, $GLOBALS['theme_version']);
 	?>
 	<?php wp_head(); ?>
+	<?php $GLOBALS['wp_path'] = get_option('argon_wp_path') == '' ? '/' : get_option('argon_wp_path'); ?>
+	<script>
+		var wp_path = "<?php echo $GLOBALS['wp_path']; ?>";
+	</script>
 	<script>
 		var darkmodeAutoSwitch = "<?php echo (get_option("argon_darkmode_autoswitch") == '' ? 'false' : get_option("argon_darkmode_autoswitch"));?>";
 		function setDarkmode(enable){

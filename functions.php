@@ -98,6 +98,17 @@ function argon_widgets_init() {
 	);
 }
 add_action('widgets_init','argon_widgets_init');
+//注册新后台主题配色方案
+function argon_add_admin_color(){
+	wp_admin_css_color(
+		'argon',
+		'Argon',
+		get_bloginfo('template_directory') . "/admin.css",
+		array("#5e72e4"),
+		array('base' => '#525f7f', 'focus' => '#5e72e4', 'current' => '#fff')
+	);
+}
+/*add_action('admin_init', 'argon_add_admin_color');*/
 //输出分页页码
 function get_argon_formatted_paginate_links($maxPageNumbers, $extraClasses = ''){
 	$args = array(
@@ -1423,15 +1434,19 @@ function argon_get_post_outdated_info(){
 	if ($delta == -1){
 		$delta = 2147483647;
 	}
+	$post_date_delta = floor((time() - get_the_time("U")) / (60 * 60 * 24));
+	$modify_date_delta = floor((time() - get_the_modified_time("U")) / (60 * 60 * 24));
 	if (get_option("argon_outdated_info_time_type") == "createdtime"){
-		$post_delta = floor((time() - get_the_time("U")) / (60 * 60 * 24));
+		$date_delta = $post_date_delta;
 	}else{
-		$post_delta = floor((time() - get_the_modified_time("U")) / (60 * 60 * 24));
+		$date_delta = $modify_date_delta;
 	}
-	if ($post_delta <= $delta){
+	if ($date_delta <= $delta){
 		return "";
 	}
-	$content = str_replace("%date_delta%", $post_delta, $content);
+	$content = str_replace("%date_delta%", $date_delta, $content);
+	$content = str_replace("%modify_date_delta%", $modify_date_delta, $content);
+	$content = str_replace("%post_date_delta%", $post_date_delta, $content);
 	return $before . $content . $after;
 }
 //主题文章短代码解析
@@ -2122,6 +2137,14 @@ function themeoptions_page(){
 							<p class="description">选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。</p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h3>子目录</h3></th></tr>
+					<tr>
+						<th><label>Wordpress 安装目录</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_wp_path" value="<?php echo (get_option('argon_wp_path') == '' ? '/' : get_option('argon_wp_path')); ?>"/>
+							<p class="description">如果 Wordpress 安装在子目录中，请在此填写子目录地址（例如 <code>/blog/</code>），注意前后各有一个斜杠。默认为 <code>/</code>。</br>如果不清楚该选项的用处，请保持默认。</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2>顶栏</h2></th></tr>
 					<tr><th class="subtitle"><h3>标题</h3></th></tr>
 					<tr>
@@ -2273,7 +2296,7 @@ function themeoptions_page(){
 						<th><label>左侧栏子标题（格言）</label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_sidebar_banner_subtitle" value="<?php echo get_option('argon_sidebar_banner_subtitle'); ?>"/>
-							<p class="description">留空则不显示</p>
+							<p class="description">留空则不显示</br>输入 <code>--hitokoto--</code> 调用一言 API</p>
 						</td>
 					</tr>
 					<tr>
@@ -2433,7 +2456,7 @@ function themeoptions_page(){
 							的方式提示
 							</br>
 							<textarea type="text" name="argon_outdated_info_tip_content" rows="3" cols="100" style="margin-top: 15px;"><?php echo get_option('argon_outdated_info_tip_content') == '' ? '本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。' : get_option('argon_outdated_info_tip_content'); ?></textarea>	
-							<p class="description">天数为 -1 表示永不提示。</br>%date_delta% 表示文章发布/修改时间与当前时间的差距（单位: 天）。</p>
+							<p class="description">天数为 -1 表示永不提示。</br><code>%date_delta%</code> 表示文章发布/修改时间与当前时间的差距，<code>%post_date_delta%</code> 表示文章发布时间与当前时间的差距，<code>%modify_date_delta%</code> 表示文章修改时间与当前时间的差距（单位: 天）。</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>页脚</h2></th></tr>
@@ -3204,6 +3227,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_enable_pangu');
 		argon_update_option('argon_assets_path');
 		argon_update_option('argon_comment_ua');
+		argon_update_option('argon_wp_path');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');
