@@ -29,7 +29,6 @@ if (version_compare($argon_last_version, $GLOBALS['theme_version'], '<' )){
 		if (get_option('argon_mathjax_enable') == 'true'){
 			update_option("argon_math_render", 'mathjax3');
 		}
-		echo get_option("argon_math_render");
 	}
 	update_option("argon_last_version", $GLOBALS['theme_version']);
 }
