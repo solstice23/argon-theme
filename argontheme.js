@@ -89,6 +89,7 @@ $(document).on("click" , "#leftbar_search_container" , function(){
 	$(".leftbar-search-button").addClass("open");
 	$("#leftbar_search_input").removeAttr("readonly").focus();
 	$("#leftbar_search_input").focus();
+	$("#leftbar_search_input").select();
 	return false;
 });
 $(document).on("blur" , "#leftbar_search_container" , function(){
@@ -1130,7 +1131,7 @@ $(document).ready(function(){
 		return;
 	}
 	window.history.scrollRestoration = "manual"; //接管浏览器滚动复位管理
-	$(document).on("click" , "a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank'])" , function(){
+	$(document).on("click" , "a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):not([download])" , function(){
 		if (pjaxLoading){
 			return false;
 		}

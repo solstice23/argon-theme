@@ -63,6 +63,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200413 v0.943.1
++ 修复 Pjax 的一个问题
+
 ## 20200412 v0.943
 + 增加归档时间轴页面模板
 + 侧栏格言支持调用一言 API
