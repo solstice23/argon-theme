@@ -1629,7 +1629,6 @@ if ($(".hitokoto").length > 0){
 		type: 'GET',
 		url: "https://v1.hitokoto.cn",
 		success: function(result){
-			result = JSON.parse(result);
 			$(".hitokoto").text(result.hitokoto);
 		},
 		error: function(result){
