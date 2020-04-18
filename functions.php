@@ -1433,8 +1433,8 @@ function argon_get_post_outdated_info(){
 	if ($delta == -1){
 		$delta = 2147483647;
 	}
-	$post_date_delta = floor((time() - get_the_time("U")) / (60 * 60 * 24));
-	$modify_date_delta = floor((time() - get_the_modified_time("U")) / (60 * 60 * 24));
+	$post_date_delta = floor((current_time('timestamp') - get_the_time("U")) / (60 * 60 * 24));
+	$modify_date_delta = floor((current_time('timestamp') - get_the_modified_time("U")) / (60 * 60 * 24));
 	if (get_option("argon_outdated_info_time_type") == "createdtime"){
 		$date_delta = $post_date_delta;
 	}else{
@@ -2096,12 +2096,29 @@ function themeoptions_page(){
 							<p class="description">夜间模式默认的配色方案。</p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>圆角</h3></th></tr>
+					<tr><th class="subtitle"><h3>卡片</h3></th></tr>
 					<tr>
 						<th><label>卡片圆角大小</label></th>
 						<td>
 							<input type="number" name="argon_card_radius" min="0" max="30" step="0.5" value="<?php echo (get_option('argon_card_radius') == '' ? '4' : get_option('argon_card_radius')); ?>"/>	px
 							<p class="description">卡片的圆角大小，默认为 <code>4px</code>。建议设置在 <code>2px</code> 和 <code>15px</code> 之间。</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>卡片阴影</label></th>
+						<td>
+							<div class="radio-h">
+								<?php $argon_card_shadow = (get_option('argon_card_shadow') == '' ? 'default' : get_option('argon_card_shadow')); ?>
+								<label>
+									<input name="argon_card_shadow" type="radio" value="default" <?php if ($argon_card_shadow=='default'){echo 'checked';} ?>>
+									浅阴影
+								</label>
+								<label>
+									<input name="argon_card_shadow" type="radio" value="big" <?php if ($argon_card_shadow=='big'){echo 'checked';} ?>>
+									深阴影
+								</label>
+							</div>
+							<p class="description">卡片默认阴影大小。</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3>布局</h3></th></tr>
@@ -2122,6 +2139,24 @@ function themeoptions_page(){
 								<label><input name="argon_page_layout" type="radio" value="single" <?php if ($argon_page_layout=='single'){echo 'checked';} ?>> 单栏</label>
 							</div>
 							<p class="description" style="margin-top: 15px;">使用单栏时，关于侧栏的设置将失效。</p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h3>字体</h3></th></tr>
+					<tr>
+						<th><label>默认字体</label></th>
+						<td>
+							<div class="radio-h">
+								<?php $argon_font = (get_option('argon_font') == '' ? 'sans-serif' : get_option('argon_font')); ?>
+								<label>
+									<input name="argon_font" type="radio" value="sans-serif" <?php if ($argon_font=='sans-serif'){echo 'checked';} ?>>
+									Sans Serif
+								</label>
+								<label>
+									<input name="argon_font" type="radio" value="serif" <?php if ($argon_font=='serif'){echo 'checked';} ?>>
+									Serif
+								</label>
+							</div>
+							<p class="description">默认使用无衬线字体/衬线字体。</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3>CDN</h3></th></tr>
@@ -2924,6 +2959,12 @@ window.pjaxLoaded = function(){
 			display: inline-block;
 			margin-top: 10px;
 		}
+		.radio-h {
+			padding-bottom: 10px;
+		}
+		.radio-h > label {
+			margin-right: 15px;
+		}
 		#headindex_box {
 			position: fixed;
 			right: 10px;
@@ -3227,6 +3268,8 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_assets_path');
 		argon_update_option('argon_comment_ua');
 		argon_update_option('argon_wp_path');
+		argon_update_option('argon_font');
+		argon_update_option('argon_card_shadow');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

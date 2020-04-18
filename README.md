@@ -63,6 +63,11 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200418 v0.944
++ 增加默认字体选项
++ 增加默认阴影大小选项
++ 修复文章过时信息时差问题
+
 ## 20200413 v0.943.1
 + 修复 Pjax 的一个问题
 

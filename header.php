@@ -10,6 +10,12 @@
 	if (get_option('argon_enable_amoled_dark') == "true"){
 		$htmlclasses .= "amoled-dark ";
 	}
+	if (get_option('argon_card_shadow') == 'big'){
+		$htmlclasses .= 'use-big-shadow ';
+	}
+	if (get_option('argon_font') == 'serif'){
+		$htmlclasses .= 'use-serif ';
+	}
 	if(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== false && strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') === false){
 		$htmlclasses .= ' using-safari';
 	}
@@ -38,7 +44,7 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<?php if (get_option('argon_enable_mobile_scale') != 'true'){ ?>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">	
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<?php }else{ ?>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 	<?php } ?>

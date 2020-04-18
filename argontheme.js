@@ -225,7 +225,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 	});
 	if (localStorage['Argon_Use_Serif'] == "true"){
 		$("html").addClass("use-serif");
-	}else{
+	}else if (localStorage['Argon_Use_Serif'] == "false"){
 		$("html").removeClass("use-serif");
 	}
 	//阴影
@@ -239,7 +239,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 	});
 	if (localStorage['Argon_Use_Big_Shadow'] == "true"){
 		$("html").addClass("use-big-shadow");
-	}else{
+	}else if (localStorage['Argon_Use_Big_Shadow'] == "false"){
 		$("html").removeClass("use-big-shadow");
 	}
 	//滤镜
