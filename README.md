@@ -63,6 +63,12 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200424 v0.950
++ 内置 Highlight.js 代码高亮
+	+ Mac 风格
+	+ 支持行号
+	+ 支持复制代码、切换行号显示、切换自动折行、全屏
+
 ## 20200418 v0.944
 + 增加默认字体选项
 + 增加默认阴影大小选项

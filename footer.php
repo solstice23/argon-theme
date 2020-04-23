@@ -66,6 +66,14 @@
 				});
 			</script>
 		<?php }?>
+
+		<?php if (get_option('argon_enable_code_highlight') == 'true') { /*Highlight.js*/?>
+			<script>
+				var argonEnableCodeHighlight = true;
+			</script>
+			<link rel="stylesheet" href="<?php echo $GLOBALS['assets_path']; ?>/assets/vendor/highlight/styles/<?php echo get_option('argon_code_theme') == '' ? 'vs2015' : get_option('argon_code_theme'); ?>.css">
+		<?php }?>
+
 	</div>
 </div>
 <?php 

@@ -2501,6 +2501,44 @@ function themeoptions_page(){
 							<p class="description">HTML , 支持 script 等标签</p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h2>代码高亮</h2></th></tr>
+					<tr>
+						<th><label>启用 Highlight.js 代码高亮</label></th>
+						<td>
+							<select name="argon_enable_code_highlight">
+								<?php $argon_enable_code_highlight = get_option('argon_enable_code_highlight'); ?>
+								<option value="false" <?php if ($argon_enable_code_highlight=='false'){echo 'selected';} ?>>不启用</option>
+								<option value="true" <?php if ($argon_enable_code_highlight=='true'){echo 'selected';} ?>>启用</option>
+							</select>
+							<p class="description">所有 pre 下的 code 标签会被自动解析</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>高亮配色方案（主题）</label></th>
+						<td>
+							<select name="argon_code_theme">
+								<?php 
+								$argon_code_themes_list = array("a11y-dark", "a11y-light", "agate", "an-old-hope", "androidstudio", "arduino-light", "arta", "ascetic", "atelier-cave-dark", "atelier-cave-light", "atelier-dune-dark", "atelier-dune-light", "atelier-estuary-dark", "atelier-estuary-light", "atelier-forest-dark", "atelier-forest-light", "atelier-heath-dark", "atelier-heath-light", "atelier-lakeside-dark", "atelier-lakeside-light", "atelier-plateau-dark", "atelier-plateau-light", "atelier-savanna-dark", "atelier-savanna-light", "atelier-seaside-dark", "atelier-seaside-light", "atelier-sulphurpool-dark", "atelier-sulphurpool-light", "atom-one-dark-reasonable", "atom-one-dark", "atom-one-light", "brown-paper", "brown-papersq", "codepen-embed", "color-brewer", "darcula", "dark", "darkula", "default", "docco", "dracula", "far", "foundation", "github-gist", "github", "gml", "googlecode", "gradient-dark", "grayscale", "gruvbox-dark", "gruvbox-light", "hopscotch", "hybrid", "idea", "ir-black", "isbl-editor-dark", "isbl-editor-light", "kimbie.dark", "kimbie.light", "lightfair", "magula", "mono-blue", "monokai-sublime", "monokai", "night-owl", "nord", "obsidian", "ocean", "paraiso-dark", "paraiso-light", "pojoaque", "pojoaque", "purebasic", "qtcreator_dark", "qtcreator_light", "railscasts", "rainbow", "routeros", "school-book", "school-book", "shades-of-purple", "solarized-dark", "solarized-light", "sunburst", "tomorrow-night-blue", "tomorrow-night-bright", "tomorrow-night-eighties", "tomorrow-night", "tomorrow", "vs", "vs2015", "xcode", "xt256", "zenburn");
+								$argon_code_theme = get_option('argon_code_theme');
+								if ($argon_code_theme == ''){
+									$argon_code_theme = "vs2015";
+								}
+								foreach ($argon_code_themes_list as $code_theme){
+									if ($argon_code_theme == $code_theme){
+										echo "<option value='" . $code_theme . "' selected>" . $code_theme . "</option>";
+									}else{
+										echo "<option value='" . $code_theme . "'>" . $code_theme . "</option>";
+									}
+								}
+								?>
+							</select>
+							<p class="description"><a href="https://highlightjs.org/static/demo/" target="_blank">查看所有主题预览</a></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label style="opacity: .6;">More settings are coming soon..</label></th>
+						
+					</tr>
 					<tr><th class="subtitle"><h2>数学公式</h2></th></tr>
 					<tr>
 						<th><label>数学公式渲染方案</label></th>
@@ -3270,6 +3308,8 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_wp_path');
 		argon_update_option('argon_font');
 		argon_update_option('argon_card_shadow');
+		argon_update_option('argon_enable_code_highlight');
+		argon_update_option('argon_code_theme');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

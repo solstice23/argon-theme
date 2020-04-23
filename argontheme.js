@@ -1058,6 +1058,8 @@ function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop , requestType , 
 							}
 						}catch (err){}
 
+						highlightJsRender();
+
 						getGithubInfoCardContent();
 
 						showPostOutdateToast();
@@ -1636,6 +1638,119 @@ if ($(".hitokoto").length > 0){
 		}
 	});
 }
+
+/*Highlight.js*/
+function randomString(len) {
+	len = len || 32;
+	let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	let res = "";
+	for (let i = 0; i < len; i++) {
+		res += chars.charAt(Math.floor(Math.random() * chars.length));
+	}
+	return res;
+}
+var codeOfBlocks = {};
+function getCodeFromBlock(block){
+	if (codeOfBlocks[block] != undefined){
+		return codeOfBlocks[block];
+	}
+	let lines = $(".hljs-ln-code", block);
+	let res = "";
+	for (let i = 0; i < lines.length - 1; i++){
+		res += lines[i].innerText;
+		res += "\n";
+	}
+	res += lines[lines.length - 1].innerText;
+	codeOfBlocks[block] = res;
+	return res;
+}
+function highlightJsRender(){
+	if (typeof(hljs) == "undefined"){
+		return;
+	}
+	if (typeof(argonEnableCodeHighlight) == "undefined"){
+		return;
+	}
+	if (!argonEnableCodeHighlight){
+		return;
+	}
+	$("article pre > code").each(function(index, block) {
+		if ($(block).hasClass("no-hljs")){
+			return;
+		}
+		hljs.highlightBlock(block);
+		hljs.lineNumbersBlock(block);
+		$(block).parent().addClass("hljs-codeblock");
+		$(block).attr("hljs-codeblock-inner", "");
+		let copyBtnID = "copy_btn_" + randomString();
+		$(block).parent().append(`
+			<div class="hljs-control hljs-title">
+				<div class="hljs-control-btn hljs-control-toggle-linenumber">
+					<i class="fa fa-list"></i>
+				</div>
+				<div class="hljs-control-btn hljs-control-toggle-break-line">
+					<i class="fa fa-align-left"></i>
+				</div>
+				<div class="hljs-control-btn hljs-control-copy" id=` + copyBtnID + `>
+					<i class="fa fa-clipboard"></i>
+				</div>
+				<div class="hljs-control-btn hljs-control-fullscreen">
+					<i class="fa fa-arrows-alt"></i>
+				</div>
+			</div>`);
+		let clipboard = new ClipboardJS("#" + copyBtnID, {
+			text: function(trigger) {
+				return getCodeFromBlock($(block).parent());
+			}
+		});
+		clipboard.on('success', function(e) {
+			iziToast.show({
+				title: '复制成功',
+				message: "代码已复制到剪贴板",
+				class: 'shadow',
+				position: 'topRight',
+				backgroundColor: '#2dce89',
+				titleColor: '#ffffff',
+				messageColor: '#ffffff',
+				iconColor: '#ffffff',
+				progressBarColor: '#ffffff',
+				icon: 'fa fa-check',
+				timeout: 5000
+			});
+		});
+		clipboard.on('error', function(e) {
+			iziToast.show({
+				title: '复制失败',
+				message: "请手动复制代码",
+				class: 'shadow',
+				position: 'topRight',
+				backgroundColor: '#f5365c',
+				titleColor: '#ffffff',
+				messageColor: '#ffffff',
+				iconColor: '#ffffff',
+				progressBarColor: '#ffffff',
+				icon: 'fa fa-close',
+				timeout: 5000
+			});
+		});
+	});
+}
+$(document).ready(function(){
+	highlightJsRender();
+});
+$(document).on("click" , ".hljs-control-fullscreen" , function(){
+	let block = $(this).parent().parent();
+	block.toggleClass("hljs-codeblock-fullscreen");
+});
+$(document).on("click" , ".hljs-control-toggle-break-line" , function(){
+	let block = $(this).parent().parent();
+	block.toggleClass("hljs-break-line");
+});
+$(document).on("click" , ".hljs-control-toggle-linenumber" , function(){
+	let block = $(this).parent().parent();
+	block.toggleClass("hljs-hide-linenumber");
+});
+
 
 /*Console*/
 !function(){

@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.944
+Version: 0.950
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -89,7 +89,7 @@ article .post-content a:before{
 article .post-content a:hover:before{
 	transform: scaleX(1);
 }
-article pre{
+article pre:not(.hljs-codeblock){
 	font-family: Consolas,Menlo,Monaco,'Andale Mono WT','Andale Mono','Lucida Console','Lucida Sans Typewriter','DejaVu Sans Mono','Bitstream Vera Sans Mono','Liberation Mono','Nimbus Mono L','Courier New',Courier,monospace;
 	font-size: 14px;
 	line-height: 1.375;
@@ -122,14 +122,14 @@ article .post-content u , article .post-content ins{
 	text-decoration: none;
 	border-bottom: 1px solid;
 }
-article code{
+article code:not([hljs-codeblock-inner]){
 	font-family: Consolas,Menlo,Monaco,'Andale Mono WT','Andale Mono','Lucida Console','Lucida Sans Typewriter','DejaVu Sans Mono','Bitstream Vera Sans Mono','Liberation Mono','Nimbus Mono L','Courier New',Courier,monospace;
 	color: #5e6687;
 	background: #f5f7ff;
 	direction: ltr;
 	border-radius: 3px;
 }
-article > code , article > p > code{
+article > code:not([hljs-codeblock-inner]) , article > p > code:not([hljs-codeblock-inner]){
 	padding: 2px 3px;
 }
 article .post-content abbr[title]{
@@ -2925,6 +2925,201 @@ html[class] , html[lang]{
 	width: 1rem;
 	height: 1rem;
 }
+/*Highlight.js*/
+article table.hljs-ln > tbody > tr > td, article table.hljs-ln > tbody > tr > th, article table.hljs-ln > tfoot > tr > td, article table.hljs-ln > tfoot > tr > th, article table.hljs-ln > thead > tr > td, article table.hljs-ln > thead > tr > th {
+	padding: unset;
+	vertical-align: unset;
+	border: unset;
+}
+pre.hljs-codeblock{
+	overflow: visible;
+	position: relative;
+}
+pre.hljs-codeblock:before {
+	content: "";
+	position: absolute;
+	background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDU0IDE0Ij48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEgMSkiPjxjaXJjbGUgY3g9IjYiIGN5PSI2IiByPSI2IiBmaWxsPSIjRkY1RjU2IiBzdHJva2U9IiNFMDQ0M0UiIHN0cm9rZS13aWR0aD0iLjUiPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjI2IiBjeT0iNiIgcj0iNiIgZmlsbD0iI0ZGQkQyRSIgc3Ryb2tlPSIjREVBMTIzIiBzdHJva2Utd2lkdGg9Ii41Ij48L2NpcmNsZT48Y2lyY2xlIGN4PSI0NiIgY3k9IjYiIHI9IjYiIGZpbGw9IiMyN0M5M0YiIHN0cm9rZT0iIzFBQUIyOSIgc3Ryb2tlLXdpZHRoPSIuNSI+PC9jaXJjbGU+PC9nPjwvc3ZnPg==) no-repeat;
+	background-position-y: center;
+	top: 22px;
+	left: 20px;
+	height: 14px;
+	width: 54px;
+	margin-left: 5px;
+	display: block;
+}
+code[hljs-codeblock-inner] {
+	line-height: 1.5;
+	font-size: 16px;
+	border-radius: 100px;
+	padding: 22px 20px;
+	border-radius: 8px;
+	box-shadow: rgba(0,0,0,0.2) 0px 5px 20px;
+	margin-top: 30px !important;
+	margin-bottom: 30px !important;
+	padding-top: 55px;
+}
+.hljs-ln-numbers {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	text-align: center;
+	vertical-align: top;
+	padding-right: 12px !important;
+	position: absolute;
+	left: 20px;
+	width: 30px;
+	overflow-x: visible !important;
+	transition: all .3s ease;
+}
+.hljs-ln-numbers:before {
+	content: '';
+	position: absolute;
+	left: -20px;
+	width: 20px;
+	height: 100%;
+	background: inherit;
+}
+.hljs-ln-code {
+	padding-left: 30px !important;
+	transition: all .3s ease;
+}
+pre.hljs-codeblock.hljs-break-line .hljs-ln-code {
+	line-break: anywhere;
+	white-space: break-spaces;
+}
+code[hljs-codeblock-inner]::-webkit-scrollbar-track{
+	border: none;
+	background: transparent !important;
+}
+code[hljs-codeblock-inner]::-webkit-scrollbar-thumb{
+	background: rgba(255, 255, 255, .3) !important;
+	box-shadow: none !important;
+	border: none !important;
+	border-radius: 10px;
+	transition: background .3s ease;
+}
+code[hljs-codeblock-inner]::-webkit-scrollbar-thumb:hover{
+	background: rgba(255, 255, 255, .5) !important;
+}
+code[hljs-codeblock-inner]::-webkit-scrollbar{
+	background: transparent;
+	height: 6px;
+}
+code[hljs-codeblock-inner] *::selection {
+	background-color: rgba(204, 226, 255, 0.2) !important;
+}
+pre.hljs-codeblock.hljs-codeblock-fullscreen {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 10000;
+	margin: 0 !important;
+	animation: codeblock-fullscreen 0.5s cubic-bezier(0.18, 0.89, 0.37, 1.12);
+}
+pre.hljs-codeblock.hljs-codeblock-fullscreen > code[hljs-codeblock-inner]{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	border-radius: 0;
+	margin: 0 !important;
+}
+pre.hljs-codeblock.hljs-codeblock-fullscreen:before{
+	z-index: 10001;
+}
+@keyframes codeblock-fullscreen{
+	0%{
+		transform: scale(.5);
+		opacity: 1;
+	}
+	100%{
+		transform: none;
+		opacity: 1;
+	}
+}
+pre.hljs-codeblock.hljs-hide-linenumber .hljs-ln-numbers.hljs{
+	width: 0px;
+	opacity: 0;
+}
+pre.hljs-codeblock.hljs-hide-linenumber .hljs-ln-code {
+	padding-left: 4px !important;
+}
+pre.hljs-codeblock .hljs-control{
+	position: absolute;
+	top: 16px;
+	right: 20px;
+	user-select: none;
+	opacity: 0;
+	transition: all .2s ease;
+	white-space: nowrap;
+}
+pre.hljs-codeblock:hover .hljs-control{
+	opacity: .4;
+}
+pre.hljs-codeblock:hover .hljs-control:hover{
+	opacity: 1;
+}
+pre.hljs-codeblock .hljs-control i.fa{
+	font: normal normal normal 14px/1 FontAwesome !important;
+}
+.hljs-control .hljs-control-btn {
+	display: inline-block;
+	opacity: .8;
+	transition: all .2s ease;
+	cursor: pointer;
+	margin-left: 15px;
+	width: 12px;
+	position: relative;
+}
+.hljs-control .hljs-control-btn:hover {
+	opacity: .5;
+}
+.hljs-control-btn:before {
+	position: absolute;
+	top: 22px;
+	left: -40px;
+	width: 92px;
+	text-align: center;
+	opacity: 0;
+	pointer-events: none;
+	transition: all .2s ease;
+	font-size: 12px;
+	font-family: sans-serif;
+}
+.hljs-control-btn:hover:before {
+	opacity: 1;
+	top: 25px;
+}
+.hljs-control-toggle-linenumber:before {
+	content: "隐藏行号";
+}
+pre.hljs-codeblock.hljs-hide-linenumber .hljs-control-toggle-linenumber:before {
+	content: "显示行号";
+}
+.hljs-control-toggle-break-line:before {
+	content: "开启折行";
+}
+pre.hljs-codeblock.hljs-break-line .hljs-control-toggle-break-line:before {
+	content: "关闭折行";
+}
+.hljs-control-copy:before {
+	content: "复制";
+}
+.hljs-control-fullscreen:before {
+	content: "全屏";
+}
+pre.hljs-codeblock.hljs-codeblock-fullscreen .hljs-control-fullscreen:before {
+	content: "退出全屏";
+}
+pre.hljs-codeblock.hljs-codeblock-fullscreen .hljs-control-fullscreen > i:before {
+	content: "\f066";
+}
 
 
 /*==========Style-Dark==========*/
@@ -3061,12 +3256,12 @@ html.darkmode article .post-content blockquote{
 	border-left: 4px solid rgba(255, 255, 255, .12);
 }
 
-html.darkmode article .post-content pre{
+html.darkmode article .post-content pre:not(.hljs-codeblock){
 	border: 1px solid rgba(255, 255, 255, .12);
 	background: #525252;
 	color: #eee;
 }
-html.darkmode article .post-content code{
+html.darkmode article .post-content code:not([hljs-codeblock-inner]){
 	background: #525252;
 	color: #eee;
 }
@@ -3212,10 +3407,10 @@ html.darkmode.amoled-dark .dropdown-menu , html.darkmode.amoled-dark .dropdown-m
 	background: #111;
 	box-shadow: none;
 }
-html.darkmode.amoled-dark article .post-content pre{
+html.darkmode.amoled-dark article .post-content pre:not(.hljs-codeblock){
 	background: #000;
 }
-html.darkmode.amoled-dark article .post-content code{
+html.darkmode.amoled-dark article .post-content code:not([hljs-codeblock-inner]){
 	background: #000;
 }
 
