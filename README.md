@@ -63,6 +63,11 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200425 v0.951
++ 经典编辑器中增加插入代码块按钮和短代码快捷按钮
++ 优化代码高亮
++ 适配图片说明
+
 ## 20200424 v0.950
 + 内置 Highlight.js 代码高亮
 	+ Mac 风格

@@ -89,6 +89,9 @@
 			if ($preview == ""){
 				$preview = "这篇文章没有摘要";
 			}
+			if (get_the_excerpt()){
+				$preview = get_the_excerpt();
+			}
 			echo $preview;
 		?>
 	</div>

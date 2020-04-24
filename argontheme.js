@@ -1674,6 +1674,12 @@ function highlightJsRender(){
 	if (!argonEnableCodeHighlight){
 		return;
 	}
+	$("article pre.code").each(function(index, block) {
+		if ($(block).hasClass("no-hljs")){
+			return;
+		}
+		$(block).html("<code>" + $(block).html() + "</code>");
+	});
 	$("article pre > code").each(function(index, block) {
 		if ($(block).hasClass("no-hljs")){
 			return;
@@ -1741,6 +1747,11 @@ $(document).ready(function(){
 $(document).on("click" , ".hljs-control-fullscreen" , function(){
 	let block = $(this).parent().parent();
 	block.toggleClass("hljs-codeblock-fullscreen");
+	if (block.hasClass("hljs-codeblock-fullscreen")){
+		$("html").addClass("noscroll");
+	}else{
+		$("html").removeClass("noscroll");
+	}
 });
 $(document).on("click" , ".hljs-control-toggle-break-line" , function(){
 	let block = $(this).parent().parent();
