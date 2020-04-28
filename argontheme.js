@@ -458,16 +458,30 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				isError = true;
 				errorMsg += "昵称不能为空</br>";
 			}
-			if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail)){
-				isError = true;
-				errorMsg += "邮箱格式错误</br>";
+			if ($("#post_comment").hasClass("enable-qq-avatar")){
+				if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail) && !(/^[1-9][0-9]{4,10}$/).test(commentEmail)){
+					isError = true;
+					errorMsg += "邮箱或 QQ 号格式错误</br>";
+				}
+			}else{
+				if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail)){
+					isError = true;
+					errorMsg += "邮箱格式错误</br>";
+				}
 			}
 		}else{
 			if (document.getElementById("comment_post_mailnotice") != null){
 				if (document.getElementById("comment_post_mailnotice").checked == true){
-					if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail)){
-						isError = true;
-						errorMsg += "邮箱格式错误</br>";
+					if ($("#post_comment").hasClass("enable-qq-avatar")){
+						if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail) && !(/^[1-9][0-9]{4,10}$/).test(commentEmail)){
+							isError = true;
+							errorMsg += "邮箱或 QQ 号格式错误</br>";
+						}
+					}else{
+						if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail)){
+							isError = true;
+							errorMsg += "邮箱格式错误</br>";
+						}
 					}
 				}
 			}
@@ -1651,8 +1665,8 @@ function randomString(len) {
 }
 var codeOfBlocks = {};
 function getCodeFromBlock(block){
-	if (codeOfBlocks[block] != undefined){
-		return codeOfBlocks[block];
+	if (codeOfBlocks[block.id] != undefined){
+		return codeOfBlocks[block.id];
 	}
 	let lines = $(".hljs-ln-code", block);
 	let res = "";
@@ -1661,7 +1675,7 @@ function getCodeFromBlock(block){
 		res += "\n";
 	}
 	res += lines[lines.length - 1].innerText;
-	codeOfBlocks[block] = res;
+	codeOfBlocks[block.id] = res;
 	return res;
 }
 function highlightJsRender(){
@@ -1684,13 +1698,13 @@ function highlightJsRender(){
 		if ($(block).hasClass("no-hljs")){
 			return;
 		}
+		$(block).parent().attr("id", randomString());
 		hljs.highlightBlock(block);
-		hljs.lineNumbersBlock(block);
+		hljs.lineNumbersBlock(block, {singleLine: true});
 		$(block).parent().addClass("hljs-codeblock");
 		$(block).attr("hljs-codeblock-inner", "");
 		let copyBtnID = "copy_btn_" + randomString();
-		$(block).parent().append(`
-			<div class="hljs-control hljs-title">
+		$(block).parent().append(`<div class="hljs-control hljs-title">
 				<div class="hljs-control-btn hljs-control-toggle-linenumber">
 					<i class="fa fa-list"></i>
 				</div>
@@ -1706,7 +1720,7 @@ function highlightJsRender(){
 			</div>`);
 		let clipboard = new ClipboardJS("#" + copyBtnID, {
 			text: function(trigger) {
-				return getCodeFromBlock($(block).parent());
+				return getCodeFromBlock($(block).parent()[0]);
 			}
 		});
 		clipboard.on('success', function(e) {

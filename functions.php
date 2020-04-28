@@ -698,6 +698,14 @@ function ajax_post_comment(){
 			)));
 		}
 	}
+	if (get_option('argon_comment_enable_qq_avatar') == 'true'){
+		if (check_qqnumber($_POST['email'])){
+			$_POST['qq'] = $_POST['email'];
+			$_POST['email'] .= "@qq.com";
+		}else{
+			$_POST['qq'] = "";
+		}
+	}
 	$comment = wp_handle_comment_submission(wp_unslash($_POST));
 	if (is_wp_error($comment)){
 		$msg = $comment -> get_error_data();
@@ -712,6 +720,11 @@ function ajax_post_comment(){
 	}
 	$user = wp_get_current_user();
 	do_action('set_comment_cookies', $comment, $user);
+	if (!empty($_POST['qq']) && get_option('argon_comment_enable_qq_avatar') == 'true'){
+		$_comment = $comment;
+		$_comment -> comment_author_email = $_POST['qq'] . "@avatarqq.com";
+		do_action('set_comment_cookies', $_comment, $user);
+	}
 	$html = wp_list_comments(
 		array(
 			'type'      => 'comment',
@@ -888,6 +901,12 @@ function post_comment_updatemetas($id){
 	if ($comment -> comment_approved == 1){
 		comment_mail_notify($comment);
 	}
+	//保存 QQ 号
+	if (get_option('argon_comment_enable_qq_avatar') == 'true'){
+		if (!empty($_POST['qq'])){
+			update_comment_meta($id, "qq_number", $_POST['qq']);
+		}
+	}
 }
 add_action('comment_post' , 'post_comment_updatemetas');
 add_action('comment_unapproved_to_approved', 'comment_mail_notify');
@@ -1055,6 +1074,24 @@ function get_argon_comment_paginate_links_prev_url(){
 		$url
 	);
 	return $url[1];
+}
+//QQ Avatar 获取
+function get_avatar_by_qqnumber($avatar){
+	global $comment;
+	$qqnumber = get_comment_meta($comment -> comment_ID, 'qq_number', true);
+	if (!empty($qqnumber)){
+		return "<img src='https://q1.qlogo.cn/g?b=qq&s=640&nk=" . $qqnumber ."' class='avatar avatar-40 photo'>";
+	}
+	return $avatar;
+}
+add_filter('get_avatar', 'get_avatar_by_qqnumber');
+//判断 QQ 号合法性
+function check_qqnumber($qqnumber){
+	if (preg_match("/^[1-9][0-9]{4,10}$/", $qqnumber)){
+		return true;
+	} else {
+		return false;
+	}
 }
 //获取顶部 Banner 背景图（用户指定或必应日图）
 function get_banner_background_url(){
@@ -2884,6 +2921,17 @@ window.pjaxLoaded = function(){
 							<p class="description">评论者开启邮件提醒后，其评论有回复时会有邮件通知。</p>
 						</td>
 					</tr>
+					<tr>
+						<th><label>允许评论者使用 QQ 头像</label></th>
+						<td>
+							<select name="argon_comment_enable_qq_avatar">
+								<?php $argon_comment_enable_qq_avatar = get_option('argon_comment_enable_qq_avatar'); ?>
+								<option value="false" <?php if ($argon_comment_enable_qq_avatar=='false'){echo 'selected';} ?>>不允许</option>
+								<option value="true" <?php if ($argon_comment_enable_qq_avatar=='true'){echo 'selected';} ?>>允许</option>	
+							</select>
+							<p class="description">开启后，评论者可以使用 QQ 号代替邮箱输入，头像会根据评论者的 QQ 号获取。</p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h3>评论区</h3></th></tr>
 					<tr>
 						<th><label>评论头像垂直位置</label></th>
@@ -3354,6 +3402,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_card_shadow');
 		argon_update_option('argon_enable_code_highlight');
 		argon_update_option('argon_code_theme');
+		argon_update_option('argon_comment_enable_qq_avatar');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

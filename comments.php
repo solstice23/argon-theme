@@ -53,9 +53,15 @@
 	</div>
 <?php } else { ?>
 
-<?php $name_and_email_required = get_option('require_name_email')?>
-<?php $current_commenter = wp_get_current_commenter(); ?>
-<div id="post_comment" class="card shadow-sm <?php if (is_user_logged_in()) {echo("logged");}?><?php if (!$name_and_email_required) {echo(" no-need-name-email");}?><?php if (get_option('argon_comment_need_captcha') == 'false') {echo(" no-need-captcha");}?>">
+<?php $name_and_email_required = get_option('require_name_email');?>
+<?php $enable_qq_avatar = get_option('argon_comment_enable_qq_avatar'); ?>
+<?php
+	$current_commenter = wp_get_current_commenter();
+	if ($enable_qq_avatar == 'true'){
+		$current_commenter['comment_author_email'] = str_replace("@avatarqq.com", "", $current_commenter['comment_author_email']);
+	}
+?>
+<div id="post_comment" class="card shadow-sm <?php if (is_user_logged_in()) {echo("logged");}?><?php if (!$name_and_email_required) {echo(" no-need-name-email");}?><?php if (get_option('argon_comment_need_captcha') == 'false') {echo(" no-need-captcha");}?><?php if ($enable_qq_avatar == 'true') {echo(" enable-qq-avatar");}?>">
 	<div class="card-body">
 		<h2 class="post-comment-title">
 			<i class="fa fa-commenting"></i>
@@ -119,7 +125,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-envelope"></i></span>
 							</div>
-							<input id="post_comment_email" class="form-control" placeholder="邮箱" type="email" name="email" value="<?php if (is_user_logged_in()) {echo (wp_get_current_user() -> user_email);} else {echo htmlspecialchars($current_commenter['comment_author_email']);} ?>">
+							<input id="post_comment_email" class="form-control" placeholder="邮箱<?php if ($enable_qq_avatar == 'true'){echo " / QQ 号";} ?>" type="email" name="email" value="<?php if (is_user_logged_in()) {echo (wp_get_current_user() -> user_email);} else {echo htmlspecialchars($current_commenter['comment_author_email']);} ?>">
 						</div>
 					</div>
 				</div>

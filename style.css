@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.951.3
+Version: 0.953
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -3102,25 +3102,25 @@ pre.hljs-codeblock .hljs-control i.fa{
 	top: 25px;
 }
 .hljs-control-toggle-linenumber:before {
-	content: "隐藏行号";
+	content: "\9690\85cf\884c\53f7";
 }
 pre.hljs-codeblock.hljs-hide-linenumber .hljs-control-toggle-linenumber:before {
-	content: "显示行号";
+	content: "\663e\793a\884c\53f7";
 }
 .hljs-control-toggle-break-line:before {
-	content: "开启折行";
+	content: "\5f00\542f\6298\884c";
 }
 pre.hljs-codeblock.hljs-break-line .hljs-control-toggle-break-line:before {
-	content: "关闭折行";
+	content: "\5173\95ed\6298\884c";
 }
 .hljs-control-copy:before {
-	content: "复制";
+	content: "\590d\5236";
 }
 .hljs-control-fullscreen:before {
-	content: "全屏";
+	content: "\5168\5c4f";
 }
 pre.hljs-codeblock.hljs-codeblock-fullscreen .hljs-control-fullscreen:before {
-	content: "退出全屏";
+	content: "\9000\51fa\5168\5c4f";
 }
 pre.hljs-codeblock.hljs-codeblock-fullscreen .hljs-control-fullscreen > i:before {
 	content: "\f066";
