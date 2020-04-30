@@ -2990,8 +2990,8 @@ window.pjaxLoaded = function(){
 						<td>
 							<select name="argon_enable_login_css">
 								<?php $argon_enable_login_css = get_option('argon_enable_login_css'); ?>
-								<option value="true" <?php if ($argon_enable_login_css=='true'){echo 'selected';} ?>>启用</option>
 								<option value="false" <?php if ($argon_enable_login_css=='false'){echo 'selected';} ?>>不启用</option>
+								<option value="true" <?php if ($argon_enable_login_css=='true'){echo 'selected';} ?>>启用</option>
 							</select>
 							<p class="description">使用 Argon Design 风格的登录界面</p>
 						</td>
@@ -3504,6 +3504,6 @@ add_filter('pre_option_link_manager_enabled', '__return_true');
 function argon_login_page_style() {
 	wp_enqueue_style("argon_login_css", $GLOBALS['assets_path'] . "/login.css", null, $GLOBALS['theme_version']);
 }
-if (get_option('argon_enable_login_css') != 'false'){
+if (get_option('argon_enable_login_css') == 'true'){
 	add_action('login_head', 'argon_login_page_style');
 }
