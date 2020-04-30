@@ -63,6 +63,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200501 v0.954
++ 增加 "美化登录界面" 选项 (Wordpress 登录界面 Argon Design 化)
++ 修复 QQ 号获取的头像在后台显示异常问题
+
 ## 20200429 v0.953
 + 增加评论根据 QQ 号获取头像选项
 + 修复单行代码高亮的复制等问题

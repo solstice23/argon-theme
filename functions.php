@@ -1080,7 +1080,9 @@ function get_avatar_by_qqnumber($avatar){
 	global $comment;
 	$qqnumber = get_comment_meta($comment -> comment_ID, 'qq_number', true);
 	if (!empty($qqnumber)){
-		return "<img src='https://q1.qlogo.cn/g?b=qq&s=640&nk=" . $qqnumber ."' class='avatar avatar-40 photo'>";
+		preg_match_all('/width=\'(.*?)\'/', $avatar, $preg_res);
+		$size = $preg_res[1][0];
+		return "<img src='https://q1.qlogo.cn/g?b=qq&s=640&nk=" . $qqnumber ."' class='avatar avatar-" . $size . " photo' width='" . $size . "' height='" . $size . "'>";
 	}
 	return $avatar;
 }
@@ -2984,6 +2986,17 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label>美化登录界面</label></th>
+						<td>
+							<select name="argon_enable_login_css">
+								<?php $argon_enable_login_css = get_option('argon_enable_login_css'); ?>
+								<option value="true" <?php if ($argon_enable_login_css=='true'){echo 'selected';} ?>>启用</option>
+								<option value="false" <?php if ($argon_enable_login_css=='false'){echo 'selected';} ?>>不启用</option>
+							</select>
+							<p class="description">使用 Argon Design 风格的登录界面</p>
+						</td>
+					</tr>
+					<tr>
 						<th><label>博客首页是否显示说说</label></th>
 						<td>
 							<select name="argon_home_show_shuoshuo">
@@ -3403,6 +3416,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_enable_code_highlight');
 		argon_update_option('argon_code_theme');
 		argon_update_option('argon_comment_enable_qq_avatar');
+		argon_update_option('argon_enable_login_css');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');
@@ -3485,3 +3499,11 @@ function init_shuoshuo(){
 
 /*恢复链接管理器*/
 add_filter('pre_option_link_manager_enabled', '__return_true');
+
+/*登录界面 CSS*/
+function argon_login_page_style() {
+	wp_enqueue_style("argon_login_css", $GLOBALS['assets_path'] . "/login.css", null, $GLOBALS['theme_version']);
+}
+if (get_option('argon_enable_login_css') != 'false'){
+	add_action('login_head', 'argon_login_page_style');
+}

@@ -1,0 +1,140 @@
+body {
+	background: linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);
+}
+.login h1 {
+	display: none;
+}
+.login form {
+	background-color: #fafafa;
+	border: none;
+	border-radius: .25rem;
+	box-shadow: 0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba(0,0,0,.07)!important;
+	padding: 40px 40px;
+}
+.login form .input, .login input[type=password], .login input[type=text] {
+	background: #fff;
+	font-size: 16px;
+	display: block;
+	width: 100%;
+	height: calc(1.5em + 1.25rem + 2px);
+	padding: .625rem .75rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #8898aa;
+	background-color: #fff;
+	background-clip: padding-box;
+	border-radius: .25rem;
+	box-shadow: 0 1px 3px rgba(50,50,93,.15), 0 1px 0 rgba(0,0,0,.02);
+	border: 0;
+	transition: box-shadow .15s ease;
+	margin-bottom: 25px;
+}
+#login {
+	width: 500px;
+	max-width: calc(100% - 20px);
+}
+.login label {
+	color: #8898aa;
+	margin-bottom: 8px;
+	margin-left: 2px;
+	font-size: 16px;
+}
+.login .button.wp-hide-pw {
+	color: #5e72e4;
+	height: 100%;
+	border: none;
+}
+input[type=checkbox]:before {
+	content: '' !important;
+	position: absolute;
+	top: .125rem;
+	display: block !important;
+	width: 20px !important;
+	height: 20px !important;
+	color: #fff;
+	box-shadow: none;
+	border-radius: .2rem;
+	border: 1px solid #cad1d7;
+	transition: all .3s ease;
+	margin: 0 !important;
+	box-sizing: border-box;
+}
+input[type=checkbox] {
+	position: relative;
+	border: transparent !important;
+	background: transparent !important;
+	color: transparent !important;
+	box-shadow: none !important;
+}
+input[type=checkbox]:checked:before {
+	color: #fff;
+	border-color: #5e72e4;
+	background-color: #5e72e4;
+}
+input[type=checkbox]:after {
+	content: '';
+	position: absolute;
+	top: .125rem;
+	display: block;
+	width: 20px;
+	height: 20px;
+	box-sizing: border-box;
+	background: no-repeat 50%/50% 50%;
+}
+input[type=checkbox]:checked:after {
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/%3E%3C/svg%3E");
+}
+input[type=checkbox] + label {
+	font-size: 15px;
+	transform: translateY(5px);
+	margin-left: 4px;
+}
+.button-primary {
+	color: #fff;
+	box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08) !important;
+	position: relative;
+	will-change: transform;
+	letter-spacing: .025em;
+	font-size: 16px !important;
+	padding: 6px 26px !important;
+	transition: box-shadow .3s ease;
+	border: none !important;
+}
+.button-primary {
+	background-color: #5e72e4 !important;
+}
+.button-primary:active {
+	box-shadow: none !important;
+}
+p.submit {
+	display: block;
+	width: 100%;
+	margin-top: 30px !important;
+}
+.login .button-primary {
+	float: none;
+	margin: auto;
+	display: block;
+}
+.login form .forgetmenot {
+	float: none;
+}
+.login #backtoblog a, .login #nav a {
+	color: #fff !important;
+	font-size: 15px;
+	letter-spacing: 1px !important;
+	box-shadow: none;
+}
+.login #backtoblog, .login #nav {
+	text-align: center;
+}
+.login #nav {
+	margin-top: 35px;
+	color: #fff;
+}
+.login #login_error, .login .message, .login .success {
+	background: #fff;
+	border-radius: .25em;
+	box-shadow: 0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba(0,0,0,.07)!important;
+	padding: 16px 20px;
+}
