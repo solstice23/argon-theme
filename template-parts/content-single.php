@@ -108,6 +108,12 @@
 								</div>
 								<input name="post_password" class="form-control" placeholder="密码" type="password">
 							</div>
+							<?php
+								$post_password_hint = get_post_meta(get_the_ID(), 'password_hint', true);
+								if (!empty($post_password_hint)){
+									echo '<div class="post-password-hint">' . $post_password_hint . '</div>';
+								}
+							?>
 						</div>
 					</div>
 					<input class="btn btn-primary" type="submit" name="Submit" value="确认">
