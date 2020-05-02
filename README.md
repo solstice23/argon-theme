@@ -63,6 +63,12 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200503 v0.955
++ 404 页适配夜间模式和暗黑模式
++ 侧栏菜单适配新标签页打开选项
++ 支持可选的加密文章密码提示 (新建名为 `password_hint` 的 Meta 项)
++ 修复说说标题过长溢出问题
+
 ## 20200501 v0.954
 + 增加 "美化登录界面" 选项 (Wordpress 登录界面 Argon Design 化)
 + 修复 QQ 号获取的头像在后台显示异常问题
