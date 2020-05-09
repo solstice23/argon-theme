@@ -65,6 +65,7 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 ## 20200509 v0.956
 + 修复首页显示的说说不显示图片的 BUG
++ 修复夜间模式切换的一个 BUG
 
 ## 20200503 v0.955
 + 404 页适配夜间模式和暗黑模式
