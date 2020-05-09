@@ -1133,26 +1133,26 @@ function argon_lazyload($content){
 	}
 	$lazyload_loading_style = "lazyload-style-" . $lazyload_loading_style;
 
-	if(!is_feed() || !is_robots()){
+	if(!is_feed() && !is_robots() && !is_home()){
 		$content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i',"<img class=\"lazyload " . $lazyload_loading_style . "\" src=\"data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+\" \$1data-original=\"\$2\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC\"\$3>\n<noscript>\$0</noscript>" , $content);
-	}
+		$content = preg_replace('/<img(.*?)srcset=[\'"](.*?)[\'"](.*)>/i',"<img$1$3>" , $content);
 
-	$content .= '<script>
-	$(function() {
-		$("article img.lazyload").lazyload(
-			{
-				threshold: ' . $lazyload_threshold;
-	if ($lazyload_effect != "none"){
-		$content .= ',effect: "' . $lazyload_effect . '"' ;
+		$content .= '<script>
+		$(function() {
+			$("article img.lazyload").lazyload(
+				{
+					threshold: ' . $lazyload_threshold;
+		if ($lazyload_effect != "none"){
+			$content .= ',effect: "' . $lazyload_effect . '"' ;
+		}
+		$content .= '
+				}
+			);
+		});
+		</script>';
+		
+		$content .= '<noscript><style>article img.lazyload[src^="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg"]{display: none;}</style></noscript>';
 	}
-	$content .= '
-			}
-		);
-	});
-	</script>';
-	
-	$content .= '<noscript><style>article img.lazyload[src^="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg"]{display: none;}</style></noscript>';
-
 	return $content;
 }
 //zoomify 插件图片缩放预览

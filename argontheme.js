@@ -1762,9 +1762,9 @@ $(document).on("click" , ".hljs-control-fullscreen" , function(){
 	let block = $(this).parent().parent();
 	block.toggleClass("hljs-codeblock-fullscreen");
 	if (block.hasClass("hljs-codeblock-fullscreen")){
-		$("html").addClass("noscroll");
+		$("html").addClass("noscroll codeblock-fullscreen");
 	}else{
-		$("html").removeClass("noscroll");
+		$("html").removeClass("noscroll codeblock-fullscreen");
 	}
 });
 $(document).on("click" , ".hljs-control-toggle-break-line" , function(){
