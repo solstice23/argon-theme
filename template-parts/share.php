@@ -53,8 +53,8 @@ $_SERVER['HTTP_HOST']);?>&text=<?php echo urlencode(get_the_title());?>">
 </div>
 <script type="text/javascript">
 	socialShare("#share", {
-	    title : '<?php the_title(); ?>',
-	    description : '<?php echo wp_trim_words(get_the_content(), 50);?>',
+	    title : '<?php echo addslashes(get_the_title()); ?>',
+	    description : '<?php echo addslashes(wp_trim_words(get_the_content(), 50));?>',
 	    wechatQrcodeTitle : "分享到微信",
 	    wechatQrcodeHelper : '微信扫描二维码',
 	    source : '<?php bloginfo('url'); ?>'

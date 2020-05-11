@@ -319,6 +319,18 @@ function is_meta_simple(){
 function get_post_title_by_id($id){
 	return get_post($id) -> post_title;
 }
+//插入文章的自定义 CSS
+function argon_insert_post_custom_css() {
+	if (!is_page() && !is_single()) {
+		return;
+	}
+	global $post;
+	$custom_css = get_post_meta($post -> ID, 'argon_custom_css', true);
+	if (!empty($custom_css)){
+		echo "<style>" . $custom_css . "</style>";
+	}
+}
+add_action('wp_head' , 'argon_insert_post_custom_css');
 //解析 UA 和相应图标
 require_once(get_template_directory() . '/useragent-parser.php');
 $argon_comment_ua = get_option("argon_comment_ua");
@@ -1420,6 +1432,10 @@ function argon_meta_box_1(){
 			<option value="true" <?php if ($argon_meta_simple=='true'){echo 'selected';} ?>>隐藏</option>
 		</select>
 		<p style="margin-top: 15px;">适合固定的页面，例如友链页面。开启后文章 Meta 的第一行只显示阅读数和评论数。</p>
+		<h4>自定义 CSS</h4>
+		<?php $argon_custom_css = get_post_meta($post->ID, "argon_custom_css", true);?>
+		<textarea name="argon_custom_css" id="argon_custom_css" rows="5" cols="30" style="width:100%;"><?php if (!empty($argon_custom_css)){echo $argon_custom_css;} ?></textarea>
+		<p style="margin-top: 15px;">给该文章添加单独的 CSS</p>
 	<?php
 }
 function argon_add_meta_boxes(){
@@ -1449,6 +1465,7 @@ function argon_save_meta_data($post_id){
 	}
 	update_post_meta($post_id, 'argon_hide_readingtime', $_POST['argon_meta_hide_readingtime']);
 	update_post_meta($post_id, 'argon_meta_simple', $_POST['argon_meta_simple']);
+	update_post_meta($post_id, 'argon_custom_css', $_POST['argon_custom_css']);
 }
 add_action('save_post', 'argon_save_meta_data');
 //首页显示说说
