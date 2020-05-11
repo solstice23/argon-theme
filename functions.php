@@ -319,18 +319,6 @@ function is_meta_simple(){
 function get_post_title_by_id($id){
 	return get_post($id) -> post_title;
 }
-//插入文章的自定义 CSS
-function argon_insert_post_custom_css() {
-	if (!is_page() && !is_single()) {
-		return;
-	}
-	global $post;
-	$custom_css = get_post_meta($post -> ID, 'argon_custom_css', true);
-	if (!empty($custom_css)){
-		echo "<style>" . $custom_css . "</style>";
-	}
-}
-add_action('wp_head' , 'argon_insert_post_custom_css');
 //解析 UA 和相应图标
 require_once(get_template_directory() . '/useragent-parser.php');
 $argon_comment_ua = get_option("argon_comment_ua");
@@ -1223,6 +1211,13 @@ function the_content_filter($content){
 	if (get_option('argon_enable_pangu') != 'false' && get_option('argon_enable_pangu') != ''){
 		$content = argon_pangu($content);
 	}
+
+	global $post;
+	$custom_css = get_post_meta($post -> ID, 'argon_custom_css', true);
+	if (!empty($custom_css)){
+		$content .= "<style>" . $custom_css . "</style>";
+	}
+
 	return $content;
 }
 add_filter('the_content' , 'the_content_filter');
