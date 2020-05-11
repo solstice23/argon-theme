@@ -63,10 +63,13 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+<<<<<<< HEAD
 ## 20200511 v0.957
 + 支持给每篇文章插入自定义 CSS
 + 修 BUG
 
+=======
+>>>>>>> 18090e868ca62b011899fd873801d68586fb7c39
 ## 20200509 v0.956.1
 + 修复首页说说图片宽度溢出的问题
 
