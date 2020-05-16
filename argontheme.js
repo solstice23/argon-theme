@@ -634,6 +634,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 						$("#comment-" + parentID + " + .comment-divider").after("<li><ul class='children'>" + result.html + "</ul></li>");
 					}
 				}
+				calcHumanTimesOnPage();
 				//复位评论表单
 				cancelReply();
 				$("#post_comment_content").val("");
@@ -1077,6 +1078,8 @@ function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop , requestType , 
 						getGithubInfoCardContent();
 
 						showPostOutdateToast();
+
+						calcHumanTimesOnPage();
 
 						let scripts = $("#content script:not([no-pjax]):not(.no-pjax)" , $vdom);
 						for (let script of scripts){
@@ -1775,6 +1778,72 @@ $(document).on("click" , ".hljs-control-toggle-linenumber" , function(){
 	let block = $(this).parent().parent();
 	block.toggleClass("hljs-hide-linenumber");
 });
+
+/*时间差计算*/
+function addPreZero(num, n) {
+	var len = num.toString().length;
+	while(len < n) {
+		num = "0" + num;
+		len++;
+	}
+	return num;
+}
+function humanTimeDiff(time){
+	let now = new Date();
+	time = new Date(time);
+	let delta = now - time;
+	if (delta < 0){
+		delta = 0;
+	}
+	if (delta < 1000 * 60){
+		return "刚刚";
+	}
+	if (delta < 1000 * 60 * 60){
+		return parseInt(delta / (1000 * 60)) + " 分钟前";
+	}
+	if (delta < 1000 * 60 * 60 * 24){
+		return parseInt(delta / (1000 * 60 * 60)) + " 小时前";
+	}
+	let yesterday = new Date(now - 1000 * 60 * 60 * 24);
+	yesterday.setHours(0);
+	yesterday.setMinutes(0);
+	yesterday.setSeconds(0);
+	yesterday.setMilliseconds(0);
+	if (time > yesterday){
+		return "昨天 " + time.getHours() + ":" + addPreZero(time.getMinutes(), 2);
+	}
+	let theDayBeforeYesterday = new Date(now - 1000 * 60 * 60 * 24 * 2);
+	theDayBeforeYesterday.setHours(0);
+	theDayBeforeYesterday.setMinutes(0);
+	theDayBeforeYesterday.setSeconds(0);
+	theDayBeforeYesterday.setMilliseconds(0);
+	if (time > theDayBeforeYesterday){
+		return "前天 " + time.getHours() + ":" + addPreZero(time.getMinutes(), 2);
+	}
+	if (delta < 1000 * 60 * 60 * 24 * 30){
+		return parseInt(delta / (1000 * 60 * 60 * 24)) + " 天前";
+	}
+	let theFirstDayOfThisYear = new Date(now);
+	theFirstDayOfThisYear.setMonth(0);
+	theFirstDayOfThisYear.setDate(1);
+	theFirstDayOfThisYear.setHours(0);
+	theFirstDayOfThisYear.setMinutes(0);
+	theFirstDayOfThisYear.setSeconds(0);
+	theFirstDayOfThisYear.setMilliseconds(0);
+	if (time > theFirstDayOfThisYear){
+		return (time.getMonth() + 1) + "-" + time.getDate();
+	}
+	return time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate();
+}
+function calcHumanTimesOnPage(){
+	$(".human-time").each(function(){
+		$(this).text(humanTimeDiff(parseInt($(this).data("time")) * 1000));
+	});
+}
+calcHumanTimesOnPage();
+setInterval(function(){
+	calcHumanTimesOnPage()
+}, 15000);
 
 
 /*Console*/

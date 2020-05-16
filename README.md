@@ -63,6 +63,11 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200517 v0.958
++ 评论区时间显示实时更新
++ 优化评论区时间格式
++ 修复判断文章是否需要目录错误的 BUG
+
 ## 20200511 v0.957.1
 + 修 BUG
 

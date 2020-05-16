@@ -290,7 +290,7 @@ function have_catalog(){
 		return false;
 	}
 	$content = get_post(get_the_ID()) -> post_content;
-	if (preg_match('/<h[1-6]>/',$content)){
+	if (preg_match('/<h[1-6](.*?)>/',$content)){
 		return true;
 	}else{
 		return false;
@@ -522,7 +522,7 @@ function argon_comment_format($comment, $args, $depth){
 					</div>
 				<?php } ?>
 				<div class="comment-time">
-					<?php echo human_time_diff(get_comment_time('U') , current_time('timestamp')) . "前";?>
+					<span class="human-time" data-time="<?php echo get_comment_time('U', true);?>"><?php echo human_time_diff(get_comment_time('U') , current_time('timestamp')) . "前";?></span>
 					<div class="comment-time-details"><?php echo get_comment_time('Y-n-d G:i:s');?></div>
 				</div>
 			</div>
