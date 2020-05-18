@@ -95,6 +95,17 @@ function argon_widgets_init() {
 			'after_title'   => '</h6>',
 		)
 	);
+	register_sidebar(
+		array(
+			'name'          => '右侧栏小工具',
+			'id'            => 'rightbar-tools',
+			'description'   => __( '右侧栏小工具 (在 "Argon 主题选项" 中选择 "三栏布局" 才会显示)' ),
+			'before_widget' => '<div id="%1$s" class="widget %2$s card shadow-sm bg-white border-0">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h6 class="font-weight-bold text-black">',
+			'after_title'   => '</h6>',
+		)
+	);
 }
 add_action('widgets_init','argon_widgets_init');
 //注册新后台主题配色方案
@@ -2233,7 +2244,13 @@ function themeoptions_page(){
 								</div>
 								<label><input name="argon_page_layout" type="radio" value="single" <?php if ($argon_page_layout=='single'){echo 'checked';} ?>> 单栏</label>
 							</div>
-							<p class="description" style="margin-top: 15px;">使用单栏时，关于侧栏的设置将失效。</p>
+							<div class="radio-with-img">
+								<div class="radio-img">
+									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><title>setting_three_columns_preview</title><rect width="1920" height="1080" style="fill:#e6e6e6"/><g style="opacity:0.5"><rect width="1920" height="381" style="fill:#5e72e4"/></g><rect x="237.5" y="256" width="258" height="179" style="fill:#5e72e4"/><rect x="237.5" y="470" width="258" height="485" style="fill:#fff"/><rect x="538.5" y="256.5" width="842" height="250" style="fill:#fff"/><rect x="538.5" y="536.5" width="842" height="250" style="fill:#fff"/><rect x="538.5" y="817" width="842" height="250" style="fill:#fff"/><rect x="1424" y="256" width="258" height="811" style="fill:#fff"/></svg>
+								</div>
+								<label><input name="argon_page_layout" type="radio" value="triple" <?php if ($argon_page_layout=='triple'){echo 'checked';} ?>> 三栏</label>
+							</div>
+							<p class="description" style="margin-top: 15px;">使用单栏时，关于左侧栏的设置将失效。</br>使用三栏时，请前往 "外观-小工具" 设置页面配置右侧栏内容。</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3>字体</h3></th></tr>

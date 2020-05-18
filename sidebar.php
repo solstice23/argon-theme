@@ -273,3 +273,10 @@
 		</div>
 	</div>
 </div>
+<?php
+	if (get_option('argon_page_layout') == 'triple'){
+		echo '<aside id="rightbar" class="rightbar widget-area" role="complementary">';
+		dynamic_sidebar( 'rightbar-tools' );
+		echo '</aside>';
+	}
+?>

@@ -63,6 +63,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200518 v0.960
++ 新增三栏布局模式
+
 ## 20200517 v0.958
 + 评论区时间显示实时更新
 + 优化评论区时间格式

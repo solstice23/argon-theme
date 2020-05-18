@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.958
+Version: 0.960
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -291,6 +291,56 @@ html.page-infomation-card{
 	margin-left: auto;
 	margin-right: auto;
 }
+/*三栏布局*/
+#rightbar {
+	padding-left: 0;
+	padding-right: 0;
+	width: 280px;
+	float: right;
+	margin-bottom: 25px;
+}
+#rightbar > .card {
+	margin-left: 10px;
+	margin-right: 20px;
+	margin-bottom: 15px;
+	padding: 20px 25px;
+}
+#rightbar > .card ul {
+	list-style: none;
+	padding-inline-start: 0;
+}
+#rightbar > .card ul li {
+	margin-bottom: 5px;
+}
+#rightbar > .card > h6 {
+	margin-bottom: 15px;
+}
+@media screen and (min-width:1100px){
+	html.triple-column #leftbar {
+		padding-right: 10px;
+	}
+	html.triple-column #leftbar_part2.sticky{
+		width: 250px;
+	}
+	html.triple-column #primary {
+		width: calc(100% - 560px);
+		float: left;
+	}
+}
+html.triple-column #content {
+	max-width: 1500px;
+}
+@media screen and (min-width:1700px){
+	html.triple-column #content{
+		max-width: 1600px;
+	}
+}
+@media screen and (max-width:1100px){
+	#rightbar{
+		display: none;
+	}
+}
+
 /*Pjax加载动画 & 卡片动画*/
 @keyframes card-show{
 	0%{
@@ -3826,6 +3876,10 @@ html.using-safari #share .icon-wechat .wechat-qrcode{
 	html.using-safari #share .icon-wechat .wechat-qrcode {
 		transform: translate3d(-50%,-50% , 0) !important;
 	}
+}
+html.using-safari .post-donate .donate-btn:hover ~ .donate-qrcode {
+	transform: translateX(-50%);
+	opacity: 1;
 }
 html.using-safari #fabtn_blog_settings_popup{
 	-webkit-transform: translate3d(0,0,0) !important;
