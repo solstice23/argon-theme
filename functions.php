@@ -2142,7 +2142,7 @@ function themeoptions_page(){
 									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#212121;" color="#212121"></div><div class="themecolor-name">黑</div></div>
 									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#795547;" color="#795547"></div><div class="themecolor-name">棕</div></div>
 								</div>
-								</br>主题色与 <strong onclick="$('#headindex_box a[href=\'#header-id-5\']').click()" style="text-decoration: underline;cursor: pointer;">Banner 渐变背景样式</strong> 选项搭配使用效果更佳
+								</br>主题色与 "Banner 渐变背景样式" 选项搭配使用效果更佳
 								<script>
 									$("input[name='argon_theme_color']").on("change" , function(){
 										$("input[name='argon_theme_color_hex_preview']").val($("input[name='argon_theme_color']").val());
@@ -2246,7 +2246,7 @@ function themeoptions_page(){
 							</div>
 							<div class="radio-with-img">
 								<div class="radio-img">
-									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><title>setting_three_columns_preview</title><rect width="1920" height="1080" style="fill:#e6e6e6"/><g style="opacity:0.5"><rect width="1920" height="381" style="fill:#5e72e4"/></g><rect x="237.5" y="256" width="258" height="179" style="fill:#5e72e4"/><rect x="237.5" y="470" width="258" height="485" style="fill:#fff"/><rect x="538.5" y="256.5" width="842" height="250" style="fill:#fff"/><rect x="538.5" y="536.5" width="842" height="250" style="fill:#fff"/><rect x="538.5" y="817" width="842" height="250" style="fill:#fff"/><rect x="1424" y="256" width="258" height="811" style="fill:#fff"/></svg>
+									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect width="1920" height="1080" style="fill:#e6e6e6"/><g style="opacity:0.5"><rect width="1920" height="381" style="fill:#5e72e4"/></g><rect x="237.5" y="256" width="258" height="179" style="fill:#5e72e4"/><rect x="237.5" y="470" width="258" height="485" style="fill:#fff"/><rect x="538.5" y="256.5" width="842" height="250" style="fill:#fff"/><rect x="538.5" y="536.5" width="842" height="250" style="fill:#fff"/><rect x="538.5" y="817" width="842" height="250" style="fill:#fff"/><rect x="1424" y="256" width="258" height="811" style="fill:#fff"/></svg>
 								</div>
 								<label><input name="argon_page_layout" type="radio" value="triple" <?php if ($argon_page_layout=='triple'){echo 'checked';} ?>> 三栏</label>
 							</div>
