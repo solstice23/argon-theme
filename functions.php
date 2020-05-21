@@ -217,13 +217,46 @@ function get_seo_description(){
 		}
 		if (!post_password_required()){
 			return  
-			htmlspecialchars(mb_substr(str_replace("\n", '', strip_tags(get_post($post -> ID) -> post_content)), 0, 50)) . "...";
+			htmlspecialchars(mb_substr(str_replace("\n", '', strip_tags($post -> post_content)), 0, 50)) . "...";
 		}else{
 			return "这是一个加密页面，需要密码来查看";
 		}
 	}else{
 		return get_option('argon_seo_description');
 	}
+}
+//页面 Keywords
+function get_seo_keywords(){
+	if (is_single()){
+		global $post;
+		$tags = get_the_tags('', ',', '', $post -> ID);
+		if ($tags != null){
+			$res = "";
+			foreach ($tags as $tag){
+				if ($res != ""){
+					$res .= ",";
+				}
+				$res .= $tag -> name;
+			}
+			return $res;
+		}
+	}
+	if (is_category()){
+		return single_cat_title('', false);
+	}
+	if (is_tag()){
+		return single_tag_title('', false);
+	}
+	if (is_author()){
+		return get_the_author();
+	}
+	if (is_post_type_archive()){
+		return post_type_archive_title('', false);
+	}
+	if (is_tax()){
+		return single_term_title('', false);
+	}
+	return get_option('argon_seo_keywords');
 }
 //页面浏览量
 function get_post_views($post_id){
@@ -1484,6 +1517,18 @@ function argon_home_add_post_type_shuoshuo($query){
 if (get_option("argon_home_show_shuoshuo") == "true"){
 	add_action('pre_get_posts', 'argon_home_add_post_type_shuoshuo');
 }
+//首页隐藏特定分类文章
+function argon_home_hide_categories($query){
+	if (is_home() && $query -> is_main_query()){
+		$excludeCategories = explode(",", get_option("argon_hide_categories"));
+		$excludeCategories = array_map(create_function('$cat', 'return "-$cat";'), $excludeCategories);
+		$query -> set('cat', $excludeCategories);
+	}
+	return $query;
+}
+if (get_option("argon_hide_categories") != ""){
+	add_action('pre_get_posts', 'argon_home_hide_categories');
+}
 //文章过时信息显示
 function argon_get_post_outdated_info(){
 	if (get_option("argon_outdated_info_tip_type") == "toast"){
@@ -2518,7 +2563,16 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>文章</h2></th></tr>
-					<tr><th class="subtitle"><h3>文章 Meta 信息</h3></th></tr>
+					<tr><th class="subtitle"><h3>文章 Meta 信息</h3></th></tr><tr>
+					<th><label>显示作者</label></th>
+						<td>
+							<select name="argon_show_author">
+								<?php $argon_show_author = get_option('argon_show_author'); ?>
+								<option value="false" <?php if ($argon_show_author=='false'){echo 'selected';} ?>>不显示</option>
+								<option value="true" <?php if ($argon_show_author=='true'){echo 'selected';} ?>>显示</option>
+							</select>
+						</td>
+					</tr>
 					<tr>
 						<th><label>显示字数和预计阅读时间</label></th>
 						<td>
@@ -3002,7 +3056,7 @@ window.pjaxLoaded = function(){
 							<p class="description">设置是否在评论区显示评论者 UA 及显示哪些部分</p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>其他</h2></th></tr>
+					<tr><th class="subtitle"><h2>杂项</h2></th></tr>
 					<tr>
 						<th><label>是否启用 Pjax</label></th>
 						<td>
@@ -3012,6 +3066,45 @@ window.pjaxLoaded = function(){
 								<option value="true" <?php if ($argon_pjax_disabled=='true'){echo 'selected';} ?>>不启用</option>
 							</select>
 							<p class="description">Pjax 可以增强页面的跳转体验</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>首页隐藏特定 分类/Tag 下的文章</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_hide_categories" value="<?php echo get_option('argon_hide_categories'); ?>"/>
+							<p class="description">输入要隐藏的 分类/Tag 的 ID，用英文逗号分隔，留空则不隐藏</br><a onclick="$('#id_of_categories_and_tags').slideDown(500);" style="cursor: pointer;">点此查看</a>所有分类和 Tag 的 ID
+								<?php
+									echo "<div id='id_of_categories_and_tags' style='display: none;'><div style='font-size: 22px;margin-bottom: 10px;margin-top: 10px;'>分类</div>";
+									$categories = get_categories(array(
+										'hide_empty' => 0,
+										'hierarchical' => 0,
+										'taxonomy' => 'category'
+									));
+									foreach($categories as $category) {
+										echo "<span>".$category -> name ." -> ". $category -> term_id ."</span>";
+									}
+									echo "<div style='font-size: 22px;margin-bottom: 10px;'>Tag</div>";
+									$categories = get_categories(array(
+										'hide_empty' => 0,
+										'hierarchical' => 0,
+										'taxonomy' => 'post_tag'
+									));
+									foreach($categories as $category) {
+										echo "<span>".$category -> name ." -> ". $category -> term_id ."</span>";
+									}
+									echo "</div>";
+								?>
+								<style>
+									#id_of_categories_and_tags > span {
+										display: inline-block;
+										background: rgba(0, 0, 0, .08);
+										border-radius: 2px;
+										margin-right: 5px;
+										margin-bottom: 8px;
+										padding: 5px 10px;
+									}
+								</style>
+							</p>
 						</td>
 					</tr>
 					<tr>
@@ -3446,6 +3539,8 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_code_theme');
 		argon_update_option('argon_comment_enable_qq_avatar');
 		argon_update_option('argon_enable_login_css');
+		argon_update_option('argon_hide_categories');
+		argon_update_option('argon_show_author');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

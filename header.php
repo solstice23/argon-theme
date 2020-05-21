@@ -61,8 +61,10 @@
 			<meta property="og:description" content="<?php echo $seo_description?>">
 	<?php } ?>
 
-	<?php if (get_option('argon_seo_keywords') != ''){ ?>
-		<meta name="keywords" content="<?php echo get_option('argon_seo_keywords');?>">
+	<?php
+		$seo_keywords = get_seo_keywords();
+		if ($seo_keywords != ''){ ?>
+			<meta name="keywords" content="<?php echo get_seo_keywords();?>">
 	<?php } ?>
 
 	<meta name="theme-color" content="<?php echo $themecolor; ?>">
@@ -364,11 +366,11 @@
 	?>
 	<div id="banner_container" class="banner-container container text-center">
 		<?php if ($enable_banner_title_typing_effect != "true"){?>
-			<h1 class="banner-title text-white"><span class="banner-title-inner"><?php echo $banner_title; ?></span>
+			<div class="banner-title text-white"><span class="banner-title-inner"><?php echo $banner_title; ?></span>
 		<?php } else {?>
-			<h1 class="banner-title text-white" data-text="<?php echo $banner_title; ?>" data-interval="<?php echo (get_option('argon_banner_typing_effect_interval') == '' ? '100' : get_option('argon_banner_typing_effect_interval')); ?>"><span class="banner-title-inner">&nbsp;</span>
+			<div class="banner-title text-white" data-text="<?php echo $banner_title; ?>" data-interval="<?php echo (get_option('argon_banner_typing_effect_interval') == '' ? '100' : get_option('argon_banner_typing_effect_interval')); ?>"><span class="banner-title-inner">&nbsp;</span>
 		<?php }?>
-		<?php echo get_option('argon_banner_subtitle') == '' ? '' : '<span class="banner-subtitle d-block">' . get_option('argon_banner_subtitle') . '</span>'; ?></h1>
+		<?php echo get_option('argon_banner_subtitle') == '' ? '' : '<span class="banner-subtitle d-block">' . get_option('argon_banner_subtitle') . '</span>'; ?></div>
 	</div>
 	<?php if (get_option('argon_banner_background_url') != '') { ?>
 		<style>

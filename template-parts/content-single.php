@@ -61,6 +61,16 @@
 					}
 				?>
 			</div>
+			<?php if (get_option("argon_show_author") == "true") { ?>
+				<div class="post-meta-devide">|</div>
+				<div class="post-meta-detail post-meta-detail-author">
+					<i class="fa fa-user-circle-o" aria-hidden="true"></i>
+					<?php
+						global $authordata;
+						echo "<a href='" . get_author_posts_url($authordata -> ID, $authordata -> user_nicename) . "' target='_blank'>" . get_the_author() . "</a>";
+					?>
+				</div>
+			<?php } ?>
 			<?php if (!post_password_required() && get_option("argon_show_readingtime") != "false" && is_readingtime_meta_hidden() == False) { ?>
 				</br>
 				<div class="post-meta-detail post-meta-detail-words">

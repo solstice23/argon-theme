@@ -894,6 +894,7 @@ $(document).on("submit" , ".post-password-form" , function(){
 				$("body,html").animate({
 					scrollTop: $("#comments").offset().top - 100
 				}, 300);
+				calcHumanTimesOnPage();
 			},
 			error : function(){
 				pjaxLoading = false;
@@ -925,6 +926,7 @@ $(document).on("submit" , ".post-password-form" , function(){
 					$("#comments_more").attr("href", $("#comments_more", $vdom).attr("href"));
 					$("#comments_more").removeAttr("disabled");
 				}
+				calcHumanTimesOnPage();
 			},
 			error : function(){
 				pjaxLoading = false;
