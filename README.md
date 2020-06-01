@@ -63,6 +63,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200601 v0.962
++ 增加过长评论折叠选项
++ 修改 Lazyload、Zoomify 等的初始化方式（不再以 script 标签内联在文章中）
+
 ## 20200521 v0.961
 + 新增首页隐藏特定分类文章选项
 + 新增文章 Meta 显示作者选项

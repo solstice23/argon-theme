@@ -1163,14 +1163,6 @@ function get_banner_background_url(){
 }
 //Lazyload 对 <img> 标签预处理和加入 <script> 以加载 Lazyload
 function argon_lazyload($content){
-	$lazyload_effect = get_option('argon_lazyload_effect');
-	if ($lazyload_effect == ''){
-		$lazyload_effect = 'fadeIn';
-	}
-	$lazyload_threshold = get_option('argon_lazyload_threshold');
-	if ($lazyload_threshold == ''){
-		$lazyload_threshold = 800;
-	}
 	$lazyload_loading_style = get_option('argon_lazyload_loading_style');
 	if ($lazyload_loading_style == ''){
 		$lazyload_loading_style = 'none';
@@ -1180,80 +1172,14 @@ function argon_lazyload($content){
 	if(!is_feed() && !is_robots() && !is_home()){
 		$content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i',"<img class=\"lazyload " . $lazyload_loading_style . "\" src=\"data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+\" \$1data-original=\"\$2\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC\"\$3>\n<noscript>\$0</noscript>" , $content);
 		$content = preg_replace('/<img(.*?)srcset=[\'"](.*?)[\'"](.*)>/i',"<img$1$3>" , $content);
-
-		$content .= '<script>
-		$(function() {
-			$("article img.lazyload").lazyload(
-				{
-					threshold: ' . $lazyload_threshold;
-		if ($lazyload_effect != "none"){
-			$content .= ',effect: "' . $lazyload_effect . '"' ;
-		}
-		$content .= '
-				}
-			);
-		});
-		</script>';
 		
 		$content .= '<noscript><style>article img.lazyload[src^="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg"]{display: none;}</style></noscript>';
 	}
 	return $content;
 }
-//zoomify 插件图片缩放预览
-function argon_zoomify($content){
-	$zoomify_duration = get_option('argon_zoomify_duration');
-	if ($zoomify_duration == ''){
-		$zoomify_duration = 200;
-	}
-	$zoomify_easing = get_option('argon_zoomify_easing');
-	if ($zoomify_easing == ''){
-		$zoomify_easing = 'ease-out';
-	}
-	$zoomify_scale = get_option('argon_zoomify_scale');
-	if ($zoomify_scale == ''){
-		$zoomify_scale = 0.9;
-	}
-
-	$content .= '<script>
-	$(function() {
-		$("article img").zoomify(
-			{
-				duration: ' . $zoomify_duration . ',
-				easing: "' . $zoomify_easing . '",
-				scale: ' . $zoomify_scale . '
-			}
-		);
-	});
-	</script>';
-
-	return $content;
-}
-//Pangu 插入空格
-function argon_pangu($content){
-	$argon_option_enable_pangu = get_option('argon_enable_pangu');
-	$content .= '<script>
-	$(function() {';
-	if (strpos($argon_option_enable_pangu, 'article') !== false){
-		$content .= "pangu.spacingElementById('post_content');";
-	}
-	if (strpos($argon_option_enable_pangu, 'comment') !== false){
-		$content .= "pangu.spacingElementById('comments');";
-	}
-	$content .= '});
-	</script>';
-
-	return $content;
-}
-
 function the_content_filter($content){
 	if (get_option('argon_enable_lazyload') != 'false'){
 		$content = argon_lazyload($content);
-	}
-	if (get_option('argon_enable_zoomify') != 'false'){
-		$content = argon_zoomify($content);
-	}
-	if (get_option('argon_enable_pangu') != 'false' && get_option('argon_enable_pangu') != ''){
-		$content = argon_pangu($content);
 	}
 
 	global $post;
@@ -2563,8 +2489,9 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>文章</h2></th></tr>
-					<tr><th class="subtitle"><h3>文章 Meta 信息</h3></th></tr><tr>
-					<th><label>显示作者</label></th>
+					<tr><th class="subtitle"><h3>文章 Meta 信息</h3></th></tr>
+					<tr>
+						<th><label>显示作者</label></th>
 						<td>
 							<select name="argon_show_author">
 								<?php $argon_show_author = get_option('argon_show_author'); ?>
@@ -2684,7 +2611,7 @@ function themeoptions_page(){
 						<td>
 							<select name="argon_code_theme">
 								<?php 
-								$argon_code_themes_list = array("a11y-dark", "a11y-light", "agate", "an-old-hope", "androidstudio", "arduino-light", "arta", "ascetic", "atelier-cave-dark", "atelier-cave-light", "atelier-dune-dark", "atelier-dune-light", "atelier-estuary-dark", "atelier-estuary-light", "atelier-forest-dark", "atelier-forest-light", "atelier-heath-dark", "atelier-heath-light", "atelier-lakeside-dark", "atelier-lakeside-light", "atelier-plateau-dark", "atelier-plateau-light", "atelier-savanna-dark", "atelier-savanna-light", "atelier-seaside-dark", "atelier-seaside-light", "atelier-sulphurpool-dark", "atelier-sulphurpool-light", "atom-one-dark-reasonable", "atom-one-dark", "atom-one-light", "brown-paper", "brown-papersq", "codepen-embed", "color-brewer", "darcula", "dark", "darkula", "default", "docco", "dracula", "far", "foundation", "github-gist", "github", "gml", "googlecode", "gradient-dark", "grayscale", "gruvbox-dark", "gruvbox-light", "hopscotch", "hybrid", "idea", "ir-black", "isbl-editor-dark", "isbl-editor-light", "kimbie.dark", "kimbie.light", "lightfair", "magula", "mono-blue", "monokai-sublime", "monokai", "night-owl", "nord", "obsidian", "ocean", "paraiso-dark", "paraiso-light", "pojoaque", "pojoaque", "purebasic", "qtcreator_dark", "qtcreator_light", "railscasts", "rainbow", "routeros", "school-book", "school-book", "shades-of-purple", "solarized-dark", "solarized-light", "sunburst", "tomorrow-night-blue", "tomorrow-night-bright", "tomorrow-night-eighties", "tomorrow-night", "tomorrow", "vs", "vs2015", "xcode", "xt256", "zenburn");
+								$argon_code_themes_list = array("a11y-dark", "a11y-light", "agate", "an-old-hope", "androidstudio", "arduino-light", "arta", "ascetic", "atelier-cave-dark", "atelier-cave-light", "atelier-dune-dark", "atelier-dune-light", "atelier-estuary-dark", "atelier-estuary-light", "atelier-forest-dark", "atelier-forest-light", "atelier-heath-dark", "atelier-heath-light", "atelier-lakeside-dark", "atelier-lakeside-light", "atelier-plateau-dark", "atelier-plateau-light", "atelier-savanna-dark", "atelier-savanna-light", "atelier-seaside-dark", "atelier-seaside-light", "atelier-sulphurpool-dark", "atelier-sulphurpool-light", "atom-one-dark-reasonable", "atom-one-dark", "atom-one-light", "brown-paper", "brown-papersq", "codepen-embed", "color-brewer", "darcula", "dark", "darkula", "default", "docco", "dracula", "far", "foundation", "github-gist", "github", "gml", "googlecode", "gradient-dark", "grayscale", "gruvbox-dark", "gruvbox-light", "hopscotch", "hybrid", "idea", "ir-black", "isbl-editor-dark", "isbl-editor-light", "kimbie.dark", "kimbie.light", "lightfair", "magula", "mono-blue", "monokai-sublime", "monokai", "night-owl", "nord", "obsidian", "ocean", "onedark", "paraiso-dark", "paraiso-light", "pojoaque", "pojoaque", "purebasic", "qtcreator_dark", "qtcreator_light", "railscasts", "rainbow", "routeros", "school-book", "school-book", "shades-of-purple", "solarized-dark", "solarized-light", "sunburst", "tomorrow-night-blue", "tomorrow-night-bright", "tomorrow-night-eighties", "tomorrow-night", "tomorrow", "vs", "vs2015", "xcode", "xt256", "zenburn");
 								$argon_code_theme = get_option('argon_code_theme');
 								if ($argon_code_theme == ''){
 									$argon_code_theme = "vs2015";
@@ -2857,10 +2784,14 @@ function themeoptions_page(){
 						<td>
 							<select name="argon_enable_pangu">
 								<?php $argon_enable_pangu = get_option('argon_enable_pangu'); ?>
-								<option value="true" <?php if ($argon_enable_pangu=='true'){echo 'selected';} ?>>禁用</option>
+								<option value="false" <?php if ($argon_enable_pangu=='false'){echo 'selected';} ?>>禁用</option>
 								<option value="article" <?php if ($argon_enable_pangu=='article'){echo 'selected';} ?>>格式化文章内容</option>
+								<option value="shuoshuo" <?php if ($argon_enable_pangu=='shuoshuo'){echo 'selected';} ?>>格式化说说</option>
 								<option value="comment" <?php if ($argon_enable_pangu=='comment'){echo 'selected';} ?>>格式化评论区</option>
 								<option value="article|comment" <?php if ($argon_enable_pangu=='article|comment'){echo 'selected';} ?>>格式化文章内容和评论区</option>
+								<option value="article|shuoshuo" <?php if ($argon_enable_pangu=='article|shuoshuo'){echo 'selected';} ?>>格式化文章内容和说说</option>
+								<option value="shuoshuo|comment" <?php if ($argon_enable_pangu=='shuoshuo|comment'){echo 'selected';} ?>>格式化说说和评论区</option>
+								<option value="article|shuoshuo|comment" <?php if ($argon_enable_pangu=='article|shuoshuo|comment'){echo 'selected';} ?>>格式化文章内容、说说和评论区</option>
 							</select>
 							<p class="description">开启后，会自动在中文和英文之间添加空格</p>
 						</td>
@@ -3054,6 +2985,17 @@ window.pjaxLoaded = function(){
 								<option value="platform" <?php if ($argon_comment_ua=='platform'){echo 'selected';} ?>>平台</option>
 							</select>
 							<p class="description">设置是否在评论区显示评论者 UA 及显示哪些部分</p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>折叠过长评论</label></th>
+						<td>
+							<select name="argon_fold_long_comments">
+								<?php $argon_fold_long_comments = get_option('argon_fold_long_comments'); ?>
+								<option value="false" <?php if ($argon_fold_long_comments=='false'){echo 'selected';} ?>>不折叠</option>
+								<option value="true" <?php if ($argon_fold_long_comments=='true'){echo 'selected';} ?>>折叠</option>	
+							</select>
+							<p class="description">开启后，过长的评论会被折叠，需要手动展开</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>杂项</h2></th></tr>
@@ -3541,6 +3483,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_enable_login_css');
 		argon_update_option('argon_hide_categories');
 		argon_update_option('argon_show_author');
+		argon_update_option('argon_fold_long_comments');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.961
+Version: 0.962
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -1706,6 +1706,42 @@ html.darkmode .comment-item-text blockquote {
 }
 .comment-item-text h6 {
 	font-size: 15px;
+}
+/*评论折叠*/
+.comment-item-inner.comment-folded {
+	max-height: 200px;
+	overflow: hidden;
+}
+.comment-item-inner.comment-folded:after{
+	content: '';
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 80px;
+	background: linear-gradient(180deg,transparent 0%,#fff 100%);
+	pointer-events: none;
+}
+.comment-item-inner.comment-folded .comment-operations {
+	display: none;
+}
+.comment-item-inner.comment-folded .show-full-comment {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 35px;
+	color: var(--themecolor);
+	z-index: 2;
+	text-align: left;
+	cursor: pointer;
+	user-select: none;
+	opacity: .6;
+	transition: opacity .25s ease;
+}
+.comment-item-inner.comment-folded:hover .show-full-comment {
+	opacity: 1;
 }
 /*评论区页码*/
 .comments-navigation .page-item > div{

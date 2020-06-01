@@ -92,7 +92,28 @@
 	<?php wp_head(); ?>
 	<?php $GLOBALS['wp_path'] = get_option('argon_wp_path') == '' ? '/' : get_option('argon_wp_path'); ?>
 	<script>
-		var wp_path = "<?php echo $GLOBALS['wp_path']; ?>";
+		var argonConfig = {
+			wp_path: "<?php echo $GLOBALS['wp_path']; ?>",
+			<?php if (get_option('argon_enable_zoomify') != 'false'){ ?>
+				zoomify: {
+					duration: <?php echo get_option('argon_zoomify_duration', 200); ?>,
+					easing: "<?php echo get_option('argon_zoomify_easing', 'cubic-bezier(0.4,0,0,1)'); ?>",
+					scale: <?php echo get_option('argon_zoomify_scale', 0.9); ?>
+				},
+			<?php } else { ?>
+				zoomify: false,
+			<?php } ?>
+			pangu: "<?php echo get_option('argon_enable_pangu', 'false'); ?>",
+			<?php if (get_option('argon_enable_lazyload') != 'false'){ ?>
+				lazyload: {
+					threshold: <?php echo get_option('argon_lazyload_threshold', 800); ?>,
+					effect: "<?php echo get_option('argon_lazyload_effect', 'fadeIn'); ?>"
+				},
+			<?php } else { ?>
+				lazyload: false,
+			<?php } ?>
+			fold_long_comments: <?php echo get_option('argon_fold_long_comments', 'false'); ?>
+		}
 	</script>
 	<script>
 		var darkmodeAutoSwitch = "<?php echo (get_option("argon_darkmode_autoswitch") == '' ? 'false' : get_option("argon_darkmode_autoswitch"));?>";
@@ -470,7 +491,7 @@
 	<button id="fabtn_toggle_blog_settings_popup" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" <?php if (get_option('argon_fab_show_settings_button') == 'false') echo " style='display: none;'";?> aria-label="Open Blog Settings Menu">
 		<span class="btn-inner--icon"><i class="fa fa-cog"></i></span>
 	</button>
-	<div id="fabtn_blog_settings_popup" class="card shadow-sm" style="opacity: 0;">
+	<div id="fabtn_blog_settings_popup" class="card shadow-sm" style="opacity: 0;" aria-hidden="true">
 		<div id="close_blog_settings"><i class="fa fa-close"></i></div>
 		<div class="blog-setting-item mt-3">
 			<div style="transform: translateY(-4px);"><div id="blog_setting_toggle_darkmode_and_amoledarkmode"><span>夜间模式</span><span>暗黑模式</span></div></div>

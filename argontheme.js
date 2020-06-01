@@ -1,5 +1,8 @@
-if (typeof(wp_path) == "undefined"){
-	var wp_path = "/";
+if (typeof(argonConfig) == "undefined"){
+	var argonConfig = {};
+}
+if (typeof(argonConfig.wp_path) == "undefined"){
+	argonConfig.wp_path = "/";
 }
 /*Cookies 操作*/
 function setCookie(cname, cvalue, exdays) {
@@ -82,7 +85,7 @@ $(document).on("keydown" , "#navbar_search_input_container #navbar_search_input"
 		return;
 	}
 	let scrolltop = $(document).scrollTop();
-	pjaxLoadUrl(wp_path + "?s=" + encodeURI(word) , true , 0 , scrolltop);
+	pjaxLoadUrl(argonConfig.wp_path + "?s=" + encodeURI(word) , true , 0 , scrolltop);
 });
 /*侧栏搜索*/
 $(document).on("click" , "#leftbar_search_container" , function(){
@@ -107,7 +110,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 	}
 	$("html").removeClass("leftbar-opened");
 	let scrolltop = $(document).scrollTop();
-	pjaxLoadUrl(wp_path + "?s=" + encodeURI(word) , true , 0 , scrolltop);
+	pjaxLoadUrl(argonConfig.wp_path + "?s=" + encodeURI(word) , true , 0 , scrolltop);
 });
 
 /*左侧栏随页面滚动浮动*/
@@ -546,7 +549,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 
 		$.ajax({
 			type: 'POST',
-			url: wp_path + "wp-admin/admin-ajax.php",
+			url: argonConfig.wp_path + "wp-admin/admin-ajax.php",
 			dataType : "json",
 			data: {
 				action: "ajax_post_comment",
@@ -728,7 +731,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 
 		$.ajax({
 			type: 'POST',
-			url: wp_path + "wp-admin/admin-ajax.php",
+			url: argonConfig.wp_path + "wp-admin/admin-ajax.php",
 			dataType : "json",
 			data: {
 				action: "user_edit_comment",
@@ -837,7 +840,7 @@ function showCommentEditHistory(id){
 	$("#comment_edit_history").modal(null);
 	$.ajax({
 		type: 'POST',
-		url: wp_path + "wp-admin/admin-ajax.php",
+		url: argonConfig.wp_path + "wp-admin/admin-ajax.php",
 		dataType : "json",
 		data: {
 			action: "get_comment_edit_history",
@@ -863,6 +866,25 @@ function showCommentEditHistory(id){
 }
 $(document).on("click" , ".comment-edited.comment-edithistory-accessible" , function(){
 	showCommentEditHistory($(this).parent().parent().parent().data("id"));
+});
+/*过长评论折叠*/
+function foldLongComments(){
+	if (argonConfig.fold_long_comments == false){
+		return;
+	}
+	$(".comment-item-inner").each(function(){
+		if ($(this).hasClass("comment-unfolded")){
+			return;
+		}
+		if (this.clientHeight > 500){
+			$(this).addClass("comment-folded");
+			$(this).append("<div class='show-full-comment'><i class='fa fa-angle-down'></i> 展开</div>");
+		}
+	});
+}
+foldLongComments();
+$(document).on("click" , ".show-full-comment" , function(){
+	$(this).parent().removeClass("comment-folded").addClass("comment-unfolded");
 });
 /*需要密码的文章加载*/
 $(document).on("submit" , ".post-password-form" , function(){
@@ -894,7 +916,9 @@ $(document).on("submit" , ".post-password-form" , function(){
 				$("body,html").animate({
 					scrollTop: $("#comments").offset().top - 100
 				}, 300);
+				foldLongComments();
 				calcHumanTimesOnPage();
+				panguInit();
 			},
 			error : function(){
 				pjaxLoading = false;
@@ -926,7 +950,9 @@ $(document).on("submit" , ".post-password-form" , function(){
 					$("#comments_more").attr("href", $("#comments_more", $vdom).attr("href"));
 					$("#comments_more").removeAttr("disabled");
 				}
+				foldLongComments();
 				calcHumanTimesOnPage();
+				panguInit();
 			},
 			error : function(){
 				pjaxLoading = false;
@@ -983,6 +1009,41 @@ function showPostOutdateToast(){
 	}
 }
 showPostOutdateToast();
+
+/*Zoomify*/
+function zoomifyInit(){
+	if (argonConfig.zoomify == false){
+		return;
+	}
+	$("article img").zoomify(argonConfig.zoomify);
+}
+zoomifyInit();
+
+/*Lazyload*/
+function lazyloadInit(){
+	if (argonConfig.lazyload == false){
+		return;
+	}
+	if (argonConfig.lazyload.effect == "none"){
+		delete argonConfig.lazyload.effect;
+	}
+	$("article img.lazyload").lazyload(argonConfig.lazyload);
+}
+lazyloadInit();
+
+/*Pangu.js*/
+function panguInit(){
+	if (argonConfig.pangu.indexOf("article") >= 0){
+		pangu.spacingElementById('post_content');
+	}
+	if (argonConfig.pangu.indexOf("comment") >= 0){
+		pangu.spacingElementById('comments');
+	}
+	if (argonConfig.pangu.indexOf("shuoshuo") >= 0){
+		pangu.spacingElementByClassName('shuoshuo-container');
+	}
+}
+panguInit();
 
 /*Pjax*/
 var pjaxUrlChanged , pjaxLoading = false;
@@ -1075,13 +1136,21 @@ function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop , requestType , 
 							}
 						}catch (err){}
 
+						lazyloadInit();
+
+						zoomifyInit();
+
 						highlightJsRender();
+
+						panguInit();
 
 						getGithubInfoCardContent();
 
 						showPostOutdateToast();
 
 						calcHumanTimesOnPage();
+
+						foldLongComments();
 
 						let scripts = $("#content script:not([no-pjax]):not(.no-pjax)" , $vdom);
 						for (let script of scripts){
@@ -1312,7 +1381,7 @@ $(document).on("click" , ".shuoshuo-upvote" , function(){
 	ID = $this.attr("data-id");
 	$this.addClass("shuoshuo-upvoting");
 	$.ajax({
-		url : wp_path + "wp-admin/admin-ajax.php",
+		url : argonConfig.wp_path + "wp-admin/admin-ajax.php",
 		type : "POST",
 		dataType : "json",
 		data : {
