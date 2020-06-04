@@ -1723,6 +1723,12 @@ html.darkmode .comment-item-text blockquote {
 	background: linear-gradient(180deg,transparent 0%,#fff 100%);
 	pointer-events: none;
 }
+html.darkmode .comment-item-inner.comment-folded:after {
+	background: linear-gradient(180deg,transparent 0%,#424242 100%);
+}
+html.darkmode.amoled-dark .comment-item-inner.comment-folded:after {
+	background: linear-gradient(180deg,transparent 0%,#000 100%);
+}
 .comment-item-inner.comment-folded .comment-operations {
 	display: none;
 }
