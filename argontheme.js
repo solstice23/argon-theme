@@ -876,7 +876,7 @@ function foldLongComments(){
 		if ($(this).hasClass("comment-unfolded")){
 			return;
 		}
-		if (this.clientHeight > 500){
+		if (this.clientHeight > 800){
 			$(this).addClass("comment-folded");
 			$(this).append("<div class='show-full-comment'><i class='fa fa-angle-down'></i> 展开</div>");
 		}
