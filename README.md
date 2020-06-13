@@ -63,6 +63,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200613 v0.962.1
++ 修复折叠后评论未适配夜间模式问题
+
 ## 20200601 v0.962
 + 增加过长评论自动折叠选项
 + 修改 Lazyload、Zoomify 等的初始化方式（不再以 script 标签内联在文章中）
