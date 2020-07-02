@@ -628,6 +628,13 @@ html.darkmode.amoled-dark #navbar-main{
 	height: 30px;
 	transform: unset !important;
 }
+html.darkmode #leftbar_search_container {
+	background: #555;
+	color: #eee;
+}
+html.darkmode.amoled-dark #leftbar_search_container {
+	background: #151515;
+}
 .leftbar-search-button.open #leftbar_search_container{
 	height: 45px;
 }
