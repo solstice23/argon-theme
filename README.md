@@ -1,4 +1,4 @@
-![Argon](https://img.solstice23.top/2020/03/05/bee9b7b3ddceb.jpg)
+![Argon](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon_new_animate.svg)
 # Argon-Theme
 Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
