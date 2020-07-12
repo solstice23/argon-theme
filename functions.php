@@ -10,8 +10,11 @@ add_action('after_setup_theme','theme_slug_setup');
 
 
 $GLOBALS['theme_version'] = wp_get_theme() -> Version;
-if (get_option("argon_assets_path") == "jsdelivr"){
+$argon_assets_path = get_option("argon_assets_path");
+if ($argon_assets_path== "jsdelivr"){
 	$GLOBALS['assets_path'] = "https://cdn.jsdelivr.net/gh/solstice23/argon-theme@" . wp_get_theme() -> Version;
+}else if ($argon_assets_path == "fastgit"){
+	$GLOBALS['assets_path'] = "https://raw.fastgit.org/solstice23/argon-theme/v" . wp_get_theme() -> Version;
 }else{
 	$GLOBALS['assets_path'] = get_bloginfo('template_url');
 }
@@ -30,22 +33,34 @@ if (version_compare($argon_last_version, $GLOBALS['theme_version'], '<' )){
 			update_option("argon_math_render", 'mathjax3');
 		}
 	}
+	if (version_compare($argon_last_version, '0.970', '<' )){
+		if (get_option('argon_show_author') == 'true'){
+			update_option("argon_article_meta", 'time|views|comments|categories|author');
+		}
+	}
 	update_option("argon_last_version", $GLOBALS['theme_version']);
 }
 
 
 //检测更新
 require_once(get_template_directory() . '/theme-update-checker/plugin-update-checker.php'); 
-if (get_option('argon_update_source') == 'stop'){}
-else if (get_option('argon_update_source') == 'solstice23top' || get_option('argon_update_source') == 'abc233site'){
+$argon_update_source = get_option('argon_update_source');
+if ($argon_update_source == 'stop'){}
+else if ($argon_update_source == 'solstice23top' || $argon_update_source == 'abc233site'){
 	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 		'https://api.solstice23.top/argon/info.json?source=0',
 		get_template_directory() . '/functions.php',
 		'argon'
 	);
-}else if (get_option('argon_update_source') == 'jsdelivr'){
+}else if ($argon_update_source == 'jsdelivr'){
 	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 		'https://api.solstice23.top/argon/info.json?source=jsdelivr',
+		get_template_directory() . '/functions.php',
+		'argon'
+	);
+}else if ($argon_update_source == 'fastgit'){
+	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+		'https://api.solstice23.top/argon/info.json?source=fastgit',
 		get_template_directory() . '/functions.php',
 		'argon'
 	);
@@ -119,6 +134,12 @@ function argon_add_admin_color(){
 	);
 }
 /*add_action('admin_init', 'argon_add_admin_color');*/
+function array_remove(&$arr, $item){
+	$pos = array_search($item, $arr);
+	if ($pos !== false){
+		array_splice($arr, $pos, 1);
+	}
+}
 //输出分页页码
 function get_argon_formatted_paginate_links($maxPageNumbers, $extraClasses = ''){
 	$args = array(
@@ -267,7 +288,7 @@ function get_post_views($post_id){
 		add_post_meta($post_id, $count_key, '0');
 		$count = '0';
 	}
-	echo number_format_i18n($count);
+	return number_format_i18n($count);
 }
 function set_post_views(){
 	if (post_password_required($post_id)){
@@ -338,6 +359,70 @@ function have_catalog(){
 		return true;
 	}else{
 		return false;
+	}
+}
+//获取文章 Meta
+function get_article_meta($type){
+	if ($type == 'sticky'){
+		return '<div class="post-meta-detail post-meta-detail-words">
+					<i class="fa fa-thumb-tack" aria-hidden="true"></i>
+					置顶
+				</div>';
+	}
+	if ($type == 'needpassword'){
+		return '<div class="post-meta-detail post-meta-detail-needpassword">
+					<i class="fa fa-lock" aria-hidden="true"></i>
+					需要密码
+				</div>';
+	}
+	if ($type == 'time'){
+		return '<div class="post-meta-detail post-meta-detail-time">
+					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					<time title="发布于 ' . get_the_time('Y-n-d G:i:s') . ' | 编辑于 ' . get_the_modified_time('Y-n-d G:i:s') . '">' . 
+						get_the_time('Y-n-d G:i') . '
+					</time>
+				</div>';
+	}
+	if ($type == 'edittime'){
+		return '<div class="post-meta-detail post-meta-detail-time">
+					<i class="fa fa-pencil" aria-hidden="true"></i>
+					<time title="发布于 ' . get_the_time('Y-n-d G:i:s') . ' | 编辑于 ' . get_the_modified_time('Y-n-d G:i:s') . '">' . 
+						get_the_modified_time('Y-n-d G:i') . '
+					</time>
+				</div>';
+	}
+	if ($type == 'views'){
+		return '<div class="post-meta-detail post-meta-detail-views">
+					<i class="fa fa-eye" aria-hidden="true"></i> ' . 
+					get_post_views(get_the_ID()) .
+				'</div>';
+	}
+	if ($type == 'comments'){
+		return '<div class="post-meta-detail post-meta-detail-comments">
+					<i class="fa fa-comments-o" aria-hidden="true"></i> ' . 
+					get_post(get_the_ID()) -> comment_count . 
+				'</div>';
+	}
+	if ($type == 'categories'){
+		$res = '<div class="post-meta-detail post-meta-detail-categories">
+				<i class="fa fa-bookmark-o" aria-hidden="true"></i> ';
+		$categories = get_the_category();
+		foreach ($categories as $index => $category){
+			$res .= '<a href="' . get_category_link($category -> term_id) . '" target="_blank" class="post-meta-detail-catagory-link">' . $category -> cat_name . '</a>';
+			if ($index != count($categories) - 1){
+				$res .= '<span class="post-meta-detail-catagory-space">,</span>';
+			}
+		}
+		$res .= '</div>';
+		return $res;
+	}
+	if ($type == 'author'){
+		$res = '<div class="post-meta-detail post-meta-detail-author">
+					<i class="fa fa-user-circle-o" aria-hidden="true"></i> ';
+					global $authordata;
+		$res .= '<a href="' . get_author_posts_url($authordata -> ID, $authordata -> user_nicename) . '" target="_blank">' . get_the_author() . '</a>
+				</div>';
+		return $res;
 	}
 }
 //当前文章是否隐藏 阅读时间 Meta
@@ -1248,7 +1333,7 @@ function alert_footer_copyright_changed(){ ?>
 	</div>
 <?php }
 function check_footer_copyright(){
-	$footer = file_get_contents(get_theme_root() . "/argon/footer.php");
+	$footer = file_get_contents(get_theme_root() . "/" . wp_get_theme() -> template . "/footer.php");
 	if ((strpos($footer, "github.com/solstice23/argon-theme") === false) && (strpos($footer, "solstice23.top") === false) && (strpos($footer, "solstice23.top") === false)){
 		add_action('admin_notices', 'alert_footer_copyright_changed');
 	}
@@ -2062,6 +2147,7 @@ function themeoptions_page(){
 ?>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/jquery/jquery.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/headindex/headindex.js"></script>
+	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/dragula/dragula.min.js"></script>
 	<div>
 		<style type="text/css">
 			h2{
@@ -2082,9 +2168,11 @@ function themeoptions_page(){
 			th.subtitle {
 				padding: 0;
 			}
+			.gu-mirror{position:fixed!important;margin:0!important;z-index:9999!important;opacity:.8;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";filter:alpha(opacity=80)}.gu-hide{display:none!important}.gu-unselectable{-webkit-user-select:none!important;-moz-user-select:none!important;-ms-user-select:none!important;user-select:none!important}.gu-transit{opacity:.2;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";filter:alpha(opacity=20)}
 		</style>
-		<h1>Argon 主题设置</h1>
-		<p>按下 <kbd style="font-family: sans-serif;">Ctrl + F</kbd> 来查找设置，或在右侧目录中查找设置</p>
+		<svg width="300" style="margin-top: 20px;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="673.92 415.2 510.83 151.8" enable-background="new 0 0 1920 1080" xml:space="preserve"><g><g><path fill="rgb(94, 114, 228, 0)" stroke="#5E72E4" stroke-width="3" stroke-dasharray="402" stroke-dashoffset="402" d="M811.38,450.13c-2.2-3.81-7.6-6.93-12-6.93h-52.59c-4.4,0-9.8,3.12-12,6.93l-26.29,45.54c-2.2,3.81-2.2,10.05,0,13.86l26.29,45.54c2.2,3.81,7.6,6.93,12,6.93h52.59c4.4,0,9.8-3.12,12-6.93l26.29-45.54c2.2-3.81,2.2-10.05,0-13.86L811.38,450.13z"><animate attributeName="stroke-width" begin="1s" values="3; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.5s" values="402; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="fill" begin="1s" values="rgb(94, 114, 228, 0); rgb(94, 114, 228, 0.3)" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/></path></g><g><path fill="rgb(94, 114, 228, 0)" d="M783.65,422.13c-2.2-3.81-7.6-6.93-12-6.93H715.6c-4.4,0-9.8,3.12-12,6.93l-28.03,48.54c-2.2,3.81-2.2,10.05,0,13.86l28.03,48.54c2.2,3.81,7.6,6.93,12,6.93h56.05c4.4,0,9.8-3.12,12-6.93l28.03-48.54c2.2-3.81,2.2-10.05,0-13.86L783.65,422.13z"><animateTransform attributeName="transform" type="translate" begin="1.5s" values="27.73,28; 0,0" dur="1.1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="fill" begin="1.5s" values="rgb(94, 114, 228, 0); rgb(94, 114, 228, 0.8)" dur="1.1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/></path></g></g><g><g><clipPath id="clipPath_1"><rect x="887.47" y="441.31" width="68.76" height="83.07"/></clipPath><path clip-path="url(#clipPath_1)" fill="none" stroke="#5E72E4" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" stroke-dasharray="190" d="M893.52,533.63l28.71-90.3l31.52,90.31"><animate attributeName="stroke-width" begin="1s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.5s" values="190; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.5s" /></path><line clip-path="url(#clipPath_1)" fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="45" x1="940.44" y1="495.5" x2="905" y2="495.5"><animate attributeName="stroke-width" begin="1s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.5s" values="-37; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.5s" /></line></g><g><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="56" d="M976.86,469.29v55.09"><animate attributeName="stroke-width" begin="1.15s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.65s" values="56; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.65s" /></path><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="38" d="M976.86,489.77c0-9.68,7.85-17.52,17.52-17.52c3.5,0,6.76,1.03,9.5,2.8"><animate attributeName="stroke-width" begin="1.15s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.65s" values="38; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.65s" /></path></g><g><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="124" d="M1057.86,492.08c0,10.94-8.87,19.81-19.81,19.81c-10.94,0-19.81-8.87-19.81-19.81s8.87-19.81,19.81-19.81C1048.99,472.27,1057.86,481.14,1057.86,492.08z"><animate attributeName="stroke-width" begin="1.3s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.8s" values="-124; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.8s" /></path><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="110" d="M1057.84,467.27v54.05c0,10.94-8.87,19.81-19.81,19.81c-8.36,0-15.51-5.18-18.42-12.5"><animate attributeName="stroke-width" begin="1.3s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.8s" values="110; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.8s" /></path></g><g><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="140" d="M1121.83,495.46c0,12.81-9.45,23.19-21.11,23.19s-21.11-10.38-21.11-23.19c0-12.81,9.45-23.19,21.11-23.19S1121.83,482.65,1121.83,495.46z"><animate attributeName="stroke-width" begin="1.45s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.95s" values="-140; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.95s" /></path></g><g><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="57" d="M1143.78,524.38v-55.71"><animate attributeName="stroke-width" begin="1.6s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="1.1s" values="-57; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="1.1s" /></path><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="90" d="M1143.95,490.15c0-9.88,8.01-17.9,17.9-17.9c9.88,0,17.9,8.01,17.9,17.9v34.23"><animate attributeName="stroke-width" begin="1.6s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="1.1s" values="90; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="1.1s" /></path></g></g></svg>
+		<h1 style="color: #5e72e4;">Argon 主题设置</h1>
+		<p>按下 <kbd style="font-family: sans-serif;">Ctrl + F</kbd> 或在右侧目录中来查找设置</p>
 		<form method="POST" action="" id="main_form">
 			<input type="hidden" name="update_themeoptions" value="true" />
 			<?php wp_nonce_field("argon_update_themeoptions", "argon_update_themeoptions_nonce");?>
@@ -2250,6 +2338,7 @@ function themeoptions_page(){
 								<?php $argon_assets_path = get_option('argon_assets_path'); ?>
 								<option value="default" <?php if ($argon_assets_path=='default'){echo 'selected';} ?>>不使用</option>
 								<option value="jsdelivr" <?php if ($argon_assets_path=='jsdelivr'){echo 'selected';} ?>>jsdelivr</option>
+								<option value="fastgit" <?php if ($argon_assets_path=='fastgit'){echo 'selected';} ?>>fastgit</option>
 							</select>
 							<p class="description">选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。</p>
 						</td>
@@ -2491,15 +2580,85 @@ function themeoptions_page(){
 					<tr><th class="subtitle"><h2>文章</h2></th></tr>
 					<tr><th class="subtitle"><h3>文章 Meta 信息</h3></th></tr>
 					<tr>
-						<th><label>显示作者</label></th>
+						<th><label>第一行</label></th>
+						<style>
+							.article-meta-container {
+								margin-top: 10px;
+								margin-bottom: 15px;
+								width: calc(100% - 250px);
+							}
+							@media screen and (max-width:960px){
+								.article-meta-container {
+									width: 100%;
+								}
+							}
+							#article_meta_active, #article_meta_inactive {
+								background: rgba(0, 0, 0, .05);
+								padding: 10px 15px;
+								margin-top: 10px;
+								border-radius: 5px;
+								padding-bottom: 0;
+								min-height: 48px;
+								box-sizing: border-box;
+							}
+							.article-meta-item {
+								background: #fafafa;
+								width: max-content !important;
+								height: max-content !important;
+								border-radius: 100px;
+								padding: 5px 15px;
+								cursor: move;
+								display: inline-block;
+								margin-right: 8px;
+								margin-bottom: 10px;
+							}
+						</style>
 						<td>
-							<select name="argon_show_author">
-								<?php $argon_show_author = get_option('argon_show_author'); ?>
-								<option value="false" <?php if ($argon_show_author=='false'){echo 'selected';} ?>>不显示</option>
-								<option value="true" <?php if ($argon_show_author=='true'){echo 'selected';} ?>>显示</option>
-							</select>
+							<input type="text" class="regular-text" name="argon_article_meta" value="<?php echo get_option('argon_article_meta', 'time|views|comments|categories'); ?>" style="display: none;"/>
+							拖动来自定义文章 Meta 信息的显示和顺序
+							<div class="article-meta-container">
+								显示
+								<div id="article_meta_active"></div>
+							</div>
+							<div class="article-meta-container">
+								不显示
+								<div id="article_meta_inactive">
+									<div class="article-meta-item" meta-name="time">发布时间</div>
+									<div class="article-meta-item" meta-name="edittime">修改时间</div>
+									<div class="article-meta-item" meta-name="views">浏览量</div>
+									<div class="article-meta-item" meta-name="comments">评论数</div>
+									<div class="article-meta-item" meta-name="categories">所属分类</div>
+									<div class="article-meta-item" meta-name="author">作者</div>
+								</div>
+							</div>
 						</td>
+						<script>
+							!function(){
+								let articleMeta = $("input[name='argon_article_meta']").val().split("|");
+								for (metaName of articleMeta){
+									let itemDiv = $("#article_meta_inactive .article-meta-item[meta-name='"+ metaName + "']");
+									$("#article_meta_active").append(itemDiv.prop("outerHTML"));
+									itemDiv.remove();
+								}
+							}();
+							dragula(
+								[document.querySelector('#article_meta_active'), document.querySelector('#article_meta_inactive')],
+								{
+									direction: 'vertical'
+								}
+							).on('dragend', function(){
+								let articleMeta = "";
+								$("#article_meta_active .article-meta-item").each(function(index, item) {
+									if (index != 0){
+										articleMeta += "|";
+									}
+									articleMeta += item.getAttribute("meta-name");
+								});
+								$("input[name='argon_article_meta']").val(articleMeta);
+							});
+						</script>
 					</tr>
+					<tr><th class="subtitle"><h4>第二行</h4></th></tr>
 					<tr>
 						<th><label>显示字数和预计阅读时间</label></th>
 						<td>
@@ -3122,6 +3281,7 @@ window.pjaxLoaded = function(){
 								<?php $argon_update_source = get_option('argon_update_source'); ?>
 								<option value="github" <?php if ($argon_update_source=='github'){echo 'selected';} ?>>Github</option>
 								<option value="jsdelivr" <?php if ($argon_update_source=='jsdelivr'){echo 'selected';} ?>>jsdelivr</option>
+								<option value="fastgit" <?php if ($argon_update_source=='fastgit'){echo 'selected';} ?>>fastgit</option>
 								<option value="solstice23top" <?php if ($argon_update_source=='solstice23top' || $argon_update_source=='abc233site'){echo 'selected';} ?>>solstice23.top</option>
 								<option value="stop" <?php if ($argon_update_source=='stop'){echo 'selected';} ?>>暂停更新 (不推荐)</option>
 							</select>
@@ -3482,7 +3642,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_comment_enable_qq_avatar');
 		argon_update_option('argon_enable_login_css');
 		argon_update_option('argon_hide_categories');
-		argon_update_option('argon_show_author');
+		argon_update_option('argon_article_meta');
 		argon_update_option('argon_fold_long_comments');
 
 		//LazyLoad 相关

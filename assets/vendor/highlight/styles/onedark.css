@@ -1,0 +1,123 @@
+/*
+One-dark by Atom
+https://github.com/atom/one-dark-syntax
+https://atom.io/
+
+Highlight.js port by MegaXLR
+https://github.com/megaxlr/Highlight.js-One-Dark
+http://megaxlr.net/
+
+Base theme Railcasts by
+Railscasts-like style (c) Visoft, Inc. (Damien White)
+http://visoftinc.com/ (I hope that is the right URL, didn't really check :-/)
+*/
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #282c34;
+  color: #abb2bf;
+  font-size: 1.1em;
+}
+.hljs-control {
+  color: #9fb2bf !important;
+}
+.hljs > *::selection {
+  background-color: #3e4451;
+}
+.hljs-comment {
+  color: #5c6370;
+  font-style: italic;
+}
+
+.hljs-selector-tag {
+  color: #e06c75;
+}
+
+.hljs-string {
+  color: #98c379;
+}
+.hljs-number,
+.hljs-regexp,
+.hljs-variable,
+.hljs-template-variable {
+  color: #d19a66;
+}
+
+.hljs-subst {
+  color: #519f50;
+}
+.hljs-keyword {
+  color: #c678dd;
+}
+.hljs-function > .hljs-title {
+  color: #61afef;
+}
+.hljs-tag {
+  color: #abb2bf;
+}
+.hljs-name {
+  color: #e06c75;
+}
+.hljs-type {
+  color: #da4939;
+}
+
+.hljs-attr {
+  color: #d19a66;
+}
+.hljs-symbol,
+.hljs-bullet,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-link {
+  color: #6d9cbe;
+}
+
+.hljs-params {
+  color: #d0d0ff;
+}
+
+
+.hljs-meta {
+  color: #;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #ffc66d;
+}
+
+.hljs-addition {
+  background-color: #144212;
+  color: #e6e1dc;
+  display: inline-block;
+  width: 100%;
+}
+
+.hljs-deletion {
+  background-color: #600;
+  color: #e6e1dc;
+  display: inline-block;
+  width: 100%;
+}
+
+.hljs-selector-class {
+  color: #9b703f;
+}
+
+.hljs-selector-id {
+  color: #8b98ab;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}

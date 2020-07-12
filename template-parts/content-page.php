@@ -18,51 +18,30 @@
 		?>
 		<a class="post-title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 		<div class="post-meta">
-			<?php if ( is_sticky() && is_home() && ! is_paged() ) : ?>
-				<div class="post-meta-detail post-meta-detail-words">
-					<i class="fa fa-thumb-tack" aria-hidden="true"></i>
-					置顶
-				</div>
-				<div class="post-meta-devide">|</div>
-			<?php endif; ?>
-			<?php if (post_password_required()) { ?>
-				<div class="post-meta-detail post-meta-detail-needpassword">
-					<i class="fa fa-lock" aria-hidden="true"></i>
-					需要密码
-				</div>
-				<div class="post-meta-devide">|</div>
-			<?php } ?>
-			<div class="post-meta-detail post-meta-detail-time">
-				<i class="fa fa-clock-o" aria-hidden="true"></i>
-				<time title="<?php echo '发布于 ' . get_the_time('Y-n-d G:i:s') . ' | 修改于 ' . get_the_modified_time('Y-n-d G:i:s'); ?>">
-					<?php the_time('Y-n-d G:i'); ?>
-				</time>
-			</div>
-			<div class="post-meta-devide">|</div>
-			<div class="post-meta-detail post-meta-detail-views">
-				<i class="fa fa-eye" aria-hidden="true"></i>
-				<?php get_post_views(get_the_ID()); ?>
-			</div>
-			<div class="post-meta-devide">|</div>
-			<div class="post-meta-detail post-meta-detail-comments">
-				<i class="fa fa-comments-o" aria-hidden="true"></i>
-				<?php echo get_post(get_the_ID())->comment_count; ?>
-			</div>
-			<?php if (count(get_the_category()) > 0){ ?>
-				<div class="post-meta-devide">|</div>
-				<div class="post-meta-detail post-meta-detail-catagories">
-					<i class="fa fa-bookmark-o" aria-hidden="true"></i>
-					<?php
-						$categories = get_the_category();
-						foreach ($categories as $index => $category){
-							echo "<a href='" . get_category_link($category -> term_id) . "' target='_blank' class='post-meta-detail-catagory-link'>" . $category -> cat_name . "</a>";
-							if ($index != count($categories) - 1){
-								echo "<span class='post-meta-detail-catagory-space'>,</span>";
-							}
-						}
-					?>
-				</div>
-			<?php } ?>
+			<?php
+				$metaList = explode('|', get_option('argon_article_meta', 'time|views|comments|categories'));
+				if (is_sticky() && is_home() && ! is_paged()){
+					array_unshift($metaList, "sticky");
+				}
+				if (post_password_required()){
+					array_unshift($metaList, "needpassword");
+				}
+				if (is_meta_simple()){
+					array_remove($metaList, "time");
+					array_remove($metaList, "edittime");
+					array_remove($metaList, "categories");
+					array_remove($metaList, "author");
+				}
+				if (count(get_the_category()) == 0){
+					array_remove($metaList, "categories");
+				}
+				for ($i = 0; $i < count($metaList); $i++){
+					if ($i > 0){
+						echo ' <div class="post-meta-devide">|</div> ';
+					}
+					echo get_article_meta($metaList[$i]);
+				}
+			?>
 			<?php if (!post_password_required() && get_option("argon_show_readingtime") != "false" && is_readingtime_meta_hidden() == False) { ?>
 				</br>
 				<div class="post-meta-detail post-meta-detail-words">
@@ -85,16 +64,6 @@
 				echo "</div>";
 			}
 		?>
-		<?php if (is_meta_simple()){ ?>
-			<style>
-				.post-meta .post-meta-detail-time ,
-				.post-meta .post-meta-detail-time + .post-meta-devide ,
-				.post-meta .post-meta-detail-comments + .post-meta-devide ,
-				.post-meta .post-meta-detail-catagories{
-					display: none;
-				}
-			</style>
-		<?php } ?>
 	</header>
 
 	<div class="post-content" id="post_content">
