@@ -63,6 +63,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200713 v0.971
++ 修 BUG
+
 ## 20200713 v0.970
 + 文章 Meta 信息支持自定义是否显示和顺序
 + 增加 fastgit 更新源
