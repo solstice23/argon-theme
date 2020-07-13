@@ -809,11 +809,7 @@ function check_comment_captcha($comment){
 	}
 	return $comment;
 }
-if(isset($comment_data)){
-	if ($comment_data['comment_type'] == ''){
-		add_filter('preprocess_comment' , 'check_comment_captcha');
-	}
-}
+add_filter('preprocess_comment' , 'check_comment_captcha');
 //Ajax 发送评论
 function ajax_post_comment(){
 	$parentID = $_POST['comment_parent'];
