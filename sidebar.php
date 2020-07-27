@@ -3,7 +3,7 @@
 		<?php if (get_option('argon_sidebar_announcement') != '') { ?>
 			<div id="leftbar_announcement" class="card bg-white shadow-sm border-0">
 				<div class="leftbar-announcement-body">
-					<div class="leftbar-announcement-title text-white">公告</div>
+					<div class="leftbar-announcement-title text-white"><?php _e('公告', 'argon');?></div>
 					<div class="leftbar-announcement-content text-white"><?php echo get_option('argon_sidebar_announcement'); ?></div>
 				</div>
 			</div>
@@ -60,8 +60,8 @@
 			?>
 			<div class="card-body text-center leftbar-search-button">
 				<button id="leftbar_search_container" class="btn btn-secondary btn-lg active btn-sm btn-block border-0" role="button">
-					<i class="menu-item-icon fa fa-search mr-0"></i> 搜索
-					<input id="leftbar_search_input" type="text" placeholder="搜索什么..." class="form-control form-control-alternative" autocomplete="off">
+					<i class="menu-item-icon fa fa-search mr-0"></i> <?php _e('搜索', 'argon');?>
+					<input id="leftbar_search_input" type="text" placeholder="<?php _e('搜索什么...', 'argon');?>" class="form-control form-control-alternative" autocomplete="off">
 				</button>
 			</div>
 		</div>
@@ -77,15 +77,15 @@
 	                <ul class="nav nav-pills nav-fill" role="tablist">
 						<?php if (have_catalog()) { ?>
 							<li class="nav-item sidebar-tab-switcher">
-								<a class="<?php if ($nowActiveTab == 0) { echo 'active show'; }?>" id="leftbar_tab_catalog_btn" data-toggle="tab" href="#leftbar_tab_catalog" role="tab" aria-controls="leftbar_tab_catalog" no-pjax>文章目录</a>
+								<a class="<?php if ($nowActiveTab == 0) { echo 'active show'; }?>" id="leftbar_tab_catalog_btn" data-toggle="tab" href="#leftbar_tab_catalog" role="tab" aria-controls="leftbar_tab_catalog" no-pjax><?php _e('文章目录', 'argon');?></a>
 							</li>
 						<?php } ?>
 						<li class="nav-item sidebar-tab-switcher">
-							<a class="<?php if ($nowActiveTab == 1) { echo 'active show'; }?>" id="leftbar_tab_overview_btn" data-toggle="tab" href="#leftbar_tab_overview" role="tab" aria-controls="leftbar_tab_overview" no-pjax>站点概览</a>
+							<a class="<?php if ($nowActiveTab == 1) { echo 'active show'; }?>" id="leftbar_tab_overview_btn" data-toggle="tab" href="#leftbar_tab_overview" role="tab" aria-controls="leftbar_tab_overview" no-pjax><?php _e('站点概览', 'argon');?></a>
 						</li>
 						<?php if ( is_active_sidebar( 'leftbar-tools' ) ){?>
 							<li class="nav-item sidebar-tab-switcher">
-								<a class="<?php if ($nowActiveTab == 2) { echo 'active show'; }?>" id="leftbar_tab_tools_btn" data-toggle="tab" href="#leftbar_tab_tools" role="tab" aria-controls="leftbar_tab_tools" no-pjax>功能</a>
+								<a class="<?php if ($nowActiveTab == 2) { echo 'active show'; }?>" id="leftbar_tab_tools_btn" data-toggle="tab" href="#leftbar_tab_tools" role="tab" aria-controls="leftbar_tab_tools" no-pjax><?php _e('功能', 'argon');?></a>
 							</li>
 						<?php }?>
 	                </ul>
@@ -127,19 +127,19 @@
 								<div class="site-state-item site-state-posts">
 									<a style="cursor: default;">
 										<span class="site-state-item-count"><?php echo wp_count_posts() -> publish; ?></span>
-										<span class="site-state-item-name">文章</span>
+										<span class="site-state-item-name"><?php _e('文章', 'argon');?></span>
 									</a>
 								</div>
 								<div class="site-state-item site-state-categories">
 									<a data-toggle="modal" data-target="#blog_categories">
 										<span class="site-state-item-count"><?php echo wp_count_terms('category'); ?></span>
-										<span class="site-state-item-name">分类</span>
+										<span class="site-state-item-name"><?php _e('分类', 'argon');?></span>
 									</a>
 								</div>      
 								<div class="site-state-item site-state-tags">
 									<a data-toggle="modal" data-target="#blog_tags">
 										<span class="site-state-item-count"><?php echo wp_count_terms('post_tag'); ?></span>
-										<span class="site-state-item-name">标签</span>
+										<span class="site-state-item-name"><?php _e('标签', 'argon');?></span>
 									</a>
 								</div>
 							</nav>
@@ -221,7 +221,7 @@
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">分类</h5>
+				<h5 class="modal-title"><?php _e('分类', 'argon');?></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -249,7 +249,7 @@
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">标签</h5>
+				<h5 class="modal-title"><?php _e('标签', 'argon');?></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>

@@ -55,8 +55,8 @@ $_SERVER['HTTP_HOST']);?>&text=<?php echo urlencode(get_the_title());?>">
 	socialShare("#share", {
 	    title : '<?php echo addslashes(get_the_title()); ?>',
 	    description : '<?php echo addslashes(wp_trim_words(get_the_content(), 50));?>',
-	    wechatQrcodeTitle : "分享到微信",
-	    wechatQrcodeHelper : '微信扫描二维码',
+	    wechatQrcodeTitle : "<?php _e('分享到微信', 'argon');?>",
+	    wechatQrcodeHelper : '<?php _e('微信扫描二维码', 'argon');?>',
 	    source : '<?php bloginfo('url'); ?>'
 	});
 	$("#share_show")[0].onclick = function(){
@@ -71,8 +71,8 @@ $_SERVER['HTTP_HOST']);?>&text=<?php echo urlencode(get_the_title());?>">
 		input.select();
 		if (document.execCommand('copy')){
 			iziToast.show({
-				title: '链接已复制',
-				message: "链接已复制到剪贴板",
+				title: '<?php _e('链接已复制', 'argon');?>',
+				message: "<?php _e('链接已复制到剪贴板', 'argon');?>",
 				class: 'shadow',
 				position: 'topRight',
 				backgroundColor: '#2dce89',
@@ -85,8 +85,8 @@ $_SERVER['HTTP_HOST']);?>&text=<?php echo urlencode(get_the_title());?>">
 			});
 		}else{
 			iziToast.show({
-				title: '复制失败',
-				message: "请手动复制链接",
+				title: '<?php _e('复制失败', 'argon');?>',
+				message: "<?php _e('请手动复制链接', 'argon');?>",
 				class: 'shadow',
 				position: 'topRight',
 				backgroundColor: '#f5365c',

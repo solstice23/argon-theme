@@ -1,0 +1,1047 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: argon\n"
+"POT-Creation-Date: 2020-07-28 03:08+0800\n"
+"PO-Revision-Date: 2020-07-28 03:08+0800\n"
+"Last-Translator: \n"
+"Language-Team: solstice23\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;_x;_ex;_n;_nx\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: assets\n"
+"X-Poedit-SearchPathExcluded-1: languages\n"
+"X-Poedit-SearchPathExcluded-2: theme-update-checker\n"
+
+#: archive.php:13
+msgid "篇文章"
+msgstr "Posts"
+
+#: comments.php:12 template-parts/shuoshuo-operations.php:5
+msgid "评论"
+msgstr "Comments"
+
+#: comments.php:43
+msgid "暂无评论"
+msgstr "No Comments"
+
+#: comments.php:51
+msgid "本文评论已关闭"
+msgstr "Commenting is disabled"
+
+#: comments.php:68
+msgid "发送评论"
+msgstr "Send Comment"
+
+#: comments.php:69
+msgid "编辑评论"
+msgstr "Edit Comment"
+
+#: comments.php:72
+msgid "正在回复"
+msgstr "Replying"
+
+#: comments.php:72
+msgid " 的评论"
+msgstr "'s comment"
+
+#: comments.php:74
+msgid "取消回复"
+msgstr "Cancel"
+
+#: comments.php:79
+msgid "评论内容"
+msgstr "Your comment..."
+
+#: comments.php:118
+msgid "昵称"
+msgstr "Name"
+
+#: comments.php:128
+msgid "邮箱"
+msgstr "Email"
+
+#: comments.php:139
+msgid "验证码"
+msgstr "CAPTCHA"
+
+#: comments.php:178 functions.php:643
+msgid "悄悄话"
+msgstr "Private Comment"
+
+#: comments.php:184
+msgid "邮件提醒"
+msgstr "Email Notification"
+
+#: comments.php:190
+msgid "发送"
+msgstr "Send"
+
+#: comments.php:191 functions.php:670
+msgid "编辑"
+msgstr "Edit"
+
+#: functions.php:3
+msgid "Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress"
+msgstr ""
+"Argon theme does not support Wordpress version below 4.4, please update "
+"Wordpress"
+
+#: functions.php:105
+msgid "左侧栏小工具"
+msgstr "Left sidebar widget"
+
+#: functions.php:107
+msgid "左侧栏小工具 (如果设置会在侧栏增加一个 Tab)"
+msgstr "Left sidebar widget (if set, a Tab will be added to the sidebar)"
+
+#: functions.php:116
+msgid "右侧栏小工具"
+msgstr "Right sidebar widget"
+
+#: functions.php:118
+msgid "右侧栏小工具 (在 \"Argon 主题选项\" 中选择 \"三栏布局\" 才会显示)"
+msgstr ""
+"Right sidebar widget (only displayed when \"three-column layout\" is "
+"selected in \"Argon Theme Options\")"
+
+#: functions.php:244
+msgid "这是一个加密页面，需要密码来查看"
+msgstr "This  pagerequires a password to view"
+
+#: functions.php:348
+msgid "几秒读完"
+msgstr "Few seconds"
+
+#: functions.php:351
+msgid "1 分钟内"
+msgstr "A minute"
+
+#: functions.php:354
+msgid "分钟"
+msgstr "minutes"
+
+#: functions.php:356
+msgid "小时"
+msgstr "hour"
+
+#: functions.php:378 template-parts/content-shuoshuo-details.php:16
+#: template-parts/content-shuoshuo-preview.php:24
+#: template-parts/content-shuoshuo.php:16
+msgid "置顶"
+msgstr "Pinned"
+
+#: functions.php:384
+msgid "需要密码"
+msgstr "Password Required"
+
+#: functions.php:390 functions.php:398
+msgid "发布于"
+msgstr "Posted at"
+
+#: functions.php:390 functions.php:398
+msgid "编辑于"
+msgstr "Edited at"
+
+#: functions.php:612
+msgid "最初版本"
+msgstr "First Edition"
+
+#: functions.php:640 functions.php:687
+msgid "博主"
+msgstr "Owner"
+
+#: functions.php:646 functions.php:690
+msgid "待审核"
+msgstr "Pending"
+
+#: functions.php:659
+msgid "已编辑"
+msgstr "Edited"
+
+#: functions.php:663
+msgid "前"
+msgstr "ago"
+
+#: functions.php:672
+msgid "回复"
+msgstr "Reply"
+
+#: functions.php:770
+msgid "验证码错误"
+msgstr "CAPTCHA Wrong"
+
+#: functions.php:830
+msgid "不能回复其他人的悄悄话评论"
+msgstr "Cannot reply to other's private comments"
+
+#: functions.php:924
+msgid "查看图片"
+msgstr "Show Image"
+
+#: functions.php:967 functions.php:968
+msgid "您在"
+msgstr "Your Comment on"
+
+#: functions.php:967 functions.php:968
+msgid "的评论有了新的回复"
+msgstr "Has a New Reply"
+
+#: functions.php:976
+msgid "回复了你"
+msgstr "Replys"
+
+#: functions.php:980
+msgid "前往查看"
+msgstr "View"
+
+#: functions.php:983
+msgid "退订该评论的邮件提醒"
+msgstr "Unsubscribe"
+
+#: functions.php:1056
+msgid "博主关闭了编辑评论功能"
+msgstr "Comment editing unavailable"
+
+#: functions.php:1065
+msgid "您不是这条评论的作者或 Token 已过期"
+msgstr "You are not the author of this comment or the token has expired"
+
+#: functions.php:1071
+msgid "新的评论为空"
+msgstr "New comment is empty"
+
+#: functions.php:1097
+msgid "编辑评论成功"
+msgstr "Comment Edited"
+
+#: functions.php:1105
+msgid "编辑评论失败，可能原因: 与原评论相同"
+msgstr "Failed, possible reason: same as old comment"
+
+#: functions.php:1322
+msgid "该说说已被赞过"
+msgstr "This essay has been voted"
+
+#: functions.php:1331
+msgid "点赞成功"
+msgstr "Vote success"
+
+#: functions.php:1340
+msgid ""
+"警告：你可能修改了 Argon 主题页脚的版权声明，Argon 主题要求你至少保留主题的 "
+"Github 链接或主题的发布文章链接。"
+msgstr ""
+"Alert: The copyright in the footer may have been modified. You should "
+"maintain the GitHub Repo link of the theme."
+
+#: functions.php:1479
+msgid "显示字数和预计阅读时间"
+msgstr "Display word count and estimated reading time"
+
+#: functions.php:1482
+msgid "跟随全局设置"
+msgstr "Follow general"
+
+#: functions.php:1483
+msgid "不显示"
+msgstr "Hide"
+
+#: functions.php:1485
+msgid "是否显示字数和预计阅读时间 Meta 信息"
+msgstr "Show meta of word count and estimated reading time"
+
+#: functions.php:1486
+msgid "Meta 中隐藏发布时间和分类"
+msgstr "Hide post time and categories in meta"
+
+#: functions.php:1489
+msgid "不隐藏"
+msgstr "Show"
+
+#: functions.php:1490
+msgid "隐藏"
+msgstr "Hide"
+
+#: functions.php:1492
+msgid ""
+"适合特定的页面，例如友链页面。开启后文章 Meta 的第一行只显示阅读数和评论数。"
+msgstr ""
+"For special pages, like friend links page. If this option is on, the first "
+"line of the meta will only show the number of reading and comments."
+
+#: functions.php:1493
+msgid "自定义 CSS"
+msgstr "Custom CSS"
+
+#: functions.php:1496
+msgid "给该文章添加单独的 CSS"
+msgstr "Custom CSS for this page."
+
+#: functions.php:1500
+msgid "文章设置"
+msgstr "Article Settings"
+
+#: functions.php:2151 functions.php:2182
+msgid "Argon 主题设置"
+msgstr "Argon Theme Options"
+
+#: functions.php:2151
+msgid "Argon 主题选项"
+msgstr "Argon Options"
+
+#: functions.php:2183
+msgid "按下"
+msgstr "Press"
+
+#: functions.php:2183
+msgid "或在右侧目录中来查找设置"
+msgstr "or find options in right catalog"
+
+#: functions.php:2189
+msgid "全局"
+msgstr "General"
+
+#: functions.php:2190 header.php:534
+msgid "主题色"
+msgstr "Theme Color"
+
+#: functions.php:2192
+msgid "主题颜色"
+msgstr "Theme Color"
+
+#: functions.php:2196
+msgid "选择预置颜色 或"
+msgstr "Choose preset colors or"
+
+#: functions.php:2196
+msgid "自定义色值"
+msgstr "custom color"
+
+#: functions.php:2197
+msgid "预置颜色："
+msgstr "Presets"
+
+#: functions.php:2199
+msgid "默认"
+msgstr "Default"
+
+#: functions.php:2200
+msgid "粉"
+msgstr "Pink"
+
+#: functions.php:2201
+msgid "水鸭青"
+msgstr "Teal"
+
+#: functions.php:2202
+msgid "蓝灰"
+msgstr "Bluegrey"
+
+#: functions.php:2203
+msgid "天蓝"
+msgstr "Blue"
+
+#: functions.php:2204
+msgid "靛蓝"
+msgstr "Indigo"
+
+#: functions.php:2205
+msgid "橙"
+msgstr "Orange"
+
+#: functions.php:2206
+msgid "绿"
+msgstr "Green"
+
+#: functions.php:2207
+msgid "红"
+msgstr "Red"
+
+#: functions.php:2208
+msgid "紫"
+msgstr "Purple"
+
+#: functions.php:2209
+msgid "黑"
+msgstr "Black"
+
+#: functions.php:2210
+msgid "棕"
+msgstr "Brown"
+
+#: functions.php:2212
+msgid "主题色与 \"Banner 渐变背景样式\" 选项搭配使用效果更佳"
+msgstr ""
+"Use this option with \"Banner gradient background style\" for better effects"
+
+#: functions.php:2241
+msgid "允许用户自定义主题色（位于博客浮动操作栏设置菜单中）"
+msgstr "Allow custom theme color (at blog floating settings menu)"
+
+#: functions.php:2247 header.php:499
+msgid "夜间模式"
+msgstr "Darkmode"
+
+#: functions.php:2249
+msgid "夜间模式切换方案"
+msgstr "Darkmode Toggle Plan"
+
+#: functions.php:2253
+msgid "默认使用日间模式"
+msgstr "Lightmode as default"
+
+#: functions.php:2254
+msgid "默认使用夜间模式"
+msgstr "Darkmode as default"
+
+#: functions.php:2255
+msgid "跟随系统夜间模式"
+msgstr "Follow system"
+
+#: functions.php:2256
+msgid "根据时间切换夜间模式 (22:00 ~ 7:00)"
+msgstr "Toggle by time (22.p.m to 7.a.m)"
+
+#: functions.php:2258
+msgid "Argon 主题会根据这里的选项来决定是否默认使用夜间模式。"
+msgstr ""
+"Theme will decide whether to use darkmode by default according to the "
+"options here."
+
+#: functions.php:2258
+msgid "用户也可以手动切换夜间模式，用户的设置将保留到标签页关闭为止。"
+msgstr ""
+"Users can also manually switch the darkmode, and the user's settings will be "
+"retained until the tab is closed."
+
+#: functions.php:2262
+msgid "夜间模式颜色方案"
+msgstr "Darkmode Color Scheme"
+
+#: functions.php:2266
+msgid "灰黑"
+msgstr "Darkgrey"
+
+#: functions.php:2267
+msgid "暗黑 (AMOLED Black)"
+msgstr "Black (For AMOLED)"
+
+#: functions.php:2269
+msgid "夜间模式默认的配色方案。"
+msgstr "The default color scheme of darkmode."
+
+#: functions.php:2272
+msgid "卡片"
+msgstr "Cards"
+
+#: functions.php:2274
+msgid "卡片圆角大小"
+msgstr "Card radius"
+
+#: functions.php:2277
+msgid "卡片的圆角大小，默认为"
+msgstr "The default radius of card, default is"
+
+#: functions.php:2277
+msgid "。建议设置为"
+msgstr ". Recommend :"
+
+#: functions.php:2281
+msgid "卡片阴影"
+msgstr "Card Shadow"
+
+#: functions.php:2287 header.php:514
+msgid "浅阴影"
+msgstr "Small"
+
+#: functions.php:2291 header.php:514
+msgid "深阴影"
+msgstr "Large"
+
+#: functions.php:2294
+msgid "卡片默认阴影大小。"
+msgstr "Default shadow size of cards."
+
+#: functions.php:2297
+msgid "布局"
+msgstr "Layouts"
+
+#: functions.php:2299
+msgid "页面布局"
+msgstr "Page Layout"
+
+#: functions.php:2306
+msgid "双栏"
+msgstr "Double-Column"
+
+#: functions.php:2312
+msgid "单栏"
+msgstr "Single-Column"
+
+#: functions.php:2318
+msgid "三栏"
+msgstr "Triple-Column"
+
+#: functions.php:2320
+msgid "使用单栏时，关于左侧栏的设置将失效。"
+msgstr ""
+"If using single column mod, the settings about the left sidebar will take no "
+"effect."
+
+#: functions.php:2320
+msgid "使用三栏时，请前往 \"外观-小工具\" 设置页面配置右侧栏内容。"
+msgstr ""
+"If using three columns, please go to the \"Appearance - Widgets\" setting "
+"page to configure the content of the right column."
+
+#: functions.php:2323 header.php:506
+msgid "字体"
+msgstr "Font"
+
+#: functions.php:2325
+msgid "默认字体"
+msgstr "Default Font"
+
+#: functions.php:2338
+msgid "默认使用无衬线字体/衬线字体。"
+msgstr "Default font style"
+
+#: functions.php:2347
+msgid "不使用"
+msgstr "Do not use"
+
+#: functions.php:2351
+msgid ""
+"选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。"
+msgstr ""
+"The address of the theme resource file. Using CDN can speed up access to "
+"resource files and reduce server pressure."
+
+#: functions.php:2354
+msgid "子目录"
+msgstr "Sub Path"
+
+#: functions.php:2356
+msgid "Wordpress 安装目录"
+msgstr "WordPress Installation Directory"
+
+#: functions.php:2359
+msgid "如果 Wordpress 安装在子目录中，请在此填写子目录地址（例如"
+msgstr ""
+"If Wordpress is installed in a subdirectory, please fill in the subdirectory "
+"address here (for example"
+
+#: functions.php:2359
+msgid "），注意前后各有一个斜杠。默认为"
+msgstr "), there is a slash before and after each. The default is"
+
+#: functions.php:2359
+msgid "。"
+msgstr "."
+
+#: functions.php:2359
+msgid "如果不清楚该选项的用处，请保持默认。"
+msgstr "If you don't know about this option, keep the default."
+
+#: functions.php:2362
+msgid "顶栏"
+msgstr "Toolbar"
+
+#: functions.php:2363
+msgid "标题"
+msgstr "Title"
+
+#: functions.php:2365
+msgid "顶栏标题"
+msgstr "Toolbar Title"
+
+#: functions.php:2368 functions.php:2391 functions.php:2506
+msgid "留空则显示博客名称"
+msgstr "If this option is empty, theme will show the blog name."
+
+#: functions.php:2371
+msgid "顶栏图标"
+msgstr "Toolbar Icon"
+
+#: functions.php:2373
+msgid "图标地址"
+msgstr "Icon URL"
+
+#: functions.php:2376
+msgid "图片地址，留空则不显示"
+msgstr "The URL of the icon, if this option is empty, it will not show."
+
+#: functions.php:2380
+msgid "图标链接"
+msgstr "Icon Link"
+
+#: functions.php:2383
+msgid "点击图标后会跳转到的链接，留空则不跳转"
+msgstr ""
+"The link that will jump to when clicking the icon, if this option is empty, "
+"it will not jump when clicking."
+
+#: functions.php:2386
+msgid "顶部 Banner (封面)"
+msgstr "Banner"
+
+#: functions.php:2388
+msgid "Banner 标题"
+msgstr "Banner Title"
+
+#: functions.php:2395
+msgid "Banner 副标题"
+msgstr "Banner Subtitle"
+
+#: functions.php:2398
+msgid "显示在 Banner 标题下，留空则不显示"
+msgstr ""
+"Show below the banner title, if this option is empty, it will not show."
+
+#: functions.php:2402
+msgid "Banner 背景图 (地址)"
+msgstr "Banner Background URL"
+
+#: functions.php:2405
+msgid "需带上 http(s) ，留空则显示默认背景"
+msgstr "With http(s) prefix, leave it blank to show the default background."
+
+#: functions.php:2405 functions.php:2513
+msgid "输入"
+msgstr "Input"
+
+#: functions.php:2405
+msgid "调用必应每日一图"
+msgstr "to use everyday background of Bing."
+
+#: functions.php:2409
+msgid "Banner 渐变背景样式"
+msgstr "Banner gradient background style"
+
+#: functions.php:2413 functions.php:2414 functions.php:2415 functions.php:2416
+#: functions.php:2417 functions.php:2418 functions.php:2419 functions.php:2428
+#: functions.php:2429 functions.php:2430 functions.php:2431 functions.php:2432
+#: functions.php:2433 functions.php:2434
+msgid "样式"
+msgstr "Style"
+
+#: functions.php:2423
+msgid "隐藏背景半透明圆"
+msgstr "Hide background semi-transparent circle"
+
+#: functions.php:2425
+msgid "如果设置了背景图则不生效"
+msgstr "If the background image is set, it will not take effect"
+
+#: functions.php:2426
+msgid "样式预览 (推荐选择前三个样式)"
+msgstr "Style preview (recommended to choose the first three styles)"
+
+#: functions.php:2443
+msgid "动画"
+msgstr "Animation"
+
+#: functions.php:2445
+msgid "Banner 标题打字动画"
+msgstr "Banner Title Typing Animation"
+
+#: functions.php:2449
+msgid "不启用"
+msgstr "Disabled"
+
+#: functions.php:2450
+msgid "启用"
+msgstr "Enabled"
+
+#: functions.php:2452
+msgid "启用后 Banner 标题会以打字的形式出现。"
+msgstr "When enabled, the Banner title will appear as typing effect."
+
+#: functions.php:2456
+msgid "Banner 标题打字动画时长"
+msgstr "Banner Title Typing Animation Speed"
+
+#: functions.php:2458
+msgid "ms/字"
+msgstr "ms/letter"
+
+#: functions.php:2462 functions.php:2464
+msgid "页面背景"
+msgstr "Page Background"
+
+#: functions.php:2467
+msgid ""
+"页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐修"
+"改以下选项来增强页面整体观感。"
+msgstr ""
+"The URL of the page background, with http(s) prefix. Leave it blank to not "
+"set the page background. If the background is set, it is recommended to "
+"modify the following options to enhance the overall look and feel of the "
+"page."
+
+#: functions.php:2471
+msgid "页面背景（夜间模式时）"
+msgstr "Page Background (Darkmode)"
+
+#: functions.php:2474
+msgid ""
+"夜间模式时页面背景的地址，需带上 http(s)。设置后日间模式和夜间模式会使用不同"
+"的背景。留空则跟随日间模式背景。该选项仅在设置了日间模式背景时生效。"
+msgstr ""
+"The URL of the page background at darkmode, with http(s) prefix. If set, day "
+"mode and night mode will use different backgrounds. Leave blank to follow "
+"the background of day mode. This option only takes effect when the day mode "
+"background is set."
+
+#: functions.php:2478
+msgid "背景不透明度"
+msgstr "Background Opacity"
+
+#: functions.php:2481
+msgid "0 ~ 1 的小数，越小透明度越高，默认为 1 不透明"
+msgstr ""
+"Decimal from 0 to 1, the smaller the higher the transparency, the default is "
+"1."
+
+#: functions.php:2485
+msgid "Banner 透明化"
+msgstr "Make Banner Transparent"
+
+#: functions.php:2489 header.php:520
+msgid "关闭"
+msgstr "Disabled"
+
+#: functions.php:2490
+msgid "开启"
+msgstr "Enabled"
+
+#: functions.php:2495
+msgid "在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）"
+msgstr ""
+"Add a mask to the top bar, and add a shadow to the banner title (check when "
+"the background is too bright and affect text reading)"
+
+#: functions.php:2498
+msgid ""
+"Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置"
+"页面背景时生效。"
+msgstr ""
+"Banner transparent option can immerse the blog background. It is recommended "
+"to enable this option when setting the background. This option will only "
+"take effect when setting the page background."
+
+#: functions.php:2501
+msgid "左侧栏"
+msgstr "Left Sidebar"
+
+#: functions.php:2503
+msgid "左侧栏标题"
+msgstr "Left Sidebar Title"
+
+#: functions.php:2510
+msgid "左侧栏子标题（格言）"
+msgstr "Left Sidebar Subtitle"
+
+#: functions.php:2513
+msgid "留空则不显示"
+msgstr "Leave blank to not show."
+
+#: functions.php:2513
+msgid "调用一言 API"
+msgstr "to use Hitokoto API."
+
+#: functions.php:2517
+msgid "左侧栏作者名称"
+msgstr "Left Sidebar Author Name"
+
+#: functions.php:2520
+msgid "留空则显示博客名"
+msgstr "If this option is empty, theme will show the blog name."
+
+#: functions.php:2524
+msgid "左侧栏作者头像地址"
+msgstr "Left Sidebar Author Avatar URL"
+
+#: functions.php:2527
+msgid "需带上 http(s) 开头"
+msgstr "With http(s) prefix"
+
+#: functions.php:2530
+msgid "博客公告"
+msgstr "Blog Announcement"
+
+#: functions.php:2532
+msgid "公告内容"
+msgstr "Announcement Content"
+
+#: functions.php:2535
+msgid "显示在左侧栏顶部，留空则不显示，支持 HTML 标签"
+msgstr ""
+"Display at the top of the left sidebar, leave blank to not display, HTML "
+"tags are supported."
+
+#: functions.php:3313
+msgid "保存更改"
+msgstr "Save Changes"
+
+#: functions.php:3314
+msgid "导入设置"
+msgstr "Import"
+
+#: functions.php:3315
+msgid "导出设置"
+msgstr "Export"
+
+#: functions.php:3320
+msgid "收起"
+msgstr "Hide"
+
+#: functions.php:3323
+msgid "请复制并保存导出后的 JSON"
+msgstr "Copy and save the JSON"
+
+#: functions.php:3323
+msgid "确定"
+msgstr "OK"
+
+#: functions.php:3399
+msgid "展开"
+msgstr "Show"
+
+#: functions.php:3544
+msgid "字段导入失败"
+msgstr "Option Import Failed"
+
+#: functions.php:3555
+msgid "请输入要导入的备份 JSON"
+msgstr "Input JSON"
+
+#: functions.php:3558
+msgid "已导入，请保存更改"
+msgstr "Imported, Place save changes."
+
+#: functions.php:3689
+msgid "顶部导航"
+msgstr "Toolbar Menu"
+
+#: functions.php:3690
+msgid "左侧栏菜单"
+msgstr "Left Sidebar Menu"
+
+#: functions.php:3691
+msgid "左侧栏作者个人链接"
+msgstr "Left Sidebar Author Links"
+
+#: functions.php:3692
+msgid "左侧栏友情链接"
+msgstr "Left Sidebar Links"
+
+#: functions.php:3703 functions.php:3704 functions.php:3714 shuoshuo.php:12
+msgid "说说"
+msgstr "Essaies"
+
+#: functions.php:3705 functions.php:3706
+msgid "发表说说"
+msgstr "Post a essay"
+
+#: functions.php:3707
+msgid "编辑说说"
+msgstr "Edit essay"
+
+#: functions.php:3708
+msgid "新说说"
+msgstr "Add new essay"
+
+#: functions.php:3709
+msgid "查看说说"
+msgstr "View essay"
+
+#: functions.php:3710
+msgid "搜索说说"
+msgstr "Search essaies"
+
+#: functions.php:3711
+msgid "暂无说说"
+msgstr "No essaies"
+
+#: functions.php:3712
+msgid "没有已遗弃的说说"
+msgstr "No trashed essaies"
+
+#: header.php:280 header.php:361 searchform.php:11 sidebar.php:63
+msgid "搜索"
+msgstr "Search"
+
+#: header.php:341 searchform.php:7 sidebar.php:64
+msgid "搜索什么..."
+msgstr "Search..."
+
+#: header.php:499
+msgid "暗黑模式"
+msgstr "Black Mode"
+
+#: header.php:512
+msgid "阴影"
+msgstr "Shadow"
+
+#: header.php:518
+msgid "滤镜"
+msgstr "Filter"
+
+#: header.php:521
+msgid "日落"
+msgstr "Sunset"
+
+#: header.php:522
+msgid "暗化"
+msgstr "Brightless"
+
+#: header.php:523
+msgid "灰度"
+msgstr "Greyscale"
+
+#: header.php:527
+msgid "圆角"
+msgstr "Radius"
+
+#: search.php:7
+msgid "的搜索结果"
+msgstr "Search Results"
+
+#: search.php:11
+msgid "个结果"
+msgstr "Results"
+
+#: shuoshuo.php:20
+msgid "条说说"
+msgstr "Essaies"
+
+#: sidebar.php:6
+msgid "公告"
+msgstr "Announcement"
+
+#: sidebar.php:80
+msgid "文章目录"
+msgstr "Catalog"
+
+#: sidebar.php:84
+msgid "站点概览"
+msgstr "Site"
+
+#: sidebar.php:88
+msgid "功能"
+msgstr "Functions"
+
+#: sidebar.php:130
+msgid "文章"
+msgstr "Articles"
+
+#: sidebar.php:136 sidebar.php:224
+msgid "分类"
+msgstr "Categories"
+
+#: sidebar.php:142 sidebar.php:252
+msgid "标签"
+msgstr "Tags"
+
+#: single.php:25
+msgid "上一篇"
+msgstr "Previous"
+
+#: single.php:30
+msgid "下一篇"
+msgstr "Next"
+
+#: template-parts/content-none-search.php:4
+msgid "没有搜索结果"
+msgstr "No Search Results"
+
+#: template-parts/content-none-search.php:5
+msgid "换个关键词试试 ?"
+msgstr "Try another keyword?"
+
+#: template-parts/content-none-search.php:9
+#: template-parts/content-none-tag.php:9
+msgid "返回上一页"
+msgstr "Back"
+
+#: template-parts/content-none-tag.php:4
+msgid "此分类没有文章"
+msgstr "No Posts In This Category"
+
+#: template-parts/content-none-tag.php:5
+msgid "这里什么都没有"
+msgstr "Nothing here."
+
+#: template-parts/content-page.php:73 template-parts/content-single.php:70
+#: template-parts/content-timeline.php:57
+msgid "这是一篇受密码保护的文章，您需要提供访问密码"
+msgstr "Password Required"
+
+#: template-parts/content-page.php:80 template-parts/content-single.php:77
+msgid "密码"
+msgstr "Password"
+
+#: template-parts/content-page.php:90 template-parts/content-single.php:87
+msgid "确认"
+msgstr "Submit"
+
+#: template-parts/content-shuoshuo-details.php:5
+#: template-parts/content-shuoshuo-preview.php:13
+#: template-parts/content-shuoshuo.php:5
+msgid "月"
+msgstr "/"
+
+#: template-parts/content-shuoshuo-details.php:6
+#: template-parts/content-shuoshuo-preview.php:14
+#: template-parts/content-shuoshuo.php:6
+msgid "日"
+msgstr " "
+
+#: template-parts/content-single.php:47 template-parts/content.php:32
+msgid "字"
+msgstr "Words"
+
+#: template-parts/content-single.php:100
+msgid "赞赏"
+msgstr "Donate"
+
+#: template-parts/share.php:58
+msgid "分享到微信"
+msgstr "Share to Wechat"
+
+#: template-parts/share.php:59
+msgid "微信扫描二维码"
+msgstr "Scan QR Code"
+
+#: template-parts/share.php:74
+msgid "链接已复制"
+msgstr "Copied"
+
+#: template-parts/share.php:75
+msgid "链接已复制到剪贴板"
+msgstr "The link has been copied to the clipboard."
+
+#: template-parts/share.php:88
+msgid "复制失败"
+msgstr "Failed"
+
+#: template-parts/share.php:89
+msgid "请手动复制链接"
+msgstr "Please copy the link manually."
+
+#: template-parts/shuoshuo-operations.php:5
+msgid "已关闭"
+msgstr " Disabled"
+
+#~ msgid "的评论"
+#~ msgstr "'s comment"
+
+#~ msgid "您在xxx[的评论有了新的回复]"
+#~ msgstr "Has a New Reply"

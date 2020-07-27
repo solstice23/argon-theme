@@ -1,10 +1,11 @@
 <?php
 if (version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' )) {
-	echo "<div style='background: #5e72e4;color: #fff;font-size: 30px;padding: 50px 30px;position: fixed;width: 100%;left: 0;right: 0;bottom: 0px;z-index: 2147483647;'>Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress</div>";
+	echo "<div style='background: #5e72e4;color: #fff;font-size: 30px;padding: 50px 30px;position: fixed;width: 100%;left: 0;right: 0;bottom: 0px;z-index: 2147483647;'>" . __("Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress", 'argon') . "</div>";
 }
 function theme_slug_setup() {
 	add_theme_support('title-tag');
 	add_theme_support('post-thumbnails');
+	load_theme_textdomain('argon', get_template_directory() . '/languages');
 }
 add_action('after_setup_theme','theme_slug_setup');
 
@@ -101,9 +102,9 @@ if (get_option('argon_enable_timezone_fix') == 'true'){
 function argon_widgets_init() {
 	register_sidebar(
 		array(
-			'name'          => '左侧栏小工具',
+			'name'          => __('左侧栏小工具', 'argon'),
 			'id'            => 'leftbar-tools',
-			'description'   => __( '左侧栏小工具 (如果设置会在侧栏增加一个 Tab)' ),
+			'description'   => __( '左侧栏小工具 (如果设置会在侧栏增加一个 Tab)', 'argon'),
 			'before_widget' => '<div id="%1$s" class="widget %2$s card bg-white border-0">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h6 class="font-weight-bold text-black">',
@@ -112,9 +113,9 @@ function argon_widgets_init() {
 	);
 	register_sidebar(
 		array(
-			'name'          => '右侧栏小工具',
+			'name'          => __('右侧栏小工具', 'argon'),
 			'id'            => 'rightbar-tools',
-			'description'   => __( '右侧栏小工具 (在 "Argon 主题选项" 中选择 "三栏布局" 才会显示)' ),
+			'description'   => __( '右侧栏小工具 (在 "Argon 主题选项" 中选择 "三栏布局" 才会显示)', 'argon'),
 			'before_widget' => '<div id="%1$s" class="widget %2$s card shadow-sm bg-white border-0">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h6 class="font-weight-bold text-black">',
@@ -240,7 +241,7 @@ function get_seo_description(){
 			return  
 			htmlspecialchars(mb_substr(str_replace("\n", '', strip_tags($post -> post_content)), 0, 50)) . "...";
 		}else{
-			return "这是一个加密页面，需要密码来查看";
+			return __("这是一个加密页面，需要密码来查看", 'argon');
 		}
 	}else{
 		return get_option('argon_seo_description');
@@ -294,15 +295,23 @@ function set_post_views(){
 	if (post_password_required($post_id)){
 		return;
 	}
-	if ($_GET['preview'] == 'true'){
-		if (current_user_can('publish_posts')){
-			return;
+	if (isset($_GET['preview'])){
+		if ($_GET['preview'] == 'true'){
+			if (current_user_can('publish_posts')){
+				return;
+			}
 		}
+	}
+	if (!isset($_POST['no_post_view'])){
+		$_POST['no_post_view'] = 'false';
 	}
 	if ($_POST['no_post_view'] == 'true'){
 		return;
 	}
 	global $post;
+	if (!isset($post -> ID)){
+		return;
+	}
 	$post_id = $post -> ID;
 	$count_key = 'views';
 	$count = get_post_meta($post_id, $count_key, true);
@@ -336,15 +345,15 @@ function get_reading_time($len){
 	}
 	$reading_time = $len / $speed;
 	if ($reading_time < 0.3){
-		return "几秒读完";
+		return __("几秒读完", 'argon');
 	}
 	if ($reading_time < 1){
-		return "1 分钟内";
+		return __("1 分钟内", 'argon');
 	}
 	if ($reading_time < 60){
-		return ceil($reading_time) . " 分钟";
+		return ceil($reading_time) . " " . __("分钟", 'argon');
 	}
-	return round($reading_time / 60 , 1) . " 小时";
+	return round($reading_time / 60 , 1) . " " . __("小时", 'argon');
 }
 //当前文章是否可以生成目录
 function have_catalog(){
@@ -366,28 +375,28 @@ function get_article_meta($type){
 	if ($type == 'sticky'){
 		return '<div class="post-meta-detail post-meta-detail-words">
 					<i class="fa fa-thumb-tack" aria-hidden="true"></i>
-					置顶
+					' . __('置顶', 'argon') . '
 				</div>';
 	}
 	if ($type == 'needpassword'){
 		return '<div class="post-meta-detail post-meta-detail-needpassword">
 					<i class="fa fa-lock" aria-hidden="true"></i>
-					需要密码
+					' . __('需要密码', 'argon') . '
 				</div>';
 	}
 	if ($type == 'time'){
 		return '<div class="post-meta-detail post-meta-detail-time">
 					<i class="fa fa-clock-o" aria-hidden="true"></i>
-					<time title="发布于 ' . get_the_time('Y-n-d G:i:s') . ' | 编辑于 ' . get_the_modified_time('Y-n-d G:i:s') . '">' . 
+					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' . 
 						get_the_time('Y-n-d G:i') . '
 					</time>
 				</div>';
 	}
 	if ($type == 'edittime'){
 		return '<div class="post-meta-detail post-meta-detail-time">
-					<i class="fa fa-pencil" aria-hidden="true"></i>
-					<time title="发布于 ' . get_the_time('Y-n-d G:i:s') . ' | 编辑于 ' . get_the_modified_time('Y-n-d G:i:s') . '">' . 
-						get_the_modified_time('Y-n-d G:i') . '
+					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' . 
+						get_the_time('Y-n-d G:i') . '
 					</time>
 				</div>';
 	}
@@ -600,7 +609,7 @@ function get_comment_edit_history(){
 						<div class='comment-edit-history-id'>
 							#" . $position . "
 						</div>
-						" . ($edition -> isfirst ? "<span class='badge badge-primary badge-admin'>最初版本</span>" : "") . "
+						" . ($edition -> isfirst ? "<span class='badge badge-primary badge-admin'>" . __("最初版本", 'argon') . "</span>" : "") . "
 					</div>
 					<div class='comment-edit-history-time'>" . date('Y-m-d H:i:s', $edition -> time) . "</div>
 					<div class='comment-edit-history-content'>" . str_replace("\n", "</br>", $edition -> content) . "</div>
@@ -628,13 +637,13 @@ function argon_comment_format($comment, $args, $depth){
 			<div class="comment-item-title">
 				<?php echo get_comment_author_link();?>
 				<?php if (user_can($comment -> user_id , "update_core")){
-					echo '<span class="badge badge-primary badge-admin">博主</span>';}
+					echo '<span class="badge badge-primary badge-admin">' . __('博主', 'argon') . '</span>';}
 				?>
 				<?php if (is_comment_private_mode(get_comment_ID()) && user_can_view_comment(get_comment_ID())){
-					echo '<span class="badge badge-success badge-private-comment">悄悄话</span>';}
+					echo '<span class="badge badge-success badge-private-comment">' . __('悄悄话', 'argon') . '</span>';}
 				?>
 				<?php if ($comment -> comment_approved == 0){
-					echo '<span class="badge badge-warning badge-unapproved">待审核</span>';}
+					echo '<span class="badge badge-warning badge-unapproved">' . __('待审核', 'argon') . '</span>';}
 				?>
 				<?php
 					echo parse_ua_and_icon($comment -> comment_agent);
@@ -647,20 +656,20 @@ function argon_comment_format($comment, $args, $depth){
 			<div class="comment-info">
 				<?php if (get_comment_meta(get_comment_ID(), "edited", true) == "true") { ?>
 					<div class="comment-edited<?php if (can_visit_comment_edit_history(get_comment_ID())){echo ' comment-edithistory-accessible';}?>">
-						<i class="fa fa-pencil" aria-hidden="true"></i>已编辑
+						<i class="fa fa-pencil" aria-hidden="true"></i><?php _e('已编辑', 'argon')?>
 					</div>
 				<?php } ?>
 				<div class="comment-time">
-					<span class="human-time" data-time="<?php echo get_comment_time('U', true);?>"><?php echo human_time_diff(get_comment_time('U') , current_time('timestamp')) . "前";?></span>
+					<span class="human-time" data-time="<?php echo get_comment_time('U', true);?>"><?php echo human_time_diff(get_comment_time('U') , current_time('timestamp')) . __("前", "argon");?></span>
 					<div class="comment-time-details"><?php echo get_comment_time('Y-n-d G:i:s');?></div>
 				</div>
 			</div>
 
 			<div class="comment-operations">
 				<?php if ((check_comment_token(get_comment_ID()) || check_login_user_same($comment -> user_id)) && (get_option("argon_comment_allow_editing") != "false")) { ?>
-					<button class="comment-edit btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;">编辑</button>
+					<button class="comment-edit btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _e('编辑', 'argon')?></button>
 				<?php } ?>
-				<button class="comment-reply btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button">回复</button>
+				<button class="comment-reply btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button"><?php _e('回复', 'argon')?></button>
 			</div>
 		</div>
 	</li>
@@ -675,10 +684,10 @@ function argon_comment_shuoshuo_preview_format($comment, $args, $depth){
 			<span class="shuoshuo-comment-item-title">
 				<?php echo get_comment_author_link();?>
 				<?php if( user_can($comment -> user_id , "update_core") ){
-					echo '<span class="badge badge-primary badge-admin">博主</span>';}
+					echo '<span class="badge badge-primary badge-admin">' . __('博主', 'argon') . '</span>';}
 				?>
 				<?php if( $comment -> comment_approved == 0 ){
-					echo '<span class="badge badge-warning badge-unapproved">待审核</span>';}
+					echo '<span class="badge badge-warning badge-unapproved">' . __('待审核', 'argon') . '</span>';}
 				?>
 				: 
 			</span>
@@ -758,7 +767,7 @@ function get_comment_captcha_answer($captchaSeed){
 function wrong_captcha(){
 	exit(json_encode(array(
 		'status' => 'failed',
-		'msg' => '验证码错误',
+		'msg' => __('验证码错误', 'argon'),
 		'isAdmin' => current_user_can('level_7')
 	)));
 	//wp_die('验证码错误，评论失败');
@@ -818,7 +827,7 @@ function ajax_post_comment(){
 			//如果父级评论是悄悄话模式且当前 Token 与父级不相同则返回
 			exit(json_encode(array(
 				'status' => 'failed',
-				'msg' => '不能回复其他人的悄悄话评论',
+				'msg' =>  __('不能回复其他人的悄悄话评论', 'argon'),
 				'isAdmin' => current_user_can('level_7')
 			)));
 		}
@@ -845,10 +854,12 @@ function ajax_post_comment(){
 	}
 	$user = wp_get_current_user();
 	do_action('set_comment_cookies', $comment, $user);
-	if (!empty($_POST['qq']) && get_option('argon_comment_enable_qq_avatar') == 'true'){
-		$_comment = $comment;
-		$_comment -> comment_author_email = $_POST['qq'] . "@avatarqq.com";
-		do_action('set_comment_cookies', $_comment, $user);
+	if (isset($_POST['qq'])){
+		if (!empty($_POST['qq']) && get_option('argon_comment_enable_qq_avatar') == 'true'){
+			$_comment = $comment;
+			$_comment -> comment_author_email = $_POST['qq'] . "@avatarqq.com";
+			do_action('set_comment_cookies', $_comment, $user);
+		}
 	}
 	$html = wp_list_comments(
 		array(
@@ -910,7 +921,7 @@ function comment_markdown_parse($comment_content){
 		'/<img src="(.*?)" alt="(.*?)" \/>/',
 		'<a data-src="$1" title="$2" class="comment-image">
 			<i class="fa fa-image" aria-hidden="true"></i>
-			查看图片
+			' . __('查看图片', 'argon') . '
 			<img src="" alt="$2" class="comment-image-preview">
 			<i class="comment-image-preview-mask"></i>
 		</a>',
@@ -953,8 +964,8 @@ function comment_mail_notify($comment){
 	$parentEmail =  $parentComment -> comment_author_email;
 	if (get_comment_meta($parentID, "enable_mailnotice", true) == "true"){
 		if (check_email_address($parentEmail)){
-			$title = "您在 「" . wp_trim_words(get_post_title_by_id($commentPostID), 20) . "」 的评论有了新的回复";
-			$fullTitle = "您在 「" . get_post_title_by_id($commentPostID) . "」 的评论有了新的回复";
+			$title = __("您在", 'argon') . " 「" . wp_trim_words(get_post_title_by_id($commentPostID), 20) . "」 " . __("的评论有了新的回复", 'argon');
+			$fullTitle = __("您在", 'argon') . " 「" . get_post_title_by_id($commentPostID) . "」 " . __("的评论有了新的回复", 'argon');
 			$content = htmlspecialchars(get_comment_meta($id, "comment_content_source", true));
 			$link = get_permalink($commentPostID) . "#comment-" . $id;
 			$unsubscribeLink = site_url("unsubscribe-comment-mailnotice?comment=" . $parentID . "&token=" . get_comment_meta($parentID, "mailnotice_unsubscribe_key", true));
@@ -962,14 +973,14 @@ function comment_mail_notify($comment){
 					<div style='font-size:30px;text-align:center;margin-bottom:15px;'>" . htmlspecialchars($fullTitle)  ."</div>
 					<div style='background: rgba(0, 0, 0, .15);height: 1px;width: 300px;margin: auto;margin-bottom: 35px;'></div>
 					<div style='font-size: 18px;border-left: 4px solid rgba(0, 0, 0, .15);width: max-content;width: -moz-max-content;margin: auto;padding: 20px 30px;background: rgba(0,0,0,.08);border-radius: 6px;box-shadow: 0 2px 4px rgba(0,0,0,.075)!important;min-width: 60%;max-width: 90%;margin-bottom: 60px;'>
-						<div style='margin-bottom: 10px;'><strong><span style='color: #5e72e4;'>@" . htmlspecialchars($commentAuthor) . "</span> 回复了你:</strong></div>
+						<div style='margin-bottom: 10px;'><strong><span style='color: #5e72e4;'>@" . htmlspecialchars($commentAuthor) . "</span> " . __("回复了你", 'argon') . ":</strong></div>
 						" . str_replace("\n", "<div></div>", $content) . " 
 					</div>
 					<div style='width: max-content;width: --moz-max-content;margin: auto;margin-bottom:50px;'>
-						<a href='" . $link . "' style='color: #fff;background-color: #5e72e4;border-color: #5e72e4;box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);padding: 15px 25px;font-size: 18px;border-radius: 4px;text-decoration: none;'>前往查看</a>
+						<a href='" . $link . "' style='color: #fff;background-color: #5e72e4;border-color: #5e72e4;box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);padding: 15px 25px;font-size: 18px;border-radius: 4px;text-decoration: none;'>" . __("前往查看", 'argon') . "</a>
 					</div>
 					<div style='width: max-content;width: --moz-max-content;margin: auto;margin-bottom:30px;'>
-						<a href='" . $unsubscribeLink . "' style='color: #5e72e4;font-size: 16px;text-decoration: none;'>退订该评论的邮件提醒</a>
+						<a href='" . $unsubscribeLink . "' style='color: #5e72e4;font-size: 16px;text-decoration: none;'>" . __("退订该评论的邮件提醒", 'argon') . "</a>
 					</div>
 				</div>";
 			send_mail($parentEmail, $title, $html);
@@ -1042,7 +1053,7 @@ function user_edit_comment(){
 	if (get_option("argon_comment_allow_editing") == "false"){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => '博主关闭了编辑评论功能'
+			'msg' => __('博主关闭了编辑评论功能', 'argon')
 		)));
 	}
 	$id = $_POST["id"];
@@ -1051,13 +1062,13 @@ function user_edit_comment(){
 	if (!check_comment_token($id) && !check_login_user_same(get_comment_user_id_by_id($id))){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => '您不是这条评论的作者或 Token 已过期'
+			'msg' => __('您不是这条评论的作者或 Token 已过期', 'argon')
 		)));
 	}
 	if ($_POST["comment"] == ""){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => '新的评论为空'
+			'msg' => __('新的评论为空', 'argon')
 		)));
 	}
 	if (get_comment_meta($id, "use_markdown", true) == "true"){
@@ -1083,7 +1094,7 @@ function user_edit_comment(){
 		update_comment_meta($id, "comment_edit_history", addslashes(json_encode($editHistory, JSON_UNESCAPED_UNICODE)));
 		exit(json_encode(array(
 			'status' => 'success',
-			'msg' => '编辑评论成功',
+			'msg' => __('编辑评论成功', 'argon'),
 			'new_comment' => apply_filters('comment_text', get_comment_text($id), $id),
 			'new_comment_source' => htmlspecialchars(stripslashes($contentSource)),
 			'can_visit_edit_history' => can_visit_comment_edit_history($id)
@@ -1091,7 +1102,7 @@ function user_edit_comment(){
 	}else{
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => '编辑评论失败，可能原因: 与原评论相同'
+			'msg' => __('编辑评论失败，可能原因: 与原评论相同', 'argon'), 
 		)));
 	}
 }
@@ -1252,6 +1263,7 @@ function argon_lazyload($content){
 
 	if(!is_feed() && !is_robots() && !is_home()){
 		$content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i',"<img class=\"lazyload " . $lazyload_loading_style . "\" src=\"data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+\" \$1data-original=\"\$2\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC\"\$3>\n<noscript>\$0</noscript>" , $content);
+		$content = preg_replace('/<img(.*?)data-full-url=[\'"]([^\'"]+)[\'"](.*)>/i',"<img$1data-full-url=\"$2\" data-original=\"$2\"$3>" , $content);
 		$content = preg_replace('/<img(.*?)srcset=[\'"](.*?)[\'"](.*)>/i',"<img$1$3>" , $content);
 		
 		$content .= '<noscript><style>article img.lazyload[src^="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg"]{display: none;}</style></noscript>';
@@ -1307,7 +1319,7 @@ function upvote_shuoshuo(){
 	if (isset($_COOKIE['argon_shuoshuo_' . $ID . '_upvoted'])){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => '该说说已被赞过',
+			'msg' => __('该说说已被赞过', 'argon'),
 			'total_upvote' => get_shuoshuo_upvotes($ID)
 		)));
 	}
@@ -1316,7 +1328,7 @@ function upvote_shuoshuo(){
 	exit(json_encode(array(
 		'ID' => $ID,
 		'status' => 'success',
-		'msg' => '点赞成功',
+		'msg' => __('点赞成功', 'argon'),
 		'total_upvote' => get_shuoshuo_upvotes($ID)
 	)));
 }
@@ -1325,7 +1337,7 @@ add_action('wp_ajax_nopriv_upvote_shuoshuo' , 'upvote_shuoshuo');
 //检测页面底部版权是否被修改
 function alert_footer_copyright_changed(){ ?>
 	<div class='notice notice-warning is-dismissible'>
-		<p>警告：你可能修改了 Argon 主题页脚的版权声明，Argon 主题要求你至少保留主题的 Github 链接或主题的发布文章链接。</p>
+		<p><?php _e("警告：你可能修改了 Argon 主题页脚的版权声明，Argon 主题要求你至少保留主题的 Github 链接或主题的发布文章链接。", 'argon');?></p>
 	</div>
 <?php }
 function check_footer_copyright(){
@@ -1464,28 +1476,28 @@ function argon_meta_box_1(){
 	wp_nonce_field("argon_meta_box_nonce_action", "argon_meta_box_nonce");
 	global $post;
 	?>
-		<h4>显示字数和预计阅读时间</h4>
+		<h4><?php _e("显示字数和预计阅读时间", 'argon');?></h4>
 		<?php $argon_meta_hide_readingtime = get_post_meta($post->ID, "argon_hide_readingtime", true);?>
 		<select name="argon_meta_hide_readingtime" id="argon_meta_hide_readingtime">
-			<option value="false" <?php if ($argon_meta_hide_readingtime=='false'){echo 'selected';} ?>>跟随全局设置</option>
-			<option value="true" <?php if ($argon_meta_hide_readingtime=='true'){echo 'selected';} ?>>不显示</option>
+			<option value="false" <?php if ($argon_meta_hide_readingtime=='false'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
+			<option value="true" <?php if ($argon_meta_hide_readingtime=='true'){echo 'selected';} ?>><?php _e("不显示", 'argon');?></option>
 		</select>
-		<p style="margin-top: 15px;">是否显示字数和预计阅读时间 Meta 信息</p>
-		<h4>Meta 中隐藏发布时间和分类</h4>
+		<p style="margin-top: 15px;"><?php _e("是否显示字数和预计阅读时间 Meta 信息", 'argon');?></p>
+		<h4><?php _e("Meta 中隐藏发布时间和分类", 'argon');?></h4>
 		<?php $argon_meta_simple = get_post_meta($post->ID, "argon_meta_simple", true);?>
 		<select name="argon_meta_simple" id="argon_meta_simple">
-			<option value="false" <?php if ($argon_meta_simple=='false'){echo 'selected';} ?>>不隐藏</option>
-			<option value="true" <?php if ($argon_meta_simple=='true'){echo 'selected';} ?>>隐藏</option>
+			<option value="false" <?php if ($argon_meta_simple=='false'){echo 'selected';} ?>><?php _e("不隐藏", 'argon');?></option>
+			<option value="true" <?php if ($argon_meta_simple=='true'){echo 'selected';} ?>><?php _e("隐藏", 'argon');?></option>
 		</select>
-		<p style="margin-top: 15px;">适合固定的页面，例如友链页面。开启后文章 Meta 的第一行只显示阅读数和评论数。</p>
-		<h4>自定义 CSS</h4>
+		<p style="margin-top: 15px;"><?php _e("适合特定的页面，例如友链页面。开启后文章 Meta 的第一行只显示阅读数和评论数。", 'argon');?></p>
+		<h4><?php _e("自定义 CSS", 'argon');?></h4>
 		<?php $argon_custom_css = get_post_meta($post->ID, "argon_custom_css", true);?>
 		<textarea name="argon_custom_css" id="argon_custom_css" rows="5" cols="30" style="width:100%;"><?php if (!empty($argon_custom_css)){echo $argon_custom_css;} ?></textarea>
-		<p style="margin-top: 15px;">给该文章添加单独的 CSS</p>
+		<p style="margin-top: 15px;"><?php _e("给该文章添加单独的 CSS", 'argon');?></p>
 	<?php
 }
 function argon_add_meta_boxes(){
-	add_meta_box('argon_meta_box_1', "文章设置", 'argon_meta_box_1', array('post', 'page'), 'side', 'low');
+	add_meta_box('argon_meta_box_1', __("文章设置", 'argon'), 'argon_meta_box_1', array('post', 'page'), 'side', 'low');
 }
 add_action('admin_menu', 'argon_add_meta_boxes');
 function argon_save_meta_data($post_id){
@@ -2136,7 +2148,7 @@ function argon_tinymce_add_plugin($plugins){
 //主题选项页面
 function themeoptions_admin_menu(){
 	/*后台管理面板侧栏添加选项*/
-	add_menu_page("Argon 主题设置", "Argon 主题选项", 'edit_themes', basename(__FILE__), 'themeoptions_page');
+	add_menu_page(__("Argon 主题设置", 'argon'), __("Argon 主题选项", 'argon'), 'edit_themes', basename(__FILE__), 'themeoptions_page');
 }
 function themeoptions_page(){
 	/*具体选项*/
@@ -2167,37 +2179,37 @@ function themeoptions_page(){
 			.gu-mirror{position:fixed!important;margin:0!important;z-index:9999!important;opacity:.8;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";filter:alpha(opacity=80)}.gu-hide{display:none!important}.gu-unselectable{-webkit-user-select:none!important;-moz-user-select:none!important;-ms-user-select:none!important;user-select:none!important}.gu-transit{opacity:.2;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";filter:alpha(opacity=20)}
 		</style>
 		<svg width="300" style="margin-top: 20px;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="673.92 415.2 510.83 151.8" enable-background="new 0 0 1920 1080" xml:space="preserve"><g><g><path fill="rgb(94, 114, 228, 0)" stroke="#5E72E4" stroke-width="3" stroke-dasharray="402" stroke-dashoffset="402" d="M811.38,450.13c-2.2-3.81-7.6-6.93-12-6.93h-52.59c-4.4,0-9.8,3.12-12,6.93l-26.29,45.54c-2.2,3.81-2.2,10.05,0,13.86l26.29,45.54c2.2,3.81,7.6,6.93,12,6.93h52.59c4.4,0,9.8-3.12,12-6.93l26.29-45.54c2.2-3.81,2.2-10.05,0-13.86L811.38,450.13z"><animate attributeName="stroke-width" begin="1s" values="3; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.5s" values="402; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="fill" begin="1s" values="rgb(94, 114, 228, 0); rgb(94, 114, 228, 0.3)" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/></path></g><g><path fill="rgb(94, 114, 228, 0)" d="M783.65,422.13c-2.2-3.81-7.6-6.93-12-6.93H715.6c-4.4,0-9.8,3.12-12,6.93l-28.03,48.54c-2.2,3.81-2.2,10.05,0,13.86l28.03,48.54c2.2,3.81,7.6,6.93,12,6.93h56.05c4.4,0,9.8-3.12,12-6.93l28.03-48.54c2.2-3.81,2.2-10.05,0-13.86L783.65,422.13z"><animateTransform attributeName="transform" type="translate" begin="1.5s" values="27.73,28; 0,0" dur="1.1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="fill" begin="1.5s" values="rgb(94, 114, 228, 0); rgb(94, 114, 228, 0.8)" dur="1.1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/></path></g></g><g><g><clipPath id="clipPath_1"><rect x="887.47" y="441.31" width="68.76" height="83.07"/></clipPath><path clip-path="url(#clipPath_1)" fill="none" stroke="#5E72E4" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" stroke-dasharray="190" d="M893.52,533.63l28.71-90.3l31.52,90.31"><animate attributeName="stroke-width" begin="1s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.5s" values="190; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.5s" /></path><line clip-path="url(#clipPath_1)" fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="45" x1="940.44" y1="495.5" x2="905" y2="495.5"><animate attributeName="stroke-width" begin="1s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.5s" values="-37; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.5s" /></line></g><g><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="56" d="M976.86,469.29v55.09"><animate attributeName="stroke-width" begin="1.15s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.65s" values="56; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.65s" /></path><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="38" d="M976.86,489.77c0-9.68,7.85-17.52,17.52-17.52c3.5,0,6.76,1.03,9.5,2.8"><animate attributeName="stroke-width" begin="1.15s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.65s" values="38; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.65s" /></path></g><g><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="124" d="M1057.86,492.08c0,10.94-8.87,19.81-19.81,19.81c-10.94,0-19.81-8.87-19.81-19.81s8.87-19.81,19.81-19.81C1048.99,472.27,1057.86,481.14,1057.86,492.08z"><animate attributeName="stroke-width" begin="1.3s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.8s" values="-124; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.8s" /></path><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="110" d="M1057.84,467.27v54.05c0,10.94-8.87,19.81-19.81,19.81c-8.36,0-15.51-5.18-18.42-12.5"><animate attributeName="stroke-width" begin="1.3s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.8s" values="110; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.8s" /></path></g><g><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="140" d="M1121.83,495.46c0,12.81-9.45,23.19-21.11,23.19s-21.11-10.38-21.11-23.19c0-12.81,9.45-23.19,21.11-23.19S1121.83,482.65,1121.83,495.46z"><animate attributeName="stroke-width" begin="1.45s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="0.95s" values="-140; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="0.95s" /></path></g><g><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="57" d="M1143.78,524.38v-55.71"><animate attributeName="stroke-width" begin="1.6s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="1.1s" values="-57; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="1.1s" /></path><path fill="none" stroke="#5E72E4" stroke-width="0" stroke-miterlimit="10" stroke-dasharray="90" d="M1143.95,490.15c0-9.88,8.01-17.9,17.9-17.9c9.88,0,17.9,8.01,17.9,17.9v34.23"><animate attributeName="stroke-width" begin="1.6s" values="3; 10" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><animate attributeName="stroke-dashoffset" begin="1.1s" values="90; 0" dur="1s" fill="freeze" calcMode="spline" keySplines="0.8 0 0.2 1"/><set attributeName="stroke-width" to="3" begin="1.1s" /></path></g></g></svg>
-		<h1 style="color: #5e72e4;">Argon 主题设置</h1>
-		<p>按下 <kbd style="font-family: sans-serif;">Ctrl + F</kbd> 或在右侧目录中来查找设置</p>
+		<h1 style="color: #5e72e4;"><?php _e("Argon 主题设置", 'argon'); ?></h1>
+		<p><?php _e("按下", 'argon'); ?> <kbd style="font-family: sans-serif;">Ctrl + F</kbd> <?php _e("或在右侧目录中来查找设置", 'argon'); ?></p>
 		<form method="POST" action="" id="main_form">
 			<input type="hidden" name="update_themeoptions" value="true" />
 			<?php wp_nonce_field("argon_update_themeoptions", "argon_update_themeoptions_nonce");?>
 			<table class="form-table">
 				<tbody>
-					<tr><th class="subtitle"><h2>全局</h2></th></tr>
-					<tr><th class="subtitle"><h3>主题色</h3></th></tr>
+					<tr><th class="subtitle"><h2><?php _e("全局", 'argon');?></h2></th></tr>
+					<tr><th class="subtitle"><h3><?php _e("主题色", 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>主题颜色</label></th>
+						<th><label><?php _e("主题颜色", 'argon');?></label></th>
 						<td>
 							<input type="color" class="regular-text" name="argon_theme_color" value="<?php echo get_option('argon_theme_color') == "" ? "#5e72e4" : get_option('argon_theme_color'); ?>" style="height:40px;width: 80px;cursor: pointer;"/>
 							<input type="text" readonly name="argon_theme_color_hex_preview" value="<?php echo get_option('argon_theme_color') == "" ? "#5e72e4" : get_option('argon_theme_color'); ?>" style="height: 40px;width: 80px;vertical-align: bottom;background: #fff;cursor: pointer;" onclick="$('input[name=\'argon_theme_color\']').click()"/></p>
-							<p class="description"><div style="margin-top: 15px;">选择预置颜色 或 <span onclick="$('input[name=\'argon_theme_color\']').click()" style="text-decoration: underline;cursor: pointer;">自定义色值</span>
-								</br></br>预置颜色：</div>
+							<p class="description"><div style="margin-top: 15px;"><?php _e("选择预置颜色 或", 'argon');?> <span onclick="$('input[name=\'argon_theme_color\']').click()" style="text-decoration: underline;cursor: pointer;"><?php _e("自定义色值", 'argon');?></span>
+								</br></br><?php _e("预置颜色：", 'argon');?></div>
 								<div class="themecolor-preview-container">
-									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#5e72e4;" color="#5e72e4"></div><div class="themecolor-name">Argon (默认)</div></div>
-									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#fa7298;" color="#fa7298"></div><div class="themecolor-name">粉</div></div>
-									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#009688;" color="#009688"></div><div class="themecolor-name">水鸭青</div></div>
-									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#607d8b;" color="#607d8b"></div><div class="themecolor-name">蓝灰</div></div>
-									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#2196f3;" color="#2196f3"></div><div class="themecolor-name">天蓝</div></div>
-									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#3f51b5;" color="#3f51b5"></div><div class="themecolor-name">靛蓝</div></div>
-									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#ff9700;" color="#ff9700"></div><div class="themecolor-name">橙</div></div>
-									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#109d58;" color="#109d58"></div><div class="themecolor-name">绿</div></div>
-									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#dc4437;" color="#dc4437"></div><div class="themecolor-name">红</div></div>
-									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#673bb7;" color="#673bb7"></div><div class="themecolor-name">紫</div></div>
-									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#212121;" color="#212121"></div><div class="themecolor-name">黑</div></div>
-									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#795547;" color="#795547"></div><div class="themecolor-name">棕</div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#5e72e4;" color="#5e72e4"></div><div class="themecolor-name">Argon (<?php _e("默认", 'argon');?>)</div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#fa7298;" color="#fa7298"></div><div class="themecolor-name"><?php _e("粉", 'argon');?></div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#009688;" color="#009688"></div><div class="themecolor-name"><?php _e("水鸭青", 'argon');?></div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#607d8b;" color="#607d8b"></div><div class="themecolor-name"><?php _e("蓝灰", 'argon');?></div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#2196f3;" color="#2196f3"></div><div class="themecolor-name"><?php _e("天蓝", 'argon');?></div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#3f51b5;" color="#3f51b5"></div><div class="themecolor-name"><?php _e("靛蓝", 'argon');?></div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#ff9700;" color="#ff9700"></div><div class="themecolor-name"><?php _e("橙", 'argon');?></div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#109d58;" color="#109d58"></div><div class="themecolor-name"><?php _e("绿", 'argon');?></div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#dc4437;" color="#dc4437"></div><div class="themecolor-name"><?php _e("红", 'argon');?></div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#673bb7;" color="#673bb7"></div><div class="themecolor-name"><?php _e("紫", 'argon');?></div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#212121;" color="#212121"></div><div class="themecolor-name"><?php _e("黑", 'argon');?></div></div>
+									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#795547;" color="#795547"></div><div class="themecolor-name"><?php _e("棕", 'argon');?></div></div>
 								</div>
-								</br>主题色与 "Banner 渐变背景样式" 选项搭配使用效果更佳
+								</br><?php _e('主题色与 "Banner 渐变背景样式" 选项搭配使用效果更佳', 'argon');?>
 								<script>
 									$("input[name='argon_theme_color']").on("change" , function(){
 										$("input[name='argon_theme_color_hex_preview']").val($("input[name='argon_theme_color']").val());
@@ -2226,91 +2238,91 @@ function themeoptions_page(){
 								<?php $argon_show_customize_theme_color_picker = get_option('argon_show_customize_theme_color_picker');?>
 								<div style="margin-top: 15px;">
 									<label>
-										<input type="checkbox" name="argon_show_customize_theme_color_picker" value="true" <?php if ($argon_show_customize_theme_color_picker!='false'){echo 'checked';}?>/>	允许用户自定义主题色（位于博客浮动操作栏设置菜单中）
+										<input type="checkbox" name="argon_show_customize_theme_color_picker" value="true" <?php if ($argon_show_customize_theme_color_picker!='false'){echo 'checked';}?>/> <?php _e('允许用户自定义主题色（位于博客浮动操作栏设置菜单中）', 'argon');?>
 									</label>
 								</div>
 							</p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>夜间模式</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('夜间模式', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>夜间模式切换方案</label></th>
+						<th><label><?php _e('夜间模式切换方案', 'argon');?></label></th>
 						<td>
 							<select name="argon_darkmode_autoswitch">
 								<?php $argon_darkmode_autoswitch = get_option('argon_darkmode_autoswitch'); ?>
-								<option value="false" <?php if ($argon_darkmode_autoswitch=='false'){echo 'selected';} ?>>默认使用日间模式</option>
-								<option value="alwayson" <?php if ($argon_darkmode_autoswitch=='alwayson'){echo 'selected';} ?>>默认使用夜间模式</option>
-								<option value="system" <?php if ($argon_darkmode_autoswitch=='system'){echo 'selected';} ?>>跟随系统夜间模式</option>
-								<option value="time" <?php if ($argon_darkmode_autoswitch=='time'){echo 'selected';} ?>>根据时间切换夜间模式 (22:00 ~ 7:00)</option>
+								<option value="false" <?php if ($argon_darkmode_autoswitch=='false'){echo 'selected';} ?>><?php _e('默认使用日间模式', 'argon');?></option>
+								<option value="alwayson" <?php if ($argon_darkmode_autoswitch=='alwayson'){echo 'selected';} ?>><?php _e('默认使用夜间模式', 'argon');?></option>
+								<option value="system" <?php if ($argon_darkmode_autoswitch=='system'){echo 'selected';} ?>><?php _e('跟随系统夜间模式', 'argon');?></option>
+								<option value="time" <?php if ($argon_darkmode_autoswitch=='time'){echo 'selected';} ?>><?php _e('根据时间切换夜间模式 (22:00 ~ 7:00)', 'argon');?></option>
 							</select>
-							<p class="description">Argon 主题会根据这里的选项来决定是否默认使用夜间模式。</br>用户也可以手动切换夜间模式，用户的设置将保留到标签页关闭为止。</p>
+							<p class="description"><?php _e('Argon 主题会根据这里的选项来决定是否默认使用夜间模式。', 'argon');?></br><?php _e('用户也可以手动切换夜间模式，用户的设置将保留到标签页关闭为止。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>夜间模式颜色方案</label></th>
+						<th><label><?php _e('夜间模式颜色方案', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_amoled_dark">
 								<?php $argon_enable_amoled_dark = get_option('argon_enable_amoled_dark'); ?>
-								<option value="false" <?php if ($argon_enable_amoled_dark=='false'){echo 'selected';} ?>>灰黑</option>
-								<option value="true" <?php if ($argon_enable_amoled_dark=='true'){echo 'selected';} ?>>暗黑 (AMOLED Black)</option>
+								<option value="false" <?php if ($argon_enable_amoled_dark=='false'){echo 'selected';} ?>><?php _e('灰黑', 'argon');?></option>
+								<option value="true" <?php if ($argon_enable_amoled_dark=='true'){echo 'selected';} ?>><?php _e('暗黑 (AMOLED Black)', 'argon');?></option>
 							</select>
-							<p class="description">夜间模式默认的配色方案。</p>
+							<p class="description"><?php _e('夜间模式默认的配色方案。', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>卡片</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('卡片', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>卡片圆角大小</label></th>
+						<th><label><?php _e('卡片圆角大小', 'argon');?></label></th>
 						<td>
 							<input type="number" name="argon_card_radius" min="0" max="30" step="0.5" value="<?php echo (get_option('argon_card_radius') == '' ? '4' : get_option('argon_card_radius')); ?>"/>	px
-							<p class="description">卡片的圆角大小，默认为 <code>4px</code>。建议设置在 <code>2px</code> 和 <code>15px</code> 之间。</p>
+							<p class="description"><?php _e('卡片的圆角大小，默认为', 'argon');?> <code>4px</code><?php _e('。建议设置为', 'argon');?> <code>2px</code> - <code>15px</code></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>卡片阴影</label></th>
+						<th><label><?php _e('卡片阴影', 'argon');?></label></th>
 						<td>
 							<div class="radio-h">
 								<?php $argon_card_shadow = (get_option('argon_card_shadow') == '' ? 'default' : get_option('argon_card_shadow')); ?>
 								<label>
 									<input name="argon_card_shadow" type="radio" value="default" <?php if ($argon_card_shadow=='default'){echo 'checked';} ?>>
-									浅阴影
+									<?php _e('浅阴影', 'argon');?>
 								</label>
 								<label>
 									<input name="argon_card_shadow" type="radio" value="big" <?php if ($argon_card_shadow=='big'){echo 'checked';} ?>>
-									深阴影
+									<?php _e('深阴影', 'argon');?>
 								</label>
 							</div>
-							<p class="description">卡片默认阴影大小。</p>
+							<p class="description"><?php _e('卡片默认阴影大小。', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>布局</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('布局', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>页面布局</label></th>
+						<th><label><?php _e('页面布局', 'argon');?></label></th>
 						<td>
 							<div class="radio-with-img">
 								<?php $argon_page_layout = (get_option('argon_page_layout') == '' ? 'double' : get_option('argon_page_layout')); ?>
 								<div class="radio-img">
 									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect width="1920" height="1080" style="fill:#e6e6e6"/><g style="opacity:0.5"><rect width="1920" height="381" style="fill:#5e72e4"/></g><rect x="388.5" y="256" width="258" height="179" style="fill:#5e72e4"/><rect x="388.5" y="470" width="258" height="485" style="fill:#fff"/><rect x="689.5" y="256.5" width="842" height="250" style="fill:#fff"/><rect x="689.5" y="536.5" width="842" height="250" style="fill:#fff"/><rect x="689.5" y="817" width="842" height="250" style="fill:#fff"/></svg>
 								</div>
-								<label><input name="argon_page_layout" type="radio" value="double" <?php if ($argon_page_layout=='double'){echo 'checked';} ?>> 双栏</label>
+								<label><input name="argon_page_layout" type="radio" value="double" <?php if ($argon_page_layout=='double'){echo 'checked';} ?>> <?php _e('双栏', 'argon');?></label>
 							</div>
 							<div class="radio-with-img">
 								<div class="radio-img">
 									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect width="1920" height="1080" style="fill:#e6e6e6"/><g style="opacity:0.5"><rect width="1920" height="381" style="fill:#5e72e4"/></g><rect x="428.25" y="256.5" width="1063.5" height="250" style="fill:#fff"/><rect x="428.25" y="536.5" width="1063.5" height="250" style="fill:#fff"/><rect x="428.25" y="817" width="1063.5" height="250" style="fill:#fff"/></svg>
 								</div>
-								<label><input name="argon_page_layout" type="radio" value="single" <?php if ($argon_page_layout=='single'){echo 'checked';} ?>> 单栏</label>
+								<label><input name="argon_page_layout" type="radio" value="single" <?php if ($argon_page_layout=='single'){echo 'checked';} ?>> <?php _e('单栏', 'argon');?></label>
 							</div>
 							<div class="radio-with-img">
 								<div class="radio-img">
 									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect width="1920" height="1080" style="fill:#e6e6e6"/><g style="opacity:0.5"><rect width="1920" height="381" style="fill:#5e72e4"/></g><rect x="237.5" y="256" width="258" height="179" style="fill:#5e72e4"/><rect x="237.5" y="470" width="258" height="485" style="fill:#fff"/><rect x="538.5" y="256.5" width="842" height="250" style="fill:#fff"/><rect x="538.5" y="536.5" width="842" height="250" style="fill:#fff"/><rect x="538.5" y="817" width="842" height="250" style="fill:#fff"/><rect x="1424" y="256" width="258" height="811" style="fill:#fff"/></svg>
 								</div>
-								<label><input name="argon_page_layout" type="radio" value="triple" <?php if ($argon_page_layout=='triple'){echo 'checked';} ?>> 三栏</label>
+								<label><input name="argon_page_layout" type="radio" value="triple" <?php if ($argon_page_layout=='triple'){echo 'checked';} ?>> <?php _e('三栏', 'argon');?></label>
 							</div>
-							<p class="description" style="margin-top: 15px;">使用单栏时，关于左侧栏的设置将失效。</br>使用三栏时，请前往 "外观-小工具" 设置页面配置右侧栏内容。</p>
+							<p class="description" style="margin-top: 15px;"><?php _e('使用单栏时，关于左侧栏的设置将失效。', 'argon');?></br><?php _e('使用三栏时，请前往 "外观-小工具" 设置页面配置右侧栏内容。', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>字体</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('字体', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>默认字体</label></th>
+						<th><label><?php _e('默认字体', 'argon');?></label></th>
 						<td>
 							<div class="radio-h">
 								<?php $argon_font = (get_option('argon_font') == '' ? 'sans-serif' : get_option('argon_font')); ?>
@@ -2323,7 +2335,7 @@ function themeoptions_page(){
 									Serif
 								</label>
 							</div>
-							<p class="description">默认使用无衬线字体/衬线字体。</p>
+							<p class="description"><?php _e('默认使用无衬线字体/衬线字体。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3>CDN</h3></th></tr>
@@ -2332,94 +2344,94 @@ function themeoptions_page(){
 						<td>
 							<select name="argon_assets_path">
 								<?php $argon_assets_path = get_option('argon_assets_path'); ?>
-								<option value="default" <?php if ($argon_assets_path=='default'){echo 'selected';} ?>>不使用</option>
+								<option value="default" <?php if ($argon_assets_path=='default'){echo 'selected';} ?>><?php _e('不使用', 'argon');?></option>
 								<option value="jsdelivr" <?php if ($argon_assets_path=='jsdelivr'){echo 'selected';} ?>>jsdelivr</option>
 								<option value="fastgit" <?php if ($argon_assets_path=='fastgit'){echo 'selected';} ?>>fastgit</option>
 							</select>
-							<p class="description">选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。</p>
+							<p class="description"><?php _e('选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>子目录</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('子目录', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>Wordpress 安装目录</label></th>
+						<th><label><?php _e('Wordpress 安装目录', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_wp_path" value="<?php echo (get_option('argon_wp_path') == '' ? '/' : get_option('argon_wp_path')); ?>"/>
-							<p class="description">如果 Wordpress 安装在子目录中，请在此填写子目录地址（例如 <code>/blog/</code>），注意前后各有一个斜杠。默认为 <code>/</code>。</br>如果不清楚该选项的用处，请保持默认。</p>
+							<p class="description"><?php _e('如果 Wordpress 安装在子目录中，请在此填写子目录地址（例如', 'argon');?> <code>/blog/</code><?php _e('），注意前后各有一个斜杠。默认为', 'argon');?> <code>/</code> <?php _e('。', 'argon');?></br><?php _e('如果不清楚该选项的用处，请保持默认。', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>顶栏</h2></th></tr>
-					<tr><th class="subtitle"><h3>标题</h3></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('顶栏', 'argon');?></h2></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('标题', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>顶栏标题</label></th>
+						<th><label><?php _e('顶栏标题', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_toolbar_title" value="<?php echo get_option('argon_toolbar_title'); ?>"/></p>
-							<p class="description">留空则显示博客名称</p>
+							<p class="description"><?php _e('留空则显示博客名称', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>顶栏图标</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('顶栏图标', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>图标地址</label></th>
+						<th><label><?php _e('图标地址', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_toolbar_icon" value="<?php echo get_option('argon_toolbar_icon'); ?>"/>
-							<p class="description">图片地址，留空则不显示</p>
+							<p class="description"><?php _e('图片地址，留空则不显示', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>图标链接</label></th>
+						<th><label><?php _e('图标链接', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_toolbar_icon_link" value="<?php echo get_option('argon_toolbar_icon_link'); ?>"/>
-							<p class="description">点击图标后会跳转到的链接，留空则不跳转</p>
+							<p class="description"><?php _e('点击图标后会跳转到的链接，留空则不跳转', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>顶部 Banner (封面)</h2></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('顶部 Banner (封面)', 'argon');?></h2></th></tr>
 					<tr>
-						<th><label>Banner 标题</label></th>
+						<th><label><?php _e('Banner 标题', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_banner_title" value="<?php echo get_option('argon_banner_title'); ?>"/>
-							<p class="description">留空则显示博客名称</p>
+							<p class="description"><?php _e('留空则显示博客名称', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>Banner 副标题</label></th>
+						<th><label><?php _e('Banner 副标题', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_banner_subtitle" value="<?php echo get_option('argon_banner_subtitle'); ?>"/>
-							<p class="description">显示在 Banner 标题下，留空则不显示</p>
+							<p class="description"><?php _e('显示在 Banner 标题下，留空则不显示', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>Banner 背景图 (地址)</label></th>
+						<th><label><?php _e('Banner 背景图 (地址)', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_banner_background_url" value="<?php echo get_option('argon_banner_background_url'); ?>"/>
-							<p class="description">需带上 http(s) ，留空则显示默认背景</br>输入 <code>--bing--</code> 调用必应每日一图</p>
+							<p class="description"><?php _e('需带上 http(s) ，留空则显示默认背景', 'argon');?></br><?php _e('输入', 'argon');?> <code>--bing--</code> <?php _e('调用必应每日一图', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>Banner 渐变背景样式</label></th>
+						<th><label><?php _e('Banner 渐变背景样式', 'argon');?></label></th>
 						<td>
 							<select name="argon_banner_background_color_type">
 								<?php $color_type = get_option('argon_banner_background_color_type'); ?>
-								<option value="shape-primary" <?php if ($color_type=='shape-primary'){echo 'selected';} ?>>样式1</option>
-								<option value="shape-default" <?php if ($color_type=='shape-default'){echo 'selected';} ?>>样式2</option>
-								<option value="shape-dark" <?php if ($color_type=='shape-dark'){echo 'selected';} ?>>样式3</option>
-								<option value="bg-gradient-success" <?php if ($color_type=='bg-gradient-success'){echo 'selected';} ?>>样式4</option>
-								<option value="bg-gradient-info" <?php if ($color_type=='bg-gradient-info'){echo 'selected';} ?>>样式5</option>
-								<option value="bg-gradient-warning" <?php if ($color_type=='bg-gradient-warning'){echo 'selected';} ?>>样式6</option>
-								<option value="bg-gradient-danger" <?php if ($color_type=='bg-gradient-danger'){echo 'selected';} ?>>样式7</option>
+								<option value="shape-primary" <?php if ($color_type=='shape-primary'){echo 'selected';} ?>><?php _e('样式', 'argon');?> 1</option>
+								<option value="shape-default" <?php if ($color_type=='shape-default'){echo 'selected';} ?>><?php _e('样式', 'argon');?> 2</option>
+								<option value="shape-dark" <?php if ($color_type=='shape-dark'){echo 'selected';} ?>><?php _e('样式', 'argon');?> 3</option>
+								<option value="bg-gradient-success" <?php if ($color_type=='bg-gradient-success'){echo 'selected';} ?>><?php _e('样式', 'argon');?> 4</option>
+								<option value="bg-gradient-info" <?php if ($color_type=='bg-gradient-info'){echo 'selected';} ?>><?php _e('样式', 'argon');?> 5</option>
+								<option value="bg-gradient-warning" <?php if ($color_type=='bg-gradient-warning'){echo 'selected';} ?>><?php _e('样式', 'argon');?> 6</option>
+								<option value="bg-gradient-danger" <?php if ($color_type=='bg-gradient-danger'){echo 'selected';} ?>><?php _e('样式', 'argon');?> 7</option>
 							</select>
 							<?php $hide_shapes = get_option('argon_banner_background_hide_shapes'); ?>
 							<label>
-								<input type="checkbox" name="argon_banner_background_hide_shapes" value="true" <?php if ($hide_shapes=='true'){echo 'checked';}?>/>	隐藏背景半透明圆
+								<input type="checkbox" name="argon_banner_background_hide_shapes" value="true" <?php if ($hide_shapes=='true'){echo 'checked';}?>/>	<?php _e('隐藏背景半透明圆', 'argon');?>
 							</label>
-							<p class="description"><strong>如果设置了背景图则不生效</strong>
-								</br><div style="margin-top: 15px;">样式预览 (推荐选择前三个样式)</div>
+							<p class="description"><strong><?php _e('如果设置了背景图则不生效', 'argon');?></strong>
+								</br><div style="margin-top: 15px;"><?php _e('样式预览 (推荐选择前三个样式)', 'argon');?></div>
 								<div style="margin-top: 10px;">
-									<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#281483 15%,#8f6ed5 70%,#d782d9 94%);">样式1</div>
-									<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);">样式2</div>
-									<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#32325d 15%,#32325d 70%,#32325d 94%);">样式3</div>
-									<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#2dce89 0,#2dcecc 100%);">样式4</div>
-									<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#11cdef 0,#1171ef 100%);">样式5</div>
-									<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#fb6340 0,#fbb140 100%);">样式6</div>
-									<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#f5365c 0,#f56036 100%);">样式7</div>
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#281483 15%,#8f6ed5 70%,#d782d9 94%);"><?php _e('样式', 'argon');?> 1</div>
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);"><?php _e('样式', 'argon');?> 2</div>
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#32325d 15%,#32325d 70%,#32325d 94%);"><?php _e('样式', 'argon');?> 3</div>
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#2dce89 0,#2dcecc 100%);"><?php _e('样式', 'argon');?> 4</div>
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#11cdef 0,#1171ef 100%);"><?php _e('样式', 'argon');?> 5</div>
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#fb6340 0,#fbb140 100%);"><?php _e('样式', 'argon');?> 6</div>
+									<div class="banner-background-color-type-preview" style="background:linear-gradient(87deg,#f5365c 0,#f56036 100%);"><?php _e('样式', 'argon');?> 7</div>
 								</div>
 								<style>
 									div.banner-background-color-type-preview{width:100px;height:50px;line-height:50px;color:#fff;margin-right:0px;font-size:15px;text-align:center;display:inline-block;border-radius:5px;transition:all .3s ease;}
@@ -2428,99 +2440,99 @@ function themeoptions_page(){
 							</p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>动画</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('动画', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>Banner 标题打字动画</label></th>
+						<th><label><?php _e('Banner 标题打字动画', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_banner_title_typing_effect">
 							<?php $argon_enable_banner_title_typing_effect = get_option('argon_enable_banner_title_typing_effect'); ?>
-								<option value="false" <?php if ($argon_enable_banner_title_typing_effect=='false'){echo 'selected';} ?>>不启用</option>
-								<option value="true" <?php if ($argon_enable_banner_title_typing_effect=='true'){echo 'selected';} ?>>启用</option>
+								<option value="false" <?php if ($argon_enable_banner_title_typing_effect=='false'){echo 'selected';} ?>><?php _e('不启用', 'argon');?></option>
+								<option value="true" <?php if ($argon_enable_banner_title_typing_effect=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
 							</select>
-							<p class="description">启用后 Banner 标题会以打字的形式出现。</p>
+							<p class="description"><?php _e('启用后 Banner 标题会以打字的形式出现。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>Banner 标题打字动画时长</label></th>
+						<th><label><?php _e('Banner 标题打字动画时长', 'argon');?></label></th>
 						<td>
-							<input type="number" name="argon_banner_typing_effect_interval" min="1" max="10000"  value="<?php echo (get_option('argon_banner_typing_effect_interval') == '' ? '100' : get_option('argon_banner_typing_effect_interval')); ?>"/> ms/字
+							<input type="number" name="argon_banner_typing_effect_interval" min="1" max="10000"  value="<?php echo (get_option('argon_banner_typing_effect_interval') == '' ? '100' : get_option('argon_banner_typing_effect_interval')); ?>"/> <?php _e('ms/字', 'argon');?>
 							<p class="description"></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>页面背景</h2></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('页面背景', 'argon');?></h2></th></tr>
 					<tr>
-						<th><label>页面背景</label></th>
+						<th><label><?php _e('页面背景', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_page_background_url" value="<?php echo get_option('argon_page_background_url'); ?>"/>
-							<p class="description">页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐修改以下选项来增强页面整体观感。</p>
+							<p class="description"><?php _e('页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐修改以下选项来增强页面整体观感。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>页面背景（夜间模式时）</label></th>
+						<th><label><?php _e('页面背景（夜间模式时）', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_page_background_dark_url" value="<?php echo get_option('argon_page_background_dark_url'); ?>"/>
-							<p class="description">夜间模式时页面背景的地址，需带上 http(s)。设置后日间模式和夜间模式会使用不同的背景。留空则跟随日间模式背景。该选项仅在设置了日间模式背景时生效。</p>
+							<p class="description"><?php _e('夜间模式时页面背景的地址，需带上 http(s)。设置后日间模式和夜间模式会使用不同的背景。留空则跟随日间模式背景。该选项仅在设置了日间模式背景时生效。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>背景不透明度</label></th>
+						<th><label><?php _e('背景不透明度', 'argon');?></label></th>
 						<td>
 							<input type="number" name="argon_page_background_opacity" min="0" max="1" step="0.01" value="<?php echo (get_option('argon_page_background_opacity') == '' ? '1' : get_option('argon_page_background_opacity')); ?>"/>
-							<p class="description">0 ~ 1 的小数，越小透明度越高，默认为 1 不透明</p>
+							<p class="description"><?php _e('0 ~ 1 的小数，越小透明度越高，默认为 1 不透明', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>Banner 透明化</label></th>
+						<th><label><?php _e('Banner 透明化', 'argon');?></label></th>
 						<td>
 							<select name="argon_page_background_banner_style">
 								<?php $argon_page_background_banner_style = get_option('argon_page_background_banner_style'); ?>
-								<option value="false" <?php if ($argon_page_background_banner_style=='false'){echo 'selected';} ?>>关闭</option>	
-								<option value="transparent" <?php if ($argon_page_background_banner_style=='transparent' || ($argon_page_background_banner_style!='' && $argon_page_background_banner_style!='false')){echo 'selected';} ?>>开启</option>
+								<option value="false" <?php if ($argon_page_background_banner_style=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>	
+								<option value="transparent" <?php if ($argon_page_background_banner_style=='transparent' || ($argon_page_background_banner_style!='' && $argon_page_background_banner_style!='false')){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
 							</select>
 							<div style="margin-top: 15px;margin-bottom: 15px;">
 								<label>
 									<?php $argon_show_toolbar_mask = get_option('argon_show_toolbar_mask');?>
-									<input type="checkbox" name="argon_show_toolbar_mask" value="true" <?php if ($argon_show_toolbar_mask=='true'){echo 'checked';}?>/>	在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）
+									<input type="checkbox" name="argon_show_toolbar_mask" value="true" <?php if ($argon_show_toolbar_mask=='true'){echo 'checked';}?>/>	<?php _e('在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）', 'argon');?>
 								</label>
 							</div>
-							<p class="description">Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置页面背景时生效。</p>
+							<p class="description"><?php _e('Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置页面背景时生效。', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>左侧栏</h2></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('左侧栏', 'argon');?></h2></th></tr>
 					<tr>
-						<th><label>左侧栏标题</label></th>
+						<th><label><?php _e('左侧栏标题', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_sidebar_banner_title" value="<?php echo get_option('argon_sidebar_banner_title'); ?>"/>
-							<p class="description">留空则显示博客名称</p>
+							<p class="description"><?php _e('留空则显示博客名称', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>左侧栏子标题（格言）</label></th>
+						<th><label><?php _e('左侧栏子标题（格言）', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_sidebar_banner_subtitle" value="<?php echo get_option('argon_sidebar_banner_subtitle'); ?>"/>
-							<p class="description">留空则不显示</br>输入 <code>--hitokoto--</code> 调用一言 API</p>
+							<p class="description"><?php _e('留空则不显示', 'argon');?></br><?php _e('输入', 'argon');?> <code>--hitokoto--</code> <?php _e('调用一言 API', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>左侧栏作者名称</label></th>
+						<th><label><?php _e('左侧栏作者名称', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_sidebar_auther_name" value="<?php echo get_option('argon_sidebar_auther_name'); ?>"/>
-							<p class="description">留空则显示博客名</p>
+							<p class="description"><?php _e('留空则显示博客名', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>左侧栏作者头像地址</label></th>
+						<th><label><?php _e('左侧栏作者头像地址', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_sidebar_auther_image" value="<?php echo get_option('argon_sidebar_auther_image'); ?>"/>
-							<p class="description">需带上 http(s) 开头</p>
+							<p class="description"><?php _e('需带上 http(s) 开头', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>博客公告</h2></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('博客公告', 'argon');?></h2></th></tr>
 					<tr>
-						<th><label>公告内容</label></th>
+						<th><label><?php _e('公告内容', 'argon');?></label></th>
 						<td>
 							<textarea type="text" rows="5" cols="50" name="argon_sidebar_announcement"><?php echo htmlspecialchars(get_option('argon_sidebar_announcement')); ?></textarea>
-							<p class="description">显示在左侧栏顶部，留空则不显示，支持 HTML 标签</p>
+							<p class="description"><?php _e('显示在左侧栏顶部，留空则不显示，支持 HTML 标签', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>浮动操作按钮</h2></th></tr>
@@ -3298,17 +3310,17 @@ window.pjaxLoaded = function(){
 				</tbody>
 			</table>
 			<p class="submit">
-				<input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改">
-				<a class="button button-secondary" style="margin-left: 8px;" onclick="importSettings()">导入设置</a>
-				<a class="button button-secondary" style="margin-left: 5px;" onclick="exportSettings()">导出设置</a>
+				<input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('保存更改', 'argon');?>">
+				<a class="button button-secondary" style="margin-left: 8px;" onclick="importSettings()"><?php _e('导入设置', 'argon');?></a>
+				<a class="button button-secondary" style="margin-left: 5px;" onclick="exportSettings()"><?php _e('导出设置', 'argon');?></a>
 			</p>
 		</form>
 	</div>
 	<div id="headindex_box">
-		<button id="headindex_toggler" onclick="$('#headindex_box').toggleClass('folded');">收起</button>
+		<button id="headindex_toggler" onclick="$('#headindex_box').toggleClass('folded');"><?php _e('收起', 'argon');?></button>
 		<div id="headindex"></div>
 	</div>
-	<div id="exported_settings_json_box" class="closed"><div>请复制并保存导出后的 JSON</div><textarea id="exported_settings_json" readonly="true" onclick="$(this).select();"></textarea><div style="width: 100%;margin: auto;margin-top: 15px;cursor: pointer;user-select: none;" onclick="$('#exported_settings_json_box').addClass('closed');">关闭</div></div>
+	<div id="exported_settings_json_box" class="closed"><div><?php _e('请复制并保存导出后的 JSON', 'argon');?></div><textarea id="exported_settings_json" readonly="true" onclick="$(this).select();"></textarea><div style="width: 100%;margin: auto;margin-top: 15px;cursor: pointer;user-select: none;" onclick="$('#exported_settings_json_box').addClass('closed');"><?php _e('确定', 'argon');?></div></div>
 	<style>
 		.radio-with-img {
 			display: inline-block;
@@ -3384,7 +3396,7 @@ window.pjaxLoaded = function(){
 			font-size: 0px;
 		}
 		#headindex_box.folded #headindex_toggler:before{
-			content: '展开';
+			content: '<?php _e('展开', 'argon');?>';
 			font-size: 12px;
 		}
 		@media screen and (max-width:960px){
@@ -3529,7 +3541,7 @@ window.pjaxLoaded = function(){
 					}
 					setInputValue(name, json[name]);
 				}catch{
-					info += name + " 字段导入失败\n";
+					info += name + " <?php _e('字段导入失败', 'argon');?>\n";
 				}
 			}
 			return info;
@@ -3540,10 +3552,10 @@ window.pjaxLoaded = function(){
 			$("#exported_settings_json_box").removeClass("closed");
 		}
 		function importSettings(){
-			let json = prompt("请输入要导入的备份 JSON");
+			let json = prompt("<?php _e('请输入要导入的备份 JSON', 'argon');?>");
 			if (json){
 				let res = importArgonSettings(json);
-				alert("已导入，请保存更改\n" + res)
+				alert("<?php _e('已导入，请保存更改', 'argon');?>\n" + res)
 			}
 		}
 	</script>
@@ -3557,6 +3569,9 @@ function argon_update_option_allow_tags($name){
 	update_option($name, stripslashes($_POST[$name]));
 }
 function argon_update_themeoptions(){
+	if (!isset($_POST['update_themeoptions'])){
+		return;
+	}
 	if ($_POST['update_themeoptions'] == 'true'){
 		if (!isset($_POST['argon_update_themeoptions_nonce'])){
 			return;
@@ -3671,10 +3686,10 @@ argon_update_themeoptions();
 
 /*主题菜单*/
 register_nav_menus( array(
-	'toolbar_menu' => '顶部导航',
-	'leftbar_menu' => '左侧栏菜单',
-	'leftbar_author_links' => '左侧栏作者个人链接',
-	'leftbar_friend_links' => '左侧栏友情链接'
+	'toolbar_menu' => __('顶部导航', 'argon'),
+	'leftbar_menu' => __('左侧栏菜单', 'argon'),
+	'leftbar_author_links' => __('左侧栏作者个人链接', 'argon'),
+	'leftbar_friend_links' => __('左侧栏友情链接', 'argon')
 ));
 
 
@@ -3685,18 +3700,18 @@ register_nav_menus( array(
 add_action('init', 'init_shuoshuo');
 function init_shuoshuo(){
 	$labels = array(
-		'name' => '说说',
-		'singular_name' => '说说',
-		'add_new' => '发表说说',
-		'add_new_item' => '发表说说',
-		'edit_item' => '编辑说说',
-		'new_item' => '新说说',
-		'view_item' => '查看说说',
-		'search_items' => '搜索说说',
-		'not_found' => '暂无说说',
-		'not_found_in_trash' => '没有已遗弃的说说',
+		'name' => __('说说', 'argon'),
+		'singular_name' => __('说说', 'argon'),
+		'add_new' => __('发表说说', 'argon'),
+		'add_new_item' => __('发表说说', 'argon'),
+		'edit_item' => __('编辑说说', 'argon'),
+		'new_item' => __('新说说', 'argon'),
+		'view_item' => __('查看说说', 'argon'),
+		'search_items' => __('搜索说说', 'argon'),
+		'not_found' => __('暂无说说', 'argon'),
+		'not_found_in_trash' => __('没有已遗弃的说说', 'argon'),
 		'parent_item_colon' => '',
-		'menu_name' => '说说'
+		'menu_name' => __('说说', 'argon')
 	);
 	$args = array(
 		'labels' => $labels,

@@ -1331,6 +1331,7 @@ $(document).on("click" , ".collapse-block .collapse-block-title" , function(){
 	}else{
 		$(selecter + " .collapse-block-body").stop(true , false).slideDown(200);
 	}
+	$("html").trigger("scroll");
 });
 
 /*获得 Github Repo Shortcode 信息卡内容*/

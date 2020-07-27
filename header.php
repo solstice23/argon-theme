@@ -30,8 +30,10 @@
 		$themecolor = "#5e72e4";
 	}
 	$themecolor_origin = $themecolor;
-	if (checkHEX($_COOKIE["argon_custom_theme_color"]) && get_option('argon_show_customize_theme_color_picker') != 'false'){
-		$themecolor = $_COOKIE["argon_custom_theme_color"];
+	if (isset($_COOKIE["argon_custom_theme_color"])){
+		if (checkHEX($_COOKIE["argon_custom_theme_color"]) && get_option('argon_show_customize_theme_color_picker') != 'false'){
+			$themecolor = $_COOKIE["argon_custom_theme_color"];
+		}
 	}
 ?>
 <?php
@@ -275,7 +277,7 @@
 						<li class="nav-item" data-toggle="modal" data-target="#argon_search_modal" style="padding-left: 5px;">
 							<a class="nav-link nav-link-icon">
 								<i class="fa fa-search"></i>
-								<span class="nav-link-inner--text d-lg-none">搜索</span>
+								<span class="nav-link-inner--text d-lg-none"><?php _e('搜索', 'argon');?></span>
 							</a>
 						</li>
 					</ul>
@@ -336,7 +338,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text"><i class="fa fa-search"></i></span>
 									</div>
-									<input id="navbar_search_input" class="form-control" placeholder="搜索什么..." type="text" autocomplete="off">
+									<input id="navbar_search_input" class="form-control" placeholder="<?php _e('搜索什么...', 'argon');?>" type="text" autocomplete="off">
 								</div>
 							</div>
 						</li>
@@ -356,7 +358,7 @@
 	<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">搜索</h5>
+				<h5 class="modal-title"><?php _e('搜索', 'argon');?></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -494,42 +496,42 @@
 	<div id="fabtn_blog_settings_popup" class="card shadow-sm" style="opacity: 0;" aria-hidden="true">
 		<div id="close_blog_settings"><i class="fa fa-close"></i></div>
 		<div class="blog-setting-item mt-3">
-			<div style="transform: translateY(-4px);"><div id="blog_setting_toggle_darkmode_and_amoledarkmode"><span>夜间模式</span><span>暗黑模式</span></div></div>
+			<div style="transform: translateY(-4px);"><div id="blog_setting_toggle_darkmode_and_amoledarkmode"><span><?php _e('夜间模式', 'argon');?></span><span><?php _e('暗黑模式', 'argon');?></span></div></div>
 			<div style="flex: 1;"></div>
 			<label id="blog_setting_darkmode_switch" class="custom-toggle">
 				<span class="custom-toggle-slider rounded-circle"></span>
 			</label>
 		</div>
 		<div class="blog-setting-item mt-3">
-			<div style="flex: 1;">字体</div>
+			<div style="flex: 1;"><?php _e('字体', 'argon');?></div>
 			<div>
 				<button id="blog_setting_font_sans_serif" type="button" class="blog-setting-font btn btn-outline-primary blog-setting-selector-left">Sans Serif</button><button id="blog_setting_font_serif" type="button" class="blog-setting-font btn btn-outline-primary blog-setting-selector-right">Serif</button>
 			</div>
 		</div>
 		<div class="blog-setting-item mt-3">
-			<div style="flex: 1;">阴影</div>
+			<div style="flex: 1;"><?php _e('阴影', 'argon');?></div>
 			<div>
-				<button id="blog_setting_shadow_small" type="button" class="blog-setting-shadow btn btn-outline-primary blog-setting-selector-left">浅阴影</button><button id="blog_setting_shadow_big" type="button" class="blog-setting-shadow btn btn-outline-primary blog-setting-selector-right">深阴影</button>
+				<button id="blog_setting_shadow_small" type="button" class="blog-setting-shadow btn btn-outline-primary blog-setting-selector-left"><?php _e('浅阴影', 'argon');?></button><button id="blog_setting_shadow_big" type="button" class="blog-setting-shadow btn btn-outline-primary blog-setting-selector-right"><?php _e('深阴影', 'argon');?></button>
 			</div>
 		</div>
 		<div class="blog-setting-item mt-3 mb-3">
-			<div style="flex: 1;">滤镜</div>
+			<div style="flex: 1;"><?php _e('滤镜', 'argon');?></div>
 			<div id="blog_setting_filters" class="ml-3">
-				<button id="blog_setting_filter_off" type="button" class="blog-setting-filter-btn ml-0" filter-name="off">关闭</button>
-				<button id="blog_setting_filter_sunset" type="button" class="blog-setting-filter-btn" filter-name="sunset">日落</button>
-				<button id="blog_setting_filter_darkness" type="button" class="blog-setting-filter-btn" filter-name="darkness">暗化</button>
-				<button id="blog_setting_filter_grayscale" type="button" class="blog-setting-filter-btn" filter-name="grayscale">灰度</button>
+				<button id="blog_setting_filter_off" type="button" class="blog-setting-filter-btn ml-0" filter-name="off"><?php _e('关闭', 'argon');?></button>
+				<button id="blog_setting_filter_sunset" type="button" class="blog-setting-filter-btn" filter-name="sunset"><?php _e('日落', 'argon');?></button>
+				<button id="blog_setting_filter_darkness" type="button" class="blog-setting-filter-btn" filter-name="darkness"><?php _e('暗化', 'argon');?></button>
+				<button id="blog_setting_filter_grayscale" type="button" class="blog-setting-filter-btn" filter-name="grayscale"><?php _e('灰度', 'argon');?></button>
 			</div>
 		</div>
 		<div class="blog-setting-item mb-3">
-			<div id="blog_setting_card_radius_to_default" style="cursor: pointer;">圆角</div>
+			<div id="blog_setting_card_radius_to_default" style="cursor: pointer;"><?php _e('圆角', 'argon');?></div>
 			<div style="flex: 1;margin-left: 20px;margin-right: 8px;transform: translateY(2px);">
 				<div id="blog_setting_card_radius"></div>
 			</div>
 		</div>
 		<?php if (get_option('argon_show_customize_theme_color_picker') != 'false') {?>
 			<div class="blog-setting-item mt-1 mb-3">
-				<div style="flex: 1;">主题色</div>
+				<div style="flex: 1;"><?php _e('主题色', 'argon');?></div>
 				<div id="theme-color-picker" class="ml-3"></div>
 			</div>
 		<?php }?>

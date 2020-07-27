@@ -2,8 +2,8 @@
 	<div class="shuoshuo-meta shadow-sm">
 		<span>
 			<i class="fa fa-calendar-o" aria-hidden="true"></i> 
-			<span class="shuoshuo-date-month"><?php echo get_the_time('n')?></span> 月 
-			<span class="shuoshuo-date-date"><?php echo get_the_time('d')?></span> 日 , 
+			<span class="shuoshuo-date-month"><?php echo get_the_time('n')?></span> <?php _e('月', 'argon');?> 
+			<span class="shuoshuo-date-date"><?php echo get_the_time('d')?></span> <?php _e('日', 'argon');?> , 
 			<span class="shuoshuo-date-year"><?php echo get_the_time('Y')?></span>
 			<div class="post-meta-devide">|</div>
 			<i class="fa fa-clock-o" aria-hidden="true"></i> 
@@ -13,7 +13,7 @@
 			<div class="post-meta-devide">|</div>
 			<div class="post-meta-detail post-meta-detail-words">
 				<i class="fa fa-thumb-tack" aria-hidden="true"></i>
-				置顶
+				<?php _e('置顶', 'argon');?>
 			</div>
 		<?php endif; ?>
 	</div>
