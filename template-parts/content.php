@@ -56,10 +56,10 @@
 				$preview = wp_trim_words(get_the_content(), 175);
 			}
 			if (post_password_required()){
-				$preview = "这篇文章受密码保护，输入密码才能阅读";
+				$preview = __("这篇文章受密码保护，输入密码才能阅读", 'argon');
 			}
 			if ($preview == ""){
-				$preview = "这篇文章没有摘要";
+				$preview = __("这篇文章没有摘要", 'argon');
 			}
 			if ($post -> post_excerpt){
 				$preview = $post -> post_excerpt;

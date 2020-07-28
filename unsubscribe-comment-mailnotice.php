@@ -4,25 +4,25 @@
 	$id = $_GET['comment'];
 	$token = $_GET['token'];
 	if (get_comment($id) == null){
-		$page_title = '评论不存在';
-		$title = "<i class='fa fa-close' style='color: #f5365c;margin-right: 12px;'></i>错误";
-		$info = "评论 #" . $id . " 不存在";
+		$page_title = __('评论不存在', 'argon');
+		$title = "<i class='fa fa-close' style='color: #f5365c;margin-right: 12px;'></i>" . __("错误", 'argon');
+		$info = __("评论 #", 'argon') . $id . __(" 不存在", 'argon');
 	}
 	else if (get_comment_meta($id, "enable_mailnotice", true) != "true"){
-		$page_title = '无需退订';
-		$title = "<i class='fa fa-info-circle' style='color: #11cdef;margin-right: 12px;'></i>无需退订";
-		$info = "评论 #" . $id . " 的邮件通知已被退订或没有开启邮件通知";
+		$page_title = __('无需退订', 'argon');
+		$title = "<i class='fa fa-info-circle' style='color: #11cdef;margin-right: 12px;'></i>" . __("无需退订", 'argon');
+		$info = __("评论 #", 'argon') . $id . __(" 的邮件通知已被退订或没有开启邮件通知", 'argon');
 	}
 	else if ($token != get_comment_meta($id, "mailnotice_unsubscribe_key", true)){
-		$page_title = '退订失败';
-		$title = "<i class='fa fa-close' style='color: #f5365c;margin-right: 12px;'></i>退订失败";
-		$info = "Token 不正确";
+		$page_title = __('退订失败', 'argon');
+		$title = "<i class='fa fa-close' style='color: #f5365c;margin-right: 12px;'></i>" . __("退订失败", 'argon');
+		$info = __("Token 不正确", 'argon');
 	}
 	else{
 		update_comment_meta($id, "enable_mailnotice", "false");
-		$page_title = '退订成功';
-		$title = "<i class='fa fa-check' style='color: #2dce89;margin-right: 12px;'></i>退订成功";
-		$info = "您已成功退订评论 #" . $id . " 的邮件通知<br>该评论下有新回复时您将不会再收到通知";
+		$page_title = __('退订成功', 'argon');
+		$title = "<i class='fa fa-check' style='color: #2dce89;margin-right: 12px;'></i>" . __("退订成功", 'argon');
+		$info = __("您已成功退订评论 #", 'argon') . $id . __(" 的邮件通知<br>该评论下有新回复时您将不会再收到通知", 'argon');
 	}
 ?>
 <html>

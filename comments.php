@@ -153,16 +153,16 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-link"></i></span>
 							</div>
-							<input id="post_comment_link" class="form-control" placeholder="网站" type="text" name="url" value="<?php echo htmlspecialchars($current_commenter['comment_author_url']); ?>">
+							<input id="post_comment_link" class="form-control" placeholder="<?php _e('网站', 'argon'); ?>" type="text" name="url" value="<?php echo htmlspecialchars($current_commenter['comment_author_url']); ?>">
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row hide-on-comment-editing <?php if (get_option('argon_hide_name_email_site_input') == 'true') {echo 'd-none';}?>" style="margin-top: 10px; <?php if (is_user_logged_in()) {echo('display: none');}?>">
 				<div class="col-md-12">
-					<button id="post_comment_toggle_extra_input" type="button" class="btn btn-icon btn-outline-primary btn-sm">
-                <span class="btn-inner--icon"><i class="fa fa-angle-down"></i></span>
-              </button>
+					<button id="post_comment_toggle_extra_input" type="button" class="btn btn-icon btn-outline-primary btn-sm" tooltip-show-extra-field="<?php _e('展开附加字段', 'argon'); ?>" tooltip-hide-extra-field="<?php _e('折叠附加字段', 'argon'); ?>">
+						<span class="btn-inner--icon"><i class="fa fa-angle-down"></i></span>
+					</button>
 				</div></div>
 			<div class="row" style="margin-top: 5px; margin-bottom: 10px;">
 				<div class="col-md-12">
@@ -173,13 +173,13 @@
 						</div>
 					<?php } ?>
 					<?php if (get_option("argon_comment_allow_privatemode") == "true") {?>
-						<div class="custom-control custom-checkbox comment-post-checkbox comment-post-privatemode">
+						<div class="custom-control custom-checkbox comment-post-checkbox comment-post-privatemode" tooltip="<?php _e('评论仅发送者和博主可见', 'argon'); ?>">
 							<input class="custom-control-input" id="comment_post_privatemode" type="checkbox">
 							<label class="custom-control-label" for="comment_post_privatemode"><?php _e('悄悄话', 'argon');?></label>
 						</div>
 					<?php } ?>
 					<?php if (get_option("argon_comment_allow_mailnotice") == "true") {?>
-						<div class="custom-control custom-checkbox comment-post-checkbox comment-post-mailnotice">
+						<div class="custom-control custom-checkbox comment-post-checkbox comment-post-mailnotice" tooltip="<?php _e('有回复时邮件通知我', 'argon'); ?>">
 							<input class="custom-control-input" id="comment_post_mailnotice" type="checkbox"<?php if (get_option("argon_comment_mailnotice_checkbox_checked") == 'true'){echo ' checked';}?>>
 							<label class="custom-control-label" for="comment_post_mailnotice"><?php _e('邮件提醒', 'argon');?></label>
 						</div>
@@ -192,7 +192,7 @@
 					</button>
 					<button id="post_comment_edit_cancel" class="btn btn-icon btn-danger pull-right hide-on-comment-not-editing" type="button" style="margin-right: 8px;">
 						<span class="btn-inner--icon"><i class="fa fa-close"></i></span>
-						<span class="btn-inner--text">取消</span>
+						<span class="btn-inner--text"><?php _e('取消', 'argon');?></span>
 					</button>
 				</div>
 			</div>

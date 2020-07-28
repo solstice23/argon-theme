@@ -63,9 +63,13 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200729 v0.990
++ Add English Translation
++ 完善英文翻译
+
 ## 20200728 v0.980
 + Add English Translation (Unfinished)
-+ 增加英文翻译
++ 增加英文翻译（未完成）
 + 修复图片组第一张图片加载不出的 BUG
 + 修复折叠块中图片 Lazyload 不自动加载的 BUG
 + 其他修改

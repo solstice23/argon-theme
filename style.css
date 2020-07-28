@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.980
+Version: 0.990
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -627,6 +627,7 @@ html.darkmode.amoled-dark #navbar-main{
 	transition: width .3s cubic-bezier(0.4, 0, 0, 1), height .3s cubic-bezier(0.4, 0, 0, 1), box-shadow .15s ease, transform .15s ease;
 	height: 30px;
 	transform: unset !important;
+	text-transform: capitalize;
 }
 html.darkmode #leftbar_search_container {
 	background: #555;
@@ -914,6 +915,7 @@ html.darkmode.amoled-dark #leftbar_search_container {
 	opacity: 0;
 	width: max-content;
 	width: -moz-max-content;
+	text-transform: none;
 }
 #float_action_buttons .fabtn.fabtn-hidden:before{
 	opacity: 0 !important;
@@ -928,36 +930,36 @@ html.darkmode.amoled-dark #leftbar_search_container {
 	opacity: .7;
 }
 #float_action_buttons #fabtn_toggle_sides:before{
-	content: "\79fb\81f3\5de6\4fa7";
+	content: attr(tooltip-move-to-left);
 	top: 1px;
 }
 #float_action_buttons.fabtns-float-left #fabtn_toggle_sides:before{
-	content: "\79fb\81f3\53f3\4fa7";
+	content: attr(tooltip-move-to-right);
 }
 #float_action_buttons #fabtn_back_to_top:before{
-	content: "\56de\5230\9876\90e8";
+	content: attr(tooltip);
 }
 #float_action_buttons #fabtn_reading_progress:before{
-	content: "\9605\8bfb\8fdb\5ea6";
+	content: attr(tooltip);
 	top: 1px;
 }
 #float_action_buttons #fabtn_open_sidebar:before{
-	content: "\83dc\5355";
+	content: attr(tooltip);
 }
 #float_action_buttons #fabtn_go_to_comment:before{
-	content: "\8bc4\8bba";
+	content: attr(tooltip);
 }
 #float_action_buttons #fabtn_toggle_darkmode:before{
-	content: "\591c\95f4\6a21\5f0f";
+	content: attr(tooltip-darkmode);
 }
 html.amoled-dark #float_action_buttons #fabtn_toggle_darkmode:before{
-	content: "\6697\9ed1\6a21\5f0f";
+	content: attr(tooltip-blackmode);
 }
 html.darkmode #float_action_buttons #fabtn_toggle_darkmode:before{
-	content: "\65e5\95f4\6a21\5f0f";
+	content: attr(tooltip-lightmode);
 }
 #float_action_buttons #fabtn_toggle_blog_settings_popup:before{
-	content: "\8bbe\7f6e";
+	content: attr(tooltip);
 }
 #fabtn_toggle_darkmode i.fa{
 	margin: 0;
@@ -1039,7 +1041,7 @@ html.amoled-dark #blog_setting_toggle_darkmode_and_amoledarkmode span:first-of-t
 	display: none;
 }
 #blog_setting_toggle_darkmode_and_amoledarkmode:before {
-	content: '\5207\6362\5230\6697\9ed1\6a21\5f0f';
+	content: attr(tooltip-switch-to-blackmode);
 	position: absolute;
 	top: -32px;
 	left: 50%;
@@ -1058,7 +1060,7 @@ html.amoled-dark #blog_setting_toggle_darkmode_and_amoledarkmode span:first-of-t
 	pointer-events: none;
 }
 html.amoled-dark #blog_setting_toggle_darkmode_and_amoledarkmode:before{
-	content: '\5207\6362\5230\591c\95f4\6a21\5f0f';
+	content: attr(tooltip-switch-to-darkmode);
 }
 #blog_setting_toggle_darkmode_and_amoledarkmode:hover:before {
 	transform: translateX(-50%);
@@ -1166,7 +1168,7 @@ html.filter-grayscale{
 	position: relative;
 }
 #blog_setting_card_radius_to_default:before {
-	content: '\6062\590d\9ed8\8ba4';
+	content: attr(tooltip);
 	position: absolute;
 	top: -30px;
 	left: 50%;
@@ -1918,10 +1920,11 @@ html.darkmode .comment-edit-history-item {
 	content: "http(s)://";
 }
 #post_comment_toggle_extra_input:before{
-	content: "\5c55\5f00\9644\52a0\5b57\6bb5";
+	content: attr(tooltip-show-extra-field);
+	text-transform: none;
 }
 .show-extra-input #post_comment_toggle_extra_input:before{
-	content: "\6298\53e0\9644\52a0\5b57\6bb5";
+	content: attr(tooltip-hide-extra-field);
 }
 #post_comment_toggle_extra_input{
 	border-radius: 100px;
@@ -1977,10 +1980,10 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 	background-image: unset;
 }
 .comment-post-privatemode:before{
-	content: "\8bc4\8bba\4ec5\53d1\9001\8005\548c\535a\4e3b\53ef\89c1";
+	content: attr(tooltip);
 }
 .comment-post-mailnotice:before{
-	content: "\6709\56de\590d\65f6\90ae\4ef6\901a\77e5\6211";
+	content: attr(tooltip);
 }
 #post_comment.sending .comment-post-checkbox{
 	opacity: .6;
@@ -2686,34 +2689,35 @@ body.noscroll:before{
 	opacity: .7;
 }
 #share_show:before{
-	content: "\5206\4eab";
+	content: attr(tooltip);
 	top: -40px;
 	height: max-content;
 	height: -moz-max-content;
+	text-transform: none;
 }
 #share .icon-douban:before{
-	content: "\5206\4eab\5230\8c46\74e3";
+	content: attr(tooltip);
 }
 #share .icon-qq:before{
-	content: "\5206\4eab\5230\0020\0051\0051";
+	content: attr(tooltip);
 }
 #share .icon-qzone:before{
-	content: "\5206\4eab\5230\0020\0051\0051\0020\7a7a\95f4";
+	content: attr(tooltip);
 }
 #share .icon-weibo:before{
-	content: "\5206\4eab\5230\0020\5fae\535a";
+	content: attr(tooltip);
 }
 #share .icon-facebook:before{
-	content: "\5206\4eab\5230\0020\0046\0061\0063\0065\0062\006f\006f\006b";
+	content: attr(tooltip);
 }
 #share .icon-twitter:before{
-	content: "\5206\4eab\5230\0020\0054\0077\0069\0074\0074\0065\0072";
+	content: attr(tooltip);
 }
 #share .icon-telegram:before{
-	content: "\5206\4eab\5230\0020\0054\0065\006c\0065\0067\0072\0061\006d";
+	content: attr(tooltip);
 }
 #share .icon-copy-link:before{
-	content: "\590d\5236\94fe\63a5";
+	content: attr(tooltip);
 }
 
 /*Wordpress Adminbar*/
@@ -3211,25 +3215,25 @@ pre.hljs-codeblock .hljs-control i.fa{
 	top: 25px;
 }
 .hljs-control-toggle-linenumber:before {
-	content: "\9690\85cf\884c\53f7";
+	content: attr(tooltip-hide-linenumber);
 }
 pre.hljs-codeblock.hljs-hide-linenumber .hljs-control-toggle-linenumber:before {
-	content: "\663e\793a\884c\53f7";
+	content: attr(tooltip-show-linenumber);
 }
 .hljs-control-toggle-break-line:before {
-	content: "\5f00\542f\6298\884c";
+	content: attr(tooltip-enable-breakline);
 }
 pre.hljs-codeblock.hljs-break-line .hljs-control-toggle-break-line:before {
-	content: "\5173\95ed\6298\884c";
+	content: attr(tooltip-disable-breakline);
 }
 .hljs-control-copy:before {
-	content: "\590d\5236";
+	content: attr(tooltip);
 }
 .hljs-control-fullscreen:before {
-	content: "\5168\5c4f";
+	content: attr(tooltip-fullscreen);
 }
 pre.hljs-codeblock.hljs-codeblock-fullscreen .hljs-control-fullscreen:before {
-	content: "\9000\51fa\5168\5c4f";
+	content: attr(tooltip-exit-fullscreen);
 }
 pre.hljs-codeblock.hljs-codeblock-fullscreen .hljs-control-fullscreen > i:before {
 	content: "\f066";

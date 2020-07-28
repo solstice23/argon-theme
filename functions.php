@@ -20,6 +20,27 @@ if ($argon_assets_path== "jsdelivr"){
 	$GLOBALS['assets_path'] = get_bloginfo('template_url');
 }
 
+//翻译 Hook
+function argon_locate_filter($locate){
+	if (substr($locate, 0, 2) == 'zh'){
+		return 'zh_CN';
+	}
+	if (substr($locate, 0, 2) == 'en'){
+		return 'en_US';
+	}
+	return 'en_US';
+}
+function argon_get_locate(){
+	return argon_locate_filter(determine_locale());
+}
+function theme_locale_hook($locate, $domain){
+	if ($domain == 'argon'){
+		return argon_locate_filter($locate);
+	}
+	return $locate;
+}
+add_filter('theme_locale', 'theme_locale_hook', 10, 2);
+
 //更新主题版本后的兼容
 $argon_last_version = get_option("argon_last_version");
 if ($argon_last_version == ""){
@@ -2359,6 +2380,19 @@ function themeoptions_page(){
 							<p class="description"><?php _e('如果 Wordpress 安装在子目录中，请在此填写子目录地址（例如', 'argon');?> <code>/blog/</code><?php _e('），注意前后各有一个斜杠。默认为', 'argon');?> <code>/</code> <?php _e('。', 'argon');?></br><?php _e('如果不清楚该选项的用处，请保持默认。', 'argon');?></p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h3><?php _e('日期格式', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('日期格式', 'argon');?></label></th>
+						<td>
+							<select name="argon_dateformat">
+								<?php $argon_dateformat = get_option('argon_dateformat'); ?>
+								<option value="YMD" <?php if ($argon_dateformat=='YMD'){echo 'selected';} ?>>Y-M-D</option>
+								<option value="DMY" <?php if ($argon_dateformat=='DMY'){echo 'selected';} ?>>D-M-Y</option>
+								<option value="MDY" <?php if ($argon_dateformat=='MDY'){echo 'selected';} ?>>M-D-Y</option>
+							</select>
+							<p class="description"></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2><?php _e('顶栏', 'argon');?></h2></th></tr>
 					<tr><th class="subtitle"><h3><?php _e('标题', 'argon');?></h3></th></tr>
 					<tr>
@@ -2535,60 +2569,60 @@ function themeoptions_page(){
 							<p class="description"><?php _e('显示在左侧栏顶部，留空则不显示，支持 HTML 标签', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>浮动操作按钮</h2></th></tr>
-					<tr><th class="subtitle"><p class="description">浮动操作按钮位于页面右下角（或左下角）</p></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('浮动操作按钮', 'argon');?></h2></th></tr>
+					<tr><th class="subtitle"><p class="description"><?php _e('浮动操作按钮位于页面右下角（或左下角）', 'argon');?></p></th></tr>
 					<tr>
-						<th><label>显示设置按钮</label></th>
+						<th><label><?php _e('显示设置按钮', 'argon');?></label></th>
 						<td>	
 							<select name="argon_fab_show_settings_button">
 							<?php $argon_fab_show_settings_button = get_option('argon_fab_show_settings_button'); ?>
-								<option value="true" <?php if ($argon_fab_show_settings_button=='true'){echo 'selected';} ?>>显示</option>
-								<option value="false" <?php if ($argon_fab_show_settings_button=='false'){echo 'selected';} ?>>不显示</option>
+								<option value="true" <?php if ($argon_fab_show_settings_button=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>
+								<option value="false" <?php if ($argon_fab_show_settings_button=='false'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
 							</select>
-							<p class="description">是否在浮动操作按钮栏中显示设置按钮。点击设置按钮可以唤出设置菜单修改夜间模式/字体/滤镜等外观选项。</p>
+							<p class="description"><?php _e('是否在浮动操作按钮栏中显示设置按钮。点击设置按钮可以唤出设置菜单修改夜间模式/字体/滤镜等外观选项。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>显示夜间模式切换按钮</label></th>
+						<th><label><?php _e('显示夜间模式切换按钮', 'argon');?></label></th>
 						<td>	
 							<select name="argon_fab_show_darkmode_button">
 							<?php $argon_fab_show_darkmode_button = get_option('argon_fab_show_darkmode_button'); ?>
-								<option value="false" <?php if ($argon_fab_show_darkmode_button=='false'){echo 'selected';} ?>>不显示</option>
-								<option value="true" <?php if ($argon_fab_show_darkmode_button=='true'){echo 'selected';} ?>>显示</option>
+								<option value="false" <?php if ($argon_fab_show_darkmode_button=='false'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
+								<option value="true" <?php if ($argon_fab_show_darkmode_button=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>
 							</select>
-							<p class="description">如果开启了设置按钮显示，建议关闭此选项。（夜间模式选项在设置菜单中已经存在）</p>
+							<p class="description"><?php _e('如果开启了设置按钮显示，建议关闭此选项。（夜间模式选项在设置菜单中已经存在）', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>显示跳转到评论按钮</label></th>
+						<th><label><?php _e('显示跳转到评论按钮', 'argon');?></label></th>
 						<td>	
 							<select name="argon_fab_show_gotocomment_button">
 							<?php $argon_fab_show_gotocomment_button = get_option('argon_fab_show_gotocomment_button'); ?>
-								<option value="false" <?php if ($argon_fab_show_gotocomment_button=='false'){echo 'selected';} ?>>不显示</option>
-								<option value="true" <?php if ($argon_fab_show_gotocomment_button=='true'){echo 'selected';} ?>>显示</option>
+								<option value="false" <?php if ($argon_fab_show_gotocomment_button=='false'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
+								<option value="true" <?php if ($argon_fab_show_gotocomment_button=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>
 							</select>
-							<p class="description">仅在允许评论的文章中显示</p>
+							<p class="description"><?php _e('仅在允许评论的文章中显示', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>SEO</h2></th></tr>
 					<tr>
-						<th><label>网站描述 (Description Meta 标签)</label></th>
+						<th><label><?php _e('网站描述 (Description Meta 标签)', 'argon');?></label></th>
 						<td>
 							<textarea type="text" rows="5" cols="100" name="argon_seo_description"><?php echo htmlspecialchars(get_option('argon_seo_description')); ?></textarea>
-							<p class="description">设置针对搜索引擎的 Description Meta 标签内容。</br>在文章中，Argon 会自动根据文章内容生成描述。在其他页面中，Argon 将使用这里设置的内容。如不填，Argon 将不会在其他页面输出 Description Meta 标签。</p>
+							<p class="description"><?php _e('设置针对搜索引擎的 Description Meta 标签内容。', 'argon');?></br><?php _e('在文章中，Argon 会自动根据文章内容生成描述。在其他页面中，Argon 将使用这里设置的内容。如不填，Argon 将不会在其他页面输出 Description Meta 标签。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>搜索引擎关键词（Keywords Meta 标签）</label></th>
+						<th><label><?php _e('搜索引擎关键词（Keywords Meta 标签）', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_seo_keywords" value="<?php echo get_option('argon_seo_keywords'); ?>"/>
-							<p class="description">设置针对搜索引擎使用的关键词（Keywords Meta 标签内容）。用英文逗号隔开。不设置则不输出该 Meta 标签。</p>
+							<p class="description"><?php _e('设置针对搜索引擎使用的关键词（Keywords Meta 标签内容）。用英文逗号隔开。不设置则不输出该 Meta 标签。', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>文章</h2></th></tr>
-					<tr><th class="subtitle"><h3>文章 Meta 信息</h3></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('文章', 'argon');?></h2></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('文章 Meta 信息', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>第一行</label></th>
+						<th><label><?php _e('第一行', 'argon');?></label></th>
 						<style>
 							.article-meta-container {
 								margin-top: 10px;
@@ -2623,20 +2657,20 @@ function themeoptions_page(){
 						</style>
 						<td>
 							<input type="text" class="regular-text" name="argon_article_meta" value="<?php echo get_option('argon_article_meta', 'time|views|comments|categories'); ?>" style="display: none;"/>
-							拖动来自定义文章 Meta 信息的显示和顺序
+							<?php _e('拖动来自定义文章 Meta 信息的显示和顺序', 'argon');?>
 							<div class="article-meta-container">
-								显示
+								<?php _e('显示', 'argon');?>
 								<div id="article_meta_active"></div>
 							</div>
 							<div class="article-meta-container">
-								不显示
+								<?php _e('不显示', 'argon');?>
 								<div id="article_meta_inactive">
-									<div class="article-meta-item" meta-name="time">发布时间</div>
-									<div class="article-meta-item" meta-name="edittime">修改时间</div>
-									<div class="article-meta-item" meta-name="views">浏览量</div>
-									<div class="article-meta-item" meta-name="comments">评论数</div>
-									<div class="article-meta-item" meta-name="categories">所属分类</div>
-									<div class="article-meta-item" meta-name="author">作者</div>
+									<div class="article-meta-item" meta-name="time"><?php _e('发布时间', 'argon');?></div>
+									<div class="article-meta-item" meta-name="edittime"><?php _e('修改时间', 'argon');?></div>
+									<div class="article-meta-item" meta-name="views"><?php _e('浏览量', 'argon');?></div>
+									<div class="article-meta-item" meta-name="comments"><?php _e('评论数', 'argon');?></div>
+									<div class="article-meta-item" meta-name="categories"><?php _e('所属分类', 'argon');?></div>
+									<div class="article-meta-item" meta-name="author"><?php _e('作者', 'argon');?></div>
 								</div>
 							</div>
 						</td>
@@ -2666,115 +2700,115 @@ function themeoptions_page(){
 							});
 						</script>
 					</tr>
-					<tr><th class="subtitle"><h4>第二行</h4></th></tr>
+					<tr><th class="subtitle"><h4><?php _e('第二行', 'argon');?></h4></th></tr>
 					<tr>
-						<th><label>显示字数和预计阅读时间</label></th>
+						<th><label><?php _e('显示字数和预计阅读时间', 'argon');?></label></th>
 						<td>
 							<select name="argon_show_readingtime">
 								<?php $argon_show_readingtime = get_option('argon_show_readingtime'); ?>
-								<option value="true" <?php if ($argon_show_readingtime=='true'){echo 'selected';} ?>>显示</option>
-								<option value="false" <?php if ($argon_show_readingtime=='false'){echo 'selected';} ?>>不显示</option>
+								<option value="true" <?php if ($argon_show_readingtime=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>
+								<option value="false" <?php if ($argon_show_readingtime=='false'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
 							</select>
 						</td>
 					</tr>
 					<tr>
-						<th><label>每分钟阅读字数</label></th>
+						<th><label><?php _e('每分钟阅读字数', 'argon');?></label></th>
 						<td>
 							<input type="number" name="argon_reading_speed" min="1" max="5000"  value="<?php echo (get_option('argon_reading_speed') == '' ? '300' : get_option('argon_reading_speed')); ?>"/>
-							字/分钟
-							<p class="description">预计阅读时间由每分钟阅读字数计算</p>
+							<?php _e('字/分钟', 'argon');?>
+							<p class="description"><?php _e('预计阅读时间由每分钟阅读字数计算', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>文章头图 (特色图片)</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('文章头图 (特色图片)', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>文章头图的位置</label></th>
+						<th><label><?php _e('文章头图的位置', 'argon');?></label></th>
 						<td>
 							<select name="argon_show_thumbnail_in_banner_in_content_page">
 								<?php $argon_show_thumbnail_in_banner_in_content_page = get_option('argon_show_thumbnail_in_banner_in_content_page'); ?>
-								<option value="false" <?php if ($argon_show_thumbnail_in_banner_in_content_page=='false'){echo 'selected';} ?>>文章卡片顶端</option>
-								<option value="true" <?php if ($argon_show_thumbnail_in_banner_in_content_page=='true'){echo 'selected';} ?>>Banner (顶部背景)</option>	
+								<option value="false" <?php if ($argon_show_thumbnail_in_banner_in_content_page=='false'){echo 'selected';} ?>><?php _e('文章卡片顶端', 'argon');?></option>
+								<option value="true" <?php if ($argon_show_thumbnail_in_banner_in_content_page=='true'){echo 'selected';} ?>><?php _e('Banner (顶部背景)', 'argon');?></option>	
 							</select>
-							<p class="description">阅读界面中文章头图的位置</p>
+							<p class="description"><?php _e('阅读界面中文章头图的位置', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>分享</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('分享', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>显示文章分享按钮</label></th>
+						<th><label><?php _e('显示文章分享按钮', 'argon');?></label></th>
 						<td>
 							<select name="argon_show_sharebtn">
 								<?php $argon_show_sharebtn = get_option('argon_show_sharebtn'); ?>
-								<option value="true" <?php if ($argon_show_sharebtn=='true'){echo 'selected';} ?>>显示</option>	
-								<option value="false" <?php if ($argon_show_sharebtn=='false'){echo 'selected';} ?>>不显示</option>
+								<option value="true" <?php if ($argon_show_sharebtn=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>	
+								<option value="false" <?php if ($argon_show_sharebtn=='false'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
 							</select>
 							<p class="description"></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>左侧栏文章目录</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('左侧栏文章目录', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>在目录中显示序号</label></th>
+						<th><label><?php _e('在目录中显示序号', 'argon');?></label></th>
 						<td>
 							<select name="argon_show_headindex_number">
 								<?php $argon_show_headindex_number = get_option('argon_show_headindex_number'); ?>
-								<option value="false" <?php if ($argon_show_headindex_number=='false'){echo 'selected';} ?>>不显示</option>
-								<option value="true" <?php if ($argon_show_headindex_number=='true'){echo 'selected';} ?>>显示</option>
+								<option value="false" <?php if ($argon_show_headindex_number=='false'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
+								<option value="true" <?php if ($argon_show_headindex_number=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>
 							</select>
-							<p class="description">例：3.2.5</p>
+							<p class="description"><?php _e('例：3.2.5', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>赞赏</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('赞赏', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>赞赏二维码图片链接</label></th>
+						<th><label><?php _e('赞赏二维码图片链接', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_donate_qrcode_url" value="<?php echo get_option('argon_donate_qrcode_url'); ?>"/>				
-							<p class="description">赞赏二维码图片链接，填写后会在文章最后显示赞赏按钮，留空则不显示赞赏按钮</p>
+							<p class="description"><?php _e('赞赏二维码图片链接，填写后会在文章最后显示赞赏按钮，留空则不显示赞赏按钮', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>其他</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('其他', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>文章过时信息显示</label></th>
+						<th><label><?php _e('文章过时信息显示', 'argon');?></label></th>
 						<td>
-							当一篇文章的
+							<?php _e('当一篇文章的', 'argon');?>
 							<select name="argon_outdated_info_time_type">
 								<?php $argon_outdated_info_time_type = get_option('argon_outdated_info_time_type'); ?>
-								<option value="modifiedtime" <?php if ($argon_outdated_info_time_type=='modifiedtime'){echo 'selected';} ?>>最后修改时间</option>
-								<option value="createdtime" <?php if ($argon_outdated_info_time_type=='createdtime'){echo 'selected';} ?>>发布时间</option>
+								<option value="modifiedtime" <?php if ($argon_outdated_info_time_type=='modifiedtime'){echo 'selected';} ?>><?php _e('最后修改时间', 'argon');?></option>
+								<option value="createdtime" <?php if ($argon_outdated_info_time_type=='createdtime'){echo 'selected';} ?>><?php _e('发布时间', 'argon');?></option>
 							</select>
-							距离现在超过 
+							<?php _e('距离现在超过', 'argon');?> 
 							<input type="number" name="argon_outdated_info_days" min="-1" max="99999"  value="<?php echo (get_option('argon_outdated_info_days') == '' ? '-1' : get_option('argon_outdated_info_days')); ?>"/>
-							天时，用
+							<?php _e('天时，用', 'argon');?>
 							<select name="argon_outdated_info_tip_type">
 								<?php $argon_outdated_info_tip_type = get_option('argon_outdated_info_tip_type'); ?>
-								<option value="inpost" <?php if ($argon_outdated_info_tip_type=='inpost'){echo 'selected';} ?>>在文章顶部显示信息条</option>
-								<option value="toast" <?php if ($argon_outdated_info_tip_type=='toast'){echo 'selected';} ?>>在页面右上角弹出提示条</option>
+								<option value="inpost" <?php if ($argon_outdated_info_tip_type=='inpost'){echo 'selected';} ?>><?php _e('在文章顶部显示信息条', 'argon');?></option>
+								<option value="toast" <?php if ($argon_outdated_info_tip_type=='toast'){echo 'selected';} ?>><?php _e('在页面右上角弹出提示条', 'argon');?></option>
 							</select>
-							的方式提示
+							<?php _e('的方式提示', 'argon');?>
 							</br>
-							<textarea type="text" name="argon_outdated_info_tip_content" rows="3" cols="100" style="margin-top: 15px;"><?php echo get_option('argon_outdated_info_tip_content') == '' ? '本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。' : get_option('argon_outdated_info_tip_content'); ?></textarea>	
-							<p class="description">天数为 -1 表示永不提示。</br><code>%date_delta%</code> 表示文章发布/修改时间与当前时间的差距，<code>%post_date_delta%</code> 表示文章发布时间与当前时间的差距，<code>%modify_date_delta%</code> 表示文章修改时间与当前时间的差距（单位: 天）。</p>
+							<textarea type="text" name="argon_outdated_info_tip_content" rows="3" cols="100" style="margin-top: 15px;"><?php echo get_option('argon_outdated_info_tip_content') == '' ? __('本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。', 'argpm') : get_option('argon_outdated_info_tip_content'); ?></textarea>	
+							<p class="description"><?php _e('天数为 -1 表示永不提示。', 'argon');?></br><code>%date_delta%</code> <?php _e('表示文章发布/修改时间与当前时间的差距，', 'argon');?><code>%post_date_delta%</code> <?php _e('表示文章发布时间与当前时间的差距，', 'argon');?><code>%modify_date_delta%</code> <?php _e('表示文章修改时间与当前时间的差距（单位: 天）。', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>页脚</h2></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('页脚', 'argon');?></h2></th></tr>
 					<tr>
-						<th><label>页脚内容</label></th>
+						<th><label><?php _e('页脚内容', 'argon');?></label></th>
 						<td>
 							<textarea type="text" rows="15" cols="100" name="argon_footer_html"><?php echo htmlspecialchars(get_option('argon_footer_html')); ?></textarea>
-							<p class="description">HTML , 支持 script 等标签</p>
+							<p class="description"><?php _e('HTML , 支持 script 等标签', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>代码高亮</h2></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('代码高亮', 'argon');?></h2></th></tr>
 					<tr>
-						<th><label>启用 Highlight.js 代码高亮</label></th>
+						<th><label><?php _e('启用 Highlight.js 代码高亮', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_code_highlight">
 								<?php $argon_enable_code_highlight = get_option('argon_enable_code_highlight'); ?>
-								<option value="false" <?php if ($argon_enable_code_highlight=='false'){echo 'selected';} ?>>不启用</option>
-								<option value="true" <?php if ($argon_enable_code_highlight=='true'){echo 'selected';} ?>>启用</option>
+								<option value="false" <?php if ($argon_enable_code_highlight=='false'){echo 'selected';} ?>><?php _e('不启用', 'argon');?></option>
+								<option value="true" <?php if ($argon_enable_code_highlight=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
 							</select>
-							<p class="description">所有 pre 下的 code 标签会被自动解析</p>
+							<p class="description"><?php _e('所有 pre 下的 code 标签会被自动解析', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>高亮配色方案（主题）</label></th>
+						<th><label><?php _e('高亮配色方案（主题）', 'argon');?></label></th>
 						<td>
 							<select name="argon_code_theme">
 								<?php 
@@ -2792,16 +2826,16 @@ function themeoptions_page(){
 								}
 								?>
 							</select>
-							<p class="description"><a href="https://highlightjs.org/static/demo/" target="_blank">查看所有主题预览</a></p>
+							<p class="description"><a href="https://highlightjs.org/static/demo/" target="_blank"><?php _e('查看所有主题预览', 'argon');?></a></p>
 						</td>
 					</tr>
 					<tr>
 						<th><label style="opacity: .6;">More settings are coming soon..</label></th>
 						
 					</tr>
-					<tr><th class="subtitle"><h2>数学公式</h2></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('数学公式', 'argon');?></h2></th></tr>
 					<tr>
-						<th><label>数学公式渲染方案</label></th>
+						<th><label><?php _e('数学公式渲染方案', 'argon');?></label></th>
 						<td>
 							<table class="form-table form-table-dense form-table-mathrender">
 								<tbody>
@@ -2810,7 +2844,7 @@ function themeoptions_page(){
 										<th>
 											<label>
 												<input name="argon_math_render" type="radio" value="none" <?php if ($argon_math_render=='none'){echo 'checked';} ?>>
-												不启用
+												<?php _e('不启用', 'argon');?>
 											</label>
 										</th>
 									</tr>
@@ -2820,9 +2854,9 @@ function themeoptions_page(){
 												<input name="argon_math_render" type="radio" value="mathjax3" <?php if ($argon_math_render=='mathjax3'){echo 'checked';} ?>>
 												Mathjax 3
 												<div>
-													Mathjax 3 CDN 地址: 
+													Mathjax 3 CDN <?php _e('地址', 'argon');?>: 
 													<input type="text" class="regular-text" name="argon_mathjax_cdn_url" value="<?php echo get_option('argon_mathjax_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js' : get_option('argon_mathjax_cdn_url'); ?>"/>
-													<p class="description">Mathjax 3.0+，默认为 <code>//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js</code></p>
+													<p class="description">Mathjax 3.0+<?php _e('，默认为', 'argon');?> <code>//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js</code></p>
 												</div>
 											</label>
 										</th>
@@ -2833,9 +2867,9 @@ function themeoptions_page(){
 												<input name="argon_math_render" type="radio" value="mathjax2" <?php if ($argon_math_render=='mathjax2'){echo 'checked';} ?>>
 												Mathjax 2
 												<div>
-													Mathjax 2 CDN 地址: 
+													Mathjax 2 CDN <?php _e('地址', 'argon');?>: 
 													<input type="text" class="regular-text" name="argon_mathjax_v2_cdn_url" value="<?php echo get_option('argon_mathjax_v2_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML' : get_option('argon_mathjax_v2_cdn_url'); ?>"/>
-													<p class="description">Mathjax 2.0+，默认为 <code>//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML</code></p>
+													<p class="description">Mathjax 2.0+<?php _e('，默认为', 'argon');?> <code>//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML</code></p>
 												</div>
 											</label>
 										</th>
@@ -2846,9 +2880,9 @@ function themeoptions_page(){
 												<input name="argon_math_render" type="radio" value="katex" <?php if ($argon_math_render=='katex'){echo 'checked';} ?>>
 												Katex
 												<div>
-													Katex CDN 地址: 
+													Katex CDN <?php _e('地址', 'argon');?>: 
 													<input type="text" class="regular-text" name="argon_katex_cdn_url" value="<?php echo get_option('argon_katex_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/katex@0.11.1/dist/' : get_option('argon_katex_cdn_url'); ?>"/>
-													<p class="description">Argon 会同时引用 <code>katex.min.css</code> 和 <code>katex.min.js</code> 两个文件，所以在此填写的是上层的路径，而不是具体的文件。注意路径后要带一个斜杠。</br>默认为 <code>//cdn.jsdelivr.net/npm/katex@0.11.1/dist/</code></p>
+													<p class="description"><?php _e('Argon 会同时引用', 'argon');?> <code>katex.min.css</code> <?php _e('和', 'argon');?> <code>katex.min.js</code> <?php _e('两个文件，所以在此填写的是上层的路径，而不是具体的文件。注意路径后要带一个斜杠。', 'argon');?></br><?php _e('默认为', 'argon');?> <code>//cdn.jsdelivr.net/npm/katex@0.11.1/dist/</code></p>
 												</div>
 											</label>
 										</th>
@@ -2860,328 +2894,328 @@ function themeoptions_page(){
 					</tr>					
 					<tr><th class="subtitle"><h2>Lazyload</h2></th></tr>
 					<tr>
-						<th><label>是否启用 Lazyload</label></th>
+						<th><label><?php _e('是否启用 Lazyload', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_lazyload">
 								<?php $argon_enable_lazyload = get_option('argon_enable_lazyload'); ?>
-								<option value="true" <?php if ($argon_enable_lazyload=='true'){echo 'selected';} ?>>启用</option>
-								<option value="false" <?php if ($argon_enable_lazyload=='false'){echo 'selected';} ?>>禁用</option>
+								<option value="true" <?php if ($argon_enable_lazyload=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+								<option value="false" <?php if ($argon_enable_lazyload=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
 							</select>
-							<p class="description">是否启用 Lazyload 加载文章内图片</p>
+							<p class="description"><?php _e('是否启用 Lazyload 加载文章内图片', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>提前加载阈值</label></th>
+						<th><label><?php _e('提前加载阈值', 'argon');?></label></th>
 						<td>
 							<input type="number" name="argon_lazyload_threshold" min="0" max="2500"  value="<?php echo (get_option('argon_lazyload_threshold') == '' ? '800' : get_option('argon_lazyload_threshold')); ?>"/>
-							<p class="description">图片距离页面底部还有多少距离就开始提前加载</p>
+							<p class="description"><?php _e('图片距离页面底部还有多少距离就开始提前加载', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>LazyLoad 图片加载完成过渡</label></th>
+						<th><label><?php _e('LazyLoad 图片加载完成过渡', 'argon');?></label></th>
 						<td>
 							<select name="argon_lazyload_effect">
 								<?php $argon_lazyload_effect = get_option('argon_lazyload_effect'); ?>
 								<option value="fadeIn" <?php if ($argon_lazyload_effect=='fadeIn'){echo 'selected';} ?>>fadeIn</option>
 								<option value="slideDown" <?php if ($argon_lazyload_effect=='slideDown'){echo 'selected';} ?>>slideDown</option>
-								<option value="none" <?php if ($argon_lazyload_effect=='none'){echo 'selected';} ?>>不使用过渡</option>
+								<option value="none" <?php if ($argon_lazyload_effect=='none'){echo 'selected';} ?>><?php _e('不使用过渡', 'argon');?></option>
 							</select>
 							<p class="description"></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>LazyLoad 图片加载动效</label></th>
+						<th><label><?php _e('LazyLoad 图片加载动效', 'argon');?></label></th>
 						<td>
 							<select name="argon_lazyload_loading_style">
 								<?php $argon_lazyload_loading_style = get_option('argon_lazyload_loading_style'); ?>
-								<option value="1" <?php if ($argon_lazyload_loading_style=='1'){echo 'selected';} ?>>加载动画 1</option>
-								<option value="2" <?php if ($argon_lazyload_loading_style=='2'){echo 'selected';} ?>>加载动画 2</option>
-								<option value="3" <?php if ($argon_lazyload_loading_style=='3'){echo 'selected';} ?>>加载动画 3</option>
-								<option value="4" <?php if ($argon_lazyload_loading_style=='4'){echo 'selected';} ?>>加载动画 4</option>
-								<option value="5" <?php if ($argon_lazyload_loading_style=='5'){echo 'selected';} ?>>加载动画 5</option>
-								<option value="6" <?php if ($argon_lazyload_loading_style=='6'){echo 'selected';} ?>>加载动画 6</option>
-								<option value="7" <?php if ($argon_lazyload_loading_style=='7'){echo 'selected';} ?>>加载动画 7</option>
-								<option value="8" <?php if ($argon_lazyload_loading_style=='8'){echo 'selected';} ?>>加载动画 8</option>
-								<option value="9" <?php if ($argon_lazyload_loading_style=='9'){echo 'selected';} ?>>加载动画 9</option>
-								<option value="10" <?php if ($argon_lazyload_loading_style=='10'){echo 'selected';} ?>>加载动画 10</option>
-								<option value="11" <?php if ($argon_lazyload_loading_style=='11'){echo 'selected';} ?>>加载动画 11</option>
-								<option value="none" <?php if ($argon_lazyload_loading_style=='none'){echo 'selected';} ?>>不使用</option>
+								<option value="1" <?php if ($argon_lazyload_loading_style=='1'){echo 'selected';} ?>><?php _e('加载动画', 'argon');?> 1</option>
+								<option value="2" <?php if ($argon_lazyload_loading_style=='2'){echo 'selected';} ?>><?php _e('加载动画', 'argon');?> 2</option>
+								<option value="3" <?php if ($argon_lazyload_loading_style=='3'){echo 'selected';} ?>><?php _e('加载动画', 'argon');?> 3</option>
+								<option value="4" <?php if ($argon_lazyload_loading_style=='4'){echo 'selected';} ?>><?php _e('加载动画', 'argon');?> 4</option>
+								<option value="5" <?php if ($argon_lazyload_loading_style=='5'){echo 'selected';} ?>><?php _e('加载动画', 'argon');?> 5</option>
+								<option value="6" <?php if ($argon_lazyload_loading_style=='6'){echo 'selected';} ?>><?php _e('加载动画', 'argon');?> 6</option>
+								<option value="7" <?php if ($argon_lazyload_loading_style=='7'){echo 'selected';} ?>><?php _e('加载动画', 'argon');?> 7</option>
+								<option value="8" <?php if ($argon_lazyload_loading_style=='8'){echo 'selected';} ?>><?php _e('加载动画', 'argon');?> 8</option>
+								<option value="9" <?php if ($argon_lazyload_loading_style=='9'){echo 'selected';} ?>><?php _e('加载动画', 'argon');?> 9</option>
+								<option value="10" <?php if ($argon_lazyload_loading_style=='10'){echo 'selected';} ?>><?php _e('加载动画', 'argon');?> 10</option>
+								<option value="11" <?php if ($argon_lazyload_loading_style=='11'){echo 'selected';} ?>><?php _e('加载动画', 'argon');?> 11</option>
+								<option value="none" <?php if ($argon_lazyload_loading_style=='none'){echo 'selected';} ?>><?php _e('不使用', 'argon');?></option>
 							</select>
-							<p class="description">在图片被加载之前显示的加载效果 , <a target="_blank" href="<?php bloginfo('template_url'); ?>/assets/vendor/svg-loaders">预览所有效果</a></p>
+							<p class="description"><?php _e('在图片被加载之前显示的加载效果', 'argon');?> , <a target="_blank" href="<?php bloginfo('template_url'); ?>/assets/vendor/svg-loaders"><?php _e('预览所有效果', 'argon');?></a></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>图片放大浏览</h2></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('图片放大浏览', 'argon');?></h2></th></tr>
 					<tr>
-						<th><label>是否启用图片放大浏览 (Zoomify)</label></th>
+						<th><label><?php _e('是否启用图片放大浏览 (Zoomify)', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_zoomify">
 								<?php $argon_enable_zoomify = get_option('argon_enable_zoomify'); ?>
-								<option value="true" <?php if ($argon_enable_zoomify=='true'){echo 'selected';} ?>>启用</option>
-								<option value="false" <?php if ($argon_enable_zoomify=='false'){echo 'selected';} ?>>禁用</option>
+								<option value="true" <?php if ($argon_enable_zoomify=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+								<option value="false" <?php if ($argon_enable_zoomify=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
 							</select>
-							<p class="description">开启后，文章中图片被单击时会放大预览</p>
+							<p class="description"><?php _e('开启后，文章中图片被单击时会放大预览', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>缩放动画长度</label></th>
+						<th><label><?php _e('缩放动画长度', 'argon');?></label></th>
 						<td>
 							<input type="number" name="argon_zoomify_duration" min="0" max="10000" value="<?php echo (get_option('argon_zoomify_duration') == '' ? '200' : get_option('argon_zoomify_duration')); ?>"/>	ms
-							<p class="description">图片被单击后缩放到全屏动画的时间长度</p>
+							<p class="description"><?php _e('图片被单击后缩放到全屏动画的时间长度', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>缩放动画曲线</label></th>
+						<th><label><?php _e('缩放动画曲线', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_zoomify_easing" value="<?php echo (get_option('argon_zoomify_easing') == '' ? 'cubic-bezier(0.4,0,0,1)' : get_option('argon_zoomify_easing')); ?>"/>
 							<p class="description">
-								例： <code>ease</code> , <code>ease-in-out</code> , <code>ease-out</code> , <code>linear</code> , <code>cubic-bezier(0.4,0,0,1)</code></br>如果你不知道这是什么，参考<a href="https://www.w3school.com.cn/cssref/pr_animation-timing-function.asp" target="_blank">这里</a>
+								<?php _e('例：', 'argon');?> <code>ease</code> , <code>ease-in-out</code> , <code>ease-out</code> , <code>linear</code> , <code>cubic-bezier(0.4,0,0,1)</code></br><?php _e('如果你不知道这是什么，参考', 'argon');?><a href="https://www.w3school.com.cn/cssref/pr_animation-timing-function.asp" target="_blank"><?php _e('这里', 'argon');?></a>
 							</p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>图片最大缩放比例</label></th>
+						<th><label><?php _e('图片最大缩放比例', 'argon');?></label></th>
 						<td>
 							<input type="number" name="argon_zoomify_scale" min="0.01" max="1" step="0.01" value="<?php echo (get_option('argon_zoomify_scale') == '' ? '0.9' : get_option('argon_zoomify_scale')); ?>"/>
-							<p class="description">图片相对于页面的最大缩放比例 (0 ~ 1 的小数)</p>
+							<p class="description"><?php _e('图片相对于页面的最大缩放比例 (0 ~ 1 的小数)', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2>Pangu.js</h2></th></tr>
 					<tr>
-						<th><label>启用 Pangu.js (自动在中英文之间添加空格)</label></th>
+						<th><label><?php _e('启用 Pangu.js (自动在中英文之间添加空格)', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_pangu">
 								<?php $argon_enable_pangu = get_option('argon_enable_pangu'); ?>
-								<option value="false" <?php if ($argon_enable_pangu=='false'){echo 'selected';} ?>>禁用</option>
-								<option value="article" <?php if ($argon_enable_pangu=='article'){echo 'selected';} ?>>格式化文章内容</option>
-								<option value="shuoshuo" <?php if ($argon_enable_pangu=='shuoshuo'){echo 'selected';} ?>>格式化说说</option>
-								<option value="comment" <?php if ($argon_enable_pangu=='comment'){echo 'selected';} ?>>格式化评论区</option>
-								<option value="article|comment" <?php if ($argon_enable_pangu=='article|comment'){echo 'selected';} ?>>格式化文章内容和评论区</option>
-								<option value="article|shuoshuo" <?php if ($argon_enable_pangu=='article|shuoshuo'){echo 'selected';} ?>>格式化文章内容和说说</option>
-								<option value="shuoshuo|comment" <?php if ($argon_enable_pangu=='shuoshuo|comment'){echo 'selected';} ?>>格式化说说和评论区</option>
-								<option value="article|shuoshuo|comment" <?php if ($argon_enable_pangu=='article|shuoshuo|comment'){echo 'selected';} ?>>格式化文章内容、说说和评论区</option>
+								<option value="false" <?php if ($argon_enable_pangu=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+								<option value="article" <?php if ($argon_enable_pangu=='article'){echo 'selected';} ?>><?php _e('格式化文章内容', 'argon');?></option>
+								<option value="shuoshuo" <?php if ($argon_enable_pangu=='shuoshuo'){echo 'selected';} ?>><?php _e('格式化说说', 'argon');?></option>
+								<option value="comment" <?php if ($argon_enable_pangu=='comment'){echo 'selected';} ?>><?php _e('格式化评论区', 'argon');?></option>
+								<option value="article|comment" <?php if ($argon_enable_pangu=='article|comment'){echo 'selected';} ?>><?php _e('格式化文章内容和评论区', 'argon');?></option>
+								<option value="article|shuoshuo" <?php if ($argon_enable_pangu=='article|shuoshuo'){echo 'selected';} ?>><?php _e('格式化文章内容和说说', 'argon');?></option>
+								<option value="shuoshuo|comment" <?php if ($argon_enable_pangu=='shuoshuo|comment'){echo 'selected';} ?>><?php _e('格式化说说和评论区', 'argon');?></option>
+								<option value="article|shuoshuo|comment" <?php if ($argon_enable_pangu=='article|shuoshuo|comment'){echo 'selected';} ?>><?php _e('格式化文章内容、说说和评论区', 'argon');?></option>
 							</select>
-							<p class="description">开启后，会自动在中文和英文之间添加空格</p>
+							<p class="description"><?php _e('开启后，会自动在中文和英文之间添加空格', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>脚本</h2></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('脚本', 'argon');?></h2></th></tr>
 					<tr>
-						<th><label><strong style="color:#ff0000;">注意</strong></label></th>
+						<th><label><strong style="color:#ff0000;"><?php _e('注意', 'argon');?></strong></label></th>
 						<td>
-							<p class="description"><strong style="color:#ff0000;">Argon 使用 pjax 方式加载页面 (无刷新加载) , 所以您的脚本除非页面手动刷新，否则只会被执行一次。</br>
-							如果您想让每次页面跳转(加载新页面)时都执行脚本，请将脚本写入 <code>window.pjaxLoaded</code> 中</strong> ，示例写法:
+							<p class="description"><strong style="color:#ff0000;"><?php _e('Argon 使用 pjax 方式加载页面 (无刷新加载) , 所以除非页面手动刷新，否则您的脚本只会被执行一次。', 'argon');?></br>
+							<?php _e('如果您想让每次页面跳转(加载新页面)时都执行脚本，请将脚本写入', 'argon');?> <code>window.pjaxLoaded</code> <?php _e('中', 'argon');?></strong> ，<?php _e('示例写法', 'argon');?>:
 							<pre>
 window.pjaxLoaded = function(){
-	//页面每次跳转都会执行这里的代码
+	//<?php _e('页面每次跳转都会执行这里的代码', 'argon');?>
 	//do something...
 }
 							</pre>
-							<strong style="color:#ff0000;">当页面第一次载入时，<code>window.pjaxLoaded</code> 中的脚本不会执行，所以您可以手动执行 <code>window.pjaxLoaded();</code> 来让页面初次加载时也执行脚本</strong></p>
+							<strong style="color:#ff0000;"><?php _e('当页面第一次载入时，', 'argon');?><code>window.pjaxLoaded</code> <?php _e('中的脚本不会执行，所以您可以手动执行', 'argon');?> <code>window.pjaxLoaded();</code> <?php _e('来让页面初次加载时也执行脚本', 'argon');?></strong></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>页头脚本</label></th>
+						<th><label><?php _e('页头脚本', 'argon');?></label></th>
 						<td>
 							<textarea type="text" rows="15" cols="100" name="argon_custom_html_head"><?php echo htmlspecialchars(get_option('argon_custom_html_head')); ?></textarea>
-							<p class="description">HTML , 支持 script 等标签</br>插入到 body 之前</p>
+							<p class="description"><?php _e('HTML , 支持 script 等标签', 'argon');?></br><?php _e('插入到 body 之前', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>页尾脚本</label></th>
+						<th><label><?php _e('页尾脚本', 'argon');?></label></th>
 						<td>
 							<textarea type="text" rows="15" cols="100" name="argon_custom_html_foot"><?php echo htmlspecialchars(get_option('argon_custom_html_foot')); ?></textarea>
-							<p class="description">HTML , 支持 script 等标签</br>插入到 body 之后</p>
+							<p class="description"><?php _e('HTML , 支持 script 等标签', 'argon');?></br><?php _e('插入到 body 之后', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>动画</h2></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('动画', 'argon');?></h2></th></tr>
 					<tr>
-						<th><label>是否启用平滑滚动</label></th>
+						<th><label><?php _e('是否启用平滑滚动', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_smoothscroll_type">
 								<?php $enable_smoothscroll_type = get_option('argon_enable_smoothscroll_type'); ?>
-								<option value="1" <?php if ($enable_smoothscroll_type=='1'){echo 'selected';} ?>>使用平滑滚动方案 1 (平滑) (推荐)</option>
-								<option value="1_pulse" <?php if ($enable_smoothscroll_type=='1_pulse'){echo 'selected';} ?>>使用平滑滚动方案 1 (脉冲式滚动) (仿 Edge) (推荐)</option>
-								<option value="2" <?php if ($enable_smoothscroll_type=='2'){echo 'selected';} ?>>使用平滑滚动方案 2 (较稳)</option>
-								<option value="3" <?php if ($enable_smoothscroll_type=='3'){echo 'selected';} ?>>使用平滑滚动方案 3</option>
-								<option value="disabled" <?php if ($enable_smoothscroll_type=='disabled'){echo 'selected';} ?>>不使用平滑滚动</option>
+								<option value="1" <?php if ($enable_smoothscroll_type=='1'){echo 'selected';} ?>><?php _e('使用平滑滚动方案 1 (平滑) (推荐)', 'argon');?></option>
+								<option value="1_pulse" <?php if ($enable_smoothscroll_type=='1_pulse'){echo 'selected';} ?>><?php _e('使用平滑滚动方案 1 (脉冲式滚动) (仿 Edge) (推荐)', 'argon');?></option>
+								<option value="2" <?php if ($enable_smoothscroll_type=='2'){echo 'selected';} ?>><?php _e('使用平滑滚动方案 2 (较稳)', 'argon');?></option>
+								<option value="3" <?php if ($enable_smoothscroll_type=='3'){echo 'selected';} ?>><?php _e('使用平滑滚动方案 3', 'argon');?></option>
+								<option value="disabled" <?php if ($enable_smoothscroll_type=='disabled'){echo 'selected';} ?>><?php _e('不使用平滑滚动', 'argon');?></option>
 							</select>
-							<p class="description">能增强浏览体验，但可能出现一些小问题，如果有问题请切换方案或关闭平滑滚动</p>
+							<p class="description"><?php _e('能增强浏览体验，但可能出现一些小问题，如果有问题请切换方案或关闭平滑滚动', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>是否启用进入文章动画</label></th>
+						<th><label><?php _e('是否启用进入文章动画', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_into_article_animation">
 								<?php $argon_enable_into_article_animation = get_option('argon_enable_into_article_animation'); ?>
-								<option value="false" <?php if ($argon_enable_into_article_animation=='false'){echo 'selected';} ?>>不启用</option>
-								<option value="true" <?php if ($argon_enable_into_article_animation=='true'){echo 'selected';} ?>>启用</option>	
+								<option value="false" <?php if ($argon_enable_into_article_animation=='false'){echo 'selected';} ?>><?php _e('不启用', 'argon');?></option>
+								<option value="true" <?php if ($argon_enable_into_article_animation=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>	
 							</select>
-							<p class="description">从首页或分类目录进入文章时，使用平滑过渡（可能影响加载文章时的性能）</p>
+							<p class="description"><?php _e('从首页或分类目录进入文章时，使用平滑过渡（可能影响加载文章时的性能）', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>评论</h2></th></tr>
-					<tr><th class="subtitle"><h3>评论分页</h3></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('评论', 'argon');?></h2></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('评论分页', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>评论分页方式</label></th>
+						<th><label><?php _e('评论分页方式', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_pagination_type">
 								<?php $argon_comment_pagination_type = get_option('argon_comment_pagination_type'); ?>
-								<option value="feed" <?php if ($argon_comment_pagination_type=='feed'){echo 'selected';} ?>>无限加载</option>
-								<option value="page" <?php if ($argon_comment_pagination_type=='page'){echo 'selected';} ?>>页码</option>	
+								<option value="feed" <?php if ($argon_comment_pagination_type=='feed'){echo 'selected';} ?>><?php _e('无限加载', 'argon');?></option>
+								<option value="page" <?php if ($argon_comment_pagination_type=='page'){echo 'selected';} ?>><?php _e('页码', 'argon');?></option>	
 							</select>
-							<p class="description">无限加载：点击 "加载更多" 按钮来加载更多评论。</br>页码：显示页码来分页。</br>推荐选择"无限加载"时将 Wordpress 设置中的讨论设置项设为 "默认显示最后一页，在每个页面顶部显示新的评论"。</p>
+							<p class="description"><?php _e('无限加载：点击 "加载更多" 按钮来加载更多评论。', 'argon');?></br><?php _e('页码：显示页码来分页。', 'argon');?></br><?php _e('推荐选择"无限加载"时将 Wordpress 设置中的讨论设置项设为 "默认显示最后一页，在每个页面顶部显示新的评论"。', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>发送评论</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('发送评论', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>是否隐藏 "昵称"、"邮箱"、"网站" 输入框</label></th>
+						<th><label><?php _e('是否隐藏 "昵称"、"邮箱"、"网站" 输入框', 'argon');?></label></th>
 						<td>
 							<select name="argon_hide_name_email_site_input">
 								<?php $argon_hide_name_email_site_input = get_option('argon_hide_name_email_site_input'); ?>
-								<option value="false" <?php if ($argon_hide_name_email_site_input=='false'){echo 'selected';} ?>>不隐藏</option>
-								<option value="true" <?php if ($argon_hide_name_email_site_input=='true'){echo 'selected';} ?>>隐藏</option>	
+								<option value="false" <?php if ($argon_hide_name_email_site_input=='false'){echo 'selected';} ?>><?php _e('不隐藏', 'argon');?></option>
+								<option value="true" <?php if ($argon_hide_name_email_site_input=='true'){echo 'selected';} ?>><?php _e('隐藏', 'argon');?></option>	
 							</select>
-							<p class="description">该选项仅在 "设置-评论-评论作者必须填入姓名和电子邮件地址" 选项未勾选的前提下生效。如勾选了 "评论作者必须填入姓名和电子邮件地址"，则只有 "网站" 输入框会被隐藏。</p>
+							<p class="description"><?php _e('选项仅在 "设置-评论-评论作者必须填入姓名和电子邮件地址" 选项未勾选的前提下生效。如勾选了 "评论作者必须填入姓名和电子邮件地址"，则只有 "网站" 输入框会被隐藏。', 'argon');?>该</p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>评论是否需要验证码</label></th>
+						<th><label><?php _e('评论是否需要验证码', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_need_captcha">
 								<?php $argon_comment_need_captcha = get_option('argon_comment_need_captcha'); ?>
-								<option value="true" <?php if ($argon_comment_need_captcha=='true'){echo 'selected';} ?>>需要</option>	
-								<option value="false" <?php if ($argon_comment_need_captcha=='false'){echo 'selected';} ?>>不需要</option>
+								<option value="true" <?php if ($argon_comment_need_captcha=='true'){echo 'selected';} ?>><?php _e('需要', 'argon');?></option>	
+								<option value="false" <?php if ($argon_comment_need_captcha=='false'){echo 'selected';} ?>><?php _e('不需要', 'argon');?></option>
 							</select>
 							<p class="description"></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>是否允许在评论中使用 Markdown 语法</label></th>
+						<th><label><?php _e('是否允许在评论中使用 Markdown 语法', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_allow_markdown">
 								<?php $argon_comment_allow_markdown = get_option('argon_comment_allow_markdown'); ?>
-								<option value="true" <?php if ($argon_comment_allow_markdown=='true'){echo 'selected';} ?>>允许</option>	
-								<option value="false" <?php if ($argon_comment_allow_markdown=='false'){echo 'selected';} ?>>不允许</option>
+								<option value="true" <?php if ($argon_comment_allow_markdown=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>	
+								<option value="false" <?php if ($argon_comment_allow_markdown=='false'){echo 'selected';} ?>><?php _e('不允许', 'argon');?></option>
 							</select>
 							<p class="description"></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>是否允许评论者再次编辑评论</label></th>
+						<th><label><?php _e('是否允许评论者再次编辑评论', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_allow_editing">
 								<?php $argon_comment_allow_editing = get_option('argon_comment_allow_editing'); ?>
-								<option value="true" <?php if ($argon_comment_allow_editing=='true'){echo 'selected';} ?>>允许</option>	
-								<option value="false" <?php if ($argon_comment_allow_editing=='false'){echo 'selected';} ?>>不允许</option>
+								<option value="true" <?php if ($argon_comment_allow_editing=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>	
+								<option value="false" <?php if ($argon_comment_allow_editing=='false'){echo 'selected';} ?>><?php _e('不允许', 'argon');?></option>
 							</select>
-							<p class="description">同一个评论者可以再次编辑评论。</p>
+							<p class="description"><?php _e('同一个评论者可以再次编辑评论。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>是否允许评论者使用悄悄话模式</label></th>
+						<th><label><?php _e('是否允许评论者使用悄悄话模式', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_allow_privatemode">
 								<?php $argon_comment_allow_privatemode = get_option('argon_comment_allow_privatemode'); ?>
-								<option value="false" <?php if ($argon_comment_allow_privatemode=='false'){echo 'selected';} ?>>不允许</option>
-								<option value="true" <?php if ($argon_comment_allow_privatemode=='true'){echo 'selected';} ?>>允许</option>	
+								<option value="false" <?php if ($argon_comment_allow_privatemode=='false'){echo 'selected';} ?>><?php _e('不允许', 'argon');?></option>
+								<option value="true" <?php if ($argon_comment_allow_privatemode=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>	
 							</select>
-							<p class="description">评论者使用悄悄话模式发送的评论和其下的所有回复只有发送者和博主能看到。</p>
+							<p class="description"><?php _e('评论者使用悄悄话模式发送的评论和其下的所有回复只有发送者和博主能看到。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>是否允许评论者接收评论回复邮件提醒</label></th>
+						<th><label><?php _e('是否允许评论者接收评论回复邮件提醒', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_allow_mailnotice">
 								<?php $argon_comment_allow_mailnotice = get_option('argon_comment_allow_mailnotice'); ?>
-								<option value="false" <?php if ($argon_comment_allow_mailnotice=='false'){echo 'selected';} ?>>不允许</option>
-								<option value="true" <?php if ($argon_comment_allow_mailnotice=='true'){echo 'selected';} ?>>允许</option>	
+								<option value="false" <?php if ($argon_comment_allow_mailnotice=='false'){echo 'selected';} ?>><?php _e('不允许', 'argon');?></option>
+								<option value="true" <?php if ($argon_comment_allow_mailnotice=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>	
 							</select>
 							<div style="margin-top: 15px;margin-bottom: 15px;">
 								<label>
 									<?php $argon_comment_mailnotice_checkbox_checked = get_option('argon_comment_mailnotice_checkbox_checked');?>
-									<input type="checkbox" name="argon_comment_mailnotice_checkbox_checked" value="true" <?php if ($argon_comment_mailnotice_checkbox_checked=='true'){echo 'checked';}?>/>	评论时默认勾选 "启用邮件通知" 复选框
+									<input type="checkbox" name="argon_comment_mailnotice_checkbox_checked" value="true" <?php if ($argon_comment_mailnotice_checkbox_checked=='true'){echo 'checked';}?>/>	<?php _e('评论时默认勾选 "启用邮件通知" 复选框', 'argon');?>
 								</label>
 							</div>
-							<p class="description">评论者开启邮件提醒后，其评论有回复时会有邮件通知。</p>
+							<p class="description"><?php _e('评论者开启邮件提醒后，其评论有回复时会有邮件通知。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>允许评论者使用 QQ 头像</label></th>
+						<th><label><?php _e('允许评论者使用 QQ 头像', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_enable_qq_avatar">
 								<?php $argon_comment_enable_qq_avatar = get_option('argon_comment_enable_qq_avatar'); ?>
-								<option value="false" <?php if ($argon_comment_enable_qq_avatar=='false'){echo 'selected';} ?>>不允许</option>
-								<option value="true" <?php if ($argon_comment_enable_qq_avatar=='true'){echo 'selected';} ?>>允许</option>	
+								<option value="false" <?php if ($argon_comment_enable_qq_avatar=='false'){echo 'selected';} ?>><?php _e('不允许', 'argon');?></option>
+								<option value="true" <?php if ($argon_comment_enable_qq_avatar=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>	
 							</select>
-							<p class="description">开启后，评论者可以使用 QQ 号代替邮箱输入，头像会根据评论者的 QQ 号获取。</p>
+							<p class="description"><?php _e('开启后，评论者可以使用 QQ 号代替邮箱输入，头像会根据评论者的 QQ 号获取。', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h3>评论区</h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('评论区', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label>评论头像垂直位置</label></th>
+						<th><label><?php _e('评论头像垂直位置', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_avatar_vcenter">
 								<?php $argon_comment_avatar_vcenter = get_option('argon_comment_avatar_vcenter'); ?>
-								<option value="false" <?php if ($argon_comment_avatar_vcenter=='false'){echo 'selected';} ?>>居上</option>
-								<option value="true" <?php if ($argon_comment_avatar_vcenter=='true'){echo 'selected';} ?>>居中</option>	
+								<option value="false" <?php if ($argon_comment_avatar_vcenter=='false'){echo 'selected';} ?>><?php _e('居上', 'argon');?></option>
+								<option value="true" <?php if ($argon_comment_avatar_vcenter=='true'){echo 'selected';} ?>><?php _e('居中', 'argon');?></option>	
 							</select>
 							<p class="description"></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>谁可以查看评论编辑记录</label></th>
+						<th><label><?php _e('谁可以查看评论编辑记录', 'argon');?></label></th>
 						<td>
 							<select name="argon_who_can_visit_comment_edit_history">
 								<?php $argon_who_can_visit_comment_edit_history = get_option('argon_who_can_visit_comment_edit_history'); ?>
-								<option value="admin" <?php if ($argon_who_can_visit_comment_edit_history=='admin'){echo 'selected';} ?>>只有博主</option>
-								<option value="commentsender" <?php if ($argon_who_can_visit_comment_edit_history=='commentsender'){echo 'selected';} ?>>评论发送者和博主</option>
-								<option value="everyone" <?php if ($argon_who_can_visit_comment_edit_history=='everyone'){echo 'selected';} ?>>任何人</option>
+								<option value="admin" <?php if ($argon_who_can_visit_comment_edit_history=='admin'){echo 'selected';} ?>><?php _e('只有博主', 'argon');?></option>
+								<option value="commentsender" <?php if ($argon_who_can_visit_comment_edit_history=='commentsender'){echo 'selected';} ?>><?php _e('评论发送者和博主', 'argon');?></option>
+								<option value="everyone" <?php if ($argon_who_can_visit_comment_edit_history=='everyone'){echo 'selected';} ?>><?php _e('任何人', 'argon');?></option>
 							</select>
-							<p class="description">点击评论右侧的 "已编辑" 标记来查看编辑记录</p>
+							<p class="description"><?php _e('点击评论右侧的 "已编辑" 标记来查看编辑记录', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>评论者 UA 显示</label></th>
+						<th><label><?php _e('评论者 UA 显示', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_ua">
 								<?php $argon_comment_ua = get_option('argon_comment_ua'); ?>
-								<option value="hidden" <?php if ($argon_comment_ua=='hidden'){echo 'selected';} ?>>不显示</option>
-								<option value="browser" <?php if ($argon_comment_ua=='browser'){echo 'selected';} ?>>浏览器</option>
-								<option value="browser,version" <?php if ($argon_comment_ua=='browser,version'){echo 'selected';} ?>>浏览器+版本号</option>
-								<option value="platform,browser,version" <?php if ($argon_comment_ua=='platform,browser,version'){echo 'selected';} ?>>平台+浏览器+版本号</option>
-								<option value="platform,browser" <?php if ($argon_comment_ua=='platform,browser'){echo 'selected';} ?>>平台+浏览器</option>
-								<option value="platform" <?php if ($argon_comment_ua=='platform'){echo 'selected';} ?>>平台</option>
+								<option value="hidden" <?php if ($argon_comment_ua=='hidden'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
+								<option value="browser" <?php if ($argon_comment_ua=='browser'){echo 'selected';} ?>><?php _e('浏览器', 'argon');?></option>
+								<option value="browser,version" <?php if ($argon_comment_ua=='browser,version'){echo 'selected';} ?>><?php _e('浏览器+版本号', 'argon');?></option>
+								<option value="platform,browser,version" <?php if ($argon_comment_ua=='platform,browser,version'){echo 'selected';} ?>><?php _e('平台+浏览器+版本号', 'argon');?></option>
+								<option value="platform,browser" <?php if ($argon_comment_ua=='platform,browser'){echo 'selected';} ?>><?php _e('平台+浏览器', 'argon');?></option>
+								<option value="platform" <?php if ($argon_comment_ua=='platform'){echo 'selected';} ?>><?php _e('平台', 'argon');?></option>
 							</select>
-							<p class="description">设置是否在评论区显示评论者 UA 及显示哪些部分</p>
+							<p class="description"><?php _e('设置是否在评论区显示评论者 UA 及显示哪些部分', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>折叠过长评论</label></th>
+						<th><label><?php _e('折叠过长评论', 'argon');?></label></th>
 						<td>
 							<select name="argon_fold_long_comments">
 								<?php $argon_fold_long_comments = get_option('argon_fold_long_comments'); ?>
-								<option value="false" <?php if ($argon_fold_long_comments=='false'){echo 'selected';} ?>>不折叠</option>
-								<option value="true" <?php if ($argon_fold_long_comments=='true'){echo 'selected';} ?>>折叠</option>	
+								<option value="false" <?php if ($argon_fold_long_comments=='false'){echo 'selected';} ?>><?php _e('不折叠', 'argon');?></option>
+								<option value="true" <?php if ($argon_fold_long_comments=='true'){echo 'selected';} ?>><?php _e('折叠', 'argon');?></option>	
 							</select>
-							<p class="description">开启后，过长的评论会被折叠，需要手动展开</p>
+							<p class="description"><?php _e('开启后，过长的评论会被折叠，需要手动展开', 'argon');?></p>
 						</td>
 					</tr>
-					<tr><th class="subtitle"><h2>杂项</h2></th></tr>
+					<tr><th class="subtitle"><h2><?php _e('杂项', 'argon');?></h2></th></tr>
 					<tr>
-						<th><label>是否启用 Pjax</label></th>
+						<th><label><?php _e('是否启用 Pjax', 'argon');?></label></th>
 						<td>
 							<select name="argon_pjax_disabled">
 								<?php $argon_pjax_disabled = get_option('argon_pjax_disabled'); ?>
-								<option value="false" <?php if ($argon_pjax_disabled=='false'){echo 'selected';} ?>>启用</option>
-								<option value="true" <?php if ($argon_pjax_disabled=='true'){echo 'selected';} ?>>不启用</option>
+								<option value="false" <?php if ($argon_pjax_disabled=='false'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+								<option value="true" <?php if ($argon_pjax_disabled=='true'){echo 'selected';} ?>><?php _e('不启用', 'argon');?></option>
 							</select>
-							<p class="description">Pjax 可以增强页面的跳转体验</p>
+							<p class="description"><?php _e('Pjax 可以增强页面的跳转体验', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>首页隐藏特定 分类/Tag 下的文章</label></th>
+						<th><label><?php _e('首页隐藏特定 分类/Tag 下的文章', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_hide_categories" value="<?php echo get_option('argon_hide_categories'); ?>"/>
-							<p class="description">输入要隐藏的 分类/Tag 的 ID，用英文逗号分隔，留空则不隐藏</br><a onclick="$('#id_of_categories_and_tags').slideDown(500);" style="cursor: pointer;">点此查看</a>所有分类和 Tag 的 ID
+							<p class="description"><?php _e('输入要隐藏的 分类/Tag 的 ID，用英文逗号分隔，留空则不隐藏', 'argon');?></br><a onclick="$('#id_of_categories_and_tags').slideDown(500);" style="cursor: pointer;"><?php _e('点此查看', 'argon');?></a><?php _e('所有分类和 Tag 的 ID', 'argon');?>
 								<?php
 									echo "<div id='id_of_categories_and_tags' style='display: none;'><div style='font-size: 22px;margin-bottom: 10px;margin-top: 10px;'>分类</div>";
 									$categories = get_categories(array(
@@ -3217,73 +3251,73 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
-						<th><label>美化登录界面</label></th>
+						<th><label><?php _e('美化登录界面', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_login_css">
 								<?php $argon_enable_login_css = get_option('argon_enable_login_css'); ?>
-								<option value="false" <?php if ($argon_enable_login_css=='false'){echo 'selected';} ?>>不启用</option>
-								<option value="true" <?php if ($argon_enable_login_css=='true'){echo 'selected';} ?>>启用</option>
+								<option value="false" <?php if ($argon_enable_login_css=='false'){echo 'selected';} ?>><?php _e('不启用', 'argon');?></option>
+								<option value="true" <?php if ($argon_enable_login_css=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
 							</select>
-							<p class="description">使用 Argon Design 风格的登录界面</p>
+							<p class="description"><?php _e('使用 Argon Design 风格的登录界面', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>博客首页是否显示说说</label></th>
+						<th><label><?php _e('博客首页是否显示说说', 'argon');?></label></th>
 						<td>
 							<select name="argon_home_show_shuoshuo">
 								<?php $argon_home_show_shuoshuo = get_option('argon_home_show_shuoshuo'); ?>
-								<option value="false" <?php if ($argon_home_show_shuoshuo=='false'){echo 'selected';} ?>>不显示</option>
-								<option value="true" <?php if ($argon_home_show_shuoshuo=='true'){echo 'selected';} ?>>显示</option>
+								<option value="false" <?php if ($argon_home_show_shuoshuo=='false'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
+								<option value="true" <?php if ($argon_home_show_shuoshuo=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>
 							</select>
-							<p class="description">开启后，博客首页文章和说说穿插显示</p>
+							<p class="description"><?php _e('开启后，博客首页文章和说说穿插显示', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>是否使用 v2ex CDN 代理的 gravatar</label></th>
+						<th><label><?php _e('是否使用 v2ex CDN 代理的 gravatar', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_v2ex_gravatar">
 								<?php $enable_v2ex_gravatar = get_option('argon_enable_v2ex_gravatar'); ?>
-								<option value="false" <?php if ($enable_v2ex_gravatar=='false'){echo 'selected';} ?>>不使用</option>
-								<option value="true" <?php if ($enable_v2ex_gravatar=='true'){echo 'selected';} ?>>使用</option>
+								<option value="false" <?php if ($enable_v2ex_gravatar=='false'){echo 'selected';} ?>><?php _e('不使用', 'argon');?></option>
+								<option value="true" <?php if ($enable_v2ex_gravatar=='true'){echo 'selected';} ?>><?php _e('使用', 'argon');?></option>
 							</select>
-							<p class="description">建议使用，可以大幅增加国内 gravatar 头像加载的速度</p>
+							<p class="description"><?php _e('可以大幅增加国内 gravatar 头像加载的速度', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>是否修正时区错误</label></th>
+						<th><label><?php _e('是否修正时区错误', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_timezone_fix">
 								<?php $argon_enable_timezone_fix = get_option('argon_enable_timezone_fix'); ?>
-								<option value="false" <?php if ($argon_enable_timezone_fix=='false'){echo 'selected';} ?>>关闭</option>
-								<option value="true" <?php if ($argon_enable_timezone_fix=='true'){echo 'selected';} ?>>开启</option>
+								<option value="false" <?php if ($argon_enable_timezone_fix=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
+								<option value="true" <?php if ($argon_enable_timezone_fix=='true'){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
 							</select>
-							<p class="description">如遇到时区错误（例如一条刚发的评论显示 8 小时前），这个选项<strong>可能</strong>可以修复这个问题</p>
+							<p class="description"><?php _e('如遇到时区错误（例如一条刚发的评论显示 8 小时前），这个选项', 'argon');?><strong><?php _e('可能', 'argon');?></strong><?php _e('可以修复这个问题', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>是否在文章列表内容预览中隐藏短代码</label></th>
+						<th><label><?php _e('是否在文章列表内容预览中隐藏短代码', 'argon');?></label></th>
 						<td>
 							<select name="argon_hide_shortcode_in_preview">
 								<?php $argon_hide_shortcode_in_preview = get_option('argon_hide_shortcode_in_preview'); ?>
-								<option value="false" <?php if ($argon_hide_shortcode_in_preview=='false'){echo 'selected';} ?>>否</option>
-								<option value="true" <?php if ($argon_hide_shortcode_in_preview=='true'){echo 'selected';} ?>>是</option>
+								<option value="false" <?php if ($argon_hide_shortcode_in_preview=='false'){echo 'selected';} ?>><?php _e('否', 'argon');?></option>
+								<option value="true" <?php if ($argon_hide_shortcode_in_preview=='true'){echo 'selected';} ?>><?php _e('是', 'argon');?></option>
 							</select>
 							<p class="description"></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>是否允许移动端缩放页面</label></th>
+						<th><label><?php _e('是否允许移动端缩放页面', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_mobile_scale">
 								<?php $argon_enable_mobile_scale = get_option('argon_enable_mobile_scale'); ?>
-								<option value="false" <?php if ($argon_enable_mobile_scale=='false'){echo 'selected';} ?>>否</option>
-								<option value="true" <?php if ($argon_enable_mobile_scale=='true'){echo 'selected';} ?>>是</option>	
+								<option value="false" <?php if ($argon_enable_mobile_scale=='false'){echo 'selected';} ?>><?php _e('否', 'argon');?></option>
+								<option value="true" <?php if ($argon_enable_mobile_scale=='true'){echo 'selected';} ?>><?php _e('是', 'argon');?></option>	
 							</select>
 							<p class="description"></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>检测更新源</label></th>
+						<th><label><?php _e('检测更新源', 'argon');?></label></th>
 						<td>
 							<select name="argon_update_source">
 								<?php $argon_update_source = get_option('argon_update_source'); ?>
@@ -3291,13 +3325,13 @@ window.pjaxLoaded = function(){
 								<option value="jsdelivr" <?php if ($argon_update_source=='jsdelivr'){echo 'selected';} ?>>jsdelivr</option>
 								<option value="fastgit" <?php if ($argon_update_source=='fastgit'){echo 'selected';} ?>>fastgit</option>
 								<option value="solstice23top" <?php if ($argon_update_source=='solstice23top' || $argon_update_source=='abc233site'){echo 'selected';} ?>>solstice23.top</option>
-								<option value="stop" <?php if ($argon_update_source=='stop'){echo 'selected';} ?>>暂停更新 (不推荐)</option>
+								<option value="stop" <?php if ($argon_update_source=='stop'){echo 'selected';} ?>><?php _e('暂停更新 (不推荐)', 'argon');?></option>
 							</select>
-							<p class="description">如更新主题速度较慢，可考虑更换更新源。</p>
+							<p class="description"><?php _e('如更新主题速度较慢，可考虑更换更新源。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
-						<th><label>页脚附加内容</label></th>
+						<th><label><?php _e('页脚附加内容', 'argon');?></label></th>
 						<td>
 							<select name="argon_hide_footer_author">
 								<?php $argon_hide_footer_author = get_option('argon_hide_footer_author'); ?>
@@ -3646,6 +3680,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_assets_path');
 		argon_update_option('argon_comment_ua');
 		argon_update_option('argon_wp_path');
+		argon_update_option('argon_dateformat');
 		argon_update_option('argon_font');
 		argon_update_option('argon_card_shadow');
 		argon_update_option('argon_enable_code_highlight');

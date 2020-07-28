@@ -27,6 +27,76 @@ function getCookie(cname) {
 	return "";
 }
 
+/*多语言支持*/
+var translation = {};
+translation['en_US'] = {
+	'确定': 'OK',
+	'清除': 'Clear',
+	'恢复博客默认': 'Set To Default',
+	"评论内容不能为空": "Comment content cannot be empty",
+	"昵称不能为空": "Name cannot be empty",
+	"邮箱或 QQ 号格式错误": "Incorrect email or QQ format",
+	"邮箱格式错误": "Incorrect email format",
+	"网站格式错误 (不是 http(s):// 开头)": "Website URL format error",
+	"验证码未输入": "CAPTCHA cannot be empty",
+	"验证码格式错误": "Incorrect CAPTCHA format",
+	"评论格式错误": "Comment format error",
+	"发送中": "Sending",
+	"正在发送": "Sending",
+	"评论正在发送中...": "Comment is sending...",
+	"发送": "Send",
+	"评论发送失败": "Comment failed",
+	"发送成功": "Success",
+	"您的评论已发送": "Your comment has been sent",
+	"评论": "Comments",
+	"未知原因": "Unknown Error",
+	"评论内容不能为空": "Comment content cannot be empty",
+	"编辑中": "Editing",
+	"正在编辑": "Editing",
+	"评论正在编辑中...": "Comment is editing",
+	"编辑": "Edit",
+	"评论编辑失败": "Comment editing failed",
+	"已编辑": "Edited",
+	"编辑成功": "Success",
+	"您的评论已编辑": "Your comment has been edited",
+	"评论 #": "Comment #",
+	"的编辑记录": "- Edit History",
+	"加载失败": "Failed to load",
+	"展开": "Show",
+	"没有更多了": "No more comments",
+	"找不到该 Repo": "Can't find the repository",
+	"获取 Repo 信息失败": "Failed to get repository information",
+	"点赞失败": "Vote failed",
+	"Hitokoto 获取失败": "Failed to get Hitokoto",
+	"复制成功": "Copied",
+	"代码已复制到剪贴板": "Code has been copied to the clipboard",
+	"复制失败": "Failed",
+	"请手动复制代码": "Please copy the code manually",
+	"刚刚": "Now",
+	"分钟前": "minutes ago",
+	"小时前": "hours ago",
+	"昨天": "Yesterday",
+	"前天": "The day before yesterday",
+	"天前": "days ago",
+	"隐藏行号": "Hide Line Numbers",
+	"显示行号": "Show Line Numbers",
+	"开启折行": "Enable Break Line",
+	"关闭折行": "Disable Break Line",
+	"复制": "Copy",
+	"全屏": "Fullscreen",
+	"退出全屏": "Exit Fullscreen",
+};
+function __(text){
+	let lang = argonConfig.language;
+	if (typeof(translation[lang]) == "undefined"){
+		return text;
+	}
+	if (typeof(translation[lang][text]) == "undefined"){
+		return text;
+	}
+	return translation[lang][text];
+}
+
 /*根据滚动高度改变顶栏透明度*/
 !function(){
 	let toolbar = document.getElementById("navbar-main");
@@ -454,22 +524,22 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		//检查表单合法性
 		if (commentContent.match(/^\s*$/)){
 			isError = true;
-			errorMsg += "评论内容不能为空</br>";
+			errorMsg += __("评论内容不能为空") + "</br>";
 		}
 		if (!$("#post_comment").hasClass("no-need-name-email")){
 			if (commentName.match(/^\s*$/)){
 				isError = true;
-				errorMsg += "昵称不能为空</br>";
+				errorMsg += __("昵称不能为空") + "</br>";
 			}
 			if ($("#post_comment").hasClass("enable-qq-avatar")){
 				if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail) && !(/^[1-9][0-9]{4,10}$/).test(commentEmail)){
 					isError = true;
-					errorMsg += "邮箱或 QQ 号格式错误</br>";
+					errorMsg += __("邮箱或 QQ 号格式错误") + "</br>";
 				}
 			}else{
 				if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail)){
 					isError = true;
-					errorMsg += "邮箱格式错误</br>";
+					errorMsg += __("邮箱格式错误") + "</br>";
 				}
 			}
 		}else{
@@ -478,12 +548,12 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 					if ($("#post_comment").hasClass("enable-qq-avatar")){
 						if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail) && !(/^[1-9][0-9]{4,10}$/).test(commentEmail)){
 							isError = true;
-							errorMsg += "邮箱或 QQ 号格式错误</br>";
+							errorMsg += __("邮箱或 QQ 号格式错误") + "</br>";
 						}
 					}else{
 						if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail)){
 							isError = true;
-							errorMsg += "邮箱格式错误</br>";
+							errorMsg += __("邮箱格式错误") + "</br>";
 						}
 					}
 				}
@@ -491,21 +561,21 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		}
 		if (commentLink != "" && !(/https?:\/\//).test(commentLink)){
 			isError = true;
-			errorMsg += "网站格式错误 (不是 http(s):// 开头)</br>";
+			errorMsg += __("网站格式错误 (不是 http(s):// 开头)") + "</br>";
 		}
 		if (!$("#post_comment").hasClass("no-need-captcha")){
 			if (commentCaptcha == ""){
 				isError = true;
-				errorMsg += "验证码未输入";
+				errorMsg += __("验证码未输入");
 			}
 			if (commentCaptcha != "" && !(/^[0-9]+$/).test(commentCaptcha)){
 				isError = true;
-				errorMsg += "验证码格式错误";
+				errorMsg += __("验证码格式错误");
 			}
 		}
 		if (isError){
 			iziToast.show({
-				title: '评论格式错误',
+				title: __("评论格式错误"),
 				message: errorMsg,
 				class: 'shadow-sm',
 				position: 'topRight',
@@ -530,11 +600,11 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		$("#post_comment_send").attr("disabled","disabled");
 		$("#post_comment_reply_cancel").attr("disabled","disabled");
 		$("#post_comment_send .btn-inner--icon.hide-on-comment-editing").html("<i class='fa fa-spinner fa-spin'></i>");
-		$("#post_comment_send .btn-inner--text.hide-on-comment-editing").html("发送中");
+		$("#post_comment_send .btn-inner--text.hide-on-comment-editing").html(__("发送中"));
 
 		iziToast.show({
-			title: '正在发送',
-			message: "评论正在发送中...",
+			title: __("正在发送"),
+			message: __("评论正在发送中..."),
 			class: 'shadow-sm iziToast-noprogressbar',
 			position: 'topRight',
 			backgroundColor: 'var(--themecolor)',
@@ -575,7 +645,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				$("#post_comment_send").removeAttr("disabled");
 				$("#post_comment_reply_cancel").removeAttr("disabled");
 				$("#post_comment_send .btn-inner--icon.hide-on-comment-editing").html("<i class='fa fa-send'></i>");
-				$("#post_comment_send .btn-inner--text.hide-on-comment-editing").html("发送");
+				$("#post_comment_send .btn-inner--text.hide-on-comment-editing").html(__("发送"));
 				$("#post_comment").removeClass("show-extra-input post-comment-force-privatemode-on post-comment-force-privatemode-off");
 				if (!result.isAdmin){
 					$("#post_comment_captcha").removeAttr("disabled");
@@ -585,7 +655,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				if (result.status == "failed"){
 					iziToast.destroy();
 					iziToast.show({
-						title: '评论发送失败',
+						title: __("评论发送失败"),
 						message: result.msg,
 						class: 'shadow-sm',
 						position: 'topRight',
@@ -603,8 +673,8 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				//发送成功
 				iziToast.destroy();
 				iziToast.show({
-					title: '发送成功',
-					message: "您的评论已发送",
+					title: __("发送成功"),
+					message: __("您的评论已发送"),
 					class: 'shadow-sm',
 					position: 'topRight',
 					backgroundColor: '#2dce89',
@@ -623,7 +693,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				parentID = parseInt(parentID);
 				if (parentID == 0){
 					if ($("#comments > .card-body > ol.comment-list").length == 0){
-						$("#comments > .card-body").html("<h2 class='comments-title'><i class='fa fa-comments'></i> 评论</h2><ol class='comment-list'></ol>");
+						$("#comments > .card-body").html("<h2 class='comments-title'><i class='fa fa-comments'></i> " + __("评论") + "</h2><ol class='comment-list'></ol>");
 					}
 					if (result.commentOrder == "asc"){
 						$("#comments > .card-body > ol.comment-list").append(result.html);
@@ -657,7 +727,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				$("#post_comment_send").removeAttr("disabled");
 				$("#post_comment_reply_cancel").removeAttr("disabled");
 				$("#post_comment_send .btn-inner--icon.hide-on-comment-editing").html("<i class='fa fa-send'></i>");
-				$("#post_comment_send .btn-inner--text.hide-on-comment-editing").html("发送");
+				$("#post_comment_send .btn-inner--text.hide-on-comment-editing").html(__("发送"));
 				$("#post_comment").removeClass("show-extra-input post-comment-force-privatemode-on post-comment-force-privatemode-off");
 				if (!result.isAdmin){
 					$("#post_comment_captcha").removeAttr("disabled");
@@ -665,8 +735,8 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 
 				iziToast.destroy();
 				iziToast.show({
-					title: '评论发送失败',
-					message: "未知原因",
+					title: __("评论发送失败"),
+					message: __("未知原因"),
 					class: 'shadow-sm',
 					position: 'topRight',
 					backgroundColor: '#f5365c',
@@ -688,11 +758,11 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		errorMsg = "";
 		if (commentContent.match(/^\s*$/)){
 			isError = true;
-			errorMsg += "评论内容不能为空</br>";
+			errorMsg += __("评论内容不能为空") + "</br>";
 		}
 		if (isError){
 			iziToast.show({
-				title: '评论格式错误',
+				title: __("评论格式错误"),
 				message: errorMsg,
 				class: 'shadow-sm',
 				position: 'topRight',
@@ -712,11 +782,11 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		$("#post_comment_send").attr("disabled","disabled");
 		$("#post_comment_edit_cancel").attr("disabled","disabled");
 		$("#post_comment_send .btn-inner--icon.hide-on-comment-not-editing").html("<i class='fa fa-spinner fa-spin'></i>");
-		$("#post_comment_send .btn-inner--text.hide-on-comment-not-editing").html("编辑中");
+		$("#post_comment_send .btn-inner--text.hide-on-comment-not-editing").html(__("编辑中"));
 
 		iziToast.show({
-			title: '正在编辑',
-			message: "评论正在编辑中...",
+			title: __("正在编辑"),
+			message: __("评论正在编辑中..."),
 			class: 'shadow-sm iziToast-noprogressbar',
 			position: 'topRight',
 			backgroundColor: 'var(--themecolor)',
@@ -743,13 +813,13 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				$("#post_comment_send").removeAttr("disabled");
 				$("#post_comment_edit_cancel").removeAttr("disabled");
 				$("#post_comment_send .btn-inner--icon.hide-on-comment-not-editing").html("<i class='fa fa-pencil'></i>");
-				$("#post_comment_send .btn-inner--text.hide-on-comment-not-editing").html("编辑");
+				$("#post_comment_send .btn-inner--text.hide-on-comment-not-editing").html(__("编辑"));
 
 				//判断是否有错误
 				if (result.status == "failed"){
 					iziToast.destroy();
 					iziToast.show({
-						title: '评论编辑失败',
+						title: __("评论编辑失败"),
 						message: result.msg,
 						class: 'shadow-sm',
 						position: 'topRight',
@@ -768,7 +838,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				$("#comment-" + editID + " .comment-item-text").html(result.new_comment);
 				$("#comment-" + editID + " .comment-item-source").html(result.new_comment_source);
 				if ($("#comment-" + editID + " .comment-info .comment-edited").length == 0){
-					$("#comment-" + editID + " .comment-info").prepend("<div class='comment-edited'><i class='fa fa-pencil' aria-hidden='true'></i>已编辑</div>")
+					$("#comment-" + editID + " .comment-info").prepend("<div class='comment-edited'><i class='fa fa-pencil' aria-hidden='true'></i>" + __("已编辑") + "</div>")
 				}
 				if (result.can_visit_edit_history){
 					$("#comment-" + editID + " .comment-info .comment-edited").addClass("comment-edithistory-accessible");
@@ -776,8 +846,8 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 
 				iziToast.destroy();
 				iziToast.show({
-					title: '编辑成功',
-					message: "您的评论已编辑",
+					title: __("编辑成功"),
+					message: __("您的评论已编辑"),
 					class: 'shadow-sm',
 					position: 'topRight',
 					backgroundColor: '#2dce89',
@@ -802,12 +872,12 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 				$("#post_comment_send").removeAttr("disabled");
 				$("#post_comment_edit_cancel").removeAttr("disabled");
 				$("#post_comment_send .btn-inner--icon.hide-on-comment-not-editing").html("<i class='fa fa-pencil'></i>");
-				$("#post_comment_send .btn-inner--text.hide-on-comment-not-editing").html("编辑");
+				$("#post_comment_send .btn-inner--text.hide-on-comment-not-editing").html(__("编辑"));
 				if (result.readyState != 4 || result.status == 0){
 					iziToast.destroy();
 					iziToast.show({
-						title: '评论编辑失败',
-						message: "未知原因",
+						title: __("评论编辑失败"),
+						message: __("未知原因"),
 						class: 'shadow-sm',
 						position: 'topRight',
 						backgroundColor: '#f5365c',
@@ -835,7 +905,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 function showCommentEditHistory(id){
 	let requestID = parseInt(new Date().getTime());
 	$("#comment_edit_history").data("request-id", requestID);
-	$("#comment_edit_history .modal-title").html("评论 #" + id + " 的编辑记录");
+	$("#comment_edit_history .modal-title").html(__("评论 #") + id + " " + __("的编辑记录"));
 	$("#comment_edit_history .modal-body").html("<div class='comment-history-loading'><span class='spinner-border text-primary'></span><span style='display: inline-block;transform: translateY(-4px);margin-left: 15px;font-size: 18px;'>加载中</span></div>");
 	$("#comment_edit_history").modal(null);
 	$.ajax({
@@ -859,7 +929,7 @@ function showCommentEditHistory(id){
 				return;
 			}
 			$("#comment_edit_history .modal-body").hide();
-			$("#comment_edit_history .modal-body").html("加载失败");
+			$("#comment_edit_history .modal-body").html(__("加载失败"));
 			$("#comment_edit_history .modal-body").fadeIn(300);
 		}
 	});
@@ -878,7 +948,7 @@ function foldLongComments(){
 		}
 		if (this.clientHeight > 800){
 			$(this).addClass("comment-folded");
-			$(this).append("<div class='show-full-comment'><i class='fa fa-angle-down'></i> 展开</div>");
+			$(this).append("<div class='show-full-comment'><i class='fa fa-angle-down'></i> " + __("展开") + "</div>");
 		}
 	});
 }
@@ -945,7 +1015,7 @@ $(document).on("submit" , ".post-password-form" , function(){
 				$("#comments > .card-body > ol.comment-list").append($("#comments > .card-body > ol.comment-list", $vdom).html());
 				if ($("#comments_more", $vdom).length == 0){
 					$("#comments_more").remove();
-					$(".comments-navigation-more").html("<div class='comments-navigation-nomore'>没有更多了</div>");
+					$(".comments-navigation-more").html("<div class='comments-navigation-nomore'>" + __("没有更多了") + "</div>");
 				}else{
 					$("#comments_more").attr("href", $("#comments_more", $vdom).attr("href"));
 					$("#comments_more").removeAttr("disabled");
@@ -1365,9 +1435,9 @@ function getGithubInfoCardContent(){
 				},
 				error : function(xhr){
 					if (xhr.status == 404){
-						$(".github-info-card-description" , $this).html("找不到该 Repo");
+						$(".github-info-card-description" , $this).html(__("找不到该 Repo"));
 					}else{
-						$(".github-info-card-description" , $this).html("获取 Repo 信息失败");
+						$(".github-info-card-description" , $this).html(__("获取 Repo 信息失败"));
 					}
 				}
 			});
@@ -1427,7 +1497,7 @@ $(document).on("click" , ".shuoshuo-upvote" , function(){
 		error : function(xhr){
 			$this.removeClass("shuoshuo-upvoting");
 			iziToast.show({
-				title: "点赞失败",
+				title: __("点赞失败"),
 				class: 'shadow-sm',
 				position: 'topRight',
 				backgroundColor: '#f5365c',
@@ -1602,9 +1672,9 @@ if ($("meta[name='argon-enable-custom-theme-color']").attr("content") == 'true')
 			}
 		},
 		strings: {
-			save: '确定',
-			clear: '清除',
-			cancel: '恢复博客默认'
+			save: __('确定'),
+			clear: __('清除'),
+			cancel: __('恢复博客默认')
 		}
 	});
 	themeColorPicker.on('change', instance => {
@@ -1723,7 +1793,7 @@ if ($(".hitokoto").length > 0){
 			$(".hitokoto").text(result.hitokoto);
 		},
 		error: function(result){
-			$(".hitokoto").text("Hitokoto 获取失败");
+			$(".hitokoto").text(__("Hitokoto 获取失败"));
 		}
 	});
 }
@@ -1780,16 +1850,16 @@ function highlightJsRender(){
 		$(block).attr("hljs-codeblock-inner", "");
 		let copyBtnID = "copy_btn_" + randomString();
 		$(block).parent().append(`<div class="hljs-control hljs-title">
-				<div class="hljs-control-btn hljs-control-toggle-linenumber">
+				<div class="hljs-control-btn hljs-control-toggle-linenumber" tooltip-hide-linenumber="` + __("隐藏行号") + `" tooltip-show-linenumber="` + __("显示行号") + `">
 					<i class="fa fa-list"></i>
 				</div>
-				<div class="hljs-control-btn hljs-control-toggle-break-line">
+				<div class="hljs-control-btn hljs-control-toggle-break-line" tooltip-enable-breakline="` + __("开启折行") + `" tooltip-disable-breakline="` + __("关闭折行") + `">
 					<i class="fa fa-align-left"></i>
 				</div>
-				<div class="hljs-control-btn hljs-control-copy" id=` + copyBtnID + `>
+				<div class="hljs-control-btn hljs-control-copy" id=` + copyBtnID + ` tooltip="` + __("复制") + `">
 					<i class="fa fa-clipboard"></i>
 				</div>
-				<div class="hljs-control-btn hljs-control-fullscreen">
+				<div class="hljs-control-btn hljs-control-fullscreen" tooltip-fullscreen="` + __("全屏") + `" tooltip-exit-fullscreen="` + __("退出全屏") + `">
 					<i class="fa fa-arrows-alt"></i>
 				</div>
 			</div>`);
@@ -1800,8 +1870,8 @@ function highlightJsRender(){
 		});
 		clipboard.on('success', function(e) {
 			iziToast.show({
-				title: '复制成功',
-				message: "代码已复制到剪贴板",
+				title: __("复制成功"),
+				message: __("代码已复制到剪贴板"),
 				class: 'shadow',
 				position: 'topRight',
 				backgroundColor: '#2dce89',
@@ -1815,8 +1885,8 @@ function highlightJsRender(){
 		});
 		clipboard.on('error', function(e) {
 			iziToast.show({
-				title: '复制失败',
-				message: "请手动复制代码",
+				title: __("复制失败"),
+				message: __("请手动复制代码"),
 				class: 'shadow',
 				position: 'topRight',
 				backgroundColor: '#f5365c',
@@ -1868,13 +1938,13 @@ function humanTimeDiff(time){
 		delta = 0;
 	}
 	if (delta < 1000 * 60){
-		return "刚刚";
+		return __("刚刚");
 	}
 	if (delta < 1000 * 60 * 60){
-		return parseInt(delta / (1000 * 60)) + " 分钟前";
+		return parseInt(delta / (1000 * 60)) + " " + __("分钟前");
 	}
 	if (delta < 1000 * 60 * 60 * 24){
-		return parseInt(delta / (1000 * 60 * 60)) + " 小时前";
+		return parseInt(delta / (1000 * 60 * 60)) + " " + __("小时前");
 	}
 	let yesterday = new Date(now - 1000 * 60 * 60 * 24);
 	yesterday.setHours(0);
@@ -1882,18 +1952,18 @@ function humanTimeDiff(time){
 	yesterday.setSeconds(0);
 	yesterday.setMilliseconds(0);
 	if (time > yesterday){
-		return "昨天 " + time.getHours() + ":" + addPreZero(time.getMinutes(), 2);
+		return __("昨天") + " " + time.getHours() + ":" + addPreZero(time.getMinutes(), 2);
 	}
 	let theDayBeforeYesterday = new Date(now - 1000 * 60 * 60 * 24 * 2);
 	theDayBeforeYesterday.setHours(0);
 	theDayBeforeYesterday.setMinutes(0);
 	theDayBeforeYesterday.setSeconds(0);
 	theDayBeforeYesterday.setMilliseconds(0);
-	if (time > theDayBeforeYesterday){
-		return "前天 " + time.getHours() + ":" + addPreZero(time.getMinutes(), 2);
+	if (time > theDayBeforeYesterday && argonConfig.language.indexOf("zh") == 0){
+		return __("前天") + " " + time.getHours() + ":" + addPreZero(time.getMinutes(), 2);
 	}
 	if (delta < 1000 * 60 * 60 * 24 * 30){
-		return parseInt(delta / (1000 * 60 * 60 * 24)) + " 天前";
+		return parseInt(delta / (1000 * 60 * 60 * 24)) + " " + __("天前");
 	}
 	let theFirstDayOfThisYear = new Date(now);
 	theFirstDayOfThisYear.setMonth(0);
@@ -1903,9 +1973,19 @@ function humanTimeDiff(time){
 	theFirstDayOfThisYear.setSeconds(0);
 	theFirstDayOfThisYear.setMilliseconds(0);
 	if (time > theFirstDayOfThisYear){
-		return (time.getMonth() + 1) + "-" + time.getDate();
+		if (argonConfig.dateFormat == "YMD" || argonConfig.dateFormat == "MDY"){
+			return (time.getMonth() + 1) + "-" + time.getDate();
+		}else{
+			return time.getDate() + "-" + (time.getMonth() + 1);
+		}
 	}
-	return time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate();
+	if (argonConfig.dateFormat == "YMD"){
+		return time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate();
+	}else if (argonConfig.dateFormat == "MDY"){
+		return time.getDate() + "-" + (time.getMonth() + 1) + "-" + time.getFullYear();
+	}else if (argonConfig.dateFormat == "DMY"){
+		return time.getDate() + "-" + (time.getMonth() + 1) + "-" + time.getFullYear();
+	}
 }
 function calcHumanTimesOnPage(){
 	$(".human-time").each(function(){
