@@ -1,4 +1,7 @@
 ![Argon](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon_new_animate.svg)
+
+**中文** | [English](README_en.md)
+
 # Argon-Theme
 Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
@@ -18,6 +21,7 @@ Argon - 一个轻盈、简洁、美观的 WordPress 主题
 + **评论功能扩展** - Ajax 评论，评论支持 Markdown、验证码、再次编辑、显示 UA、悄悄话模式、回复时邮件通知、查看编辑记录、无限加载等功能
 + **诸多功能** - 文章目录、阅读进度、Mathjax 或 Katex 公式解析、图片放大预览、Pangu.js 文本格式化、平滑滚动等
 + **丰富的短代码** - 支持通过短代码在文章中插入 TODO、标签、警告、提示、折叠区块、Github 信息卡、时间线、隐藏文本、视频等模块
++ **多语言** - 支持中文、英文两种语言
 + **其他** - 自适应、精心优化的文章阅读界面 CSS、可切换衬线/非衬线字体、可自定义 CSS 和 JS、支持使用 CDN 加速静态文件访问、SEO 友好、Banner 打字动画、留言板页面等
 
 # 安装
@@ -62,6 +66,11 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 自动推送更新消息以及其他关于 Argon 的消息
 
 # 更新日志
+
+## 20200801 v0.991
++ 修复 more 标签字数统计错误的问题
++ 完善英文翻译
++ 其他一些修改
 
 ## 20200729 v0.990
 + Add English Translation
