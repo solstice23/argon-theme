@@ -30,7 +30,7 @@ Download the .zip file on the [Release](https://github.com/solstice23/argon-them
 
 # Documentation
 
-[Argon-Theme Documentation : https://argon-docs.solstice23.top](https://argon-docs.solstice23.top/) (Chinese version)
+[Argon-Theme Document : https://argon-docs.solstice23.top](https://argon-docs.solstice23.top/) (Chinese version)
 
 # Demo
 
