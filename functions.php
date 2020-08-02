@@ -497,7 +497,7 @@ function parse_ua_and_icon($userAgent){
 	if ($argon_comment_ua == "" || $argon_comment_ua == "hidden"){
 		return "";
 	}
-	$parsed = parse_user_agent($userAgent);
+	$parsed = argon_parse_user_agent($userAgent);
 	$out = "<div class='comment-useragent'>";
 	if ($argon_comment_show_ua['platform'] == true){
 		if (isset($GLOBALS['UA_ICON'][$parsed['platform']])){

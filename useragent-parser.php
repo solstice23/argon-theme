@@ -14,7 +14,7 @@
  *
  * @license MIT
  */
-function parse_user_agent( $u_agent = null ) {
+function argon_parse_user_agent( $u_agent = null ) {
 	if( $u_agent === null && isset($_SERVER['HTTP_USER_AGENT']) ) {
 		$u_agent = $_SERVER['HTTP_USER_AGENT'];
 	}
