@@ -23,6 +23,9 @@ if ($argon_assets_path== "jsdelivr"){
 //翻译 Hook
 function argon_locate_filter($locate){
 	if (substr($locate, 0, 2) == 'zh'){
+		if ($locate == 'zh_TW'){
+			return $locate;
+		}
 		return 'zh_CN';
 	}
 	if (substr($locate, 0, 2) == 'en'){

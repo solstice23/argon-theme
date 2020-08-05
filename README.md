@@ -1,6 +1,6 @@
 ![Argon](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon_new_animate.svg)
 
-**中文** | [English](README_en.md) | [Russian](README_ru.md)
+**简体中文** | [繁體中文](README_tw.md) | [English](README_en.md) | [Russian](README_ru.md)
 
 # Argon-Theme
 Argon - 一个轻盈、简洁、美观的 WordPress 主题
@@ -66,6 +66,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 自动推送更新消息以及其他关于 Argon 的消息
 
 # 更新日志
+
+## 20200806 v0.993
++ 增加繁体中文翻译
 
 ## 20200805 v0.992
 + Add Russian Translation (By [ostiwe](https://github.com/ostiwe))
