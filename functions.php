@@ -28,6 +28,9 @@ function argon_locate_filter($locate){
 	if (substr($locate, 0, 2) == 'en'){
 		return 'en_US';
 	}
+	if (substr($locate, 0, 2) == 'ru'){
+		return 'ru_RU';
+	}
 	return 'en_US';
 }
 function argon_get_locate(){
@@ -65,7 +68,7 @@ if (version_compare($argon_last_version, $GLOBALS['theme_version'], '<' )){
 
 
 //检测更新
-require_once(get_template_directory() . '/theme-update-checker/plugin-update-checker.php'); 
+require_once(get_template_directory() . '/theme-update-checker/plugin-update-checker.php');
 $argon_update_source = get_option('argon_update_source');
 if ($argon_update_source == 'stop'){}
 else if ($argon_update_source == 'solstice23top' || $argon_update_source == 'abc233site'){
@@ -259,7 +262,7 @@ function get_seo_description(){
 			return get_the_excerpt();
 		}
 		if (!post_password_required()){
-			return  
+			return
 			htmlspecialchars(mb_substr(str_replace("\n", '', strip_tags($post -> post_content)), 0, 50)) . "...";
 		}else{
 			return __("这是一个加密页面，需要密码来查看", 'argon');
@@ -408,7 +411,7 @@ function get_article_meta($type){
 	if ($type == 'time'){
 		return '<div class="post-meta-detail post-meta-detail-time">
 					<i class="fa fa-clock-o" aria-hidden="true"></i>
-					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' . 
+					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
 						get_the_time('Y-n-d G:i') . '
 					</time>
 				</div>';
@@ -416,21 +419,21 @@ function get_article_meta($type){
 	if ($type == 'edittime'){
 		return '<div class="post-meta-detail post-meta-detail-time">
 					<i class="fa fa-clock-o" aria-hidden="true"></i>
-					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' . 
+					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
 						get_the_time('Y-n-d G:i') . '
 					</time>
 				</div>';
 	}
 	if ($type == 'views'){
 		return '<div class="post-meta-detail post-meta-detail-views">
-					<i class="fa fa-eye" aria-hidden="true"></i> ' . 
+					<i class="fa fa-eye" aria-hidden="true"></i> ' .
 					get_post_views(get_the_ID()) .
 				'</div>';
 	}
 	if ($type == 'comments'){
 		return '<div class="post-meta-detail post-meta-detail-comments">
-					<i class="fa fa-comments-o" aria-hidden="true"></i> ' . 
-					get_post(get_the_ID()) -> comment_count . 
+					<i class="fa fa-comments-o" aria-hidden="true"></i> ' .
+					get_post(get_the_ID()) -> comment_count .
 				'</div>';
 	}
 	if ($type == 'categories'){
@@ -710,7 +713,7 @@ function argon_comment_shuoshuo_preview_format($comment, $args, $depth){
 				<?php if( $comment -> comment_approved == 0 ){
 					echo '<span class="badge badge-warning badge-unapproved">' . __('待审核', 'argon') . '</span>';}
 				?>
-				: 
+				:
 			</span>
 			<span class="shuoshuo-comment-item-text">
 				<?php echo strip_tags(get_comment_text());?>
@@ -916,11 +919,11 @@ add_action('wp_ajax_nopriv_ajax_post_comment', 'ajax_post_comment');
 require_once(get_template_directory() . '/parsedown.php');
 function comment_markdown_parse($comment_content){
 	//HTML 过滤
-	global $allowedtags; 
+	global $allowedtags;
 	//$comment_content = wp_kses($comment_content, $allowedtags);
 	//允许评论中额外的 HTML Tag
 	$allowedtags['pre'] = array('class' => array());
-	$allowedtags['i'] = array('class' => array(), 'aria-hidden' => array()); 
+	$allowedtags['i'] = array('class' => array(), 'aria-hidden' => array());
 	$allowedtags['img'] = array('src' => array(), 'alt' => array(), 'class' => array());
 	$allowedtags['ol'] = array();
 	$allowedtags['ul'] = array();
@@ -1037,7 +1040,7 @@ function post_comment_updatemetas($id){
 	if ($_POST['private_mode'] == 'true' && get_option("argon_comment_allow_privatemode") == "true"){
 		update_comment_meta($id, "private_mode", $_COOKIE["argon_user_token"]);
 	}else{
-		update_comment_meta($id, "private_mode", "false");	
+		update_comment_meta($id, "private_mode", "false");
 	}
 	if (is_comment_private_mode($parentID)){
 		//如果父级评论是悄悄话模式则将当前评论可查看者的 Token 跟随父级评论者的 Token
@@ -1052,7 +1055,7 @@ function post_comment_updatemetas($id){
 		update_comment_meta($id, "enable_mailnotice", "true");
 		update_comment_meta($id, "mailnotice_unsubscribe_key", $mailnoticeUnsubscribeKey);
 	}else{
-		update_comment_meta($id, "enable_mailnotice", "false");	
+		update_comment_meta($id, "enable_mailnotice", "false");
 	}
 	//向父级评论发送邮件
 	if ($comment -> comment_approved == 1){
@@ -1123,7 +1126,7 @@ function user_edit_comment(){
 	}else{
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => __('编辑评论失败，可能原因: 与原评论相同', 'argon'), 
+			'msg' => __('编辑评论失败，可能原因: 与原评论相同', 'argon'),
 		)));
 	}
 }
@@ -1286,7 +1289,7 @@ function argon_lazyload($content){
 		$content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i',"<img class=\"lazyload " . $lazyload_loading_style . "\" src=\"data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+\" \$1data-original=\"\$2\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC\"\$3>\n<noscript>\$0</noscript>" , $content);
 		$content = preg_replace('/<img(.*?)data-full-url=[\'"]([^\'"]+)[\'"](.*)>/i',"<img$1data-full-url=\"$2\" data-original=\"$2\"$3>" , $content);
 		$content = preg_replace('/<img(.*?)srcset=[\'"](.*?)[\'"](.*)>/i',"<img$1$3>" , $content);
-		
+
 		$content .= '<noscript><style>article img.lazyload[src^="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg"]{display: none;}</style></noscript>';
 	}
 	return $content;
@@ -1523,14 +1526,14 @@ function argon_add_meta_boxes(){
 add_action('admin_menu', 'argon_add_meta_boxes');
 function argon_save_meta_data($post_id){
 	if (!isset($_POST['argon_meta_box_nonce'])){
-		return $post_id; 
+		return $post_id;
 	}
 	$nonce = $_POST['argon_meta_box_nonce'];
 	if (!wp_verify_nonce($nonce, 'argon_meta_box_nonce_action')){
-		return $post_id; 
+		return $post_id;
 	}
 	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
-		return $post_id; 
+		return $post_id;
 	}
 	if ($_POST['post_type'] == 'post'){
 		if (!current_user_can('edit_post', $post_id)){
@@ -1665,7 +1668,7 @@ function shortcode_progressbar($attr,$content=""){
 			break;
 	}
 	$out .= "' style='width: " . $progress . "%;'></div></div></div>";
-	return $out;  
+	return $out;
 }
 add_shortcode('checkbox','shortcode_checkbox');
 function shortcode_checkbox($attr,$content=""){
@@ -1949,7 +1952,7 @@ function shortcode_friend_link_simple($attr,$content=""){
 				$out .= "<div class='icon icon-shape bg-gradient-primary rounded-circle text-white'>" . mb_substr($now[2], 0, 1) . "
 						</div>";
 			}
-						
+
 			$out .= "		</a>
 						</div>
 						<div class='pl-3'>
@@ -2050,7 +2053,7 @@ function shortcode_github($attr,$content=""){
 				)
 			);
 			$json = file_get_contents("https://api.github.com/repos/" . $author . "/" . $project, false, $contexts);
-			if (empty($json)){ 
+			if (empty($json)){
 				throw new Exception("");
 			}
 			$json = json_decode($json);
@@ -2520,7 +2523,7 @@ function themeoptions_page(){
 						<td>
 							<select name="argon_page_background_banner_style">
 								<?php $argon_page_background_banner_style = get_option('argon_page_background_banner_style'); ?>
-								<option value="false" <?php if ($argon_page_background_banner_style=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>	
+								<option value="false" <?php if ($argon_page_background_banner_style=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
 								<option value="transparent" <?php if ($argon_page_background_banner_style=='transparent' || ($argon_page_background_banner_style!='' && $argon_page_background_banner_style!='false')){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
 							</select>
 							<div style="margin-top: 15px;margin-bottom: 15px;">
@@ -2573,7 +2576,7 @@ function themeoptions_page(){
 					<tr><th class="subtitle"><p class="description"><?php _e('浮动操作按钮位于页面右下角（或左下角）', 'argon');?></p></th></tr>
 					<tr>
 						<th><label><?php _e('显示设置按钮', 'argon');?></label></th>
-						<td>	
+						<td>
 							<select name="argon_fab_show_settings_button">
 							<?php $argon_fab_show_settings_button = get_option('argon_fab_show_settings_button'); ?>
 								<option value="true" <?php if ($argon_fab_show_settings_button=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>
@@ -2584,7 +2587,7 @@ function themeoptions_page(){
 					</tr>
 					<tr>
 						<th><label><?php _e('显示夜间模式切换按钮', 'argon');?></label></th>
-						<td>	
+						<td>
 							<select name="argon_fab_show_darkmode_button">
 							<?php $argon_fab_show_darkmode_button = get_option('argon_fab_show_darkmode_button'); ?>
 								<option value="false" <?php if ($argon_fab_show_darkmode_button=='false'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
@@ -2595,7 +2598,7 @@ function themeoptions_page(){
 					</tr>
 					<tr>
 						<th><label><?php _e('显示跳转到评论按钮', 'argon');?></label></th>
-						<td>	
+						<td>
 							<select name="argon_fab_show_gotocomment_button">
 							<?php $argon_fab_show_gotocomment_button = get_option('argon_fab_show_gotocomment_button'); ?>
 								<option value="false" <?php if ($argon_fab_show_gotocomment_button=='false'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
@@ -2726,7 +2729,7 @@ function themeoptions_page(){
 							<select name="argon_show_thumbnail_in_banner_in_content_page">
 								<?php $argon_show_thumbnail_in_banner_in_content_page = get_option('argon_show_thumbnail_in_banner_in_content_page'); ?>
 								<option value="false" <?php if ($argon_show_thumbnail_in_banner_in_content_page=='false'){echo 'selected';} ?>><?php _e('文章卡片顶端', 'argon');?></option>
-								<option value="true" <?php if ($argon_show_thumbnail_in_banner_in_content_page=='true'){echo 'selected';} ?>><?php _e('Banner (顶部背景)', 'argon');?></option>	
+								<option value="true" <?php if ($argon_show_thumbnail_in_banner_in_content_page=='true'){echo 'selected';} ?>><?php _e('Banner (顶部背景)', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('阅读界面中文章头图的位置', 'argon');?></p>
 						</td>
@@ -2737,7 +2740,7 @@ function themeoptions_page(){
 						<td>
 							<select name="argon_show_sharebtn">
 								<?php $argon_show_sharebtn = get_option('argon_show_sharebtn'); ?>
-								<option value="true" <?php if ($argon_show_sharebtn=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>	
+								<option value="true" <?php if ($argon_show_sharebtn=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>
 								<option value="false" <?php if ($argon_show_sharebtn=='false'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
 							</select>
 							<p class="description"></p>
@@ -2759,7 +2762,7 @@ function themeoptions_page(){
 					<tr>
 						<th><label><?php _e('赞赏二维码图片链接', 'argon');?></label></th>
 						<td>
-							<input type="text" class="regular-text" name="argon_donate_qrcode_url" value="<?php echo get_option('argon_donate_qrcode_url'); ?>"/>				
+							<input type="text" class="regular-text" name="argon_donate_qrcode_url" value="<?php echo get_option('argon_donate_qrcode_url'); ?>"/>
 							<p class="description"><?php _e('赞赏二维码图片链接，填写后会在文章最后显示赞赏按钮，留空则不显示赞赏按钮', 'argon');?></p>
 						</td>
 					</tr>
@@ -2773,7 +2776,7 @@ function themeoptions_page(){
 								<option value="modifiedtime" <?php if ($argon_outdated_info_time_type=='modifiedtime'){echo 'selected';} ?>><?php _e('最后修改时间', 'argon');?></option>
 								<option value="createdtime" <?php if ($argon_outdated_info_time_type=='createdtime'){echo 'selected';} ?>><?php _e('发布时间', 'argon');?></option>
 							</select>
-							<?php _e('距离现在超过', 'argon');?> 
+							<?php _e('距离现在超过', 'argon');?>
 							<input type="number" name="argon_outdated_info_days" min="-1" max="99999"  value="<?php echo (get_option('argon_outdated_info_days') == '' ? '-1' : get_option('argon_outdated_info_days')); ?>"/>
 							<?php _e('天时，用', 'argon');?>
 							<select name="argon_outdated_info_tip_type">
@@ -2783,7 +2786,7 @@ function themeoptions_page(){
 							</select>
 							<?php _e('的方式提示', 'argon');?>
 							</br>
-							<textarea type="text" name="argon_outdated_info_tip_content" rows="3" cols="100" style="margin-top: 15px;"><?php echo get_option('argon_outdated_info_tip_content') == '' ? __('本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。', 'argpm') : get_option('argon_outdated_info_tip_content'); ?></textarea>	
+							<textarea type="text" name="argon_outdated_info_tip_content" rows="3" cols="100" style="margin-top: 15px;"><?php echo get_option('argon_outdated_info_tip_content') == '' ? __('本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。', 'argpm') : get_option('argon_outdated_info_tip_content'); ?></textarea>
 							<p class="description"><?php _e('天数为 -1 表示永不提示。', 'argon');?></br><code>%date_delta%</code> <?php _e('表示文章发布/修改时间与当前时间的差距，', 'argon');?><code>%post_date_delta%</code> <?php _e('表示文章发布时间与当前时间的差距，', 'argon');?><code>%modify_date_delta%</code> <?php _e('表示文章修改时间与当前时间的差距（单位: 天）。', 'argon');?></p>
 						</td>
 					</tr>
@@ -2811,7 +2814,7 @@ function themeoptions_page(){
 						<th><label><?php _e('高亮配色方案（主题）', 'argon');?></label></th>
 						<td>
 							<select name="argon_code_theme">
-								<?php 
+								<?php
 								$argon_code_themes_list = array("a11y-dark", "a11y-light", "agate", "an-old-hope", "androidstudio", "arduino-light", "arta", "ascetic", "atelier-cave-dark", "atelier-cave-light", "atelier-dune-dark", "atelier-dune-light", "atelier-estuary-dark", "atelier-estuary-light", "atelier-forest-dark", "atelier-forest-light", "atelier-heath-dark", "atelier-heath-light", "atelier-lakeside-dark", "atelier-lakeside-light", "atelier-plateau-dark", "atelier-plateau-light", "atelier-savanna-dark", "atelier-savanna-light", "atelier-seaside-dark", "atelier-seaside-light", "atelier-sulphurpool-dark", "atelier-sulphurpool-light", "atom-one-dark-reasonable", "atom-one-dark", "atom-one-light", "brown-paper", "brown-papersq", "codepen-embed", "color-brewer", "darcula", "dark", "darkula", "default", "docco", "dracula", "far", "foundation", "github-gist", "github", "gml", "googlecode", "gradient-dark", "grayscale", "gruvbox-dark", "gruvbox-light", "hopscotch", "hybrid", "idea", "ir-black", "isbl-editor-dark", "isbl-editor-light", "kimbie.dark", "kimbie.light", "lightfair", "magula", "mono-blue", "monokai-sublime", "monokai", "night-owl", "nord", "obsidian", "ocean", "onedark", "paraiso-dark", "paraiso-light", "pojoaque", "pojoaque", "purebasic", "qtcreator_dark", "qtcreator_light", "railscasts", "rainbow", "routeros", "school-book", "school-book", "shades-of-purple", "solarized-dark", "solarized-light", "sunburst", "tomorrow-night-blue", "tomorrow-night-bright", "tomorrow-night-eighties", "tomorrow-night", "tomorrow", "vs", "vs2015", "xcode", "xt256", "zenburn");
 								$argon_code_theme = get_option('argon_code_theme');
 								if ($argon_code_theme == ''){
@@ -2831,7 +2834,7 @@ function themeoptions_page(){
 					</tr>
 					<tr>
 						<th><label style="opacity: .6;">More settings are coming soon..</label></th>
-						
+
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('数学公式', 'argon');?></h2></th></tr>
 					<tr>
@@ -2854,7 +2857,7 @@ function themeoptions_page(){
 												<input name="argon_math_render" type="radio" value="mathjax3" <?php if ($argon_math_render=='mathjax3'){echo 'checked';} ?>>
 												Mathjax 3
 												<div>
-													Mathjax 3 CDN <?php _e('地址', 'argon');?>: 
+													Mathjax 3 CDN <?php _e('地址', 'argon');?>:
 													<input type="text" class="regular-text" name="argon_mathjax_cdn_url" value="<?php echo get_option('argon_mathjax_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js' : get_option('argon_mathjax_cdn_url'); ?>"/>
 													<p class="description">Mathjax 3.0+<?php _e('，默认为', 'argon');?> <code>//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js</code></p>
 												</div>
@@ -2867,7 +2870,7 @@ function themeoptions_page(){
 												<input name="argon_math_render" type="radio" value="mathjax2" <?php if ($argon_math_render=='mathjax2'){echo 'checked';} ?>>
 												Mathjax 2
 												<div>
-													Mathjax 2 CDN <?php _e('地址', 'argon');?>: 
+													Mathjax 2 CDN <?php _e('地址', 'argon');?>:
 													<input type="text" class="regular-text" name="argon_mathjax_v2_cdn_url" value="<?php echo get_option('argon_mathjax_v2_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML' : get_option('argon_mathjax_v2_cdn_url'); ?>"/>
 													<p class="description">Mathjax 2.0+<?php _e('，默认为', 'argon');?> <code>//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML</code></p>
 												</div>
@@ -2880,7 +2883,7 @@ function themeoptions_page(){
 												<input name="argon_math_render" type="radio" value="katex" <?php if ($argon_math_render=='katex'){echo 'checked';} ?>>
 												Katex
 												<div>
-													Katex CDN <?php _e('地址', 'argon');?>: 
+													Katex CDN <?php _e('地址', 'argon');?>:
 													<input type="text" class="regular-text" name="argon_katex_cdn_url" value="<?php echo get_option('argon_katex_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/katex@0.11.1/dist/' : get_option('argon_katex_cdn_url'); ?>"/>
 													<p class="description"><?php _e('Argon 会同时引用', 'argon');?> <code>katex.min.css</code> <?php _e('和', 'argon');?> <code>katex.min.js</code> <?php _e('两个文件，所以在此填写的是上层的路径，而不是具体的文件。注意路径后要带一个斜杠。', 'argon');?></br><?php _e('默认为', 'argon');?> <code>//cdn.jsdelivr.net/npm/katex@0.11.1/dist/</code></p>
 												</div>
@@ -2891,7 +2894,7 @@ function themeoptions_page(){
 							</table>
 							<p class="description"></p>
 						</td>
-					</tr>					
+					</tr>
 					<tr><th class="subtitle"><h2>Lazyload</h2></th></tr>
 					<tr>
 						<th><label><?php _e('是否启用 Lazyload', 'argon');?></label></th>
@@ -3047,7 +3050,7 @@ window.pjaxLoaded = function(){
 							<select name="argon_enable_into_article_animation">
 								<?php $argon_enable_into_article_animation = get_option('argon_enable_into_article_animation'); ?>
 								<option value="false" <?php if ($argon_enable_into_article_animation=='false'){echo 'selected';} ?>><?php _e('不启用', 'argon');?></option>
-								<option value="true" <?php if ($argon_enable_into_article_animation=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>	
+								<option value="true" <?php if ($argon_enable_into_article_animation=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('从首页或分类目录进入文章时，使用平滑过渡（可能影响加载文章时的性能）', 'argon');?></p>
 						</td>
@@ -3060,7 +3063,7 @@ window.pjaxLoaded = function(){
 							<select name="argon_comment_pagination_type">
 								<?php $argon_comment_pagination_type = get_option('argon_comment_pagination_type'); ?>
 								<option value="feed" <?php if ($argon_comment_pagination_type=='feed'){echo 'selected';} ?>><?php _e('无限加载', 'argon');?></option>
-								<option value="page" <?php if ($argon_comment_pagination_type=='page'){echo 'selected';} ?>><?php _e('页码', 'argon');?></option>	
+								<option value="page" <?php if ($argon_comment_pagination_type=='page'){echo 'selected';} ?>><?php _e('页码', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('无限加载：点击 "加载更多" 按钮来加载更多评论。', 'argon');?></br><?php _e('页码：显示页码来分页。', 'argon');?></br><?php _e('推荐选择"无限加载"时将 Wordpress 设置中的讨论设置项设为 "默认显示最后一页，在每个页面顶部显示新的评论"。', 'argon');?></p>
 						</td>
@@ -3072,7 +3075,7 @@ window.pjaxLoaded = function(){
 							<select name="argon_hide_name_email_site_input">
 								<?php $argon_hide_name_email_site_input = get_option('argon_hide_name_email_site_input'); ?>
 								<option value="false" <?php if ($argon_hide_name_email_site_input=='false'){echo 'selected';} ?>><?php _e('不隐藏', 'argon');?></option>
-								<option value="true" <?php if ($argon_hide_name_email_site_input=='true'){echo 'selected';} ?>><?php _e('隐藏', 'argon');?></option>	
+								<option value="true" <?php if ($argon_hide_name_email_site_input=='true'){echo 'selected';} ?>><?php _e('隐藏', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('选项仅在 "设置-评论-评论作者必须填入姓名和电子邮件地址" 选项未勾选的前提下生效。如勾选了 "评论作者必须填入姓名和电子邮件地址"，则只有 "网站" 输入框会被隐藏。', 'argon');?>该</p>
 						</td>
@@ -3082,7 +3085,7 @@ window.pjaxLoaded = function(){
 						<td>
 							<select name="argon_comment_need_captcha">
 								<?php $argon_comment_need_captcha = get_option('argon_comment_need_captcha'); ?>
-								<option value="true" <?php if ($argon_comment_need_captcha=='true'){echo 'selected';} ?>><?php _e('需要', 'argon');?></option>	
+								<option value="true" <?php if ($argon_comment_need_captcha=='true'){echo 'selected';} ?>><?php _e('需要', 'argon');?></option>
 								<option value="false" <?php if ($argon_comment_need_captcha=='false'){echo 'selected';} ?>><?php _e('不需要', 'argon');?></option>
 							</select>
 							<p class="description"></p>
@@ -3093,7 +3096,7 @@ window.pjaxLoaded = function(){
 						<td>
 							<select name="argon_comment_allow_markdown">
 								<?php $argon_comment_allow_markdown = get_option('argon_comment_allow_markdown'); ?>
-								<option value="true" <?php if ($argon_comment_allow_markdown=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>	
+								<option value="true" <?php if ($argon_comment_allow_markdown=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>
 								<option value="false" <?php if ($argon_comment_allow_markdown=='false'){echo 'selected';} ?>><?php _e('不允许', 'argon');?></option>
 							</select>
 							<p class="description"></p>
@@ -3104,7 +3107,7 @@ window.pjaxLoaded = function(){
 						<td>
 							<select name="argon_comment_allow_editing">
 								<?php $argon_comment_allow_editing = get_option('argon_comment_allow_editing'); ?>
-								<option value="true" <?php if ($argon_comment_allow_editing=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>	
+								<option value="true" <?php if ($argon_comment_allow_editing=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>
 								<option value="false" <?php if ($argon_comment_allow_editing=='false'){echo 'selected';} ?>><?php _e('不允许', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('同一个评论者可以再次编辑评论。', 'argon');?></p>
@@ -3116,7 +3119,7 @@ window.pjaxLoaded = function(){
 							<select name="argon_comment_allow_privatemode">
 								<?php $argon_comment_allow_privatemode = get_option('argon_comment_allow_privatemode'); ?>
 								<option value="false" <?php if ($argon_comment_allow_privatemode=='false'){echo 'selected';} ?>><?php _e('不允许', 'argon');?></option>
-								<option value="true" <?php if ($argon_comment_allow_privatemode=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>	
+								<option value="true" <?php if ($argon_comment_allow_privatemode=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('评论者使用悄悄话模式发送的评论和其下的所有回复只有发送者和博主能看到。', 'argon');?></p>
 						</td>
@@ -3127,7 +3130,7 @@ window.pjaxLoaded = function(){
 							<select name="argon_comment_allow_mailnotice">
 								<?php $argon_comment_allow_mailnotice = get_option('argon_comment_allow_mailnotice'); ?>
 								<option value="false" <?php if ($argon_comment_allow_mailnotice=='false'){echo 'selected';} ?>><?php _e('不允许', 'argon');?></option>
-								<option value="true" <?php if ($argon_comment_allow_mailnotice=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>	
+								<option value="true" <?php if ($argon_comment_allow_mailnotice=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>
 							</select>
 							<div style="margin-top: 15px;margin-bottom: 15px;">
 								<label>
@@ -3144,7 +3147,7 @@ window.pjaxLoaded = function(){
 							<select name="argon_comment_enable_qq_avatar">
 								<?php $argon_comment_enable_qq_avatar = get_option('argon_comment_enable_qq_avatar'); ?>
 								<option value="false" <?php if ($argon_comment_enable_qq_avatar=='false'){echo 'selected';} ?>><?php _e('不允许', 'argon');?></option>
-								<option value="true" <?php if ($argon_comment_enable_qq_avatar=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>	
+								<option value="true" <?php if ($argon_comment_enable_qq_avatar=='true'){echo 'selected';} ?>><?php _e('允许', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('开启后，评论者可以使用 QQ 号代替邮箱输入，头像会根据评论者的 QQ 号获取。', 'argon');?></p>
 						</td>
@@ -3156,7 +3159,7 @@ window.pjaxLoaded = function(){
 							<select name="argon_comment_avatar_vcenter">
 								<?php $argon_comment_avatar_vcenter = get_option('argon_comment_avatar_vcenter'); ?>
 								<option value="false" <?php if ($argon_comment_avatar_vcenter=='false'){echo 'selected';} ?>><?php _e('居上', 'argon');?></option>
-								<option value="true" <?php if ($argon_comment_avatar_vcenter=='true'){echo 'selected';} ?>><?php _e('居中', 'argon');?></option>	
+								<option value="true" <?php if ($argon_comment_avatar_vcenter=='true'){echo 'selected';} ?>><?php _e('居中', 'argon');?></option>
 							</select>
 							<p class="description"></p>
 						</td>
@@ -3194,7 +3197,7 @@ window.pjaxLoaded = function(){
 							<select name="argon_fold_long_comments">
 								<?php $argon_fold_long_comments = get_option('argon_fold_long_comments'); ?>
 								<option value="false" <?php if ($argon_fold_long_comments=='false'){echo 'selected';} ?>><?php _e('不折叠', 'argon');?></option>
-								<option value="true" <?php if ($argon_fold_long_comments=='true'){echo 'selected';} ?>><?php _e('折叠', 'argon');?></option>	
+								<option value="true" <?php if ($argon_fold_long_comments=='true'){echo 'selected';} ?>><?php _e('折叠', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('开启后，过长的评论会被折叠，需要手动展开', 'argon');?></p>
 						</td>
@@ -3311,7 +3314,7 @@ window.pjaxLoaded = function(){
 							<select name="argon_enable_mobile_scale">
 								<?php $argon_enable_mobile_scale = get_option('argon_enable_mobile_scale'); ?>
 								<option value="false" <?php if ($argon_enable_mobile_scale=='false'){echo 'selected';} ?>><?php _e('否', 'argon');?></option>
-								<option value="true" <?php if ($argon_enable_mobile_scale=='true'){echo 'selected';} ?>><?php _e('是', 'argon');?></option>	
+								<option value="true" <?php if ($argon_enable_mobile_scale=='true'){echo 'selected';} ?>><?php _e('是', 'argon');?></option>
 							</select>
 							<p class="description"></p>
 						</td>
@@ -3715,7 +3718,7 @@ function argon_update_themeoptions(){
 
 		//公告
 		argon_update_option_allow_tags('argon_sidebar_announcement');
-	}	
+	}
 }
 argon_update_themeoptions();
 
@@ -3750,24 +3753,24 @@ function init_shuoshuo(){
 	);
 	$args = array(
 		'labels' => $labels,
-		'public' => true, 
+		'public' => true,
 		'publicly_queryable' => true,
 		'show_ui' => true,
 		'show_in_menu' => true,
 		'exclude_from_search' => true,
-		'query_var' => true, 
+		'query_var' => true,
 		'rewrite' => array(
 			'slug' => 'shuoshuo',
 			'with_front' => false
 		),
 		'capability_type' => 'post',
 		'has_archive' => false,
-		'hierarchical' => false, 
+		'hierarchical' => false,
 		'menu_position' => null,
 		'menu_icon' => 'dashicons-format-quote',
 		'supports' => array('editor', 'author', 'title', 'custom-fields', 'comments')
 	);
-	register_post_type('shuoshuo', $args); 
+	register_post_type('shuoshuo', $args);
 }
 
 /*恢复链接管理器*/
