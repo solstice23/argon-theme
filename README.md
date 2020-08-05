@@ -67,6 +67,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200805 v0.992
++ Add Russian Translation (By [ostiwe](https://github.com/ostiwe))
++ 增加俄文翻译
+
 ## 20200801 v0.991
 + 修复 more 标签字数统计错误的问题
 + 完善英文翻译
