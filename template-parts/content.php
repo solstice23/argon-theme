@@ -1,8 +1,8 @@
 <article class="post card bg-white shadow-sm border-0 <?php if (get_option('argon_enable_into_article_animation') == 'true'){echo 'post-preview';} ?>" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="post-header text-center<?php if (has_post_thumbnail()){echo " post-header-with-thumbnail";}?>">
+	<header class="post-header text-center<?php if (argon_has_post_thumbnail()){echo " post-header-with-thumbnail";}?>">
 		<?php
-			if (has_post_thumbnail()){
-				$thumbnail_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "full")[0];
+			if (argon_has_post_thumbnail()){
+				$thumbnail_url = argon_get_post_thumbnail();
 				echo "<img class='post-thumbnail' src='" . $thumbnail_url . "' alt='thumbnail'></img>";
 				echo "<div class='post-header-text-container'>";
 			}

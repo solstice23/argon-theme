@@ -168,6 +168,41 @@ function array_remove(&$arr, $item){
 		array_splice($arr, $pos, 1);
 	}
 }
+//文章特色图片
+function argon_get_first_image_of_article(){
+	global $post;
+	$post_content_full = apply_filters('the_content', preg_replace( '<!--more(.*?)-->', '', $post -> post_content));
+	preg_match('/<img src="((http:|https:)?\/\/(.*?))"(.*?)\/>/', $post_content_full, $match);
+	if (isset($match[1])){
+		return $match[1];
+	}
+	return false;
+}
+function argon_has_post_thumbnail(){
+	global $post;
+	$postID = $post -> ID;
+	if (has_post_thumbnail()){
+		return true;
+	}
+	$argon_first_image_as_thumbnail = get_post_meta($post -> ID, 'argon_first_image_as_thumbnail', true);
+	if ($argon_first_image_as_thumbnail == ""){
+		$argon_first_image_as_thumbnail = "default";
+	}
+	if ($argon_first_image_as_thumbnail == "true" || ($argon_first_image_as_thumbnail == "default" && get_option("argon_first_image_as_thumbnail_by_default", "false") == "true")){
+		if (argon_get_first_image_of_article() != false){
+			return true;
+		}
+	}
+	return false;
+}
+function argon_get_post_thumbnail(){
+	global $post;
+	$postID = $post -> ID;
+	if (has_post_thumbnail()){
+		return wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "full")[0];;
+	}
+	return argon_get_first_image_of_article();
+}
 //输出分页页码
 function get_argon_formatted_paginate_links($maxPageNumbers, $extraClasses = ''){
 	$args = array(
@@ -649,6 +684,32 @@ function get_comment_edit_history(){
 }
 add_action('wp_ajax_get_comment_edit_history', 'get_comment_edit_history');
 add_action('wp_ajax_nopriv_get_comment_edit_history', 'get_comment_edit_history');
+//评论内容格式化
+function argon_get_comment_text($comment_ID = 0, $args = array()) {
+	$comment = get_comment($comment_ID);
+	$comment_text = get_comment_text($comment, $args);
+	$enableMarkdown = get_comment_meta(get_comment_ID(), "use_markdown", true);
+	/*if ($enableMarkdown == false){
+		return $comment_text;
+	}*/
+	$comment_text = preg_replace(
+		'/<a data-src="(.*?)" title="(.*?)" class="comment-image"(.*?)>([\w\W]*)<\/a>/',
+		'<img src="$1" alt="$2" />',
+		$comment_text
+	);
+	$comment_text = preg_replace(
+		'/<img src="(.*?)" alt="(.*?)" \/>/',
+		'<a data-src="$1" title="$2" class="comment-image" rel="nofollow">
+			<i class="fa fa-image" aria-hidden="true"></i>
+			' . __('查看图片', 'argon') . '
+			<img src="" alt="$2" class="comment-image-preview">
+			<i class="comment-image-preview-mask"></i>
+		</a>',
+		$comment_text
+	);
+	//return $comment_text;
+	return apply_filters( 'comment_text', $comment_text, $comment, $args );
+}
 //评论样式格式化
 function argon_comment_format($comment, $args, $depth){
 	$GLOBALS['comment'] = $comment;
@@ -677,7 +738,7 @@ function argon_comment_format($comment, $args, $depth){
 				?>
 			</div>
 			<div class="comment-item-text">
-				<?php comment_text();?>
+				<?php echo argon_get_comment_text();?>
 			</div>
 			<div class="comment-item-source" style="display: none;" aria-hidden="true"><?php echo htmlspecialchars(get_comment_meta(get_comment_ID(), "comment_content_source", true));?></div>
 			<div class="comment-info">
@@ -944,16 +1005,7 @@ function comment_markdown_parse($comment_content){
 		'<pre>$1</pre>',
 		$res
 	);*/
-	$res = preg_replace(
-		'/<img src="(.*?)" alt="(.*?)" \/>/',
-		'<a data-src="$1" title="$2" class="comment-image">
-			<i class="fa fa-image" aria-hidden="true"></i>
-			' . __('查看图片', 'argon') . '
-			<img src="" alt="$2" class="comment-image-preview">
-			<i class="comment-image-preview-mask"></i>
-		</a>',
-		$res
-	);
+
 	$res = preg_replace(
 		'/<a (.*?)>(.*?)<\/a>/',
 		'<a $1 target="_blank">$2</a>',
@@ -1517,6 +1569,13 @@ function argon_meta_box_1(){
 			<option value="true" <?php if ($argon_meta_simple=='true'){echo 'selected';} ?>><?php _e("隐藏", 'argon');?></option>
 		</select>
 		<p style="margin-top: 15px;"><?php _e("适合特定的页面，例如友链页面。开启后文章 Meta 的第一行只显示阅读数和评论数。", 'argon');?></p>
+		<h4><?php _e("使用文章中第一张图作为头图", 'argon');?></h4>
+		<?php $argon_first_image_as_thumbnail = get_post_meta($post->ID, "argon_first_image_as_thumbnail", true);?>
+		<select name="argon_first_image_as_thumbnail" id="argon_first_image_as_thumbnail">
+			<option value="default" <?php if ($argon_first_image_as_thumbnail=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
+			<option value="true" <?php if ($argon_first_image_as_thumbnail=='true'){echo 'selected';} ?>><?php _e("使用", 'argon');?></option>
+			<option value="false" <?php if ($argon_first_image_as_thumbnail=='false'){echo 'selected';} ?>><?php _e("不使用", 'argon');?></option>
+		</select>
 		<h4><?php _e("自定义 CSS", 'argon');?></h4>
 		<?php $argon_custom_css = get_post_meta($post->ID, "argon_custom_css", true);?>
 		<textarea name="argon_custom_css" id="argon_custom_css" rows="5" cols="30" style="width:100%;"><?php if (!empty($argon_custom_css)){echo $argon_custom_css;} ?></textarea>
@@ -1550,6 +1609,7 @@ function argon_save_meta_data($post_id){
 	}
 	update_post_meta($post_id, 'argon_hide_readingtime', $_POST['argon_meta_hide_readingtime']);
 	update_post_meta($post_id, 'argon_meta_simple', $_POST['argon_meta_simple']);
+	update_post_meta($post_id, 'argon_first_image_as_thumbnail', $_POST['argon_first_image_as_thumbnail']);
 	update_post_meta($post_id, 'argon_custom_css', $_POST['argon_custom_css']);
 }
 add_action('save_post', 'argon_save_meta_data');
@@ -2737,6 +2797,17 @@ function themeoptions_page(){
 							<p class="description"><?php _e('阅读界面中文章头图的位置', 'argon');?></p>
 						</td>
 					</tr>
+					<tr>
+						<th><label><?php _e('默认使用文章中第一张图作为头图', 'argon');?></label></th>
+						<td>
+							<select name="argon_first_image_as_thumbnail_by_default">
+								<?php $argon_first_image_as_thumbnail_by_default = get_option('argon_first_image_as_thumbnail_by_default'); ?>
+								<option value="false" <?php if ($argon_first_image_as_thumbnail_by_default=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+								<option value="true" <?php if ($argon_first_image_as_thumbnail_by_default=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('也可以针对每篇文章单独设置', 'argon');?></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h3><?php _e('分享', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('显示文章分享按钮', 'argon');?></label></th>
@@ -3696,6 +3767,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_hide_categories');
 		argon_update_option('argon_article_meta');
 		argon_update_option('argon_fold_long_comments');
+		argon_update_option('argon_first_image_as_thumbnail_by_default');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

@@ -67,6 +67,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200807 v0.994
++ 支持将文章中第一张图片设为头图，支持每篇文章单独设置和跟随全局
++ 更改评论区 Markdown 图片解析逻辑，增强兼容性
+
 ## 20200806 v0.993
 + 增加繁体中文翻译
 
