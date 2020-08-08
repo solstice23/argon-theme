@@ -6,6 +6,8 @@ Template Name: 留言板 (请打开页面的评论功能)
 
 <?php get_header(); ?>
 
+<div class="page-infomation-card-container"></div>
+
 <?php get_sidebar(); ?>
 
 <div id="primary" class="content-area">

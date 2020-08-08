@@ -1,5 +1,7 @@
 <?php get_header(); ?>
 
+<div class="page-infomation-card-container"></div>
+
 <?php get_sidebar(); ?>
 
 <div id="primary" class="content-area">

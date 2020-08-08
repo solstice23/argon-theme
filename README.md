@@ -67,6 +67,12 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200809 v0.999.beta.1
++ 更换 Pjax 方案为 [jquery-pjax](https://github.com/defunkt/jquery-pjax/) 魔改后的版本 [jquery-pjax-plus](https://github.com/defunkt/jquery-pjax-plus)
++ 解决 Pjax 一些兼容性问题，修复之前 Pjax 后退定位的 BUG
++ 支持滚动时自动折叠顶栏（新增该设置项）
++ 其他一些优化
+
 ## 20200807 v0.994
 + 支持将文章中第一张图片设为头图，支持每篇文章单独设置和跟随全局
 + 更改评论区 Markdown 图片解析逻辑，增强兼容性

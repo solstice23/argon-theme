@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <?php
 	$htmlclasses = "";
-	if (get_option('argon_pjax_disabled') == "true"){
-		$htmlclasses .= "no-pjax ";
-	}
 	if (get_option('argon_page_layout') == "single"){
 		$htmlclasses .= "single-column ";
 	}
@@ -116,7 +113,9 @@
 			<?php } else { ?>
 				lazyload: false,
 			<?php } ?>
-			fold_long_comments: <?php echo get_option('argon_fold_long_comments', 'false'); ?>
+			fold_long_comments: <?php echo get_option('argon_fold_long_comments', 'false'); ?>,
+			disable_pjax: <?php echo get_option('argon_pjax_disabled', 'false'); ?>,
+			headroom: <?php echo get_option('argon_enable_headroom', 'false'); ?>
 		}
 	</script>
 	<script>
@@ -248,7 +247,6 @@
 
 <body <?php body_class(); ?>>
 <?php /*wp_body_open();*/ ?>
-<div id="using_pjax" style="display: none;"></div>
 <div id="toolbar">
 	<header class="header-global">
 		<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light bg-primary headroom--not-bottom headroom--not-top headroom--pinned">

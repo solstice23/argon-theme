@@ -41,9 +41,9 @@
 							<a href='" . $object -> url . "'" . ( $args -> walker -> has_children == 1 ? " no-pjax onclick='return false;'" : "" ) . " target='" . $object -> target . "'>". $object -> title . "</a>";
 					}
 					public function end_el( &$output, $object, $depth = 0, $args = array(), $current_object_id = 0 ) {
-						if ($depth == 0){
+						//if ($depth == 0){
 							$output .= "</li>";
-						}
+						//}
 					}
 				}
 				echo "<ul id='leftbar_part1_menu' class='leftbar-menu'>";

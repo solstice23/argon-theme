@@ -1,17 +1,20 @@
 <?php get_header(); ?>
 
-<div class="page-infomation-card card bg-gradient-secondary shadow-lg border-0">
-	<div class="card-body">
-		<h3 class="text-black mr-2 d-inline-block">	<?php echo get_search_query();?> </h3>
-		<p class="lead text-black mt-0 d-inline-block">
-			<?php _e('的搜索结果', 'argon');?>
-		</p>
-		<p class="text-black mt-3 mb-0 opacity-8">
-			<i class="fa fa-file-o mr-1"></i>
-			<?php global $wp_query; echo $wp_query -> found_posts; ?> <?php _e('个结果', 'argon');?>
-		</p>
+<div class="page-infomation-card-container">
+	<div class="page-infomation-card card bg-gradient-secondary shadow-lg border-0">
+		<div class="card-body">
+			<h3 class="text-black mr-2 d-inline-block">	<?php echo get_search_query();?> </h3>
+			<p class="lead text-black mt-0 d-inline-block">
+				<?php _e('的搜索结果', 'argon');?>
+			</p>
+			<p class="text-black mt-3 mb-0 opacity-8">
+				<i class="fa fa-file-o mr-1"></i>
+				<?php global $wp_query; echo $wp_query -> found_posts; ?> <?php _e('个结果', 'argon');?>
+			</p>
+		</div>
 	</div>
 </div>
+
 <?php get_sidebar(); ?>
 
 <div id="primary" class="content-area">

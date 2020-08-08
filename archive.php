@@ -1,19 +1,22 @@
 <?php get_header(); ?>
 
-<div class="page-infomation-card card bg-gradient-secondary shadow-lg border-0">
-	<div class="card-body">
-		<h3 class="text-black">	<?php the_archive_title();?> </h3>
-		<?php if (the_archive_description() != ''){ ?>
-			<p class="text-black mt-3">
-				<?php the_archive_description(); ?>
+<div class="page-infomation-card-container">
+	<div class="page-infomation-card card bg-gradient-secondary shadow-lg border-0">
+		<div class="card-body">
+			<h3 class="text-black">	<?php the_archive_title();?> </h3>
+			<?php if (the_archive_description() != ''){ ?>
+				<p class="text-black mt-3">
+					<?php the_archive_description(); ?>
+				</p>
+			<?php } ?>
+			<p class="text-black mt-3 mb-0 opacity-8">
+				<i class="fa fa-file-o mr-1"></i>
+				<?php echo $wp_query -> found_posts; ?> <?php _e('篇文章', 'argon');?>
 			</p>
-		<?php } ?>
-		<p class="text-black mt-3 mb-0 opacity-8">
-			<i class="fa fa-file-o mr-1"></i>
-			<?php echo $wp_query -> found_posts; ?> <?php _e('篇文章', 'argon');?>
-		</p>
+		</div>
 	</div>
 </div>
+
 <?php get_sidebar(); ?>
 
 <div id="primary" class="content-area">

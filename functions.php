@@ -2460,6 +2460,18 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('顶栏', 'argon');?></h2></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('自动折叠顶栏', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('滚动时自动折叠顶栏', 'argon');?></label></th>
+						<td>
+							<select name="argon_enable_headroom">
+								<?php $argon_enable_headroom = get_option('argon_enable_headroom'); ?>
+								<option value="false" <?php if ($argon_enable_headroom=='false'){echo 'selected';} ?>>关闭</option>
+								<option value="true" <?php if ($argon_enable_headroom=='true'){echo 'selected';} ?>>开启</option>
+							</select>
+							<p class="description"><?php _e('在页面向下滚动时隐藏顶栏，向上滚动时显示顶栏', 'argon');?></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h3><?php _e('标题', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('顶栏标题', 'argon');?></label></th>
@@ -3768,6 +3780,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_article_meta');
 		argon_update_option('argon_fold_long_comments');
 		argon_update_option('argon_first_image_as_thumbnail_by_default');
+		argon_update_option('argon_enable_headroom');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');
@@ -3807,7 +3820,7 @@ register_nav_menus( array(
 
 
 //隐藏 admin 管理条
-/*show_admin_bar(false);*/
+show_admin_bar(false);
 
 /*说说*/
 add_action('init', 'init_shuoshuo');

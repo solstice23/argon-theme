@@ -269,7 +269,9 @@ $(document).on("keydown" , "#navbar_search_input_container #navbar_search_input"
 		return;
 	}
 	let scrolltop = $(document).scrollTop();
-	pjaxLoadUrl(argonConfig.wp_path + "?s=" + encodeURI(word) , true , 0 , scrolltop);
+	$.pjax({
+		url: argonConfig.wp_path + "?s=" + encodeURI(word)
+	});
 });
 /*侧栏搜索*/
 $(document).on("click" , "#leftbar_search_container" , function(){
@@ -293,8 +295,9 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 		return;
 	}
 	$("html").removeClass("leftbar-opened");
-	let scrolltop = $(document).scrollTop();
-	pjaxLoadUrl(argonConfig.wp_path + "?s=" + encodeURI(word) , true , 0 , scrolltop);
+	$.pjax({
+		url: argonConfig.wp_path + "?s=" + encodeURI(word)
+	});
 });
 
 /*左侧栏随页面滚动浮动*/
@@ -316,6 +319,11 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 			//滚动条在顶部 不浮动状态
 			leftbarPart2.classList.remove('sticky');
 		}
+		if( part1OffsetTop + part1OuterHeight + 10 - scrollTop <= 20 ){//侧栏下部分是否可以随 Headroom 一起向上移动
+			document.body.classList.add('leftbar-can-headroom');
+		}else{
+			document.body.classList.remove('leftbar-can-headroom');
+		}
 	}
 	changeLeftbarStickyStatus();
 	document.addEventListener("scroll", changeLeftbarStickyStatus, {passive: true});
@@ -331,6 +339,26 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 	}).observe(leftbarPart1, {attributes: true, childList: true, subtree: true});
 }();
 
+/*Headroom*/
+if (argonConfig.headroom){
+	var headroom = new Headroom(document.querySelector("body"),{
+		"tolerance" : {
+			up : 0,
+			down : 0
+		},
+		"offset": 0,
+			"classes": {
+			"initial": "with-headroom",
+			"pinned": "headroom---pinned",
+			"unpinned": "headroom---unpinned",
+			"top": "headroom---top",
+			"notTop": "headroom---not-top",
+			"bottom": "headroom---bottom",
+			"notBottom": "headroom---not-bottom",
+			"frozen": "headroom---frozen"
+		}
+	}).init();
+}
 
 /*浮动按钮栏相关 (回顶等)*/
 !function(){
@@ -1074,17 +1102,16 @@ $(document).on("click" , ".show-full-comment" , function(){
 $(document).on("submit" , ".post-password-form" , function(){
 	$("input[type='submit']", this).attr("disabled", "disabled");
 	let url = $(this).attr("action");
-	let formdata = $(this).serialize();
-	setTimeout(function(){
-		pjaxLoadUrl(url , false , 0 , 0 , "POST" , formdata);
-	}, 1);
+	$.pjax.form(this, {
+		push: false,
+		replace: false
+	});
 	return false;
 });
 /*评论分页加载*/
 !function(){
 	$(document).on("click" , "#comments_navigation .page-item > div" , function(){
 		$("#comments").addClass("comments-loading");
-		pjaxLoading = true;
 		NProgress.set(0.618);
 		url = $(this).attr("href");
 		$.ajax({
@@ -1093,7 +1120,6 @@ $(document).on("submit" , ".post-password-form" , function(){
 			dataType : "html",
 			success : function(result){
 				NProgress.done();
-				pjaxLoading = false;
 				$vdom = $(result);
 				$("#comments").html($("#comments", $vdom).html());
 				$("#comments").removeClass("comments-loading");
@@ -1105,14 +1131,12 @@ $(document).on("submit" , ".post-password-form" , function(){
 				panguInit();
 			},
 			error : function(){
-				pjaxLoading = false;
 				window.location.href = url;
 			}
 		});
 	});
 	$(document).on("click" , "#comments_more" , function(){
 		$("#comments_more").attr("disabled", "disabled");
-		pjaxLoading = true;
 		NProgress.set(0.618);
 		url = $(this).attr("href");
 		$.ajax({
@@ -1124,7 +1148,6 @@ $(document).on("submit" , ".post-password-form" , function(){
 			dataType : "html",
 			success : function(result){
 				NProgress.done();
-				pjaxLoading = false;
 				$vdom = $(result);
 				$("#comments > .card-body > ol.comment-list").append($("#comments > .card-body > ol.comment-list", $vdom).html());
 				if ($("#comments_more", $vdom).length == 0){
@@ -1139,7 +1162,6 @@ $(document).on("submit" , ".post-password-form" , function(){
 				panguInit();
 			},
 			error : function(){
-				pjaxLoading = false;
 				window.location.href = url;
 			}
 		});
@@ -1230,253 +1252,81 @@ function panguInit(){
 panguInit();
 
 /*Pjax*/
-var pjaxUrlChanged , pjaxLoading = false;
-function pjaxLoadUrl(url , pushstate , scrolltop , oldscrolltop , requestType , formdata){
-	requestType = requestType || "GET";
-	formdata = formdata || {};
-	if (pjaxLoading == false){
-		NProgress.remove();
-		NProgress.start();
-		pjaxLoading = true;
-		pjaxUrlChanged = false;
-		try{
-			if (pushstate == true){
-				if (url.match(/https?:\/\//) != null){
-					if (window.location.href.match(/.*\:\/\/([^\/]*).*/)[1] != url.match(/.*\:\/\/([^\/]*).*/)[1]){
-						throw "Cross Domain";
-					}
-					if (window.location.href.match(/https?:\/\//)[0] != url.match(/https?:\/\//)[0]){
-						throw "Different Protocols";
-					}
-				}
-			}
-			NProgress.set(0.618);
-			let ajaxArgs = {
-				url : url,
-				type : requestType,
-				dataType : "html",
-				success : function(result){
-					NProgress.inc();
-					try{
-						let vdom = document.createElement('html');
-						vdom.innerHTML = result;
-						let $vdom = $('<div></div>');
-						$vdom.html(result);
-
-						if ($("#using_pjax" , $vdom).length == 0){
-							throw "HTML struct not simular";
-						}
-						document.body.setAttribute("class" , vdom.getElementsByTagName('body')[0].getAttribute("class"));
-						$("#leftbar_part2_inner").html($("#leftbar_part2_inner" , $vdom)[0].innerHTML);
-						$("#primary").html($("#primary" , $vdom)[0].innerHTML);
-						$("#leftbar_part1_menu").html($("#leftbar_part1_menu" , $vdom)[0].innerHTML);
-						$("#wpadminbar").html($("#wpadminbar" , $vdom).html());
-
-						$("#content .page-infomation-card").remove();
-						if ($(".page-infomation-card" , $vdom).length > 0){
-							$("#content").prepend($(".page-infomation-card" , $vdom)[0].outerHTML);
-						}
-
-						if ($("#post_comment" , $vdom).length > 0){
-							$("#fabtn_go_to_comment").removeClass("d-none");
-						}else{
-							$("#fabtn_go_to_comment").addClass("d-none");
-						}
-
-						$("body,html").animate({
-							scrollTop: scrolltop
-						}, 600);
-
-						NProgress.inc();
-
-						if (pushstate == true){
-							window.history.replaceState({scrolltop: oldscrolltop , reloadonback: true , lastreloadscrolltop: null} , '' , '')
-							window.history.pushState('' , '' , url);
-						}
-						pjaxLoading = false;
-						pjaxUrlChanged = true;
-
-						$("title").html($("title" , $vdom)[0].innerHTML);
-
-						try{
-							if (MathJax != undefined){
-								MathJax.typeset();
-							}
-						}catch (err){}
-						try{
-							if ($("script#mathjax_v2_script" , $vdom).length > 0){
-								MathJax.Hub.Typeset();
-							}
-						}catch (err){}
-						try{
-							if (renderMathInElement != undefined){
-								renderMathInElement(document.body,{
-									delimiters: [
-										{left: "$$", right: "$$", display: true},
-										{left: "$", right: "$", display: false},
-										{left: "\\(", right: "\\)", display: false}
-									]
-								});
-							}
-						}catch (err){}
-
-						lazyloadInit();
-
-						zoomifyInit();
-
-						highlightJsRender();
-
-						panguInit();
-
-						getGithubInfoCardContent();
-
-						showPostOutdateToast();
-
-						calcHumanTimesOnPage();
-
-						foldLongComments();
-
-						let scripts = $("#content script:not([no-pjax]):not(.no-pjax)" , $vdom);
-						for (let script of scripts){
-							if (script.innerHTML.indexOf("\/*NO-PJAX*\/") == -1){
-								try{
-									eval(script.innerHTML);
-								}catch (err){}
-							}
-						}
-
-						NProgress.done();
-
-						$(window).trigger("hashchange");
-						$(window).trigger("scroll");
-
-
-						if (window.location.hash != ""){
-							gotoHash(window.location.hash);
-						}
-
-						if (typeof(window.pjaxLoaded) == "function"){
-							window.pjaxLoaded();
-						}
-					}catch (err){
-						console.log(err);
-						NProgress.done();
-						if (pjaxUrlChanged){
-							pjaxLoading = false;
-							window.location.reload();
-						}else{
-							pjaxUrlChanged = true;
-							pjaxLoading = false;
-							window.location.href = url;
-						}
-					}
-				},
-				error : function(){
-					NProgress.done();
-					pjaxLoading = false;
-					pjaxUrlChanged = true;
-					window.location.href = url;
-				}
-			};
-			if (requestType == "POST"){
-				ajaxArgs.data = formdata;
-			}
-			$.ajax(ajaxArgs);
-		}catch(err){
-			console.log(err);
-			NProgress.done();
-			pjaxLoading = false;
-			pjaxUrlChanged = true;
-			window.location.href = url;
-		}
-	}
-}
-function removeUrlHash(url){
-	if (url.indexOf('#') != -1){
-		url = url.substring(0, url.indexOf('#'));
-	}
-	if (url.charAt(url.length - 1) == '/'){
-		url = url.substring(0, url.length - 1);
-	}
-	return url;
-}
-$(document).ready(function(){
-	if ($("html").hasClass("no-pjax")){
+$.pjax.defaults.timeout = 10000;
+$.pjax.defaults.container = ['#primary', '#leftbar_part1_menu', '#leftbar_part2_inner', '.page-infomation-card-container', '#wpadminbar'];
+$.pjax.defaults.fragment = ['#primary', '#leftbar_part1_menu', '#leftbar_part2_inner', '.page-infomation-card-container', '#wpadminbar'];
+$(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):not([download])")
+.on('pjax:click', function(e, f, g){
+	if (argonConfig.disable_pjax == true){
+		e.preventDefault();
 		return;
 	}
-	window.history.scrollRestoration = "manual"; //接管浏览器滚动复位管理
-	$(document).on("click" , "a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):not([download])" , function(){
-		if (pjaxLoading){
-			return false;
+	NProgress.remove();
+	NProgress.start();
+}).on('pjax:afterGetContainers', function(e, f, g) {
+	if (g.is("#main article.post-preview a.post-title")){
+		let $card = $(g.parents("article.post-preview")[0]);
+		$card.append("<div class='loading-css-animation'><div class='loading-dot loading-dot-1' ></div><div class='loading-dot loading-dot-2' ></div><div class='loading-dot loading-dot-3' ></div><div class='loading-dot loading-dot-4' ></div><div class='loading-dot loading-dot-5' ></div><div class='loading-dot loading-dot-6' ></div><div class='loading-dot loading-dot-7' ></div><div class='loading-dot loading-dot-8' ></div></div></div>");
+		$card.addClass("post-pjax-loading");
+		$("#main").addClass("post-list-pjax-loading");
+		let offsetTop = $($card).offset().top - $("#main").offset().top;
+		$card.css("transform" , "translateY(-" + offsetTop + "px)");
+		$("body,html").animate({
+			scrollTop: 0
+		}, 450);
+	}
+}).on('pjax:send', function() {
+	NProgress.set(0.618);
+}).on('pjax:beforeReplace', function(e, dom) {
+	if ($("#post_comment", dom[0]).length > 0){
+		$("#fabtn_go_to_comment").removeClass("d-none");
+	}else{
+		$("#fabtn_go_to_comment").addClass("d-none");
+	}
+}).on('pjax:complete', function() {
+	NProgress.inc();
+	try{
+		if (MathJax != undefined){
+			MathJax.typeset();
 		}
-		let scrolltop = $(document).scrollTop();
-		//对文章预览卡片使用过渡动画
-		if ($(this).is("#main article.post-preview a.post-title")){
-			let $card = $($(this).parents("article.post-preview")[0]);
-			$card.append("<div class='loading-css-animation'><div class='loading-dot loading-dot-1' ></div><div class='loading-dot loading-dot-2' ></div><div class='loading-dot loading-dot-3' ></div><div class='loading-dot loading-dot-4' ></div><div class='loading-dot loading-dot-5' ></div><div class='loading-dot loading-dot-6' ></div><div class='loading-dot loading-dot-7' ></div><div class='loading-dot loading-dot-8' ></div></div></div>");
-			$card.addClass("post-pjax-loading");
-			$("#main").addClass("post-list-pjax-loading");
-			let offsetTop = $($card).offset().top - $("#main").offset().top;
-			$card.css("transform" , "translateY(-" + offsetTop + "px)");
-			$("body,html").animate({
-				scrollTop: 0
-			}, 450);
+	}catch (err){}
+	try{
+		if ($("script#mathjax_v2_script" , $vdom).length > 0){
+			MathJax.Hub.Typeset();
 		}
-		//判断是否是同一个页面，只有 Hash 不同
-		let now = window.location.href;
-		let url = this.getAttribute("href");
-		if ((removeUrlHash(url) == removeUrlHash(now) || url.charAt(0) == '#') && url.indexOf("#") != -1){
-			window.history.replaceState({scrolltop: scrolltop , reloadonback: /*false*/true , lastreloadscrolltop: null} , '' , url);
-			gotoHash(getHash(url));
-			return false;
+	}catch (err){}
+	try{
+		if (renderMathInElement != undefined){
+			renderMathInElement(document.body,{
+				delimiters: [
+					{left: "$$", right: "$$", display: true},
+					{left: "$", right: "$", display: false},
+					{left: "\\(", right: "\\)", display: false}
+				]
+			});
 		}
-		//Pjax 加载
-		pjaxLoadUrl(url , true , 0 , scrolltop);
-		return false;
-	});
-	$(window).on("popstate" , function(){
+	}catch (err){}
+
+	lazyloadInit();
+	zoomifyInit();
+	highlightJsRender();
+	panguInit();
+	getGithubInfoCardContent();
+	showPostOutdateToast();
+	calcHumanTimesOnPage();
+	foldLongComments();
+
+	if (typeof(window.pjaxLoaded) == "function"){
 		try{
-			$("article img.zoomify.zoomed").zoomify('zoomOut');
-		}catch(err){}
-		let json = window.history.state;
-		if (json == null || json == ''){
-			setTimeout(function(){
-				pjaxLoadUrl(document.location , false , 0 , $(window).scrollTop());
-			},1);
-			return false;
-		}
-		if (json.reloadonback != true){
-			$("body,html").animate({
-				scrollTop: json.scrolltop
-			}, 200);
-		}else{
-			setTimeout(function(){
-				pjaxLoadUrl(document.location , false , json.scrolltop , $(window).scrollTop());
-			},1);
-		}
-		return false;
-	});
-	function recordScrollTop(){
-		let json = window.history.state;
-		if (json == null || json == ""){
-			json = {};
-		}
-		json.scrolltop = $(document).scrollTop();
-		window.history.replaceState(json , '' , '');
-	}
-	$(window).on("beforeunload" , function(){
-		recordScrollTop();
-	});
-	//网页被载入时检测是否保存了刷新时滚动高度
-	let json = window.history.state;
-	if (json != null){
-		if (json.scrolltop != undefined){
-			$(window).scrollTop(json.scrolltop);
-			//json.scrolltop = undefined;
-			//window.history.replaceState(json , '' , '');
+			window.pjaxLoaded();
+		}catch (err){
+			console.error(err);
 		}
 	}
+
+	NProgress.done();
 });
+
 
 /*Tags Dialog pjax 加载后自动关闭*/
 $(document).on("click" , "#blog_tags .tag" , function(){
