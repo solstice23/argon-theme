@@ -68,7 +68,7 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 # 更新日志
 
 ## 20200809 v0.999.beta.1
-+ 更换 Pjax 方案为 [jquery-pjax](https://github.com/defunkt/jquery-pjax/) 魔改后的版本 [jquery-pjax-plus](https://github.com/defunkt/jquery-pjax-plus)
++ 更换 Pjax 方案为 [jquery-pjax](https://github.com/defunkt/jquery-pjax/) 魔改后的版本 [jquery-pjax-plus](https://github.com/solstice23/jquery-pjax-plus)
 + 解决 Pjax 一些兼容性问题，修复之前 Pjax 后退定位的 BUG
 + 支持滚动时自动折叠顶栏（新增该设置项）
 + 其他一些优化
