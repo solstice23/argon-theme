@@ -1066,8 +1066,57 @@ function comment_mail_notify($comment){
 		}
 	}
 }
-//评论发送完成添加 Meta
-function post_comment_updatemetas($id){
+
+function request_by_curl($remote_server, $post_string, $hearder = array()) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $remote_server);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $hearder);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_string);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $data = curl_exec($ch);
+    curl_close($ch);
+    return $data;
+}
+
+// notify to administrator through reminder
+function comment_notify_by_reminder($title, $comment_content, $reminder_option) {
+    $comment_content = "[{$title}] \n {$comment_content}";
+    $dingding_reminder = function ($comment_content) {
+        $at = get_option('argon_comment_new_reminder_dingding_at', null);
+        $kw = get_option('argon_comment_new_reminder_dingding_keyword', null);
+        if (empty($at) || empty($kw)) return;
+
+        $webhook = "https://oapi.dingtalk.com/robot/send?access_token={$at}";
+        $data = array ('msgtype' => 'text','text' => array ('content' => "[{$kw}] {$comment_content}"));
+        $data_string = json_encode($data);
+        request_by_curl($webhook, $data_string, array ('Content-Type: application/json;charset=utf-8'));
+    };
+
+    $custom_reminder = function ($comment_content) {
+        $url = get_option('argon_comment_new_reminder_custom', null);
+        $PLACE = '#MSG#';
+        if (empty($url) || strpos($url, $PLACE) === false) return;
+
+        $comment_content = urlencode($comment_content);
+        $url = str_replace($PLACE, $comment_content, $url);
+        file_get_contents($url);
+    };
+
+    $policy = array(
+            'dingding' => $dingding_reminder,
+            'custom' => $custom_reminder,
+    );
+
+    if ($policy[$reminder_option]) {
+        $policy[$reminder_option]($comment_content);
+    }
+}
+
+
+// trigger something after post comment
+function post_comment_event_trigger($id){
 	$parentID = $_POST['comment_parent'];
 	$comment = get_comment($id);
 	$commentPostID = $comment -> comment_post_ID;
@@ -1122,8 +1171,14 @@ function post_comment_updatemetas($id){
 			update_comment_meta($id, "qq_number", $_POST['qq']);
 		}
 	}
+	// notify to administrator through reminder
+    $reminder_option = get_option('argon_comment_new_reminder_option', 'none');
+    if ($reminder_option !== 'none') {
+        $title = " 「" . wp_trim_words(get_post_title_by_id($commentPostID), 20) . "」 " . __("有了新的评论", 'argon');
+        comment_notify_by_reminder($title, $comment -> comment_content, $reminder_option);
+    }
 }
-add_action('comment_post' , 'post_comment_updatemetas');
+add_action('comment_post' , 'post_comment_event_trigger');
 add_action('comment_unapproved_to_approved', 'comment_mail_notify');
 add_rewrite_rule('^unsubscribe-comment-mailnotice/?(.*)$', '/wp-content/themes/argon/unsubscribe-comment-mailnotice.php$1', 'top');
 //编辑评论
@@ -3216,6 +3271,27 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('站长是否接收新评论提醒', 'argon');?></label></th>
+						<td>
+							<select name="argon_comment_new_reminder_option">
+								<?php $argon_comment_new_reminder_option = get_option('argon_comment_new_reminder_option'); ?>
+								<option value="none" <?php if ($argon_comment_new_reminder_option=='none'){echo 'selected';} ?>><?php _e('不允许', 'argon');?></option>
+								<option value="dingding" <?php if ($argon_comment_new_reminder_option=='dingding'){echo 'selected';} ?>><?php _e('钉钉', 'argon');?></option>
+								<option value="custom" <?php if ($argon_comment_new_reminder_option=='custom'){echo 'selected';} ?>><?php _e('自定义', 'argon');?></option>
+							</select>
+							<div style="margin-top: 15px;margin-bottom: 15px;">
+                                <label><?php _e('钉钉机器人配置', 'argon');?></label>
+                                <input type="text" class="regular-text" name="argon_comment_new_reminder_dingding_at" value="<?php echo get_option('argon_comment_new_reminder_dingding_at'); ?>" placeholder="<?php _e('access_token', 'argon') ?>"/>
+                                <input type="text" class="regular-text" name="argon_comment_new_reminder_dingding_keyword" value="<?php echo get_option('argon_comment_new_reminder_dingding_keyword'); ?>" placeholder="<?php _e('关键词', 'argon') ?>"/>
+							</div>
+							<div style="margin-top: 15px;margin-bottom: 15px;">
+                                <label><?php _e('自定义通知链接', 'argon');?></label>
+                                <input type="text" class="large-text" name="argon_comment_new_reminder_custom" value="<?php echo get_option('argon_comment_new_reminder_custom'); ?>" placeholder="<?php _e('例如：http://foo.com/sender?key=foo&msg=#MSG# 。程序将会用评论内容替换掉#MSG#，然后以GET请求发送给你', 'argon'); ?>"/>
+							</div>
+							<p class="description"><?php _e('当全站有新评论时，会通过预设的通知渠道告知到你', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('允许评论者使用 QQ 头像', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_enable_qq_avatar">
@@ -3740,6 +3816,10 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_comment_allow_privatemode');
 		argon_update_option('argon_comment_allow_mailnotice');
 		update_option('argon_comment_mailnotice_checkbox_checked', ($_POST['argon_comment_mailnotice_checkbox_checked'] == 'true')?'true':'false');
+		argon_update_option('argon_comment_new_reminder_option');
+		argon_update_option('argon_comment_new_reminder_dingding_at');
+		update_option('argon_comment_new_reminder_dingding_keyword', $_POST['argon_comment_new_reminder_dingding_keyword']);
+		update_option('argon_comment_new_reminder_custom', $_POST['argon_comment_new_reminder_custom']);
 		argon_update_option('argon_comment_pagination_type');
 		argon_update_option('argon_who_can_visit_comment_edit_history');
 		argon_update_option('argon_home_show_shuoshuo');
