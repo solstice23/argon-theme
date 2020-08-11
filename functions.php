@@ -37,7 +37,13 @@ function argon_locate_filter($locate){
 	return 'en_US';
 }
 function argon_get_locate(){
-	return argon_locate_filter(determine_locale());
+	if (function_exists("determine_locale")){
+		return argon_locate_filter(determine_locale());
+	}
+	$determined_locale = get_locale();
+	if (is_admin()){
+		$determined_locale = get_user_locale();
+	}
 }
 function theme_locale_hook($locate, $domain){
 	if ($domain == 'argon'){
@@ -168,6 +174,8 @@ function array_remove(&$arr, $item){
 		array_splice($arr, $pos, 1);
 	}
 }
+//表情包
+require_once(get_template_directory() . '/emotions.php');
 //文章特色图片
 function argon_get_first_image_of_article(){
 	global $post;
@@ -199,7 +207,7 @@ function argon_get_post_thumbnail(){
 	global $post;
 	$postID = $post -> ID;
 	if (has_post_thumbnail()){
-		return wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "full")[0];;
+		return wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "full")[0];
 	}
 	return argon_get_first_image_of_article();
 }
@@ -692,6 +700,7 @@ function argon_get_comment_text($comment_ID = 0, $args = array()) {
 	/*if ($enableMarkdown == false){
 		return $comment_text;
 	}*/
+	//图片
 	$comment_text = preg_replace(
 		'/<a data-src="(.*?)" title="(.*?)" class="comment-image"(.*?)>([\w\W]*)<\/a>/',
 		'<img src="$1" alt="$2" />',
@@ -707,7 +716,25 @@ function argon_get_comment_text($comment_ID = 0, $args = array()) {
 		</a>',
 		$comment_text
 	);
-	//return $comment_text;
+	//表情
+	if (get_option("argon_comment_emotion_keyboard", "true") != "false"){
+		global $emotionListDefault;
+		$emotionList = apply_filters("argon_emotion_list", $emotionListDefault);
+		foreach ($emotionList as $groupIndex => $group){ 
+			foreach ($group['list'] as $index => $emotion){
+				if ($emotion['type'] != 'sticker'){
+					continue;
+				}
+				if (!isset($emotion['code']) || mb_strlen($emotion['code']) == 0){
+					continue;
+				}
+				if (!isset($emotion['src']) || mb_strlen($emotion['src']) == 0){
+					continue;
+				}
+				$comment_text = str_replace(':' . $emotion['code'] . ':', "<img class='comment-sticker lazyload' src='data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iZW1vdGlvbi1sb2FkaW5nIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9Ii04IC04IDQwIDQwIiBzdHJva2U9IiM4ODgiIG9wYWNpdHk9Ii41IiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiPgogIDxwYXRoIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGQ9Ik0xNC44MjggMTQuODI4YTQgNCAwIDAxLTUuNjU2IDBNOSAxMGguMDFNMTUgMTBoLjAxTTIxIDEyYTkgOSAwIDExLTE4IDAgOSA5IDAgMDExOCAweiIvPgo8L3N2Zz4=' data-original='" . $emotion['src'] . "'/><noscript><img class='comment-sticker' src='" . $emotion['src'] . "'/></noscript>", $comment_text);
+			}
+		}
+	}
 	return apply_filters( 'comment_text', $comment_text, $comment, $args );
 }
 //评论样式格式化
@@ -1174,7 +1201,7 @@ function user_edit_comment(){
 		exit(json_encode(array(
 			'status' => 'success',
 			'msg' => __('编辑评论成功', 'argon'),
-			'new_comment' => apply_filters('comment_text', get_comment_text($id), $id),
+			'new_comment' => apply_filters('comment_text', argon_get_comment_text($id), $id),
 			'new_comment_source' => htmlspecialchars(stripslashes($contentSource)),
 			'can_visit_edit_history' => can_visit_comment_edit_history($id)
 		)));
@@ -1344,8 +1371,6 @@ function argon_lazyload($content){
 		$content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i',"<img class=\"lazyload " . $lazyload_loading_style . "\" src=\"data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+\" \$1data-original=\"\$2\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC\"\$3>\n<noscript>\$0</noscript>" , $content);
 		$content = preg_replace('/<img(.*?)data-full-url=[\'"]([^\'"]+)[\'"](.*)>/i',"<img$1data-full-url=\"$2\" data-original=\"$2\"$3>" , $content);
 		$content = preg_replace('/<img(.*?)srcset=[\'"](.*?)[\'"](.*)>/i',"<img$1$3>" , $content);
-
-		$content .= '<noscript><style>article img.lazyload[src^="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg"]{display: none;}</style></noscript>';
 	}
 	return $content;
 }
@@ -3156,6 +3181,17 @@ window.pjaxLoaded = function(){
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('发送评论', 'argon');?></h3></th></tr>
 					<tr>
+						<th><label><?php _e('评论表情面板', 'argon');?></label></th>
+						<td>
+							<select name="argon_comment_emotion_keyboard">
+								<?php $argon_comment_emotion_keyboard = get_option('argon_comment_emotion_keyboard'); ?>
+								<option value="true" <?php if ($argon_comment_emotion_keyboard=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+								<option value="false" <?php if ($argon_comment_emotion_keyboard=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('开启后评论支持插入表情，会在评论输入框下显示表情键盘按钮。', 'argon');?></br><a href="https://argon-docs.solstice23.top/configuration/emotions" target="_blank"><?php _e('如何添加新的表情或修改已有表情列表？', 'argon');?></a></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('是否隐藏 "昵称"、"邮箱"、"网站" 输入框', 'argon');?></label></th>
 						<td>
 							<select name="argon_hide_name_email_site_input">
@@ -3781,6 +3817,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_fold_long_comments');
 		argon_update_option('argon_first_image_as_thumbnail_by_default');
 		argon_update_option('argon_enable_headroom');
+		argon_update_option('argon_comment_emotion_keyboard');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');
@@ -3820,7 +3857,7 @@ register_nav_menus( array(
 
 
 //隐藏 admin 管理条
-show_admin_bar(false);
+//show_admin_bar(false);
 
 /*说说*/
 add_action('init', 'init_shuoshuo');

@@ -828,6 +828,7 @@ if (argonConfig.headroom){
 					timeout: 5000
 				});
 				//插入新评论
+				result.html = result.html.replace(/<img class='comment-sticker lazyload'(.*?)\/>/g, "").replace(/<(\/).noscript>/g, "");
 				let parentID = result.parentID;
 				if (parentID == "" || parentID == null){
 					parentID = 0;
@@ -977,6 +978,7 @@ if (argonConfig.headroom){
 				}
 
 				//发送成功，替换原评论
+				result.new_comment = result.new_comment.replace(/<img class='comment-sticker lazyload'(.*?)\/>/g, "").replace(/<(\/).noscript>/g, "");		
 				$("#comment-" + editID + " .comment-item-text").html(result.new_comment);
 				$("#comment-" + editID + " .comment-item-source").html(result.new_comment_source);
 				if ($("#comment-" + editID + " .comment-info .comment-edited").length == 0){
@@ -1043,6 +1045,62 @@ if (argonConfig.headroom){
 		}
 	});
 }();
+/*评论表情面板*/
+function lazyloadStickers(){
+	$(".emotion-keyboard .emotion-group:not(d-none) .emotion-item > img.lazyload").lazyload({threshold: 500, effect: "fadeIn"}).removeClass("lazyload");
+	$("html").trigger("scroll");
+}
+$(document).on("click" , "#comment_emotion_btn" , function(){
+	$("#comment_emotion_btn").toggleClass("comment-emotion-keyboard-open");
+	lazyloadStickers();
+});
+$(document).on("click" , ".emotion-keyboard .emotion-group-name" , function(){
+	$(".emotion-keyboard .emotion-group-name.active").removeClass("active");
+	$(this).addClass("active");
+	$(".emotion-keyboard .emotion-group:not(d-none)").addClass("d-none");
+	$(".emotion-keyboard .emotion-group[index='" + $(this).attr("index") + "']").removeClass("d-none");
+	lazyloadStickers();
+});
+function inputInsertText(text, input){
+	$(input).focus();
+	let isSuccess = document.execCommand("insertText", false, text);
+	if (!isSuccess) { //FF
+		if (typeof input.setRangeText === "function"){
+			const start = input.selectionStart;
+			input.setRangeText(text);
+			input.selectionStart = input.selectionEnd = start + input.length;
+			const e = document.createEvent("UIEvent");
+			e.initEvent("input", true, false);
+			input.dispatchEvent(e);
+		}else{
+			let value = $(input).val();
+			let startPos = input.selectionStart, endPos = input.selectionEnd;
+			$(input).val(value.substring(0, startPos) + text + value.substring(endPos));
+			input.selectionStart = startPos + text.length;
+			input.selectionEnd = startPos + text.length;
+		}
+	}
+	$(input).focus();
+}
+$(document).on("click" , ".emotion-keyboard .emotion-item" , function(){
+	$("#comment_emotion_btn").removeClass("comment-emotion-keyboard-open");
+	if ($(this).hasClass("emotion-item-sticker")){
+		inputInsertText(":" + $(this).attr("code") + ":", document.getElementById("post_comment_content"));
+	}else{
+		inputInsertText($(this).text(), document.getElementById("post_comment_content"));
+	}
+});
+$(document).on("dragstart" , ".emotion-keyboard .emotion-item > img, .comment-sticker" , function(e){
+	e.preventDefault();
+});
+document.addEventListener('click', (e) => {
+	if (document.getElementById("comment_emotion_btn") == null){
+		return;
+	}
+　　if(e.target.id != "comment_emotion_btn" && e.target.id != "emotion_keyboard" && !document.getElementById("comment_emotion_btn").contains(e.target) && !document.getElementById("emotion_keyboard").contains(e.target)){
+		$("#comment_emotion_btn").removeClass("comment-emotion-keyboard-open");
+　　}
+})
 /*查看评论编辑记录*/
 function showCommentEditHistory(id){
 	let requestID = parseInt(new Date().getTime());
@@ -1129,6 +1187,7 @@ $(document).on("submit" , ".post-password-form" , function(){
 				foldLongComments();
 				calcHumanTimesOnPage();
 				panguInit();
+				$(".comment-item-text .comment-sticker.lazyload").lazyload(argonConfig.lazyload).removeClass("lazyload");
 			},
 			error : function(){
 				window.location.href = url;
@@ -1160,6 +1219,7 @@ $(document).on("submit" , ".post-password-form" , function(){
 				foldLongComments();
 				calcHumanTimesOnPage();
 				panguInit();
+				$(".comment-item-text .comment-sticker.lazyload").lazyload(argonConfig.lazyload).removeClass("lazyload");
 			},
 			error : function(){
 				window.location.href = url;
@@ -1233,7 +1293,8 @@ function lazyloadInit(){
 	if (argonConfig.lazyload.effect == "none"){
 		delete argonConfig.lazyload.effect;
 	}
-	$("article img.lazyload").lazyload(argonConfig.lazyload);
+	$("article img.lazyload:not(.lazyload-loaded) , .post-thumbnail.lazyload:not(.lazyload-loaded)").lazyload(argonConfig.lazyload).addClass("lazyload-loaded");
+	$(".comment-item-text .comment-sticker.lazyload").lazyload(argonConfig.lazyload).removeClass("lazyload");
 }
 lazyloadInit();
 

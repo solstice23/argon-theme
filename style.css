@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.999.beta.1
+Version: 0.999.beta.2
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -1607,6 +1607,9 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	margin-right: 1px;
 }
 /*评论内容*/
+.comment-item-text .comment-sticker{
+	max-height: 60px;
+}
 .comment-item-text .comment-image br{
 	display: none;
 }
@@ -1999,6 +2002,10 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 	opacity: .6;
 	pointer-events: none;
 }
+.comment-btn{
+	margin-top: 5px;
+	margin-right: 8px;
+}
 /*发送评论区域-编辑评论*/
 #post_comment:not(.editing) .hide-on-comment-not-editing {
 	display: none !important;
@@ -2012,6 +2019,131 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 }
 #post_comment.editing .comment-post-mailnotice {
 	display: none;
+}
+/*评论表情*/
+#comment_emotion_btn {
+	border-radius: 100px;
+	width: 42px;
+	height: 42px;
+	padding: 0;
+	font-size: 25px;
+	background: transparent !important;
+	box-shadow: none;
+	color: inherit;
+	border: none;
+	transform: none;
+	opacity: .8;
+	margin-top: 6px;
+	margin-right: 10px;
+	transition: all .3s ease;
+}
+#comment_emotion_btn.comment-emotion-keyboard-open {
+	border-radius: 100px;
+	color: var(--themecolor);
+}
+.emotion-keyboard {
+	max-width: min(500px, 100vw);
+    min-width: min(300px, 100vw);
+	display: flex;
+	height: 300px;
+	flex-direction: column;
+	overflow: hidden;
+	position: absolute;
+	z-index: 2;
+	right: 0;
+	bottom: -10px;
+	transform: translateY(100%) scale(.9);
+	transform-origin: top;
+	transition: all .3s ease;
+	opacity: 0;
+	pointer-events: none;
+}
+#comment_emotion_btn.comment-emotion-keyboard-open + .emotion-keyboard{
+	opacity: 1;
+	transform: translateY(100%);
+    pointer-events: all;
+}
+.emotion-keyboard-content {
+	flex: 1;
+	overflow-y: auto;
+}
+.emotion-group {
+	padding: 15px 15px;
+	padding-bottom: 10px;
+}
+.emotion-item {
+	display: inline-block;
+	background: rgba(126, 126, 126, .1);
+	border-radius: 5px;
+	user-select: none;
+	margin-right: 12px;
+	margin-bottom: 12px;
+	padding: 2px 10px;
+	cursor: pointer;
+	transition: all .3s ease;
+}
+.emotion-item.emotion-item-sticker {
+	padding: 2px;
+}
+.emotion-item > img {
+	max-height: 60px;
+	border-radius: 3px;
+	transition: filter .3s ease;
+}
+.emotion-item.emotion-item-sticker:hover > img[src^='data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iZW1vdGlvbi1sb2FkaW5nI'] {
+	filter: brightness(2);
+}
+.emotion-item:hover {
+	background: var(--themecolor);
+	color: #fff;
+}
+.emotion-group-description {
+	text-align: right;
+	font-size: 14px;
+	opacity: .6;
+}
+.emotion-keyboard-bar {
+	overflow-x: auto;
+	white-space: nowrap;
+	box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.06);
+	transform: scaleY(-1);
+}
+.emotion-keyboard-bar::-webkit-scrollbar-track {
+	background: transparent;
+}
+.emotion-keyboard-bar::-webkit-scrollbar {
+	height: 5px;
+}
+.emotion-keyboard-bar::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+.emotion-keyboard-bar::-webkit-scrollbar-thumb:hover {
+	background-color: var(--themecolor);
+}
+.emotion-group-name {
+	display: inline-block;
+	padding: 10px 20px;
+	cursor: pointer;
+	transition: all .3s ease;
+	position: relative;
+	user-select: none;
+	transform: scaleY(-1);
+}
+.emotion-group-name:hover {
+	background: #eee;
+}
+html.darkmode .emotion-group-name:hover {
+	background: #555;
+}
+.emotion-group-name.active:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: var(--themecolor);
+	height: 3px;
+	pointer-events: none;
 }
 /*短代码适配*/
 /*短代码-checkbox*/

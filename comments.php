@@ -184,16 +184,22 @@
 							<label class="custom-control-label" for="comment_post_mailnotice"><?php _e('邮件提醒', 'argon');?></label>
 						</div>
 					<?php } ?>
-					<button id="post_comment_send" class="btn btn-icon btn-primary pull-right" type="button">
+					<button id="post_comment_send" class="btn btn-icon btn-primary comment-btn pull-right mr-0" type="button">
 						<span class="btn-inner--icon hide-on-comment-editing"><i class="fa fa-send"></i></span>
 						<span class="btn-inner--icon hide-on-comment-not-editing"><i class="fa fa-pencil"></i></span>
 						<span class="btn-inner--text hide-on-comment-editing" style="margin-right: 0;"><?php _e('发送', 'argon');?></span>
 						<span class="btn-inner--text hide-on-comment-not-editing" style="margin-right: 0;"><?php _e('编辑', 'argon');?></span>
 					</button>
-					<button id="post_comment_edit_cancel" class="btn btn-icon btn-danger pull-right hide-on-comment-not-editing" type="button" style="margin-right: 8px;">
+					<button id="post_comment_edit_cancel" class="btn btn-icon btn-danger comment-btn pull-right hide-on-comment-not-editing" type="button" style="margin-right: 8px;">
 						<span class="btn-inner--icon"><i class="fa fa-close"></i></span>
 						<span class="btn-inner--text"><?php _e('取消', 'argon');?></span>
 					</button>
+					<?php if (get_option("argon_comment_emotion_keyboard", "true") != "false"){ ?>
+						<button id="comment_emotion_btn" class="btn btn-icon btn-primary pull-right" type="button" title="<?php _e('表情', 'argon');?>">
+							<i class="fa fa-smile-o" aria-hidden="true"></i>
+						</button>
+						<?php get_template_part( 'template-parts/emotion-keyboard' ); ?>
+					<?php } ?>
 				</div>
 			</div>
 			<input id="post_comment_captcha_seed" value="<?php echo $commentCaptchaSeed;?>" style="display: none;"></input>
