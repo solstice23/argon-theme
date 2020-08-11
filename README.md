@@ -67,6 +67,13 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200812 v0.999.beta.2
++ 评论支持发表情
++ 增加评论区表情键盘
++ 文章头图支持 Lazyload
++ 修复 Lazyload 重复加载问题
++ 修复 Wordpress 5.0 以下的兼容性问题
+
 ## 20200809 v0.999.beta.1
 + 更换 Pjax 方案为 [jquery-pjax](https://github.com/defunkt/jquery-pjax/) 魔改后的版本 [jquery-pjax-plus](https://github.com/solstice23/jquery-pjax-plus)
 + 解决 Pjax 一些兼容性问题，修复之前 Pjax 后退定位的 BUG
