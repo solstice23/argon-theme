@@ -750,35 +750,37 @@ function argon_comment_format($comment, $args, $depth){
 		</div>
 		<div class="comment-item-inner" id="comment-inner-<?php comment_ID();?>">
 			<div class="comment-item-title">
-				<?php echo get_comment_author_link();?>
-				<?php if (user_can($comment -> user_id , "update_core")){
-					echo '<span class="badge badge-primary badge-admin">' . __('博主', 'argon') . '</span>';}
-				?>
-				<?php if (is_comment_private_mode(get_comment_ID()) && user_can_view_comment(get_comment_ID())){
-					echo '<span class="badge badge-success badge-private-comment">' . __('悄悄话', 'argon') . '</span>';}
-				?>
-				<?php if ($comment -> comment_approved == 0){
-					echo '<span class="badge badge-warning badge-unapproved">' . __('待审核', 'argon') . '</span>';}
-				?>
-				<?php
-					echo parse_ua_and_icon($comment -> comment_agent);
-				?>
+				<div class="comment-name">
+					<?php echo get_comment_author_link();?>
+					<?php if (user_can($comment -> user_id , "update_core")){
+						echo '<span class="badge badge-primary badge-admin">' . __('博主', 'argon') . '</span>';}
+					?>
+					<?php if (is_comment_private_mode(get_comment_ID()) && user_can_view_comment(get_comment_ID())){
+						echo '<span class="badge badge-success badge-private-comment">' . __('悄悄话', 'argon') . '</span>';}
+					?>
+					<?php if ($comment -> comment_approved == 0){
+						echo '<span class="badge badge-warning badge-unapproved">' . __('待审核', 'argon') . '</span>';}
+					?>
+					<?php
+						echo parse_ua_and_icon($comment -> comment_agent);
+					?>
+				</div>
+				<div class="comment-info">
+					<?php if (get_comment_meta(get_comment_ID(), "edited", true) == "true") { ?>
+						<div class="comment-edited<?php if (can_visit_comment_edit_history(get_comment_ID())){echo ' comment-edithistory-accessible';}?>">
+							<i class="fa fa-pencil" aria-hidden="true"></i><?php _e('已编辑', 'argon')?>
+						</div>
+					<?php } ?>
+					<div class="comment-time">
+						<span class="human-time" data-time="<?php echo get_comment_time('U', true);?>"><?php echo human_time_diff(get_comment_time('U') , current_time('timestamp')) . __("前", "argon");?></span>
+						<div class="comment-time-details"><?php echo get_comment_time('Y-n-d G:i:s');?></div>
+					</div>
+				</div>
 			</div>
 			<div class="comment-item-text">
 				<?php echo argon_get_comment_text();?>
 			</div>
 			<div class="comment-item-source" style="display: none;" aria-hidden="true"><?php echo htmlspecialchars(get_comment_meta(get_comment_ID(), "comment_content_source", true));?></div>
-			<div class="comment-info">
-				<?php if (get_comment_meta(get_comment_ID(), "edited", true) == "true") { ?>
-					<div class="comment-edited<?php if (can_visit_comment_edit_history(get_comment_ID())){echo ' comment-edithistory-accessible';}?>">
-						<i class="fa fa-pencil" aria-hidden="true"></i><?php _e('已编辑', 'argon')?>
-					</div>
-				<?php } ?>
-				<div class="comment-time">
-					<span class="human-time" data-time="<?php echo get_comment_time('U', true);?>"><?php echo human_time_diff(get_comment_time('U') , current_time('timestamp')) . __("前", "argon");?></span>
-					<div class="comment-time-details"><?php echo get_comment_time('Y-n-d G:i:s');?></div>
-				</div>
-			</div>
 
 			<div class="comment-operations">
 				<?php if ((check_comment_token(get_comment_ID()) || check_login_user_same($comment -> user_id)) && (get_option("argon_comment_allow_editing") != "false")) { ?>
@@ -1565,6 +1567,13 @@ function rgb2str($rgb){
 }
 function hex2str($hex){
 	return rgb2str(hex2rgb($hex));
+}
+function rgb2gray($R,$G,$B){
+	return round($R * 0.299 + $G * 0.587 + $B * 0.114);
+}
+function hex2gray($hex){
+	$rgb_array = hex2rgb($hex);
+	return rgb2gray($rgb_array['R'], $rgb_array['G'], $rgb_array['B']);
 }
 function checkHEX($hex){
 	if (strlen($hex) != 7){

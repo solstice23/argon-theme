@@ -1135,7 +1135,7 @@ function showCommentEditHistory(id){
 	});
 }
 $(document).on("click" , ".comment-edited.comment-edithistory-accessible" , function(){
-	showCommentEditHistory($(this).parent().parent().parent().data("id"));
+	showCommentEditHistory($(this).parent().parent().parent().parent().data("id"));
 });
 /*过长评论折叠*/
 function foldLongComments(){
@@ -1649,6 +1649,13 @@ function hex2rgb(hex){
 		'b': (dec[hex.substr(5,1)] * 16 + dec[hex.substr(6,1)]) / 255
 	};
 }
+function rgb2gray(R,G,B){
+	return Math.round(R * 0.299 + G * 0.587 + B * 0.114);
+}
+function hex2gray(hex){
+	let rgb_array = hex2rgb(hex);
+	return hex2gray(rgb_array['R'], rgb_array['G'], rgb_array['B']);
+}
 function rgb2str(rgb){
 	return rgb['R'] + "," + rgb['G'] + "," + rgb['B'];
 }
@@ -1748,6 +1755,12 @@ function updateThemeColor(color, setcookie){
 	document.documentElement.style.setProperty('--themecolor-dark3', themecolor_dark3);
 	document.documentElement.style.setProperty('--themecolor-light', themecolor_light);
 	document.documentElement.style.setProperty('--themecolor-rgbstr', themecolor_rgbstr);
+
+	if (rgb2gray(RGB['R'], RGB['G'], RGB['B']) < 50){
+		$("html").addClass("themecolor-toodark");
+	}else{
+		$("html").removeClass("themecolor-toodark");
+	}
 
 	$("meta[name='theme-color']").attr("content", themecolor);
 	$("meta[name='theme-color-rgb']").attr("content", themecolor_rgbstr);

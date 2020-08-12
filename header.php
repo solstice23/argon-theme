@@ -32,6 +32,9 @@
 			$themecolor = $_COOKIE["argon_custom_theme_color"];
 		}
 	}
+	if (hex2gray($themecolor) < 50){
+		echo '<script>document.getElementsByTagName("html")[0].classList.add("themecolor-toodark");</script>';
+	}
 ?>
 <?php
 	$cardradius = get_option('argon_card_radius');

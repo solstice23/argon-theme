@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.999.beta.2
+Version: 0.999.beta.3
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -14,6 +14,10 @@ Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, �
 :root{
 	--themecolor: #5e72e4;
 	--card-radius: 4px;
+}
+html.themecolor-toodark.darkmode{
+	--themecolor: #5e72e4 !important;
+	--themecolor-light: #8a98eb !important;
 }
 
 body{
@@ -148,6 +152,9 @@ article .post-content kbd{
 	color: #fff;
 	background-color: #333;
 	border-radius: 3px;
+}
+article .wp-embedded-content {
+	max-width: 100%;
 }
 article table{
 	max-width: 100%;
@@ -1473,7 +1480,7 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	width: 16px;
 	height: 16px;
 	content: '';
-	transform:  translate(-50%,8px) rotate(-45deg);
+	transform: translate(-50%,8px) rotate(-45deg);
 	border-radius: .2rem;
 	background: #fff;
 	z-index: 1;
@@ -1535,19 +1542,25 @@ background: rgba(var(--themecolor-rgbstr), .1);
 .comment-item-title{
 	font-size: 16px;
 	font-weight: bold;
+	display: flex;
+	margin-bottom: 3px;
 }
 .comment-item-title .badge-admin , .comment-item-title .badge-private-comment , .comment-item-title .badge-unapproved{
 	transform: translateY(-2px);
-	margin-left: 3px;
+	margin-left: 5px;
+}
+.comment-name{
+	flex: 1;
 }
 .comment-info{
-	position: absolute;
-	right: 0;
-	top: 2px;
+	margin-top: 2px;
 	font-size: 12px;
+	font-weight: normal;
+	margin-left: 3px;
 }
 .comment-info > div{
 	display: inline-block;
+	white-space: nowrap;
 }
 .comment-time-details{
 	pointer-events: none;
@@ -2043,7 +2056,7 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 }
 .emotion-keyboard {
 	max-width: min(500px, 100vw);
-    min-width: min(300px, 100vw);
+	min-width: min(300px, 100vw);
 	display: flex;
 	height: 300px;
 	flex-direction: column;
@@ -2061,7 +2074,7 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 #comment_emotion_btn.comment-emotion-keyboard-open + .emotion-keyboard{
 	opacity: 1;
 	transform: translateY(100%);
-    pointer-events: all;
+	pointer-events: all;
 }
 .emotion-keyboard-content {
 	flex: 1;
