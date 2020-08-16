@@ -537,7 +537,7 @@ if (argonConfig.headroom){
 		cancelEdit(false);
 		replying = true;
 		replyID = commentID;
-		$("#post_comment_reply_name").html($("#comment-" + commentID + " .comment-item-title")[0].innerHTML);
+		$("#post_comment_reply_name").html($("#comment-" + commentID + " .comment-item-title > .comment-name")[0].innerHTML);
 		let preview = $("#comment-" + commentID + " .comment-item-text")[0].innerHTML;
 		if ($("#comment-" + commentID + " .comment-item-source")[0].innerHTML != ''){
 			preview = $("#comment-" + commentID + " .comment-item-source")[0].innerHTML.replace(/\n/g, "</br>");
@@ -1087,7 +1087,7 @@ $(document).on("click" , ".emotion-keyboard .emotion-item" , function(){
 	if ($(this).hasClass("emotion-item-sticker")){
 		inputInsertText(":" + $(this).attr("code") + ":", document.getElementById("post_comment_content"));
 	}else{
-		inputInsertText($(this).text(), document.getElementById("post_comment_content"));
+		inputInsertText($(this).attr("text"), document.getElementById("post_comment_content"));
 	}
 });
 $(document).on("dragstart" , ".emotion-keyboard .emotion-item > img, .comment-sticker" , function(e){
