@@ -104,6 +104,13 @@
 		</div>
 	<?php } ?>
 
+	<?php
+		$additionalContentAfterPost = get_additional_content_after_post();
+		if ($additionalContentAfterPost != ""){
+			echo "<div class='additional-content-after-post'>" . $additionalContentAfterPost . "</div>";
+		}
+	?>
+
 	<?php if (has_tag()) { ?>
 		<div class="post-tags">
 			<i class="fa fa-tags" aria-hidden="true"></i>

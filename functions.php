@@ -211,6 +211,24 @@ function argon_get_post_thumbnail(){
 	}
 	return argon_get_first_image_of_article();
 }
+//文末附加内容
+function get_additional_content_after_post(){
+	global $post;
+	$postID = $post -> ID;
+	$res = get_post_meta($post -> ID, 'argon_after_post', true);
+	if ($res == "--none--"){
+		return "";
+	}
+	if ($res == ""){
+		$res = get_option("argon_additional_content_after_post");
+	}
+	$res = str_replace("\n", "</br>", $res);
+	$res = str_replace("%url%", get_permalink($postID), $res);
+	$res = str_replace("%link%", '<a href="' . get_permalink($postID) . '" target="_blank">' . get_permalink($postID) . '</a>', $res);
+	$res = str_replace("%title%", get_the_title(), $res);
+	$res = str_replace("%author%", get_the_author(), $res);
+	return $res;
+}
 //输出分页页码
 function get_argon_formatted_paginate_links($maxPageNumbers, $extraClasses = ''){
 	$args = array(
@@ -1610,6 +1628,10 @@ function argon_meta_box_1(){
 			<option value="true" <?php if ($argon_first_image_as_thumbnail=='true'){echo 'selected';} ?>><?php _e("使用", 'argon');?></option>
 			<option value="false" <?php if ($argon_first_image_as_thumbnail=='false'){echo 'selected';} ?>><?php _e("不使用", 'argon');?></option>
 		</select>
+		<h4><?php _e("文末附加内容", 'argon');?></h4>
+		<?php $argon_after_post = get_post_meta($post->ID, "argon_after_post", true);?>
+		<textarea name="argon_after_post" id="argon_after_post" rows="3" cols="30" style="width:100%;"><?php if (!empty($argon_after_post)){echo $argon_after_post;} ?></textarea>
+		<p style="margin-top: 15px;"><?php _e("给该文章设置单独的文末附加内容，留空则跟随全局，设为 <code>--none--</code> 则不显示。", 'argon');?></p>
 		<h4><?php _e("自定义 CSS", 'argon');?></h4>
 		<?php $argon_custom_css = get_post_meta($post->ID, "argon_custom_css", true);?>
 		<textarea name="argon_custom_css" id="argon_custom_css" rows="5" cols="30" style="width:100%;"><?php if (!empty($argon_custom_css)){echo $argon_custom_css;} ?></textarea>
@@ -1644,6 +1666,7 @@ function argon_save_meta_data($post_id){
 	update_post_meta($post_id, 'argon_hide_readingtime', $_POST['argon_meta_hide_readingtime']);
 	update_post_meta($post_id, 'argon_meta_simple', $_POST['argon_meta_simple']);
 	update_post_meta($post_id, 'argon_first_image_as_thumbnail', $_POST['argon_first_image_as_thumbnail']);
+	update_post_meta($post_id, 'argon_after_post', $_POST['argon_after_post']);
 	update_post_meta($post_id, 'argon_custom_css', $_POST['argon_custom_css']);
 }
 add_action('save_post', 'argon_save_meta_data');
@@ -2886,6 +2909,14 @@ function themeoptions_page(){
 							<p class="description"><?php _e('赞赏二维码图片链接，填写后会在文章最后显示赞赏按钮，留空则不显示赞赏按钮', 'argon');?></p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h3><?php _e('文末附加内容', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('文末附加内容', 'argon');?></label></th>
+						<td>
+							<textarea type="text" rows="5" cols="100" name="argon_additional_content_after_post"><?php echo htmlspecialchars(get_option('argon_additional_content_after_post')); ?></textarea>
+							<p class="description"><?php _e('将会显示在每篇文章末尾，支持 HTML 标签，留空则不显示。', 'argon');?></br><?php _e('使用 <code>%url%</code> 来代替当前页面 URL，<code>%link%</code> 来代替当前页面链接，<code>%title%</code> 来代替当前文章标题，<code>%author%</code> 来代替当前文章作者。', 'argon');?></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h3><?php _e('其他', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('文章过时信息显示', 'argon');?></label></th>
@@ -3827,6 +3858,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_first_image_as_thumbnail_by_default');
 		argon_update_option('argon_enable_headroom');
 		argon_update_option('argon_comment_emotion_keyboard');
+		argon_update_option_allow_tags('argon_additional_content_after_post');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

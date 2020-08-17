@@ -1486,6 +1486,14 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	z-index: 1;
 	box-shadow: -2px 2px 5px 0px rgba(0,0,0,.1);
 }
+/*文末附加内容*/
+.additional-content-after-post {
+	border-left: 3px solid var(--themecolor);
+	padding: 15px 20px;
+	background: rgba(var(--themecolor-rgbstr), .1);
+	border-radius: 3px;
+	margin-top: 10px;
+}
 /*评论区*/
 #comments{
 	margin-bottom: 25px;
@@ -2097,11 +2105,20 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 }
 .emotion-item.emotion-item-sticker {
 	padding: 2px;
+	background: rgba(126, 126, 126, .15);
 }
 .emotion-item > img {
 	max-height: 60px;
 	border-radius: 3px;
-	transition: filter .3s ease;
+	transition: filter .3s ease, transform .3s ease;
+	transition-delay: 0s;
+	background: #fff;
+}
+html.darkmode .emotion-item > img {
+	background: #424242;
+}
+html.darkmode.amoled-dark .emotion-item > img {
+	background: #000;
 }
 .emotion-item.emotion-item-sticker:hover > img[src^='data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iZW1vdGlvbi1sb2FkaW5nI'] {
 	filter: brightness(2);
@@ -2109,6 +2126,12 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 .emotion-item:hover {
 	background: var(--themecolor);
 	color: #fff;
+}
+.emotion-group:active .emotion-item:hover > img:not([src^='data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iZW1vdGlvbi1sb2FkaW5nI']){
+	transition: all .3s ease;
+	transition-delay: .3s;
+	transform: scale(1.5);
+	box-shadow: 0px 0px 5px rgba(0,0,0,.15);
 }
 .emotion-group-description {
 	text-align: right;

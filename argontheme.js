@@ -552,6 +552,9 @@ if (argonConfig.headroom){
 			scrollTop: $('#post_comment').offset().top - 100
 		}, 300);
 		$('#post_comment_reply_info').slideDown(600);
+		setTimeout(function(){
+			$("#post_comment_content").focus();
+		}, 300);
 	}
 	function cancelReply(){
 		replying = false;
@@ -587,6 +590,7 @@ if (argonConfig.headroom){
 		$("body,html").animate({
 			scrollTop: $('#post_comment').offset().top - 100
 		}, 300);
+		$("#post_comment_content").focus();
 	}
 	function cancelEdit(clear){
 		editing = false;
