@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
-<div class="page-infomation-card-container">
-	<div class="page-infomation-card card bg-gradient-secondary shadow-lg border-0">
+<div class="page-information-card-container">
+	<div class="page-information-card card bg-gradient-secondary shadow-lg border-0">
 		<div class="card-body">
 			<h3 class="text-black mr-2 d-inline-block">	<?php echo get_search_query();?> </h3>
 			<p class="lead text-black mt-0 d-inline-block">

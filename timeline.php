@@ -6,7 +6,7 @@ Template Name: 归档时间轴
 
 <?php get_header(); ?>
 
-<div class="page-infomation-card-container"></div>
+<div class="page-information-card-container"></div>
 
 <?php get_sidebar(); ?>
 

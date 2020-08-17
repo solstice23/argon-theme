@@ -7,8 +7,8 @@ query_posts("post_type=shuoshuo&post_status=publish&posts_per_page=-1");
 
 <?php get_header(); ?>
 
-<div class="page-infomation-card-container">
-	<div class="page-infomation-card card bg-gradient-secondary shadow-lg border-0">
+<div class="page-information-card-container">
+	<div class="page-information-card card bg-gradient-secondary shadow-lg border-0">
 		<div class="card-body">
 			<h3 class="text-black"><?php _e('说说', 'argon');?></h3>
 			<?php if (the_archive_description() != ''){ ?>

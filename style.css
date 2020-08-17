@@ -292,7 +292,7 @@ html.single-column #main{
 html.single-column #fabtn_open_sidebar{
 	display: none !important;
 }
-html.page-infomation-card{
+html.page-information-card{
 	width: 100%;
 	max-width: 1200px;
 	margin-left: auto;
@@ -1401,7 +1401,7 @@ background: rgba(var(--themecolor-rgbstr), .1);
 }
 
 /*搜索等页面的标题卡片*/
-.page-infomation-card{
+.page-information-card{
 	margin: 30px 20px;
 	margin-top: 0px;
 }
