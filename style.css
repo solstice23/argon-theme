@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.999.beta.4
+Version: 0.999.beta.5
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -1452,7 +1452,7 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	height: 144px;
 	width: 256px;
 	overflow: hidden;
-	border: 1px solid rgba(108, 119, 147, 0.3);
+	border: 1px solid rgba(108, 119, 147, 0.2);
 	border-radius: 5px;
 	margin-right: 10px;
 	font-size: 18px;
@@ -1462,7 +1462,7 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	position: relative;
 }
 .related-post-card:hover {
-	background: rgba(var(--themecolor-rgbstr),.1);
+	background: rgba(var(--themecolor-rgbstr), .1);
 	box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
 	border-color: transparent;
 }
@@ -1506,7 +1506,7 @@ background: rgba(var(--themecolor-rgbstr), .1);
 .post-donate img {
 	/*width: max-content;
 	width: -moz-max-content;*/
-	max-width: max(30vw, 300px);
+	max-width: min(30vw, 500px);
 }
 .post-donate .donate-qrcode {
 	width: max-content;

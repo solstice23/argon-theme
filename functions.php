@@ -2930,7 +2930,33 @@ function themeoptions_page(){
 								<option value="disabled" <?php if ($argon_related_post=='disabled'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
 								<option value="category" <?php if ($argon_related_post=='category'){echo 'selected';} ?>><?php _e('根据分类推荐', 'argon');?></option>
 								<option value="tag" <?php if ($argon_related_post=='tag'){echo 'selected';} ?>><?php _e('根据标签推荐', 'argon');?></option>
+								<option value="category,tag" <?php if ($argon_related_post=='category,tag'){echo 'selected';} ?>><?php _e('根据分类和标签推荐', 'argon');?></option>
 							<p class="description"><?php _e('显示在文章卡片后', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label><?php _e('排序依据', 'argon');?></label></th>
+						<td>
+							<select name="argon_related_post_sort_orderby">
+								<?php $argon_related_post_sort_orderby = get_option('argon_related_post_sort_orderby'); ?>
+								<option value="date" <?php if ($argon_related_post_sort_orderby=='date'){echo 'selected';} ?>><?php _e('发布时间', 'argon');?></option>
+								<option value="modified" <?php if ($argon_related_post_sort_orderby=='modified'){echo 'selected';} ?>><?php _e('修改时间', 'argon');?></option>
+								<option value="meta_value_num" <?php if ($argon_related_post_sort_orderby=='meta_value_num'){echo 'selected';} ?>><?php _e('阅读量', 'argon');?></option>
+								<option value="ID" <?php if ($argon_related_post_sort_orderby=='ID'){echo 'selected';} ?>>ID</option>
+								<option value="title" <?php if ($argon_related_post_sort_orderby=='title'){echo 'selected';} ?>><?php _e('标题', 'argon');?></option>
+								<option value="author" <?php if ($argon_related_post_sort_orderby=='author'){echo 'selected';} ?>><?php _e('作者', 'argon');?></option>
+								<option value="rand" <?php if ($argon_related_post_sort_orderby=='rand'){echo 'selected';} ?>><?php _e('随机', 'argon');?></option>
+							<p class="description"></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label><?php _e('顺序', 'argon');?></label></th>
+						<td>
+							<select name="argon_related_post_sort_order">
+								<?php $argon_related_post_sort_order = get_option('argon_related_post_sort_order'); ?>
+								<option value="DESC" <?php if ($argon_related_post_sort_order=='DESC'){echo 'selected';} ?>><?php _e('倒序', 'argon');?></option>
+								<option value="ASC" <?php if ($argon_related_post_sort_order=='ASC'){echo 'selected';} ?>><?php _e('正序', 'argon');?></option>
+							<p class="description"></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('其他', 'argon');?></h3></th></tr>
@@ -3876,6 +3902,8 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_comment_emotion_keyboard');
 		argon_update_option_allow_tags('argon_additional_content_after_post');
 		argon_update_option('argon_related_post');
+		argon_update_option('argon_related_post_sort_orderby');
+		argon_update_option('argon_related_post_sort_order');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

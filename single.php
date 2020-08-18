@@ -40,28 +40,49 @@
 			$relatedPosts = get_option('argon_related_post', 'disabled');
 			if ($relatedPosts != "disabled"){
 				global $post;
-				$args = array(
-					'post__not_in' => array($post -> ID),
-					'showposts' => 10,
-					'caller_get_posts' => 1
-				);
+				$cat_array = array();
 				if (strpos($relatedPosts, 'category') !== false){
-					$args['category__in'] = wp_get_post_categories($post -> ID);
-				}
-				if (strpos($relatedPosts, 'tag') !== false){
-					$tagArray = wp_get_post_tags($post -> ID);
-					$tags = array();
-					foreach ($tagArray as $tag){
-						array_push($tags, $tag -> term_id);
+					$cats = get_the_category($post -> ID);
+					if ($cats){
+						foreach($cats as $key1 => $cat) {
+							$cat_array[$key1] = $cat -> slug;
+						}
 					}
-					$args['tag__in'] = $tags;
 				}
-				query_posts($args);
-				if (have_posts()) {
+				$tag_array = array();
+				if (strpos($relatedPosts, 'tag') !== false){
+					$tags = get_the_tags($post -> ID);
+					if ($tags){
+						foreach($tags as $key2 => $tag) {
+							$tag_array[$key2] = $tag -> slug;
+						}
+					}
+				}	
+				$query = new WP_Query(array(
+					'posts_per_page' => 10,
+					'order' => get_option('argon_related_post_sort_order', 'DESC'),
+					'orderby' => get_option('argon_related_post_sort_orderby', 'date'),
+					'meta_key' => 'views',
+					'post__not_in' => array($post -> ID),
+					'tax_query' => array(
+						'relation' => 'OR',
+						array(
+							'taxonomy' => 'category',
+							'field' => 'slug',
+							'terms' => $cat_array,
+							'include_children' => false
+						),
+						array(
+							'taxonomy' => 'post_tag',
+							'field' => 'slug',
+							'terms' => $tag_array,
+						)
+					)
+				));
+				if ($query -> have_posts()) {
 					echo '<div class="related-posts card shadow-sm">';
-					while (have_posts()) {
-						the_post();
-						update_post_caches($posts);
+					while ($query -> have_posts()) {
+						$query -> the_post();
 						$hasThumbnail = argon_has_post_thumbnail(get_the_ID());
 						echo '<a class="related-post-card" href="' . get_the_permalink() . '">';
 						echo '<div class="related-post-card-container' . ($hasThumbnail ? ' has-thumbnail' : '') . '">
