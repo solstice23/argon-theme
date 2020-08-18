@@ -180,15 +180,17 @@ require_once(get_template_directory() . '/emotions.php');
 function argon_get_first_image_of_article(){
 	global $post;
 	$post_content_full = apply_filters('the_content', preg_replace( '<!--more(.*?)-->', '', $post -> post_content));
-	preg_match('/<img src="((http:|https:)?\/\/(.*?))"(.*?)\/>/', $post_content_full, $match);
-	if (isset($match[1])){
-		return $match[1];
+	preg_match('/<img(.*?)src="((http:|https:)?\/\/(.*?))"(.*?)\/>/', $post_content_full, $match);
+	if (isset($match[2])){
+		return $match[2];
 	}
 	return false;
 }
-function argon_has_post_thumbnail(){
-	global $post;
-	$postID = $post -> ID;
+function argon_has_post_thumbnail($postID = 0){
+	if ($postID == 0){
+		global $post;
+		$postID = $post -> ID;
+	}
 	if (has_post_thumbnail()){
 		return true;
 	}
@@ -203,9 +205,11 @@ function argon_has_post_thumbnail(){
 	}
 	return false;
 }
-function argon_get_post_thumbnail(){
-	global $post;
-	$postID = $post -> ID;
+function argon_get_post_thumbnail($postID = 0){
+	if ($postID == 0){
+		global $post;
+		$postID = $post -> ID;
+	}
 	if (has_post_thumbnail()){
 		return wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "full")[0];
 	}
@@ -484,7 +488,7 @@ function get_article_meta($type){
 		return '<div class="post-meta-detail post-meta-detail-time">
 					<i class="fa fa-clock-o" aria-hidden="true"></i>
 					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
-						get_the_time('Y-n-d G:i') . '
+						get_the_modified_time('Y-n-d G:i') . '
 					</time>
 				</div>';
 	}
@@ -2917,6 +2921,18 @@ function themeoptions_page(){
 							<p class="description"><?php _e('将会显示在每篇文章末尾，支持 HTML 标签，留空则不显示。', 'argon');?></br><?php _e('使用 <code>%url%</code> 来代替当前页面 URL，<code>%link%</code> 来代替当前页面链接，<code>%title%</code> 来代替当前文章标题，<code>%author%</code> 来代替当前文章作者。', 'argon');?></p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h3><?php _e('相似文章推荐', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('相似文章推荐', 'argon');?></label></th>
+						<td>
+							<select name="argon_related_post">
+								<?php $argon_related_post = get_option('argon_related_post'); ?>
+								<option value="disabled" <?php if ($argon_related_post=='disabled'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
+								<option value="category" <?php if ($argon_related_post=='category'){echo 'selected';} ?>><?php _e('根据分类推荐', 'argon');?></option>
+								<option value="tag" <?php if ($argon_related_post=='tag'){echo 'selected';} ?>><?php _e('根据标签推荐', 'argon');?></option>
+							<p class="description"><?php _e('显示在文章卡片后', 'argon');?></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h3><?php _e('其他', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('文章过时信息显示', 'argon');?></label></th>
@@ -3859,6 +3875,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_enable_headroom');
 		argon_update_option('argon_comment_emotion_keyboard');
 		argon_update_option_allow_tags('argon_additional_content_after_post');
+		argon_update_option('argon_related_post');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

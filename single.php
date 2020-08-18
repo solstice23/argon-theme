@@ -36,6 +36,48 @@
 					echo '</div>';
 				}
 			}
+
+			$relatedPosts = get_option('argon_related_post', 'disabled');
+			if ($relatedPosts != "disabled"){
+				global $post;
+				$args = array(
+					'post__not_in' => array($post -> ID),
+					'showposts' => 10,
+					'caller_get_posts' => 1
+				);
+				if (strpos($relatedPosts, 'category') !== false){
+					$args['category__in'] = wp_get_post_categories($post -> ID);
+				}
+				if (strpos($relatedPosts, 'tag') !== false){
+					$tagArray = wp_get_post_tags($post -> ID);
+					$tags = array();
+					foreach ($tagArray as $tag){
+						array_push($tags, $tag -> term_id);
+					}
+					$args['tag__in'] = $tags;
+				}
+				query_posts($args);
+				if (have_posts()) {
+					echo '<div class="related-posts card shadow-sm">';
+					while (have_posts()) {
+						the_post();
+						update_post_caches($posts);
+						$hasThumbnail = argon_has_post_thumbnail(get_the_ID());
+						echo '<a class="related-post-card" href="' . get_the_permalink() . '">';
+						echo '<div class="related-post-card-container' . ($hasThumbnail ? ' has-thumbnail' : '') . '">
+							<div class="related-post-title clamp" clamp-line="3">' . get_the_title() . '</div>
+							<i class="related-post-arrow fa fa-chevron-right" aria-hidden="true"></i>
+							</div>';
+						if ($hasThumbnail){
+							echo '<img class="related-post-thumbnail lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABBJREFUeNpi+P//PwNAgAEACPwC/tuiTRYAAAAASUVORK5CYII=" data-original="' .  argon_get_post_thumbnail(get_the_ID()) . '"/>';
+						}
+						echo '</a>';
+					}
+					echo '</div>';
+					wp_reset_query();
+				}
+			}
+
 		endwhile;
 		?>
 
