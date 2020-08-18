@@ -216,7 +216,6 @@
 			</div>
 		</div>
 </aside>
-<!--显示所有分类和标签的 Dialog-->
 <div class="modal fade" id="blog_categories" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
