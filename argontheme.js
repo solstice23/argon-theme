@@ -1089,7 +1089,7 @@ function inputInsertText(text, input){
 $(document).on("click" , ".emotion-keyboard .emotion-item" , function(){
 	$("#comment_emotion_btn").removeClass("comment-emotion-keyboard-open");
 	if ($(this).hasClass("emotion-item-sticker")){
-		inputInsertText(":" + $(this).attr("code") + ":", document.getElementById("post_comment_content"));
+		inputInsertText(" :" + $(this).attr("code") + ": ", document.getElementById("post_comment_content"));
 	}else{
 		inputInsertText($(this).attr("text"), document.getElementById("post_comment_content"));
 	}
