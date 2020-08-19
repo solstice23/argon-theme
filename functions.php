@@ -394,10 +394,11 @@ function set_post_views(){
 			}
 		}
 	}
-	if (!isset($_POST['no_post_view'])){
-		$_POST['no_post_view'] = 'false';
+	$noPostView = 'false';
+	if (isset($_POST['no_post_view'])){
+		$noPostView = $_POST['no_post_view'];
 	}
-	if ($_POST['no_post_view'] == 'true'){
+	if ($noPostView == 'true'){
 		return;
 	}
 	global $post;
