@@ -67,6 +67,14 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200819 v0.999.beta.6
++ 移除 V2EX Gravatar CDN 选项
++ 增加自定义 Gravatar CDN 选项
++ 修复 Lazyload 加载不出的 BUG
++ 优化无头像的友情链接的显示
++ 修复首页说说中的视频的显示问题
++ 优化侧栏过长 Link 的显示
+
 ## 20200818 v0.999.beta.5
 + 增加 "相似文章推荐" 选项
 + 修复文章第一张图片无法作为头图的 BUG

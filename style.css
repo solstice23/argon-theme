@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.999.beta.5.1
+Version: 0.999.beta.6
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -67,16 +67,16 @@ article img , .shuoshuo-preview-container img{
 	max-width: 100%;
 	height: auto;
 }
-article .wp-block-image figcaption {
+article .wp-block-image figcaption , .shuoshuo-preview-container .wp-block-image figcaption{
 	text-align: center;
 	font-size: 14px;
 	opacity: 0.6;
 }
-article video {
+article video , .shuoshuo-preview-container video{
 	max-width: 100%;
 	outline: none;
 }
-article .wp-caption{
+article .wp-caption , .shuoshuo-preview-container .wp-caption{
 	max-width: 100%;
 }
 article .post-content a{
@@ -803,6 +803,7 @@ body.leftbar-can-headroom.headroom---unpinned #leftbar_part2.sticky{
 	max-width: 280px;
 	box-sizing: border-box;
 	display: inline-block;
+	max-width: 100%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -2406,6 +2407,9 @@ html.darkmode .emotion-group-name:hover {
 	padding: 10px 15px 10px 15px;
 	white-space: normal;
 }
+.friend-links-style1 .no-avatar .friend-link-content {
+	width: 100%;
+}
 .friend-links-style1 .friend-link-title {
 	font-weight: bold;
 	font-size: 18px;
@@ -2453,6 +2457,9 @@ html.darkmode.amoled-dark .friend-links-style1 .friend-link-description:after {
 }
 .friend-links-style1.friend-links-style1-square .friend-link-content {
 	width: calc(100% - 130px);
+}
+.friend-links-style1.friend-links-style1-square .no-avatar .friend-link-content {
+	width: 100%;
 }
 /*短代码-友链-样式 2*/
 .friend-links-style2 .friend-link-avatar {

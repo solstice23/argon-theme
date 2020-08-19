@@ -1412,13 +1412,19 @@ function the_content_filter($content){
 	return $content;
 }
 add_filter('the_content' , 'the_content_filter');
-//使用 v2ex CDN 的 gravatar 头像源加速
-function get_avatar_from_v2ex($avatar){
-	$avatar = preg_replace("/http:\/\/(www|\d).gravatar.com\/avatar\//" , "//cdn.v2ex.com/gravatar/" , $avatar);
-	return $avatar;
+//使用 CDN 加速 gravatar
+function gravatar_cdn($url){
+	$cdn = get_option('argon_gravatar_cdn' , 'gravatar.loli.net/avatar/');
+	$cdn = str_replace("http://", "", $cdn);
+	$cdn = str_replace("https://", "", $cdn);
+	if (substr($cdn, -1) != '/'){
+		$cdn .= "/";
+	}
+	$url = preg_replace("/\/\/(.*?).gravatar.com\/avatar\//" , "//" . $cdn , $url);
+	return $url;
 }
-if (get_option('argon_enable_v2ex_gravatar') == 'true'){
-	add_filter('get_avatar', 'get_avatar_from_v2ex');
+if (get_option('argon_gravatar_cdn' , '') != ''){
+	add_filter('get_avatar_url', 'gravatar_cdn');
 }
 //说说点赞
 function get_shuoshuo_upvotes($ID){
@@ -1982,13 +1988,10 @@ function shortcode_friend_link($attr,$content=""){
 	foreach ($friendlinks as $friendlink){
 		$out .= "
 			<div class='link mb-2 col-lg-6 col-md-6'>
-				<div class='card shadow-sm friend-link-container'>";
+				<div class='card shadow-sm friend-link-container" . ($friendlink -> link_image == "" ? " no-avatar" : "") . "'>";
 		if ($friendlink -> link_image != ''){
 			$out .= "
 					<img src='" . $friendlink -> link_image . "' class='friend-link-avatar bg-gradient-secondary'>";
-		}else{
-			$out .= "
-					<img class='friend-link-avatar bg-gradient-secondary'></img>";
 		}
 		$out .= "	<div class='friend-link-content'>
 						<div class='friend-link-title title text-primary'>
@@ -3480,14 +3483,10 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
-						<th><label><?php _e('是否使用 v2ex CDN 代理的 gravatar', 'argon');?></label></th>
+						<th><label>Gravatar CDN</label></th>
 						<td>
-							<select name="argon_enable_v2ex_gravatar">
-								<?php $enable_v2ex_gravatar = get_option('argon_enable_v2ex_gravatar'); ?>
-								<option value="false" <?php if ($enable_v2ex_gravatar=='false'){echo 'selected';} ?>><?php _e('不使用', 'argon');?></option>
-								<option value="true" <?php if ($enable_v2ex_gravatar=='true'){echo 'selected';} ?>><?php _e('使用', 'argon');?></option>
-							</select>
-							<p class="description"><?php _e('可以大幅增加国内 gravatar 头像加载的速度', 'argon');?></p>
+							<input type="text" class="regular-text" name="argon_gravatar_cdn" value="<?php echo get_option('argon_gravatar_cdn' , ''); ?>"/>
+							<p class="description"><?php _e('使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。', 'argon');?></br><?php _e('在中国速度较快的一些 CDN :', 'argon');?><code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">gravatar.loli.net/avatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">cdn.v2ex.com/gravatar/</code></p>
 						</td>
 					</tr>
 					<tr>
@@ -3835,7 +3834,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_banner_background_color_type');
 		argon_update_option('argon_banner_background_hide_shapes');
 		argon_update_option('argon_enable_smoothscroll_type');
-		argon_update_option('argon_enable_v2ex_gravatar');
+		argon_update_option('argon_gravatar_cdn');
 		argon_update_option_allow_tags('argon_footer_html');
 		argon_update_option('argon_show_readingtime');
 		argon_update_option('argon_reading_speed');
