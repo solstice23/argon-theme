@@ -2162,8 +2162,8 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 	color: var(--themecolor);
 }
 .emotion-keyboard {
-	max-width: min(500px, 100vw);
-	min-width: min(300px, 100vw);
+	max-width: min(500px, calc(100vw - 40px));
+	min-width: min(300px, calc(100vw - 40px));
 	display: flex;
 	height: 300px;
 	flex-direction: column;
