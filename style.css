@@ -708,6 +708,9 @@ body.leftbar-can-headroom.headroom---unpinned #leftbar_part2.sticky{
 .sidebar-tab-switcher > a.active{
 	border-bottom: 1px solid var(--themecolor);
 }
+html.darkmode .sidebar-tab-switcher > a.active{
+	border-bottom: 1px solid var(--themecolor-light);
+}
 
 #leftbar_overview_author_name{
 	margin-top: 15px;
@@ -722,9 +725,14 @@ body.leftbar-can-headroom.headroom---unpinned #leftbar_part2.sticky{
 }
 .site-state-item {
 	display: inline-block;
-	padding: 0 15px;
 	border-left: 1px solid #eee;
 	padding: 0 10px;
+}
+html.darkmode .site-state-item {
+	border-left: 1px solid #777;
+}
+html.darkmode.amoled-dark .site-state-item {
+	border-left: 1px solid #333;
 }
 .site-state-item:first-child {
 	border-left: none;
@@ -2686,6 +2694,9 @@ html.darkmode.amoled-dark .friend-links-style1 .friend-link-description:after {
 	left: 0;
 	width: 100%;
 	height: 2px;
+}
+body.leftbar-can-headroom.headroom---unpinned #nprogress .bar {
+	background: rgba(var(--themecolor-rgbstr), 0.67);
 }
 #nprogress .peg {
 	display: block;
