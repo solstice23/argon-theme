@@ -59,7 +59,7 @@
 					}
 				}	
 				$query = new WP_Query(array(
-					'posts_per_page' => 10,
+					'posts_per_page' => get_option('argon_related_post_limit' , '10'),
 					'order' => get_option('argon_related_post_sort_order', 'DESC'),
 					'orderby' => get_option('argon_related_post_sort_orderby', 'date'),
 					'meta_key' => 'views',

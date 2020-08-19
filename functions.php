@@ -2963,6 +2963,13 @@ function themeoptions_page(){
 							<p class="description"></p>
 						</td>
 					</tr>
+					<tr>
+						<th><label><?php _e('推荐文章数', 'argon');?></label></th>
+						<td>
+							<input type="number" name="argon_related_post_limit" min="1" max="100" value="<?php echo get_option('argon_related_post_limit' , '10'); ?>"/>
+							<p class="description"><?php _e('最多推荐多少篇文章', 'argon');?></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h3><?php _e('其他', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('文章过时信息显示', 'argon');?></label></th>
@@ -3487,7 +3494,7 @@ window.pjaxLoaded = function(){
 						<th><label>Gravatar CDN</label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_gravatar_cdn" value="<?php echo get_option('argon_gravatar_cdn' , ''); ?>"/>
-							<p class="description"><?php _e('使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。', 'argon');?></br><?php _e('在中国速度较快的一些 CDN :', 'argon');?><code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">gravatar.loli.net/avatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">cdn.v2ex.com/gravatar/</code></p>
+							<p class="description"><?php _e('使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。', 'argon');?></br><?php _e('在中国速度较快的一些 CDN :', 'argon');?><code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">gravatar.loli.net/avatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">cdn.v2ex.com/gravatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">dn-qiniu-avatar.qbox.me/avatar/</code></p>
 						</td>
 					</tr>
 					<tr>
@@ -3904,6 +3911,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_related_post');
 		argon_update_option('argon_related_post_sort_orderby');
 		argon_update_option('argon_related_post_sort_order');
+		argon_update_option('argon_related_post_limit');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

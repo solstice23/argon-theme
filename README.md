@@ -67,6 +67,11 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200819 v0.999.beta.7
++ 修复 WP Super Cache 和 Argon 不兼容的问题
++ 优化左侧栏 "功能" Tab 样式
++ 增加推荐相似文章数量选项
+
 ## 20200819 v0.999.beta.6
 + 移除 V2EX Gravatar CDN 选项
 + 增加自定义 Gravatar CDN 选项
