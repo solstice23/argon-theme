@@ -1737,6 +1737,21 @@ background: rgba(var(--themecolor-rgbstr), .1);
 /*评论内容*/
 .comment-item-text .comment-sticker{
 	max-height: 60px;
+	transition: all .3s ease;
+	transition-delay: 0s;
+	transform: none;
+}
+.comment-item-text .comment-sticker:active{
+	transition-delay: .3s;
+	transform: scale(2);
+	box-shadow: 0px 0px 5px rgba(0,0,0,.15);
+	background: #fff;
+}
+html.darkmode .comment-item-text .comment-sticker:active{
+	background: #424242;
+}
+html.darkmode.amoled-dark .comment-item-text .comment-sticker:active{
+	background: #000;
 }
 .comment-item-text .comment-image br{
 	display: none;
