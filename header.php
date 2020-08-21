@@ -313,7 +313,7 @@
 										  </a>";
 									}
 								}else if ($depth == 1){
-									$output .= "<a href=" . $object -> url . " class='dropdown-item' target='" . $object -> target . "' title='" . $object -> description . "'>" . $object -> title . "</a>";
+									$output .= "<a href='" . $object -> url . "' class='dropdown-item' target='" . $object -> target . "' title='" . $object -> description . "'>" . $object -> title . "</a>";
 								}
 							}
 							public function end_el( &$output, $object, $depth = 0, $args = array(), $current_object_id = 0 ) {
