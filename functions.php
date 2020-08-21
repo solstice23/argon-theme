@@ -420,23 +420,36 @@ function set_post_views(){
 add_action('get_header', 'set_post_views');
 //字数和预计阅读时间
 function get_article_words($str){
-	return mb_strlen(
-		preg_replace(
-			'/\s/',
-			'',
-			html_entity_decode(
-				strip_tags($str)
-			)
-		),
-		'UTF-8'
+	$str = preg_replace(
+		'/<code(.*?)>([\w\W]*)<\/code>/',
+		'',
+		$str
+	);
+	$str = preg_replace(
+		'/\s/',
+		'',
+		html_entity_decode(
+			strip_tags($str)
+		)
+	);
+	preg_match_all('/[\x{4e00}-\x{9fa5}]/u' , $str , $cnRes);
+	$cnTotal = count($cnRes[0]);
+	$enRes = preg_replace('/[\x{4e00}-\x{9fa5}]/u', '', $str);
+	preg_match_all('/[a-zA-Z0-9_\x{0392}-\x{03c9}\x{0400}-\x{04FF}]+|[\x{4E00}-\x{9FFF}\x{3400}-\x{4dbf}\x{f900}-\x{faff}\x{3040}-\x{309f}\x{ac00}-\x{d7af}\x{0400}-\x{04FF}]+|[\x{00E4}\x{00C4}\x{00E5}\x{00C5}\x{00F6}\x{00D6}]+|\w+/u' , $str , $enRes);
+	$enTotal = count($enRes[0]);
+	return array(
+		'cn' => $cnTotal,
+		'en' => $enTotal
 	);
 }
+function get_article_words_total($str){
+	$res = get_article_words($str);
+	return $res['cn'] + $res['en'];
+}
 function get_reading_time($len){
-	$speed = get_option('argon_reading_speed');
-	if ($speed == ""){
-		$speed = 300;
-	}
-	$reading_time = $len / $speed;
+	$speedcn = get_option('argon_reading_speed', 300);
+	$speeden = get_option('argon_reading_speed_en', 160);
+	$reading_time = $len['cn'] / $speedcn + $len['en'] / $speeden;
 	if ($reading_time < 0.3){
 		return __("几秒读完", 'argon');
 	}
@@ -2855,10 +2868,18 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr>
-						<th><label><?php _e('每分钟阅读字数', 'argon');?></label></th>
+						<th><label><?php _e('每分钟阅读字数（中文）', 'argon');?></label></th>
 						<td>
 							<input type="number" name="argon_reading_speed" min="1" max="5000"  value="<?php echo (get_option('argon_reading_speed') == '' ? '300' : get_option('argon_reading_speed')); ?>"/>
 							<?php _e('字/分钟', 'argon');?>
+							<p class="description"></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label><?php _e('每分钟阅读单词数（英文）', 'argon');?></label></th>
+						<td>
+							<input type="number" name="argon_reading_speed_en" min="1" max="5000"  value="<?php echo (get_option('argon_reading_speed_en') == '' ? '160' : get_option('argon_reading_speed_en')); ?>"/>
+							<?php _e('单词/分钟', 'argon');?>
 							<p class="description"><?php _e('预计阅读时间由每分钟阅读字数计算', 'argon');?></p>
 						</td>
 					</tr>
@@ -2968,6 +2989,55 @@ function themeoptions_page(){
 						<td>
 							<input type="number" name="argon_related_post_limit" min="1" max="100" value="<?php echo get_option('argon_related_post_limit' , '10'); ?>"/>
 							<p class="description"><?php _e('最多推荐多少篇文章', 'argon');?></p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h3><?php _e('文章内标题样式', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('文章内标题样式', 'argon');?></label></th>
+						<td>
+							<select name="argon_article_header_style">
+								<?php $argon_article_header_style = get_option('argon_article_header_style'); ?>
+								<option value="article-header-style-default" <?php if ($argon_article_header_style=='article-header-style-default'){echo 'selected';} ?>><?php _e('默认样式', 'argon');?></option>
+								<option value="article-header-style-1" <?php if ($argon_article_header_style=='article-header-style-1'){echo 'selected';} ?>><?php _e('样式 1', 'argon');?></option>
+								<option value="article-header-style-2" <?php if ($argon_article_header_style=='article-header-style-2'){echo 'selected';} ?>><?php _e('样式 2', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('样式预览', 'argon');?> :</br>
+								<div class="article-header-style-preview style-default"><?php _e('默认样式', 'argon');?></div>
+								<div class="article-header-style-preview style-1"><?php _e('样式 1', 'argon');?></div>
+								<div class="article-header-style-preview style-2"><?php _e('样式 2', 'argon');?></div>
+								<style>
+									.article-header-style-preview{
+										font-size: 26px;
+										position: relative;
+									}
+									.article-header-style-preview.style-1:after {
+										content: '';
+										display: block;
+										position: absolute;
+										background: #5e72e4;
+										opacity: .25;
+										pointer-events: none;
+										border-radius: 15px;
+										left: -2px;
+										bottom: 0px;
+										width: 45px;
+										height: 13px;
+									}
+									.article-header-style-preview.style-2:before {
+										content: '';
+										display: inline-block;
+										background: #5e72e4;
+										opacity: 1;
+										pointer-events: none;
+										border-radius: 15px;
+										width: 6px;
+										vertical-align: middle;
+										margin-right: 12px;
+										height: 20px;
+										transform: translateY(-1px);
+									}
+								</style>
+							</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('其他', 'argon');?></h3></th></tr>
@@ -3846,6 +3916,7 @@ function argon_update_themeoptions(){
 		argon_update_option_allow_tags('argon_footer_html');
 		argon_update_option('argon_show_readingtime');
 		argon_update_option('argon_reading_speed');
+		argon_update_option('argon_reading_speed_en');
 		argon_update_option('argon_show_sharebtn');
 		argon_update_option('argon_enable_timezone_fix');
 		argon_update_option('argon_donate_qrcode_url');
@@ -3912,6 +3983,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_related_post_sort_orderby');
 		argon_update_option('argon_related_post_sort_order');
 		argon_update_option('argon_related_post_limit');
+		argon_update_option('argon_article_header_style');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

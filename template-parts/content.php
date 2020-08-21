@@ -34,7 +34,7 @@
 				<div class="post-meta-detail post-meta-detail-words">
 					<i class="fa fa-file-word-o" aria-hidden="true"></i>
 					<?php
-						echo get_article_words($post_content_full) . " " . __("字", 'argon');
+						echo get_article_words_total($post_content_full) . " " . __("字", 'argon');
 					?>
 				</div>
 				<div class="post-meta-devide">|</div>

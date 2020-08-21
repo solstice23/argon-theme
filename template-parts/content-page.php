@@ -47,7 +47,7 @@
 				<div class="post-meta-detail post-meta-detail-words">
 					<i class="fa fa-file-word-o" aria-hidden="true"></i>
 					<?php
-						echo get_article_words(get_the_content()) . " 字";
+						echo get_article_words_total(get_the_content()) . " 字";
 					?>
 				</div>
 				<div class="post-meta-devide">|</div>

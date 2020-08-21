@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 0.999.beta.7
+Version: 0.999.beta.8
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -198,6 +198,72 @@ html.use-serif p , html.use-serif span , html.use-serif div{
 }
 html.use-big-shadow *.shadow-sm{
 	box-shadow: 0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba(0,0,0,.07)!important;
+}
+/*标题样式*/
+.article-header-style-1 article h1, .article-header-style-1 article h2, .article-header-style-1 article h3{
+	position: relative;
+}
+.article-header-style-1 article h1:after,
+.article-header-style-1 article h2:after,
+.article-header-style-1 article h3:after {
+	content: '';
+	display: block;
+	position: absolute;
+	background: var(--themecolor);
+	opacity: .25;
+	pointer-events: none;
+	border-radius: 15px;
+	left: -2px;
+	bottom: 0px;
+}
+.article-header-style-1 article h1:after {
+	width: 45px;
+	height: 13px;
+}
+.article-header-style-1 article h2:after {
+	width: 40px;
+	height: 11px;
+}
+.article-header-style-1 article h3:after {
+	width: 30px;
+	height: 9px;
+}
+.article-header-style-1 article h1.text-center:after, .article-header-style-1 article h1[style*='text-align: center']:after, .article-header-style-1 article h1[style*='text-align:center']:after,
+.article-header-style-1 article h2.text-center:after, .article-header-style-1 article h2[style*='text-align: center']:after, .article-header-style-1 article h2[style*='text-align:center']:after,
+.article-header-style-1 article h3.text-center:after, .article-header-style-1 article h3[style*='text-align: center']:after, .article-header-style-1 article h3[style*='text-align:center']:after {
+	left: 50%;
+	transform: translateX(-50%);
+}
+.article-header-style-1 article h1.text-right:after, .article-header-style-1 article h1[style*='text-align: right']:after, .article-header-style-1 article h1[style*='text-align:right']:after,
+.article-header-style-1 article h2.text-right:after, .article-header-style-1 article h2[style*='text-align: right']:after, .article-header-style-1 article h2[style*='text-align:right']:after,
+.article-header-style-1 article h3.text-right:after, .article-header-style-1 article h3[style*='text-align: right']:after, .article-header-style-1 article h3[style*='text-align:right']:after {
+	left: unset;
+	right: -2px;
+}
+.article-header-style-2 article h1:before,
+.article-header-style-2 article h2:before,
+.article-header-style-2 article h3:before {
+	content: '';
+	display: inline-block;
+	background: var(--themecolor);
+	opacity: 1;
+	pointer-events: none;
+	border-radius: 15px;
+	width: 6px;
+	vertical-align: middle;
+	margin-right: 15px;
+}
+.article-header-style-2 article h1:before {
+	height: 25px;
+	transform: translateY(-1px);
+}
+.article-header-style-2 article h2:before {
+	height: 20px;
+	transform: translateY(-2px);
+}
+.article-header-style-2 article h3:before {
+	height: 16px;
+	transform: translateY(-1px);
 }
 /*卡片圆角*/
 .card{
