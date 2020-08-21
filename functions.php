@@ -1397,7 +1397,7 @@ function get_banner_background_url(){
 		return $url;
 	}
 }
-//Lazyload 对 <img> 标签预处理和加入 <script> 以加载 Lazyload
+//Lazyload 对 <img> 标签预处理以加载 Lazyload
 function argon_lazyload($content){
 	$lazyload_loading_style = get_option('argon_lazyload_loading_style');
 	if ($lazyload_loading_style == ''){
