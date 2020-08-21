@@ -879,7 +879,6 @@ html.darkmode.amoled-dark #leftbar_tab_tools ul li {
 	color: #fff;
 	width: 100%;
 	float: right;
-	margin-top: 25px;
 	margin-bottom: 25px;
 	text-align: center;
 	padding: 25px 20px;
@@ -1455,7 +1454,7 @@ background: rgba(var(--themecolor-rgbstr), .1);
 
 /*文章导航 (上/下一篇文章)*/
 .post-navigation{
-	margin-top: 25px;
+	margin-bottom: 25px;
 	padding: 30px 25px;
 	padding-top: 25px;
 	font-size: 18px;
@@ -1490,7 +1489,7 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	display: block;
 	white-space: nowrap;
 	overflow-x: auto;
-	margin-top: 25px;
+	margin-bottom: 25px;
 	padding: 15px;
 	padding-bottom: 5px;
 }
