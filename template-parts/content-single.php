@@ -63,7 +63,7 @@
 		?>
 	</header>
 
-	<div class="post-content" id="post_content">
+	<div class="post-content <?php if (get_option('argon_post_header') != 1) echo 'post-header-' . (get_option('argon_post_header') - 1); ?>" id="post_content">
 		<?php if (post_password_required()){ ?>
 			<div class="text-center container">
 				<form action="/wp-login.php?action=postpass" class="post-password-form" method="post">

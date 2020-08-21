@@ -2885,6 +2885,177 @@ function themeoptions_page(){
 							<p class="description"><?php _e('也可以针对每篇文章单独设置', 'argon');?></p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h3><?php _e('文章标题', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('文章标题样式', 'argon');?></label></th>
+						<td>
+							<select name="argon_post_header">
+								<?php $argon_post_header = get_option('argon_post_header'); ?>
+								<option value="1" <?php if ($argon_post_header=='1'){echo 'selected';} ?>><?php _e('样式1', 'argon');?></option>
+								<option value="2" <?php if ($argon_post_header=='2'){echo 'selected';} ?>><?php _e('样式2', 'argon');?></option>
+								<option value="3" <?php if ($argon_post_header=='3'){echo 'selected';} ?>><?php _e('样式3', 'argon');?></option>
+							</select>
+							<p class="description">文章中标题的样式</p>
+							<div style="margin-top: 15px;"><strong>样式预览</strong></div>
+	                        <div id="header-demo1" style="float: left;width: 200px;margin-top: 10px;">
+							    <div><strong>样式1</strong></div>
+							    <div id="header-1">1 号标题</div>
+	                            <div id="header-2">2 号标题</div>
+	                            <div id="header-3">3 号标题</div>
+	                            <div id="header-4">4 号标题</div>
+	                            <div id="header-5">5 号标题</div>
+	                            <div id="header-6">6 号标题</div>
+							</div>
+							<div id="header-demo2" style="float: left;margin-top: 10px;width: 200px;">
+							    <div><strong>样式2</strong></div>
+							    <div id="header-1">1 号标题</div>
+	                            <div id="header-2">2 号标题</div>
+	                            <div id="header-3">3 号标题</div>
+	                            <div id="header-4">4 号标题</div>
+	                            <div id="header-5">5 号标题</div>
+	                            <div id="header-6">6 号标题</div>
+							</div>
+							<div id="header-demo3" style="float: left;width: 200px;margin-top: 10px;">
+							    <div><strong>样式3</strong></div>
+							    <div id="header-1">1 号标题</div>
+	                            <div id="header-2">2 号标题</div>
+	                            <div id="header-3">3 号标题</div>
+	                            <div id="header-4">4 号标题</div>
+	                            <div id="header-5">5 号标题</div>
+	                            <div id="header-6">6 号标题</div>
+							</div>
+							<style>
+	    						div#header-demo2 > div#header-1 {
+	                                position: relative;
+	                                left: 15px;
+	                            }
+	                            div#header-demo2 > div#header-1:before {
+	                                content: '';
+	                                display: block;
+	                                background: black;
+	                                width: 5px;
+	                                height: 20px;
+	                                position: absolute;
+	                                top: 9px;
+	                                left: -15px;
+	                                border-radius: 20px;
+	                                pointer-events: none;
+	                            }
+	    						div#header-demo2 > div#header-2 {
+	                                position: relative;
+	                                left: 15px;
+	                            }
+	    						div#header-demo2 > div#header-2:before {
+	                                content: '';
+	                                display: block;
+	                                background: black;
+	                                width: 5px;
+	                                height: 18px;
+	                                position: absolute;
+	                                top: 9px;
+	                                left: -15px;
+	                                border-radius: 20px;
+	                                pointer-events: none;
+	                            }
+	                            div#header-demo2 > div#header-3 {
+	                                position: relative;
+	                                left: 15px;
+	                            }
+	                            div#header-demo2 > div#header-3:before {
+	                                content: '';
+	                                display: block;
+	                                background: black;
+	                                width: 5px;
+	                                height: 14px;
+	                                position: absolute;
+	                                top: 5px;
+	                                left: -15px;
+	                                border-radius: 20px;
+	                                pointer-events: none;
+	                            }
+	                            div#header-demo3 > div#header-1 {
+	                              position: relative;
+	                            }
+	                            div#header-demo3 > div#header-1:before {
+	                              content: '';
+	                              display: block;
+	                              background: black;
+	                              width: 40px;
+	                              height: 13px;
+	                              position: absolute;
+	                              left: 0;
+	                              bottom: -1px;
+	                              border-radius: 10px;
+	                              opacity: 0.25;
+	                              pointer-events: none;
+	                            }
+	                            div#header-demo3 > div#header-2 {
+	                              position: relative;
+	                            }
+	                            div#header-demo3 > div#header-2:before {
+	                              content: '';
+	                              display: block;
+	                              background: black;
+	                              width: 35px;
+	                              height: 11px;
+	                              position: absolute;
+	                              left: 0;
+	                              bottom: -1px;
+	                              border-radius: 10px;
+	                              opacity: 0.25;
+	                              pointer-events: none;
+	                            }
+	                            div#header-demo3 > div#header-3 {
+	                              position: relative;
+	                            }
+	                            div#header-demo3 > div#header-3:before {
+	                              content: '';
+	                              display: block;
+	                              background: black;
+	                              width: 30px;
+	                              height: 9px;
+	                              position: absolute;
+	                              left: 0;
+	                              bottom: -1px;
+	                              border-radius: 10px;
+	                              opacity: 0.25;
+	                              pointer-events: none;
+	                            }
+	                            div#header-1 {
+	                                color: #23282d;
+	                                font-size: 2em;
+	                                margin: .67em 0;
+	                            }
+	                            div#header-2, div#header-3 {
+	                                color: #23282d;
+	                                font-size: 1.3em;
+	                                margin: 1em 0;
+	                            }
+	                            div#header-2 {
+	                                font-size: 25px;
+	                            }
+	                            div#header-3 {
+	                                font-size: 18px;
+	                            }
+	                            div#header-4 {
+	                                font-size: 1em;
+	                                margin: 1.33em 0;
+	                            }
+	                            div#header-5 {
+	                                font-size: .83em;
+	                                margin: 1.67em 0;
+	                            }
+	                            div#header-6 {
+	                                font-size: .67em;
+	                                margin: 2.33em 0;
+	                            }
+	                            div#header-1, div#header-2, div#header-3, div#header-4, div#header-5, div#header-6 {
+	                                display: block;
+	                                font-weight: 600;
+	                            }
+							</style>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h3><?php _e('分享', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('显示文章分享按钮', 'argon');?></label></th>
@@ -3908,6 +4079,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_enable_headroom');
 		argon_update_option('argon_comment_emotion_keyboard');
 		argon_update_option_allow_tags('argon_additional_content_after_post');
+		argon_update_option('argon_post_header');
 		argon_update_option('argon_related_post');
 		argon_update_option('argon_related_post_sort_orderby');
 		argon_update_option('argon_related_post_sort_order');

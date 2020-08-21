@@ -1391,6 +1391,103 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	margin-right: 7px;
 	font-size: 12px;
 }
+/*文章标题*/
+.post-header-1 h1 {
+	position: relative;
+	left: 15px;
+}
+.post-header-1 h1:after {
+	content: '';
+	display: block;
+	background: var(--themecolor);
+	width: 5px;
+	height: 20px;
+	position: absolute;
+	top: 13px;
+	left: -15px;
+	border-radius: 20px;
+	pointer-events: none;
+}
+.post-header-1 h2 {
+	position: relative;
+	left: 15px;
+}
+.post-header-1 h2:after {
+	content: '';
+	display: block;
+	background: var(--themecolor);
+	width: 5px;
+	height: 18px;
+	position: absolute;
+	top: 10px;
+	left: -15px;
+	border-radius: 20px;
+	pointer-events: none;
+}
+.post-header-1 h3 {
+	position: relative;
+	left: 15px;
+}
+.post-header-1 h3:after {
+	content: '';
+	display: block;
+	background: var(--themecolor);
+	width: 5px;
+	height: 14px;
+	position: absolute;
+	top: 10px;
+	left: -15px;
+	border-radius: 20px;
+	pointer-events: none;
+}
+.post-header-2 h1 {
+	position: relative;
+}
+.post-header-2 h1:after {
+	content: '';
+	display: block;
+	background: var(--themecolor);
+	width: 40px;
+	height: 13px;
+	position: absolute;
+	left: 0;
+	bottom: -1px;
+	border-radius: 10px;
+	opacity: 0.25;
+	pointer-events: none;
+}
+.post-header-2 h2 {
+	position: relative;
+}
+.post-header-2 h2:after {
+	content: '';
+	display: block;
+	background: var(--themecolor);
+	width: 35px;
+	height: 11px;
+	position: absolute;
+	left: 0;
+	bottom: -1px;
+	border-radius: 10px;
+	opacity: 0.25;
+	pointer-events: none;
+}
+.post-header-2 h3 {
+	position: relative;
+}
+.post-header-2 h3:after {
+	content: '';
+	display: block;
+	background: var(--themecolor);
+	width: 30px;
+	height: 9px;
+	position: absolute;
+	left: 0;
+	bottom: -1px;
+	border-radius: 10px;
+	opacity: 0.25;
+	pointer-events: none;
+}
 /*文章输入密码界面*/
 .post-password-form{
 	margin-top: 45px;
