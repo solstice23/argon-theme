@@ -150,7 +150,7 @@
 										if ($depth == 0){
 											$output .= "\n
 											<div class='site-author-links-item'>
-												<a href='" . $object -> url . "' rel='noopener' target='_blank'>". $object -> title . "</a>											";
+												<a href='" . $object -> url . "' rel='noopener' target='_blank'>". $object -> title . "</a>";
 										}
 									}
 									public function end_el( &$output, $object, $depth = 0, $args = array(), $current_object_id = 0 ) {
