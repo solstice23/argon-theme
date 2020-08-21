@@ -1458,6 +1458,9 @@ background: rgba(var(--themecolor-rgbstr), .1);
 	margin-right: 7px;
 	font-size: 12px;
 }
+.additional-content-after-post + .post-tags {
+	margin-top: 25px;
+}
 /*文章输入密码界面*/
 .post-password-form{
 	margin-top: 45px;
