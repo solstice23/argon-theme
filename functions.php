@@ -466,7 +466,7 @@ function have_catalog(){
 //获取文章 Meta
 function get_article_meta($type){
 	if ($type == 'sticky'){
-		return '<div class="post-meta-detail post-meta-detail-words">
+		return '<div class="post-meta-detail post-meta-detail-stickey">
 					<i class="fa fa-thumb-tack" aria-hidden="true"></i>
 					' . __('置顶', 'argon') . '
 				</div>';
@@ -486,7 +486,7 @@ function get_article_meta($type){
 				</div>';
 	}
 	if ($type == 'edittime'){
-		return '<div class="post-meta-detail post-meta-detail-time">
+		return '<div class="post-meta-detail post-meta-detail-edittime">
 					<i class="fa fa-clock-o" aria-hidden="true"></i>
 					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
 						get_the_modified_time('Y-n-d G:i') . '

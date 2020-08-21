@@ -735,7 +735,7 @@ html.darkmode.amoled-dark .site-state-item {
 	border-left: 1px solid #333;
 }
 .site-state-item:first-child {
-	border-left: none;
+	border-left: none !important;
 }
 .site-state-item > a{
 	cursor: pointer;
