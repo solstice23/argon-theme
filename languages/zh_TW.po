@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: argon\n"
-"POT-Creation-Date: 2020-07-29 05:03+0800\n"
-"PO-Revision-Date: 2020-08-06 02:57+0800\n"
+"POT-Creation-Date: 2020-08-21 10:59+0800\n"
+"PO-Revision-Date: 2020-08-21 12:12+0800\n"
 "Last-Translator: \n"
 "Language-Team: solstice23\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex;_n;_nx\n"
@@ -19,11 +19,11 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: theme-update-checker\n"
 "X-Poedit-SearchPathExcluded-3: argontheme.js\n"
 
-#: archive.php:13
+#: archive.php:14
 msgid "篇文章"
 msgstr "篇文章"
 
-#: comments.php:12 functions.php:3055 header.php:489
+#: comments.php:12 functions.php:3262 header.php:490
 #: template-parts/shuoshuo-operations.php:5
 msgid "评论"
 msgstr "評論"
@@ -36,7 +36,7 @@ msgstr "暫無評論"
 msgid "本文评论已关闭"
 msgstr "本文評論已關閉"
 
-#: comments.php:68 functions.php:3068
+#: comments.php:68 functions.php:3275
 msgid "发送评论"
 msgstr "發送評論"
 
@@ -88,7 +88,7 @@ msgstr "摺疊附加欄位"
 msgid "评论仅发送者和博主可见"
 msgstr "評論僅發送者和博主可見"
 
-#: comments.php:178 functions.php:664
+#: comments.php:178 functions.php:782
 msgid "悄悄话"
 msgstr "悄悄話"
 
@@ -104,7 +104,7 @@ msgstr "郵件提醒"
 msgid "发送"
 msgstr "發送"
 
-#: comments.php:191 functions.php:691
+#: comments.php:191 functions.php:810
 msgid "编辑"
 msgstr "編輯"
 
@@ -112,149 +112,157 @@ msgstr "編輯"
 msgid "取消"
 msgstr "取消"
 
+#: comments.php:198
+msgid "表情"
+msgstr "表情"
+
+#: emotions.php:4
+msgid "颜文字"
+msgstr "顏文字"
+
 #: functions.php:3
 msgid "Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress"
 msgstr "Argon 主題不支持 Wordpress 4.4 以下版本，請更新 Wordpress"
 
-#: functions.php:126
+#: functions.php:138
 msgid "左侧栏小工具"
 msgstr "左側欄小工具"
 
-#: functions.php:128
+#: functions.php:140
 msgid "左侧栏小工具 (如果设置会在侧栏增加一个 Tab)"
 msgstr "左側欄小工具 (如果設置會在側欄增加一個 Tab)"
 
-#: functions.php:137
+#: functions.php:149
 msgid "右侧栏小工具"
 msgstr "右側欄小工具"
 
-#: functions.php:139
+#: functions.php:151
 msgid "右侧栏小工具 (在 \"Argon 主题选项\" 中选择 \"三栏布局\" 才会显示)"
 msgstr "右側欄小工具 (在 \"Argon 主題選項\" 中選擇 \"三欄布局\" 才會顯示)"
 
-#: functions.php:265
+#: functions.php:336
 msgid "这是一个加密页面，需要密码来查看"
 msgstr "這是一個加密頁面，需要密碼來查看"
 
-#: functions.php:369
+#: functions.php:441
 msgid "几秒读完"
 msgstr "幾秒讀完"
 
-#: functions.php:372
+#: functions.php:444
 msgid "1 分钟内"
 msgstr "1 分鐘內"
 
-#: functions.php:375
+#: functions.php:447
 msgid "分钟"
 msgstr "分鐘"
 
-#: functions.php:377
+#: functions.php:449
 msgid "小时"
 msgstr "小時"
 
-#: functions.php:399 template-parts/content-shuoshuo-details.php:16
+#: functions.php:471 template-parts/content-shuoshuo-details.php:16
 #: template-parts/content-shuoshuo-preview.php:24
 #: template-parts/content-shuoshuo.php:16
 msgid "置顶"
 msgstr "置頂"
 
-#: functions.php:405
+#: functions.php:477
 msgid "需要密码"
 msgstr "需要密碼"
 
-#: functions.php:411 functions.php:419
+#: functions.php:483 functions.php:491
 msgid "发布于"
 msgstr "發布於"
 
-#: functions.php:411 functions.php:419
+#: functions.php:483 functions.php:491
 msgid "编辑于"
 msgstr "編輯於"
 
-#: functions.php:633
+#: functions.php:705
 msgid "最初版本"
 msgstr "最初版本"
 
-#: functions.php:661 functions.php:708
-msgid "博主"
-msgstr "博主"
-
-#: functions.php:667 functions.php:711
-msgid "待审核"
-msgstr "待審核"
-
-#: functions.php:680
-msgid "已编辑"
-msgstr "已編輯"
-
-#: functions.php:684
-msgid "前"
-msgstr "前"
-
-#: functions.php:693
-msgid "回复"
-msgstr "回復"
-
-#: functions.php:791
-msgid "验证码错误"
-msgstr "驗證碼錯誤"
-
-#: functions.php:851
-msgid "不能回复其他人的悄悄话评论"
-msgstr "不能回復其他人的悄悄話評論"
-
-#: functions.php:945
+#: functions.php:736
 msgid "查看图片"
 msgstr "查看圖片"
 
-#: functions.php:988 functions.php:989
+#: functions.php:779 functions.php:827
+msgid "博主"
+msgstr "博主"
+
+#: functions.php:785 functions.php:830
+msgid "待审核"
+msgstr "待審核"
+
+#: functions.php:794
+msgid "已编辑"
+msgstr "已編輯"
+
+#: functions.php:798
+msgid "前"
+msgstr "前"
+
+#: functions.php:812
+msgid "回复"
+msgstr "回復"
+
+#: functions.php:910
+msgid "验证码错误"
+msgstr "驗證碼錯誤"
+
+#: functions.php:970
+msgid "不能回复其他人的悄悄话评论"
+msgstr "不能回復其他人的悄悄話評論"
+
+#: functions.php:1098 functions.php:1099
 msgid "您在"
 msgstr "您在"
 
-#: functions.php:988 functions.php:989
+#: functions.php:1098 functions.php:1099
 msgid "的评论有了新的回复"
 msgstr "的評論有了新的回覆"
 
-#: functions.php:997
+#: functions.php:1107
 msgid "回复了你"
 msgstr "回復了你"
 
-#: functions.php:1001
+#: functions.php:1111
 msgid "前往查看"
 msgstr "前往查看"
 
-#: functions.php:1004
+#: functions.php:1114
 msgid "退订该评论的邮件提醒"
 msgstr "退訂該評論的郵件提醒"
 
-#: functions.php:1077
+#: functions.php:1187
 msgid "博主关闭了编辑评论功能"
 msgstr "博主關閉了編輯評論功能"
 
-#: functions.php:1086
+#: functions.php:1196
 msgid "您不是这条评论的作者或 Token 已过期"
 msgstr "您不是這條評論的作者或 Token 已過期"
 
-#: functions.php:1092
+#: functions.php:1202
 msgid "新的评论为空"
 msgstr "新的評論爲空"
 
-#: functions.php:1118
+#: functions.php:1228
 msgid "编辑评论成功"
 msgstr "編輯評論成功"
 
-#: functions.php:1126
+#: functions.php:1236
 msgid "编辑评论失败，可能原因: 与原评论相同"
 msgstr "編輯評論失敗，可能原因: 與原評論相同"
 
-#: functions.php:1343
+#: functions.php:1457
 msgid "该说说已被赞过"
 msgstr "該說說已被贊過"
 
-#: functions.php:1352
+#: functions.php:1466
 msgid "点赞成功"
 msgstr "點讚成功"
 
-#: functions.php:1361
+#: functions.php:1475
 msgid ""
 "警告：你可能修改了 Argon 主题页脚的版权声明，Argon 主题要求你至少保留主题的 "
 "Github 链接或主题的发布文章链接。"
@@ -262,434 +270,469 @@ msgstr ""
 "警告：妳可能修改了 Argon 主題頁腳的版權聲明，Argon 主題要求妳至少保留主題的 "
 "Github 鏈接或主題的發布文章鏈接。"
 
-#: functions.php:1500 functions.php:2705
+#: functions.php:1621 functions.php:2848
 msgid "显示字数和预计阅读时间"
 msgstr "顯示字數和預計閱讀時間"
 
-#: functions.php:1503
+#: functions.php:1624 functions.php:1638
 msgid "跟随全局设置"
 msgstr "跟隨全局設置"
 
-#: functions.php:1504 functions.php:2580 functions.php:2590 functions.php:2601
-#: functions.php:2666 functions.php:2710 functions.php:2741 functions.php:2752
-#: functions.php:3181 functions.php:3269
+#: functions.php:1625 functions.php:2723 functions.php:2733 functions.php:2744
+#: functions.php:2809 functions.php:2853 functions.php:2895 functions.php:2906
+#: functions.php:3399 functions.php:3487
 msgid "不显示"
 msgstr "不顯示"
 
-#: functions.php:1506
+#: functions.php:1627
 msgid "是否显示字数和预计阅读时间 Meta 信息"
 msgstr "是否顯示字數和預計閱讀時間 Meta 信息"
 
-#: functions.php:1507
+#: functions.php:1628
 msgid "Meta 中隐藏发布时间和分类"
 msgstr "Meta 中隱藏發布時間和分類"
 
-#: functions.php:1510 functions.php:3074
+#: functions.php:1631 functions.php:3292
 msgid "不隐藏"
 msgstr "不隱藏"
 
-#: functions.php:1511 functions.php:3075
+#: functions.php:1632 functions.php:3293
 msgid "隐藏"
 msgstr "隱藏"
 
-#: functions.php:1513
+#: functions.php:1634
 msgid ""
 "适合特定的页面，例如友链页面。开启后文章 Meta 的第一行只显示阅读数和评论数。"
 msgstr ""
 "適合特定的頁面，例如友鏈頁面。開啟後文章 Meta 的第壹行只顯示閱讀數和評論數。"
 
-#: functions.php:1514
-msgid "自定义 CSS"
-msgstr "自定義 CSS"
+#: functions.php:1635
+msgid "使用文章中第一张图作为头图"
+msgstr "使用文章中第一張圖作為頭圖"
 
-#: functions.php:1517
-msgid "给该文章添加单独的 CSS"
-msgstr "給該文章添加單獨的 CSS"
+#: functions.php:1639
+msgid "使用"
+msgstr "使用"
 
-#: functions.php:1521
-msgid "文章设置"
-msgstr "文章設置"
-
-#: functions.php:2172 functions.php:2203
-msgid "Argon 主题设置"
-msgstr "Argon 主題設置"
-
-#: functions.php:2172
-msgid "Argon 主题选项"
-msgstr "Argon 主題選項"
-
-#: functions.php:2204
-msgid "按下"
-msgstr "按下"
-
-#: functions.php:2204
-msgid "或在右侧目录中来查找设置"
-msgstr "或在右側目錄中來查找設置"
-
-#: functions.php:2210
-msgid "全局"
-msgstr "全局"
-
-#: functions.php:2211 header.php:536
-msgid "主题色"
-msgstr "主題色"
-
-#: functions.php:2213
-msgid "主题颜色"
-msgstr "主題顏色"
-
-#: functions.php:2217
-msgid "选择预置颜色 或"
-msgstr "選擇預置顏色 或"
-
-#: functions.php:2217
-msgid "自定义色值"
-msgstr "自定義色值"
-
-#: functions.php:2218
-msgid "预置颜色："
-msgstr "預置顏色："
-
-#: functions.php:2220
-msgid "默认"
-msgstr "默認"
-
-#: functions.php:2221
-msgid "粉"
-msgstr "粉"
-
-#: functions.php:2222
-msgid "水鸭青"
-msgstr "水鴨青"
-
-#: functions.php:2223
-msgid "蓝灰"
-msgstr "藍灰"
-
-#: functions.php:2224
-msgid "天蓝"
-msgstr "天藍"
-
-#: functions.php:2225
-msgid "靛蓝"
-msgstr "靛藍"
-
-#: functions.php:2226
-msgid "橙"
-msgstr "橙"
-
-#: functions.php:2227
-msgid "绿"
-msgstr "綠"
-
-#: functions.php:2228
-msgid "红"
-msgstr "紅"
-
-#: functions.php:2229
-msgid "紫"
-msgstr "紫"
-
-#: functions.php:2230
-msgid "黑"
-msgstr "黑"
-
-#: functions.php:2231
-msgid "棕"
-msgstr "棕"
-
-#: functions.php:2233
-msgid "主题色与 \"Banner 渐变背景样式\" 选项搭配使用效果更佳"
-msgstr "主題色與 \"Banner 漸變背景樣式\" 選項搭配使用效果更佳"
-
-#: functions.php:2262
-msgid "允许用户自定义主题色（位于博客浮动操作栏设置菜单中）"
-msgstr "允許用戶自定義主題色（位於博客浮動操作欄設置菜單中）"
-
-#: functions.php:2268 header.php:492 header.php:501
-msgid "夜间模式"
-msgstr "夜間模式"
-
-#: functions.php:2270
-msgid "夜间模式切换方案"
-msgstr "夜間模式切換方案"
-
-#: functions.php:2274
-msgid "默认使用日间模式"
-msgstr "默認使用日間模式"
-
-#: functions.php:2275
-msgid "默认使用夜间模式"
-msgstr "默認使用夜間模式"
-
-#: functions.php:2276
-msgid "跟随系统夜间模式"
-msgstr "跟隨系統夜間模式"
-
-#: functions.php:2277
-msgid "根据时间切换夜间模式 (22:00 ~ 7:00)"
-msgstr "根據時間切換夜間模式 (22:00 ~ 7:00)"
-
-#: functions.php:2279
-msgid "Argon 主题会根据这里的选项来决定是否默认使用夜间模式。"
-msgstr "Argon 主題會根據這裏的選項來決定是否默認使用夜間模式。"
-
-#: functions.php:2279
-msgid "用户也可以手动切换夜间模式，用户的设置将保留到标签页关闭为止。"
-msgstr "用戶也可以手動切換夜間模式，用戶的設置將保留到標簽頁關閉為止。"
-
-#: functions.php:2283
-msgid "夜间模式颜色方案"
-msgstr "夜間模式顏色方案"
-
-#: functions.php:2287
-msgid "灰黑"
-msgstr "灰黑"
-
-#: functions.php:2288
-msgid "暗黑 (AMOLED Black)"
-msgstr "暗黑 (AMOLED Black)"
-
-#: functions.php:2290
-msgid "夜间模式默认的配色方案。"
-msgstr "夜間模式默認的配色方案。"
-
-#: functions.php:2293
-msgid "卡片"
-msgstr "卡片"
-
-#: functions.php:2295
-msgid "卡片圆角大小"
-msgstr "卡片圓角大小"
-
-#: functions.php:2298
-msgid "卡片的圆角大小，默认为"
-msgstr "卡片的圓角大小，默認爲"
-
-#: functions.php:2298
-msgid "。建议设置为"
-msgstr "。建議設置爲"
-
-#: functions.php:2302
-msgid "卡片阴影"
-msgstr "卡片陰影"
-
-#: functions.php:2308 header.php:516
-msgid "浅阴影"
-msgstr "淺陰影"
-
-#: functions.php:2312 header.php:516
-msgid "深阴影"
-msgstr "深陰影"
-
-#: functions.php:2315
-msgid "卡片默认阴影大小。"
-msgstr "卡片默認陰影大小。"
-
-#: functions.php:2318
-msgid "布局"
-msgstr "布局"
-
-#: functions.php:2320
-msgid "页面布局"
-msgstr "頁面布局"
-
-#: functions.php:2327
-msgid "双栏"
-msgstr "雙欄"
-
-#: functions.php:2333
-msgid "单栏"
-msgstr "單欄"
-
-#: functions.php:2339
-msgid "三栏"
-msgstr "三欄"
-
-#: functions.php:2341
-msgid "使用单栏时，关于左侧栏的设置将失效。"
-msgstr "使用單欄時，關於左側欄的設置將失效。"
-
-#: functions.php:2341
-msgid "使用三栏时，请前往 \"外观-小工具\" 设置页面配置右侧栏内容。"
-msgstr "使用三欄時，請前往 \"外觀-小工具\" 設置頁面配置右側欄內容。"
-
-#: functions.php:2344 header.php:508
-msgid "字体"
-msgstr "字體"
-
-#: functions.php:2346
-msgid "默认字体"
-msgstr "默認字體"
-
-#: functions.php:2359
-msgid "默认使用无衬线字体/衬线字体。"
-msgstr "默認使用無襯線字體/襯線字體。"
-
-#: functions.php:2368 functions.php:2942 functions.php:3280
+#: functions.php:1640 functions.php:2499 functions.php:3149
 msgid "不使用"
 msgstr "不使用"
 
-#: functions.php:2372
-msgid ""
-"选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。"
-msgstr ""
-"選擇主題資源文件的引用地址。使用 CDN 可以加速資源文件的訪問並減少伺服器壓力。"
+#: functions.php:1642 functions.php:2920 functions.php:2922
+msgid "文末附加内容"
+msgstr "文末附加內容"
 
-#: functions.php:2375
+#: functions.php:1645
+msgid ""
+"给该文章设置单独的文末附加内容，留空则跟随全局，设为 <code>--none--</code> "
+"则不显示。"
+msgstr ""
+"給該文章設置單獨的文末附加內容，留空則跟隨全局，設為 <code>--none--</code> "
+"則不顯示。"
+
+#: functions.php:1646
+msgid "自定义 CSS"
+msgstr "自定義 CSS"
+
+#: functions.php:1649
+msgid "给该文章添加单独的 CSS"
+msgstr "給該文章添加單獨的 CSS"
+
+#: functions.php:1653
+msgid "文章设置"
+msgstr "文章設置"
+
+#: functions.php:2303 functions.php:2334
+msgid "Argon 主题设置"
+msgstr "Argon 主題設置"
+
+#: functions.php:2303
+msgid "Argon 主题选项"
+msgstr "Argon 主題選項"
+
+#: functions.php:2335
+msgid "按下"
+msgstr "按下"
+
+#: functions.php:2335
+msgid "或在右侧目录中来查找设置"
+msgstr "或在右側目錄中來查找設置"
+
+#: functions.php:2341
+msgid "全局"
+msgstr "全局"
+
+#: functions.php:2342 header.php:537
+msgid "主题色"
+msgstr "主題色"
+
+#: functions.php:2344
+msgid "主题颜色"
+msgstr "主題顏色"
+
+#: functions.php:2348
+msgid "选择预置颜色 或"
+msgstr "選擇預置顏色 或"
+
+#: functions.php:2348
+msgid "自定义色值"
+msgstr "自定義色值"
+
+#: functions.php:2349
+msgid "预置颜色："
+msgstr "預置顏色："
+
+#: functions.php:2351
+msgid "默认"
+msgstr "默認"
+
+#: functions.php:2352
+msgid "粉"
+msgstr "粉"
+
+#: functions.php:2353
+msgid "水鸭青"
+msgstr "水鴨青"
+
+#: functions.php:2354
+msgid "蓝灰"
+msgstr "藍灰"
+
+#: functions.php:2355
+msgid "天蓝"
+msgstr "天藍"
+
+#: functions.php:2356
+msgid "靛蓝"
+msgstr "靛藍"
+
+#: functions.php:2357
+msgid "橙"
+msgstr "橙"
+
+#: functions.php:2358
+msgid "绿"
+msgstr "綠"
+
+#: functions.php:2359
+msgid "红"
+msgstr "紅"
+
+#: functions.php:2360
+msgid "紫"
+msgstr "紫"
+
+#: functions.php:2361
+msgid "黑"
+msgstr "黑"
+
+#: functions.php:2362
+msgid "棕"
+msgstr "棕"
+
+#: functions.php:2364
+msgid "主题色与 \"Banner 渐变背景样式\" 选项搭配使用效果更佳"
+msgstr "主題色與 \"Banner 漸變背景樣式\" 選項搭配使用效果更佳"
+
+#: functions.php:2393
+msgid "允许用户自定义主题色（位于博客浮动操作栏设置菜单中）"
+msgstr "允許用戶自定義主題色（位於博客浮動操作欄設置菜單中）"
+
+#: functions.php:2399 header.php:493 header.php:502
+msgid "夜间模式"
+msgstr "夜間模式"
+
+#: functions.php:2401
+msgid "夜间模式切换方案"
+msgstr "夜間模式切換方案"
+
+#: functions.php:2405
+msgid "默认使用日间模式"
+msgstr "默認使用日間模式"
+
+#: functions.php:2406
+msgid "默认使用夜间模式"
+msgstr "默認使用夜間模式"
+
+#: functions.php:2407
+msgid "跟随系统夜间模式"
+msgstr "跟隨系統夜間模式"
+
+#: functions.php:2408
+msgid "根据时间切换夜间模式 (22:00 ~ 7:00)"
+msgstr "根據時間切換夜間模式 (22:00 ~ 7:00)"
+
+#: functions.php:2410
+msgid "Argon 主题会根据这里的选项来决定是否默认使用夜间模式。"
+msgstr "Argon 主題會根據這裏的選項來決定是否默認使用夜間模式。"
+
+#: functions.php:2410
+msgid "用户也可以手动切换夜间模式，用户的设置将保留到标签页关闭为止。"
+msgstr "用戶也可以手動切換夜間模式，用戶的設置將保留到標簽頁關閉為止。"
+
+#: functions.php:2414
+msgid "夜间模式颜色方案"
+msgstr "夜間模式顏色方案"
+
+#: functions.php:2418
+msgid "灰黑"
+msgstr "灰黑"
+
+#: functions.php:2419
+msgid "暗黑 (AMOLED Black)"
+msgstr "暗黑 (AMOLED Black)"
+
+#: functions.php:2421
+msgid "夜间模式默认的配色方案。"
+msgstr "夜間模式默認的配色方案。"
+
+#: functions.php:2424
+msgid "卡片"
+msgstr "卡片"
+
+#: functions.php:2426
+msgid "卡片圆角大小"
+msgstr "卡片圓角大小"
+
+#: functions.php:2429
+msgid "卡片的圆角大小，默认为"
+msgstr "卡片的圓角大小，默認爲"
+
+#: functions.php:2429
+msgid "。建议设置为"
+msgstr "。建議設置爲"
+
+#: functions.php:2433
+msgid "卡片阴影"
+msgstr "卡片陰影"
+
+#: functions.php:2439 header.php:517
+msgid "浅阴影"
+msgstr "淺陰影"
+
+#: functions.php:2443 header.php:517
+msgid "深阴影"
+msgstr "深陰影"
+
+#: functions.php:2446
+msgid "卡片默认阴影大小。"
+msgstr "卡片默認陰影大小。"
+
+#: functions.php:2449
+msgid "布局"
+msgstr "布局"
+
+#: functions.php:2451
+msgid "页面布局"
+msgstr "頁面布局"
+
+#: functions.php:2458
+msgid "双栏"
+msgstr "雙欄"
+
+#: functions.php:2464
+msgid "单栏"
+msgstr "單欄"
+
+#: functions.php:2470
+msgid "三栏"
+msgstr "三欄"
+
+#: functions.php:2472
+msgid "使用单栏时，关于左侧栏的设置将失效。"
+msgstr "使用單欄時，關於左側欄的設置將失效。"
+
+#: functions.php:2472
+msgid "使用三栏时，请前往 \"外观-小工具\" 设置页面配置右侧栏内容。"
+msgstr "使用三欄時，請前往 \"外觀-小工具\" 設置頁面配置右側欄內容。"
+
+#: functions.php:2475 header.php:509
+msgid "字体"
+msgstr "字體"
+
+#: functions.php:2477
+msgid "默认字体"
+msgstr "默認字體"
+
+#: functions.php:2490
+msgid "默认使用无衬线字体/衬线字体。"
+msgstr "默認使用無襯線字體/襯線字體。"
+
+#: functions.php:2503
+msgid ""
+"选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压"
+"力。"
+msgstr ""
+"選擇主題資源文件的引用地址。使用 CDN 可以加速資源文件的訪問並減少伺服器壓"
+"力。"
+
+#: functions.php:2506
 msgid "子目录"
 msgstr "子目錄"
 
-#: functions.php:2377
+#: functions.php:2508
 msgid "Wordpress 安装目录"
 msgstr "Wordpress 安裝目錄"
 
-#: functions.php:2380
+#: functions.php:2511
 msgid "如果 Wordpress 安装在子目录中，请在此填写子目录地址（例如"
 msgstr "如果 Wordpress 安裝在子目錄中，請在此填寫子目錄地址（例如"
 
-#: functions.php:2380
+#: functions.php:2511
 msgid "），注意前后各有一个斜杠。默认为"
 msgstr "），注意前後各有一個斜槓。默認爲"
 
-#: functions.php:2380
+#: functions.php:2511
 msgid "。"
 msgstr "。"
 
-#: functions.php:2380
+#: functions.php:2511
 msgid "如果不清楚该选项的用处，请保持默认。"
 msgstr "如果不清楚該選項的用處，請保持默認。"
 
-#: functions.php:2383 functions.php:2385
+#: functions.php:2514 functions.php:2516
 msgid "日期格式"
 msgstr "日期格式"
 
-#: functions.php:2396
+#: functions.php:2527
 msgid "顶栏"
 msgstr "頂欄"
 
-#: functions.php:2397
+#: functions.php:2528
+msgid "自动折叠顶栏"
+msgstr "自動折疊頂欄"
+
+#: functions.php:2530
+msgid "滚动时自动折叠顶栏"
+msgstr "滾動時自動折疊頂欄"
+
+#: functions.php:2537
+msgid "在页面向下滚动时隐藏顶栏，向上滚动时显示顶栏"
+msgstr "在頁面向下滾動時隱藏頂欄，向上滾動時顯示頂欄"
+
+#: functions.php:2540 functions.php:2950
 msgid "标题"
 msgstr "標題"
 
-#: functions.php:2399
+#: functions.php:2542
 msgid "顶栏标题"
 msgstr "頂欄標題"
 
-#: functions.php:2402 functions.php:2425 functions.php:2540
+#: functions.php:2545 functions.php:2568 functions.php:2683
 msgid "留空则显示博客名称"
 msgstr "留空則顯示博客名稱"
 
-#: functions.php:2405
+#: functions.php:2548
 msgid "顶栏图标"
 msgstr "頂欄圖標"
 
-#: functions.php:2407
+#: functions.php:2550
 msgid "图标地址"
 msgstr "圖標地址"
 
-#: functions.php:2410
+#: functions.php:2553
 msgid "图片地址，留空则不显示"
 msgstr "圖片地址，留空則不顯示"
 
-#: functions.php:2414
+#: functions.php:2557
 msgid "图标链接"
 msgstr "圖標連結"
 
-#: functions.php:2417
+#: functions.php:2560
 msgid "点击图标后会跳转到的链接，留空则不跳转"
 msgstr "點擊圖標後會跳轉到的鏈接，留空則不跳轉"
 
-#: functions.php:2420
+#: functions.php:2563
 msgid "顶部 Banner (封面)"
 msgstr "頂部 Banner (封面)"
 
-#: functions.php:2422
+#: functions.php:2565
 msgid "Banner 标题"
 msgstr "Banner 標題"
 
-#: functions.php:2429
+#: functions.php:2572
 msgid "Banner 副标题"
 msgstr "Banner 副標題"
 
-#: functions.php:2432
+#: functions.php:2575
 msgid "显示在 Banner 标题下，留空则不显示"
 msgstr "顯示在 Banner 標題下，留空則不顯示"
 
-#: functions.php:2436
+#: functions.php:2579
 msgid "Banner 背景图 (地址)"
 msgstr "Banner 背景圖 (地址)"
 
-#: functions.php:2439
+#: functions.php:2582
 msgid "需带上 http(s) ，留空则显示默认背景"
 msgstr "需帶上 http(s) ，留空則顯示默認背景"
 
-#: functions.php:2439 functions.php:2547
+#: functions.php:2582 functions.php:2690
 msgid "输入"
 msgstr "輸入"
 
-#: functions.php:2439
+#: functions.php:2582
 msgid "调用必应每日一图"
 msgstr "調用必應每日一圖"
 
-#: functions.php:2443
+#: functions.php:2586
 msgid "Banner 渐变背景样式"
 msgstr "Banner 漸變背景樣式"
 
-#: functions.php:2447 functions.php:2448 functions.php:2449 functions.php:2450
-#: functions.php:2451 functions.php:2452 functions.php:2453 functions.php:2462
-#: functions.php:2463 functions.php:2464 functions.php:2465 functions.php:2466
-#: functions.php:2467 functions.php:2468
+#: functions.php:2590 functions.php:2591 functions.php:2592 functions.php:2593
+#: functions.php:2594 functions.php:2595 functions.php:2596 functions.php:2605
+#: functions.php:2606 functions.php:2607 functions.php:2608 functions.php:2609
+#: functions.php:2610 functions.php:2611
 msgid "样式"
 msgstr "樣式"
 
-#: functions.php:2457
+#: functions.php:2600
 msgid "隐藏背景半透明圆"
 msgstr "隱藏背景半透明圓"
 
-#: functions.php:2459
+#: functions.php:2602
 msgid "如果设置了背景图则不生效"
 msgstr "如果設置了背景圖則不生效"
 
-#: functions.php:2460
+#: functions.php:2603
 msgid "样式预览 (推荐选择前三个样式)"
 msgstr "樣式預覽 (推薦選擇前三個樣式)"
 
-#: functions.php:2477 functions.php:3029
+#: functions.php:2620 functions.php:3236
 msgid "动画"
 msgstr "動畫"
 
-#: functions.php:2479
+#: functions.php:2622
 msgid "Banner 标题打字动画"
 msgstr "Banner 標題打字動畫"
 
-#: functions.php:2483 functions.php:2804 functions.php:2847 functions.php:3049
-#: functions.php:3209 functions.php:3258
+#: functions.php:2626 functions.php:3011 functions.php:3054 functions.php:3256
+#: functions.php:3427 functions.php:3476
 msgid "不启用"
 msgstr "不啓用"
 
-#: functions.php:2484 functions.php:2805 functions.php:2901 functions.php:2953
-#: functions.php:3050 functions.php:3208 functions.php:3259
+#: functions.php:2627 functions.php:2883 functions.php:3012 functions.php:3108
+#: functions.php:3160 functions.php:3257 functions.php:3281 functions.php:3426
+#: functions.php:3477
 msgid "启用"
 msgstr "啓用"
 
-#: functions.php:2486
+#: functions.php:2629
 msgid "启用后 Banner 标题会以打字的形式出现。"
 msgstr "啓用後 Banner 標題會以打字的形式出現。"
 
-#: functions.php:2490
+#: functions.php:2633
 msgid "Banner 标题打字动画时长"
 msgstr "Banner 標題打字動畫時長"
 
-#: functions.php:2492
+#: functions.php:2635
 msgid "ms/字"
 msgstr "ms/字"
 
-#: functions.php:2496 functions.php:2498
+#: functions.php:2639 functions.php:2641
 msgid "页面背景"
 msgstr "頁面背景"
 
-#: functions.php:2501
+#: functions.php:2644
 msgid ""
 "页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐修"
 "改以下选项来增强页面整体观感。"
@@ -697,11 +740,11 @@ msgstr ""
 "頁面背景的地址，需帶上 http(s)。留空則不設置頁面背景。如果設置了背景，推薦修"
 "改以下選項來增強頁面整體觀感。"
 
-#: functions.php:2505
+#: functions.php:2648
 msgid "页面背景（夜间模式时）"
 msgstr "頁面背景（夜間模式時）"
 
-#: functions.php:2508
+#: functions.php:2651
 msgid ""
 "夜间模式时页面背景的地址，需带上 http(s)。设置后日间模式和夜间模式会使用不同"
 "的背景。留空则跟随日间模式背景。该选项仅在设置了日间模式背景时生效。"
@@ -709,139 +752,140 @@ msgstr ""
 "夜間模式時頁面背景的地址，需帶上 http(s)。設置後日間模式和夜間模式會使用不同"
 "的背景。留空則跟隨日間模式背景。該選項僅在設置了日間模式背景時生效。"
 
-#: functions.php:2512
+#: functions.php:2655
 msgid "背景不透明度"
 msgstr "背景不透明度"
 
-#: functions.php:2515
+#: functions.php:2658
 msgid "0 ~ 1 的小数，越小透明度越高，默认为 1 不透明"
 msgstr "0 ~ 1 的小數，越小透明度越高，默認為 1 不透明"
 
-#: functions.php:2519
+#: functions.php:2662
 msgid "Banner 透明化"
 msgstr "Banner 透明化"
 
-#: functions.php:2523 functions.php:3291 header.php:522
+#: functions.php:2666 functions.php:2934 functions.php:3505 header.php:523
 msgid "关闭"
 msgstr "關閉"
 
-#: functions.php:2524 functions.php:3292
+#: functions.php:2667 functions.php:3506
 msgid "开启"
 msgstr "開啓"
 
-#: functions.php:2529
-msgid "在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）"
+#: functions.php:2672
+msgid ""
+"在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）"
 msgstr ""
 "在頂欄添加淺色遮罩，Banner 標題添加陰影（當背景過亮影響文字閱讀時勾選）"
 
-#: functions.php:2532
+#: functions.php:2675
 msgid ""
-"Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置"
-"页面背景时生效。"
+"Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设"
+"置页面背景时生效。"
 msgstr ""
-"Banner 透明化可以使博客背景沈浸。建議在設置背景時開啟此選項。該選項僅會在設置"
-"頁面背景時生效。"
+"Banner 透明化可以使博客背景沈浸。建議在設置背景時開啟此選項。該選項僅會在設"
+"置頁面背景時生效。"
 
-#: functions.php:2535
+#: functions.php:2678
 msgid "左侧栏"
 msgstr "左側欄"
 
-#: functions.php:2537
+#: functions.php:2680
 msgid "左侧栏标题"
 msgstr "左側欄標題"
 
-#: functions.php:2544
+#: functions.php:2687
 msgid "左侧栏子标题（格言）"
 msgstr "左側欄子標題（格言）"
 
-#: functions.php:2547
+#: functions.php:2690
 msgid "留空则不显示"
 msgstr "留空則不顯示"
 
-#: functions.php:2547
+#: functions.php:2690
 msgid "调用一言 API"
 msgstr "調用一言 API"
 
-#: functions.php:2551
+#: functions.php:2694
 msgid "左侧栏作者名称"
 msgstr "左側欄作者名稱"
 
-#: functions.php:2554
+#: functions.php:2697
 msgid "留空则显示博客名"
 msgstr "留空則顯示博客名"
 
-#: functions.php:2558
+#: functions.php:2701
 msgid "左侧栏作者头像地址"
 msgstr "左側欄作者頭像地址"
 
-#: functions.php:2561
+#: functions.php:2704
 msgid "需带上 http(s) 开头"
 msgstr "需帶上 http(s) 開頭"
 
-#: functions.php:2564
+#: functions.php:2707
 msgid "博客公告"
 msgstr "博客公告"
 
-#: functions.php:2566
+#: functions.php:2709
 msgid "公告内容"
 msgstr "公告內容"
 
-#: functions.php:2569
+#: functions.php:2712
 msgid "显示在左侧栏顶部，留空则不显示，支持 HTML 标签"
 msgstr "顯示在左側欄頂部，留空則不顯示，支持 HTML 標簽"
 
-#: functions.php:2572
+#: functions.php:2715
 msgid "浮动操作按钮"
 msgstr "浮動操作按鈕"
 
-#: functions.php:2573
+#: functions.php:2716
 msgid "浮动操作按钮位于页面右下角（或左下角）"
 msgstr "浮動操作按鈕位於頁面右下角（或左下角）"
 
-#: functions.php:2575
+#: functions.php:2718
 msgid "显示设置按钮"
 msgstr "顯示設置按鈕"
 
-#: functions.php:2579 functions.php:2591 functions.php:2602 functions.php:2662
-#: functions.php:2709 functions.php:2740 functions.php:2753 functions.php:3270
+#: functions.php:2722 functions.php:2734 functions.php:2745 functions.php:2805
+#: functions.php:2852 functions.php:2894 functions.php:2907 functions.php:3488
 msgid "显示"
 msgstr "顯示"
 
-#: functions.php:2582
+#: functions.php:2725
 msgid ""
-"是否在浮动操作按钮栏中显示设置按钮。点击设置按钮可以唤出设置菜单修改夜间模式/"
-"字体/滤镜等外观选项。"
+"是否在浮动操作按钮栏中显示设置按钮。点击设置按钮可以唤出设置菜单修改夜间模"
+"式/字体/滤镜等外观选项。"
 msgstr ""
-"是否在浮動操作按鈕欄中顯示設置按鈕。點擊設置按鈕可以喚出設置菜單修改夜間模式/"
-"字體/濾鏡等外觀選項。"
+"是否在浮動操作按鈕欄中顯示設置按鈕。點擊設置按鈕可以喚出設置菜單修改夜間模"
+"式/字體/濾鏡等外觀選項。"
 
-#: functions.php:2586
+#: functions.php:2729
 msgid "显示夜间模式切换按钮"
 msgstr "顯示夜間模式切換按鈕"
 
-#: functions.php:2593
+#: functions.php:2736
 msgid ""
 "如果开启了设置按钮显示，建议关闭此选项。（夜间模式选项在设置菜单中已经存在）"
 msgstr ""
 "如果開啟了設置按鈕顯示，建議關閉此選項。（夜間模式選項在設置菜單中已經存在）"
 
-#: functions.php:2597
+#: functions.php:2740
 msgid "显示跳转到评论按钮"
 msgstr "顯示跳轉到評論按鈕"
 
-#: functions.php:2604
+#: functions.php:2747
 msgid "仅在允许评论的文章中显示"
 msgstr "僅在允許評論的文章中顯示"
 
-#: functions.php:2609
+#: functions.php:2752
 msgid "网站描述 (Description Meta 标签)"
 msgstr "網站描述 (Description Meta 標籤)"
 
-#: functions.php:2612
+#: functions.php:2755
 msgid "设置针对搜索引擎的 Description Meta 标签内容。"
 msgstr "設置針對搜尋引擎的 Description Meta 標籤內容。"
 
-#: functions.php:2612
+#: functions.php:2755
 msgid ""
 "在文章中，Argon 会自动根据文章内容生成描述。在其他页面中，Argon 将使用这里设"
 "置的内容。如不填，Argon 将不会在其他页面输出 Description Meta 标签。"
@@ -849,11 +893,11 @@ msgstr ""
 "在文章中，Argon 會自動根據文章內容生成描述。在其他頁面中，Argon 將使用這裏設"
 "置的內容。如不填，Argon 將不會在其他頁面輸出 Description Meta 標簽。"
 
-#: functions.php:2616
+#: functions.php:2759
 msgid "搜索引擎关键词（Keywords Meta 标签）"
 msgstr "搜尋引擎關鍵詞（Keywords Meta 標籤）"
 
-#: functions.php:2619
+#: functions.php:2762
 msgid ""
 "设置针对搜索引擎使用的关键词（Keywords Meta 标签内容）。用英文逗号隔开。不设"
 "置则不输出该 Meta 标签。"
@@ -861,231 +905,310 @@ msgstr ""
 "設置針對搜索引擎使用的關鍵詞（Keywords Meta 標簽內容）。用英文逗號隔開。不設"
 "置則不輸出該 Meta 標簽。"
 
-#: functions.php:2622 sidebar.php:130
+#: functions.php:2765 sidebar.php:130
 msgid "文章"
 msgstr "文章"
 
-#: functions.php:2623
+#: functions.php:2766
 msgid "文章 Meta 信息"
 msgstr "文章 Meta 信息"
 
-#: functions.php:2625
+#: functions.php:2768
 msgid "第一行"
 msgstr "第一行"
 
-#: functions.php:2660
+#: functions.php:2803
 msgid "拖动来自定义文章 Meta 信息的显示和顺序"
 msgstr "拖動來自定義文章 Meta 信息的顯示和順序"
 
-#: functions.php:2668 functions.php:2774
+#: functions.php:2811 functions.php:2946 functions.php:2981
 msgid "发布时间"
 msgstr "發布時間"
 
-#: functions.php:2669
+#: functions.php:2812 functions.php:2947
 msgid "修改时间"
 msgstr "修改時間"
 
-#: functions.php:2670
+#: functions.php:2813
 msgid "浏览量"
 msgstr "瀏覽量"
 
-#: functions.php:2671
+#: functions.php:2814
 msgid "评论数"
 msgstr "評論數"
 
-#: functions.php:2672
+#: functions.php:2815
 msgid "所属分类"
 msgstr "所屬分類"
 
-#: functions.php:2673
+#: functions.php:2816 functions.php:2951
 msgid "作者"
 msgstr "作者"
 
-#: functions.php:2703
+#: functions.php:2846
 msgid "第二行"
 msgstr "第二行"
 
-#: functions.php:2715
+#: functions.php:2858
 msgid "每分钟阅读字数"
 msgstr "每分鐘閱讀字數"
 
-#: functions.php:2718
+#: functions.php:2861
 msgid "字/分钟"
 msgstr "字/分鐘"
 
-#: functions.php:2719
+#: functions.php:2862
 msgid "预计阅读时间由每分钟阅读字数计算"
 msgstr "預計閱讀時間由每分鐘閱讀字數計算"
 
-#: functions.php:2722
+#: functions.php:2865
 msgid "文章头图 (特色图片)"
 msgstr "文章頭圖 (特色圖片)"
 
-#: functions.php:2724
+#: functions.php:2867
 msgid "文章头图的位置"
 msgstr "文章頭圖的位置"
 
-#: functions.php:2728
+#: functions.php:2871
 msgid "文章卡片顶端"
 msgstr "文章卡片頂端"
 
-#: functions.php:2729
+#: functions.php:2872
 msgid "Banner (顶部背景)"
 msgstr "Banner (頂部背景)"
 
-#: functions.php:2731
+#: functions.php:2874
 msgid "阅读界面中文章头图的位置"
 msgstr "閱讀界面中文章頭圖的位置"
 
-#: functions.php:2734 template-parts/share.php:50
+#: functions.php:2878
+msgid "默认使用文章中第一张图作为头图"
+msgstr "默認使用文章中第一張圖作為頭圖"
+
+#: functions.php:2882 functions.php:3109 functions.php:3161 functions.php:3195
+#: functions.php:3282
+msgid "禁用"
+msgstr "禁用"
+
+#: functions.php:2885
+msgid "也可以针对每篇文章单独设置"
+msgstr "也可以針對每篇文章單獨設置"
+
+#: functions.php:2888 template-parts/share.php:50
 msgid "分享"
 msgstr "分享"
 
-#: functions.php:2736
+#: functions.php:2890
 msgid "显示文章分享按钮"
 msgstr "顯示文章分享按鈕"
 
-#: functions.php:2746
+#: functions.php:2900
 msgid "左侧栏文章目录"
 msgstr "左側欄文章目錄"
 
-#: functions.php:2748
+#: functions.php:2902
 msgid "在目录中显示序号"
 msgstr "在目錄中顯示序號"
 
-#: functions.php:2755
+#: functions.php:2909
 msgid "例：3.2.5"
 msgstr "例：3.2.5"
 
-#: functions.php:2758 template-parts/content-single.php:100
+#: functions.php:2912 template-parts/content-single.php:100
 msgid "赞赏"
 msgstr "讚賞"
 
-#: functions.php:2760
+#: functions.php:2914
 msgid "赞赏二维码图片链接"
 msgstr "讚賞二維碼圖片連結"
 
-#: functions.php:2763
+#: functions.php:2917
 msgid ""
 "赞赏二维码图片链接，填写后会在文章最后显示赞赏按钮，留空则不显示赞赏按钮"
 msgstr ""
 "贊賞二維碼圖片鏈接，填寫後會在文章最後顯示贊賞按鈕，留空則不顯示贊賞按鈕"
 
-#: functions.php:2766
+#: functions.php:2925
+msgid "将会显示在每篇文章末尾，支持 HTML 标签，留空则不显示。"
+msgstr "將會顯示在每篇文章末尾，支持 HTML 標籤，留空則不顯示。"
+
+#: functions.php:2925
+msgid ""
+"使用 <code>%url%</code> 来代替当前页面 URL，<code>%link%</code> 来代替当前页"
+"面链接，<code>%title%</code> 来代替当前文章标题，<code>%author%</code> 来代"
+"替当前文章作者。"
+msgstr ""
+"使用<code>%url%</code> 來代替當前頁面URL，<code>%link%</code> 來代替當前頁面"
+"鏈接，<code>%title%</code> 來代替當前文章標題，<code>%author%</code> 來代替"
+"當前文章作者。"
+
+#: functions.php:2928 functions.php:2930
+msgid "相似文章推荐"
+msgstr "相似文章推薦"
+
+#: functions.php:2935
+msgid "根据分类推荐"
+msgstr "根據分類推薦"
+
+#: functions.php:2936
+msgid "根据标签推荐"
+msgstr "根據標籤推薦"
+
+#: functions.php:2937
+msgid "根据分类和标签推荐"
+msgstr "根據分類和標籤推薦"
+
+#: functions.php:2938
+msgid "显示在文章卡片后"
+msgstr "顯示在文章卡片後"
+
+#: functions.php:2942
+msgid "排序依据"
+msgstr "排序依據"
+
+#: functions.php:2948
+msgid "阅读量"
+msgstr "閱讀量"
+
+#: functions.php:2952
+msgid "随机"
+msgstr "隨機"
+
+#: functions.php:2957
+msgid "顺序"
+msgstr "順序"
+
+#: functions.php:2961
+msgid "倒序"
+msgstr "倒序"
+
+#: functions.php:2962
+msgid "正序"
+msgstr "正序"
+
+#: functions.php:2967
+msgid "推荐文章数"
+msgstr "推薦文章數"
+
+#: functions.php:2970
+msgid "最多推荐多少篇文章"
+msgstr "最多推薦多少篇文章"
+
+#: functions.php:2973
 msgid "其他"
 msgstr "其他"
 
-#: functions.php:2768
+#: functions.php:2975
 msgid "文章过时信息显示"
 msgstr "文章過時信息顯示"
 
-#: functions.php:2770
+#: functions.php:2977
 msgid "当一篇文章的"
 msgstr "當一篇文章的"
 
-#: functions.php:2773
+#: functions.php:2980
 msgid "最后修改时间"
 msgstr "最後修改時間"
 
-#: functions.php:2776
+#: functions.php:2983
 msgid "距离现在超过"
 msgstr "距離現在超過"
 
-#: functions.php:2778
+#: functions.php:2985
 msgid "天时，用"
 msgstr "天時，用"
 
-#: functions.php:2781
+#: functions.php:2988
 msgid "在文章顶部显示信息条"
 msgstr "在文章頂部顯示信息條"
 
-#: functions.php:2782
+#: functions.php:2989
 msgid "在页面右上角弹出提示条"
 msgstr "在頁面右上角彈出提示條"
 
-#: functions.php:2784
+#: functions.php:2991
 msgid "的方式提示"
 msgstr "的方式提示"
 
-#: functions.php:2786
+#: functions.php:2993
 msgid ""
 "本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。"
 msgstr ""
 "本文最後更新於 %date_delta% 天前，其中的信息可能已經有所發展或是發生改變。"
 
-#: functions.php:2787
+#: functions.php:2994
 msgid "天数为 -1 表示永不提示。"
 msgstr "天數爲 -1 表示永不提示。"
 
-#: functions.php:2787
+#: functions.php:2994
 msgid "表示文章发布/修改时间与当前时间的差距，"
 msgstr "表示文章發布/修改時間與當前時間的差距，"
 
-#: functions.php:2787
+#: functions.php:2994
 msgid "表示文章发布时间与当前时间的差距，"
 msgstr "表示文章發布時間與當前時間的差距，"
 
-#: functions.php:2787
+#: functions.php:2994
 msgid "表示文章修改时间与当前时间的差距（单位: 天）。"
 msgstr "表示文章修改時間與當前時間的差距（單位: 天）。"
 
-#: functions.php:2790
+#: functions.php:2997
 msgid "页脚"
 msgstr "頁腳"
 
-#: functions.php:2792
+#: functions.php:2999
 msgid "页脚内容"
 msgstr "頁腳內容"
 
-#: functions.php:2795 functions.php:3019 functions.php:3026
+#: functions.php:3002 functions.php:3226 functions.php:3233
 msgid "HTML , 支持 script 等标签"
 msgstr "HTML , 支持 script 等標籤"
 
-#: functions.php:2798
+#: functions.php:3005
 msgid "代码高亮"
 msgstr "代碼高亮"
 
-#: functions.php:2800
+#: functions.php:3007
 msgid "启用 Highlight.js 代码高亮"
 msgstr "啓用 Highlight.js 代碼高亮"
 
-#: functions.php:2807
+#: functions.php:3014
 msgid "所有 pre 下的 code 标签会被自动解析"
 msgstr "所有 pre 下的 code 標籤會被自動解析"
 
-#: functions.php:2811
+#: functions.php:3018
 msgid "高亮配色方案（主题）"
 msgstr "高亮配色方案（主題）"
 
-#: functions.php:2829
+#: functions.php:3036
 msgid "查看所有主题预览"
 msgstr "查看所有主題預覽"
 
-#: functions.php:2836
+#: functions.php:3043
 msgid "数学公式"
 msgstr "數學公式"
 
-#: functions.php:2838
+#: functions.php:3045
 msgid "数学公式渲染方案"
 msgstr "數學公式渲染方案"
 
-#: functions.php:2857 functions.php:2870 functions.php:2883
+#: functions.php:3064 functions.php:3077 functions.php:3090
 msgid "地址"
 msgstr "地址"
 
-#: functions.php:2859 functions.php:2872
+#: functions.php:3066 functions.php:3079
 msgid "，默认为"
 msgstr "，默認爲"
 
-#: functions.php:2885
+#: functions.php:3092
 msgid "Argon 会同时引用"
 msgstr "Argon 會同時引用"
 
-#: functions.php:2885
+#: functions.php:3092
 msgid "和"
 msgstr "和"
 
-#: functions.php:2885
+#: functions.php:3092
 msgid ""
 "两个文件，所以在此填写的是上层的路径，而不是具体的文件。注意路径后要带一个斜"
 "杠。"
@@ -1093,145 +1216,141 @@ msgstr ""
 "兩個文件，所以在此填寫的是上層的路徑，而不是具體的文件。註意路徑後要帶壹個斜"
 "杠。"
 
-#: functions.php:2885
+#: functions.php:3092
 msgid "默认为"
 msgstr "默認爲"
 
-#: functions.php:2897
+#: functions.php:3104
 msgid "是否启用 Lazyload"
 msgstr "是否啓用 Lazyload"
 
-#: functions.php:2902 functions.php:2954 functions.php:2988
-msgid "禁用"
-msgstr "禁用"
-
-#: functions.php:2904
+#: functions.php:3111
 msgid "是否启用 Lazyload 加载文章内图片"
 msgstr "是否啓用 Lazyload 加載文章內圖片"
 
-#: functions.php:2908
+#: functions.php:3115
 msgid "提前加载阈值"
 msgstr "提前加載閾值"
 
-#: functions.php:2911
+#: functions.php:3118
 msgid "图片距离页面底部还有多少距离就开始提前加载"
 msgstr "圖片距離頁面底部還有多少距離就開始提前加載"
 
-#: functions.php:2915
+#: functions.php:3122
 msgid "LazyLoad 图片加载完成过渡"
 msgstr "LazyLoad 圖片加載完成過渡"
 
-#: functions.php:2921
+#: functions.php:3128
 msgid "不使用过渡"
 msgstr "不使用過渡"
 
-#: functions.php:2927
+#: functions.php:3134
 msgid "LazyLoad 图片加载动效"
 msgstr "LazyLoad 圖片加載動效"
 
-#: functions.php:2931 functions.php:2932 functions.php:2933 functions.php:2934
-#: functions.php:2935 functions.php:2936 functions.php:2937 functions.php:2938
-#: functions.php:2939 functions.php:2940 functions.php:2941
+#: functions.php:3138 functions.php:3139 functions.php:3140 functions.php:3141
+#: functions.php:3142 functions.php:3143 functions.php:3144 functions.php:3145
+#: functions.php:3146 functions.php:3147 functions.php:3148
 msgid "加载动画"
 msgstr "加載動畫"
 
-#: functions.php:2944
+#: functions.php:3151
 msgid "在图片被加载之前显示的加载效果"
 msgstr "在圖片被加載之前顯示的加載效果"
 
-#: functions.php:2944
+#: functions.php:3151
 msgid "预览所有效果"
 msgstr "預覽所有效果"
 
-#: functions.php:2947
+#: functions.php:3154
 msgid "图片放大浏览"
 msgstr "圖片放大瀏覽"
 
-#: functions.php:2949
+#: functions.php:3156
 msgid "是否启用图片放大浏览 (Zoomify)"
 msgstr "是否啓用圖片放大瀏覽 (Zoomify)"
 
-#: functions.php:2956
+#: functions.php:3163
 msgid "开启后，文章中图片被单击时会放大预览"
 msgstr "開啟後，文章中圖片被單擊時會放大預覽"
 
-#: functions.php:2960
+#: functions.php:3167
 msgid "缩放动画长度"
 msgstr "縮放動畫長度"
 
-#: functions.php:2963
+#: functions.php:3170
 msgid "图片被单击后缩放到全屏动画的时间长度"
 msgstr "圖片被單擊後縮放到全屏動畫的時間長度"
 
-#: functions.php:2967
+#: functions.php:3174
 msgid "缩放动画曲线"
 msgstr "縮放動畫曲線"
 
-#: functions.php:2971
+#: functions.php:3178
 msgid "例："
 msgstr "例："
 
-#: functions.php:2971
+#: functions.php:3178
 msgid "如果你不知道这是什么，参考"
 msgstr "如果你不知道這是什麼，參考"
 
-#: functions.php:2971
+#: functions.php:3178
 msgid "这里"
 msgstr "這裡"
 
-#: functions.php:2976
+#: functions.php:3183
 msgid "图片最大缩放比例"
 msgstr "圖片最大縮放比例"
 
-#: functions.php:2979
+#: functions.php:3186
 msgid "图片相对于页面的最大缩放比例 (0 ~ 1 的小数)"
 msgstr "圖片相對於頁面的最大縮放比例 (0 ~ 1 的小數)"
 
-#: functions.php:2984
+#: functions.php:3191
 msgid "启用 Pangu.js (自动在中英文之间添加空格)"
 msgstr "啓用 Pangu.js (自動在中英文之間添加空格)"
 
-#: functions.php:2989
+#: functions.php:3196
 msgid "格式化文章内容"
 msgstr "格式化文章內容"
 
-#: functions.php:2990
+#: functions.php:3197
 msgid "格式化说说"
 msgstr "格式化說說"
 
-#: functions.php:2991
+#: functions.php:3198
 msgid "格式化评论区"
 msgstr "格式化評論區"
 
-#: functions.php:2992
+#: functions.php:3199
 msgid "格式化文章内容和评论区"
 msgstr "格式化文章內容和評論區"
 
-#: functions.php:2993
+#: functions.php:3200
 msgid "格式化文章内容和说说"
 msgstr "格式化文章內容和說說"
 
-#: functions.php:2994
+#: functions.php:3201
 msgid "格式化说说和评论区"
 msgstr "格式化說說和評論區"
 
-#: functions.php:2995
+#: functions.php:3202
 msgid "格式化文章内容、说说和评论区"
 msgstr "格式化文章內容、說說和評論區"
 
-#: functions.php:2997
+#: functions.php:3204
 msgid "开启后，会自动在中文和英文之间添加空格"
 msgstr "開啟後，會自動在中文和英文之間添加空格"
 
-#: functions.php:3000
+#: functions.php:3207
 msgid "脚本"
 msgstr "腳本"
 
-#: functions.php:3002
+#: functions.php:3209
 msgid "注意"
 msgstr "注意"
 
-#: functions.php:3004
+#: functions.php:3211
 msgid ""
 "Argon 使用 pjax 方式加载页面 (无刷新加载) , 所以除非页面手动刷新，否则您的脚"
 "本只会被执行一次。"
@@ -1239,113 +1358,113 @@ msgstr ""
 "Argon 使用 pjax 方式加載頁面 (無刷新加載) , 所以除非頁面手動刷新，否則您的腳"
 "本只會被執行壹次。"
 
-#: functions.php:3005
+#: functions.php:3212
 msgid "如果您想让每次页面跳转(加载新页面)时都执行脚本，请将脚本写入"
 msgstr "如果您想讓每次頁面跳轉(加載新頁面)時都執行腳本，請將腳本寫入"
 
-#: functions.php:3005
+#: functions.php:3212
 msgid "中"
 msgstr "中"
 
-#: functions.php:3005
+#: functions.php:3212
 msgid "示例写法"
 msgstr "示例寫法"
 
-#: functions.php:3008
+#: functions.php:3215
 msgid "页面每次跳转都会执行这里的代码"
 msgstr "頁面每次跳轉都會執行這裡的代碼"
 
-#: functions.php:3012
+#: functions.php:3219
 msgid "当页面第一次载入时，"
 msgstr "當頁面第一次載入時，"
 
-#: functions.php:3012
+#: functions.php:3219
 msgid "中的脚本不会执行，所以您可以手动执行"
 msgstr "中的腳本不會執行，所以您可以手動執行"
 
-#: functions.php:3012
+#: functions.php:3219
 msgid "来让页面初次加载时也执行脚本"
 msgstr "來讓頁面初次加載時也執行腳本"
 
-#: functions.php:3016
+#: functions.php:3223
 msgid "页头脚本"
 msgstr "頁頭腳本"
 
-#: functions.php:3019
+#: functions.php:3226
 msgid "插入到 body 之前"
 msgstr "插入到 body 之前"
 
-#: functions.php:3023
+#: functions.php:3230
 msgid "页尾脚本"
 msgstr "頁尾腳本"
 
-#: functions.php:3026
+#: functions.php:3233
 msgid "插入到 body 之后"
 msgstr "插入到 body 之後"
 
-#: functions.php:3031
+#: functions.php:3238
 msgid "是否启用平滑滚动"
 msgstr "是否啓用平滑滾動"
 
-#: functions.php:3035
+#: functions.php:3242
 msgid "使用平滑滚动方案 1 (平滑) (推荐)"
 msgstr "使用平滑滾動方案 1 (平滑) (推薦)"
 
-#: functions.php:3036
+#: functions.php:3243
 msgid "使用平滑滚动方案 1 (脉冲式滚动) (仿 Edge) (推荐)"
 msgstr "使用平滑滾動方案 1 (脈衝式滾動) (仿 Edge) (推薦)"
 
-#: functions.php:3037
+#: functions.php:3244
 msgid "使用平滑滚动方案 2 (较稳)"
 msgstr "使用平滑滾動方案 2 (較穩)"
 
-#: functions.php:3038
+#: functions.php:3245
 msgid "使用平滑滚动方案 3"
 msgstr "使用平滑滾動方案 3"
 
-#: functions.php:3039
+#: functions.php:3246
 msgid "不使用平滑滚动"
 msgstr "不使用平滑滾動"
 
-#: functions.php:3041
+#: functions.php:3248
 msgid ""
 "能增强浏览体验，但可能出现一些小问题，如果有问题请切换方案或关闭平滑滚动"
 msgstr ""
 "能增強瀏覽體驗，但可能出現壹些小問題，如果有問題請切換方案或關閉平滑滾動"
 
-#: functions.php:3045
+#: functions.php:3252
 msgid "是否启用进入文章动画"
 msgstr "是否啓用進入文章動畫"
 
-#: functions.php:3052
+#: functions.php:3259
 msgid "从首页或分类目录进入文章时，使用平滑过渡（可能影响加载文章时的性能）"
 msgstr "從首頁或分類目錄進入文章時，使用平滑過渡（可能影響加載文章時的性能）"
 
-#: functions.php:3056
+#: functions.php:3263
 msgid "评论分页"
 msgstr "評論分頁"
 
-#: functions.php:3058
+#: functions.php:3265
 msgid "评论分页方式"
 msgstr "評論分頁方式"
 
-#: functions.php:3062
+#: functions.php:3269
 msgid "无限加载"
 msgstr "無限加載"
 
-#: functions.php:3063
+#: functions.php:3270
 msgid "页码"
 msgstr "頁碼"
 
-#: functions.php:3065
+#: functions.php:3272
 msgid "无限加载：点击 \"加载更多\" 按钮来加载更多评论。"
 msgstr "無限加載：點擊 \"加載更多\" 按鈕來加載更多評論。"
 
-#: functions.php:3065
+#: functions.php:3272
 msgid "页码：显示页码来分页。"
 msgstr "頁碼：顯示頁碼來分頁。"
 
-#: functions.php:3065
+#: functions.php:3272
 msgid ""
 "推荐选择\"无限加载\"时将 Wordpress 设置中的讨论设置项设为 \"默认显示最后一"
 "页，在每个页面顶部显示新的评论\"。"
@@ -1353,441 +1472,452 @@ msgstr ""
 "推薦選擇\"無限加載\"時將 Wordpress 設置中的討論設置項設為 \"默認顯示最後壹"
 "頁，在每個頁面頂部顯示新的評論\"。"
 
-#: functions.php:3070
+#: functions.php:3277
+msgid "评论表情面板"
+msgstr "評論表情面板"
+
+#: functions.php:3284
+msgid "开启后评论支持插入表情，会在评论输入框下显示表情键盘按钮。"
+msgstr "開啟後評論支持插入表情，會在評論輸入框下顯示表情鍵盤按鈕。"
+
+#: functions.php:3284
+msgid "如何添加新的表情或修改已有表情列表？"
+msgstr "如何添加新的表情或修改已有表情列表？"
+
+#: functions.php:3288
 msgid "是否隐藏 \"昵称\"、\"邮箱\"、\"网站\" 输入框"
 msgstr "是否隱藏 \"暱稱\"、\"郵箱\"、\"網站\" 輸入框"
 
-#: functions.php:3077
+#: functions.php:3295
 msgid ""
 "选项仅在 \"设置-评论-评论作者必须填入姓名和电子邮件地址\" 选项未勾选的前提下"
-"生效。如勾选了 \"评论作者必须填入姓名和电子邮件地址\"，则只有 \"网站\" 输入框"
-"会被隐藏。"
+"生效。如勾选了 \"评论作者必须填入姓名和电子邮件地址\"，则只有 \"网站\" 输入"
+"框会被隐藏。"
 msgstr ""
 "選項僅在 \"設置-評論-評論作者必須填入姓名和電子郵件地址\" 選項未勾選的前提下"
-"生效。如勾選了 \"評論作者必須填入姓名和電子郵件地址\"，則只有 \"網站\" 輸入框"
-"會被隱藏。"
+"生效。如勾選了 \"評論作者必須填入姓名和電子郵件地址\"，則只有 \"網站\" 輸入"
+"框會被隱藏。"
 
-#: functions.php:3081
+#: functions.php:3299
 msgid "评论是否需要验证码"
 msgstr "評論是否需要驗證碼"
 
-#: functions.php:3085
+#: functions.php:3303
 msgid "需要"
 msgstr "需要"
 
-#: functions.php:3086
+#: functions.php:3304
 msgid "不需要"
 msgstr "不需要"
 
-#: functions.php:3092
+#: functions.php:3310
 msgid "是否允许在评论中使用 Markdown 语法"
 msgstr "是否允許在評論中使用 Markdown 語法"
 
-#: functions.php:3096 functions.php:3107 functions.php:3119 functions.php:3130
-#: functions.php:3147
+#: functions.php:3314 functions.php:3325 functions.php:3337 functions.php:3348
+#: functions.php:3365
 msgid "允许"
 msgstr "允許"
 
-#: functions.php:3097 functions.php:3108 functions.php:3118 functions.php:3129
-#: functions.php:3146
+#: functions.php:3315 functions.php:3326 functions.php:3336 functions.php:3347
+#: functions.php:3364
 msgid "不允许"
 msgstr "不允許"
 
-#: functions.php:3103
+#: functions.php:3321
 msgid "是否允许评论者再次编辑评论"
 msgstr "是否允許評論者再次編輯評論"
 
-#: functions.php:3110
+#: functions.php:3328
 msgid "同一个评论者可以再次编辑评论。"
 msgstr "同一個評論者可以再次編輯評論。"
 
-#: functions.php:3114
+#: functions.php:3332
 msgid "是否允许评论者使用悄悄话模式"
 msgstr "是否允許評論者使用悄悄話模式"
 
-#: functions.php:3121
+#: functions.php:3339
 msgid "评论者使用悄悄话模式发送的评论和其下的所有回复只有发送者和博主能看到。"
-msgstr "評論者使用悄悄話模式發送的評論和其下的所有回復只有發送者和博主能看到。"
+msgstr ""
+"評論者使用悄悄話模式發送的評論和其下的所有回復只有發送者和博主能看到。"
 
-#: functions.php:3125
+#: functions.php:3343
 msgid "是否允许评论者接收评论回复邮件提醒"
 msgstr "是否允許評論者接收評論回覆郵件提醒"
 
-#: functions.php:3135
+#: functions.php:3353
 msgid "评论时默认勾选 \"启用邮件通知\" 复选框"
 msgstr "評論時默認勾選 \"啓用郵件通知\" 複選框"
 
-#: functions.php:3138
+#: functions.php:3356
 msgid "评论者开启邮件提醒后，其评论有回复时会有邮件通知。"
 msgstr "評論者開啟郵件提醒後，其評論有回復時會有郵件通知。"
 
-#: functions.php:3142
+#: functions.php:3360
 msgid "允许评论者使用 QQ 头像"
 msgstr "允許評論者使用 QQ 頭像"
 
-#: functions.php:3149
+#: functions.php:3367
 msgid ""
 "开启后，评论者可以使用 QQ 号代替邮箱输入，头像会根据评论者的 QQ 号获取。"
 msgstr ""
 "開啟後，評論者可以使用 QQ 號代替郵箱輸入，頭像會根據評論者的 QQ 號獲取。"
 
-#: functions.php:3152
+#: functions.php:3370
 msgid "评论区"
 msgstr "評論區"
 
-#: functions.php:3154
+#: functions.php:3372
 msgid "评论头像垂直位置"
 msgstr "評論頭像垂直位置"
 
-#: functions.php:3158
+#: functions.php:3376
 msgid "居上"
 msgstr "居上"
 
-#: functions.php:3159
+#: functions.php:3377
 msgid "居中"
 msgstr "居中"
 
-#: functions.php:3165
+#: functions.php:3383
 msgid "谁可以查看评论编辑记录"
 msgstr "誰可以查看評論編輯記錄"
 
-#: functions.php:3169
+#: functions.php:3387
 msgid "只有博主"
 msgstr "只有博主"
 
-#: functions.php:3170
+#: functions.php:3388
 msgid "评论发送者和博主"
 msgstr "評論發送者和博主"
 
-#: functions.php:3171
+#: functions.php:3389
 msgid "任何人"
 msgstr "任何人"
 
-#: functions.php:3173
+#: functions.php:3391
 msgid "点击评论右侧的 \"已编辑\" 标记来查看编辑记录"
 msgstr "點擊評論右側的 \"已編輯\" 標記來查看編輯記錄"
 
-#: functions.php:3177
+#: functions.php:3395
 msgid "评论者 UA 显示"
 msgstr "評論者 UA 顯示"
 
-#: functions.php:3182
+#: functions.php:3400
 msgid "浏览器"
 msgstr "瀏覽器"
 
-#: functions.php:3183
+#: functions.php:3401
 msgid "浏览器+版本号"
 msgstr "瀏覽器+版本號"
 
-#: functions.php:3184
+#: functions.php:3402
 msgid "平台+浏览器+版本号"
 msgstr "平台+瀏覽器+版本號"
 
-#: functions.php:3185
+#: functions.php:3403
 msgid "平台+浏览器"
 msgstr "平台+瀏覽器"
 
-#: functions.php:3186
+#: functions.php:3404
 msgid "平台"
 msgstr "平台"
 
-#: functions.php:3188
+#: functions.php:3406
 msgid "设置是否在评论区显示评论者 UA 及显示哪些部分"
 msgstr "設置是否在評論區顯示評論者 UA 及顯示哪些部分"
 
-#: functions.php:3192
+#: functions.php:3410
 msgid "折叠过长评论"
 msgstr "摺疊過長評論"
 
-#: functions.php:3196
+#: functions.php:3414
 msgid "不折叠"
 msgstr "不摺疊"
 
-#: functions.php:3197
+#: functions.php:3415
 msgid "折叠"
 msgstr "摺疊"
 
-#: functions.php:3199
+#: functions.php:3417
 msgid "开启后，过长的评论会被折叠，需要手动展开"
 msgstr "開啓後，過長的評論會被摺疊，需要手動展開"
 
-#: functions.php:3202
+#: functions.php:3420
 msgid "杂项"
 msgstr "雜項"
 
-#: functions.php:3204
+#: functions.php:3422
 msgid "是否启用 Pjax"
 msgstr "是否啓用 Pjax"
 
-#: functions.php:3211
+#: functions.php:3429
 msgid "Pjax 可以增强页面的跳转体验"
 msgstr "Pjax 可以增強頁面的跳轉體驗"
 
-#: functions.php:3215
+#: functions.php:3433
 msgid "首页隐藏特定 分类/Tag 下的文章"
 msgstr "首頁隱藏特定 分類/Tag 下的文章"
 
-#: functions.php:3218
+#: functions.php:3436
 msgid "输入要隐藏的 分类/Tag 的 ID，用英文逗号分隔，留空则不隐藏"
 msgstr "輸入要隱藏的 分類/Tag 的 ID，用英文逗號分隔，留空則不隱藏"
 
-#: functions.php:3218
+#: functions.php:3436
 msgid "点此查看"
 msgstr "點此查看"
 
-#: functions.php:3218
+#: functions.php:3436
 msgid "所有分类和 Tag 的 ID"
 msgstr "所有分類和 Tag 的 ID"
 
-#: functions.php:3254
+#: functions.php:3472
 msgid "美化登录界面"
 msgstr "美化登錄界面"
 
-#: functions.php:3261
+#: functions.php:3479
 msgid "使用 Argon Design 风格的登录界面"
 msgstr "使用 Argon Design 風格的登錄界面"
 
-#: functions.php:3265
+#: functions.php:3483
 msgid "博客首页是否显示说说"
 msgstr "博客首頁是否顯示說說"
 
-#: functions.php:3272
+#: functions.php:3490
 msgid "开启后，博客首页文章和说说穿插显示"
 msgstr "開啟後，博客首頁文章和說說穿插顯示"
 
-#: functions.php:3276
-msgid "是否使用 v2ex CDN 代理的 gravatar"
-msgstr "是否使用 v2ex CDN 代理的 gravatar"
+#: functions.php:3497
+msgid ""
+"使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。"
+msgstr ""
+"使用 CDN 來加速 Gravatar 在某些地區的訪問，填寫 CDN 地址，留空則不使用。"
 
-#: functions.php:3281
-msgid "使用"
-msgstr "使用"
+#: functions.php:3497
+msgid "在中国速度较快的一些 CDN :"
+msgstr "在中國速度較快的一些 CDN :"
 
-#: functions.php:3283
-msgid "可以大幅增加国内 gravatar 头像加载的速度"
-msgstr "可以大幅增加國內 gravatar 頭像加載的速度"
-
-#: functions.php:3287
+#: functions.php:3501
 msgid "是否修正时区错误"
 msgstr "是否修正時區錯誤"
 
-#: functions.php:3294
+#: functions.php:3508
 msgid "如遇到时区错误（例如一条刚发的评论显示 8 小时前），这个选项"
 msgstr "如遇到時區錯誤（例如壹條剛發的評論顯示 8 小時前），這個選項"
 
-#: functions.php:3294
+#: functions.php:3508
 msgid "可能"
 msgstr "可能"
 
-#: functions.php:3294
+#: functions.php:3508
 msgid "可以修复这个问题"
 msgstr "可以修復這個問題"
 
-#: functions.php:3298
+#: functions.php:3512
 msgid "是否在文章列表内容预览中隐藏短代码"
 msgstr "是否在文章列表內容預覽中隱藏短代碼"
 
-#: functions.php:3302 functions.php:3313
+#: functions.php:3516 functions.php:3527
 msgid "否"
 msgstr "否"
 
-#: functions.php:3303 functions.php:3314
+#: functions.php:3517 functions.php:3528
 msgid "是"
 msgstr "是"
 
-#: functions.php:3309
+#: functions.php:3523
 msgid "是否允许移动端缩放页面"
 msgstr "是否允許移動端縮放頁面"
 
-#: functions.php:3320
+#: functions.php:3534
 msgid "检测更新源"
 msgstr "檢測更新源"
 
-#: functions.php:3328
+#: functions.php:3542
 msgid "暂停更新 (不推荐)"
 msgstr "暫停更新 (不推薦)"
 
-#: functions.php:3330
+#: functions.php:3544
 msgid "如更新主题速度较慢，可考虑更换更新源。"
 msgstr "如更新主題速度較慢，可考慮更換更新源。"
 
-#: functions.php:3334
+#: functions.php:3548
 msgid "页脚附加内容"
 msgstr "頁腳附加內容"
 
-#: functions.php:3347
+#: functions.php:3561
 msgid "保存更改"
 msgstr "保存更改"
 
-#: functions.php:3348
+#: functions.php:3562
 msgid "导入设置"
 msgstr "導入設置"
 
-#: functions.php:3349
+#: functions.php:3563
 msgid "导出设置"
 msgstr "導出設置"
 
-#: functions.php:3354
+#: functions.php:3568
 msgid "收起"
 msgstr "收起"
 
-#: functions.php:3357
+#: functions.php:3571
 msgid "请复制并保存导出后的 JSON"
 msgstr "請複製並保存導出後的 JSON"
 
-#: functions.php:3357
+#: functions.php:3571
 msgid "确定"
 msgstr "確定"
 
-#: functions.php:3433
+#: functions.php:3647
 msgid "展开"
 msgstr "展開"
 
-#: functions.php:3578
+#: functions.php:3792
 msgid "字段导入失败"
 msgstr "欄位導入失敗"
 
-#: functions.php:3589
+#: functions.php:3803
 msgid "请输入要导入的备份 JSON"
 msgstr "請輸入要導入的備份 JSON"
 
-#: functions.php:3592
+#: functions.php:3806
 msgid "已导入，请保存更改"
 msgstr "已導入，請保存更改"
 
-#: functions.php:3724
+#: functions.php:3946
 msgid "顶部导航"
 msgstr "頂部導航"
 
-#: functions.php:3725
+#: functions.php:3947
 msgid "左侧栏菜单"
 msgstr "左側欄菜單"
 
-#: functions.php:3726
+#: functions.php:3948
 msgid "左侧栏作者个人链接"
 msgstr "左側欄作者個人連結"
 
-#: functions.php:3727
+#: functions.php:3949
 msgid "左侧栏友情链接"
 msgstr "左側欄友情連結"
 
-#: functions.php:3738 functions.php:3739 functions.php:3749 shuoshuo.php:12
+#: functions.php:3960 functions.php:3961 functions.php:3971 shuoshuo.php:13
 msgid "说说"
 msgstr "說說"
 
-#: functions.php:3740 functions.php:3741
+#: functions.php:3962 functions.php:3963
 msgid "发表说说"
 msgstr "發表說說"
 
-#: functions.php:3742
+#: functions.php:3964
 msgid "编辑说说"
 msgstr "編輯說說"
 
-#: functions.php:3743
+#: functions.php:3965
 msgid "新说说"
 msgstr "新說說"
 
-#: functions.php:3744
+#: functions.php:3966
 msgid "查看说说"
 msgstr "查看說說"
 
-#: functions.php:3745
+#: functions.php:3967
 msgid "搜索说说"
 msgstr "搜索說說"
 
-#: functions.php:3746
+#: functions.php:3968
 msgid "暂无说说"
 msgstr "暫無說說"
 
-#: functions.php:3747
+#: functions.php:3969
 msgid "没有已遗弃的说说"
 msgstr "沒有已遺棄的說說"
 
-#: header.php:282 header.php:363 searchform.php:11 sidebar.php:63
+#: header.php:283 header.php:364 searchform.php:11 sidebar.php:63
 msgid "搜索"
 msgstr "搜索"
 
-#: header.php:343 searchform.php:7 sidebar.php:64
+#: header.php:344 searchform.php:7 sidebar.php:64
 msgid "搜索什么..."
 msgstr "搜索什麼..."
 
-#: header.php:482
+#: header.php:483
 msgid "移至左侧"
 msgstr "移至左側"
 
-#: header.php:482
+#: header.php:483
 msgid "移至右侧"
 msgstr "移至右側"
 
-#: header.php:486
+#: header.php:487
 msgid "回到顶部"
 msgstr "回到頂部"
 
-#: header.php:492 header.php:501
+#: header.php:493 header.php:502
 msgid "暗黑模式"
 msgstr "暗黑模式"
 
-#: header.php:492
+#: header.php:493
 msgid "日间模式"
 msgstr "日間模式"
 
-#: header.php:495
+#: header.php:496
 msgid "设置"
 msgstr "設置"
 
-#: header.php:501
+#: header.php:502
 msgid "切换到夜间模式"
 msgstr "切換到夜間模式"
 
-#: header.php:501
+#: header.php:502
 msgid "切换到暗黑模式"
 msgstr "切換到暗黑模式"
 
-#: header.php:514
+#: header.php:515
 msgid "阴影"
 msgstr "陰影"
 
-#: header.php:520
+#: header.php:521
 msgid "滤镜"
 msgstr "濾鏡"
 
-#: header.php:523
+#: header.php:524
 msgid "日落"
 msgstr "日落"
 
-#: header.php:524
+#: header.php:525
 msgid "暗化"
 msgstr "暗化"
 
-#: header.php:525
+#: header.php:526
 msgid "灰度"
 msgstr "灰度"
 
-#: header.php:529
+#: header.php:530
 msgid "恢复默认"
 msgstr "恢復默認"
 
-#: header.php:529
+#: header.php:530
 msgid "圆角"
 msgstr "圓角"
 
-#: header.php:541
+#: header.php:542
 msgid "菜单"
 msgstr "菜單"
 
-#: header.php:544
+#: header.php:545
 msgid "阅读进度"
 msgstr "閱讀進度"
 
-#: search.php:7
+#: search.php:8
 msgid "的搜索结果"
 msgstr "的搜索結果"
 
-#: search.php:11
+#: search.php:12
 msgid "个结果"
 msgstr "個結果"
 
-#: shuoshuo.php:20
+#: shuoshuo.php:21
 msgid "条说说"
 msgstr "條說說"
 
@@ -1807,19 +1937,19 @@ msgstr "站點概覽"
 msgid "功能"
 msgstr "功能"
 
-#: sidebar.php:136 sidebar.php:224
+#: sidebar.php:136 sidebar.php:223
 msgid "分类"
 msgstr "分類"
 
-#: sidebar.php:142 sidebar.php:252
+#: sidebar.php:142 sidebar.php:251
 msgid "标签"
 msgstr "標籤"
 
-#: single.php:25
+#: single.php:27
 msgid "上一篇"
 msgstr "上一篇"
 
-#: single.php:30
+#: single.php:32
 msgid "下一篇"
 msgstr "下一篇"
 
@@ -1869,15 +1999,15 @@ msgstr "月"
 msgid "日"
 msgstr "日"
 
-#: template-parts/content-single.php:47 template-parts/content.php:32
+#: template-parts/content-single.php:47 template-parts/content.php:37
 msgid "字"
 msgstr "字"
 
-#: template-parts/content.php:59
+#: template-parts/content.php:64
 msgid "这篇文章受密码保护，输入密码才能阅读"
 msgstr "這篇文章受密碼保護，輸入密碼才能閱讀"
 
-#: template-parts/content.php:62
+#: template-parts/content.php:67
 msgid "这篇文章没有摘要"
 msgstr "這篇文章沒有摘要"
 
@@ -1984,6 +2114,12 @@ msgstr "您已成功退訂評論 #"
 #: unsubscribe-comment-mailnotice.php:25
 msgid " 的邮件通知<br>该评论下有新回复时您将不会再收到通知"
 msgstr " 的郵件通知<br>該評論下有新回復時您將不會再收到通知"
+
+#~ msgid "是否使用 v2ex CDN 代理的 gravatar"
+#~ msgstr "是否使用 v2ex CDN 代理的 gravatar"
+
+#~ msgid "可以大幅增加国内 gravatar 头像加载的速度"
+#~ msgstr "可以大幅增加國內 gravatar 頭像加載的速度"
 
 #, fuzzy
 #~| msgid "评论内容"
