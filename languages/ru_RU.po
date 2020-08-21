@@ -1,32 +1,33 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: argon\n"
-"POT-Creation-Date: 2020-08-04 19:26+0300\n"
-"PO-Revision-Date: 2020-08-04 23:53+0300\n"
+"POT-Creation-Date: 2020-08-21 11:30+0800\n"
+"PO-Revision-Date: 2020-08-21 11:31+0800\n"
 "Last-Translator: \n"
 "Language-Team: ostiwe\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: __;_e;_x;_ex;_n;_nx\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-0: assets\n"
+"X-Poedit-SearchPathExcluded-1: languages\n"
+"X-Poedit-SearchPathExcluded-2: theme-update-checker\n"
+"X-Poedit-SearchPathExcluded-3: argontheme.js\n"
 
-#: archive.php:13
+#: archive.php:14
 msgid "篇文章"
 msgstr "Статей"
 
-#: comments.php:12 functions.php:3055 header.php:489
+#: comments.php:12 functions.php:3262 header.php:490
 #: template-parts/shuoshuo-operations.php:5
 msgid "评论"
 msgstr "Комментарии"
@@ -39,7 +40,7 @@ msgstr "Комментариев нет"
 msgid "本文评论已关闭"
 msgstr "Комментарии отключены"
 
-#: comments.php:68 functions.php:3068
+#: comments.php:68 functions.php:3275
 msgid "发送评论"
 msgstr "Отправить комментарий"
 
@@ -91,7 +92,7 @@ msgstr "Скрыть дополнительные поля"
 msgid "评论仅发送者和博主可见"
 msgstr "Комментарий виден только отправителю и владельцу блога"
 
-#: comments.php:178 functions.php:664
+#: comments.php:178 functions.php:782
 msgid "悄悄话"
 msgstr "Личный комментарий"
 
@@ -107,7 +108,7 @@ msgstr "Уведомление по почте"
 msgid "发送"
 msgstr "Отправить"
 
-#: comments.php:191 functions.php:691
+#: comments.php:191 functions.php:810
 msgid "编辑"
 msgstr "Редактировать"
 
@@ -115,155 +116,163 @@ msgstr "Редактировать"
 msgid "取消"
 msgstr "Отменить"
 
+#: comments.php:198
+msgid "表情"
+msgstr "выражение"
+
+#: emotions.php:4
+msgid "颜文字"
+msgstr "Эмодзи"
+
 #: functions.php:3
 msgid "Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress"
 msgstr ""
 "Argon не поддерживает версию Wordpress ниже 4.4, пожалуйста, обновите "
 "Wordpress"
 
-#: functions.php:126
+#: functions.php:138
 msgid "左侧栏小工具"
 msgstr "Сайдбар слева"
 
-#: functions.php:128
+#: functions.php:140
 msgid "左侧栏小工具 (如果设置会在侧栏增加一个 Tab)"
 msgstr "Виджет левого сайдбара"
 
-#: functions.php:137
+#: functions.php:149
 msgid "右侧栏小工具"
 msgstr "Сайдбар справа"
 
-#: functions.php:139
+#: functions.php:151
 msgid "右侧栏小工具 (在 \"Argon 主题选项\" 中选择 \"三栏布局\" 才会显示)"
 msgstr ""
 "Сайдбар справа (отображается только при выборе \"трехколоночного макета\" в "
 "разделе \" Параметры темы Argon\")"
 
-#: functions.php:265
+#: functions.php:336
 msgid "这是一个加密页面，需要密码来查看"
 msgstr "Для просмотра данной страницы необходим пароль"
 
-#: functions.php:369
+#: functions.php:441
 msgid "几秒读完"
 msgstr "Пару секунд"
 
-#: functions.php:372
+#: functions.php:444
 msgid "1 分钟内"
 msgstr "Меньше минуты"
 
-#: functions.php:375
+#: functions.php:447
 msgid "分钟"
 msgstr "минут"
 
-#: functions.php:377
+#: functions.php:449
 msgid "小时"
 msgstr "час"
 
-#: functions.php:399 template-parts/content-shuoshuo-details.php:16
+#: functions.php:471 template-parts/content-shuoshuo-details.php:16
 #: template-parts/content-shuoshuo-preview.php:24
 #: template-parts/content-shuoshuo.php:16
 msgid "置顶"
 msgstr "Закреплено"
 
-#: functions.php:405
+#: functions.php:477
 msgid "需要密码"
 msgstr "Необходим пароль"
 
-#: functions.php:411 functions.php:419
+#: functions.php:483 functions.php:491
 msgid "发布于"
 msgstr "Опубликовано "
 
-#: functions.php:411 functions.php:419
+#: functions.php:483 functions.php:491
 msgid "编辑于"
 msgstr "Изменено "
 
-#: functions.php:633
+#: functions.php:705
 msgid "最初版本"
 msgstr "Первое редактирование "
 
-#: functions.php:661 functions.php:708
-msgid "博主"
-msgstr "Автор"
-
-#: functions.php:667 functions.php:711
-msgid "待审核"
-msgstr "Ожидает модерации"
-
-#: functions.php:680
-msgid "已编辑"
-msgstr "Изменено"
-
-#: functions.php:684
-msgid "前"
-msgstr " назад"
-
-#: functions.php:693
-msgid "回复"
-msgstr "Ответ"
-
-#: functions.php:791
-msgid "验证码错误"
-msgstr "Неверно решенная капча"
-
-#: functions.php:851
-msgid "不能回复其他人的悄悄话评论"
-msgstr "Нельзя отвечать на личные комментарии других пользователей"
-
-#: functions.php:945
+#: functions.php:736
 msgid "查看图片"
 msgstr "Показать изображение"
 
-#: functions.php:988 functions.php:989
+#: functions.php:779 functions.php:827
+msgid "博主"
+msgstr "Автор"
+
+#: functions.php:785 functions.php:830
+msgid "待审核"
+msgstr "Ожидает модерации"
+
+#: functions.php:794
+msgid "已编辑"
+msgstr "Изменено"
+
+#: functions.php:798
+msgid "前"
+msgstr " назад"
+
+#: functions.php:812
+msgid "回复"
+msgstr "Ответ"
+
+#: functions.php:910
+msgid "验证码错误"
+msgstr "Неверно решенная капча"
+
+#: functions.php:970
+msgid "不能回复其他人的悄悄话评论"
+msgstr "Нельзя отвечать на личные комментарии других пользователей"
+
+#: functions.php:1098 functions.php:1099
 msgid "您在"
 msgstr "Ваш комментарий"
 
-#: functions.php:988 functions.php:989
+#: functions.php:1098 functions.php:1099
 msgid "的评论有了新的回复"
 msgstr "Есть новый ответ"
 
-#: functions.php:997
+#: functions.php:1107
 msgid "回复了你"
 msgstr "Ответов"
 
-#: functions.php:1001
+#: functions.php:1111
 msgid "前往查看"
 msgstr "Просмотров"
 
-#: functions.php:1004
+#: functions.php:1114
 msgid "退订该评论的邮件提醒"
 msgstr "Отписаться от уведомлений по электронной почте с напоминанием"
 
-#: functions.php:1077
+#: functions.php:1187
 msgid "博主关闭了编辑评论功能"
 msgstr "Редактирование комментариев отключено"
 
-#: functions.php:1086
+#: functions.php:1196
 msgid "您不是这条评论的作者或 Token 已过期"
 msgstr ""
 "Вы не являетесь автором этого комментария или срок действия токена истек"
 
-#: functions.php:1092
+#: functions.php:1202
 msgid "新的评论为空"
 msgstr "Новый комментарий пуст"
 
-#: functions.php:1118
+#: functions.php:1228
 msgid "编辑评论成功"
 msgstr "Комментарий изменен"
 
-#: functions.php:1126
+#: functions.php:1236
 msgid "编辑评论失败，可能原因: 与原评论相同"
 msgstr ""
 "Не удалось отредактировать комментарий, возможная причина: нет изменений"
 
-#: functions.php:1343
+#: functions.php:1457
 msgid "该说说已被赞过"
 msgstr "This essay has been voted"
 
-#: functions.php:1352
+#: functions.php:1466
 msgid "点赞成功"
 msgstr "Голос учтен"
 
-#: functions.php:1361
+#: functions.php:1475
 msgid ""
 "警告：你可能修改了 Argon 主题页脚的版权声明，Argon 主题要求你至少保留主题的 "
 "Github 链接或主题的发布文章链接。"
@@ -271,456 +280,493 @@ msgstr ""
 "Внимание: подвал сайта, возможно, был изменен. Пожалуйста, убедитесь что в "
 "подвале сайта есть ссылка на GitHub репозиторий данной темы."
 
-#: functions.php:1500 functions.php:2705
+#: functions.php:1621 functions.php:2848
 msgid "显示字数和预计阅读时间"
 msgstr "Отображение количества слов и расчетного примерного времени для чтения"
 
-#: functions.php:1503
+#: functions.php:1624 functions.php:1638
 msgid "跟随全局设置"
 msgstr "Использовать глобальные настройки"
 
-#: functions.php:1504 functions.php:2580 functions.php:2590 functions.php:2601
-#: functions.php:2666 functions.php:2710 functions.php:2741 functions.php:2752
-#: functions.php:3181 functions.php:3269
+#: functions.php:1625 functions.php:2723 functions.php:2733 functions.php:2744
+#: functions.php:2809 functions.php:2853 functions.php:2895 functions.php:2906
+#: functions.php:3399 functions.php:3487
 msgid "不显示"
 msgstr "Скрыть"
 
-#: functions.php:1506
+#: functions.php:1627
 msgid "是否显示字数和预计阅读时间 Meta 信息"
 msgstr "Показать количества слов и расчетное время для чтения в мета-тегах"
 
-#: functions.php:1507
+#: functions.php:1628
 msgid "Meta 中隐藏发布时间和分类"
 msgstr "Скрыть время публикации и категории в мета-тегах"
 
-#: functions.php:1510 functions.php:3074
+#: functions.php:1631 functions.php:3292
 msgid "不隐藏"
 msgstr "Показать"
 
-#: functions.php:1511 functions.php:3075
+#: functions.php:1632 functions.php:3293
 msgid "隐藏"
 msgstr "Спрятать"
 
-#: functions.php:1513
+#: functions.php:1634
 msgid ""
 "适合特定的页面，例如友链页面。开启后文章 Meta 的第一行只显示阅读数和评论数。"
 msgstr ""
 "Если эта опция включена, то в первой строке мета будет отображаться только "
 "количество прочтений и комментариев."
 
-#: functions.php:1514
+#: functions.php:1635
+msgid "使用文章中第一张图作为头图"
+msgstr ""
+"Используйте первое изображение в статье в качестве изображения заголовка"
+
+#: functions.php:1639
+msgid "使用"
+msgstr "Использовать"
+
+#: functions.php:1640 functions.php:2499 functions.php:3149
+msgid "不使用"
+msgstr "Не использовать"
+
+#: functions.php:1642 functions.php:2920 functions.php:2922
+msgid "文末附加内容"
+msgstr "Дополнительный контент в конце статьи"
+
+#: functions.php:1645
+msgid ""
+"给该文章设置单独的文末附加内容，留空则跟随全局，设为 <code>--none--</code> 则"
+"不显示。"
+msgstr ""
+"Установите отдельный дополнительный контент в конце статьи, оставьте его "
+"пустым, чтобы отслеживать глобальную ситуацию, установите для него значение "
+"<code> --none-- </code>, чтобы не отображать его."
+
+#: functions.php:1646
 msgid "自定义 CSS"
 msgstr "Свои стили CSS"
 
-#: functions.php:1517
+#: functions.php:1649
 msgid "给该文章添加单独的 CSS"
 msgstr "Свои стили CSS для этой страницы"
 
-#: functions.php:1521
+#: functions.php:1653
 msgid "文章设置"
 msgstr "Настройки заметок"
 
-#: functions.php:2172 functions.php:2203
+#: functions.php:2303 functions.php:2334
 msgid "Argon 主题设置"
 msgstr "Настройки темы Argon"
 
-#: functions.php:2172
+#: functions.php:2303
 msgid "Argon 主题选项"
 msgstr "Настойки Argon"
 
-#: functions.php:2204
+#: functions.php:2335
 msgid "按下"
 msgstr "Нажмите"
 
-#: functions.php:2204
+#: functions.php:2335
 msgid "或在右侧目录中来查找设置"
 msgstr "или найдите необходимую категорию из списка справа"
 
-#: functions.php:2210
+#: functions.php:2341
 msgid "全局"
 msgstr "Основные"
 
-#: functions.php:2211 header.php:536
+#: functions.php:2342 header.php:537
 msgid "主题色"
 msgstr "Цвет темы"
 
-#: functions.php:2213
+#: functions.php:2344
 msgid "主题颜色"
 msgstr "Цвет темы"
 
-#: functions.php:2217
+#: functions.php:2348
 msgid "选择预置颜色 或"
 msgstr "Выберите предустановленные цвета или"
 
-#: functions.php:2217
+#: functions.php:2348
 msgid "自定义色值"
 msgstr "свой цвет"
 
-#: functions.php:2218
+#: functions.php:2349
 msgid "预置颜色："
 msgstr "Пресеты"
 
-#: functions.php:2220
+#: functions.php:2351
 msgid "默认"
 msgstr "По умолчанию"
 
-#: functions.php:2221
+#: functions.php:2352
 msgid "粉"
 msgstr "Pink"
 
-#: functions.php:2222
+#: functions.php:2353
 msgid "水鸭青"
 msgstr "Teal"
 
-#: functions.php:2223
+#: functions.php:2354
 msgid "蓝灰"
 msgstr "Bluegrey"
 
-#: functions.php:2224
+#: functions.php:2355
 msgid "天蓝"
 msgstr "Blue"
 
-#: functions.php:2225
+#: functions.php:2356
 msgid "靛蓝"
 msgstr "Indigo"
 
-#: functions.php:2226
+#: functions.php:2357
 msgid "橙"
 msgstr "Orange"
 
-#: functions.php:2227
+#: functions.php:2358
 msgid "绿"
 msgstr "Green"
 
-#: functions.php:2228
+#: functions.php:2359
 msgid "红"
 msgstr "Red"
 
-#: functions.php:2229
+#: functions.php:2360
 msgid "紫"
 msgstr "Purple"
 
-#: functions.php:2230
+#: functions.php:2361
 msgid "黑"
 msgstr "Black"
 
-#: functions.php:2231
+#: functions.php:2362
 msgid "棕"
 msgstr "Brown"
 
-#: functions.php:2233
+#: functions.php:2364
 msgid "主题色与 \"Banner 渐变背景样式\" 选项搭配使用效果更佳"
 msgstr ""
 "Используйте эту опцию с \"градиентным фоновым стилем баннера\" для улучшения "
 "эффектов"
 
-#: functions.php:2262
+#: functions.php:2393
 msgid "允许用户自定义主题色（位于博客浮动操作栏设置菜单中）"
 msgstr "Разрешить пользовательский цвет темы (в плавающем меню настроек блога)"
 
-#: functions.php:2268 header.php:492 header.php:501
+#: functions.php:2399 header.php:493 header.php:502
 msgid "夜间模式"
 msgstr "Темная тема"
 
-#: functions.php:2270
+#: functions.php:2401
 msgid "夜间模式切换方案"
 msgstr "Схема переключения темной темы"
 
-#: functions.php:2274
+#: functions.php:2405
 msgid "默认使用日间模式"
 msgstr "Светлая тема по умолчанию"
 
-#: functions.php:2275
+#: functions.php:2406
 msgid "默认使用夜间模式"
 msgstr "Темная тема по умолчанию"
 
-#: functions.php:2276
+#: functions.php:2407
 msgid "跟随系统夜间模式"
 msgstr "Настройки системы пользователя"
 
-#: functions.php:2277
+#: functions.php:2408
 msgid "根据时间切换夜间模式 (22:00 ~ 7:00)"
 msgstr "Переключение по времени (с 10 вечера до 7 утра)"
 
-#: functions.php:2279
+#: functions.php:2410
 msgid "Argon 主题会根据这里的选项来决定是否默认使用夜间模式。"
 msgstr "Автоматический включать темную тему исходя из этих настроек"
 
-#: functions.php:2279
+#: functions.php:2410
 msgid "用户也可以手动切换夜间模式，用户的设置将保留到标签页关闭为止。"
 msgstr ""
 "Пользователи так же могут самостоятельно включать\\выключать темную тему. Их "
 "собственные настройки темы будут сохранены до тех пор, пока они не закроют "
 "вкладку."
 
-#: functions.php:2283
+#: functions.php:2414
 msgid "夜间模式颜色方案"
 msgstr "Цветая схема темной темы"
 
-#: functions.php:2287
+#: functions.php:2418
 msgid "灰黑"
 msgstr "Dark Grey"
 
-#: functions.php:2288
+#: functions.php:2419
 msgid "暗黑 (AMOLED Black)"
 msgstr "Black (For AMOLED)"
 
-#: functions.php:2290
+#: functions.php:2421
 msgid "夜间模式默认的配色方案。"
 msgstr "Цветовая схема для темной темы по умолчанию"
 
-#: functions.php:2293
+#: functions.php:2424
 msgid "卡片"
 msgstr "Карточки"
 
-#: functions.php:2295
+#: functions.php:2426
 msgid "卡片圆角大小"
 msgstr "Радиус закругления"
 
-#: functions.php:2298
+#: functions.php:2429
 msgid "卡片的圆角大小，默认为"
 msgstr "По умолчанию радиус закругления для карточки "
 
-#: functions.php:2298
+#: functions.php:2429
 msgid "。建议设置为"
 msgstr ". Рекомендуется в пределах "
 
-#: functions.php:2302
+#: functions.php:2433
 msgid "卡片阴影"
 msgstr "Тень карточек"
 
-#: functions.php:2308 header.php:516
+#: functions.php:2439 header.php:517
 msgid "浅阴影"
 msgstr "Меленькая"
 
-#: functions.php:2312 header.php:516
+#: functions.php:2443 header.php:517
 msgid "深阴影"
 msgstr "Большая"
 
-#: functions.php:2315
+#: functions.php:2446
 msgid "卡片默认阴影大小。"
 msgstr "Размер теней для карточек по умолчанию"
 
-#: functions.php:2318
+#: functions.php:2449
 msgid "布局"
 msgstr "Макет"
 
-#: functions.php:2320
+#: functions.php:2451
 msgid "页面布局"
 msgstr "Макет страницы"
 
-#: functions.php:2327
+#: functions.php:2458
 msgid "双栏"
 msgstr "2 Колонки"
 
-#: functions.php:2333
+#: functions.php:2464
 msgid "单栏"
 msgstr "1 Колонка"
 
-#: functions.php:2339
+#: functions.php:2470
 msgid "三栏"
 msgstr "3 Колонки"
 
-#: functions.php:2341
+#: functions.php:2472
 msgid "使用单栏时，关于左侧栏的设置将失效。"
 msgstr ""
 "Если использовать макет с одной колонкой, то настройки для сайдбара будут "
 "игнорироваться"
 
-#: functions.php:2341
+#: functions.php:2472
 msgid "使用三栏时，请前往 \"外观-小工具\" 设置页面配置右侧栏内容。"
 msgstr ""
 "Если используется макет с тремя колонками - перейдите на страницу настроек "
 "\"внешний вид - виджеты\" для настройки содержимого."
 
-#: functions.php:2344 header.php:508
+#: functions.php:2475 header.php:509
 msgid "字体"
 msgstr "Шрифт"
 
-#: functions.php:2346
+#: functions.php:2477
 msgid "默认字体"
 msgstr "Шрифт по умолчанию"
 
-#: functions.php:2359
+#: functions.php:2490
 msgid "默认使用无衬线字体/衬线字体。"
 msgstr "Стиль шрифта по умолчанию"
 
-#: functions.php:2368 functions.php:2942 functions.php:3280
-msgid "不使用"
-msgstr "Не использовать"
-
-#: functions.php:2372
+#: functions.php:2503
 msgid ""
 "选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。"
 msgstr ""
 "Адрес файла ресурсов темы. Использование CDN может ускорить доступ к файлам "
 "ресурсов и снизить нагрузку на сервер"
 
-#: functions.php:2375
+#: functions.php:2506
 msgid "子目录"
 msgstr "Каталоги"
 
-#: functions.php:2377
+#: functions.php:2508
 msgid "Wordpress 安装目录"
 msgstr "Директория, где установлен WordPress"
 
-#: functions.php:2380
+#: functions.php:2511
 msgid "如果 Wordpress 安装在子目录中，请在此填写子目录地址（例如"
 msgstr ""
 "Если Wordpress установлен не в корневой директории то укажите путь до нее, к "
 "примеру ("
 
-#: functions.php:2380
+#: functions.php:2511
 msgid "），注意前后各有一个斜杠。默认为"
 msgstr "), до и после каждого из них есть косая черта (/). По умолчанию: "
 
-#: functions.php:2380
+#: functions.php:2511
 msgid "。"
 msgstr "."
 
-#: functions.php:2380
+#: functions.php:2511
 msgid "如果不清楚该选项的用处，请保持默认。"
 msgstr "Если вы не знаете об этой опции, оставьте значение по умолчанию"
 
-#: functions.php:2383 functions.php:2385
+#: functions.php:2514 functions.php:2516
 msgid "日期格式"
 msgstr "Формат даты"
 
-#: functions.php:2396
+#: functions.php:2527
 msgid "顶栏"
 msgstr "Шапка сайта"
 
-#: functions.php:2397
+#: functions.php:2528
+msgid "自动折叠顶栏"
+msgstr "Автоматически свернуть верхнюю панель"
+
+#: functions.php:2530
+msgid "滚动时自动折叠顶栏"
+msgstr "Автоматически сворачивать верхнюю панель при прокрутке"
+
+#: functions.php:2537
+msgid "在页面向下滚动时隐藏顶栏，向上滚动时显示顶栏"
+msgstr ""
+"Скрыть верхнюю панель при прокрутке страницы вниз и показать верхнюю панель "
+"при прокрутке вверх"
+
+#: functions.php:2540 functions.php:2950
 msgid "标题"
 msgstr "Название"
 
-#: functions.php:2399
+#: functions.php:2542
 msgid "顶栏标题"
 msgstr "Название сайта"
 
-#: functions.php:2402 functions.php:2425 functions.php:2540
+#: functions.php:2545 functions.php:2568 functions.php:2683
 msgid "留空则显示博客名称"
 msgstr "Если этот параметр пуст, тема покажет название блога"
 
-#: functions.php:2405
+#: functions.php:2548
 msgid "顶栏图标"
 msgstr "Логотип"
 
-#: functions.php:2407
+#: functions.php:2550
 msgid "图标地址"
 msgstr "Ссылка на логотип"
 
-#: functions.php:2410
+#: functions.php:2553
 msgid "图片地址，留空则不显示"
 msgstr "URL адрес логотипа, если этот параметр пуст, он не будет отображаться"
 
-#: functions.php:2414
+#: functions.php:2557
 msgid "图标链接"
 msgstr "Ссылка логотипа"
 
-#: functions.php:2417
+#: functions.php:2560
 msgid "点击图标后会跳转到的链接，留空则不跳转"
 msgstr ""
 "Ссылка для логотипа. Если не указано то при нажатии на логотип никаких "
 "действий не будет"
 
-#: functions.php:2420
+#: functions.php:2563
 msgid "顶部 Banner (封面)"
 msgstr "Баннер"
 
-#: functions.php:2422
+#: functions.php:2565
 msgid "Banner 标题"
 msgstr "Название баннера"
 
-#: functions.php:2429
+#: functions.php:2572
 msgid "Banner 副标题"
 msgstr "Описание баннера"
 
-#: functions.php:2432
+#: functions.php:2575
 msgid "显示在 Banner 标题下，留空则不显示"
 msgstr ""
 "Показывать под заголовком баннера, если этот параметр пуст, то он не будет "
 "отображаться"
 
-#: functions.php:2436
+#: functions.php:2579
 msgid "Banner 背景图 (地址)"
 msgstr "Ссылка на фоновое изображение баннера"
 
-#: functions.php:2439
+#: functions.php:2582
 msgid "需带上 http(s) ，留空则显示默认背景"
 msgstr ""
 "Ссылка должна быть http(s). Оставьте его пустым, чтобы показать фон по "
 "умолчанию"
 
-#: functions.php:2439 functions.php:2547
+#: functions.php:2582 functions.php:2690
 msgid "输入"
 msgstr "Ввод"
 
-#: functions.php:2439
+#: functions.php:2582
 msgid "调用必应每日一图"
 msgstr "чтобы использовать фон Bing."
 
-#: functions.php:2443
+#: functions.php:2586
 msgid "Banner 渐变背景样式"
 msgstr "Стиль градиента для баннера"
 
-#: functions.php:2447 functions.php:2448 functions.php:2449 functions.php:2450
-#: functions.php:2451 functions.php:2452 functions.php:2453 functions.php:2462
-#: functions.php:2463 functions.php:2464 functions.php:2465 functions.php:2466
-#: functions.php:2467 functions.php:2468
+#: functions.php:2590 functions.php:2591 functions.php:2592 functions.php:2593
+#: functions.php:2594 functions.php:2595 functions.php:2596 functions.php:2605
+#: functions.php:2606 functions.php:2607 functions.php:2608 functions.php:2609
+#: functions.php:2610 functions.php:2611
 msgid "样式"
 msgstr "Стиль"
 
-#: functions.php:2457
+#: functions.php:2600
 msgid "隐藏背景半透明圆"
 msgstr "Скрыть фон полупрозрачным кругом"
 
-#: functions.php:2459
+#: functions.php:2602
 msgid "如果设置了背景图则不生效"
 msgstr "Если фоновое изображение установлено, оно не вступит в силу"
 
-#: functions.php:2460
+#: functions.php:2603
 msgid "样式预览 (推荐选择前三个样式)"
 msgstr ""
 "Предварительный просмотр стиля (рекомендуется выбрать первые три стиля)"
 
-#: functions.php:2477 functions.php:3029
+#: functions.php:2620 functions.php:3236
 msgid "动画"
 msgstr "Анимации"
 
-#: functions.php:2479
+#: functions.php:2622
 msgid "Banner 标题打字动画"
 msgstr "Анимация названия баннера в стиле \"печатная машинка\""
 
-#: functions.php:2483 functions.php:2804 functions.php:2847 functions.php:3049
-#: functions.php:3209 functions.php:3258
+#: functions.php:2626 functions.php:3011 functions.php:3054 functions.php:3256
+#: functions.php:3427 functions.php:3476
 msgid "不启用"
 msgstr "Выключено"
 
-#: functions.php:2484 functions.php:2805 functions.php:2901 functions.php:2953
-#: functions.php:3050 functions.php:3208 functions.php:3259
+#: functions.php:2627 functions.php:2883 functions.php:3012 functions.php:3108
+#: functions.php:3160 functions.php:3257 functions.php:3281 functions.php:3426
+#: functions.php:3477
 msgid "启用"
 msgstr "Включено"
 
-#: functions.php:2486
+#: functions.php:2629
 msgid "启用后 Banner 标题会以打字的形式出现。"
 msgstr ""
 "Если этот параметр включен, заголовок баннера будет отображаться с эффектом "
 "набора текста."
 
-#: functions.php:2490
+#: functions.php:2633
 msgid "Banner 标题打字动画时长"
 msgstr "Скорость анимации названия баннера"
 
-#: functions.php:2492
+#: functions.php:2635
 msgid "ms/字"
 msgstr "мс/буква"
 
-#: functions.php:2496 functions.php:2498
+#: functions.php:2639 functions.php:2641
 msgid "页面背景"
 msgstr "Фон сайта"
 
-#: functions.php:2501
+#: functions.php:2644
 msgid ""
 "页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐修"
 "改以下选项来增强页面整体观感。"
@@ -729,11 +775,11 @@ msgstr ""
 "фон страницы. Если фон установлен, рекомендуется изменить следующие "
 "параметры, чтобы улучшить общий внешний вид страницы."
 
-#: functions.php:2505
+#: functions.php:2648
 msgid "页面背景（夜间模式时）"
 msgstr "Фон сайта (Темная тема)"
 
-#: functions.php:2508
+#: functions.php:2651
 msgid ""
 "夜间模式时页面背景的地址，需带上 http(s)。设置后日间模式和夜间模式会使用不同"
 "的背景。留空则跟随日间模式背景。该选项仅在设置了日间模式背景时生效。"
@@ -743,35 +789,35 @@ msgstr ""
 "чтобы использовать фон дневного режима. Эта опция вступает в силу только "
 "тогда, когда установлен фон дневного режима."
 
-#: functions.php:2512
+#: functions.php:2655
 msgid "背景不透明度"
 msgstr "Прозрачность фона"
 
-#: functions.php:2515
+#: functions.php:2658
 msgid "0 ~ 1 的小数，越小透明度越高，默认为 1 不透明"
 msgstr ""
 "Десятичная дробь от 0 до 1, Чем меньше, тем выше прозрачность, по умолчанию "
 "используется 1."
 
-#: functions.php:2519
+#: functions.php:2662
 msgid "Banner 透明化"
 msgstr "Сделать баннер прозрачным"
 
-#: functions.php:2523 functions.php:3291 header.php:522
+#: functions.php:2666 functions.php:2934 functions.php:3505 header.php:523
 msgid "关闭"
 msgstr "Выключить"
 
-#: functions.php:2524 functions.php:3292
+#: functions.php:2667 functions.php:3506
 msgid "开启"
 msgstr "Включить"
 
-#: functions.php:2529
+#: functions.php:2672
 msgid "在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）"
 msgstr ""
 "Немного затемнить шапку и добавить тень к заголовку баннера (проверьте, "
 "когда фон слишком яркий и влияет на чтение текста)"
 
-#: functions.php:2532
+#: functions.php:2675
 msgid ""
 "Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置"
 "页面背景时生效。"
@@ -779,76 +825,76 @@ msgstr ""
 "Рекомендуется включить эту опцию при настройке фона. Этот параметр вступает "
 "в силу только в том случае, если задан фон страницы."
 
-#: functions.php:2535
+#: functions.php:2678
 msgid "左侧栏"
 msgstr "Сайдбар слева"
 
-#: functions.php:2537
+#: functions.php:2680
 msgid "左侧栏标题"
 msgstr "Заголовок сайдбара"
 
-#: functions.php:2544
+#: functions.php:2687
 msgid "左侧栏子标题（格言）"
 msgstr "Описание сайдара"
 
-#: functions.php:2547
+#: functions.php:2690
 msgid "留空则不显示"
 msgstr "Оставьте пустым, чтобы не показывать."
 
-#: functions.php:2547
+#: functions.php:2690
 msgid "调用一言 API"
 msgstr "для использования Hitokoto API."
 
-#: functions.php:2551
+#: functions.php:2694
 msgid "左侧栏作者名称"
 msgstr "Имя владельца блога"
 
-#: functions.php:2554
+#: functions.php:2697
 msgid "留空则显示博客名"
 msgstr "Если этот параметр пуст, тема покажет название блога."
 
-#: functions.php:2558
+#: functions.php:2701
 msgid "左侧栏作者头像地址"
 msgstr "Ссылка на аватар владельца блога"
 
-#: functions.php:2561
+#: functions.php:2704
 msgid "需带上 http(s) 开头"
 msgstr "Ссылка должна быть http(s)"
 
-#: functions.php:2564
+#: functions.php:2707
 msgid "博客公告"
 msgstr "Объявление"
 
-#: functions.php:2566
+#: functions.php:2709
 msgid "公告内容"
 msgstr "Текст объявления"
 
-#: functions.php:2569
+#: functions.php:2712
 msgid "显示在左侧栏顶部，留空则不显示，支持 HTML 标签"
 msgstr ""
 "Объявление в блоге (отображается в верхней части левого сайдбара). "
 "Поддерживаются HTML-теги."
 
-#: functions.php:2572
+#: functions.php:2715
 msgid "浮动操作按钮"
 msgstr "Плавующие кнопки"
 
-#: functions.php:2573
+#: functions.php:2716
 msgid "浮动操作按钮位于页面右下角（或左下角）"
 msgstr ""
 "Плавающие кнопки действий размещаются в правом нижнем углу (или нижнем левом "
 "углу) страницы."
 
-#: functions.php:2575
+#: functions.php:2718
 msgid "显示设置按钮"
 msgstr "Показать кнопку настроек"
 
-#: functions.php:2579 functions.php:2591 functions.php:2602 functions.php:2662
-#: functions.php:2709 functions.php:2740 functions.php:2753 functions.php:3270
+#: functions.php:2722 functions.php:2734 functions.php:2745 functions.php:2805
+#: functions.php:2852 functions.php:2894 functions.php:2907 functions.php:3488
 msgid "显示"
 msgstr "Показать"
 
-#: functions.php:2582
+#: functions.php:2725
 msgid ""
 "是否在浮动操作按钮栏中显示设置按钮。点击设置按钮可以唤出设置菜单修改夜间模式/"
 "字体/滤镜等外观选项。"
@@ -857,34 +903,34 @@ msgstr ""
 "Нажмите кнопку Настройки, чтобы вызвать меню настроек для изменения "
 "параметров внешнего вида, таких как darkmode/font/filter."
 
-#: functions.php:2586
+#: functions.php:2729
 msgid "显示夜间模式切换按钮"
 msgstr "Отключить кнопку переключения темной темы"
 
-#: functions.php:2593
+#: functions.php:2736
 msgid ""
 "如果开启了设置按钮显示，建议关闭此选项。（夜间模式选项在设置菜单中已经存在）"
 msgstr ""
 "Отдельная кнопка переключения темы, рекомендуется отключить эту опцию. "
 "(Опция переключения темы есть в меню настроек)"
 
-#: functions.php:2597
+#: functions.php:2740
 msgid "显示跳转到评论按钮"
 msgstr "Показать кнопку для перехода к комментариям"
 
-#: functions.php:2604
+#: functions.php:2747
 msgid "仅在允许评论的文章中显示"
 msgstr "Будет отображаться только на страницах, где включены комментарии"
 
-#: functions.php:2609
+#: functions.php:2752
 msgid "网站描述 (Description Meta 标签)"
 msgstr "Описание сайта"
 
-#: functions.php:2612
+#: functions.php:2755
 msgid "设置针对搜索引擎的 Description Meta 标签内容。"
 msgstr "Установите описание мета-контента для поисковиков (Yandex, Google)"
 
-#: functions.php:2612
+#: functions.php:2755
 msgid ""
 "在文章中，Argon 会自动根据文章内容生成描述。在其他页面中，Argon 将使用这里设"
 "置的内容。如不填，Argon 将不会在其他页面输出 Description Meta 标签。"
@@ -894,11 +940,11 @@ msgstr ""
 "здесь. Если оставить данное поле пустым, Argon не будет выводить мета-теги "
 "на других страницах."
 
-#: functions.php:2616
+#: functions.php:2759
 msgid "搜索引擎关键词（Keywords Meta 标签）"
 msgstr "Ключевые слова"
 
-#: functions.php:2619
+#: functions.php:2762
 msgid ""
 "设置针对搜索引擎使用的关键词（Keywords Meta 标签内容）。用英文逗号隔开。不设"
 "置则不输出该 Meta 标签。"
@@ -906,237 +952,321 @@ msgstr ""
 "Ключевые слова для поисковых систем (Yandex, Google). Разделите их при "
 "помощи запятых."
 
-#: functions.php:2622 sidebar.php:130
+#: functions.php:2765 sidebar.php:130
 msgid "文章"
 msgstr "Заметки"
 
-#: functions.php:2623
+#: functions.php:2766
 msgid "文章 Meta 信息"
 msgstr "Мета информация"
 
-#: functions.php:2625
+#: functions.php:2768
 msgid "第一行"
 msgstr "Первая строка"
 
-#: functions.php:2660
+#: functions.php:2803
 msgid "拖动来自定义文章 Meta 信息的显示和顺序"
 msgstr ""
 "Перетащите, чтобы настроить отображение и порядок мета-тегов для статьи."
 
-#: functions.php:2668 functions.php:2774
+#: functions.php:2811 functions.php:2946 functions.php:2981
 msgid "发布时间"
 msgstr "Время публикации"
 
-#: functions.php:2669
+#: functions.php:2812 functions.php:2947
 msgid "修改时间"
 msgstr "Время изменения"
 
-#: functions.php:2670
+#: functions.php:2813
 msgid "浏览量"
 msgstr "Просмотры"
 
-#: functions.php:2671
+#: functions.php:2814
 msgid "评论数"
 msgstr "Комментарии"
 
-#: functions.php:2672
+#: functions.php:2815
 msgid "所属分类"
 msgstr "Категории"
 
-#: functions.php:2673
+#: functions.php:2816 functions.php:2951
 msgid "作者"
 msgstr "Автор"
 
-#: functions.php:2703
+#: functions.php:2846
 msgid "第二行"
 msgstr "Вторая строка"
 
-#: functions.php:2715
+#: functions.php:2858
 msgid "每分钟阅读字数"
 msgstr "Количество слов в минуту"
 
-#: functions.php:2718
+#: functions.php:2861
 msgid "字/分钟"
 msgstr "слово/минута"
 
-#: functions.php:2719
+#: functions.php:2862
 msgid "预计阅读时间由每分钟阅读字数计算"
 msgstr ""
 "Расчетное время чтения рассчитывается по количеству прочитанных слов в минуту"
 
-#: functions.php:2722
+#: functions.php:2865
 msgid "文章头图 (特色图片)"
 msgstr "Изображение статьи"
 
-#: functions.php:2724
+#: functions.php:2867
 msgid "文章头图的位置"
 msgstr "Расположение изображения на странице статьи"
 
-#: functions.php:2728
+#: functions.php:2871
 msgid "文章卡片顶端"
 msgstr "Вверху статьи"
 
-#: functions.php:2729
+#: functions.php:2872
 msgid "Banner (顶部背景)"
 msgstr "Фоновое изображение баннера"
 
-#: functions.php:2731
+#: functions.php:2874
 msgid "阅读界面中文章头图的位置"
 msgstr "Положение, где будет отображаться изображение статьи (Обложка)"
 
-#: functions.php:2734 template-parts/share.php:50
+#: functions.php:2878
+msgid "默认使用文章中第一张图作为头图"
+msgstr ""
+"По умолчанию использовать первое изображение в статье в качестве изображения "
+"заголовка."
+
+#: functions.php:2882 functions.php:3109 functions.php:3161 functions.php:3195
+#: functions.php:3282
+msgid "禁用"
+msgstr "Выключить"
+
+#: functions.php:2885
+msgid "也可以针对每篇文章单独设置"
+msgstr "Также его можно установить отдельно для каждой статьи."
+
+#: functions.php:2888 template-parts/share.php:50
 msgid "分享"
 msgstr "Поделиться"
 
-#: functions.php:2736
+#: functions.php:2890
 msgid "显示文章分享按钮"
 msgstr "Показать кнопку \"поделиться\""
 
-#: functions.php:2746
+#: functions.php:2900
 msgid "左侧栏文章目录"
 msgstr "Оглавление в левом сайдбаре"
 
-#: functions.php:2748
+#: functions.php:2902
 msgid "在目录中显示序号"
 msgstr "Показать номер главы"
 
-#: functions.php:2755
+#: functions.php:2909
 msgid "例：3.2.5"
 msgstr "Например: 3.2.5"
 
-#: functions.php:2758 template-parts/content-single.php:100
+#: functions.php:2912 template-parts/content-single.php:100
 msgid "赞赏"
 msgstr "Пожертвования"
 
-#: functions.php:2760
+#: functions.php:2914
 msgid "赞赏二维码图片链接"
 msgstr "Ссылка на изображение QR кода для пожертвований"
 
-#: functions.php:2763
+#: functions.php:2917
 msgid ""
 "赞赏二维码图片链接，填写后会在文章最后显示赞赏按钮，留空则不显示赞赏按钮"
 msgstr ""
 "После заполнения, кнопка Пожертвовать будет отображаться в конце статьи, "
 "оставьте ее пустой, чтобы не отображать кнопку \"Пожертвовать\""
 
-#: functions.php:2766
+#: functions.php:2925
+msgid "将会显示在每篇文章末尾，支持 HTML 标签，留空则不显示。"
+msgstr ""
+"Он будет отображаться в конце каждой статьи. Поддерживаются теги HTML. "
+"Оставьте поле пустым, чтобы не отображать."
+
+#: functions.php:2925
+msgid ""
+"使用 <code>%url%</code> 来代替当前页面 URL，<code>%link%</code> 来代替当前页"
+"面链接，<code>%title%</code> 来代替当前文章标题，<code>%author%</code> 来代替"
+"当前文章作者。"
+msgstr ""
+"Используйте <code>% url% </code>, чтобы заменить URL-адрес текущей страницы, "
+"<code>% link% </code>, чтобы заменить ссылку на текущую страницу, и <code>% "
+"title% </code>, чтобы заменить текущий заголовок статьи, < code>% author% </"
+"code>, чтобы заменить текущего автора статьи."
+
+#: functions.php:2928 functions.php:2930
+msgid "相似文章推荐"
+msgstr "Рекомендуются похожие статьи"
+
+#: functions.php:2935
+msgid "根据分类推荐"
+msgstr "Рекомендовать согласно классификации"
+
+#: functions.php:2936
+msgid "根据标签推荐"
+msgstr "Рекомендовать согласно этикетке"
+
+#: functions.php:2937
+msgid "根据分类和标签推荐"
+msgstr "Рекомендовать на основе классификации и этикетки"
+
+#: functions.php:2938
+msgid "显示在文章卡片后"
+msgstr "Отображается после карточки товара"
+
+#: functions.php:2942
+msgid "排序依据"
+msgstr "Сортировать по"
+
+#: functions.php:2948
+msgid "阅读量"
+msgstr "Чтение"
+
+#: functions.php:2952
+msgid "随机"
+msgstr "случайный"
+
+#: functions.php:2957
+msgid "顺序"
+msgstr "порядок"
+
+#: functions.php:2961
+msgid "倒序"
+msgstr "Обратный порядок"
+
+#: functions.php:2962
+msgid "正序"
+msgstr "Положительный заказ"
+
+#: functions.php:2967
+msgid "推荐文章数"
+msgstr "Рекомендуемые статьи"
+
+#: functions.php:2970
+msgid "最多推荐多少篇文章"
+msgstr "Сколько статей рекомендуется не более"
+
+#: functions.php:2973
 msgid "其他"
 msgstr "Другое"
 
-#: functions.php:2768
+#: functions.php:2975
 msgid "文章过时信息显示"
 msgstr "Устаревшая информация об статье"
 
-#: functions.php:2770
+#: functions.php:2977
 msgid "当一篇文章的"
 msgstr "Когда c "
 
-#: functions.php:2773
+#: functions.php:2980
 msgid "最后修改时间"
 msgstr "Последнего редактирования"
 
-#: functions.php:2776
+#: functions.php:2983
 msgid "距离现在超过"
 msgstr "статьи прошло больше "
 
-#: functions.php:2778
+#: functions.php:2985
 msgid "天时，用"
 msgstr "дней, показать уведомление "
 
-#: functions.php:2781
+#: functions.php:2988
 msgid "在文章顶部显示信息条"
 msgstr "Отображение информационной панели в верхней части статьи"
 
-#: functions.php:2782
+#: functions.php:2989
 msgid "在页面右上角弹出提示条"
 msgstr "Всплывающая панель предупреждений в правой верхней части страницы"
 
-#: functions.php:2784
+#: functions.php:2991
 msgid "的方式提示"
 msgstr "."
 
-#: functions.php:2786
+#: functions.php:2993
 msgid ""
 "本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。"
 msgstr ""
 "В последний раз эта статья обновлялась %date_delta% несколько дней назад. "
 "Возможно, информация в нем была изменена."
 
-#: functions.php:2787
+#: functions.php:2994
 msgid "天数为 -1 表示永不提示。"
 msgstr "Установите -1 чтобы никогда не показывать это."
 
-#: functions.php:2787
+#: functions.php:2994
 msgid "表示文章发布/修改时间与当前时间的差距，"
 msgstr ""
 "означает разрыв между временем публикации / изменения статьи и текущим "
 "временем,"
 
-#: functions.php:2787
+#: functions.php:2994
 msgid "表示文章发布时间与当前时间的差距，"
 msgstr "означает разрыв между временем публикации статьи и текущим временем,"
 
-#: functions.php:2787
+#: functions.php:2994
 msgid "表示文章修改时间与当前时间的差距（单位: 天）。"
 msgstr "означает разрыв между временем изменения статьи и текущим временем,"
 
-#: functions.php:2790
+#: functions.php:2997
 msgid "页脚"
 msgstr "Подвал"
 
-#: functions.php:2792
+#: functions.php:2999
 msgid "页脚内容"
 msgstr "Содержание подавла"
 
-#: functions.php:2795 functions.php:3019 functions.php:3026
+#: functions.php:3002 functions.php:3226 functions.php:3233
 msgid "HTML , 支持 script 等标签"
 msgstr "поддерживаются HTML, script и другие теги."
 
-#: functions.php:2798
+#: functions.php:3005
 msgid "代码高亮"
 msgstr "Выделение кода"
 
-#: functions.php:2800
+#: functions.php:3007
 msgid "启用 Highlight.js 代码高亮"
 msgstr "Включить выделение кода Highlight.js"
 
-#: functions.php:2807
+#: functions.php:3014
 msgid "所有 pre 下的 code 标签会被自动解析"
 msgstr "Все теги кода в теге pre будут автоматически проанализированы"
 
-#: functions.php:2811
+#: functions.php:3018
 msgid "高亮配色方案（主题）"
 msgstr "Цветовая схема выделения"
 
-#: functions.php:2829
+#: functions.php:3036
 msgid "查看所有主题预览"
 msgstr "Посмотреть все примеры"
 
-#: functions.php:2836
+#: functions.php:3043
 msgid "数学公式"
 msgstr "Рендер формул"
 
-#: functions.php:2838
+#: functions.php:3045
 msgid "数学公式渲染方案"
 msgstr "Библиотека для рендера формул"
 
-#: functions.php:2857 functions.php:2870 functions.php:2883
+#: functions.php:3064 functions.php:3077 functions.php:3090
 msgid "地址"
 msgstr "URL"
 
-#: functions.php:2859 functions.php:2872
+#: functions.php:3066 functions.php:3079
 msgid "，默认为"
 msgstr ", По умолчанию"
 
-#: functions.php:2885
+#: functions.php:3092
 msgid "Argon 会同时引用"
 msgstr "Argon будет подключать то и другое"
 
-#: functions.php:2885
+#: functions.php:3092
 msgid "和"
 msgstr "и"
 
-#: functions.php:2885
+#: functions.php:3092
 msgid ""
 "两个文件，所以在此填写的是上层的路径，而不是具体的文件。注意路径后要带一个斜"
 "杠。"
@@ -1144,153 +1274,149 @@ msgstr ""
 "two files, so input the parent directory path in here, not the specific "
 "file. There is a slash after the path."
 
-#: functions.php:2885
+#: functions.php:3092
 msgid "默认为"
 msgstr "По умолчанию "
 
-#: functions.php:2897
+#: functions.php:3104
 msgid "是否启用 Lazyload"
 msgstr "Включить Lazyload"
 
-#: functions.php:2902 functions.php:2954 functions.php:2988
-msgid "禁用"
-msgstr "Выключить"
-
-#: functions.php:2904
+#: functions.php:3111
 msgid "是否启用 Lazyload 加载文章内图片"
 msgstr "Lazyload будет загружать изображения по мере прокрутки страницы."
 
-#: functions.php:2908
+#: functions.php:3115
 msgid "提前加载阈值"
 msgstr "Порог ленивой загрузки"
 
-#: functions.php:2911
+#: functions.php:3118
 msgid "图片距离页面底部还有多少距离就开始提前加载"
 msgstr ""
 "Расстояние от нижней части экрана, когда изображение начнет загружаться."
 
-#: functions.php:2915
+#: functions.php:3122
 msgid "LazyLoad 图片加载完成过渡"
 msgstr "Анимация после загрузки изображения"
 
-#: functions.php:2921
+#: functions.php:3128
 msgid "不使用过渡"
 msgstr "Никаких переходов"
 
-#: functions.php:2927
+#: functions.php:3134
 msgid "LazyLoad 图片加载动效"
 msgstr "Анимация ленивой загрузки"
 
-#: functions.php:2931 functions.php:2932 functions.php:2933 functions.php:2934
-#: functions.php:2935 functions.php:2936 functions.php:2937 functions.php:2938
-#: functions.php:2939 functions.php:2940 functions.php:2941
+#: functions.php:3138 functions.php:3139 functions.php:3140 functions.php:3141
+#: functions.php:3142 functions.php:3143 functions.php:3144 functions.php:3145
+#: functions.php:3146 functions.php:3147 functions.php:3148
 msgid "加载动画"
 msgstr "Анимация загрузки"
 
-#: functions.php:2944
+#: functions.php:3151
 msgid "在图片被加载之前显示的加载效果"
 msgstr "Анимация загрузки перед отображением изображения."
 
-#: functions.php:2944
+#: functions.php:3151
 msgid "预览所有效果"
 msgstr "Посмотреть все варианты"
 
-#: functions.php:2947
+#: functions.php:3154
 msgid "图片放大浏览"
 msgstr "Увеличение изображения"
 
-#: functions.php:2949
+#: functions.php:3156
 msgid "是否启用图片放大浏览 (Zoomify)"
 msgstr "Включить увеличение изображения"
 
-#: functions.php:2956
+#: functions.php:3163
 msgid "开启后，文章中图片被单击时会放大预览"
 msgstr ""
 "Если этот параметр включен, изображение в статье будет увеличено для "
 "просмотра при нажатии кнопки"
 
-#: functions.php:2960
+#: functions.php:3167
 msgid "缩放动画长度"
 msgstr "Время анимации"
 
-#: functions.php:2963
+#: functions.php:3170
 msgid "图片被单击后缩放到全屏动画的时间长度"
 msgstr "Время анимации увеличения изображения"
 
-#: functions.php:2967
+#: functions.php:3174
 msgid "缩放动画曲线"
 msgstr "Функция перехода анимации"
 
-#: functions.php:2971
+#: functions.php:3178
 msgid "例："
 msgstr "Например:"
 
-#: functions.php:2971
+#: functions.php:3178
 msgid "如果你不知道这是什么，参考"
 msgstr "Если не знаете что это, вы можете ознакомиться с этим "
 
-#: functions.php:2971
+#: functions.php:3178
 msgid "这里"
 msgstr "тут"
 
-#: functions.php:2976
+#: functions.php:3183
 msgid "图片最大缩放比例"
 msgstr "Максимальный коэффициент масштабирования изображения"
 
-#: functions.php:2979
+#: functions.php:3186
 msgid "图片相对于页面的最大缩放比例 (0 ~ 1 的小数)"
 msgstr ""
 "Максимальное отношение масштабирования изображения относительно страницы "
 "(десятичное от 0 до 1)"
 
-#: functions.php:2984
+#: functions.php:3191
 msgid "启用 Pangu.js (自动在中英文之间添加空格)"
 msgstr ""
 "Включите Pangu.js (автоматическое добавление пробелов между китайским и "
 "английским языками)"
 
-#: functions.php:2989
+#: functions.php:3196
 msgid "格式化文章内容"
 msgstr "Формат содержание статьи"
 
-#: functions.php:2990
+#: functions.php:3197
 msgid "格式化说说"
 msgstr "Format essays"
 
-#: functions.php:2991
+#: functions.php:3198
 msgid "格式化评论区"
 msgstr "Format comments"
 
-#: functions.php:2992
+#: functions.php:3199
 msgid "格式化文章内容和评论区"
 msgstr "Format articles and comments"
 
-#: functions.php:2993
+#: functions.php:3200
 msgid "格式化文章内容和说说"
 msgstr "Format articles and essays"
 
-#: functions.php:2994
+#: functions.php:3201
 msgid "格式化说说和评论区"
 msgstr "Format essays and comments"
 
-#: functions.php:2995
+#: functions.php:3202
 msgid "格式化文章内容、说说和评论区"
 msgstr "Format article, essays and comments"
 
-#: functions.php:2997
+#: functions.php:3204
 msgid "开启后，会自动在中文和英文之间添加空格"
 msgstr ""
 "After opening, it will automatically add space between Chinese and English"
 
-#: functions.php:3000
+#: functions.php:3207
 msgid "脚本"
 msgstr "Скрипты"
 
-#: functions.php:3002
+#: functions.php:3209
 msgid "注意"
 msgstr "Предупреждение"
 
-#: functions.php:3004
+#: functions.php:3211
 msgid ""
 "Argon 使用 pjax 方式加载页面 (无刷新加载) , 所以除非页面手动刷新，否则您的脚"
 "本只会被执行一次。"
@@ -1299,77 +1425,77 @@ msgstr ""
 "поэтому, если страница не будет обновлена вручную, ваш скрипт будет выполнен "
 "только один раз."
 
-#: functions.php:3005
+#: functions.php:3212
 msgid "如果您想让每次页面跳转(加载新页面)时都执行脚本，请将脚本写入"
 msgstr ""
 "Если вы хотите выполнять скрипт каждый раз при загрузке новой страницы, "
 "Пожалуйста, запишите его в"
 
-#: functions.php:3005
+#: functions.php:3212
 msgid "中"
 msgstr "функцию"
 
-#: functions.php:3005
+#: functions.php:3212
 msgid "示例写法"
 msgstr "Для примера "
 
-#: functions.php:3008
+#: functions.php:3215
 msgid "页面每次跳转都会执行这里的代码"
 msgstr "Код здесь будет выполняться каждый раз при загрузке страницы"
 
-#: functions.php:3012
+#: functions.php:3219
 msgid "当页面第一次载入时，"
 msgstr "Когда страница загружается в первый раз, скрипт в"
 
-#: functions.php:3012
+#: functions.php:3219
 msgid "中的脚本不会执行，所以您可以手动执行"
 msgstr "не будет выполняться, поэтому вы можете выполнить его вручную"
 
-#: functions.php:3012
+#: functions.php:3219
 msgid "来让页面初次加载时也执行脚本"
 msgstr "чтобы выполнить скрипт при первой загрузке страницы."
 
-#: functions.php:3016
+#: functions.php:3223
 msgid "页头脚本"
 msgstr "Скрипты в Header"
 
-#: functions.php:3019
+#: functions.php:3226
 msgid "插入到 body 之前"
 msgstr "Будет вставлен перед Body"
 
-#: functions.php:3023
+#: functions.php:3230
 msgid "页尾脚本"
 msgstr "Скрипты подвала"
 
-#: functions.php:3026
+#: functions.php:3233
 msgid "插入到 body 之后"
 msgstr "Будет вставлен после Body"
 
-#: functions.php:3031
+#: functions.php:3238
 msgid "是否启用平滑滚动"
 msgstr "Включить плавную прокрутку"
 
-#: functions.php:3035
+#: functions.php:3242
 msgid "使用平滑滚动方案 1 (平滑) (推荐)"
 msgstr "Плавная прокрутка, вариант 1 (Рекомендуется)"
 
-#: functions.php:3036
+#: functions.php:3243
 msgid "使用平滑滚动方案 1 (脉冲式滚动) (仿 Edge) (推荐)"
 msgstr "Плавная прокрутка, вариант 1 (Импульс) (Рекомендуется)"
 
-#: functions.php:3037
+#: functions.php:3244
 msgid "使用平滑滚动方案 2 (较稳)"
 msgstr "Плавная прокрутка, вариант 2"
 
-#: functions.php:3038
+#: functions.php:3245
 msgid "使用平滑滚动方案 3"
 msgstr "Плавная прокрутка, вариант 3"
 
-#: functions.php:3039
+#: functions.php:3246
 msgid "不使用平滑滚动"
 msgstr "Выключено"
 
-#: functions.php:3041
+#: functions.php:3248
 msgid ""
 "能增强浏览体验，但可能出现一些小问题，如果有问题请切换方案或关闭平滑滚动"
 msgstr ""
@@ -1377,43 +1503,43 @@ msgstr ""
 "проблемы. Если есть проблема, пожалуйста, смените схему или выключите "
 "плавную прокрутку."
 
-#: functions.php:3045
+#: functions.php:3252
 msgid "是否启用进入文章动画"
 msgstr "Включена ли анимация перехода к статье"
 
-#: functions.php:3052
+#: functions.php:3259
 msgid "从首页或分类目录进入文章时，使用平滑过渡（可能影响加载文章时的性能）"
 msgstr ""
 "Используйте переход при вводе статей с главной страницы или каталога "
 "категорий (может повлиять на производительность при загрузке статей)"
 
-#: functions.php:3056
+#: functions.php:3263
 msgid "评论分页"
 msgstr "Разбивка комментариев"
 
-#: functions.php:3058
+#: functions.php:3265
 msgid "评论分页方式"
 msgstr "Способ разбивки на страницы комментариев"
 
-#: functions.php:3062
+#: functions.php:3269
 msgid "无限加载"
 msgstr "Добавлять"
 
-#: functions.php:3063
+#: functions.php:3270
 msgid "页码"
 msgstr "Обычная пагинация"
 
-#: functions.php:3065
+#: functions.php:3272
 msgid "无限加载：点击 \"加载更多\" 按钮来加载更多评论。"
 msgstr ""
 "Добавить: Нажмите кнопку\" Загрузить больше\", чтобы загрузить больше "
 "комментариев."
 
-#: functions.php:3065
+#: functions.php:3272
 msgid "页码：显示页码来分页。"
 msgstr "Номер страницы: отображение кнопок номера страницы."
 
-#: functions.php:3065
+#: functions.php:3272
 msgid ""
 "推荐选择\"无限加载\"时将 Wordpress 设置中的讨论设置项设为 \"默认显示最后一"
 "页，在每个页面顶部显示新的评论\"。"
@@ -1422,11 +1548,25 @@ msgstr ""
 "в настройках WordPress в \"отображение последней страницы по умолчанию и "
 "отображение новых комментариев в верхней части каждой страницы\"."
 
-#: functions.php:3070
+#: functions.php:3277
+msgid "评论表情面板"
+msgstr "Панель эмодзи комментариев"
+
+#: functions.php:3284
+msgid "开启后评论支持插入表情，会在评论输入框下显示表情键盘按钮。"
+msgstr ""
+"Если этот параметр включен, комментарии поддерживают вставку смайлов, а "
+"кнопки клавиатуры для смайлов будут отображаться под полем ввода комментария."
+
+#: functions.php:3284
+msgid "如何添加新的表情或修改已有表情列表？"
+msgstr "Как добавить новый смайлик или изменить существующий список смайлов?"
+
+#: functions.php:3288
 msgid "是否隐藏 \"昵称\"、\"邮箱\"、\"网站\" 输入框"
 msgstr "Спрятать поля \"имя\", \"почта\", и \"ссылка на сайт\" "
 
-#: functions.php:3077
+#: functions.php:3295
 msgid ""
 "选项仅在 \"设置-评论-评论作者必须填入姓名和电子邮件地址\" 选项未勾选的前提下"
 "生效。如勾选了 \"评论作者必须填入姓名和电子邮件地址\"，则只有 \"网站\" 输入框"
@@ -1438,72 +1578,72 @@ msgstr ""
 "Если установлена опция \"автор комментария должен заполнить имя и адрес "
 "электронной почты\" то будет скрыто только поле ввода \"веб-сайт\"."
 
-#: functions.php:3081
+#: functions.php:3299
 msgid "评论是否需要验证码"
 msgstr "Капча для отправки комментария"
 
-#: functions.php:3085
+#: functions.php:3303
 msgid "需要"
 msgstr "Включить"
 
-#: functions.php:3086
+#: functions.php:3304
 msgid "不需要"
 msgstr "Отключить"
 
-#: functions.php:3092
+#: functions.php:3310
 msgid "是否允许在评论中使用 Markdown 语法"
 msgstr "Разрешить Markdown для написания комменатрия"
 
-#: functions.php:3096 functions.php:3107 functions.php:3119 functions.php:3130
-#: functions.php:3147
+#: functions.php:3314 functions.php:3325 functions.php:3337 functions.php:3348
+#: functions.php:3365
 msgid "允许"
 msgstr "Разрешить"
 
-#: functions.php:3097 functions.php:3108 functions.php:3118 functions.php:3129
-#: functions.php:3146
+#: functions.php:3315 functions.php:3326 functions.php:3336 functions.php:3347
+#: functions.php:3364
 msgid "不允许"
 msgstr "Запретить"
 
-#: functions.php:3103
+#: functions.php:3321
 msgid "是否允许评论者再次编辑评论"
 msgstr "Разрешить редактировать комментарии"
 
-#: functions.php:3110
+#: functions.php:3328
 msgid "同一个评论者可以再次编辑评论。"
 msgstr "Автор может редактировать свой комментарий."
 
-#: functions.php:3114
+#: functions.php:3332
 msgid "是否允许评论者使用悄悄话模式"
 msgstr "Разрешить отправлять приватные комментарии"
 
-#: functions.php:3121
+#: functions.php:3339
 msgid "评论者使用悄悄话模式发送的评论和其下的所有回复只有发送者和博主能看到。"
 msgstr ""
 "Только отправитель и владелец блога могут видеть комментарии, отправленные в "
 "режиме приватного комментария, и все ответы под ним."
 
-#: functions.php:3125
+#: functions.php:3343
 msgid "是否允许评论者接收评论回复邮件提醒"
 msgstr ""
 "Разрешено ли комментатору получать уведомления о ответах на комментарии"
 
-#: functions.php:3135
+#: functions.php:3353
 msgid "评论时默认勾选 \"启用邮件通知\" 复选框"
 msgstr ""
 "установите флажок \"Включить уведомление по электронной почте\" по умолчанию"
 
-#: functions.php:3138
+#: functions.php:3356
 msgid "评论者开启邮件提醒后，其评论有回复时会有邮件通知。"
 msgstr ""
 "Если комментатор включит уведомление по электронной почте, то ему "
 "отправиться уведомление по электронной почте, когда на его комментарий "
 "ответят."
 
-#: functions.php:3142
+#: functions.php:3360
 msgid "允许评论者使用 QQ 头像"
 msgstr "Разрешить использование аватаров QQ"
 
-#: functions.php:3149
+#: functions.php:3367
 msgid ""
 "开启后，评论者可以使用 QQ 号代替邮箱输入，头像会根据评论者的 QQ 号获取。"
 msgstr ""
@@ -1511,377 +1651,377 @@ msgstr ""
 "электронной почты, и аватар будет автоматически получать QQ-номер "
 "комментатора."
 
-#: functions.php:3152
+#: functions.php:3370
 msgid "评论区"
 msgstr "Зона комментариев"
 
-#: functions.php:3154
+#: functions.php:3372
 msgid "评论头像垂直位置"
 msgstr "Вертикальное положение Аватара"
 
-#: functions.php:3158
+#: functions.php:3376
 msgid "居上"
 msgstr "Вверху"
 
-#: functions.php:3159
+#: functions.php:3377
 msgid "居中"
 msgstr "По середине"
 
-#: functions.php:3165
+#: functions.php:3383
 msgid "谁可以查看评论编辑记录"
 msgstr "Кто может видеть историю редактирования комментариев"
 
-#: functions.php:3169
+#: functions.php:3387
 msgid "只有博主"
 msgstr "Только владелец блога"
 
-#: functions.php:3170
+#: functions.php:3388
 msgid "评论发送者和博主"
 msgstr "Автор комментария и владелец блога"
 
-#: functions.php:3171
+#: functions.php:3389
 msgid "任何人"
 msgstr "Любой желающий"
 
-#: functions.php:3173
+#: functions.php:3391
 msgid "点击评论右侧的 \"已编辑\" 标记来查看编辑记录"
 msgstr ""
 "Нажмите на отметку \"отредактировано\" в правой части комментария, чтобы "
 "просмотреть историю редактирования"
 
-#: functions.php:3177
+#: functions.php:3395
 msgid "评论者 UA 显示"
 msgstr "Показывать пользовательский \"User Agent\""
 
-#: functions.php:3182
+#: functions.php:3400
 msgid "浏览器"
 msgstr "Браузер"
 
-#: functions.php:3183
+#: functions.php:3401
 msgid "浏览器+版本号"
 msgstr "Браузер + его версия"
 
-#: functions.php:3184
+#: functions.php:3402
 msgid "平台+浏览器+版本号"
 msgstr "Платформа + Браузер + версия браузера"
 
-#: functions.php:3185
+#: functions.php:3403
 msgid "平台+浏览器"
 msgstr "Платформа + Браузер"
 
-#: functions.php:3186
+#: functions.php:3404
 msgid "平台"
 msgstr "Платформа"
 
-#: functions.php:3188
+#: functions.php:3406
 msgid "设置是否在评论区显示评论者 UA 及显示哪些部分"
 msgstr ""
 "Следует ли отображать UA комментатора в области комментариев и какие части "
 "отображаются"
 
-#: functions.php:3192
+#: functions.php:3410
 msgid "折叠过长评论"
 msgstr "Скрывать часть контента длинных комментариев"
 
-#: functions.php:3196
+#: functions.php:3414
 msgid "不折叠"
 msgstr "Не скрывать"
 
-#: functions.php:3197
+#: functions.php:3415
 msgid "折叠"
 msgstr "Скрывать"
 
-#: functions.php:3199
+#: functions.php:3417
 msgid "开启后，过长的评论会被折叠，需要手动展开"
 msgstr ""
 "При включении, слишком длинные комментарии будут свернуты и должны быть "
 "развернуты вручную"
 
-#: functions.php:3202
+#: functions.php:3420
 msgid "杂项"
 msgstr "Другое"
 
-#: functions.php:3204
+#: functions.php:3422
 msgid "是否启用 Pjax"
 msgstr "Включить Pjax"
 
-#: functions.php:3211
+#: functions.php:3429
 msgid "Pjax 可以增强页面的跳转体验"
 msgstr "Pjax может улучшить опыт переход по страницам"
 
-#: functions.php:3215
+#: functions.php:3433
 msgid "首页隐藏特定 分类/Tag 下的文章"
 msgstr "Скрыть определенные категории / теги статей на домашней странице"
 
-#: functions.php:3218
+#: functions.php:3436
 msgid "输入要隐藏的 分类/Tag 的 ID，用英文逗号分隔，留空则不隐藏"
 msgstr ""
 "Введите идентификаторы категорий / тегов, которые будут скрыты, разделенные "
 "запятыми, оставьте пустыми, чтобы не скрывать"
 
-#: functions.php:3218
+#: functions.php:3436
 msgid "点此查看"
 msgstr "кликните сюда "
 
-#: functions.php:3218
+#: functions.php:3436
 msgid "所有分类和 Tag 的 ID"
 msgstr "для просмотра идентификаторов всех категорий и тегов"
 
-#: functions.php:3254
+#: functions.php:3472
 msgid "美化登录界面"
 msgstr "Украсьте страницу входа в систему"
 
-#: functions.php:3261
+#: functions.php:3479
 msgid "使用 Argon Design 风格的登录界面"
 msgstr "Использовать стили Argon для интерфейса входа"
 
-#: functions.php:3265
+#: functions.php:3483
 msgid "博客首页是否显示说说"
 msgstr "Показывать Записи на главной странице"
 
-#: functions.php:3272
+#: functions.php:3490
 msgid "开启后，博客首页文章和说说穿插显示"
 msgstr ""
 "Если включено, то Статьи и Заметки будут отображаться на главной странице "
 "вместе"
 
-#: functions.php:3276
-msgid "是否使用 v2ex CDN 代理的 gravatar"
-msgstr "Использовать V2EX CDN Gravatar"
+#: functions.php:3497
+msgid ""
+"使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。"
+msgstr ""
+"Используйте CDN для ускорения доступа Gravatar в определенных областях, "
+"заполните адрес CDN, оставьте поле пустым, чтобы не использовать его."
 
-#: functions.php:3281
-msgid "使用"
-msgstr "Использовать"
+#: functions.php:3497
+msgid "在中国速度较快的一些 CDN :"
+msgstr "Некоторые из наиболее быстрых CDN в Китае:"
 
-#: functions.php:3283
-msgid "可以大幅增加国内 gravatar 头像加载的速度"
-msgstr "Может увеличить скорость загрузки Gravatar в Китае."
-
-#: functions.php:3287
+#: functions.php:3501
 msgid "是否修正时区错误"
 msgstr "Исправить проблемы часовых поясов"
 
-#: functions.php:3294
+#: functions.php:3508
 msgid "如遇到时区错误（例如一条刚发的评论显示 8 小时前），这个选项"
 msgstr ""
 "Если вы столкнулись с проблемой часового пояса (например, комментарий только "
 "что опубликован, но отображается 8 часов назад), эта опция"
 
-#: functions.php:3294
+#: functions.php:3508
 msgid "可能"
 msgstr "возможно "
 
-#: functions.php:3294
+#: functions.php:3508
 msgid "可以修复这个问题"
 msgstr "помочь исправить эту проблему"
 
-#: functions.php:3298
+#: functions.php:3512
 msgid "是否在文章列表内容预览中隐藏短代码"
 msgstr "Скрыть короткие коды в предварительном просмотре"
 
-#: functions.php:3302 functions.php:3313
+#: functions.php:3516 functions.php:3527
 msgid "否"
 msgstr "Нет"
 
-#: functions.php:3303 functions.php:3314
+#: functions.php:3517 functions.php:3528
 msgid "是"
 msgstr "Да"
 
-#: functions.php:3309
+#: functions.php:3523
 msgid "是否允许移动端缩放页面"
 msgstr "Разрешить мобильному браузеру масштабировать страницу"
 
-#: functions.php:3320
+#: functions.php:3534
 msgid "检测更新源"
 msgstr "Источник обновления темы"
 
-#: functions.php:3328
+#: functions.php:3542
 msgid "暂停更新 (不推荐)"
 msgstr "Приостановка обновления (не рекомендуется)"
 
-#: functions.php:3330
+#: functions.php:3544
 msgid "如更新主题速度较慢，可考虑更换更新源。"
 msgstr ""
 "Если обновление темы происходит медленно, вы можете изменить источник "
 "обновления."
 
-#: functions.php:3334
+#: functions.php:3548
 msgid "页脚附加内容"
 msgstr "Дополнительный контент в подвале"
 
-#: functions.php:3347
+#: functions.php:3561
 msgid "保存更改"
 msgstr "Сохранить изменения"
 
-#: functions.php:3348
+#: functions.php:3562
 msgid "导入设置"
 msgstr "Импортировать настройки"
 
-#: functions.php:3349
+#: functions.php:3563
 msgid "导出设置"
 msgstr "Экспортировать настройки"
 
-#: functions.php:3354
+#: functions.php:3568
 msgid "收起"
 msgstr "-"
 
-#: functions.php:3357
+#: functions.php:3571
 msgid "请复制并保存导出后的 JSON"
 msgstr "Скопируйте и сохраните настройки темы в JSON"
 
-#: functions.php:3357
+#: functions.php:3571
 msgid "确定"
 msgstr "ОК"
 
-#: functions.php:3433
+#: functions.php:3647
 msgid "展开"
 msgstr "+"
 
-#: functions.php:3578
+#: functions.php:3792
 msgid "字段导入失败"
 msgstr "Ошибка импорта полей"
 
-#: functions.php:3589
+#: functions.php:3803
 msgid "请输入要导入的备份 JSON"
 msgstr "Вставьте код JSON"
 
-#: functions.php:3592
+#: functions.php:3806
 msgid "已导入，请保存更改"
 msgstr "Импортировано, изменения сохранены."
 
-#: functions.php:3724
+#: functions.php:3946
 msgid "顶部导航"
 msgstr "Toolbar Menu"
 
-#: functions.php:3725
+#: functions.php:3947
 msgid "左侧栏菜单"
 msgstr "Left Sidebar Menu"
 
-#: functions.php:3726
+#: functions.php:3948
 msgid "左侧栏作者个人链接"
 msgstr "Left Sidebar Author Links"
 
-#: functions.php:3727
+#: functions.php:3949
 msgid "左侧栏友情链接"
 msgstr "Left Sidebar Links"
 
-#: functions.php:3738 functions.php:3739 functions.php:3749 shuoshuo.php:12
+#. Template Name of the plugin/theme
+#: functions.php:3960 functions.php:3961 functions.php:3971 shuoshuo.php:13
 msgid "说说"
 msgstr "Записи"
 
-#: functions.php:3740 functions.php:3741
+#: functions.php:3962 functions.php:3963
 msgid "发表说说"
 msgstr "Написать статью"
 
-#: functions.php:3742
+#: functions.php:3964
 msgid "编辑说说"
 msgstr "Редактировать статью"
 
-#: functions.php:3743
+#: functions.php:3965
 msgid "新说说"
 msgstr "Добавить статью"
 
-#: functions.php:3744
+#: functions.php:3966
 msgid "查看说说"
 msgstr "Посмотреть статью"
 
-#: functions.php:3745
+#: functions.php:3967
 msgid "搜索说说"
 msgstr "Найти статью"
 
-#: functions.php:3746
+#: functions.php:3968
 msgid "暂无说说"
 msgstr "Нет статей"
 
-#: functions.php:3747
+#: functions.php:3969
 msgid "没有已遗弃的说说"
 msgstr "Удаленных статей нет"
 
-#: header.php:282 header.php:363 searchform.php:11 sidebar.php:63
+#: header.php:283 header.php:364 searchform.php:11 sidebar.php:63
 msgid "搜索"
 msgstr "Поиск"
 
-#: header.php:343 searchform.php:7 sidebar.php:64
+#: header.php:344 searchform.php:7 sidebar.php:64
 msgid "搜索什么..."
 msgstr "Поиск..."
 
-#: header.php:482
+#: header.php:483
 msgid "移至左侧"
 msgstr "Переместить влево"
 
-#: header.php:482
+#: header.php:483
 msgid "移至右侧"
 msgstr "Переместить вправо"
 
-#: header.php:486
+#: header.php:487
 msgid "回到顶部"
 msgstr "Наверх"
 
-#: header.php:492 header.php:501
+#: header.php:493 header.php:502
 msgid "暗黑模式"
 msgstr "Темная тема"
 
-#: header.php:492
+#: header.php:493
 msgid "日间模式"
 msgstr "Светлая тема"
 
-#: header.php:495
+#: header.php:496
 msgid "设置"
 msgstr "Настройки"
 
-#: header.php:501
+#: header.php:502
 msgid "切换到夜间模式"
 msgstr "Переключиться на светлую тему"
 
-#: header.php:501
+#: header.php:502
 msgid "切换到暗黑模式"
 msgstr "Переключиться на темную тему"
 
-#: header.php:514
+#: header.php:515
 msgid "阴影"
 msgstr "Тени"
 
-#: header.php:520
+#: header.php:521
 msgid "滤镜"
 msgstr "Фильтр"
 
-#: header.php:523
+#: header.php:524
 msgid "日落"
 msgstr "Рассвет"
 
-#: header.php:524
+#: header.php:525
 msgid "暗化"
 msgstr "Безоблачно"
 
-#: header.php:525
+#: header.php:526
 msgid "灰度"
 msgstr "Градации серого"
 
-#: header.php:529
+#: header.php:530
 msgid "恢复默认"
 msgstr "Восстановить по умолчанию"
 
-#: header.php:529
+#: header.php:530
 msgid "圆角"
 msgstr "Закругленные углы"
 
-#: header.php:541
+#: header.php:542
 msgid "菜单"
 msgstr "Меню"
 
-#: header.php:544
+#: header.php:545
 msgid "阅读进度"
 msgstr "Процесс чтения"
 
-#: search.php:7
+#: search.php:8
 msgid "的搜索结果"
 msgstr "Результаты поиска"
 
-#: search.php:11
+#: search.php:12
 msgid "个结果"
 msgstr "Результаты"
 
-#: shuoshuo.php:20
+#: shuoshuo.php:21
 msgid "条说说"
 msgstr "Заметки"
 
@@ -1901,19 +2041,19 @@ msgstr "Обзор сайта"
 msgid "功能"
 msgstr "Функции"
 
-#: sidebar.php:136 sidebar.php:224
+#: sidebar.php:136 sidebar.php:223
 msgid "分类"
 msgstr "Категории"
 
-#: sidebar.php:142 sidebar.php:252
+#: sidebar.php:142 sidebar.php:251
 msgid "标签"
 msgstr "Теги"
 
-#: single.php:25
+#: single.php:27
 msgid "上一篇"
 msgstr "Предыдущая статья"
 
-#: single.php:30
+#: single.php:32
 msgid "下一篇"
 msgstr "Следующая статья"
 
@@ -1963,15 +2103,15 @@ msgstr "/"
 msgid "日"
 msgstr "день "
 
-#: template-parts/content-single.php:47 template-parts/content.php:32
+#: template-parts/content-single.php:47 template-parts/content.php:37
 msgid "字"
 msgstr "Букв"
 
-#: template-parts/content.php:59
+#: template-parts/content.php:64
 msgid "这篇文章受密码保护，输入密码才能阅读"
 msgstr "Для просмотра данной статьи необходим пароль."
 
-#: template-parts/content.php:62
+#: template-parts/content.php:67
 msgid "这篇文章没有摘要"
 msgstr "Никакой абстракции."
 
@@ -2079,6 +2219,37 @@ msgstr "Вы успешно отписались от комментариев"
 #: unsubscribe-comment-mailnotice.php:25
 msgid " 的邮件通知<br>该评论下有新回复时您将不会再收到通知"
 msgstr "Вы отписались от уведомлениях об новых комменатриев."
+
+#. Theme Name of the plugin/theme
+msgid "argon"
+msgstr "argon"
+
+#. Description of the plugin/theme
+msgid "轻盈、简洁、美观的 Wordpress 主题"
+msgstr "Легкая, лаконичная и красивая тема WordPress"
+
+#. Author of the plugin/theme
+msgid "solstice23"
+msgstr "solstice23"
+
+#. Author URI of the plugin/theme
+msgid "https://solstice23.top/"
+msgstr "https://solstice23.top/"
+
+#. Template Name of the plugin/theme
+msgid "留言板 (请打开页面的评论功能)"
+msgstr ""
+"Доска сообщений (пожалуйста, откройте функцию комментирования на странице)"
+
+#. Template Name of the plugin/theme
+msgid "归档时间轴"
+msgstr "Хронология архива"
+
+#~ msgid "是否使用 v2ex CDN 代理的 gravatar"
+#~ msgstr "Использовать V2EX CDN Gravatar"
+
+#~ msgid "可以大幅增加国内 gravatar 头像加载的速度"
+#~ msgstr "Может увеличить скорость загрузки Gravatar в Китае."
 
 #, fuzzy
 #~| msgid "评论内容"
