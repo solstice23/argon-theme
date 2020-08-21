@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: argon\n"
 "POT-Creation-Date: 2020-08-19 15:59+0800\n"
-"PO-Revision-Date: 2020-08-19 16:01+0800\n"
+"PO-Revision-Date: 2020-08-21 10:42+0800\n"
 "Last-Translator: \n"
 "Language-Team: solstice23\n"
 "Language: en_US\n"
@@ -1097,7 +1097,7 @@ msgstr "Recommend by tags"
 
 #: functions.php:2937
 msgid "根据分类和标签推荐"
-msgstr "Recommend by both categories and categories"
+msgstr "Recommend by both tags and categories"
 
 #: functions.php:2938
 msgid "显示在文章卡片后"
