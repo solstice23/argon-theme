@@ -1,6 +1,6 @@
 ![Argon](https://cdn.jsdelivr.net/gh/solstice23/cdn@master/argon_new_animate.svg)
 
-**简体中文** | [繁體中文](README_tw.md) | [English](README_en.md) | [Russian](README_ru.md)
+**简体中文** | [繁體中文](README_tw.md) | [English](README_en.md) | [Русский](README_ru.md)
 
 # Argon-Theme
 Argon - 一个轻盈、简洁、美观的 WordPress 主题
