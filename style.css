@@ -228,15 +228,15 @@ html.use-big-shadow *.shadow-sm{
 	width: 30px;
 	height: 9px;
 }
-.article-header-style-1 article h1.text-center:after, .article-header-style-1 article h1[style*='text-align: center']:after, .article-header-style-1 article h1[style*='text-align:center']:after,
-.article-header-style-1 article h2.text-center:after, .article-header-style-1 article h2[style*='text-align: center']:after, .article-header-style-1 article h2[style*='text-align:center']:after,
-.article-header-style-1 article h3.text-center:after, .article-header-style-1 article h3[style*='text-align: center']:after, .article-header-style-1 article h3[style*='text-align:center']:after {
+.article-header-style-1 article h1.text-center:after, .article-header-style-1 article h1[style*='text-align: center']:after, .article-header-style-1 article h1[style*='text-align:center']:after, .article-header-style-1 article h1[class*='text-align-center']:after,
+.article-header-style-1 article h2.text-center:after, .article-header-style-1 article h2[style*='text-align: center']:after, .article-header-style-1 article h2[style*='text-align:center']:after, .article-header-style-1 article h2[class*='text-align-center']:after,
+.article-header-style-1 article h3.text-center:after, .article-header-style-1 article h3[style*='text-align: center']:after, .article-header-style-1 article h3[style*='text-align:center']:after, .article-header-style-1 article h3[class*='text-align-center']:after {
 	left: 50%;
 	transform: translateX(-50%);
 }
-.article-header-style-1 article h1.text-right:after, .article-header-style-1 article h1[style*='text-align: right']:after, .article-header-style-1 article h1[style*='text-align:right']:after,
-.article-header-style-1 article h2.text-right:after, .article-header-style-1 article h2[style*='text-align: right']:after, .article-header-style-1 article h2[style*='text-align:right']:after,
-.article-header-style-1 article h3.text-right:after, .article-header-style-1 article h3[style*='text-align: right']:after, .article-header-style-1 article h3[style*='text-align:right']:after {
+.article-header-style-1 article h1.text-right:after, .article-header-style-1 article h1[style*='text-align: right']:after, .article-header-style-1 article h1[style*='text-align:right']:after, .article-header-style-1 article h1[class*='text-align-right']:after,
+.article-header-style-1 article h2.text-right:after, .article-header-style-1 article h2[style*='text-align: right']:after, .article-header-style-1 article h2[style*='text-align:right']:after, .article-header-style-1 article h2[class*='text-align-right']:after,
+.article-header-style-1 article h3.text-right:after, .article-header-style-1 article h3[style*='text-align: right']:after, .article-header-style-1 article h3[style*='text-align:right']:after, .article-header-style-1 article h3[class*='text-align-right']:after {
 	left: unset;
 	right: -2px;
 }
