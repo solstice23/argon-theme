@@ -69,6 +69,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200823 v1.0.0
++ 正式版
+
 ## 20200821 v0.999.beta.8
 + 优化字数统计和预计阅读时间计算方法，中英文分别统计，并排除代码块
 + 新增 "文章内标题样式" 选项
