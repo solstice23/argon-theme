@@ -5,6 +5,8 @@
 # Argon-Theme
 Argon - 一个轻盈、简洁、美观的 WordPress 主题
 
+Hexo 版本 : [github.com/solstice23/hexo-theme-argon](https://github.com/solstice23/hexo-theme-argon)
+
 [![GitHub release](https://img.shields.io/github/v/release/solstice23/argon-theme?color=%235e72e4&style=for-the-badge)](https://github.com/solstice23/argon-theme/releases) [![GitHub All Releases](https://img.shields.io/github/downloads/solstice23/argon-theme/total?style=for-the-badge)](https://github.com/solstice23/argon-theme/releases) [![GitHub](https://img.shields.io/github/license/solstice23/argon-theme?color=blue&style=for-the-badge)](https://github.com/solstice23/argon-theme/blob/master/LICENSE) [![Author]( https://img.shields.io/badge/author-solstice23-yellow?style=for-the-badge)](https://github.com/solstice23) [![GitHub stars](https://img.shields.io/github/stars/solstice23/argon-theme?color=ff69b4&style=for-the-badge)](https://github.com/solstice23/argon-theme/stargazers)
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/solstice23/argon-theme?style=flat-square)](https://github.com/solstice23/argon-theme/commits/master) [![GitHub Release Date](https://img.shields.io/github/release-date/solstice23/argon-theme?style=flat-square)](https://github.com/solstice23/argon-theme/releases) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/solstice23/argon-theme?style=flat-square)
