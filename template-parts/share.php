@@ -57,7 +57,7 @@ $_SERVER['HTTP_HOST']);?>&text=<?php echo urlencode(get_the_title());?>" tooltip
 	    description : '<?php echo addslashes(wp_trim_words(get_the_content(), 50));?>',
 	    wechatQrcodeTitle : "<?php _e('分享到微信', 'argon');?>",
 	    wechatQrcodeHelper : '<?php _e('微信扫描二维码', 'argon');?>',
-	    source : '<?php bloginfo('url'); ?>'
+	    source : '<?php global $post; echo get_permalink($post -> ID); ?>'
 	});
 	$("#share_show")[0].onclick = function(){
 		$("#share_container").addClass("opened");
