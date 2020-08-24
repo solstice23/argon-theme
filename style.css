@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 1.0.0
+Version: 1.0.1
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -1711,6 +1711,9 @@ html.filter-grayscale{
 	height: 40px;
 	width: 40px;
 }
+.comment-text-avatar{
+	user-select: none;
+}
 .comment-item-inner{
 	display: block;
 	position: relative;
@@ -2741,6 +2744,54 @@ html.darkmode.amoled-dark .friend-links-style1 .friend-link-description:after {
 .github-info-card-bottom .github-info-card-meta i {
 	margin-right: 2px;
 }
+/*短代码-Github-Mini*/
+.github-info-card-mini {
+	display: flex;
+	flex-direction: row;
+	white-space: nowrap;
+	align-items: center;
+	padding: 15px 20px;
+}
+.github-info-card-mini .github-info-card-name-a {
+	display: inline-block;
+	margin-right: 12px;
+	font-size: 19px;
+}
+.github-info-card-mini .github-info-card-description {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	word-break: break-all;
+	display: inline-block;
+}
+.github-info-card-mini .github-info-card-body {
+	flex: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+}
+.github-info-card-mini .github-info-card-bottom {
+	display: inline-block;
+	margin-top: 0;
+	margin-left: 10px;
+}
+.github-info-card-mini .github-info-card-header {
+	margin-right: 7px;
+	margin-bottom: 0;
+}
+.github-info-card-mini .github-info-card-header a i {
+	font-size: 19px;
+	transform: translateY(2px);
+	margin-right: 2px;
+}
+.github-info-card-mini .github-info-card-bottom .github-info-card-meta-forks {
+	display: none;
+}
+.github-info-card-mini .github-info-card-bottom .github-info-card-meta-stars {
+	margin-right: 0;
+}
+
 
 /*短代码-进度条*/
 html.darkmode .progress {

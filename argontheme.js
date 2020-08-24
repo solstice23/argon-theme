@@ -1160,6 +1160,25 @@ foldLongComments();
 $(document).on("click" , ".show-full-comment" , function(){
 	$(this).parent().removeClass("comment-folded").addClass("comment-unfolded");
 });
+/*评论文字头像*/
+document.addEventListener("error", function(e){
+	let img = $(e.target);
+	if (!img.hasClass("avatar")){
+		return;
+	}
+	if (!img.parent().hasClass("comment-item-avatar")){
+		return;
+	}
+	let emailHash = img.attr("src").match(/([a-f\d]{32}|[A-F\d]{32})/)[0];
+	let hash = 0;
+	for (i in emailHash){
+		hash = (hash * 233 + emailHash.charCodeAt(i)) % 16;
+	}
+	console.log(hash);
+	let colors = ['#e25f50', '#f25e90', '#bc67cb', '#9672cf', '#7984ce', '#5c96fa', '#7bdeeb', '#45d0e2', '#48b7ad', '#52bc89', '#9ace5f', '#d4e34a', '#f9d715', '#fac400', '#ffaa00', '#ff8b61', '#c2c2c2', '#8ea3af', '#a1877d', '#a3a3a3', '#b0b6e3', '#b49cde', '#c2c2c2', '#7bdeeb', '#bcaaa4', '#aed77f'];
+	let text = $(".comment-name", img.parent().parent()).text().trim()[0];
+	img.parent().html('<div class="avatar avatar-40 photo comment-text-avatar" style="background-color: ' + colors[hash] + ';">' + text + '</div>');
+}, true);
 /*需要密码的文章加载*/
 $(document).on("submit" , ".post-password-form" , function(){
 	$("input[type='submit']", this).attr("disabled", "disabled");

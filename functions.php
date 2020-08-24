@@ -1428,17 +1428,25 @@ function the_content_filter($content){
 add_filter('the_content' , 'the_content_filter');
 //使用 CDN 加速 gravatar
 function gravatar_cdn($url){
-	$cdn = get_option('argon_gravatar_cdn' , 'gravatar.loli.net/avatar/');
+	$cdn = get_option('argon_gravatar_cdn', 'gravatar.loli.net/avatar/');
 	$cdn = str_replace("http://", "", $cdn);
 	$cdn = str_replace("https://", "", $cdn);
 	if (substr($cdn, -1) != '/'){
 		$cdn .= "/";
 	}
-	$url = preg_replace("/\/\/(.*?).gravatar.com\/avatar\//" , "//" . $cdn , $url);
+	$url = preg_replace("/\/\/(.*?).gravatar.com\/avatar\//", "//" . $cdn, $url);
 	return $url;
 }
 if (get_option('argon_gravatar_cdn' , '') != ''){
 	add_filter('get_avatar_url', 'gravatar_cdn');
+}
+function text_gravatar($url){
+	$url = preg_replace("/[\?\&]d[^&]+/i", "" , $url);
+	$url .= '&d=404';
+	return $url;
+}
+if (get_option('argon_text_gravatar', 'false') == 'true'){
+	add_filter('get_avatar_url', 'text_gravatar');
 }
 //说说点赞
 function get_shuoshuo_upvotes($ID){
@@ -1865,7 +1873,7 @@ function shortcode_alert($attr,$content=""){
 	if (isset($attr['title'])){
 		$out .= "<strong>" . $attr['title'] . "</strong> ";
 	}
-	$out .= $content . "</div>";
+	$out .= $content . "</span></div>";
 	return $out;
 }
 add_shortcode('admonition','shortcode_admonition');
@@ -2172,6 +2180,7 @@ function shortcode_github($attr,$content=""){
 	$author = isset($attr['author']) ? $attr['author'] : '';
 	$project = isset($attr['project']) ? $attr['project'] : '';
 	$getdata = isset($attr['getdata']) ? $attr['getdata'] : 'frontend';
+	$size = isset($attr['size']) ? $attr['size'] : 'full';
 
 	$description = "";
 	$stars = "";
@@ -2210,8 +2219,12 @@ function shortcode_github($attr,$content=""){
 		restore_error_handler();
 	}
 
-	$out = "<div class='github-info-card card shadow-sm' data-author='" . $author . "' data-project='" . $project . "' githubinfo-card-id='" . $github_info_card_id . "' data-getdata='" . $getdata . "' data-description='" . $description . "' data-stars='" . $stars . "' data-forks='" . $forks . "'>";
-	$out .= "<div class='github-info-card-header'><a href='https://github.com/' ref='nofollow' target='_blank' title='Github' no-pjax><span><i class='fa fa-github'></i> Github</span></a></div>";
+	$out = "<div class='github-info-card github-info-card-" . $size . " card shadow-sm' data-author='" . $author . "' data-project='" . $project . "' githubinfo-card-id='" . $github_info_card_id . "' data-getdata='" . $getdata . "' data-description='" . $description . "' data-stars='" . $stars . "' data-forks='" . $forks . "'>";
+	$out .= "<div class='github-info-card-header'><a href='https://github.com/' ref='nofollow' target='_blank' title='Github' no-pjax><span><i class='fa fa-github'></i>";
+	if ($size != "mini"){
+		$out .= " GitHub";
+	}
+	$out .= "</span></a></div>";
 	$out .= "<div class='github-info-card-body'>
 			<div class='github-info-card-name-a'>
 				<a href='https://github.com/" . $author . "/" . $project . "' target='_blank' no-pjax>
@@ -2221,10 +2234,10 @@ function shortcode_github($attr,$content=""){
 			<div class='github-info-card-description'></div>
 		</div>";
 	$out .= "<div class='github-info-card-bottom'>
-				<span class='github-info-card-meta'>
+				<span class='github-info-card-meta github-info-card-meta-stars'>
 					<i class='fa fa-star'></i> <span class='github-info-card-stars'></span>
 				</span>
-				<span class='github-info-card-meta'>
+				<span class='github-info-card-meta github-info-card-meta-forks'>
 					<i class='fa fa-code-fork'></i> <span class='github-info-card-forks'></span>
 				</span>
 			</div>";
@@ -3487,6 +3500,24 @@ window.pjaxLoaded = function(){
 							<p class="description"><?php _e('开启后，过长的评论会被折叠，需要手动展开', 'argon');?></p>
 						</td>
 					</tr>
+					<tr>
+						<th><label>Gravatar CDN</label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_gravatar_cdn" value="<?php echo get_option('argon_gravatar_cdn' , ''); ?>"/>
+							<p class="description"><?php _e('使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。', 'argon');?></br><?php _e('在中国速度较快的一些 CDN :', 'argon');?><code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">gravatar.loli.net/avatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">cdn.v2ex.com/gravatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">dn-qiniu-avatar.qbox.me/avatar/</code></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label>评论文字头像</label></th>
+						<td>
+							<select name="argon_text_gravatar">
+								<?php $argon_text_gravatar = get_option('argon_text_gravatar'); ?>
+								<option value="false" <?php if ($argon_text_gravatar=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+								<option value="true" <?php if ($argon_text_gravatar=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('在评论者没有设置 Gravatar 时自动生成文字头像，头像颜色由邮箱哈希计算。生成时会在 Console 中抛出 404 错误，但没有影响。', 'argon');?></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2><?php _e('杂项', 'argon');?></h2></th></tr>
 					<tr>
 						<th><label><?php _e('是否启用 Pjax', 'argon');?></label></th>
@@ -3558,13 +3589,6 @@ window.pjaxLoaded = function(){
 								<option value="true" <?php if ($argon_home_show_shuoshuo=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('开启后，博客首页文章和说说穿插显示', 'argon');?></p>
-						</td>
-					</tr>
-					<tr>
-						<th><label>Gravatar CDN</label></th>
-						<td>
-							<input type="text" class="regular-text" name="argon_gravatar_cdn" value="<?php echo get_option('argon_gravatar_cdn' , ''); ?>"/>
-							<p class="description"><?php _e('使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。', 'argon');?></br><?php _e('在中国速度较快的一些 CDN :', 'argon');?><code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">gravatar.loli.net/avatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">cdn.v2ex.com/gravatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">dn-qiniu-avatar.qbox.me/avatar/</code></p>
 						</td>
 					</tr>
 					<tr>
@@ -3984,6 +4008,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_related_post_sort_order');
 		argon_update_option('argon_related_post_limit');
 		argon_update_option('argon_article_header_style');
+		argon_update_option('argon_text_gravatar');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

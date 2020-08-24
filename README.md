@@ -69,6 +69,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200824 v1.0.1
++ 增加 "评论文字头像" 选项（为无头像评论者生成一个纯色文字头像）
++ Github 短代码新增 Mini 尺寸
+
 ## 20200823 v1.0.0
 + 正式版
 
