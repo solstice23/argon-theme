@@ -1483,7 +1483,7 @@ function getGithubInfoCardContent(){
 				dataType : "json",
 				success : function(result){
 					description = result.description;
-					if (result.homepage != ""){
+					if (result.homepage != "" && result.homepage != null){
 						description += " <a href='" + result.homepage + "' target='_blank' no-pjax>" + result.homepage + "</a>"
 					}
 					$(".github-info-card-description" , $this).html(description);
