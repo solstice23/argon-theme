@@ -426,12 +426,18 @@ function get_article_words($str){
 		$str
 	);
 	$str = preg_replace(
+		'/<pre(.*?)>([\w\W]*)<\/pre>/',
+		'',
+		$str
+	);
+	/*$str = preg_replace(
 		'/\s/',
 		'',
 		html_entity_decode(
 			strip_tags($str)
 		)
-	);
+	);*/
+	$str = html_entity_decode(strip_tags($str));
 	preg_match_all('/[\x{4e00}-\x{9fa5}]/u' , $str , $cnRes);
 	$cnTotal = count($cnRes[0]);
 	$enRes = preg_replace('/[\x{4e00}-\x{9fa5}]/u', '', $str);
@@ -2495,6 +2501,13 @@ function themeoptions_page(){
 								</div>
 								<label><input name="argon_page_layout" type="radio" value="triple" <?php if ($argon_page_layout=='triple'){echo 'checked';} ?>> <?php _e('三栏', 'argon');?></label>
 							</div>
+							<div class="radio-with-img">
+								<?php $argon_page_layout = (get_option('argon_page_layout') == '' ? 'double-reverse' : get_option('argon_page_layout')); ?>
+								<div class="radio-img">
+									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect width="1920" height="1080" style="fill:#e6e6e6"/><g style="opacity:0.5"><rect width="1920" height="381" style="fill:#5e72e4"/></g><rect x="1273.5" y="256" width="258" height="179" style="fill:#5e72e4"/><rect x="1273.5" y="470" width="258" height="485" style="fill:#fff"/><rect x="388.5" y="256.5" width="842" height="250" style="fill:#fff"/><rect x="388.5" y="536.5" width="842" height="250" style="fill:#fff"/><rect x="388.5" y="817" width="842" height="250" style="fill:#fff"/></svg>
+								</div>
+								<label><input name="argon_page_layout" type="radio" value="double-reverse" <?php if ($argon_page_layout=='double-reverse'){echo 'checked';} ?>> <?php _e('双栏(反转)', 'argon');?></label>
+							</div>
 							<p class="description" style="margin-top: 15px;"><?php _e('使用单栏时，关于左侧栏的设置将失效。', 'argon');?></br><?php _e('使用三栏时，请前往 "外观-小工具" 设置页面配置右侧栏内容。', 'argon');?></p>
 						</td>
 					</tr>
@@ -3667,6 +3680,7 @@ window.pjaxLoaded = function(){
 		.radio-with-img {
 			display: inline-block;
 			margin-right: 15px;
+			margin-bottom: 20px;
 			text-align: center;
 		}
 		.radio-with-img > .radio-img {
@@ -3808,6 +3822,10 @@ window.pjaxLoaded = function(){
 		}
 		.form-table-mathrender > tbody > tr > th > label > input:not(:checked) + div {
 			display: none;
+		}
+
+		#main_form > .form-table{
+			max-width: calc(100% - 180px);
 		}
 	</style>
 	<script type="text/javascript">
