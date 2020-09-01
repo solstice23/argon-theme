@@ -1881,7 +1881,7 @@ function randomString(len) {
 }
 var codeOfBlocks = {};
 function getCodeFromBlock(block){
-	if (codeOfBlocks[block.id] != undefined){
+	if (codeOfBlocks[block.id] !== undefined){
 		return codeOfBlocks[block.id];
 	}
 	let lines = $(".hljs-ln-code", block);
