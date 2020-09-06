@@ -74,7 +74,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-key"></i></span>
 								</div>
-								<input name="post_password" class="form-control" placeholder="<?php _e('密码', 'argon');?>" type="password">
+								<input name="post_password" class="form-control" placeholder="<?php _e('密码', 'argon');?>" type="password" value="<?php if (current_user_can('level_7')){global $post;if (isset($post -> post_password)){echo esc_attr($post->post_password);}} ?>">
 							</div>
 							<?php
 								$post_password_hint = get_post_meta(get_the_ID(), 'password_hint', true);
