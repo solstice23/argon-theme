@@ -565,8 +565,14 @@ if (argonConfig.headroom){
 	$(document).on("click" , ".comment-reply" , function(){
 		reply(this.getAttribute("data-id"));
 	});
-	$(document).on("click" , "#post_comment_reply_cancel" , function(){
+	$(document).on("click pjax:click" , "#post_comment_reply_cancel" , function(){
 		cancelReply();
+	});
+	$(document).on("pjax:click" , function(){
+		replying = false;
+		replyID = 0;
+		$('#post_comment_reply_info').css("display", "none");
+		$("#post_comment").removeClass("post-comment-force-privatemode-on post-comment-force-privatemode-off");
 	});
 	//编辑评论
 	editing = false , editID = 0;
@@ -607,6 +613,9 @@ if (argonConfig.headroom){
 		$("body,html").animate({
 			scrollTop: $("#comment-" + editID).offset().top - 100
 		}, 300);
+		cancelEdit(true);
+	});
+	$(document).on("pjax:click" , function(){
 		cancelEdit(true);
 	});
 

@@ -69,6 +69,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20200920 v1.0.3
++ 修复评论回复和 Pjax 冲突
++ 博主登录后自动填充加密文章密码
+
 ## 20200830 v1.0.2
 + 增加 双栏(反转) 页面布局
 + 修复和优化文章字数统计
