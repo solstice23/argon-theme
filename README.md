@@ -69,6 +69,10 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20201005 v1.0.4
++ 修复手机版顶栏折叠菜单图标间距问题
++ 设置页增加快速回顶和回底按钮
+
 ## 20200920 v1.0.3
 + 修复评论回复和 Pjax 冲突
 + 博主登录后自动填充加密文章密码
