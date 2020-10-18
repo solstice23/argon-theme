@@ -3717,6 +3717,7 @@ window.pjaxLoaded = function(){
 		<button id="headindex_toggler" onclick="$('#headindex_box').toggleClass('folded');"><?php _e('收起', 'argon');?></button>
 		<div id="headindex"></div>
 	</div>
+	<div id="scroll_navigation"><button onclick="$('body,html').animate({scrollTop: 0}, 300);"><?php _e('到顶部', 'argon');?></button><button onclick="$('body,html').animate({scrollTop: $(document).height()-$(window).height()+10}, 300);"><?php _e('到底部', 'argon');?></button></div>
 	<div id="exported_settings_json_box" class="closed"><div><?php _e('请复制并保存导出后的 JSON', 'argon');?></div><textarea id="exported_settings_json" readonly="true" onclick="$(this).select();"></textarea><div style="width: 100%;margin: auto;margin-top: 15px;cursor: pointer;user-select: none;" onclick="$('#exported_settings_json_box').addClass('closed');"><?php _e('确定', 'argon');?></div></div>
 	<style>
 		.radio-with-img {
@@ -3801,6 +3802,23 @@ window.pjaxLoaded = function(){
 			#headindex_box {
 				display: none;
 			}
+		}
+		#scroll_navigation {
+			position: fixed;
+			right: 10px;
+			bottom: 10px;
+			z-index: 99;
+			user-select: none;
+		}
+		#scroll_navigation button {
+			color: #555;
+			background: #fff;
+			box-shadow: 0 1px 0 #ccc;
+			outline: none !important;
+			border: 1px solid #ccc;
+			border-radius: 2px;
+			cursor: pointer;
+			font-size: 14px;
 		}
 		#exported_settings_json_box{
 			position: fixed;

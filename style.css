@@ -4239,10 +4239,19 @@ html.darkmode.amoled-dark #content:before , html.darkmode.amoled-dark #content:a
 		z-index: 1049;
 		background: transparent;
 	}
+
+	.navbar-nav:not(#navbar_search_btn_mobile) > .nav-item i:not(.d-lg-none){
+		margin-right: 8px;
+		text-align: center;
+		width: 14px;
+	}
 }
-@media screen and (min-width:900px) and (max-width:990px){
+@media screen and (min-width:900px) and (max-width:1000px){
 	#leftbar_part2.sticky {
-		transform: translateY(-30px);
+		transform: translateY(-25px);
+	}
+	body.leftbar-can-headroom.headroom---unpinned #leftbar_part2.sticky{
+		transform: translateY(-5px);
 	}
 }
 @media screen and (max-width:900px){

@@ -69,12 +69,15 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+<<<<<<< HEAD
 ## 20201018 v1.1.0
 + 图片缩放预览库由 Zoomify 更换为 Fancybox (仍保留 Zoomify 选项)
 + 优化评论区图片体验
 + 修复特定屏幕尺寸下侧栏边距问题
 + 其他优化
 
+=======
+>>>>>>> 95dcc70bff9ce06bb4b58196e6f417a2c1a370df
 ## 20201005 v1.0.4
 + 修复手机版顶栏折叠菜单图标间距问题
 + 设置页增加快速回顶和回底按钮
