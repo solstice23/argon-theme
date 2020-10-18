@@ -1316,6 +1316,39 @@ function zoomifyInit(){
 }
 zoomifyInit();
 
+/*Fancybox*/
+$.fancybox.defaults.transitionEffect = "slide";
+$.fancybox.defaults.buttons = ["zoom", "fullScreen", "thumbs", "close"];
+$.fancybox.defaults.lang = argonConfig.language;
+$.fancybox.defaults.i18n = {
+	en_US: {
+		CLOSE: "Close",
+		NEXT: "Next",
+		PREV: "Previous",
+		ERROR: "The requested content cannot be loaded. <br/> Please try again later.",
+		PLAY_START: "Start slideshow",
+		PLAY_STOP: "Pause slideshow",
+		FULL_SCREEN: "Full screen",
+		THUMBS: "Thumbnails",
+		DOWNLOAD: "Download",
+		SHARE: "Share",
+		ZOOM: "Zoom"
+	},
+	zh_CN: {
+		CLOSE: "关闭",
+		NEXT: "下一张",
+		PREV: "上一张",
+		ERROR: "图片加载失败",
+		PLAY_START: "开始幻灯片展示",
+		PLAY_STOP: "暂停幻灯片展示",
+		FULL_SCREEN: "全屏",
+		THUMBS: "缩略图",
+		DOWNLOAD: "下载",
+		SHARE: "分享",
+		ZOOM: "缩放"
+	}
+};
+
 /*Lazyload*/
 function lazyloadInit(){
 	if (argonConfig.lazyload == false){
@@ -1812,39 +1845,6 @@ function updateThemeColor(color, setcookie){
 	}
 }
 
-/*评论区图片链接点击处理*/
-!function(){
-	let invid = 0;
-	let activeImg = null;
-	$(document).on("click" , ".comment-item-text .comment-image" , function(){
-		$(".comment-image-preview", this).attr("data-easing", "cubic-bezier(0.4, 0, 0, 1)");
-		$(".comment-image-preview", this).attr("data-duration", "500");
-		if (!$(this).hasClass("comment-image-preview-zoomed")){
-			activeImg = this;
-			$(this).addClass("comment-image-preview-zoomed");
-			if (!$(this).hasClass("loaded")){
-				$(".comment-image-preview", this).attr('src', $(this).attr("data-src"));
-			}
-			$(".comment-image-preview", this).zoomify('zoomIn');
-			if (!$(this).hasClass("loaded")){
-				invid = setInterval(function(){
-					if (activeImg.width != 0){
-						$("html").trigger("scroll");
-						$(activeImg).addClass("loaded");
-						clearInterval(invid);
-						activeImg = null;
-					}
-				}, 50);
-			}
-		}else{
-			clearInterval(invid);
-			activeImg = null;
-			$(this).removeClass("comment-image-preview-zoomed");
-			$(".comment-image-preview", this).zoomify('zoomOut');
-		}
-	});
-}();
-
 /*打字效果*/
 function typeEffect(element, text, now, interval){
 	element.classList.add('typing-effect');
@@ -1907,10 +1907,10 @@ function highlightJsRender(){
 	if (typeof(hljs) == "undefined"){
 		return;
 	}
-	if (typeof(argonEnableCodeHighlight) == "undefined"){
+	if (typeof(argonConfig.enable_code_highlight) == "undefined"){
 		return;
 	}
-	if (!argonEnableCodeHighlight){
+	if (!argonConfig.enable_code_highlight){
 		return;
 	}
 	$("article pre.code").each(function(index, block) {

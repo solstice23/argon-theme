@@ -59,7 +59,7 @@ if ($argon_last_version == ""){
 	$argon_last_version = "0.0";
 }
 if (version_compare($argon_last_version, $GLOBALS['theme_version'], '<' )){
-	if (version_compare($argon_last_version, '0.940', '<' )){
+	if (version_compare($argon_last_version, '0.940', '<')){
 		if (get_option('argon_mathjax_v2_enable') == 'true' && get_option('argon_mathjax_enable') != 'true'){
 			update_option("argon_math_render", 'mathjax2');
 		}
@@ -67,9 +67,15 @@ if (version_compare($argon_last_version, $GLOBALS['theme_version'], '<' )){
 			update_option("argon_math_render", 'mathjax3');
 		}
 	}
-	if (version_compare($argon_last_version, '0.970', '<' )){
+	if (version_compare($argon_last_version, '0.970', '<')){
 		if (get_option('argon_show_author') == 'true'){
 			update_option("argon_article_meta", 'time|views|comments|categories|author');
+		}
+	}
+	if (version_compare($argon_last_version, '1.1.0', '<')){
+		if (get_option('argon_enable_zoomify') != 'false'){
+			update_option("argon_enable_fancybox", 'true');
+			update_option("argon_enable_zoomify", 'false');
 		}
 	}
 	update_option("argon_last_version", $GLOBALS['theme_version']);
@@ -750,7 +756,7 @@ function argon_get_comment_text($comment_ID = 0, $args = array()) {
 	);
 	$comment_text = preg_replace(
 		'/<img src="(.*?)" alt="(.*?)" \/>/',
-		'<a data-src="$1" title="$2" class="comment-image" rel="nofollow">
+		'<a href="$1" title="$2" data-fancybox="comment-' . $comment_ID -> comment_ID . '-image" class="comment-image" rel="nofollow">
 			<i class="fa fa-image" aria-hidden="true"></i>
 			' . __('查看图片', 'argon') . '
 			<img src="" alt="$2" class="comment-image-preview">
@@ -1418,11 +1424,23 @@ function argon_lazyload($content){
 	}
 	return $content;
 }
+function argon_fancybox($content){
+	if(!is_feed() && !is_robots() && !is_home()){
+		if (get_option('argon_enable_lazyload') != 'false'){
+			$content = preg_replace('/<img(.+)data-original=[\'"]([^\'"]+)[\'"](.*)>/i',"<div class='fancybox-wrapper' data-fancybox='post-images' href='$2'>$0</div>" , $content);
+		}else{
+			$content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i',"<div class='fancybox-wrapper' data-fancybox='post-images' href='$2'>$0</div>" , $content);
+		}
+	}
+	return $content;
+}
 function the_content_filter($content){
 	if (get_option('argon_enable_lazyload') != 'false'){
 		$content = argon_lazyload($content);
 	}
-
+	if (get_option('argon_enable_fancybox') != 'false' && get_option('argon_enable_zoomify') == 'false'){
+		$content = argon_fancybox($content);
+	}
 	global $post;
 	$custom_css = get_post_meta($post -> ID, 'argon_custom_css', true);
 	if (!empty($custom_css)){
@@ -3249,24 +3267,48 @@ function themeoptions_page(){
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('图片放大浏览', 'argon');?></h2></th></tr>
 					<tr>
-						<th><label><?php _e('是否启用图片放大浏览 (Zoomify)', 'argon');?></label></th>
+						<th><label><?php _e('是否启用图片放大浏览 (Fancybox)', 'argon');?></label></th>
 						<td>
-							<select name="argon_enable_zoomify">
-								<?php $argon_enable_zoomify = get_option('argon_enable_zoomify'); ?>
-								<option value="true" <?php if ($argon_enable_zoomify=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
-								<option value="false" <?php if ($argon_enable_zoomify=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+							<select name="argon_enable_fancybox" onchange="if (this.value == 'true'){setInputValue('argon_enable_zoomify','false');}">
+								<?php $argon_enable_fancybox = get_option('argon_enable_fancybox'); ?>
+								<option value="true" <?php if ($argon_enable_fancybox=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+								<option value="false" <?php if ($argon_enable_fancybox=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('开启后，文章中图片被单击时会放大预览', 'argon');?></p>
 						</td>
 					</tr>
-					<tr>
+					<tr style="opacity: 0.5;" onclick="$(this).remove();$('.zoomify-old-settings').fadeIn(500);">
+						<th><label><?php _e('展开旧版图片放大浏览 (Zoomify) 设置 ▼', 'argon');?></label></th>
+						<td>
+						</td>
+					</tr>
+					<style>
+						.zoomify-old-settings{
+							opacity: 0.65;
+						}
+						.zoomify-old-settings:hover{
+							opacity: 1;
+						}
+					</style>
+					<tr class="zoomify-old-settings" style="display: none;">
+						<th><label><?php _e('是否启用旧版图片放大浏览 (Zoomify)', 'argon');?></label></th>
+						<td>
+							<select name="argon_enable_zoomify" onchange="if (this.value == 'true'){setInputValue('argon_enable_fancybox','false');}">
+								<?php $argon_enable_zoomify = get_option('argon_enable_zoomify'); ?>
+								<option value="true" <?php if ($argon_enable_zoomify=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+								<option value="false" <?php if ($argon_enable_zoomify=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('自 Argon 1.1.0 版本后，图片缩放预览库由 Zoomify 更换为 Fancybox，如果您还想使用旧版图片预览，请开启此选项。注意: Zoomify 和 Fancybox 不能同时开启。', 'argon');?></p>
+						</td>
+					</tr>
+					<tr class="zoomify-old-settings" style="display: none;">
 						<th><label><?php _e('缩放动画长度', 'argon');?></label></th>
 						<td>
 							<input type="number" name="argon_zoomify_duration" min="0" max="10000" value="<?php echo (get_option('argon_zoomify_duration') == '' ? '200' : get_option('argon_zoomify_duration')); ?>"/>	ms
 							<p class="description"><?php _e('图片被单击后缩放到全屏动画的时间长度', 'argon');?></p>
 						</td>
 					</tr>
-					<tr>
+					<tr class="zoomify-old-settings" style="display: none;">
 						<th><label><?php _e('缩放动画曲线', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_zoomify_easing" value="<?php echo (get_option('argon_zoomify_easing') == '' ? 'cubic-bezier(0.4,0,0,1)' : get_option('argon_zoomify_easing')); ?>"/>
@@ -3275,7 +3317,7 @@ function themeoptions_page(){
 							</p>
 						</td>
 					</tr>
-					<tr>
+					<tr class="zoomify-old-settings" style="display: none;">
 						<th><label><?php _e('图片最大缩放比例', 'argon');?></label></th>
 						<td>
 							<input type="number" name="argon_zoomify_scale" min="0.01" max="1" step="0.01" value="<?php echo (get_option('argon_zoomify_scale') == '' ? '0.9' : get_option('argon_zoomify_scale')); ?>"/>

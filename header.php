@@ -102,7 +102,7 @@
 			wp_path: "<?php echo $GLOBALS['wp_path']; ?>",
 			language: "<?php echo argon_get_locate(); ?>",
 			dateFormat: "<?php echo get_option('argon_dateformat', 'YMD'); ?>",
-			<?php if (get_option('argon_enable_zoomify') != 'false'){ ?>
+			<?php if (get_option('argon_enable_zoomify') == 'true'){ ?>
 				zoomify: {
 					duration: <?php echo get_option('argon_zoomify_duration', 200); ?>,
 					easing: "<?php echo get_option('argon_zoomify_easing', 'cubic-bezier(0.4,0,0,1)'); ?>",
@@ -122,7 +122,8 @@
 			<?php } ?>
 			fold_long_comments: <?php echo get_option('argon_fold_long_comments', 'false'); ?>,
 			disable_pjax: <?php echo get_option('argon_pjax_disabled', 'false'); ?>,
-			headroom: <?php echo get_option('argon_enable_headroom', 'false'); ?>
+			headroom: <?php echo get_option('argon_enable_headroom', 'false'); ?>,
+			enable_code_highlight: <?php echo get_option('argon_enable_code_highlight', 'false'); ?>
 		}
 	</script>
 	<script>
