@@ -3811,7 +3811,10 @@ window.pjaxLoaded = function(){
 			user-select: none;
 		}
 		#scroll_navigation button {
-			color: #555;
+			color: #555;yc
+			
+			
+			
 			background: #fff;
 			box-shadow: 0 1px 0 #ccc;
 			outline: none !important;
@@ -4094,7 +4097,8 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_lazyload_threshold');
 		argon_update_option('argon_lazyload_loading_style');
 
-		//Zoomify 相关
+		//图片缩放预览相关
+		argon_update_option('argon_enable_fancybox');
 		argon_update_option('argon_enable_zoomify');
 		argon_update_option('argon_zoomify_duration');
 		argon_update_option('argon_zoomify_easing');
