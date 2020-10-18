@@ -3811,10 +3811,7 @@ window.pjaxLoaded = function(){
 			user-select: none;
 		}
 		#scroll_navigation button {
-			color: #555;yc
-			
-			
-			
+			color: #555;
 			background: #fff;
 			box-shadow: 0 1px 0 #ccc;
 			outline: none !important;
