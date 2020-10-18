@@ -1427,9 +1427,9 @@ function argon_lazyload($content){
 function argon_fancybox($content){
 	if(!is_feed() && !is_robots() && !is_home()){
 		if (get_option('argon_enable_lazyload') != 'false'){
-			$content = preg_replace('/<img(.+)data-original=[\'"]([^\'"]+)[\'"](.*)>/i',"<div class='fancybox-wrapper' data-fancybox='post-images' href='$2'>$0</div>" , $content);
+			$content = preg_replace('/<img(.+)data-original=[\'"]([^\'"]+)[\'"](.*)\/>/i',"<div class='fancybox-wrapper' data-fancybox='post-images' href='$2'>$0</div>" , $content);
 		}else{
-			$content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i',"<div class='fancybox-wrapper' data-fancybox='post-images' href='$2'>$0</div>" , $content);
+			$content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)\/>/i',"<div class='fancybox-wrapper' data-fancybox='post-images' href='$2'>$0</div>" , $content);
 		}
 	}
 	return $content;
