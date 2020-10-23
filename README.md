@@ -69,6 +69,9 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20201024 v1.1.1
++ 修复 Fancybox 可能会出现的 HTML Tag 提前闭合问题
+
 ## 20201018 v1.1.0
 + 图片缩放预览库由 Zoomify 更换为 Fancybox (仍保留 Zoomify 选项)
 + 优化评论区图片体验

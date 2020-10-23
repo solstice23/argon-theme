@@ -9,6 +9,7 @@ function theme_slug_setup() {
 }
 add_action('after_setup_theme','theme_slug_setup');
 
+require_once('vendor/autoload.php');
 
 $GLOBALS['theme_version'] = wp_get_theme() -> Version;
 $argon_assets_path = get_option("argon_assets_path");
@@ -1424,13 +1425,29 @@ function argon_lazyload($content){
 	}
 	return $content;
 }
+use DiDom\Document;
+use DiDom\Element;
 function argon_fancybox($content){
 	if(!is_feed() && !is_robots() && !is_home()){
-		if (get_option('argon_enable_lazyload') != 'false'){
+		$document = new Document("<div id='DIDOM_ROOT_DIV'>" . $content . "</div>");
+		//$document = $document -> find('#DIDOM_ROOT_DIV')[0];
+		$imgs = $document -> find('img');
+		foreach ($imgs as $img){
+			if ($img -> hasAttribute('data-original')){
+				$href = $img -> getAttribute('data-original');
+			}else{
+				$href = $img -> getAttribute('src');
+			}
+			$tmp = new Element("div", null, array('class' => 'fancybox-wrapper', 'data-fancybox' => 'post-images', 'href' => $href));
+			$tmp -> appendChild($img);
+			$img -> replace($tmp);
+		}
+		/*if (get_option('argon_enable_lazyload') != 'false'){
 			$content = preg_replace('/<img(.*?)data-original=[\'"](.*?)[\'"](.*?)((\/>)|>|(<\/img>))/i',"<div class='fancybox-wrapper' data-fancybox='post-images' href='$2'>$0</div>" , $content);
 		}else{
 			$content = preg_replace('/<img(.*?)src=[\'"](.*?)[\'"](.*?)((\/>)|>|(<\/img>))/i',"<div class='fancybox-wrapper' data-fancybox='post-images' href='$2'>$0</div>" , $content);
-		}
+		}*/
+		$content = $document -> find('#DIDOM_ROOT_DIV')[0] -> innerHtml();
 	}
 	return $content;
 }
@@ -1449,7 +1466,7 @@ function the_content_filter($content){
 
 	return $content;
 }
-add_filter('the_content' , 'the_content_filter');
+add_filter('the_content' , 'the_content_filter',20);
 //使用 CDN 加速 gravatar
 function gravatar_cdn($url){
 	$cdn = get_option('argon_gravatar_cdn', 'gravatar.loli.net/avatar/');
