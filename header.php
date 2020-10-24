@@ -91,7 +91,7 @@
 	<?php
 		wp_enqueue_style("argon_css_merged", $GLOBALS['assets_path'] . "/assets/argon_css_merged.css", null, $GLOBALS['theme_version']);
 		wp_enqueue_style("style", $GLOBALS['assets_path'] . "/style.css", null, $GLOBALS['theme_version']);
-		wp_enqueue_style("googlefont", "//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Serif+SC:300,600&display=swap");
+		if (get_option('argon_disable_googlefont') != 'true') {wp_enqueue_style("googlefont", "//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Serif+SC:300,600&display=swap");}
 		wp_enqueue_script("argon_js_merged", $GLOBALS['assets_path'] . "/assets/argon_js_merged.js", null, $GLOBALS['theme_version']);
 		wp_enqueue_script("argonjs", $GLOBALS['assets_path'] . "/assets/js/argon.min.js", null, $GLOBALS['theme_version']);
 	?>
@@ -259,19 +259,21 @@
 	<header class="header-global">
 		<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light bg-primary headroom--not-bottom headroom--not-top headroom--pinned">
 			<div class="container">
-				<?php if (get_option('argon_toolbar_icon') != '') { /*顶栏ICON(如果选项中开启)*/?>
-					<a class="navbar-brand navbar-icon mr-lg-5" href="<?php echo get_option('argon_toolbar_icon_link'); ?>">
-						<img src="<?php echo get_option('argon_toolbar_icon'); ?>">
-					</a>
-				<?php }?>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+				<button id="open_sidebar" class="navbar-toggler" type="button" aria-expanded="false" aria-label="Toggle sidebar">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<?php /*顶栏标题*/?>
-				<a class="navbar-brand" href="<?php bloginfo('url'); ?>"><?php echo get_option('argon_toolbar_title') == '' ? bloginfo('name') : get_option('argon_toolbar_title'); ?></a>
+				<div class="navbar-brand mr-0">
+					<?php if (get_option('argon_toolbar_icon') != '') { /*顶栏ICON(如果选项中开启)*/?>
+						<a class="navbar-brand navbar-icon mr-lg-5" href="<?php echo get_option('argon_toolbar_icon_link'); ?>">
+							<img src="<?php echo get_option('argon_toolbar_icon'); ?>">
+						</a>
+					<?php }?>
+					<?php /*顶栏标题*/?>
+					<a class="navbar-brand navbar-title" href="<?php bloginfo('url'); ?>"><?php echo get_option('argon_toolbar_title') == '' ? bloginfo('name') : get_option('argon_toolbar_title'); ?></a>
+				</div>
 				<div class="navbar-collapse collapse" id="navbar_global">
 					<div class="navbar-collapse-header">
-						<div class="row">
+						<div class="row" style="display: none;">
 							<div class="col-6 collapse-brand"></div>
 							<div class="col-6 collapse-close">
 								<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
@@ -280,15 +282,13 @@
 								</button>
 							</div>
 						</div>
+						<div class="input-group input-group-alternative">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fa fa-search"></i></span>
+							</div>
+							<input id="navbar_search_input_mobile" class="form-control" placeholder="搜索什么..." type="text" autocomplete="off">
+						</div>
 					</div>
-					<ul id="navbar_search_btn_mobile" class="navbar-nav align-items-lg-center ml-lg-auto">
-						<li class="nav-item" data-toggle="modal" data-target="#argon_search_modal" style="padding-left: 5px;">
-							<a class="nav-link nav-link-icon">
-								<i class="fa fa-search"></i>
-								<span class="nav-link-inner--text d-lg-none"><?php _e('搜索', 'argon');?></span>
-							</a>
-						</li>
-					</ul>
 					<?php
 						/*顶栏菜单*/
 						class toolbarMenuWalker extends Walker_Nav_Menu{
@@ -352,12 +352,10 @@
 						</li>
 					</ul>
 				</div>
-				<?php if (get_option('argon_toolbar_icon') != '') { /*顶栏ICON (Mobile)*/?>
-					<a class="navbar-brand navbar-icon-mobile" href="<?php echo get_option('argon_toolbar_icon_link'); ?>">
-						<img src="<?php echo get_option('argon_toolbar_icon'); ?>">
-					</a>
-				<?php }?>
 				<div id="navbar_menu_mask" data-toggle="collapse" data-target="#navbar_global"></div>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon navbar-toggler-searcg-icon"></span>
+				</button>
 			</div>
 		</nav>
 	</header>
@@ -544,9 +542,6 @@
 			</div>
 		<?php }?>
 	</div>
-	<button id="fabtn_open_sidebar" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" aria-label="Open Sidebar Menu" tooltip="<?php _e('菜单', 'argon'); ?>">
-		<span class="btn-inner--icon"><i class="fa fa-bars"></i></span>
-	</button>
 	<button id="fabtn_reading_progress" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" aria-hidden="true" tooltip="<?php _e('阅读进度', 'argon'); ?>">
 		<div id="fabtn_reading_progress_bar" style="width: 0%;"></div>
 		<span id="fabtn_reading_progress_details">0%</span>

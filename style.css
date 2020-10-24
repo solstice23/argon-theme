@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 1.1.1
+Version: 1.1.2
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -462,7 +462,7 @@ html.darkmode.amoled-dark #navbar-main{
 		max-width: 1200px !important;
 	}
 }
-@media (min-width: 992px){
+@media (min-width: 900px){
 	.navbar-main .container {
 		max-width: 100%;
 	}
@@ -472,6 +472,7 @@ html.darkmode.amoled-dark #navbar-main{
 }
 .navbar-brand {
 	text-transform: none;
+	vertical-align: middle;
 }
 .navbar-brand:focus , .navbar-brand:hover{
 	color: #fff !important;
@@ -2647,7 +2648,7 @@ html.darkmode.amoled-dark .friend-links-style1 .friend-link-description:after {
 .friend-links-style2.friend-links-style2-big .friend-link-links > a {
 	margin-right: 12px;
 }
-@media (min-width: 992px){
+@media (min-width: 900px){
 	.friend-links.friend-links-style2-big .link {
 		max-width: 33.33333%;
 		flex: 0 0 33.33333%;
@@ -4198,9 +4199,15 @@ html.darkmode.amoled-dark #content:before , html.darkmode.amoled-dark #content:a
 		height: 20px;
 	}
 }
-@media screen and (max-width:991.98px){
+@media screen and (max-width:900px){
 	.navbar-toggler{
 		outline: none !important;
+	}
+	.navbar-collapse-header{
+		border: none !important;
+	}
+	.navbar-collapse .navbar-collapse-header{
+		margin-bottom: 0 !important;
 	}
 	html.darkmode #navbar_global {
 		background: #424242;
@@ -4212,17 +4219,19 @@ html.darkmode.amoled-dark #content:before , html.darkmode.amoled-dark #content:a
 		background: #eee;
 	}
 	html.darkmode .navbar-collapse .navbar-collapse-header {
-		border-bottom: 1px solid rgba(255,255,255,.1);
+		/*border-bottom: 1px solid rgba(255,255,255,.1);*/
 	}
 
-	.navbar-brand.navbar-icon {
+	/*.navbar-brand.navbar-icon {
 		display: none;
 	}
 	.navbar-brand.navbar-icon-mobile {
 		display: block;
 		margin-right: 5px;
+	}*/
+	.navbar-title{
+		margin-right: 0;
 	}
-
 	#navbar_search_btn_mobile{
 		display: list-item;
 	}
@@ -4245,6 +4254,14 @@ html.darkmode.amoled-dark #content:before , html.darkmode.amoled-dark #content:a
 		text-align: center;
 		width: 14px;
 	}
+
+	.navbar-transparent .navbar-toggler-icon {
+		background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyNC4wLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i5Zu+5bGCXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMzAgMzAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMwIDMwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxsaW5lIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiB4MT0iNi4zIiB5MT0iNCIgeDI9IjI3LjEiIHkyPSI0Ii8+DQo8bGluZSBmaWxsPSJub25lIiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgeDE9IjYuMyIgeTE9IjEyLjUiIHgyPSIyNy4xIiB5Mj0iMTIuNSIvPg0KPGxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHgxPSI2LjMiIHkxPSIyMSIgeDI9IjI3LjEiIHkyPSIyMSIvPg0KPC9zdmc+DQo=);
+	}
+	.navbar-toggler-searcg-icon {
+		background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMzAgMzAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMwIDMwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48Zz48Y2lyY2xlIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgY3g9IjE0IiBjeT0iMTEuNiIgcj0iOC44Ii8+PGxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHgxPSIyMC43IiB5MT0iMTcuNCIgeDI9IjI3LjMiIHkyPSIyNCIvPjwvZz48L3N2Zz4=) !important;
+	}
+
 }
 @media screen and (min-width:900px) and (max-width:1000px){
 	#leftbar_part2.sticky {

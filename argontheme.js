@@ -273,6 +273,21 @@ $(document).on("keydown" , "#navbar_search_input_container #navbar_search_input"
 		url: argonConfig.wp_path + "?s=" + encodeURI(word)
 	});
 });
+/*顶栏搜索 (Mobile)*/
+$(document).on("keydown" , "#navbar_search_input_mobile" , function(e){
+	if (e.keyCode != 13){
+		return;
+	}
+	let word = $(this).val();
+	$("#navbar_global .collapse-close button").click();
+	if (word == ""){
+		return;
+	}
+	let scrolltop = $(document).scrollTop();
+	$.pjax({
+		url: argonConfig.wp_path + "?s=" + encodeURI(word)
+	});
+});
 /*侧栏搜索*/
 $(document).on("click" , "#leftbar_search_container" , function(){
 	$(".leftbar-search-button").addClass("open");
@@ -1474,7 +1489,7 @@ $(document).on("click" , "#blog_categories .tag" , function(){
 
 /*侧栏 & 顶栏菜单手机适配*/
 !function(){
-	$(document).on("click" , "#fabtn_open_sidebar" , function(){
+	$(document).on("click" , "#fabtn_open_sidebar, #open_sidebar" , function(){
 		$("html").addClass("leftbar-opened");
 	});
 	$(document).on("click" , "#sidebar_mask" , function(){

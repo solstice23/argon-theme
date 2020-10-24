@@ -1,6 +1,0 @@
-/vendor
-/.idea
-composer.phar
-.php_cs.cache
-.DS_Store
-Thumbs.db

@@ -69,6 +69,12 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20201025 v1.1.1
++ 回滚 HTML Parse 代码
++ 修复 Fancybox 导致的一系列显示错误问题
++ 合并移动端割裂的 UI
++ 增加禁用 Google 字体选项
+
 ## 20201024 v1.1.1
 + 修复 Fancybox 可能会出现的 HTML Tag 提前闭合问题
 

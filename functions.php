@@ -9,8 +9,6 @@ function theme_slug_setup() {
 }
 add_action('after_setup_theme','theme_slug_setup');
 
-require_once('vendor/autoload.php');
-
 $GLOBALS['theme_version'] = wp_get_theme() -> Version;
 $argon_assets_path = get_option("argon_assets_path");
 if ($argon_assets_path== "jsdelivr"){
@@ -1425,29 +1423,13 @@ function argon_lazyload($content){
 	}
 	return $content;
 }
-use DiDom\Document;
-use DiDom\Element;
 function argon_fancybox($content){
 	if(!is_feed() && !is_robots() && !is_home()){
-		$document = new Document("<div id='DIDOM_ROOT_DIV'>" . $content . "</div>");
-		//$document = $document -> find('#DIDOM_ROOT_DIV')[0];
-		$imgs = $document -> find('img');
-		foreach ($imgs as $img){
-			if ($img -> hasAttribute('data-original')){
-				$href = $img -> getAttribute('data-original');
-			}else{
-				$href = $img -> getAttribute('src');
-			}
-			$tmp = new Element("div", null, array('class' => 'fancybox-wrapper', 'data-fancybox' => 'post-images', 'href' => $href));
-			$tmp -> appendChild($img);
-			$img -> replace($tmp);
-		}
-		/*if (get_option('argon_enable_lazyload') != 'false'){
+		if (get_option('argon_enable_lazyload') != 'false'){
 			$content = preg_replace('/<img(.*?)data-original=[\'"](.*?)[\'"](.*?)((\/>)|>|(<\/img>))/i',"<div class='fancybox-wrapper' data-fancybox='post-images' href='$2'>$0</div>" , $content);
 		}else{
 			$content = preg_replace('/<img(.*?)src=[\'"](.*?)[\'"](.*?)((\/>)|>|(<\/img>))/i',"<div class='fancybox-wrapper' data-fancybox='post-images' href='$2'>$0</div>" , $content);
-		}*/
-		$content = $document -> find('#DIDOM_ROOT_DIV')[0] -> innerHtml();
+		}
 	}
 	return $content;
 }
@@ -3697,6 +3679,17 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('禁用 Google 字体', 'argon');?></label></th>
+						<td>
+							<select name="argon_disable_googlefont">
+								<?php $argon_disable_googlefont = get_option('argon_disable_googlefont'); ?>
+								<option value="false" <?php if ($argon_disable_googlefont=='false'){echo 'selected';} ?>><?php _e('不禁用', 'argon');?></option>
+								<option value="true" <?php if ($argon_disable_googlefont=='true'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('Google 字体在中国大陆访问可能会阻塞，禁用可以解决页面加载被阻塞的问题。禁用后，Serif 字体将失效。', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('检测更新源', 'argon');?></label></th>
 						<td>
 							<select name="argon_update_source">
@@ -4104,6 +4097,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_related_post_limit');
 		argon_update_option('argon_article_header_style');
 		argon_update_option('argon_text_gravatar');
+		argon_update_option('argon_disable_googlefont');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');
