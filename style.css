@@ -4248,6 +4248,11 @@ html.darkmode.amoled-dark #content:before , html.darkmode.amoled-dark #content:a
 		z-index: 1049;
 		background: transparent;
 	}
+	.navbar-nav:not(#navbar_search_btn_mobile) > .nav-item i:not(.d-lg-none){
+		margin-right: 8px;
+		text-align: center;
+		width: 14px;
+	}
 
 	.navbar-nav:not(#navbar_search_btn_mobile) > .nav-item i:not(.d-lg-none){
 		margin-right: 8px;
