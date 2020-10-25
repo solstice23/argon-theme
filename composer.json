@@ -1,7 +1,0 @@
-{
-    "require": {
-        "voku/simple_html_dom": "^4.7",
-        "voku/portable-utf8": "^5.4",
-        "imangazaliev/didom": "^1.16"
-    }
-}
