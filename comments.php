@@ -129,17 +129,16 @@
 						</div>
 					</div>
 				</div>
-				<?php $commentCaptchaSeed = get_comment_captcha_seed();?>
 				<div class="<?php echo $col3_class;?>">
 					<div class="form-group">
 						<div class="input-group input-group-alternative mb-4 post-comment-captcha-container">
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-key"></i></span>
 							</div>
-							<input id="post_comment_captcha" class="form-control" placeholder="<?php _e('验证码', 'argon');?>" type="text" <?php if (current_user_can('level_7')) {echo('value="' . get_comment_captcha_answer($commentCaptchaSeed) . '" disabled');}?>>
+							<input id="post_comment_captcha" class="form-control" placeholder="<?php _e('验证码', 'argon');?>" type="text" <?php if (current_user_can('level_7')) {echo('value="' . get_comment_captcha_answer(get_comment_captcha_seed()) . '" disabled');}?>>
 							<style>
 								.post-comment-captcha-container:before{
-									content: "<?php echo get_comment_captcha($commentCaptchaSeed);?>";
+									content: "<?php echo get_comment_captcha(get_comment_captcha_seed());?>";
 								}
 							</style>
 						</div>

@@ -315,7 +315,7 @@ function get_argon_formatted_paginate_links($maxPageNumbers, $extraClasses = '')
 function get_argon_formatted_paginate_links_for_all_platforms(){
 	return get_argon_formatted_paginate_links(7) . get_argon_formatted_paginate_links(5, " pagination-mobile");
 }
-//访问者 Token
+//访问者 Token & Session
 function get_random_token(){
 	return md5(uniqid(microtime(true), true));
 }
@@ -327,6 +327,7 @@ function set_user_token_cookie(){
 	}
 }
 set_user_token_cookie();
+session_start();
 //页面 Description Meta
 function get_seo_description(){
 	global $post;
@@ -863,8 +864,12 @@ function argon_comment_shuoshuo_preview_format($comment, $args, $depth){
 	<li>
 <?php }
 //评论验证码生成 & 验证
-function get_comment_captcha_seed(){
+function get_comment_captcha_seed($refresh = false){
+	if (isset($_SESSION['captchaSeed']) && !$refresh){
+		return $_SESSION['captchaSeed'];
+	}
 	$captchaSeed = rand(0 , 500000000);
+	$_SESSION['captchaSeed'] = $captchaSeed;
 	return $captchaSeed;
 }
 function get_comment_captcha($captchaSeed){
@@ -944,7 +949,7 @@ function check_comment_captcha($comment){
 	if(current_user_can('level_7')){
 		return $comment;
 	}
-	mt_srand($_POST['comment_captcha_seed'] + 10007);
+	mt_srand(get_comment_captcha_seed() + 10007);
 	$oper = mt_rand(1 , 4);
 	$num1 = 0;
 	$num2 = 0;
@@ -1033,7 +1038,7 @@ function ajax_post_comment(){
 		),
 		array($comment)
 	);
-	$newCaptchaSeed = get_comment_captcha_seed();
+	$newCaptchaSeed = get_comment_captcha_seed(true);
 	$newCaptcha = get_comment_captcha($newCaptchaSeed);
 	if (current_user_can('level_7')){
 		$newCaptchaAnswer = get_comment_captcha_answer($newCaptchaSeed);
