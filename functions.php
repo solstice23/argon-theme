@@ -939,7 +939,6 @@ class captcha_calculation{ //数字验证码
 		return "";
 	}
 	function check($answer){
-		//return true;
 		if ($answer == self::getAnswer()){
 			return true;
 		}
