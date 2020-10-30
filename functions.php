@@ -872,66 +872,79 @@ function get_comment_captcha_seed($refresh = false){
 	$_SESSION['captchaSeed'] = $captchaSeed;
 	return $captchaSeed;
 }
-function get_comment_captcha($captchaSeed){
-	mt_srand($captchaSeed + 10007);
-	$oper = mt_rand(1 , 4);
-	$num1 = 0;
-	$num2 = 0;
-	switch ($oper){
-		case 1:
-			$num1 = mt_rand(1 , 20);
-			$num2 = mt_rand(0 , 20 - $num1);
-			return $num1 . " + " . $num2 . " = ";
-			break;
-		case 2:
-			$num1 = mt_rand(10 , 20);
-			$num2 = mt_rand(1 , $num1);
-			return $num1 . " - " . $num2 . " = ";
-			break;
-		case 3:
-			$num1 = mt_rand(3 , 9);
-			$num2 = mt_rand(3 , 9);
-			return $num1 . " * " . $num2 . " = ";
-			break;
-		case 4:
-			$num2 = mt_rand(2 , 9);
-			$num1 = $num2 * mt_rand(2 , 9);
-			return $num1 . " / " . $num2 . " = ";
-			break;
-		default:
-			break;
+class captcha_calculation{ //数字验证码
+	var $captchaSeed;
+	function __construct($seed) {
+		$this -> $captchaSeed = $seed;
 	}
-}
-function get_comment_captcha_answer($captchaSeed){
-	mt_srand($captchaSeed + 10007);
-	$oper = mt_rand(1 , 4);
-	$num1 = 0;
-	$num2 = 0;
-	switch ($oper){
-		case 1:
-			$num1 = mt_rand(1 , 20);
-			$num2 = mt_rand(0 , 20 - $num1);
-			return $num1 + $num2;
-			break;
-		case 2:
-			$num1 = mt_rand(10 , 20);
-			$num2 = mt_rand(1 , $num1);
-			return $num1 - $num2;
-			break;
-		case 3:
-			$num1 = mt_rand(3 , 9);
-			$num2 = mt_rand(3 , 9);
-			return $num1 * $num2;
-			break;
-		case 4:
-			$num2 = mt_rand(2 , 9);
-			$num1 = $num2 * mt_rand(2 , 9);
-			return $num1 / $num2;
-			break;
-		default:
-			break;
+	function getChallenge(){
+		mt_srand($this -> $captchaSeed + 10007);
+		$oper = mt_rand(1 , 4);
+		$num1 = 0;
+		$num2 = 0;
+		switch ($oper){
+			case 1:
+				$num1 = mt_rand(1 , 20);
+				$num2 = mt_rand(0 , 20 - $num1);
+				return $num1 . " + " . $num2 . " = ";
+				break;
+			case 2:
+				$num1 = mt_rand(10 , 20);
+				$num2 = mt_rand(1 , $num1);
+				return $num1 . " - " . $num2 . " = ";
+				break;
+			case 3:
+				$num1 = mt_rand(3 , 9);
+				$num2 = mt_rand(3 , 9);
+				return $num1 . " * " . $num2 . " = ";
+				break;
+			case 4:
+				$num2 = mt_rand(2 , 9);
+				$num1 = $num2 * mt_rand(2 , 9);
+				return $num1 . " / " . $num2 . " = ";
+				break;
+			default:
+				break;
+		}
 	}
-	return "";
+	function getAnswer(){
+		mt_srand($this -> $captchaSeed + 10007);
+		$oper = mt_rand(1 , 4);
+		$num1 = 0;
+		$num2 = 0;
+		switch ($oper){
+			case 1:
+				$num1 = mt_rand(1 , 20);
+				$num2 = mt_rand(0 , 20 - $num1);
+				return $num1 + $num2;
+				break;
+			case 2:
+				$num1 = mt_rand(10 , 20);
+				$num2 = mt_rand(1 , $num1);
+				return $num1 - $num2;
+				break;
+			case 3:
+				$num1 = mt_rand(3 , 9);
+				$num2 = mt_rand(3 , 9);
+				return $num1 * $num2;
+				break;
+			case 4:
+				$num2 = mt_rand(2 , 9);
+				$num1 = $num2 * mt_rand(2 , 9);
+				return $num1 / $num2;
+				break;
+			default:
+				break;
+		}
+		return "";
+	}
+	function check($answer){
+		//return true;
+		if ($answer == self::getAnswer()){
+			return true;
+		}
+		return false;
+	}
 }
 function wrong_captcha(){
 	exit(json_encode(array(
@@ -941,6 +954,14 @@ function wrong_captcha(){
 	)));
 	//wp_die('验证码错误，评论失败');
 }
+function get_comment_captcha(){
+	$captcha = new captcha_calculation(get_comment_captcha_seed());
+	return $captcha -> getChallenge();
+}
+function get_comment_captcha_answer(){
+	$captcha = new captcha_calculation(get_comment_captcha_seed());
+	return $captcha -> getAnswer();
+}
 function check_comment_captcha($comment){
 	if (get_option('argon_comment_need_captcha') == 'false'){
 		return $comment;
@@ -949,41 +970,9 @@ function check_comment_captcha($comment){
 	if(current_user_can('level_7')){
 		return $comment;
 	}
-	mt_srand(get_comment_captcha_seed() + 10007);
-	$oper = mt_rand(1 , 4);
-	$num1 = 0;
-	$num2 = 0;
-	switch ($oper){
-		case 1:
-			$num1 = mt_rand(1 , 20);
-			$num2 = mt_rand(0 , 20 - $num1);
-			if (($num1 + $num2) != $answer){
-				wrong_captcha();
-			}
-			break;
-		case 2:
-			$num1 = mt_rand(10 , 20);
-			$num2 = mt_rand(1 , $num1);
-			if (($num1 - $num2) != $answer){
-				wrong_captcha();
-			}
-			break;
-		case 3:
-			$num1 = mt_rand(3 , 9);
-			$num2 = mt_rand(3 , 9);
-			if ($num1 * $num2 != $answer){
-				wrong_captcha();
-			}
-			break;
-		case 4:
-			$num2 = mt_rand(2 , 9);
-			$num1 = $num2 * mt_rand(2 , 9);
-			if ($num1 / $num2 != $answer){
-				wrong_captcha();
-			}
-			break;
-		default:
-			break;
+	$captcha = new captcha_calculation(get_comment_captcha_seed());
+	if (!($captcha -> check($answer))){
+		wrong_captcha();
 	}
 	return $comment;
 }
