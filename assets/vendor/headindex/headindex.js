@@ -244,7 +244,7 @@
              */
             scrollTo: function (eid) {
                 this.scrollBody.stop().animate({
-                    scrollTop: this.offsetTop(getElementById(eid.substr(1)))
+                    scrollTop: this.offsetTop(document.getElementById(eid.substr(1)))
                 }, 'fast');
             },
             /**

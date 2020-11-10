@@ -95,6 +95,13 @@
 		?>
 	</div>
 
+	<?php
+		$referenceList = get_reference_list();
+		if ($referenceList != ""){
+			echo $referenceList;
+		}
+	?>
+
 	<?php if (get_option("argon_donate_qrcode_url") != '') { ?>
 		<div class="post-donate">
 			<button class="btn donate-btn btn-danger"><?php _e('赞赏', 'argon');?></button>

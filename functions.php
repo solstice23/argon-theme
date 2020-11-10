@@ -2299,6 +2299,57 @@ add_shortcode('noshortcode','shortcode_noshortcode');
 function shortcode_noshortcode($attr,$content=""){
 	return $content;
 }
+//Reference Footnote
+add_shortcode('ref','shortcode_ref');
+$post_references = array();
+$post_reference_keys_first_index = array();
+function argon_get_ref_html($content, $index, $subIndex){
+	$index++;
+	return "<sup class='reference' id='ref_" . $index . "_" . $subIndex . "' content='" . esc_attr($content) . "'>[" . $index . "]</sup>";
+}
+function shortcode_ref($attr,$content=""){
+	global $post_references;
+	global $post_reference_keys_first_index;
+	if (isset($attr['id'])){
+		if (isset($post_reference_keys_first_index[$attr['id']])){
+			$post_references[$post_reference_keys_first_index[$attr['id']]]['count']++;
+		}else{
+			array_push($post_references, array('content' => $content, 'count' => 1));
+			$post_reference_keys_first_index[$attr['id']] = count($post_references) - 1;
+		}
+		$index = $post_reference_keys_first_index[$attr['id']];
+		return argon_get_ref_html($post_references[$index]['content'], $index, $post_references[$index]['count']);
+	}else{
+		array_push($post_references, array('content' => $content, 'count' => 1));
+		$index = count($post_references) - 1;
+		return argon_get_ref_html($post_references[$index]['content'], $index, $post_references[$index]['count']);
+	}
+}
+function get_reference_list(){
+	global $post_references;
+	if (count($post_references) == 0){
+		return "";
+	}
+	$res = "<div class='reference-list-container'>";
+	$res .= "<h3>" . __("参考", 'argon') . "</h2>";
+	$res .= "<ol class='reference-list'>";
+		foreach ($post_references as $index => $ref) {
+			$res .= "<li id='rel_" . ($index + 1)  . "'>";
+			if ($ref['count'] == 1){
+				$res .= "<a class='reference-list-backlink' href='#ref_" . ($index + 1) . "_1' aria-label='back'>^</a>";
+			}else{
+				$res .= "<span class='reference-list-backlink'>^</span>";
+				for ($i = 1, $j = 'a'; $i <= $ref['count']; $i++, $j++){
+					$res .= "<a class='reference-list-backlink' href='#ref_" . ($index + 1) . "_" . $i . "' aria-label='back'>" . $j . "</a>";
+				}
+			}
+			$res .= "<span>" . $ref['content'] . "</span>";
+			$res .= "</li>";
+		}
+	$res .= "</ol>";
+	$res .= "</div>";
+	return $res;
+}
 //TinyMce 按钮
 function argon_tinymce_extra_buttons(){
 	if(!current_user_can('edit_posts') && !current_user_can('edit_pages')){

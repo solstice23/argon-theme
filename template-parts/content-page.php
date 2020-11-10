@@ -97,6 +97,13 @@
 		?>
 	</div>
 
+	<?php
+		$referenceList = get_reference_list();
+		if ($referenceList != ""){
+			echo $referenceList;
+		}
+	?>
+
 	<?php if (has_tag()) { ?>
 		<div class="post-tags">
 			<i class="fa fa-tags" aria-hidden="true"></i>
