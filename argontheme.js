@@ -1403,7 +1403,7 @@ clampInit();
 $.pjax.defaults.timeout = 10000;
 $.pjax.defaults.container = ['#primary', '#leftbar_part1_menu', '#leftbar_part2_inner', '.page-information-card-container', '#wpadminbar'];
 $.pjax.defaults.fragment = ['#primary', '#leftbar_part1_menu', '#leftbar_part2_inner', '.page-information-card-container', '#wpadminbar'];
-$(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):not([download])")
+$(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):not([download]):not(.reference-link):not(.reference-list-backlink)")
 .on('pjax:click', function(e, f, g){
 	if (argonConfig.disable_pjax == true){
 		e.preventDefault();
@@ -1478,6 +1478,18 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 	lazyloadInit();
 });
 
+/*Reference 跳转*/
+$(document).on("click", ".reference-link , .reference-list-backlink" , function(e){
+	e.preventDefault();
+	$target = $($(this).attr("href"));
+	$target.focus();
+	$("body,html").animate({
+		scrollTop: $target.offset().top - 150
+	}, 500);
+});
+$(document).on("mousedown", ".reference-list > li" , function(e){
+	e.preventDefault();
+});
 
 /*Tags Dialog pjax 加载后自动关闭*/
 $(document).on("click" , "#blog_tags .tag" , function(){

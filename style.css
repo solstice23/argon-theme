@@ -1469,6 +1469,45 @@ html.filter-grayscale{
 .additional-content-after-post + .post-tags {
 	margin-top: 25px;
 }
+/*Reference*/
+sup.reference {
+	white-space: nowrap;
+	transition: box-shadow .3s ease;
+	border-radius: 1px;
+}
+sup.reference:focus {
+	box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(var(--themecolor-rgbstr), .3);
+	outline: none;
+}
+.reference-list {
+	padding-left: 0;
+	list-style: inside none;
+	counter-reset: ol;
+}
+.reference-list li{
+	font-size: 14px;
+	transition: background .3s ease;
+}
+.reference-list li:focus {
+	background: rgba(var(--themecolor-rgbstr), .15);
+	outline: none;
+	border-radius: 3px;
+}
+.reference-list li:before{
+	text-align: right;
+	counter-increment: ol;
+	content: counter(ol) ". ";
+	white-space: pre;
+}
+.reference-list li > *:first-child{
+	margin-right: 5px;
+}
+.reference-list li > sup{
+	margin-left: 1px;
+}
+.reference-list li > sup:last-of-type{
+	margin-right: 5px;
+}
 /*文章输入密码界面*/
 .post-password-form{
 	margin-top: 45px;

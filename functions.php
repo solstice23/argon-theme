@@ -2305,7 +2305,7 @@ $post_references = array();
 $post_reference_keys_first_index = array();
 function argon_get_ref_html($content, $index, $subIndex){
 	$index++;
-	return "<sup class='reference' id='ref_" . $index . "_" . $subIndex . "' content='" . esc_attr($content) . "'>[" . $index . "]</sup>";
+	return "<sup class='reference' id='ref_" . $index . "_" . $subIndex . "' content='" . esc_attr($content) . "' tabindex='0'><a class='reference-link' href='#rel_" . $index . "'>[" . $index . "]</a></sup>";
 }
 function shortcode_ref($attr,$content=""){
 	global $post_references;
@@ -2334,13 +2334,13 @@ function get_reference_list(){
 	$res .= "<h3>" . __("参考", 'argon') . "</h2>";
 	$res .= "<ol class='reference-list'>";
 		foreach ($post_references as $index => $ref) {
-			$res .= "<li id='rel_" . ($index + 1)  . "'>";
+			$res .= "<li id='rel_" . ($index + 1)  . "' tabindex='0'>";
 			if ($ref['count'] == 1){
 				$res .= "<a class='reference-list-backlink' href='#ref_" . ($index + 1) . "_1' aria-label='back'>^</a>";
 			}else{
 				$res .= "<span class='reference-list-backlink'>^</span>";
 				for ($i = 1, $j = 'a'; $i <= $ref['count']; $i++, $j++){
-					$res .= "<a class='reference-list-backlink' href='#ref_" . ($index + 1) . "_" . $i . "' aria-label='back'>" . $j . "</a>";
+					$res .= "<sup><a class='reference-list-backlink' href='#ref_" . ($index + 1) . "_" . $i . "' aria-label='back'>" . $j . "</a></sup>";
 				}
 			}
 			$res .= "<span>" . $ref['content'] . "</span>";
