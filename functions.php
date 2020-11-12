@@ -427,12 +427,12 @@ add_action('get_header', 'set_post_views');
 //字数和预计阅读时间
 function get_article_words($str){
 	$str = preg_replace(
-		'/<code(.*?)>([\w\W]*)<\/code>/',
+		'/<code(.*?)>(.*?)<\/code>/is',
 		'',
 		$str
 	);
 	$str = preg_replace(
-		'/<pre(.*?)>([\w\W]*)<\/pre>/',
+		'/<pre(.*?)>(.*?)<\/pre>/is',
 		'',
 		$str
 	);
