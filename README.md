@@ -69,6 +69,13 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20201114 v1.1.3
++ 支持脚注短代码 (ref)
++ 修复文章字数统计错误
++ 修复文章目录跳转问题
++ 修复验证码问题
++ UI 微调和其他改进
+
 ## 20201025 v1.1.2
 + 回滚 HTML Parse 代码
 + 修复 Fancybox 导致的一系列显示错误问题
