@@ -2305,11 +2305,30 @@ $post_references = array();
 $post_reference_keys_first_index = array();
 function argon_get_ref_html($content, $index, $subIndex){
 	$index++;
-	return "<sup class='reference' id='ref_" . $index . "_" . $subIndex . "' content='" . esc_attr($content) . "' tabindex='0'><a class='reference-link' href='#rel_" . $index . "'>[" . $index . "]</a></sup>";
+	return "<sup class='reference' id='ref_" . $index . "_" . $subIndex . "' data-content='" . esc_attr($content) . "' tabindex='0'><a class='reference-link' href='#ref_" . $index . "'>[" . $index . "]</a></sup>";
 }
 function shortcode_ref($attr,$content=""){
 	global $post_references;
 	global $post_reference_keys_first_index;
+	$content = preg_replace(
+		'/<p>(.*?)<\/p>/is',
+		'</br>$1',
+		$content
+	);
+	$content = wp_kses($content, array(
+		'a' => array(
+			'href' => array(),
+			'title' => array(),
+			'target' => array()
+		),
+		'br' => array(),
+		'em' => array(),
+		'strong' => array(),
+		'b' => array(),
+		'sup' => array(),
+		'sub' => array(),
+		'small' => array()
+	));
 	if (isset($attr['id'])){
 		if (isset($post_reference_keys_first_index[$attr['id']])){
 			$post_references[$post_reference_keys_first_index[$attr['id']]]['count']++;
@@ -2331,10 +2350,10 @@ function get_reference_list(){
 		return "";
 	}
 	$res = "<div class='reference-list-container'>";
-	$res .= "<h3>" . __("参考", 'argon') . "</h2>";
+	$res .= "<h3>" . (get_option('argon_reference_list_title') == "" ? __('参考', 'argon') : get_option('argon_reference_list_title')) . "</h3>";
 	$res .= "<ol class='reference-list'>";
 		foreach ($post_references as $index => $ref) {
-			$res .= "<li id='rel_" . ($index + 1)  . "' tabindex='0'>";
+			$res .= "<li id='ref_" . ($index + 1)  . "'><div>";
 			if ($ref['count'] == 1){
 				$res .= "<a class='reference-list-backlink' href='#ref_" . ($index + 1) . "_1' aria-label='back'>^</a>";
 			}else{
@@ -2344,7 +2363,8 @@ function get_reference_list(){
 				}
 			}
 			$res .= "<span>" . $ref['content'] . "</span>";
-			$res .= "</li>";
+			$res .= "<div class='space' tabindex='-1'></div>";
+			$res .= "</div></li>";
 		}
 	$res .= "</ol>";
 	$res .= "</div>";
@@ -2631,8 +2651,8 @@ function themeoptions_page(){
 						<td>
 							<select name="argon_enable_headroom">
 								<?php $argon_enable_headroom = get_option('argon_enable_headroom'); ?>
-								<option value="false" <?php if ($argon_enable_headroom=='false'){echo 'selected';} ?>>关闭</option>
-								<option value="true" <?php if ($argon_enable_headroom=='true'){echo 'selected';} ?>>开启</option>
+								<option value="false" <?php if ($argon_enable_headroom=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
+								<option value="true" <?php if ($argon_enable_headroom=='true'){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('在页面向下滚动时隐藏顶栏，向上滚动时显示顶栏', 'argon');?></p>
 						</td>
@@ -2991,6 +3011,14 @@ function themeoptions_page(){
 								<option value="true" <?php if ($argon_first_image_as_thumbnail_by_default=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('也可以针对每篇文章单独设置', 'argon');?></p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h3><?php _e('脚注(引用)', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('脚注列表标题', 'argon');?></label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_reference_list_title" value="<?php echo (get_option('argon_reference_list_title') == "" ? __('参考', 'argon') : get_option('argon_reference_list_title')); ?>"/>
+							<p class="description"><?php _e('脚注列表显示在文末，在文章中有脚注的时候会显示。</br>使用 <code>ref</code> 短代码可以在文中插入脚注。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('分享', 'argon');?></h3></th></tr>
@@ -3606,7 +3634,7 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
-						<th><label>评论文字头像</label></th>
+						<th><label><?php _e('评论文字头像', 'argon');?></label></th>
 						<td>
 							<select name="argon_text_gravatar">
 								<?php $argon_text_gravatar = get_option('argon_text_gravatar'); ?>
@@ -4142,6 +4170,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_article_header_style');
 		argon_update_option('argon_text_gravatar');
 		argon_update_option('argon_disable_googlefont');
+		argon_update_option('argon_reference_list_title');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

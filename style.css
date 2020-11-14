@@ -1479,19 +1479,47 @@ sup.reference:focus {
 	box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(var(--themecolor-rgbstr), .3);
 	outline: none;
 }
+html.darkmode sup.reference:focus {
+	box-shadow: 0 0 0 2px #424242, 0 0 0 4px rgba(var(--themecolor-rgbstr), .8);
+}
+html.darkmode.amoled-dark sup.reference:focus {
+	box-shadow: 0 0 0 2px #000, 0 0 0 4px rgba(var(--themecolor-rgbstr), .8);
+}
+.tippy-box[data-theme~='scroll-y'] .tippy-content {
+	max-height: 200px;
+	overflow-y: auto;
+}
+html.darkmode .tippy-box[data-theme~=light]{color:#eee;background-color:#363636}html.darkmode .tippy-box[data-theme~=light][data-placement^=top]>.tippy-arrow:before{border-top-color:#363636}html.darkmode .tippy-box[data-theme~=light][data-placement^=bottom]>.tippy-arrow:before{border-bottom-color:#363636}html.darkmode .tippy-box[data-theme~=light][data-placement^=left]>.tippy-arrow:before{border-left-color:#363636}html.darkmode .tippy-box[data-theme~=light][data-placement^=right]>.tippy-arrow:before{border-right-color:#363636}html.darkmode .tippy-box[data-theme~=light]>.tippy-backdrop{background-color:#363636}html.darkmode .tippy-box[data-theme~=light]>.tippy-svg-arrow{fill:#363636}
+html.darkmode.amoled-dark .tippy-box[data-theme~=light]{color:#eee;background-color:#222}html.darkmode.amoled-dark .tippy-box[data-theme~=light][data-placement^=top]>.tippy-arrow:before{border-top-color:#222}html.darkmode.amoled-dark .tippy-box[data-theme~=light][data-placement^=bottom]>.tippy-arrow:before{border-bottom-color:#222}html.darkmode.amoled-dark .tippy-box[data-theme~=light][data-placement^=left]>.tippy-arrow:before{border-left-color:#222}html.darkmode.amoled-dark .tippy-box[data-theme~=light][data-placement^=right]>.tippy-arrow:before{border-right-color:#222}html.darkmode.amoled-dark .tippy-box[data-theme~=light]>.tippy-backdrop{background-color:#222}html.darkmode.amoled-dark .tippy-box[data-theme~=light]>.tippy-svg-arrow{fill:#222}
 .reference-list {
 	padding-left: 0;
 	list-style: inside none;
 	counter-reset: ol;
+	margin-bottom: 0;
 }
 .reference-list li{
 	font-size: 14px;
-	transition: background .3s ease;
+	position: relative;
+	display: flex;
 }
-.reference-list li:focus {
-	background: rgba(var(--themecolor-rgbstr), .15);
-	outline: none;
+.reference-list li .space {
+	pointer-events: none;
+}
+.reference-list li .space:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: block;
 	border-radius: 3px;
+	transition: background .3s ease;
+	pointer-events: none;
+	background: transparent;
+}
+.reference-list li .space:focus:before {
+	background: rgba(var(--themecolor-rgbstr), .15);
 }
 .reference-list li:before{
 	text-align: right;
@@ -1499,13 +1527,13 @@ sup.reference:focus {
 	content: counter(ol) ". ";
 	white-space: pre;
 }
-.reference-list li > *:first-child{
+.reference-list li > div > *:first-child{
 	margin-right: 5px;
 }
-.reference-list li > sup{
+.reference-list li > div > sup{
 	margin-left: 1px;
 }
-.reference-list li > sup:last-of-type{
+.reference-list li > div > sup:last-of-type{
 	margin-right: 5px;
 }
 /*文章输入密码界面*/
