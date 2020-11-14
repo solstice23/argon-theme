@@ -2303,6 +2303,7 @@ function shortcode_noshortcode($attr,$content=""){
 add_shortcode('ref','shortcode_ref');
 $post_references = array();
 $post_reference_keys_first_index = array();
+$post_reference_contents_first_index = array();
 function argon_get_ref_html($content, $index, $subIndex){
 	$index++;
 	return "<sup class='reference' id='ref_" . $index . "_" . $subIndex . "' data-content='" . esc_attr($content) . "' tabindex='0'><a class='reference-link' href='#ref_" . $index . "'>[" . $index . "]</a></sup>";
@@ -2310,6 +2311,7 @@ function argon_get_ref_html($content, $index, $subIndex){
 function shortcode_ref($attr,$content=""){
 	global $post_references;
 	global $post_reference_keys_first_index;
+	global $post_reference_contents_first_index;
 	$content = preg_replace(
 		'/<p>(.*?)<\/p>/is',
 		'</br>$1',
@@ -2339,9 +2341,16 @@ function shortcode_ref($attr,$content=""){
 		$index = $post_reference_keys_first_index[$attr['id']];
 		return argon_get_ref_html($post_references[$index]['content'], $index, $post_references[$index]['count']);
 	}else{
-		array_push($post_references, array('content' => $content, 'count' => 1));
-		$index = count($post_references) - 1;
-		return argon_get_ref_html($post_references[$index]['content'], $index, $post_references[$index]['count']);
+		if (isset($post_reference_contents_first_index[$content])){
+			$post_references[$post_reference_contents_first_index[$content]]['count']++;
+			$index = $post_reference_contents_first_index[$content];
+			return argon_get_ref_html($post_references[$index]['content'], $index, $post_references[$index]['count']);
+		}else{
+			array_push($post_references, array('content' => $content, 'count' => 1));
+			$post_reference_contents_first_index[$content] = count($post_references) - 1;
+			$index = count($post_references) - 1;
+			return argon_get_ref_html($post_references[$index]['content'], $index, $post_references[$index]['count']);
+		}
 	}
 }
 function get_reference_list(){
