@@ -90,6 +90,11 @@
 		<?php
 			}else{
 				echo argon_get_post_outdated_info();
+
+				global $post_references, $post_reference_keys_first_index;
+				$post_references = array();
+				$post_reference_keys_first_index = array();
+
 				the_content();
 			}
 		?>
