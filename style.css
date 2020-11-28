@@ -3610,6 +3610,7 @@ code[hljs-codeblock-inner] {
 	width: 30px;
 	overflow-x: visible !important;
 	transition: all .3s ease;
+	background: transparent !important;
 }
 .hljs-ln-numbers:before {
 	content: '';
