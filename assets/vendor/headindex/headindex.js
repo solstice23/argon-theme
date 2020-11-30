@@ -11,9 +11,11 @@
                 this.articleWrap = $(this.settings.articleWrapSelector);
                 this.headerList = this.articleWrap.find(':header');
                 this.indexBox = $(this.settings.indexBoxSelector);
+                this.indexScrollBox = $(this.settings.indexScrollBoxSelector);
                 this.scrollBody = $(this.settings.scrollSelector);
                 this.scrollWrap = $(this.settings.scrollWrap);
                 this.manual = false;
+                this.mouseHovered = false;
 
                 if (this.indexBox.length === 0 || this.headerList.length === 0) {
                     return null;
@@ -61,6 +63,14 @@
                         //滚动到当前的标题
                         that.scrollTo(event.target.getAttribute('href'))
                     }
+                });
+
+                //鼠标 Hover 监听
+                this.indexScrollBox.on('mouseover', function (event) {
+                    that.mouseHovered = true;
+                });
+                this.indexScrollBox.on('mouseleave', function (event) {
+                    that.mouseHovered = false;
                 });
 
                 //滑动监听
@@ -133,6 +143,27 @@
                 }
                 //为当前添加current类
                 indexItem.addClass(currentClass);
+                //如果超出了目录的边界，则滚动到目录中
+                if (this.mouseHovered){
+                    return;
+                }
+                var relativeOffsetTopToWrapper = indexItem.position().top;
+                var indexScrollBoxScrollTop = this.indexScrollBox.scrollTop();
+                var indexScrollBoxHeight = this.indexScrollBox.height();
+                if (relativeOffsetTopToWrapper < 20 + indexItem.height()){
+                    var target = indexScrollBoxScrollTop + relativeOffsetTopToWrapper - 20 - indexItem.height();
+                    if (target < 30){
+                        target = 0;
+                    }
+                    this.indexScrollBox.stop().animate({
+                        scrollTop: target
+                    }, 'fast');
+                }
+                if (relativeOffsetTopToWrapper > indexScrollBoxHeight - 10){
+                    this.indexScrollBox.stop().animate({
+                        scrollTop: indexScrollBoxScrollTop + relativeOffsetTopToWrapper - indexScrollBoxHeight + 10 + indexItem.height()
+                    }, 'fast');
+                }
             },
 
             buildHtml: function (tree) {
@@ -310,6 +341,7 @@
     $.fn.headIndex.default = {
         articleWrapSelector: ".article-wrap",/*包裹文章的选择器*/
         indexBoxSelector: ".index-box",/*包裹目录索引的选择器*/
+        indexScrollBoxSelector: "#leftbar_part2_inner",/*包裹目录索引的选择器 (新增)*/
         scrollSelector: 'body,html',/*滑动元素的选择器*/
         scrollWrap: window,/*能够监听到scrollSelector滑动的选择器*/
         subItemBoxClass: "index-subItem-box",
