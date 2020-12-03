@@ -46,7 +46,7 @@
 		$cardradius = "4";
 	}
 	$cardradius_origin = $cardradius;
-	if ($_COOKIE["argon_card_radius"] != ""){
+	if (isset($_COOKIE["argon_card_radius"]) && $_COOKIE["argon_card_radius"] != ""){
 		$cardradius = $_COOKIE["argon_card_radius"];
 	}
 ?>

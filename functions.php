@@ -199,7 +199,7 @@ function argon_has_post_thumbnail($postID = 0){
 	if (has_post_thumbnail()){
 		return true;
 	}
-	$argon_first_image_as_thumbnail = get_post_meta($post -> ID, 'argon_first_image_as_thumbnail', true);
+	$argon_first_image_as_thumbnail = get_post_meta($postID, 'argon_first_image_as_thumbnail', true);
 	if ($argon_first_image_as_thumbnail == ""){
 		$argon_first_image_as_thumbnail = "default";
 	}
@@ -216,7 +216,7 @@ function argon_get_post_thumbnail($postID = 0){
 		$postID = $post -> ID;
 	}
 	if (has_post_thumbnail()){
-		return wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "full")[0];
+		return wp_get_attachment_image_src(get_post_thumbnail_id($postID), "full")[0];
 	}
 	return argon_get_first_image_of_article();
 }
@@ -390,6 +390,10 @@ function get_post_views($post_id){
 	return number_format_i18n($count);
 }
 function set_post_views(){
+	if (!isset($post_id)){
+		global $post;
+		$post_id = $post -> ID;
+	}
 	if (post_password_required($post_id)){
 		return;
 	}
@@ -643,9 +647,7 @@ function check_login_user_same($userid){
 	if ($userid == 0){
 		return false;
 	}
-	global $current_user;
-	get_currentuserinfo();
-	if ($userid != ($current_user -> ID)){
+	if ($userid != (wp_get_current_user() -> ID)){
 		return false;
 	}
 	return true;
@@ -875,10 +877,10 @@ function get_comment_captcha_seed($refresh = false){
 class captcha_calculation{ //数字验证码
 	var $captchaSeed;
 	function __construct($seed) {
-		$this -> $captchaSeed = $seed;
+		$this -> captchaSeed = $seed;
 	}
 	function getChallenge(){
-		mt_srand($this -> $captchaSeed + 10007);
+		mt_srand($this -> captchaSeed + 10007);
 		$oper = mt_rand(1 , 4);
 		$num1 = 0;
 		$num2 = 0;
@@ -908,7 +910,7 @@ class captcha_calculation{ //数字验证码
 		}
 	}
 	function getAnswer(){
-		mt_srand($this -> $captchaSeed + 10007);
+		mt_srand($this -> captchaSeed + 10007);
 		$oper = mt_rand(1 , 4);
 		$num1 = 0;
 		$num2 = 0;
@@ -1357,6 +1359,9 @@ function get_argon_comment_paginate_links_prev_url(){
 		$str,
 		$url
 	);
+	if (!isset($url[1])){
+		return NULL;
+	}
 	return $url[1];
 }
 //QQ Avatar 获取
