@@ -770,7 +770,7 @@ function argon_get_comment_text($comment_ID = 0, $args = array()) {
 	if (get_option("argon_comment_emotion_keyboard", "true") != "false"){
 		global $emotionListDefault;
 		$emotionList = apply_filters("argon_emotion_list", $emotionListDefault);
-		foreach ($emotionList as $groupIndex => $group){ 
+		foreach ($emotionList as $groupIndex => $group){
 			foreach ($group['list'] as $index => $emotion){
 				if ($emotion['type'] != 'sticker'){
 					continue;
@@ -2725,6 +2725,13 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('Banner Logo图 (地址)', 'argon');?></label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_banner_logo_url" value="<?php echo get_option('argon_banner_logo_url'); ?>"/>
+							<p class="description"><?php _e('需带上 http(s) ，留空则不显示', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('Banner 渐变背景样式', 'argon');?></label></th>
 						<td>
 							<select name="argon_banner_background_color_type">
@@ -4115,6 +4122,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_banner_title');
 		argon_update_option('argon_banner_subtitle');
 		argon_update_option('argon_banner_background_url');
+		argon_update_option('argon_banner_logo_url');
 		argon_update_option('argon_banner_background_color_type');
 		argon_update_option('argon_banner_background_hide_shapes');
 		argon_update_option('argon_enable_smoothscroll_type');
