@@ -758,7 +758,7 @@ function argon_get_comment_text($comment_ID = 0, $args = array()) {
 	);
 	$comment_text = preg_replace(
 		'/<img src="(.*?)" alt="(.*?)" \/>/',
-		'<a href="$1" title="$2" data-fancybox="comment-' . $comment_ID -> comment_ID . '-image" class="comment-image" rel="nofollow">
+		'<a href="$1" title="$2" data-fancybox="comment-' . $comment -> comment_ID . '-image" class="comment-image" rel="nofollow">
 			<i class="fa fa-image" aria-hidden="true"></i>
 			' . __('查看图片', 'argon') . '
 			<img src="" alt="$2" class="comment-image-preview">
@@ -1367,6 +1367,9 @@ function get_argon_comment_paginate_links_prev_url(){
 //QQ Avatar 获取
 function get_avatar_by_qqnumber($avatar){
 	global $comment;
+	if (!isset($comment) || !isset($comment -> comment_ID)){
+		return $avatar;
+	}
 	$qqnumber = get_comment_meta($comment -> comment_ID, 'qq_number', true);
 	if (!empty($qqnumber)){
 		preg_match_all('/width=\'(.*?)\'/', $avatar, $preg_res);
@@ -4092,6 +4095,13 @@ function argon_update_option($name){
 function argon_update_option_allow_tags($name){
 	update_option($name, stripslashes($_POST[$name]));
 }
+function argon_update_option_checkbox($name){
+	if (isset($_POST[$name]) && $_POST[$name] == 'true'){
+		update_option($name, 'true');
+	}else{
+		update_option($name, 'false');
+	}
+}
 function argon_update_themeoptions(){
 	if (!isset($_POST['update_themeoptions'])){
 		return;
@@ -4116,7 +4126,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_banner_subtitle');
 		argon_update_option('argon_banner_background_url');
 		argon_update_option('argon_banner_background_color_type');
-		argon_update_option('argon_banner_background_hide_shapes');
+		argon_update_option_checkbox('argon_banner_background_hide_shapes');
 		argon_update_option('argon_enable_smoothscroll_type');
 		argon_update_option('argon_gravatar_cdn');
 		argon_update_option_allow_tags('argon_footer_html');
@@ -4135,7 +4145,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_fab_show_gotocomment_button');
 		argon_update_option('argon_show_headindex_number');
 		argon_update_option('argon_theme_color');
-		update_option('argon_show_customize_theme_color_picker', ($_POST['argon_show_customize_theme_color_picker'] == 'true')?'true':'false');
+		argon_update_option_checkbox('argon_show_customize_theme_color_picker');
 		argon_update_option_allow_tags('argon_seo_description');
 		argon_update_option('argon_seo_keywords');
 		argon_update_option('argon_enable_mobile_scale');
@@ -4153,7 +4163,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_comment_allow_editing');
 		argon_update_option('argon_comment_allow_privatemode');
 		argon_update_option('argon_comment_allow_mailnotice');
-		update_option('argon_comment_mailnotice_checkbox_checked', ($_POST['argon_comment_mailnotice_checkbox_checked'] == 'true')?'true':'false');
+		argon_update_option_checkbox('argon_comment_mailnotice_checkbox_checked');
 		argon_update_option('argon_comment_pagination_type');
 		argon_update_option('argon_who_can_visit_comment_edit_history');
 		argon_update_option('argon_home_show_shuoshuo');
@@ -4163,7 +4173,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_outdated_info_days');
 		argon_update_option('argon_outdated_info_tip_type');
 		argon_update_option('argon_outdated_info_tip_content');
-		update_option('argon_show_toolbar_mask', ($_POST['argon_show_toolbar_mask'] == 'true')?'true':'false');
+		argon_update_option_checkbox('argon_show_toolbar_mask');
 		argon_update_option('argon_enable_banner_title_typing_effect');
 		argon_update_option('argon_banner_typing_effect_interval');
 		argon_update_option('argon_page_layout');
