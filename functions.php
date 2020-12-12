@@ -320,7 +320,7 @@ function get_random_token(){
 	return md5(uniqid(microtime(true), true));
 }
 function set_user_token_cookie(){
-	if (strlen($_COOKIE["argon_user_token"]) != 32){
+	if (!isset($_COOKIE["argon_user_token"]) || strlen($_COOKIE["argon_user_token"]) != 32){
 		$newToken = get_random_token();
 		setcookie("argon_user_token", $newToken, time() + 10 * 365 * 24 * 60 * 60, "/");
 		$_COOKIE["argon_user_token"] = $newToken;
@@ -600,7 +600,7 @@ function parse_ua_and_icon($userAgent){
 	}
 	$parsed = argon_parse_user_agent($userAgent);
 	$out = "<div class='comment-useragent'>";
-	if ($argon_comment_show_ua['platform'] == true){
+	if (isset($argon_comment_show_ua['platform']) && $argon_comment_show_ua['platform'] == true){
 		if (isset($GLOBALS['UA_ICON'][$parsed['platform']])){
 			$out .= $GLOBALS['UA_ICON'][$parsed['platform']] . " ";
 		}else{
@@ -608,14 +608,14 @@ function parse_ua_and_icon($userAgent){
 		}
 		$out .= $parsed['platform'];
 	}
-	if ($argon_comment_show_ua['browser'] == true){
+	if (isset($argon_comment_show_ua['browser']) && $argon_comment_show_ua['browser'] == true){
 		if (isset($GLOBALS['UA_ICON'][$parsed['browser']])){
 			$out .= " " . $GLOBALS['UA_ICON'][$parsed['browser']];
 		}else{
 			$out .= " " . $GLOBALS['UA_ICON']['Unknown'];
 		}
 		$out .= " " . $parsed['browser'];
-		if ($argon_comment_show_ua['version'] == true){
+		if (isset($argon_comment_show_ua['version']) && $argon_comment_show_ua['version'] == true){
 			$out .= " " . $parsed['version'];
 		}
 	}
@@ -1469,7 +1469,7 @@ function text_gravatar($url){
 	$url .= '&d=404';
 	return $url;
 }
-if (get_option('argon_text_gravatar', 'false') == 'true'){
+if (get_option('argon_text_gravatar', 'false') == 'true' && !is_admin()){
 	add_filter('get_avatar_url', 'text_gravatar');
 }
 //说说点赞
