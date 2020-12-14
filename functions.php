@@ -2725,7 +2725,7 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr>
-						<th><label><?php _e('Banner Logo图 (地址)', 'argon');?></label></th>
+						<th><label><?php _e('Banner Logo 图 (地址)', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_banner_logo_url" value="<?php echo get_option('argon_banner_logo_url'); ?>"/>
 							<p class="description"><?php _e('需带上 http(s) ，留空则不显示', 'argon');?></p>

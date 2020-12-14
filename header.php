@@ -394,7 +394,7 @@
 		$enable_banner_title_typing_effect = get_option('argon_enable_banner_title_typing_effect') != 'true' ? "false" : get_option('argon_enable_banner_title_typing_effect');
 
         if (get_option('argon_banner_logo_url') != '') {
-            $banner_logo = "<img src=\"" . get_option('argon_banner_logo_url') . "\" alt=\"logo\">";
+            $banner_logo = "<img src=\"" . esc_attr(get_option('argon_banner_logo_url')) . "\" alt=\"logo\">";
         } else {
 	        $banner_logo = "";
         }
