@@ -69,6 +69,12 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20201220 v1.1.5
++ 文章目录聚焦时会自动滚动
++ 适配 PHP 8
++ 修复评论文字头像加载错误问题
++ 修复错误
+
 ## 20201114 v1.1.4
 + 修复脚注重复的问题
 + 新增对重复脚注的处理
