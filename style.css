@@ -474,6 +474,13 @@ html.darkmode.amoled-dark #navbar-main{
 	text-transform: none;
 	vertical-align: middle;
 }
+.navbar-brand h1 {
+	margin: 0;
+	padding: 0;
+	line-height: 21px;
+	height: 22px;
+	font-size: 14px;
+}
 .navbar-brand:focus , .navbar-brand:hover{
 	color: #fff !important;
 }
