@@ -681,6 +681,25 @@ function user_can_view_comment($id){
 	}
 	return false;
 }
+//过滤 RSS 中悄悄话
+function remove_rss_private_comment_title_and_author($str){
+	global $comment;
+	if (is_comment_private_mode($comment -> comment_ID)){
+		return "***";
+	}
+	return $str;
+}
+add_filter('the_title_rss' , 'remove_rss_private_comment_title_and_author');
+add_filter('comment_author_rss' , 'remove_rss_private_comment_title_and_author');
+function remove_rss_private_comment_content($str){
+	global $comment;
+	if (is_comment_private_mode($comment -> comment_ID)){
+		$comment -> comment_content = __('该评论为悄悄话', 'argon');
+		return $comment -> comment_content;
+	}
+	return $str;
+}
+add_filter('comment_text_rss' , 'remove_rss_private_comment_content');
 //是否可以查看评论编辑记录
 function can_visit_comment_edit_history($id){
 	$who_can_visit_comment_edit_history = get_option("argon_who_can_visit_comment_edit_history");
