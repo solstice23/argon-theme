@@ -98,6 +98,9 @@ article .post-content a:before{
 article .post-content a:hover:before{
 	transform: scaleX(1);
 }
+article .post-content a.no-hover-underline:before{
+	display: none;
+}
 article pre:not(.hljs-codeblock){
 	font-family: Consolas,Menlo,Monaco,'Andale Mono WT','Andale Mono','Lucida Console','Lucida Sans Typewriter','DejaVu Sans Mono','Bitstream Vera Sans Mono','Liberation Mono','Nimbus Mono L','Courier New',Courier,monospace;
 	font-size: 14px;
