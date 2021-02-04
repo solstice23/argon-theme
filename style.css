@@ -3615,6 +3615,7 @@ code[hljs-codeblock-inner] {
 	left: 20px;
 	width: 30px;
 	overflow-x: visible !important;
+	white-space: nowrap;
 	transition: all .3s ease;
 	background: transparent !important;
 }
