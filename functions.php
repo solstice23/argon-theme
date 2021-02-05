@@ -327,7 +327,9 @@ function set_user_token_cookie(){
 	}
 }
 set_user_token_cookie();
-session_start();
+if (!session_id()){
+	session_start();
+}
 //页面 Description Meta
 function get_seo_description(){
 	global $post;
@@ -887,12 +889,18 @@ function argon_comment_shuoshuo_preview_format($comment, $args, $depth){
 //评论验证码生成 & 验证
 function get_comment_captcha_seed($refresh = false){
 	if (isset($_SESSION['captchaSeed']) && !$refresh){
-		return $_SESSION['captchaSeed'];
+		$res = $_SESSION['captchaSeed'];
+		if (empty($_POST)){
+			session_write_close();
+		}
+		return $res;
 	}
 	$captchaSeed = rand(0 , 500000000);
 	$_SESSION['captchaSeed'] = $captchaSeed;
+	session_write_close();
 	return $captchaSeed;
 }
+get_comment_captcha_seed();
 class captcha_calculation{ //数字验证码
 	var $captchaSeed;
 	function __construct($seed) {
