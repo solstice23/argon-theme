@@ -1639,29 +1639,30 @@ html.darkmode.amoled-dark .tippy-box[data-theme~=light]{color:#eee;background-co
 .related-posts {
 	display: block;
 	white-space: nowrap;
-	overflow-x: auto;
 	margin-bottom: 25px;
-	padding: 15px;
-	padding-bottom: 5px;
+	padding: 0; 
+	padding-bottom: 0; 
 }
 .related-post-card {
 	display: inline-block;
-	height: 144px;
-	width: 256px;
-	overflow: hidden;
-	border: 1px solid rgba(108, 119, 147, 0.2);
+	height: 105px;
+	width: 180px;
 	border-radius: 5px;
 	margin-right: 10px;
-	font-size: 18px;
+	font-size: 16px;
 	line-height: 27px;
 	white-space: normal;
 	transition: all .3s ease;
 	position: relative;
+	background: var(--themecolor-gradient);
 }
 .related-post-card:hover {
-	background: rgba(var(--themecolor-rgbstr), .1);
+	opacity: 0.5;
 	box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
 	border-color: transparent;
+}
+.related-post-title.clamp {
+	color: white;
 }
 .related-post-card-container {
 	position: absolute;
@@ -1694,6 +1695,31 @@ html.darkmode.amoled-dark .tippy-box[data-theme~=light]{color:#eee;background-co
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+i.related-post-arrow.fa.fa-chevron-right {
+	color: white;
+}
+img.related-post-thumbnail {
+	vertical-align: unset;
+}
+html.darkmode a.related-post-card {
+	background: #303030;
+	opacity: 0.7;
+	border: 1px solid rgba(108, 119, 147, 0.2);
+	border-radius: 5px;
+}
+html.darkmode .related-post-card:hover {
+	opacity: 0.9;
+}
+html.darkmode .related-post-title.clamp {
+	color: var(--themecolor-light);
+}
+html.darkmode.amoled-dark a.related-post-card {
+	background: #000;
+	opacity: 1.0;
+}
+html.darkmode.amoled-dark a.related-post-card:hover {
+	background: #0e0e0e;
 }
 /*文章赞赏*/
 .post-donate {
