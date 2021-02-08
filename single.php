@@ -80,7 +80,12 @@
 					)
 				));
 				if ($query -> have_posts()) {
-					echo '<div class="related-posts card shadow-sm">';
+					echo '<div class="related-posts card shadow-sm">
+                    <h2 class="post-comment-title" style="margin-top: 1.2rem;margin-left: 1.5rem;margin-right: 1.5rem;">
+                    <i class="fa fa-book"></i>
+			        <span>' . __("推荐文章", 'argon') . '</span>
+		            </h2>
+		            <div style="overflow-x: auto;padding: 1.5rem;padding-top: 0.8rem;padding-bottom: 0.8rem;}">';
 					while ($query -> have_posts()) {
 						$query -> the_post();
 						$hasThumbnail = argon_has_post_thumbnail(get_the_ID());
@@ -94,7 +99,7 @@
 						}
 						echo '</a>';
 					}
-					echo '</div>';
+					echo '</div></div>';
 					wp_reset_query();
 				}
 			}
