@@ -69,6 +69,14 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20210208 v1.1.6
++ 修复代码行数显示错误
++ 修复 RSS 问题
++ 修复 REST API 错误
++ 完善翻译
++ 修复一些显示问题
++ 更新 版本号
+
 ## 20201220 v1.1.5
 + 文章目录聚焦时会自动滚动
 + 适配 PHP 8
