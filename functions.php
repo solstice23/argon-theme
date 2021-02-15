@@ -442,13 +442,16 @@ function get_article_words($str){
 		'',
 		$str
 	);
-	/*$str = preg_replace(
-		'/\s/',
+	$str = preg_replace(
+		'/<style(.*?)>(.*?)<\/style>/is',
 		'',
-		html_entity_decode(
-			strip_tags($str)
-		)
-	);*/
+		$str
+	);
+	$str = preg_replace(
+		'/<script(.*?)>(.*?)<\/script>/is',
+		'',
+		$str
+	);
 	$str = html_entity_decode(strip_tags($str));
 	preg_match_all('/[\x{4e00}-\x{9fa5}]/u' , $str , $cnRes);
 	$cnTotal = count($cnRes[0]);
