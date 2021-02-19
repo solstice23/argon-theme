@@ -1467,12 +1467,11 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 	NProgress.inc();
 	try{
 		if (MathJax != undefined){
-			MathJax.typeset();
-		}
-	}catch (err){}
-	try{
-		if ($("script#mathjax_v2_script" , $vdom).length > 0){
-			MathJax.Hub.Typeset();
+			if (MathJax.Hub != undefined){
+				MathJax.Hub.Typeset();
+			}else{
+				MathJax.typeset();
+			}
 		}
 	}catch (err){}
 	try{
