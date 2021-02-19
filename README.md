@@ -69,6 +69,12 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20210219 v1.1.7
++ 修复 Mathjax v2 Pjax 加载后不渲染问题
++ 修复字数统计错误问题
++ 更改文末推荐文章列表样式
++ 分享功能支持只显示国内/国外/全部社交媒体
+
 ## 20210208 v1.1.6
 + 修复代码行数显示错误
 + 修复 RSS 问题
