@@ -49,6 +49,31 @@
 				});
 			</script>
 			<script src="<?php echo get_option('argon_mathjax_v2_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML' : get_option('argon_mathjax_v2_cdn_url'); ?>"></script>
+			<script>
+				$(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):not([download]):not(.reference-link):not(.reference-list-backlink)")
+				.on('pjax:complete', function() {
+					$.getScript("<?php echo get_option('argon_mathjax_v2_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML' : get_option('argon_mathjax_v2_cdn_url'); ?>", function() {
+						MathJax.Hub.Config({
+							messageStyle: "none",
+							tex2jax: {
+								inlineMath: [["$", "$"], ["\\\\(", "\\\\)"]],
+								displayMath: [['$$','$$']],
+								processEscapes: true,
+								skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+							},
+							menuSettings: {
+								zoom: "Hover",
+								zscale: "200%"
+							},
+							"HTML-CSS": {
+								showMathMenu: "false"
+							}
+						});
+						var math = document.getElementsByClassName("entry-content")[0];
+						MathJax.Hub.Queue(["Typeset",MathJax.Hub,math]);
+					});
+				});
+			</script>
 		<?php }?>
 		<?php if (get_option('argon_math_render') == 'katex') { /*Katex*/?>
 			<link rel="stylesheet" href="<?php echo get_option('argon_katex_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/katex@0.11.1/dist/' : get_option('argon_katex_cdn_url'); ?>katex.min.css">
