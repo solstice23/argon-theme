@@ -1647,7 +1647,7 @@ html.darkmode.amoled-dark .tippy-box[data-theme~=light]{color:#eee;background-co
 	display: inline-block;
 	height: 105px;
 	width: 180px;
-	border-radius: 5px;
+	border-radius: var(--card-radius);
 	margin-right: 10px;
 	font-size: 16px;
 	line-height: 27px;
@@ -1700,14 +1700,14 @@ i.related-post-arrow.fa.fa-chevron-right {
 	color: white;
 }
 img.related-post-thumbnail {
-	border-radius: 5px;
+	border-radius: var(--card-radius);
 	vertical-align: unset;
 }
 html.darkmode a.related-post-card {
 	background: #303030;
 	opacity: 0.7;
 	border: 1px solid rgba(108, 119, 147, 0.2);
-	border-radius: 5px;
+	border-radius: var(--card-radius);
 }
 html.darkmode .related-post-card:hover {
 	opacity: 0.9;
