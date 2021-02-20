@@ -1700,6 +1700,7 @@ i.related-post-arrow.fa.fa-chevron-right {
 	color: white;
 }
 img.related-post-thumbnail {
+	border-radius: 5px;
 	vertical-align: unset;
 }
 html.darkmode a.related-post-card {
