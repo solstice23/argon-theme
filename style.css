@@ -1655,9 +1655,10 @@ html.darkmode.amoled-dark .tippy-box[data-theme~=light]{color:#eee;background-co
 	transition: all .3s ease;
 	position: relative;
 	background: var(--themecolor-gradient);
+	overflow: hidden;
 }
 .related-post-card:hover {
-	opacity: 0.5;
+	filter: brightness(0.9);
 	box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
 	border-color: transparent;
 }
@@ -1705,14 +1706,13 @@ img.related-post-thumbnail {
 html.darkmode a.related-post-card {
 	background: #303030;
 	opacity: 0.7;
-	border: 1px solid rgba(108, 119, 147, 0.2);
 	border-radius: 5px;
-}
-html.darkmode .related-post-card:hover {
-	opacity: 0.9;
 }
 html.darkmode .related-post-title.clamp {
 	color: var(--themecolor-light);
+}
+html.darkmode .has-thumbnail .related-post-title.clamp{
+	color: #eee;
 }
 html.darkmode.amoled-dark a.related-post-card {
 	background: #000;
