@@ -1707,7 +1707,7 @@ html.darkmode a.related-post-card {
 	background: #303030;
 	opacity: 0.7;
 	border: 1px solid rgba(108, 119, 147, 0.2);
-	border-radius: var(--card-radius);
+	border-radius: 5px;
 }
 html.darkmode .related-post-card:hover {
 	opacity: 0.9;
