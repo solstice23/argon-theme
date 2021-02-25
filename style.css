@@ -3066,6 +3066,9 @@ article img.lazyload[src^='data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg'
 }
 
 /*Fancybox 样式*/
+.fancybox-wrapper{
+	width: max-content;
+}
 .fancybox-wrapper > img{
 	cursor: pointer;
 	cursor: -webkit-zoom-in;
