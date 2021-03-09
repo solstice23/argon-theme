@@ -231,7 +231,7 @@
 						'child_of' => 0,
 						'orderby' => 'name',
 						'order' => 'ASC',
-						'hide_empty' => 1,
+						'hide_empty' => 0,
 						'hierarchical' => 0,
 						'taxonomy' => 'category',
 						'pad_counts' => false
@@ -259,7 +259,7 @@
 						'child_of' => 0,
 						'orderby' => 'name',
 						'order' => 'ASC',
-						'hide_empty' => 1,
+						'hide_empty' => 0,
 						'hierarchical' => 0,
 						'taxonomy' => 'post_tag',
 						'pad_counts' => false
