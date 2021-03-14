@@ -3549,7 +3549,7 @@ window.pjaxLoaded = function(){
 								<option value="true" <?php if ($argon_comment_emotion_keyboard=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
 								<option value="false" <?php if ($argon_comment_emotion_keyboard=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
 							</select>
-							<p class="description"><?php _e('开启后评论支持插入表情，会在评论输入框下显示表情键盘按钮。', 'argon');?></br><a href="https://argon-docs.solstice23.top/configuration/emotions" target="_blank"><?php _e('如何添加新的表情或修改已有表情列表？', 'argon');?></a></p>
+							<p class="description"><?php _e('开启后评论支持插入表情，会在评论输入框下显示表情键盘按钮。', 'argon');?></br><a href="https://argon-docs.solstice23.top/#/emotions" target="_blank"><?php _e('如何添加新的表情或修改已有表情列表？', 'argon');?></a></p>
 						</td>
 					</tr>
 					<tr>
