@@ -392,6 +392,9 @@ function get_post_views($post_id){
 	return number_format_i18n($count);
 }
 function set_post_views(){
+	if (!is_single() && !is_page()) {
+		return;
+	}
 	if (!isset($post_id)){
 		global $post;
 		$post_id = $post -> ID;
