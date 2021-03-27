@@ -216,9 +216,9 @@ function argon_get_post_thumbnail($postID = 0){
 		$postID = $post -> ID;
 	}
 	if (has_post_thumbnail()){
-		return wp_get_attachment_image_src(get_post_thumbnail_id($postID), "full")[0];
+		return apply_filters("argon_post_thumbnail", wp_get_attachment_image_src(get_post_thumbnail_id($postID), "full")[0]);
 	}
-	return argon_get_first_image_of_article();
+	return apply_filters("argon_post_thumbnail", argon_get_first_image_of_article());
 }
 //文末附加内容
 function get_additional_content_after_post(){
@@ -628,7 +628,7 @@ function parse_ua_and_icon($userAgent){
 		}
 	}
 	$out .= "</div>";
-	return $out;
+	return apply_filters("argon_comment_ua_icon", $out);
 }
 //发送邮件
 function send_mail($to, $subject, $content){
@@ -1166,6 +1166,7 @@ function comment_mail_notify($comment){
 						<a href='" . $unsubscribeLink . "' style='color: #5e72e4;font-size: 16px;text-decoration: none;'>" . __("退订该评论的邮件提醒", 'argon') . "</a>
 					</div>
 				</div>";
+			$html = apply_filters("argon_comment_mail_notification_content", $html); 
 			send_mail($parentEmail, $title, $html);
 		}
 	}
