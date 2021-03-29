@@ -1420,14 +1420,14 @@ clampInit();
 /*Tippy.js*/
 function tippyInit(){
 	//Reference Popover
-	tippy('sup.reference[data-content]:not(tippy-initialized)', {
+	tippy('sup.reference[data-content]:not(.tippy-initialized)', {
 		content: (reference) => reference.getAttribute('data-content'),
 		allowHTML: true,
 		interactive: true,theme: 'light scroll-y',
 		delay: [100, 250],
 		animation: 'fade'
 	});
-	$("sup.reference[data-content]:not(tippy-initialized)").addClass("tippy-initialized");
+	$("sup.reference[data-content]:not(.tippy-initialized)").addClass("tippy-initialized");
 }
 tippyInit();
 
