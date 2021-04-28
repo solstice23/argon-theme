@@ -163,7 +163,7 @@
 				return;
 			}
 			let hour = new Date().getHours();
-			if (hour < 7 || hour >= 22){
+			if (<?php echo apply_filters("argon_darkmode_time_check", "hour < 7 || hour >= 22")?>){
 				setDarkmode(true);
 			}else{
 				setDarkmode(false);
