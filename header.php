@@ -217,7 +217,7 @@
 <style id="themecolor_css">
 	<?php
 		$themecolor_rgbstr = hex2str($themecolor);
-		$RGB = hex2rgb($themecolor);
+		$RGB = hexstr2rgb($themecolor);
 		$HSL = rgb2hsl($RGB['R'], $RGB['G'], $RGB['B']);
 
 		$RGB_dark0 = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.025, 0));
