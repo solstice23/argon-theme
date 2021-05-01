@@ -1969,10 +1969,10 @@ function highlightJsRender(){
 	if (typeof(hljs) == "undefined"){
 		return;
 	}
-	if (typeof(argonConfig.enable_code_highlight) == "undefined"){
+	if (typeof(argonConfig.code_highlight.enable) == "undefined"){
 		return;
 	}
-	if (!argonConfig.enable_code_highlight){
+	if (!argonConfig.code_highlight.enable){
 		return;
 	}
 	$("article pre.code").each(function(index, block) {
@@ -1989,6 +1989,12 @@ function highlightJsRender(){
 		hljs.highlightBlock(block);
 		hljs.lineNumbersBlock(block, {singleLine: true});
 		$(block).parent().addClass("hljs-codeblock");
+		if (argonConfig.code_highlight.hide_linenumber){
+			$(block).parent().addClass("hljs-hide-linenumber");
+		}
+		if (argonConfig.code_highlight.break_line){
+			$(block).parent().addClass("hljs-break-line");
+		}
 		$(block).attr("hljs-codeblock-inner", "");
 		let copyBtnID = "copy_btn_" + randomString();
 		$(block).parent().append(`<div class="hljs-control hljs-title">

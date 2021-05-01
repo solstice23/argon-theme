@@ -123,7 +123,11 @@
 			fold_long_comments: <?php echo get_option('argon_fold_long_comments', 'false'); ?>,
 			disable_pjax: <?php echo get_option('argon_pjax_disabled', 'false'); ?>,
 			headroom: <?php echo get_option('argon_enable_headroom', 'false'); ?>,
-			enable_code_highlight: <?php echo get_option('argon_enable_code_highlight', 'false'); ?>
+			code_highlight: {
+				enable: <?php echo get_option('argon_enable_code_highlight', 'false'); ?>,
+				hide_linenumber: <?php echo get_option('argon_code_highlight_hide_linenumber', 'false'); ?>,
+				break_line: <?php echo get_option('argon_code_highlight_break_line', 'false'); ?>
+			}
 		}
 	</script>
 	<script>

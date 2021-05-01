@@ -3282,8 +3282,24 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr>
-						<th><label style="opacity: .6;">More settings are coming soon..</label></th>
-
+						<th><label><?php _e('默认显示行号', 'argon');?></label></th>
+						<td>
+							<select name="argon_code_highlight_hide_linenumber">
+								<?php $argon_code_highlight_hide_linenumber = get_option('argon_code_highlight_hide_linenumber'); ?>
+								<option value="false" <?php if ($argon_code_highlight_hide_linenumber=='false'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>
+								<option value="true" <?php if ($argon_code_highlight_hide_linenumber=='true'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th><label><?php _e('默认启用自动折行', 'argon');?></label></th>
+						<td>
+							<select name="argon_code_highlight_break_line">
+								<?php $argon_code_highlight_break_line = get_option('argon_code_highlight_break_line'); ?>
+								<option value="false" <?php if ($argon_code_highlight_break_line=='false'){echo 'selected';} ?>><?php _e('不启用', 'argon');?></option>
+								<option value="true" <?php if ($argon_code_highlight_break_line=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+							</select>
+						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('数学公式', 'argon');?></h2></th></tr>
 					<tr>
@@ -4220,6 +4236,8 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_font');
 		argon_update_option('argon_card_shadow');
 		argon_update_option('argon_enable_code_highlight');
+		argon_update_option('argon_code_highlight_hide_linenumber');
+		argon_update_option('argon_code_highlight_break_line');
 		argon_update_option('argon_code_theme');
 		argon_update_option('argon_comment_enable_qq_avatar');
 		argon_update_option('argon_enable_login_css');
