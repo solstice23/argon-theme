@@ -416,6 +416,11 @@
 
 <?php if (get_option('argon_page_background_url') != '') { ?>
 	<style>
+		<?php if (get_option('argon_page_background_banner_style', 'false') == 'transparent') { ?>
+			#banner, #banner .shape {
+				background: transparent !important;
+			}
+		<?php } ?>
 		#content:before {
 			content: '';
 			display: block;
@@ -457,11 +462,6 @@
 			}
 			html.darkmode #content:before {
 				opacity: 0;
-			}
-		<?php } ?>
-		<?php if (get_option('argon_page_background_banner_style') != '' && get_option('argon_page_background_banner_style') != 'false') { ?>
-			#banner, #banner .shape {
-				background: transparent !important;
 			}
 		<?php } ?>
 	</style>
