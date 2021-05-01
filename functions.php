@@ -1659,7 +1659,7 @@ function rgb2hex($r,$g,$b){
 	}
 	return "#".$rh.$gh.$bh;
 }
-function hex2rgb($hex){
+function hexstr2rgb($hex){
 	//$hex: #XXXXXX
 	return array(
 		'R' => hexdec(substr($hex,1,2)),//0~255
@@ -1674,13 +1674,13 @@ function rgb2str($rgb){
 	return $rgb['R']. "," .$rgb['G']. "," .$rgb['B'];
 }
 function hex2str($hex){
-	return rgb2str(hex2rgb($hex));
+	return rgb2str(hexstr2rgb($hex));
 }
 function rgb2gray($R,$G,$B){
 	return round($R * 0.299 + $G * 0.587 + $B * 0.114);
 }
 function hex2gray($hex){
-	$rgb_array = hex2rgb($hex);
+	$rgb_array = hexstr2rgb($hex);
 	return rgb2gray($rgb_array['R'], $rgb_array['G'], $rgb_array['B']);
 }
 function checkHEX($hex){
