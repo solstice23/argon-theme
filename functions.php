@@ -2304,7 +2304,8 @@ function shortcode_github($attr,$content=""){
 }
 add_shortcode('video','shortcode_video');
 function shortcode_video($attr,$content=""){
-	$url = isset($attr['url']) ? $attr['url'] : '';
+	$url = isset($attr['mp4']) ? $attr['mp4'] : '';
+	$url = isset($attr['url']) ? $attr['url'] : $url;
 	$width = isset($attr['width']) ? $attr['width'] : '';
 	$height = isset($attr['height']) ? $attr['height'] : '';
 	$autoplay = isset($attr['autoplay']) ? $attr['autoplay'] : 'false';
