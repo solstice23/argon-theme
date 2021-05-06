@@ -44,7 +44,7 @@ article h1 , article h2 , article h3 , article h4 , article h5 , article h6 , ar
 article h1 , article h2 , article h3 , article h4 , article h5 , article h6{
 	margin-top: 18px !important;
 	margin-bottom: 15px;
-} 
+}
 article h1{
 	font-size: 30px;
 }
@@ -480,6 +480,13 @@ html.darkmode.amoled-dark #navbar-main{
 	text-transform: none;
 	vertical-align: middle;
 }
+.navbar-brand h1 {
+	margin: 0;
+	padding: 0;
+	line-height: 21px;
+	height: 22px;
+	font-size: 14px;
+}
 .navbar-brand:focus , .navbar-brand:hover{
 	color: #fff !important;
 }
@@ -555,6 +562,11 @@ body.leftbar-can-headroom.headroom---unpinned #navbar-main{
 	transform: translateY(-50%);
 	width: 100%;
 	left: 0;
+}
+.banner-title img{
+	max-height: 125px;
+	display: block;
+	margin: auto auto 15px;
 }
 .banner-subtitle{
 	margin-top: 10px;
@@ -1806,7 +1818,7 @@ html.darkmode.amoled-dark a.related-post-card:hover {
 }
 .comment-item-avatar{
 	display: block;
-	width: 40px; 
+	width: 40px;
 	margin-top: 26px;
 	margin-right: 15px;
 }
@@ -2244,9 +2256,9 @@ html.darkmode .comment-edit-history-item {
 	width: max-content;
 	width: -moz-max-content;
 }
-.post-comment-link-container:hover:before , .post-comment-link-container.active:before , 
-.post-comment-captcha-container:hover:before , .post-comment-captcha-container.active:before , 
-#post_comment_toggle_extra_input:hover:before , 
+.post-comment-link-container:hover:before , .post-comment-link-container.active:before ,
+.post-comment-captcha-container:hover:before , .post-comment-captcha-container.active:before ,
+#post_comment_toggle_extra_input:hover:before ,
 .comment-post-checkbox:hover:before{
 	transform: translateY(0);
 	opacity: .7;
@@ -2271,7 +2283,7 @@ html.darkmode .comment-edit-history-item {
 .show-extra-input #post_comment_toggle_extra_input i{
 	transform: rotateZ(180deg);
 }
-#post_comment.logged #post_comment_name , 
+#post_comment.logged #post_comment_name ,
 #post_comment.logged #post_comment_email{
 	opacity: 1;
 	background-color: #e9ecef;
@@ -3855,7 +3867,7 @@ html.darkmode .leftbar-menu-subitem {
 html.darkmode .leftbar-menu-item > a{
 	color: #eee !important;
 }
-html.darkmode .leftbar-menu-item > a:hover , 
+html.darkmode .leftbar-menu-item > a:hover ,
 html.darkmode .leftbar-menu-item.current > a {
 	background-color: #606060;
 }
@@ -3863,8 +3875,8 @@ html.darkmode .leftbar-menu-item.current > a {
 html.darkmode .site-author-links-item:hover {
 	background: #555;
 }
-html.darkmode .site-state-item-count , 
-html.darkmode .site-author-links-item > a , 
+html.darkmode .site-state-item-count ,
+html.darkmode .site-author-links-item > a ,
 html.darkmode .site-friend-links-item > a{
 	color: #eee !important;
 }
@@ -4049,7 +4061,7 @@ html.darkmode.amoled-dark body{
 html.darkmode.amoled-dark .leftbar-menu-subitem {
 	background: #000;
 }
-html.darkmode.amoled-dark .leftbar-menu-item > a:hover , 
+html.darkmode.amoled-dark .leftbar-menu-item > a:hover ,
 html.darkmode.amoled-dark .leftbar-menu-item.current > a {
 	background-color: #222;
 }

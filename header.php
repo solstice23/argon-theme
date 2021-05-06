@@ -273,7 +273,7 @@
 						</a>
 					<?php }?>
 					<?php /*顶栏标题*/?>
-					<a class="navbar-brand navbar-title" href="<?php bloginfo('url'); ?>"><?php echo get_option('argon_toolbar_title') == '' ? bloginfo('name') : get_option('argon_toolbar_title'); ?></a>
+					<h1><a class="navbar-brand navbar-title" href="<?php bloginfo('url'); ?>"><?php echo get_option('argon_toolbar_title') == '' ? bloginfo('name') : get_option('argon_toolbar_title'); ?></a></h1>
 				</div>
 				<div class="navbar-collapse collapse" id="navbar_global">
 					<div class="navbar-collapse-header">
@@ -396,12 +396,18 @@
 	<?php
 		$banner_title = get_option('argon_banner_title') == '' ? get_bloginfo('name') : get_option('argon_banner_title');
 		$enable_banner_title_typing_effect = get_option('argon_enable_banner_title_typing_effect') != 'true' ? "false" : get_option('argon_enable_banner_title_typing_effect');
-	?>
+
+        if (get_option('argon_banner_logo_url') != '') {
+            $banner_logo = "<img src=\"" . esc_attr(get_option('argon_banner_logo_url')) . "\" alt=\"logo\">";
+        } else {
+	        $banner_logo = "";
+        }
+    ?>
 	<div id="banner_container" class="banner-container container text-center">
 		<?php if ($enable_banner_title_typing_effect != "true"){?>
-			<div class="banner-title text-white"><span class="banner-title-inner"><?php echo $banner_title; ?></span>
+			<div class="banner-title text-white"><?php echo $banner_logo; ?><span class="banner-title-inner"><?php echo $banner_title; ?></span>
 		<?php } else {?>
-			<div class="banner-title text-white" data-text="<?php echo $banner_title; ?>" data-interval="<?php echo (get_option('argon_banner_typing_effect_interval') == '' ? '100' : get_option('argon_banner_typing_effect_interval')); ?>"><span class="banner-title-inner">&nbsp;</span>
+			<div class="banner-title text-white" data-text="<?php echo $banner_title; ?>" data-interval="<?php echo (get_option('argon_banner_typing_effect_interval') == '' ? '100' : get_option('argon_banner_typing_effect_interval')); ?>"><?php echo $banner_logo; ?><span class="banner-title-inner">&nbsp;</span>
 		<?php }?>
 		<?php echo get_option('argon_banner_subtitle') == '' ? '' : '<span class="banner-subtitle d-block">' . get_option('argon_banner_subtitle') . '</span>'; ?></div>
 	</div>
