@@ -272,8 +272,14 @@
 							<img src="<?php echo get_option('argon_toolbar_icon'); ?>">
 						</a>
 					<?php }?>
-					<?php /*顶栏标题*/?>
-					<a class="navbar-brand navbar-title" href="<?php bloginfo('url'); ?>"><?php echo get_option('argon_toolbar_title') == '' ? bloginfo('name') : get_option('argon_toolbar_title'); ?></a>
+					<?php
+						//顶栏标题
+						$toolbar_title = get_option('argon_toolbar_title') == '' ? bloginfo('name') : get_option('argon_toolbar_title');
+						if ($toolbar_title == '--hidden--'){
+							$toolbar_title = '';
+						}
+					?>
+					<a class="navbar-brand navbar-title" href="<?php bloginfo('url'); ?>"><?php echo $toolbar_title;?></a>
 				</div>
 				<div class="navbar-collapse collapse" id="navbar_global">
 					<div class="navbar-collapse-header">

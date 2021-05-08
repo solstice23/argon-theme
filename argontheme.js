@@ -1948,6 +1948,7 @@ function randomString(len) {
 	for (let i = 0; i < len; i++) {
 		res += chars.charAt(Math.floor(Math.random() * chars.length));
 	}
+	res[0] = chars.charAt(Math.floor(Math.random() * (chars.length - 10)));
 	return res;
 }
 var codeOfBlocks = {};

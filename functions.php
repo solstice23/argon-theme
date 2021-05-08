@@ -2721,7 +2721,7 @@ function themeoptions_page(){
 						<th><label><?php _e('顶栏标题', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_toolbar_title" value="<?php echo get_option('argon_toolbar_title'); ?>"/></p>
-							<p class="description"><?php _e('留空则显示博客名称', 'argon');?></p>
+							<p class="description"><?php _e('留空则显示博客名称，输入 <code>--hidden--</code> 可以隐藏标题', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('顶栏图标', 'argon');?></h3></th></tr>
