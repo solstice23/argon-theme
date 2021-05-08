@@ -3068,6 +3068,7 @@ article img.lazyload[src^='data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg'
 /*Fancybox 样式*/
 .fancybox-wrapper{
 	width: max-content;
+	max-width: 100%;
 }
 .fancybox-wrapper > img{
 	cursor: pointer;
