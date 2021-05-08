@@ -69,6 +69,17 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20210508 v1.1.8
++ 代码高亮增加更多默认选项
++ 新增若干 [Filters](https://argon-docs.solstice23.top/#/filters)
++ 修复相似文章 UI 细节问题
++ 修复说说显示错误
++ 侧栏 分类/Tag 隐藏 空分类/Tag
++ 允许隐藏顶栏标题
++ 修复访问统计问题
++ 修复与 Live2D 与 Code Syntax Block 插件的兼容问题
++ 其他 BUG 修复
+
 ## 20210219 v1.1.7
 + 修复 Mathjax v2 Pjax 加载后不渲染问题
 + 修复字数统计错误问题
