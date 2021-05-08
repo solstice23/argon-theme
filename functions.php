@@ -3302,6 +3302,11 @@ function themeoptions_page(){
 							</select>
 						</td>
 					</tr>
+					<tr style="opacity: 0.5;">
+						<th><label><?php _e('如果您想使用其他代码高亮插件，而非 Argon 自带高亮，请前往 "杂项" 打开 "禁用 Argon 代码块样式" 来防止样式冲突', 'argon');?></label></th>
+						<td>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2><?php _e('数学公式', 'argon');?></h2></th></tr>
 					<tr>
 						<th><label><?php _e('数学公式渲染方案', 'argon');?></label></th>
@@ -3839,6 +3844,17 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('禁用 Argon 代码块样式', 'argon');?></label></th>
+						<td>
+							<select name="argon_disable_codeblock_style">
+								<?php $argon_disable_codeblock_style = get_option('argon_disable_codeblock_style'); ?>
+								<option value="false" <?php if ($argon_disable_codeblock_style=='false'){echo 'selected';} ?>><?php _e('不禁用', 'argon');?></option>
+								<option value="true" <?php if ($argon_disable_codeblock_style=='true'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('如果您启用了其他代码高亮插件，发现代码块样式被 Argon 覆盖，出现了显示错误，请将此选项设为禁用', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('检测更新源', 'argon');?></label></th>
 						<td>
 							<select name="argon_update_source">
@@ -4256,6 +4272,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_article_header_style');
 		argon_update_option('argon_text_gravatar');
 		argon_update_option('argon_disable_googlefont');
+		argon_update_option('argon_disable_codeblock_style');
 		argon_update_option('argon_reference_list_title');
 
 		//LazyLoad 相关

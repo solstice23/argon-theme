@@ -101,7 +101,7 @@ article .post-content a:hover:before{
 article .post-content a.no-hover-underline:before{
 	display: none;
 }
-article pre:not(.hljs-codeblock){
+html:not(.disable-codeblock-style) article pre:not(.hljs-codeblock){
 	font-family: Consolas,Menlo,Monaco,'Andale Mono WT','Andale Mono','Lucida Console','Lucida Sans Typewriter','DejaVu Sans Mono','Bitstream Vera Sans Mono','Liberation Mono','Nimbus Mono L','Courier New',Courier,monospace;
 	font-size: 14px;
 	line-height: 1.375;
@@ -134,14 +134,14 @@ article .post-content u , article .post-content ins{
 	text-decoration: none;
 	border-bottom: 1px solid;
 }
-article code:not([hljs-codeblock-inner]){
+html:not(.disable-codeblock-style) article code:not([hljs-codeblock-inner]){
 	font-family: Consolas,Menlo,Monaco,'Andale Mono WT','Andale Mono','Lucida Console','Lucida Sans Typewriter','DejaVu Sans Mono','Bitstream Vera Sans Mono','Liberation Mono','Nimbus Mono L','Courier New',Courier,monospace;
 	color: #5e6687;
 	background: #f5f7ff;
 	direction: ltr;
 	border-radius: 3px;
 }
-article > code:not([hljs-codeblock-inner]) , article > p > code:not([hljs-codeblock-inner]){
+html:not(.disable-codeblock-style)article > code:not([hljs-codeblock-inner]) , article > p > code:not([hljs-codeblock-inner]){
 	padding: 2px 3px;
 }
 article .post-content abbr[title]{
