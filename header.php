@@ -274,7 +274,7 @@
 					<?php }?>
 					<?php
 						//顶栏标题
-						$toolbar_title = get_option('argon_toolbar_title') == '' ? bloginfo('name') : get_option('argon_toolbar_title');
+						$toolbar_title = get_option('argon_toolbar_title') == '' ? get_bloginfo('name') : get_option('argon_toolbar_title');
 						if ($toolbar_title == '--hidden--'){
 							$toolbar_title = '';
 						}
