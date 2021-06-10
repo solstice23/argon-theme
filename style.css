@@ -63,6 +63,11 @@ article h5{
 article h6{
 	font-size: 13px;
 }
+article figcaption {
+	text-align: center !important;
+	opacity: .65;
+	margin-top: 10px;
+}
 article img , .shuoshuo-preview-container img{
 	max-width: 100%;
 	height: auto;
