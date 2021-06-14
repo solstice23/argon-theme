@@ -65,8 +65,8 @@
 	<div class="card-body">
 		<h2 class="post-comment-title">
 			<i class="fa fa-commenting"></i>
-			<span class="hide-on-comment-editing"><?php echo apply_filters("argon_comment_textarea_placeholder", __('发送评论', 'argon')?></span>
-			<span class="hide-on-comment-not-editing"><?php echo apply_filters("argon_comment_textarea_placeholder_editing", __('编辑评论', 'argon')?></span>
+			<span class="hide-on-comment-editing"><?php echo apply_filters("argon_comment_textarea_placeholder", __('发送评论', 'argon'))?></span>
+			<span class="hide-on-comment-not-editing"><?php echo apply_filters("argon_comment_textarea_placeholder_editing", __('编辑评论', 'argon'))?></span>
 		</h2>
 		<div id="post_comment_reply_info" class="post-comment-reply" style="display: none;">
 			<span><?php _e('正在回复', 'argon');?> <b><span id="post_comment_reply_name"></span></b><?php _e(' 的评论', 'argon');?> :</span>
