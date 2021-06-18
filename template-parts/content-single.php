@@ -66,7 +66,7 @@
 	<div class="post-content" id="post_content">
 		<?php if (post_password_required()){ ?>
 			<div class="text-center container">
-				<form action="/wp-login.php?action=postpass" class="post-password-form" method="post">
+				<form action="<?php echo $GLOBALS['wp_path']; ?>wp-login.php?action=postpass" class="post-password-form" method="post">
 					<div class="post-password-form-text"><?php _e('这是一篇受密码保护的文章，您需要提供访问密码', 'argon');?></div>
 					<div class="row">
 						<div class="form-group col-lg-6 col-md-8 col-sm-10 col-xs-12 post-password-form-input">
