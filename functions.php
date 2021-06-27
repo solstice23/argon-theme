@@ -185,9 +185,9 @@ require_once(get_template_directory() . '/emotions.php');
 function argon_get_first_image_of_article(){
 	global $post;
 	$post_content_full = apply_filters('the_content', preg_replace( '<!--more(.*?)-->', '', $post -> post_content));
-	preg_match('/<img(.*?)src="((http:|https:)?\/\/(.*?))"(.*?)\/>/', $post_content_full, $match);
-	if (isset($match[2])){
-		return $match[2];
+	preg_match('/<img(.*?)(src|data-original)=[\"\']((http:|https:)?\/\/(.*?))[\"\'](.*?)\/?>/', $post_content_full, $match);
+	if (isset($match[3])){
+		return $match[3];
 	}
 	return false;
 }
@@ -384,7 +384,7 @@ function get_seo_keywords(){
 function get_og_image(){
 	global $post;
 	$postID = $post -> ID;
-	$argon_first_image_as_thumbnail = get_post_meta($postID, 'argon_first_image_as_thumbnail', true);
+	$argon_first_image_as_thumbnail = get_post_meta($postID, 'argon_first_image_as_thumbnail', 'true');
 	if (has_post_thumbnail() || $argon_first_image_as_thumbnail == 'true'){
 		return argon_get_post_thumbnail($postID);
 	}
