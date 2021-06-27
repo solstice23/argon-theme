@@ -78,9 +78,9 @@
 
 	<?php
 		if (is_single() || is_page()){
-			$og_img = get_og_img();
-			if ($og_img != ''){ ?>
-				<meta property="og:image" content="<?php echo $og_img；?>" />
+			$og_image = get_og_image();
+			if ($og_image != ''){ ?>
+				<meta property="og:image" content="<?php echo $og_image?>" />
 	<?php 	}
 		} ?>
 
