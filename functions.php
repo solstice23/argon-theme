@@ -333,7 +333,7 @@ if (!session_id()){
 //页面 Description Meta
 function get_seo_description(){
 	global $post;
-	if ((is_single() || is_page())){
+	if (is_single() || is_page()){
 		if (get_the_excerpt() != ""){
 			return get_the_excerpt();
 		}
@@ -379,6 +379,16 @@ function get_seo_keywords(){
 		return single_term_title('', false);
 	}
 	return get_option('argon_seo_keywords');
+}
+//页面分享预览图
+function get_og_image(){
+	global $post;
+	$postID = $post -> ID;
+	$argon_first_image_as_thumbnail = get_post_meta($postID, 'argon_first_image_as_thumbnail', true);
+	if (has_post_thumbnail() || $argon_first_image_as_thumbnail == 'true'){
+		return argon_get_post_thumbnail($postID);
+	}
+	return '';
 }
 //页面浏览量
 function get_post_views($post_id){
