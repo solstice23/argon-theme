@@ -69,6 +69,13 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20210706 v1.1.9
++ 增加一种文章列表卡片样式
++ 新增若干 Filters
++ 修复 Gutenberg 编辑器区块的显示错误问题
++ 支持 og-image Meta
++ 其他 BUG 修复
+
 ## 20210508 v1.1.8
 + 代码高亮增加更多默认选项
 + 新增若干 [Filters](https://argon-docs.solstice23.top/#/filters)
