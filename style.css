@@ -100,6 +100,9 @@ article .post-content a:before{
 	transform: scaleX(0);
 	backface-visibility: hidden;
 }
+article .post-content a[class*='button']:before{
+	display: none;
+}
 article .post-content a:hover:before{
 	transform: scaleX(1);
 }
@@ -161,8 +164,18 @@ article .post-content kbd{
 	background-color: #333;
 	border-radius: 3px;
 }
-article .wp-embedded-content {
+article .wp-embedded-content, 
+article .blocks-gallery-grid,
+article .wp-block-gallery,
+article .wp-block-media-text{
 	max-width: 100%;
+}
+article .wp-block-cover, article .wp-block-cover-image{
+	padding: 0;
+}
+article .wp-block-cover-image .wp-block-cover__inner-container,
+article .wp-block-cover .wp-block-cover__inner-container{
+	position: absolute;
 }
 article table{
 	max-width: 100%;
@@ -1513,8 +1526,8 @@ article.post-preview-layout-2 .post-title {
 	max-width: max-content;
 }
 article.post-preview-layout-2 .loading-css-animation {
-    position: absolute;
-    bottom: -8px;
+	position: absolute;
+	bottom: -8px;
 }
 /*Reference*/
 sup.reference {
@@ -3111,6 +3124,10 @@ article img.lazyload[src^='data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg'
 	width: max-content;
 	max-width: 100%;
 }
+.fancybox-wrapper.lazyload-container-unload{
+	width: 100%;
+}
+
 .fancybox-wrapper > img{
 	cursor: pointer;
 	cursor: -webkit-zoom-in;
