@@ -53,7 +53,7 @@ translation['en_US'] = {
 	"评论内容不能为空": "Comment content cannot be empty",
 	"编辑中": "Editing",
 	"正在编辑": "Editing",
-	"评论正在编辑中...": "Comment is editing",
+	"评论正在编辑中...": "Comment is being edited...",
 	"编辑": "Edit",
 	"评论编辑失败": "Comment editing failed",
 	"已编辑": "Edited",

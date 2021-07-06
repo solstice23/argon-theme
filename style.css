@@ -1402,6 +1402,7 @@ html.filter-grayscale{
 	margin-left: 3px;
 	margin-right: 3px;
 	opacity: .5;
+	user-select: none;
 }
 .post-meta-detail-categories-space{
 	margin-left: 2px;
@@ -1479,6 +1480,41 @@ html.filter-grayscale{
 }
 .additional-content-after-post + .post-tags {
 	margin-top: 25px;
+}
+/* 文章预览样式 2 */
+article.post-preview-layout-2 {
+	display: flex;
+	flex-direction: row;
+	padding: 0;
+}
+article.post-preview-layout-2 .post-header.post-header-with-thumbnail {
+	margin: 0;
+	border-radius: var(--card-radius) 0 0 var(--card-radius);
+	text-align: left;
+	width: min(33%, 500px);
+}
+article.post-preview-layout-2 .post-thumbnail {
+	width: 100%;
+	height: 100%;
+	max-height: unset;
+}
+article.post-preview-layout-2 .post-content-container {
+	padding: 25px 30px 25px 30px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	max-width: 100%;
+}
+article.post-preview-layout-2 .post-content {
+	flex: 1;
+	margin-top: 10px;
+}
+article.post-preview-layout-2 .post-title {
+	max-width: max-content;
+}
+article.post-preview-layout-2 .loading-css-animation {
+    position: absolute;
+    bottom: -8px;
 }
 /*Reference*/
 sup.reference {

@@ -10,10 +10,10 @@
 		<?php
 			while ( have_posts() ) :
 				the_post();
-				if (get_post_type() == 'post'){
-					get_template_part( 'template-parts/content', get_post_format() );
+				if (get_post_type() == 'shuoshuo'){
+					get_template_part( 'template-parts/content-shuoshuo-preview' );
 				}else{
-					get_template_part( 'template-parts/content-shuoshuo-preview', get_post_format() );
+					get_template_part( 'template-parts/content-preview', get_option('argon_article_list_layout', '1'));
 				}
 			endwhile;
 		?>

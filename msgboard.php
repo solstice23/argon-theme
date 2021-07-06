@@ -39,7 +39,7 @@ article {
 	font-size: 0px;
 }
 .comments-title:after {
-	content: '留言板';
+	content: '<?php _e("留言板"); ?>';
 	font-size: 20px;
 }
 .comments-title i {
@@ -50,7 +50,7 @@ article {
 	font-size: 0px;
 }
 .post-comment-title:after {
-	content: '发送留言';
+	content: '<?php _e("发送留言"); ?>';
 	font-size: 20px;
 }
 .post-comment-title i {

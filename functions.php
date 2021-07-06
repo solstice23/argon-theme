@@ -1424,11 +1424,13 @@ function get_avatar_by_qqnumber($avatar){
 }
 add_filter('get_avatar', 'get_avatar_by_qqnumber');
 //判断 QQ 号合法性
-function check_qqnumber($qqnumber){
-	if (preg_match("/^[1-9][0-9]{4,10}$/", $qqnumber)){
-		return true;
-	} else {
-		return false;
+if (!function_exists('check_qqnumber')){
+	function check_qqnumber($qqnumber){
+		if (preg_match("/^[1-9][0-9]{4,10}$/", $qqnumber)){
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 //获取顶部 Banner 背景图（用户指定或必应日图）
@@ -2104,9 +2106,6 @@ function shortcode_friend_link($attr,$content=""){
 			</div>";
 	}
 	$out .= "</div></div>";
-	?>
-	<?php
-	get_template_part( 'template-parts/friendlinks', "style1" );
 	return $out;
 }
 add_shortcode('sfriendlinks','shortcode_friend_link_simple');
@@ -2634,7 +2633,7 @@ function themeoptions_page(){
 						<th><label><?php _e('页面布局', 'argon');?></label></th>
 						<td>
 							<div class="radio-with-img">
-								<?php $argon_page_layout = (get_option('argon_page_layout') == '' ? 'double' : get_option('argon_page_layout')); ?>
+								<?php $argon_page_layout = get_option('argon_page_layout', 'double'); ?>
 								<div class="radio-img">
 									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect width="1920" height="1080" style="fill:#e6e6e6"/><g style="opacity:0.5"><rect width="1920" height="381" style="fill:#5e72e4"/></g><rect x="388.5" y="256" width="258" height="179" style="fill:#5e72e4"/><rect x="388.5" y="470" width="258" height="485" style="fill:#fff"/><rect x="689.5" y="256.5" width="842" height="250" style="fill:#fff"/><rect x="689.5" y="536.5" width="842" height="250" style="fill:#fff"/><rect x="689.5" y="817" width="842" height="250" style="fill:#fff"/></svg>
 								</div>
@@ -2659,6 +2658,24 @@ function themeoptions_page(){
 								<label><input name="argon_page_layout" type="radio" value="double-reverse" <?php if ($argon_page_layout=='double-reverse'){echo 'checked';} ?>> <?php _e('双栏(反转)', 'argon');?></label>
 							</div>
 							<p class="description" style="margin-top: 15px;"><?php _e('使用单栏时，关于左侧栏的设置将失效。', 'argon');?></br><?php _e('使用三栏时，请前往 "外观-小工具" 设置页面配置右侧栏内容。', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label><?php _e('文章列表卡片布局', 'argon');?></label></th>
+						<td>
+							<div class="radio-with-img">
+								<?php $argon_article_list_layout = get_option('argon_article_list_layout', '1'); ?>
+								<div class="radio-img">
+									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1921 871"><rect x="0.5" y="0.5" width="1920" height="870" style="fill:#f7f8f8;stroke:#231815;stroke-miterlimit:10"/><rect x="0.5" y="0.5" width="1920" height="538.05" style="fill:#abb7ff"/><rect x="48.5" y="613.55" width="1806" height="35" rx="4" style="fill:#efefef"/><rect x="48.5" y="663.05" width="1806" height="35" rx="4" style="fill:#efefef"/><rect x="48.5" y="712.55" width="1806" height="35" rx="4" style="fill:#efefef"/><rect x="48.5" y="792.52" width="116.97" height="38.07" rx="4" style="fill:#dcdddd"/><rect x="178.95" y="792.52" width="97.38" height="38.07" rx="4" style="fill:#dcdddd"/><rect x="288.4" y="792.52" width="125.79" height="38.07" rx="4" style="fill:#dcdddd"/><g style="opacity:0.66"><rect x="432.78" y="320.9" width="1055.43" height="55.93" rx="4" style="fill:#f7f8f8"/></g><g style="opacity:0.31"><rect x="734.76" y="411.73" width="451.48" height="25.08" rx="4" style="fill:#fff"/></g><g style="opacity:0.31"><rect x="734.76" y="453.24" width="451.48" height="25.08" rx="4" style="fill:#fff"/></g></svg>
+								</div>
+								<label><input name="argon_article_list_layout" type="radio" value="1" <?php if ($argon_article_list_layout=='1'){echo 'checked';} ?>> <?php _e('布局', 'argon');?> 1</label>
+							</div>
+							<div class="radio-with-img">
+								<div class="radio-img">
+									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 870"><rect width="1920" height="870" style="fill:#f7f8f8;stroke: #231815;stroke-miterlimit: 10;"/><rect width="630.03" height="870" style="fill:#abb7ff"/><rect x="689.57" y="174.16" width="1144.6" height="35" rx="4" style="fill:#efefef"/><rect x="689.57" y="238.66" width="1144.6" height="35" rx="4" style="fill:#efefef"/><rect x="689.57" y="303.16" width="1144.6" height="35" rx="4" style="fill:#efefef"/><rect x="689.57" y="792.02" width="116.97" height="38.07" rx="4" style="fill:#dcdddd"/><rect x="820.02" y="792.02" width="97.38" height="38.07" rx="4" style="fill:#dcdddd"/><rect x="929.47" y="792.02" width="125.79" height="38.07" rx="4" style="fill:#dcdddd"/><g style="opacity:0.23"><rect x="689.57" y="52.26" width="1055.43" height="55.93" rx="4" style="fill:#5e72e4"/></g><rect x="689.57" y="677.09" width="451.48" height="25.08" rx="4" style="fill:#efefef"/><rect x="689.57" y="718.6" width="451.48" height="25.08" rx="4" style="fill:#efefef"/><rect x="689.57" y="363.63" width="1144.6" height="35" rx="4" style="fill:#efefef"/><rect x="689.57" y="426.13" width="1144.6" height="35" rx="4" style="fill:#efefef"/><rect x="689.57" y="492.63" width="1144.6" height="35" rx="4" style="fill:#efefef"/></svg>
+								</div>
+								<label><input name="argon_article_list_layout" type="radio" value="2" <?php if ($argon_article_list_layout=='2'){echo 'checked';} ?>> <?php _e('布局', 'argon');?> 2</label>
+							</div>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('字体', 'argon');?></h3></th></tr>
@@ -4255,6 +4272,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_enable_banner_title_typing_effect');
 		argon_update_option('argon_banner_typing_effect_interval');
 		argon_update_option('argon_page_layout');
+		argon_update_option('argon_article_list_layout');
 		argon_update_option('argon_enable_pangu');
 		argon_update_option('argon_assets_path');
 		argon_update_option('argon_comment_ua');

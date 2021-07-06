@@ -15,7 +15,7 @@
 			<span class="shuoshuo-date-year"><?php echo get_the_time('Y')?></span>
 			<div class="post-meta-devide">|</div>
 			<i class="fa fa-clock-o" aria-hidden="true"></i> 
-			<span class="shuoshuo-date-time"><?php echo get_the_time('G:i:s')?></span>
+			<span class="shuoshuo-date-time"><?php echo get_the_time('G:i')?></span>
 		</span>
 		<?php if ( is_sticky() ) : ?>
 			<div class="post-meta-devide">|</div>

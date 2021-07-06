@@ -23,7 +23,7 @@
 		<?php
 			while ( have_posts() ) :
 				the_post();
-				get_template_part( 'template-parts/content', get_post_format() );
+				get_template_part( 'template-parts/content-preview', get_option('argon_article_list_layout', '1'));
 			endwhile;
 		?>
 		<?php
