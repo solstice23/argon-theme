@@ -170,6 +170,15 @@ article .wp-block-gallery,
 article .wp-block-media-text{
 	max-width: 100%;
 }
+article .blocks-gallery-grid.is-cropped .blocks-gallery-image .fancybox-wrapper,
+article .blocks-gallery-grid.is-cropped .blocks-gallery-item .fancybox-wrapper,
+article .wp-block-gallery.is-cropped .blocks-gallery-image .fancybox-wrapper,
+article .wp-block-gallery.is-cropped .blocks-gallery-item .fancybox-wrapper{
+	height: 100%;
+	flex: 1;
+	-o-object-fit: cover;
+	object-fit: cover;
+}
 article .wp-block-cover, article .wp-block-cover-image{
 	padding: 0;
 }
