@@ -223,6 +223,15 @@ article table > thead > tr > th{
 *::-webkit-selection{
 	background-color: #cce2ff;
 }
+html.darkmode *::selection{
+	background-color: #607799;
+}
+html.darkmode *::-moz-selection{
+	background-color: #607799;
+}
+html.darkmode *::-webkit-selection{
+	background-color: #607799;
+}
 html.use-serif p , html.use-serif span , html.use-serif div{
 	font-family: 'Noto Serif SC',serif !important;
 }
@@ -3134,7 +3143,7 @@ article img.lazyload[src^='data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg'
 	max-width: 100%;
 }
 figure > .fancybox-wrapper {
-    width: unset;
+	width: unset;
 }
 .fancybox-wrapper.lazyload-container-unload{
 	width: 100%;
