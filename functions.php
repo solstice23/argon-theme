@@ -3577,6 +3577,17 @@ window.pjaxLoaded = function(){
 							<p class="description"><?php _e('从首页或分类目录进入文章时，使用平滑过渡（可能影响加载文章时的性能）', 'argon');?></p>
 						</td>
 					</tr>
+					<tr>
+						<th><label><?php _e('禁用 Pjax 加载后的页面滚动动画', 'argon');?></label></th>
+						<td>
+							<select name="argon_disable_pjax_animation">
+								<?php $argon_disable_pjax_animation = get_option('argon_disable_pjax_animation'); ?>
+								<option value="false" <?php if ($argon_disable_pjax_animation=='false'){echo 'selected';} ?>><?php _e('不禁用', 'argon');?></option>
+								<option value="true" <?php if ($argon_disable_pjax_animation=='true'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('Pjax 替换页面内容后会平滑滚动到页面顶部，如果你不喜欢，可以禁用这个选项', 'argon');?></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2><?php _e('评论', 'argon');?></h2></th></tr>
 					<tr><th class="subtitle"><h3><?php _e('评论分页', 'argon');?></h3></th></tr>
 					<tr>
@@ -4235,6 +4246,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_show_thumbnail_in_banner_in_content_page');
 		argon_update_option('argon_update_source');
 		argon_update_option('argon_enable_into_article_animation');
+		argon_update_option('argon_disable_pjax_animation');
 		argon_update_option('argon_fab_show_darkmode_button');
 		argon_update_option('argon_fab_show_settings_button');
 		argon_update_option('argon_fab_show_gotocomment_button');

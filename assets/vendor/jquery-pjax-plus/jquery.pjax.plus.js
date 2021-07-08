@@ -384,7 +384,7 @@ function pjax(options, $tar) {
       //$(window).scrollTop(scrollTo)
       $("html, body").animate({
         scrollTop: scrollTo
-      }, 600)
+      }, argonConfig.pjax_animation_durtion)
     }
 
     fire('pjax:success', [data, status, xhr, options])
