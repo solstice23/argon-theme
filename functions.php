@@ -1730,6 +1730,14 @@ function argon_meta_box_1(){
 			<option value="true" <?php if ($argon_first_image_as_thumbnail=='true'){echo 'selected';} ?>><?php _e("使用", 'argon');?></option>
 			<option value="false" <?php if ($argon_first_image_as_thumbnail=='false'){echo 'selected';} ?>><?php _e("不使用", 'argon');?></option>
 		</select>
+		<h4><?php _e("显示文章过时信息", 'argon');?></h4>
+		<?php $argon_show_post_outdated_info = get_post_meta($post->ID, "argon_show_post_outdated_info", true);?>
+		<select name="argon_show_post_outdated_info" id="argon_show_post_outdated_info">
+			<option value="default" <?php if ($argon_show_post_outdated_info=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
+			<option value="always" <?php if ($argon_show_post_outdated_info=='always'){echo 'selected';} ?>><?php _e("一直显示", 'argon');?></option>
+			<option value="never" <?php if ($argon_show_post_outdated_info=='never'){echo 'selected';} ?>><?php _e("永不显示", 'argon');?></option>
+		</select>
+		<p style="margin-top: 15px;"><?php _e("单独控制该文章的过时信息显示。", 'argon');?></p>
 		<h4><?php _e("文末附加内容", 'argon');?></h4>
 		<?php $argon_after_post = get_post_meta($post->ID, "argon_after_post", true);?>
 		<textarea name="argon_after_post" id="argon_after_post" rows="3" cols="30" style="width:100%;"><?php if (!empty($argon_after_post)){echo $argon_after_post;} ?></textarea>
@@ -1768,6 +1776,7 @@ function argon_save_meta_data($post_id){
 	update_post_meta($post_id, 'argon_hide_readingtime', $_POST['argon_meta_hide_readingtime']);
 	update_post_meta($post_id, 'argon_meta_simple', $_POST['argon_meta_simple']);
 	update_post_meta($post_id, 'argon_first_image_as_thumbnail', $_POST['argon_first_image_as_thumbnail']);
+	update_post_meta($post_id, 'argon_show_post_outdated_info', $_POST['argon_show_post_outdated_info']);
 	update_post_meta($post_id, 'argon_after_post', $_POST['argon_after_post']);
 	update_post_meta($post_id, 'argon_custom_css', $_POST['argon_custom_css']);
 }
@@ -1796,6 +1805,8 @@ if (get_option("argon_hide_categories") != ""){
 }
 //文章过时信息显示
 function argon_get_post_outdated_info(){
+	global $post;
+	$post_show_outdated_info_status = strval(get_post_meta($post -> ID, 'argon_show_post_outdated_info', true));
 	if (get_option("argon_outdated_info_tip_type") == "toast"){
 		$before = "<div id='post_outdate_toast' style='display:none;' data-text='";
 		$after = "'></div>";
@@ -1815,7 +1826,7 @@ function argon_get_post_outdated_info(){
 	}else{
 		$date_delta = $modify_date_delta;
 	}
-	if ($date_delta <= $delta){
+	if (($date_delta <= $delta && $post_show_outdated_info_status != 'always') || $post_show_outdated_info_status == 'never'){
 		return "";
 	}
 	$content = str_replace("%date_delta%", $date_delta, $content);
