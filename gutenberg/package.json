@@ -1,0 +1,17 @@
+{
+  "name": "my-custom-block-cgb-guten-block",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "cgb-scripts start",
+    "build": "cgb-scripts build",
+    "eject": "cgb-scripts eject"
+  },
+  "dependencies": {
+    "@wordpress/compose": "^4.2.0",
+    "@wordpress/data": "^5.2.0",
+    "cgb-scripts": "1.23.1",
+    "font-awesome": "^4.7.0",
+    "is-whitespace-character": "^2.0.0"
+  }
+}
