@@ -1,8 +1,26 @@
 export const translations = {
 	'提示': 'Alert',
+	'警告': 'Admonition',
+	'折叠区块': 'Collapse Block',
+	'时间线': 'Timeline',
+	'进度条': 'Progress Bar',
+	'Github Repo 信息卡': 'Github Repo Card',
+
 	'区块设置': 'Block Settings',
 	'颜色': 'Color',
 	'图标': 'Icon',
 	'Font Awesome 中的图标名，留空则不显示': 'The name of Font Awesome icon, leave it blank to hide the icon.',
-	'浏览图标': 'View icons'
+	'浏览图标': 'View icons',
+	'标题': 'Title',
+	'内容': 'Content',
+	'部件': 'Components',
+	'状态': 'Status',
+	'默认折叠': 'Collapsed by Default',
+	'左边框': 'Left Border',
+	'进度 (%)': 'Progress (%)',
+	'时间': 'Time',
+	'条目内容': 'Item content..',
+	'+ 添加节点': '+ Add Node',
+	'+ 添加条目': '+ Add Item',
+	'Repo 描述将会显示在这里': 'Repo description will be displayed here.'
 };
