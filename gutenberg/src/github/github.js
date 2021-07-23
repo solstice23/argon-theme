@@ -15,7 +15,6 @@ import {
 	ToggleControl,
 	Panel, PanelBody, PanelRow
 } from '@wordpress/components';
-import { isWhitespaceCharacter } from 'is-whitespace-character'
 
 const { registerBlockType } = wp.blocks;
 
@@ -65,7 +64,7 @@ registerBlockType('argon/github', {
 
 		return (
 			<div>
-				<div className={`github-info-card card shadow-sm ${getStyleClass(props.className)}`}>
+				<div className={`github-info-card shadow-sm ${getStyleClass(props.className)}`}>
 					<div className="github-info-card-header">
 						<a title="Github">
 							<span><i className="fa fa-github"></i> GitHub</span>

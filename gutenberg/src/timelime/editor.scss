@@ -1,0 +1,62 @@
+.argon-timeline {
+	margin-left: 110px;
+	border-left: 3px solid rgba(94, 114, 228, 0.2);
+	padding-left: 25px;
+	position: relative;
+	padding-top: 30px;
+	padding-bottom: 10px;
+}
+.argon-timeline-time {
+	position: absolute;
+	left: -110px;
+	margin-top: 12px;
+	width: 85px;
+	text-align: right;
+	font-size: 15px;
+	line-height: 26px;
+}
+.argon-timeline-card {
+	margin-bottom: 35px;
+	padding: 18px 25px;
+	display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    border: .0625rem solid rgba(0,0,0,.05);
+	position: relative;
+	line-height: 1.8;
+}
+.argon-timeline-card:before {
+	content: "";
+	position: absolute;
+	left: -35px;
+	top: 17px;
+	background: #5e72e4;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+}
+.argon-timeline-title {
+	font-size: 17px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.timeline-remove-item-btn {
+    position: absolute;
+    top: 0;
+    right: -40px;
+}
+
+.shadow-sm {
+	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+.bg-gradient-secondary {
+	background: linear-gradient(87deg, #f4f5f7 0, #f4f4f7 100%) !important;
+}
+
+.help-text {
+	margin-top: -8px !important;
+	font-size: 12px;
+	font-style: normal;
+	color: rgb(117, 117, 117);
+}
