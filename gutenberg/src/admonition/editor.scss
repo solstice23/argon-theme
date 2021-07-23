@@ -1,0 +1,73 @@
+@import url("../node_modules/font-awesome/css/font-awesome.min.css");
+
+.admonition{
+	border-radius: 3px;
+	border-left-width: 3px;
+	border-left-style: solid;
+	margin-bottom: 20px;
+    color: #525f7f;
+    line-height: 1.8;
+}
+.admonition i:first-child{
+	margin-right: 5px;
+}
+.admonition-title{
+	padding: 10px 15px;
+	font-weight: bold;
+}
+.admonition-body{
+	padding: 20px 15px;
+	padding-bottom: 20px;
+}
+.admonition-primary{
+	border-left-color: #7889e8;
+}
+.admonition-primary > .admonition-title{
+	background: #7889e833;
+}
+.admonition-success{
+	border-left-color: #4fd69c;
+}
+.admonition-success > .admonition-title{
+	background: #4fd69c33;
+}
+.admonition-danger{
+	border-left-color: #f75676;
+}
+.admonition-danger > .admonition-title{
+	background: #f7567633;
+}
+.admonition-info{
+	border-left-color: #37d5f2;
+}
+.admonition-info > .admonition-title{
+	background: #37d5f233;
+}
+.admonition-warning{
+	border-left-color: #fc7c5f;
+}
+.admonition-warning > .admonition-title{
+	background: #fc7c5f33;
+}
+.admonition-default{
+	border-left-color: #3c4d69;
+}
+.admonition-default > .admonition-title{
+	background: #3c4d6933;
+}
+.admonition-grey{
+	border-left-color: #888888;
+}
+.admonition-grey > .admonition-title{
+	background: #88888833;
+}
+.shadow-sm {
+	box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.help-text{
+	margin-top: -8px !important;
+	font-size: 12px;
+	font-style: normal;
+	color: rgb(117, 117, 117);
+}

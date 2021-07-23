@@ -1,10 +1,10 @@
 import './editor.scss';
 import { __ } from './../i18n/i18n.js';
 import {
-    RichText,
-    MediaUpload,
-    BlockControls,
-    AlignmentToolbar,
+	RichText,
+	MediaUpload,
+	BlockControls,
+	AlignmentToolbar,
 	RichTextToolbarButton,
 	InspectorControls,
 	PanelColorSettings
@@ -14,11 +14,11 @@ import {
 	TextControl,
 	Panel, PanelBody, PanelRow
 } from '@wordpress/components';
-import {isWhitespaceCharacter} from 'is-whitespace-character'
+import { isWhitespaceCharacter } from 'is-whitespace-character'
 
 const { registerBlockType } = wp.blocks;
 
-registerBlockType( 'argon/alert', {
+registerBlockType('argon/alert', {
 	title: __('提示'),
 	icon: 'warning',
 	category: 'argon',
@@ -31,11 +31,11 @@ registerBlockType( 'argon/alert', {
 			type: 'string',
 			default: '#7889e8'
 		},
-		content:{
+		content: {
 			type: 'string',
 			default: ''
 		},
-		fa_icon_name:{
+		fa_icon_name: {
 			type: 'string',
 			default: 'info-circle'
 		},
@@ -45,15 +45,15 @@ registerBlockType( 'argon/alert', {
 			props.setAttributes({ content: value });
 		};
 		const onChangeColor = (value) => {
-			props.setAttributes({ color: value });
+			props.setAttributes({ color: (value || "#7889e8") });
 		}
 		const onIconChange = (value) => {
 			props.setAttributes({ fa_icon_name: value });
- 		}
+		}
 
 		return (
 			<div>
-				<div className="alert" style={{backgroundColor: props.attributes.color}}>
+				<div className="alert" style={{ backgroundColor: props.attributes.color }}>
 					{!(isWhitespaceCharacter(props.attributes.fa_icon_name) || props.attributes.fa_icon_name == "") &&
 						<span className="alert-inner--icon">
 							<i className={`fa fa-${props.attributes.fa_icon_name}`}></i>
@@ -76,13 +76,13 @@ registerBlockType( 'argon/alert', {
 									<ColorPalette
 										onChange={onChangeColor}
 										colors={[
-											{name: 'argon', color: '#7889e8'},
-											{name: 'green', color: '#4fd69c'},
-											{name: 'red', color: '#f75676'},
-											{name: 'blue', color: '#37d5f2'},
-											{name: 'orange', color: '#fc7c5f'},
-											{name: 'pink', color: '#fa7298'},
-											{name: 'black', color: '#3c4d69'},
+											{ name: 'argon', color: '#7889e8' },
+											{ name: 'green', color: '#4fd69c' },
+											{ name: 'red', color: '#f75676' },
+											{ name: 'blue', color: '#37d5f2' },
+											{ name: 'orange', color: '#fc7c5f' },
+											{ name: 'pink', color: '#fa7298' },
+											{ name: 'black', color: '#3c4d69' },
 										]}
 										value={props.attributes.color}
 									/>
@@ -107,14 +107,14 @@ registerBlockType( 'argon/alert', {
 	},
 	save: (props) => {
 		return (
-			<div className="alert"  style={{backgroundColor: props.attributes.color}}>
+			<div className="alert" style={{ backgroundColor: props.attributes.color }}>
 				{!(isWhitespaceCharacter(props.attributes.fa_icon_name) || props.attributes.fa_icon_name == "") &&
 					<span className="alert-inner--icon">
 						<i className={`fa fa-${props.attributes.fa_icon_name}`}></i>
 					</span>
 				}
-				<span className="alert-inner--text" dangerouslySetInnerHTML={{__html: props.attributes.content}}></span>
+				<span className="alert-inner--text" dangerouslySetInnerHTML={{ __html: props.attributes.content }}></span>
 			</div>
 		);
 	},
-} );
+});
