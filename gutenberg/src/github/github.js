@@ -19,6 +19,13 @@ import { isWhitespaceCharacter } from 'is-whitespace-character'
 
 const { registerBlockType } = wp.blocks;
 
+const getStyleClass = (className = "") => {
+	if (className.includes("mini")){
+		return "github-info-card-mini";
+	}
+	return "github-info-card-full";
+}
+
 registerBlockType('argon/github', {
 	title: __('Github Repo 信息卡'),
 	icon: 'github fa fa-github',
@@ -55,12 +62,6 @@ registerBlockType('argon/github', {
 		const onChangeProject = (value) => {
 			props.setAttributes({ project: value });
 		};
-		const getStyleClass = (className = "") => {
-			if (className.includes("mini")){
-				return "github-info-card-mini";
-			}
-			return "github-info-card-full";
-		}
 
 		return (
 			<div>
@@ -117,7 +118,29 @@ registerBlockType('argon/github', {
 	},
 	save: (props) => {
 		return (
-			<div></div>
+			<div className={`github-info-card card shadow-sm ${getStyleClass(props.className || props.attributes.className)}`} data-author={props.attributes.author} data-project={props.attributes.project}>
+				<div className="github-info-card-header">
+					<a href="https://github.com/" ref="nofollow" target="_blank" title="Github" rel="noopener">
+						<span><i className="fa fa-github"></i>&nbsp;GitHub</span>
+					</a>
+				</div>
+				<div className="github-info-card-body">
+					<div className="github-info-card-name-a">
+						<a href={`https://github.com/${props.attributes.author}/${props.attributes.project}`} target="_blank" rel="noopener">
+							<span className="github-info-card-name">{props.attributes.author}/{props.attributes.project}</span>
+						</a>
+					</div>
+					<div className="github-info-card-description"></div>
+				</div>
+				<div className="github-info-card-bottom">
+					<span className="github-info-card-meta github-info-card-meta-stars">
+						<i className="fa fa-star"></i>&nbsp;<span className="github-info-card-stars"></span>
+					</span>
+					<span className="github-info-card-meta github-info-card-meta-forks">
+						<i className="fa fa-code-fork"></i>&nbsp;<span className="github-info-card-forks"></span>
+					</span>
+				</div>
+			</div>
 		);
 	},
 });
