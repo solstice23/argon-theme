@@ -2283,6 +2283,7 @@ function shortcode_timeline($attr,$content=""){
 	return $out;
 }
 add_shortcode('hidden','shortcode_hidden');
+add_shortcode('spoiler','shortcode_hidden');
 function shortcode_hidden($attr,$content=""){
 	$out = "<span class='argon-hidden-text";
 	$tip = isset($attr['tip']) ? $attr['tip'] : '';
