@@ -74,6 +74,7 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 + 适配 Gutenberg 编辑器，支持通过编辑器可视化插入提示、警告、折叠块、时间线、Todo List 等区块
 + 增加文章过时信息单独设置选项
 + 更改夜间模式选择文字时的背景色
++ 增加文章预览截取字数选项
 + 修复与 Gutenberg 编辑器的兼容问题
 + 其他小改动
 
