@@ -23,6 +23,7 @@ Hexo 版本 : [github.com/solstice23/hexo-theme-argon](https://github.com/solsti
 + **评论功能扩展** - Ajax 评论，评论支持 Markdown、验证码、再次编辑、显示 UA、悄悄话模式、回复时邮件通知、查看编辑记录、无限加载等功能
 + **诸多功能** - 文章目录、阅读进度、Mathjax 或 Katex 公式解析、图片放大预览、Pangu.js 文本格式化、平滑滚动等
 + **丰富的短代码** - 支持通过短代码在文章中插入 TODO、标签、警告、提示、折叠区块、Github 信息卡、时间线、隐藏文本、视频等模块
++ **适配 Gutenberg 编辑器** - 支持使用 Gutenberg 编辑器可视化插入模块
 + **多语言** - 支持中文、英文、俄文等语言
 + **其他** - 自适应、精心优化的文章阅读界面 CSS、可切换衬线/非衬线字体、可自定义 CSS 和 JS、支持使用 CDN 加速静态文件访问、SEO 友好、Banner 打字动画、留言板页面、文章脚注等
 
@@ -68,6 +69,13 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 自动推送更新消息以及其他关于 Argon 的消息
 
 # 更新日志
+
+## 20210724 v1.2.0
++ 适配 Gutenberg 编辑器，支持通过编辑器可视化插入提示、警告、折叠块、时间线、Todo List 等区块
++ 增加文章过时信息单独设置选项
++ 更改夜间模式选择文字时的背景色
++ 修复与 Gutenberg 编辑器的兼容问题
++ 其他小改动
 
 ## 20210706 v1.1.9
 + 增加一种文章列表卡片样式
