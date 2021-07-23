@@ -89,6 +89,15 @@ registerBlockType('argon/timelime', {
 			});
 			props.setAttributes({ list: newList });
 		};
+		const getUndeletedItemsCount = (list) => {
+			let cnt = 0;
+			list.map((node) => {
+				if (!node.deleted){
+					cnt++;
+				}
+			});
+			return cnt;
+		}
 
 		const nodelist = props.attributes.list.map((node) => {
 			if (node.deleted == true){
@@ -118,7 +127,9 @@ registerBlockType('argon/timelime', {
 							value={node.content}
 							onChange={value => onChangeContent(value, node.id)}
 						/>
-						<Button className="is-tertiary timeline-remove-item-btn" onClick={() => removeNode(node.id)}><span class="dashicon dashicons dashicons-trash"></span></Button>
+						{getUndeletedItemsCount(props.attributes.list) > 1 &&
+							<Button className="is-tertiary timeline-remove-item-btn" onClick={() => removeNode(node.id)} style={{color: "#7889e8"}}><span class="dashicon dashicons dashicons-trash"></span></Button>
+						}
 					</div>
 				</div>
 			);
@@ -128,7 +139,7 @@ registerBlockType('argon/timelime', {
 			<div>
 				<div class="argon-timeline">
 					{nodelist}
-					<Button className="is-primary" onClick={addNode}>{__("+ 添加节点")}</Button>
+					<Button className="is-primary" onClick={addNode}  style={{marginTop: 8, backgroundColor: "#7889e8"}}>{__("+ 添加节点")}</Button>
 				</div>
 			</div>
 		);
