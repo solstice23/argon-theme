@@ -1,0 +1,115 @@
+@import url("../node_modules/font-awesome/css/font-awesome.min.css");
+
+.github-info-card {
+	background: #24292e !important;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 20px 25px;
+	color: #eee;
+	max-width: unset;
+    line-height: 1.8;
+}
+.github-info-card a {
+	text-decoration: none;
+}
+.github-info-card-name-a {
+	color: #8a98eb;
+}
+.github-info-card-header{
+	margin-bottom: 5px;
+}
+.github-info-card-header a {
+	color: #eee !important;
+	font-size:16px;
+}
+.github-info-card-header a:before{
+	display:none;
+}
+.github-info-card-header a i {
+	margin-right: 2px;
+}
+.github-info-card-name-a {
+	font-size: 20px;
+}
+.github-info-card-bottom {
+	margin-top: 15px;
+}
+.github-info-card-bottom .github-info-card-meta {
+	margin-right: 10px;
+	opacity: .7;
+}
+.github-info-card-bottom .github-info-card-meta i {
+	margin-right: 2px;
+}
+
+
+.github-info-card-mini {
+	display: flex;
+	flex-direction: row;
+	white-space: nowrap;
+	align-items: center;
+	padding: 15px 20px;
+	max-width: unset;
+}
+.github-info-card-mini .github-info-card-name-a {
+	display: inline-block;
+	margin-right: 12px;
+	font-size: 19px;
+}
+.github-info-card-mini .github-info-card-description {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	word-break: break-all;
+	display: inline-block;
+}
+.github-info-card-mini .github-info-card-body {
+	flex: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+}
+.github-info-card-mini .github-info-card-bottom {
+	display: inline-block;
+	margin-top: 0;
+	margin-left: 10px;
+}
+.github-info-card-mini .github-info-card-header {
+	margin-right: 7px;
+	margin-bottom: 0;
+}
+.github-info-card-mini .github-info-card-header a i {
+	font-size: 19px;
+	transform: translateY(2px);
+	margin-right: 2px;
+}
+.github-info-card-mini .github-info-card-bottom .github-info-card-meta-forks {
+	display: none;
+}
+.github-info-card-mini .github-info-card-bottom .github-info-card-meta-stars {
+	margin-right: 0;
+}
+
+.github-info-card span[contenteditable]{
+	cursor: text;
+}
+.github-info-card span[contenteditable]:empty{
+    border: 1px solid #888;
+    border-radius: 4px;
+    padding: 0 6px;
+}
+[data-placeholder]:empty:before{
+	content: attr(data-placeholder);
+	color: #888;
+}
+
+.help-text{
+	margin-top: -8px !important;
+	font-size: 12px;
+	font-style: normal;
+	color: rgb(117, 117, 117);
+}
+.fa.dashicons, .fa.dashicons-before:before {
+    font-size: 20px;
+}
