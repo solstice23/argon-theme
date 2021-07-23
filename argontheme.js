@@ -1562,13 +1562,14 @@ $(document).on("click" , "#blog_categories .tag" , function(){
 
 /*折叠区块小工具*/
 $(document).on("click" , ".collapse-block .collapse-block-title" , function(){
-	let id = this.getAttribute("collapse-id");
-	let selecter = ".collapse-block[collapse-id='" + id +"']";
-	$(selecter).toggleClass("collapsed");
-	if ($(selecter).hasClass("collapsed")){
-		$(selecter + " .collapse-block-body").stop(true , false).slideUp(200);
+	let block = $(this).parent();
+	$(block).toggleClass("collapsed");
+	let inner = $(".collapse-block-body", block);
+	console.log(inner);
+	if (block.hasClass("collapsed")){
+		inner.stop(true, false).slideUp(200);
 	}else{
-		$(selecter + " .collapse-block-body").stop(true , false).slideDown(200);
+		inner.stop(true, false).slideDown(200);
 	}
 	$("html").trigger("scroll");
 });

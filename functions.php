@@ -2052,10 +2052,9 @@ function shortcode_admonition($attr,$content=""){
 add_shortcode('collapse','shortcode_collapse_block');
 add_shortcode('fold','shortcode_collapse_block');
 function shortcode_collapse_block($attr,$content=""){
-	$collapse_id = mt_rand(1000000000 , 9999999999);
 	$collapsed = isset($attr['collapsed']) ? $attr['collapsed'] : 'true';
 	$show_border_left = isset($attr['showleftborder']) ? $attr['showleftborder'] : 'false';
-	$out = "<div collapse-id='" . $collapse_id . "'" ;
+	$out = "<div " ;
 	$out .= " class='collapse-block shadow-sm";
 	$color = isset($attr['color']) ? $attr['color'] : 'none';
 	switch ($color){
@@ -2095,7 +2094,7 @@ function shortcode_collapse_block($attr,$content=""){
 	}
 	$out .= "'>";
 
-	$out .= "<div class='collapse-block-title' collapse-id='" . $collapse_id . "'>";
+	$out .= "<div class='collapse-block-title'>";
 	if (isset($attr['icon'])){
 		$out .= "<i class='fa fa-" . $attr['icon'] . "'></i> ";
 	}
@@ -3919,6 +3918,13 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('文章内容预览截取字数', 'argon');?></label></th>
+						<td>
+							<input type="number" name="argon_trim_words_count" min="0" max="1000" value="<?php echo get_option('argon_trim_words_count', 175); ?>"/>
+							<p class="description"><?php _e('设为 0 来隐藏文章内容预览', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('是否允许移动端缩放页面', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_mobile_scale">
@@ -4373,6 +4379,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_disable_googlefont');
 		argon_update_option('argon_disable_codeblock_style');
 		argon_update_option('argon_reference_list_title');
+		argon_update_option('argon_trim_words_count');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

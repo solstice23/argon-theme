@@ -42,7 +42,7 @@ registerBlockType('argon/admonition', {
 		},
 		fa_icon_name: {
 			type: 'string',
-			default: 'info-circle'
+			default: ''
 		},
 		show_title: {
 			type: 'bool',

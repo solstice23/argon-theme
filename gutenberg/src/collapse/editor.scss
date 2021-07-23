@@ -1,0 +1,96 @@
+@import url("../node_modules/font-awesome/css/font-awesome.min.css");
+
+.collapse-block{
+	border-radius: 3px;
+	border-left-width: 3px;
+	border-left-style: solid;
+	margin-bottom: 20px;
+    color: #525f7f;
+    line-height: 1.8;
+}
+.collapse-block .collapse-block-title i:first-child{
+	margin-right: 5px;
+}
+.collapse-block.hide-border-left{
+	border-left: none;
+}
+.collapse-block .collapse-icon{
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+	transform: rotateZ(180deg);
+	transition: all .2s ease;
+}
+.collapse-block.collapsed .collapse-icon{
+	transform: rotateZ(0deg);
+}
+.collapse-block-title{
+	padding: 10px 15px;
+	font-weight: bold;
+}
+.collapse-block-title-inner{
+	max-width: calc(100% - 20px);
+	display: inline-block;
+}
+.collapse-block-title{
+	position: relative;
+}
+.collapse-icon{
+	cursor: pointer;
+}
+.collapse-block-body{
+	padding: 20px 15px;
+	padding-bottom: 20px;
+}
+.collapse-block-primary{
+	border-left-color: #7889e8;
+}
+.collapse-block-primary > .collapse-block-title{
+	background: #7889e833;
+}
+.collapse-block-success{
+	border-left-color: #4fd69c;
+}
+.collapse-block-success > .collapse-block-title{
+	background: #4fd69c33;
+}
+.collapse-block-danger{
+	border-left-color: #f75676;
+}
+.collapse-block-danger > .collapse-block-title{
+	background: #f7567633;
+}
+.collapse-block-info{
+	border-left-color: #37d5f2;
+}
+.collapse-block-info > .collapse-block-title{
+	background: #37d5f233;
+}
+.collapse-block-warning{
+	border-left-color: #fc7c5f;
+}
+.collapse-block-warning > .collapse-block-title{
+	background: #fc7c5f33;
+}
+.collapse-block-default{
+	border-left-color: #3c4d69;
+}
+.collapse-block-default > .collapse-block-title{
+	background: #3c4d6933;
+}
+.collapse-block-grey{
+	border-left-color: #888888;
+}
+.collapse-block-grey > .collapse-block-title{
+	background: #88888833;
+}
+.shadow-sm {
+	box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.help-text{
+	margin-top: -8px !important;
+	font-size: 12px;
+	font-style: normal;
+	color: rgb(117, 117, 117);
+}
