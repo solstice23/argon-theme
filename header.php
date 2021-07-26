@@ -432,7 +432,7 @@
 	<?php } ?>
 </section>
 
-<?php if (get_option('argon_page_background_url') != '') { ?>
+<?php if (apply_filters('argon_page_background_url', get_option('argon_page_background_url')) != '') { ?>
 	<style>
 		<?php if (get_option('argon_page_background_banner_style', 'false') == 'transparent') { ?>
 			#banner, #banner .shape {
@@ -448,7 +448,7 @@
 			top: 0;
 			bottom: 0;
 			z-index: -2;
-			background: url(<?php echo get_option('argon_page_background_url');?>);
+			background: url(<?php echo apply_filters('argon_page_background_url', get_option('argon_page_background_url'));?>);
 			background-position: center;
 			background-size: cover;
 			background-repeat: no-repeat;
@@ -458,7 +458,7 @@
 		html.darkmode #content:before{
 			filter: brightness(0.65);
 		}
-		<?php if (get_option('argon_page_background_dark_url') != '') { ?>
+		<?php if (apply_filters('argon_page_background_dark_url', get_option('argon_page_background_url')) != '') { ?>
 			#content:after {
 				content: '';
 				display: block;
@@ -468,7 +468,7 @@
 				top: 0;
 				bottom: 0;
 				z-index: -2;
-				background: url(<?php echo get_option('argon_page_background_dark_url');?>);
+				background: url(<?php echo apply_filters('argon_page_background_dark_url', get_option('argon_page_background_url'));?>);
 				background-position: center;
 				background-size: cover;
 				background-repeat: no-repeat;
