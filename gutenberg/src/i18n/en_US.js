@@ -5,6 +5,7 @@ export const translations = {
 	'时间线': 'Timeline',
 	'进度条': 'Progress Bar',
 	'Github Repo 信息卡': 'Github Repo Card',
+	'Tab 面板': 'Tab Panel',
 
 	'区块设置': 'Block Settings',
 	'颜色': 'Color',
@@ -19,8 +20,12 @@ export const translations = {
 	'左边框': 'Left Border',
 	'进度 (%)': 'Progress (%)',
 	'时间': 'Time',
+	'动画': 'Animations',
 	'条目内容': 'Item content..',
 	'+ 添加节点': '+ Add Node',
 	'+ 添加条目': '+ Add Item',
+	'+ 添加 Tab': '+ Add Tab',
+	'移除此项': 'Remove item',
+	'切换时的淡入动画': 'Fade animation when switching',
 	'Repo 描述将会显示在这里': 'Repo description will be displayed here.'
 };

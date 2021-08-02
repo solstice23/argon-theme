@@ -2971,7 +2971,6 @@ html.darkmode.amoled-dark .friend-links-style1 .friend-link-description:after {
 	margin-right: 0;
 }
 
-
 /*短代码-进度条*/
 html.darkmode .progress {
 	background: #555;
@@ -2980,6 +2979,45 @@ html.darkmode .progress {
 html.darkmode.amoled-dark .progress {
 	background: #222;
 }
+
+/*Gutenburg 区块-Tab 面板*/
+.argon-tabpanel > .tabpanel-header {
+	padding: 0;
+}
+
+.argon-tabpanel .nav {
+	display: flex;
+	justify-content: flex-start;
+	align-content: center;
+	flex-wrap: wrap;
+}
+
+.argon-tabpanel .nav-pills .nav-item {
+	padding: 0;
+	flex: 0;
+	box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+	margin-bottom: 0;
+}
+.argon-tabpanel .nav-pills .nav-link {
+	box-shadow: none;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	background-color: #f4f5f7;
+	border: solid 1px rgb(230, 236, 241);
+	border-bottom: none;
+	padding: 8px 16px;
+	white-space: nowrap;
+}
+.argon-tabpanel .nav-pills .nav-link:not(:first-of-type) {
+	border-left: none;
+}
+.argon-tabpanel .nav-pills .nav-link:before {
+	display: none;
+}
+.argon-tabpanel .nav-pills .nav-link.active, .argon-tabpanel .nav-pills .show>.nav-link {
+	background-color: var(--themecolor);
+}
+
 
 /*noUiSlidebar*/
 .noUi-connect , .noUi-handle{

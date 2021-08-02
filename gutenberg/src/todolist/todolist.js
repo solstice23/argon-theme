@@ -122,7 +122,7 @@ registerBlockType('argon/todolist', {
 		});
 		
 		return (
-			<div>
+			<div style="margin-bottom: 20px;">
 				{nodelist}
 			</div>
 		);

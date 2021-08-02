@@ -1,0 +1,126 @@
+.argon-tabpanel > .tabpanel-header {
+	padding: 0;
+}
+
+.argon-tabpanel .nav {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	align-content: center;
+	padding-inline-start: 0;
+	list-style: none;
+}
+
+.argon-tabpanel .nav-pills .nav-item {
+	padding: 0;
+	flex: 0;
+	box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+	margin-bottom: 15px;
+}
+.argon-tabpanel .nav-pills .nav-link {
+	box-shadow: none;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	background-color: #f4f5f7;
+	border: solid 1px rgb(230, 236, 241);
+	border-bottom: none;
+	padding: 8px 16px;
+	white-space: nowrap !important;
+	text-decoration: none;
+}
+.argon-tabpanel .nav-pills .nav-link:not(:first-of-type) {
+	border-left: none;
+}
+.argon-tabpanel .nav-pills .nav-link:before {
+	display: none;
+}
+.argon-tabpanel .nav-pills .nav-link.active, .argon-tabpanel .nav-pills .show>.nav-link {
+	background-color: #5e72e4;
+}
+.argon-tabpanel .tabpanel-body{
+	border: 1px solid rgba(0,0,0,.05);
+	border-radius: 0 4px 4px 4px;
+	margin-top: -23px;
+	padding: 24px;
+}
+
+
+.tab-remove-item-btn {
+    position: absolute;
+    right: 5px;
+    bottom: 0;
+}
+
+
+
+
+
+.nav-link {
+    color: #525f7f
+}
+
+.nav-link:hover {
+    color: #5e72e4
+}
+
+.nav-link i:not(.fa) {
+    position: relative;
+    top: 2px
+}
+
+.nav-pills .nav-link {
+    font-size: .875rem;
+    font-weight: 500;
+    padding: .75rem 1rem;
+    transition: all .15s ease;
+    color: #5e72e4;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(50,50,93,.11),0 1px 3px rgba(0,0,0,.08)
+}
+
+.nav-pills .nav-link:hover {
+    color: #485fe0
+}
+
+.nav-pills .nav-link.active,.nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #5e72e4
+}
+
+@media (max-width: 575.98px) {
+    .nav-pills .nav-item {
+        margin-bottom:1rem
+    }
+}
+
+@media (max-width: 767.98px) {
+    .nav-pills:not(.nav-pills-circle) .nav-item {
+        padding-right:0
+    }
+}
+
+.nav-pills-circle .nav-link {
+    line-height: 60px;
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    text-align: center;
+    border-radius: 50%
+}
+
+.nav-pills-circle .nav-link-icon i,.nav-pills-circle .nav-link-icon svg {
+    font-size: 1rem
+}
+
+.nav-wrapper {
+    padding: 1rem 0;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem
+}
+
+.nav-wrapper+.card {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: .25rem;
+    border-bottom-left-radius: .25rem
+}
