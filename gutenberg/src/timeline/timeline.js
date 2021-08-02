@@ -19,7 +19,7 @@ import {
 
 const { registerBlockType } = wp.blocks;
 
-registerBlockType('argon/timelime', {
+registerBlockType('argon/timeline', {
 	title: __('时间线'),
 	icon: 'clock',
 	category: 'argon',
