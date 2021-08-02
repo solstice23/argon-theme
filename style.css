@@ -200,6 +200,17 @@ article table > thead > tr > th{
 	vertical-align: top;
 	border: 1px solid #dee2e6;
 }
+article figure.is-style-stripes table > tbody > tr > td,
+article figure.is-style-stripes table > tbody > tr > th,
+article figure.is-style-stripes table > tfoot > tr > td,
+article figure.is-style-stripes table > tfoot > tr > th,
+article figure.is-style-stripes table > thead > tr > td,
+article figure.is-style-stripes table > thead > tr > th{
+	border: none !important;
+}
+.wp-block-table.is-style-stripes {
+	border-bottom: none !important;
+}
 ::-webkit-scrollbar{
 	width: 8px;
 	height: 8px;
@@ -2984,14 +2995,12 @@ html.darkmode.amoled-dark .progress {
 .argon-tabpanel > .tabpanel-header {
 	padding: 0;
 }
-
 .argon-tabpanel .nav {
 	display: flex;
 	justify-content: flex-start;
 	align-content: center;
 	flex-wrap: wrap;
 }
-
 .argon-tabpanel .nav-pills .nav-item {
 	padding: 0;
 	flex: 0;
@@ -3008,14 +3017,26 @@ html.darkmode.amoled-dark .progress {
 	padding: 8px 16px;
 	white-space: nowrap;
 }
+html.darkmode .argon-tabpanel .nav-pills .nav-link {
+    background: #626262;
+    border: solid 1px rgb(92 92 92);
+    color: #fff;
+}
+html.darkmode.amoled-dark .argon-tabpanel .nav-pills .nav-link {
+    background: #212121;
+    border: solid 1px rgb(39 39 39);
+}
 .argon-tabpanel .nav-pills .nav-link:not(:first-of-type) {
 	border-left: none;
 }
 .argon-tabpanel .nav-pills .nav-link:before {
 	display: none;
 }
-.argon-tabpanel .nav-pills .nav-link.active, .argon-tabpanel .nav-pills .show>.nav-link {
-	background-color: var(--themecolor);
+.argon-tabpanel .nav-pills .nav-link.active, .argon-tabpanel .nav-pills .show > .nav-link {
+	background-color: var(--themecolor) !important;
+}
+html.darkmode.amoled-dark .argon-tabpanel .tabpanel-body {
+	border: 1px solid #222;
 }
 
 
@@ -4055,6 +4076,18 @@ html.darkmode article .post-content blockquote{
 	border-left: 4px solid rgba(255, 255, 255, .12);
 }
 
+html.darkmode article table > tbody > tr > td,
+html.darkmode article table > tbody > tr > th,
+html.darkmode article table > tfoot > tr > td,
+html.darkmode article table > tfoot > tr > th,
+html.darkmode article table > thead > tr > td,
+html.darkmode article table > thead > tr > th{
+	border: 1px solid #666;
+}
+html.darkmode .wp-block-table.is-style-stripes tbody tr:nth-child(odd) {
+	background: #505050;
+}
+
 html.darkmode article .post-content pre:not(.hljs-codeblock){
 	border: 1px solid rgba(255, 255, 255, .12);
 	background: #525252;
@@ -4206,6 +4239,19 @@ html.darkmode.amoled-dark .dropdown-menu , html.darkmode.amoled-dark .dropdown-m
 	background: #111;
 	box-shadow: none;
 }
+
+html.darkmode.amoled-dark article table > tbody > tr > td,
+html.darkmode.amoled-dark article table > tbody > tr > th,
+html.darkmode.amoled-dark article table > tfoot > tr > td,
+html.darkmode.amoled-dark article table > tfoot > tr > th,
+html.darkmode.amoled-dark article table > thead > tr > td,
+html.darkmode.amoled-dark article table > thead > tr > th {
+	border: 1px solid #333;
+}
+html.darkmode.amoled-dark .wp-block-table.is-style-stripes tbody tr:nth-child(odd) {
+	background: #151515;
+}
+
 html.darkmode.amoled-dark article .post-content pre:not(.hljs-codeblock){
 	background: #000;
 }
