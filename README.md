@@ -70,6 +70,12 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20210803 v1.2.1
++ 增加 "Tab 面板" Gutenberg 区块
++ 修复夜间模式的显示问题
++ 修复 Gutenberg 编辑器区块图标不显示的问题
++ 新增页面背景 Filter
+
 ## 20210724 v1.2.0
 + 适配 Gutenberg 编辑器，支持通过编辑器可视化插入提示、警告、折叠块、时间线、Todo List 等区块
 + 增加文章过时信息单独设置选项
