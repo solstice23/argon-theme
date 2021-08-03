@@ -3132,6 +3132,9 @@ html.darkmode.amoled-dark .progress {
 }
 
 /*Gutenburg 区块-Tab 面板*/
+.argon-tabpanel {
+	margin-bottom: 20px;
+}
 .argon-tabpanel > .tabpanel-header {
 	padding: 0;
 }

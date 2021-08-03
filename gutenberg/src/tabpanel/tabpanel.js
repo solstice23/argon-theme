@@ -20,7 +20,7 @@ import {
 const { registerBlockType } = wp.blocks;
 
 const getRandomString = (length) => {
-	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 	let result = '';
 	for (let i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
 	return result;
@@ -60,9 +60,9 @@ registerBlockType('argon/tabpanel', {
 		},
 	},
 	edit: (props) => {
-		if (props.attributes.id == '') {
+		if (props.attributes.id == '' || (props.attributes.id[0] >= '0' && props.attributes.id[0] <= '9')) {
 			props.setAttributes({
-				id: getRandomString(16)
+				id: "tabpanel-" + getRandomString(8)
 			})
 		}
 		const addNode = () => {
@@ -141,7 +141,7 @@ registerBlockType('argon/tabpanel', {
 							tagName="a"
 							className={"nav-link " + (props.attributes.active == node.id ? 'active' : '')} 
 							placeholder={__("标题")}
-							id={`#${props.attributes.id}-${node.id}-tab`}
+							id={`${props.attributes.id}-${node.id}-tab`}
 							href={`#${props.attributes.id}-${node.id}`}
 							value={node.title}
 							onChange={(value) => onChangeTitle(value, node.id)}
@@ -192,7 +192,7 @@ registerBlockType('argon/tabpanel', {
 						</ul>
 					</div>
 					<div className="tabpanel-body card-body shadow-sm">
-						<div className="tab-content" id="myTabContent">
+						<div className="tab-content">
 							{tabContentNodeList}
 						</div>
 					</div>
@@ -224,7 +224,7 @@ registerBlockType('argon/tabpanel', {
 						<a
 							className={"nav-link " + (props.attributes.active == node.id ? 'active' : '')} 
 							dangerouslySetInnerHTML={{__html: node.title}}
-							id={`#${props.attributes.id}-${node.id}-tab`}
+							id={`${props.attributes.id}-${node.id}-tab`}
 							href={`#${props.attributes.id}-${node.id}`}
 							data-toggle="tab"
 							role="tab"
