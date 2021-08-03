@@ -1114,7 +1114,7 @@ html.darkmode.amoled-dark #leftbar_tab_tools ul li {
 	background-color: var(--themecolor-dark) !important;
 }
 .fabtn.fabtn-hidden {
-	height: 0;
+	height: 0 !important;
 	opacity: 0;
 	margin-top: 0;
 	box-shadow: none;

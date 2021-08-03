@@ -385,6 +385,7 @@ if (argonConfig.headroom){
 	let $toggleBlogSettings = $('#fabtn_toggle_blog_settings_popup');
 	let $goToComment = $('#fabtn_go_to_comment');
 
+	let $readingProgressBtn = $('#fabtn_reading_progress');
 	let $readingProgressBar = $('#fabtn_reading_progress_bar');
 	let $readingProgressDetails = $('#fabtn_reading_progress_details');
 
@@ -492,13 +493,38 @@ if (argonConfig.headroom){
 		setBlogFilter(this.getAttribute("filter-name"));
 	});
 
+	let $window = $(window);
+
 	function changefabtnDisplayStatus(){
 		//阅读进度
-		let readingProgress = $(window).scrollTop() / Math.max($(document).height() - $(window).height(), 0.01);
-		$readingProgressDetails.html((readingProgress * 100).toFixed(0) + "%");
-		$readingProgressBar.css("width" , (readingProgress * 100).toFixed(0) + "%");
+		function hideReadingProgress(){
+			$readingProgressBtn.addClass("fabtn-hidden");
+		}
+		function setReadingProgress(percent){
+			$readingProgressBtn.removeClass("fabtn-hidden");
+			$readingProgressDetails.html((percent * 100).toFixed(0) + "%");
+			$readingProgressBar.css("width" , (percent * 100).toFixed(0) + "%");
+		}
+		if ($("article.post.post-full").length == 0){
+			hideReadingProgress();
+		}else{
+			console.log($window.scrollTop() - ($("article.post.post-full").offset().top - 80));
+			console.log($("article.post.post-full").outerHeight() + 50 - $window.height());
+			let a = $window.scrollTop() - ($("article.post.post-full").offset().top - 80);
+			let b = $("article.post.post-full").outerHeight() + 50 - $window.height();
+			if (b <= 0){
+				hideReadingProgress();
+			}else{
+				readingProgress = a / b;
+				if (isNaN(readingProgress) || readingProgress < 0 || readingProgress > 1){
+					hideReadingProgress();
+				}else{
+					setReadingProgress(readingProgress);
+				}
+			}
+		}
 		//是否显示回顶
-		if ($(window).scrollTop() >= 400 || readingProgress >= 0.5){
+		if ($(window).scrollTop() >= 400){
 			$backToTopBtn.removeClass("fabtn-hidden");
 		}else{
 			$backToTopBtn.addClass("fabtn-hidden");
@@ -506,6 +532,9 @@ if (argonConfig.headroom){
 	}
 	changefabtnDisplayStatus();
 	$(window).scroll(function(){
+		changefabtnDisplayStatus();
+	});
+	$(window).resize(function(){
 		changefabtnDisplayStatus();
 	});
 	$fabtns.removeClass("fabtns-unloaded");
