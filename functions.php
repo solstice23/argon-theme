@@ -179,6 +179,24 @@ function array_remove(&$arr, $item){
 		array_splice($arr, $pos, 1);
 	}
 }
+//数字格式化
+function format_number_in_kilos($number) {
+	if ($number < 1000){
+		return $number;
+	}
+	if (1000 <= $number && $number < 1000000){
+		if (1000 <= $number && $number < 10000){
+			return round($number / 1000, 1) . "K";
+		}else{
+			return round($number / 1000, 0) . "K";
+		}
+	}
+	if (1000000 <= $number && $number <= 10000000){
+		return round($number / 1000000, 1) . "M";
+	}else{
+		return round($number / 1000000, 0) . "M";
+	}
+}
 //表情包
 require_once(get_template_directory() . '/emotions.php');
 //文章特色图片
@@ -824,16 +842,91 @@ function argon_get_comment_text($comment_ID = 0, $args = array()) {
 	}
 	return apply_filters( 'comment_text', $comment_text, $comment, $args );
 }
+//评论点赞
+function get_comment_upvotes($id) {
+	$comment = get_comment($id);
+	if ($comment == null){
+		return 0;
+	}
+	$upvotes = get_comment_meta($comment -> comment_ID, "upvotes", true);
+	if ($upvotes == null) {
+		$upvotes = 0;
+	}
+	return $upvotes;
+}
+function set_comment_upvotes($id){
+	$comment = get_comment($id);
+	if ($comment == null){
+		return 0;
+	}
+	$upvotes = get_comment_meta($comment -> comment_ID, "upvotes", true);
+	if ($upvotes == null) {
+		$upvotes = 0;
+	}
+	$upvotes++;
+	update_comment_meta($comment -> comment_ID, "upvotes", $upvotes);
+	return $upvotes;
+}
+function is_comment_upvoted($id){
+	$upvotedList = isset($_COOKIE['argon_comment_upvoted']) ? $_COOKIE['argon_comment_upvoted'] : '';
+	if (in_array($id, explode(',', $upvotedList))){
+		return true;
+	}
+	return false;
+}
+function upvote_comment(){
+	if (get_option("argon_enable_comment_upvote", "false") != "true"){
+		return;
+	}
+	header('Content-Type:application/json; charset=utf-8');
+	$ID = $_POST["comment_id"];
+	$comment = get_comment($ID);
+	if ($comment == null){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => __('评论不存在', 'argon'),
+			'total_upvote' => 0
+		)));
+	}
+	$upvotedList = isset($_COOKIE['argon_comment_upvoted']) ? $_COOKIE['argon_comment_upvoted'] : '';
+	if (in_array($ID, explode(',', $upvotedList))){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => __('该评论已被赞过', 'argon'),
+			'total_upvote' => get_comment_upvotes($ID)
+		)));
+	}
+	set_comment_upvotes($ID);
+	setcookie('argon_comment_upvoted', $upvotedList . $ID . "," , time() + 3153600000 , '/');
+	exit(json_encode(array(
+		'ID' => $ID,
+		'status' => 'success',
+		'msg' => __('点赞成功', 'argon'),
+		'total_upvote' => format_number_in_kilos(get_comment_upvotes($ID))
+	)));
+}
+add_action('wp_ajax_upvote_comment' , 'upvote_comment');
+add_action('wp_ajax_nopriv_upvote_comment' , 'upvote_comment');
 //评论样式格式化
 function argon_comment_format($comment, $args, $depth){
 	$GLOBALS['comment'] = $comment;
 	if (user_can_view_comment(get_comment_ID())){
 	?>
 	<li class="comment-item" id="comment-<?php comment_ID(); ?>" data-id="<?php comment_ID(); ?>" data-use-markdown="<?php echo get_comment_meta(get_comment_ID(), "use_markdown", true);?>">
-		<div class="comment-item-avatar">
-			<?php if(function_exists('get_avatar') && get_option('show_avatars')){
-				echo get_avatar($comment, 40);
-			}?>
+		<div class="comment-item-left-wrapper">
+			<div class="comment-item-avatar">
+				<?php if(function_exists('get_avatar') && get_option('show_avatars')){
+					echo get_avatar($comment, 40);
+				}?>
+			</div>
+			<?php if (get_option("argon_enable_comment_upvote", "false") == "true"){ ?>
+				<button class="comment-upvote btn btn-icon btn-outline-primary btn-sm <?php echo (is_comment_upvoted(get_comment_ID()) ? 'upvoted' : ''); ?>" type="button" data-id="<?php comment_ID(); ?>">
+					<span class="btn-inner--icon"><i class="fa fa-caret-up"></i></span>
+					<span class="btn-inner--text">
+						<span class="comment-upvote-num"><?php echo format_number_in_kilos(get_comment_upvotes(get_comment_ID())); ?></span>
+					</span>
+				</button>
+			<?php } ?>
 		</div>
 		<div class="comment-item-inner" id="comment-inner-<?php comment_ID();?>">
 			<div class="comment-item-title">
@@ -1530,6 +1623,9 @@ function get_shuoshuo_upvotes($ID){
 	return number_format_i18n($count);
 }
 function set_shuoshuo_upvotes($ID){
+	if (get_post_type($ID) != 'shuoshuo'){
+		return;
+	}
 	$count_key = 'upvotes';
 	$count = get_post_meta($ID, $count_key, true);
 	if ($count==''){
@@ -1542,7 +1638,8 @@ function set_shuoshuo_upvotes($ID){
 function upvote_shuoshuo(){
 	header('Content-Type:application/json; charset=utf-8');
 	$ID = $_POST["shuoshuo_id"];
-	if (isset($_COOKIE['argon_shuoshuo_' . $ID . '_upvoted'])){
+	$upvotedList = isset($_COOKIE['argon_shuoshuo_upvoted']) ? $_COOKIE['argon_shuoshuo_upvoted'] : '';
+	if (in_array($ID, explode(',', $upvotedList))){
 		exit(json_encode(array(
 			'status' => 'failed',
 			'msg' => __('该说说已被赞过', 'argon'),
@@ -1550,7 +1647,7 @@ function upvote_shuoshuo(){
 		)));
 	}
 	set_shuoshuo_upvotes($ID);
-	setcookie('argon_shuoshuo_' . $ID . '_upvoted' , 'true' , time() + 3153600000 , '/');
+	setcookie('argon_shuoshuo_upvoted', $upvotedList . $ID . "," , time() + 3153600000 , '/');
 	exit(json_encode(array(
 		'ID' => $ID,
 		'status' => 'success',
@@ -3780,6 +3877,17 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('评论点赞', 'argon');?></label></th>
+						<td>
+							<select name="argon_enable_comment_upvote">
+								<?php $argon_enable_comment_upvote = get_option('argon_enable_comment_upvote'); ?>
+								<option value="false" <?php if ($argon_enable_comment_upvote=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+								<option value="true" <?php if ($argon_enable_comment_upvote=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+							</select>
+							<p class="description">开启后，每一条评论的头像下方会出现点赞按钮</p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('评论者 UA 显示', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_ua">
@@ -4381,6 +4489,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_disable_codeblock_style');
 		argon_update_option('argon_reference_list_title');
 		argon_update_option('argon_trim_words_count');
+		argon_update_option('argon_enable_comment_upvote');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

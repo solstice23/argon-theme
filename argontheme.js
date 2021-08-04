@@ -508,8 +508,6 @@ if (argonConfig.headroom){
 		if ($("article.post.post-full").length == 0){
 			hideReadingProgress();
 		}else{
-			console.log($window.scrollTop() - ($("article.post.post-full").offset().top - 80));
-			console.log($("article.post.post-full").outerHeight() + 50 - $window.height());
 			let a = $window.scrollTop() - ($("article.post.post-full").offset().top - 80);
 			let b = $("article.post.post-full").outerHeight() + 50 - $window.height();
 			if (b <= 0){
@@ -1102,6 +1100,57 @@ if (argonConfig.headroom){
 		}
 	});
 }();
+/*评论点赞*/
+$(document).on("click" , ".comment-upvote" , function(){
+	$this = $(this);
+	ID = $this.attr("data-id");
+	$this.addClass("comment-upvoting");
+	$.ajax({
+		url : argonConfig.wp_path + "wp-admin/admin-ajax.php",
+		type : "POST",
+		dataType : "json",
+		data : {
+			action: "upvote_comment",
+			comment_id : ID,
+		},
+		success : function(result){
+			$this.removeClass("comment-upvoting");
+			if (result.status == "success"){
+				$(".comment-upvote-num" , $this).html(result.total_upvote);
+				$this.addClass("upvoted");
+			}else{
+				$(".comment-upvote-num" , $this).html(result.total_upvote);
+				iziToast.show({
+					title: result.msg,
+					class: 'shadow-sm',
+					position: 'topRight',
+					backgroundColor: '#f5365c',
+					titleColor: '#ffffff',
+					messageColor: '#ffffff',
+					iconColor: '#ffffff',
+					progressBarColor: '#ffffff',
+					icon: 'fa fa-close',
+					timeout: 5000
+				});
+			}
+		},
+		error : function(xhr){
+			$this.removeClass("comment-upvoting");
+			iziToast.show({
+				title: __("点赞失败"),
+				class: 'shadow-sm',
+				position: 'topRight',
+				backgroundColor: '#f5365c',
+				titleColor: '#ffffff',
+				messageColor: '#ffffff',
+				iconColor: '#ffffff',
+				progressBarColor: '#ffffff',
+				icon: 'fa fa-close',
+				timeout: 5000
+			});
+		}
+	});
+});
 /*评论表情面板*/
 function lazyloadStickers(){
 	$(".emotion-keyboard .emotion-group:not(d-none) .emotion-item > img.lazyload").lazyload({threshold: 500, effect: "fadeIn"}).removeClass("lazyload");
@@ -1221,7 +1270,7 @@ function generateCommentTextAvatar(img){
 		hash = (hash * 233 + emailHash.charCodeAt(i)) % 16;
 	}
 	let colors = ['#e25f50', '#f25e90', '#bc67cb', '#9672cf', '#7984ce', '#5c96fa', '#7bdeeb', '#45d0e2', '#48b7ad', '#52bc89', '#9ace5f', '#d4e34a', '#f9d715', '#fac400', '#ffaa00', '#ff8b61', '#c2c2c2', '#8ea3af', '#a1877d', '#a3a3a3', '#b0b6e3', '#b49cde', '#c2c2c2', '#7bdeeb', '#bcaaa4', '#aed77f'];
-	let text = $(".comment-name", img.parent().parent()).text().trim()[0];
+	let text = $(".comment-name", img.parent().parent().parent()).text().trim()[0];
 	img.parent().html('<div class="avatar avatar-40 photo comment-text-avatar" style="background-color: ' + colors[hash] + ';">' + text + '</div>');
 }
 document.addEventListener("error", function(e){
@@ -1594,7 +1643,6 @@ $(document).on("click" , ".collapse-block .collapse-block-title" , function(){
 	let block = $(this).parent();
 	$(block).toggleClass("collapsed");
 	let inner = $(".collapse-block-body", block);
-	console.log(inner);
 	if (block.hasClass("collapsed")){
 		inner.stop(true, false).slideUp(200);
 	}else{
@@ -1630,7 +1678,6 @@ function getGithubInfoCardContent(){
 					$(".github-info-card-description" , $this).html(description);
 					$(".github-info-card-stars" , $this).html(result.stargazers_count);
 					$(".github-info-card-forks" , $this).html(result.forks_count);
-					//console.log(result);
 				},
 				error : function(xhr){
 					if (xhr.status == 404){
