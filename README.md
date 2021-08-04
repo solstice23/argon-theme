@@ -70,6 +70,14 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20210804 v1.2.2
++ 新增评论点赞功能
++ 增加一种文章列表卡片样式
++ 改进阅读进度浮动按钮显示逻辑
++ 修复 "Tab 面板" Gutenberg 组件有概率无法切换的 BUG
++ 修复夜间模式背景不切换的 BUG
++ 其他修复与改进
+
 ## 20210803 v1.2.1
 + 增加 "Tab 面板" Gutenberg 区块
 + 修复夜间模式的显示问题
