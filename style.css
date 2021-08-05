@@ -2134,8 +2134,8 @@ html.darkmode .comment-upvote{
 	color: #fff !important;
 }
 .comment-upvote.upvoted {
-	color: #fff;
-	background-color: var(--themecolor);
+	color: #fff !important;
+	background-color: var(--themecolor) !important;
 	pointer-events: none;
 }
 .comment-upvote .btn-inner--text{
