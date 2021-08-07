@@ -662,17 +662,22 @@ body.leftbar-can-headroom.headroom---unpinned #navbar-main {
 	font-size: 16px;
 	opacity: 0.9;
 }
-.banner-title-inner.typing-effect:after {
+.banner-title-inner.typing-effect:after, .banner-subtitle.typing-effect:after {
 	content: "";
-	background: #fff;
-	width: 2px;
+	width: 0px;
 	height: 30px;
 	display: inline-block;
 	transform: translateX(5px) translateY(5px);
-	animation: cursor-flash-effect 1s infinite;
+	animation: cursor-flash-effect 1s;
+	animation-fill-mode: forwards;
+	outline: 1px solid #fff;
+	animation-iteration-count: var(--animation-cnt);
 }
-.banner-title-inner.typing-effect {
-	transform: translateX(1px) translateY(-50%);
+.banner-subtitle.typing-effect:after {
+	height: 16px;
+	transform: translateX(5px) translateY(2px);
+	outline: .5px solid #fff;
+	opacity: .9;
 }
 @keyframes cursor-flash-effect {
 	0% {

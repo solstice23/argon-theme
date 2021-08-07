@@ -1992,21 +1992,28 @@ function updateThemeColor(color, setcookie){
 }
 
 /*打字效果*/
-function typeEffect(element, text, now, interval){
-	element.classList.add('typing-effect');
+function typeEffect($element, text, now, interval){
 	if (now > text.length){
 		setTimeout(function(){
-			element.classList.remove('typing-effect');
-		}, 1000 - ((interval * now) % 1000) - 50);
+			$element.removeClass("typing-effect");
+		}, 1000);
 		return;
 	}
-	element.innerText = text.substring(0, now);
-	setTimeout(function(){typeEffect(element, text, now + 1, interval)}, interval);
+	$element[0].innerText = text.substring(0, now);
+	setTimeout(function(){typeEffect($element, text, now + 1, interval)}, interval);
+}
+function startTypeEffect($element, text, interval){
+	$element.addClass("typing-effect");
+	$element.attr("style", "--animation-cnt: " + Math.ceil(text.length * interval / 1000));
+	typeEffect($element, text, 1, interval);
 }
 !function(){
-	$bannerTitle = $(".banner-title");
-	if ($bannerTitle.data("text") != undefined){
-		typeEffect($(".banner-title-inner")[0], $bannerTitle.data("text"), 0, $bannerTitle.data("interval"));
+	if ($(".banner-title").data("interval") != undefined){
+		let interval = $(".banner-title").data("interval");
+		let $title = $(".banner-title-inner");
+		let $subTitle = $(".banner-subtitle");
+		startTypeEffect($title, $title.data("text"), interval);
+		setTimeout(function(){startTypeEffect($subTitle, $subTitle.data("text"), interval);}, Math.ceil($title.data("text").length * interval / 1000) * 1000);
 	}
 }();
 
