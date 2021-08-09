@@ -4037,6 +4037,9 @@ pre.hljs-codeblock.hljs-break-line .hljs-ln-code {
 	line-break: anywhere;
 	white-space: break-spaces;
 }
+pre.hljs-codeblock:not(.hljs-break-line) .hljs-ln-code {
+	white-space: pre;
+}
 code[hljs-codeblock-inner]::-webkit-scrollbar-track {
 	border: none;
 	background: transparent !important;
