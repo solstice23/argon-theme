@@ -1264,7 +1264,12 @@ $(document).on("click" , ".show-full-comment" , function(){
 });
 /*评论文字头像*/
 function generateCommentTextAvatar(img){
-	let emailHash = img.attr("src").match(/([a-f\d]{32}|[A-F\d]{32})/)[0];
+	let emailHash = '';
+	try{
+		emailHash = img.attr("src").match(/([a-f\d]{32}|[A-F\d]{32})/)[0];
+	}catch{
+		emailHash = img.parent().parent().parent().find("comment-name").text().trim();
+	}
 	let hash = 0;
 	for (i in emailHash){
 		hash = (hash * 233 + emailHash.charCodeAt(i)) % 16;
