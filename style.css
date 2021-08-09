@@ -3972,7 +3972,7 @@ article table.hljs-ln > thead > tr > td,
 article table.hljs-ln > thead > tr > th {
 	padding: unset;
 	vertical-align: unset;
-	border: unset;
+	border: unset !important;
 }
 pre.hljs-codeblock {
 	overflow: visible;

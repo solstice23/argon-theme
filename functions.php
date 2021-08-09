@@ -1933,12 +1933,6 @@ function argon_get_post_outdated_info(){
 }
 //Gutenberg 编辑器区块
 function argon_init_gutenberg_blocks() {
-	wp_register_style(
-		'argon-gutenberg-block-frontend-css',
-		$GLOBALS['assets_path'].'/gutenberg/dist/dist/blocks.style.build.css',
-		is_admin() ? array('wp-editor') : null,
-		null
-	);
 	wp_register_script(
 		'argon-gutenberg-block-js',
 		$GLOBALS['assets_path'].'/gutenberg/dist/blocks.build.js',
