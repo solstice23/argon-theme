@@ -172,10 +172,11 @@ html:not(.disable-codeblock-style) article code:not([hljs-codeblock-inner]) {
 	background: #f5f7ff;
 	direction: ltr;
 	border-radius: 3px;
+	padding: 0 4px;
 }
-html:not(.disable-codeblock-style)article > code:not([hljs-codeblock-inner]),
-article > p > code:not([hljs-codeblock-inner]) {
-	padding: 2px 3px;
+html:not(.disable-codeblock-style) article .post-content > code:not([hljs-codeblock-inner]),
+article .post-content > p > code:not([hljs-codeblock-inner]) {
+	padding: 2px 5px;
 }
 article .post-content abbr[title] {
 	text-decoration: none;
