@@ -421,7 +421,7 @@
 			<?php echo get_option('argon_banner_subtitle') == '' ? '' : '<span class="banner-subtitle d-block">' . get_option('argon_banner_subtitle') . '</span>'; ?></div>
 		<?php } else {?>
 			<div class="banner-title text-white" data-interval="<?php echo get_option('argon_banner_typing_effect_interval', 100); ?>"><span data-text="<?php echo $banner_title; ?>" class="banner-title-inner">&nbsp;</span>
-			<?php echo get_option('argon_banner_subtitle') == '' ? '' : '<span data-text=' . get_option('argon_banner_subtitle') . ' class="banner-subtitle d-block">&nbsp;</span>'; ?></div>
+			<?php echo get_option('argon_banner_subtitle') == '' ? '' : '<span data-text="' . get_option('argon_banner_subtitle') . '" class="banner-subtitle d-block">&nbsp;</span>'; ?></div>
 		<?php }?>
 	</div>
 	<?php if (get_option('argon_banner_background_url') != '') { ?>
