@@ -451,6 +451,11 @@ if (argonConfig.waterflow_columns != "1") {
 	$(window).resize(function(){
 		waterflowInit();
 	});
+	new MutationObserver(function(mutations, observer){
+		waterflowInit();
+	}).observe(document.querySelector("#primary"), {
+		'childList': true
+	});
 }
 
 /*浮动按钮栏相关 (回顶等)*/
@@ -1551,8 +1556,16 @@ function lazyloadInit(){
 	if (argonConfig.lazyload.effect == "none"){
 		delete argonConfig.lazyload.effect;
 	}
-	$("article img.lazyload:not(.lazyload-loaded) , .post-thumbnail.lazyload:not(.lazyload-loaded) , .related-post-thumbnail.lazyload:not(.lazyload-loaded)").lazyload(
+	$("article img.lazyload:not(.lazyload-loaded) , .related-post-thumbnail.lazyload:not(.lazyload-loaded)").lazyload(
 		Object.assign(argonConfig.lazyload, {
+			load: function () {
+				$(this).addClass("lazyload-loaded");
+				$(this).parent().removeClass("lazyload-container-unload");
+			}
+		})
+	);
+	$(".post-thumbnail.lazyload:not(.lazyload-loaded)").lazyload(
+		Object.assign({threshold: argonConfig.lazyload.threshold}, {
 			load: function () {
 				$(this).addClass("lazyload-loaded");
 				$(this).parent().removeClass("lazyload-container-unload");
@@ -2237,6 +2250,7 @@ function highlightJsRender(){
 }
 $(document).ready(function(){
 	highlightJsRender();
+	waterflowInit();
 });
 $(document).on("click" , ".hljs-control-fullscreen" , function(){
 	let block = $(this).parent().parent();
