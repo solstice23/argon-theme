@@ -375,6 +375,84 @@ if (argonConfig.headroom){
 	}).init();
 }
 
+/*瀑布流布局*/
+function waterflowInit() {
+	if (argonConfig.waterflow_columns == "1") {
+		return;
+	}
+	let columns;
+	if (argonConfig.waterflow_columns == "2and3") {
+		if ($("#main").outerWidth() > 1000) {
+			columns = 3;
+		} else {
+			columns = 2;
+		}
+	}else{
+		columns = parseInt(argonConfig.waterflow_columns);
+	}
+	if ($("#main").outerWidth() < 650 && columns == 2) {
+		columns = 1;
+	}else if ($("#main").outerWidth() < 800 && columns == 3) {
+		columns = 1;
+	}
+
+	let heights = [0, 0, 0];
+	function getMinHeightPosition(){
+		let res = 0, minn = 2147483647;
+		for (var i = 0; i < columns; i++) {
+			if (heights[i] < minn) {
+				minn = heights[i];
+				res = i;
+			}
+		}
+		return res;
+	}
+	function getMaxHeight(){
+		let res = 0;
+		for (let i in heights) {
+			res = Math.max(res, heights[i]);
+		}
+		return res;
+	}
+	$("#primary").css("transition", "none")
+		.addClass("waterflow");
+	let $container = $("#main.article-list");
+	if (!$container.length){
+		return;
+	}
+	let $items = $container.find("article.post:not(.no-results), .shuoshuo-preview-container");
+	columns = Math.max(Math.min(columns, $items.length), 1);
+	if (columns == 1) {
+		$container.removeClass("waterflow");
+		$items.css("transition", "").css("position", "").css("width", "").css("top", "").css("left", "").css("margin", "");
+		$(".waterflow-placeholder").remove();
+	}else{
+		$container.addClass("waterflow");
+		$items.each(function(index, item) {
+			let $item = $(item);
+			$item.css("transition", "none")
+				.css("position", "absolute")
+				.css("width", "calc(" + (100 / columns) + "% - " + (10 * (columns - 1) / columns) + "px)").css("margin", 0);
+			let itemHeight = $item.outerHeight() + 10;
+			let pos = getMinHeightPosition();
+			$item.css("top", heights[getMinHeightPosition()] + "px")
+				.css("left", (pos * $item.outerWidth() + 10 * pos) + "px");
+			heights[pos] += itemHeight;
+		});
+	}
+	if ($(".waterflow-placeholder").length) {
+		$(".waterflow-placeholder").css("height", getMaxHeight() + "px");
+	}else{
+		$container.prepend("<div class='waterflow-placeholder' style='height: " + getMaxHeight() +"px;'></div>");
+	}
+}
+waterflowInit();
+if (argonConfig.waterflow_columns != "1") {
+	$(window).resize(function(){
+		waterflowInit();
+	});
+}
+
 /*浮动按钮栏相关 (回顶等)*/
 !function(){
 	let $fabtns = $('#float_action_buttons');
@@ -1476,8 +1554,9 @@ function lazyloadInit(){
 	$("article img.lazyload:not(.lazyload-loaded) , .post-thumbnail.lazyload:not(.lazyload-loaded) , .related-post-thumbnail.lazyload:not(.lazyload-loaded)").lazyload(
 		Object.assign(argonConfig.lazyload, {
 			load: function () {
-				$(this).addClass("lazyload-loaded")
-				$(this).parent().removeClass("lazyload-container-unload")
+				$(this).addClass("lazyload-loaded");
+				$(this).parent().removeClass("lazyload-container-unload");
+				waterflowInit();
 			}
 		})
 	);
@@ -1536,11 +1615,20 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 }).on('pjax:afterGetContainers', function(e, f, g) {
 	if (g.is("#main article.post-preview a.post-title")){
 		let $card = $(g.parents("article.post-preview")[0]);
+		let waterflowOn = false;
+		if ($("#main").hasClass("waterflow")){
+			waterflowOn = true;
+			$card.css("transition", "all .5s ease");
+		}
 		$card.append("<div class='loading-css-animation'><div class='loading-dot loading-dot-1' ></div><div class='loading-dot loading-dot-2' ></div><div class='loading-dot loading-dot-3' ></div><div class='loading-dot loading-dot-4' ></div><div class='loading-dot loading-dot-5' ></div><div class='loading-dot loading-dot-6' ></div><div class='loading-dot loading-dot-7' ></div><div class='loading-dot loading-dot-8' ></div></div></div>");
 		$card.addClass("post-pjax-loading");
 		$("#main").addClass("post-list-pjax-loading");
 		let offsetTop = $($card).offset().top - $("#main").offset().top;
 		$card.css("transform" , "translateY(-" + offsetTop + "px)");
+		if (waterflowOn){
+			$card.css("left", "10px");
+			$card.css("width", "calc(100% - 20px)");
+		}
 		$("body,html").animate({
 			scrollTop: 0
 		}, 450);
@@ -1576,6 +1664,7 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 		}
 	}catch (err){}
 
+	waterflowInit();
 	lazyloadInit();
 	zoomifyInit();
 	highlightJsRender();
@@ -1597,6 +1686,7 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 
 	NProgress.done();
 }).on('pjax:end', function() {
+	waterflowInit();
 	lazyloadInit();
 });
 

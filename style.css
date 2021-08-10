@@ -448,6 +448,13 @@ a.text-primary:hover {
 #main {
 	padding: 0 20px;
 	overflow: visible;
+	position: relative;
+}
+#main.waterflow {
+	padding: 0
+}
+.waterflow-placeholder{
+	pointer-events: none;
 }
 /*双栏反转布局*/
 html.double-column-reverse #leftbar {
@@ -465,6 +472,9 @@ html.single-column #primary {
 	float: none;
 	max-width: 1200px;
 	margin: auto;
+}
+html.single-column #primary.waterflow {
+	max-width: 1500px;
 }
 html.single-column #main {
 	padding: 0;
@@ -1483,6 +1493,15 @@ html.filter-grayscale {
 }
 .post-title:hover {
 	letter-spacing: 1px;
+}
+#main.waterflow .post-title {
+	transition: all 0.3s ease;
+	display: inline-block;
+}
+#main.waterflow .post-title:hover {
+	letter-spacing: 0.5px;
+	transform: scale(1.02);
+	text-rendering: optimizeLegibility;
 }
 .post-header {
 	margin-bottom: 20px;
