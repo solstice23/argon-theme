@@ -1593,12 +1593,13 @@ html.filter-grayscale {
 }
 .post-tags {
 	margin-top: 15px;
+	margin-bottom: -4px;
 }
 .post-tags > i {
 	margin-right: 5px;
 }
 .tag.post-meta-detail-tag {
-	margin-bottom: 0;
+	margin-bottom: 4px;
 	margin-right: 7px;
 	font-size: 12px;
 }
