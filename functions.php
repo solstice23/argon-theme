@@ -2954,6 +2954,18 @@ function themeoptions_page(){
 							<p class="description"><?php _e('点击图标后会跳转到的链接，留空则不跳转', 'argon');?></p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h3><?php _e('外观', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('顶栏毛玻璃效果', 'argon');?></label></th>
+						<td>
+							<select name="argon_toolbar_blur">
+								<?php $argon_toolbar_blur = get_option('argon_toolbar_blur'); ?>
+								<option value="false" <?php if ($argon_toolbar_blur=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
+								<option value="true" <?php if ($argon_toolbar_blur=='true'){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('开启会带来微小的性能损失。', 'argon');?></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2><?php _e('顶部 Banner (封面)', 'argon');?></h2></th></tr>
 					<tr><th class="subtitle"><h3><?php _e('内容', 'argon');?></h3></th></tr>
 					<tr>
@@ -4538,6 +4550,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_enable_comment_upvote');
 		argon_update_option('argon_article_list_waterflow');
 		argon_update_option('argon_banner_size');
+		argon_update_option('argon_toolbar_blur');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

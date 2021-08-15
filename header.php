@@ -33,6 +33,9 @@
 			$htmlclasses .= 'no-banner ';
 		}
 	}
+	if (get_option('argon_toolbar_blur', 'false') == 'true'){
+		$htmlclasses .= 'toolbar-blur ';
+	}
 	$htmlclasses .= get_option('argon_article_header_style', 'article-header-style-default') . ' ';
 	if(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== false && strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') === false){
 		$htmlclasses .= ' using-safari';

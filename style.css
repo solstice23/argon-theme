@@ -672,6 +672,14 @@ html.navbar-absolute:not(.no-banner) #navbar-main{
 html.no-banner #navbar-main{
 	background-color: rgba(var(--themecolor-rgbstr), .85) !important;
 }
+html.no-banner.toolbar-blur #navbar-main{
+	background-color: rgba(var(--themecolor-rgbstr), .65) !important;
+	backdrop-filter: blur(16px);
+}
+html.no-banner.toolbar-blur #navbar-main.navbar-no-blur{
+	background-color: rgba(var(--themecolor-rgbstr), .85) !important;
+	backdrop-filter: blur(0px);
+}
 .banner {
 	margin-bottom: 25px;
 	height: 71.8vh;
