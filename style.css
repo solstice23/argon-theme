@@ -663,7 +663,7 @@ body.leftbar-can-headroom.headroom---unpinned #navbar-main {
 	display: none;
 }
 html.navbar-absolute #navbar-main{
-	position: absolute;
+	position: absolute !important;
 }
 html.navbar-absolute:not(.no-banner) #navbar-main{
 	background-color: transparent;

@@ -3930,7 +3930,7 @@ window.pjaxLoaded = function(){
 								<option value="false" <?php if ($argon_enable_comment_upvote=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
 								<option value="true" <?php if ($argon_enable_comment_upvote=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
 							</select>
-							<p class="description">开启后，每一条评论的头像下方会出现点赞按钮</p>
+							<p class="description"><?php _e('开启后，每一条评论的头像下方会出现点赞按钮', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
