@@ -70,6 +70,16 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20210815 v1.2.4
++ 新增 Banner 显示状态选项（新增隐藏 Banner、迷你 Banner）
++ 新增顶栏显示状态选项 （新增顶栏不随页面滚动）
++ 新增顶栏毛玻璃选项
++ 优化单栏布局
++ 修复瀑布流图片加载后排版问题
++ 修复瀑布流布局显示错位
++ 修复头图 Lazyload 的 BUG
+
+
 ## 20210810 v1.2.3
 + 新增文章列表瀑布流布局
 + 修复代码不折行的 BUG
