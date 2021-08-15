@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: argon\n"
-"POT-Creation-Date: 2021-08-15 18:58+0800\n"
-"PO-Revision-Date: 2021-08-15 19:06+0800\n"
+"POT-Creation-Date: 2021-08-15 20:13+0800\n"
+"PO-Revision-Date: 2021-08-15 20:14+0800\n"
 "Last-Translator: \n"
 "Language-Team: solstice23\n"
 "Language: en_US\n"
@@ -1919,7 +1919,11 @@ msgstr ""
 
 #: functions.php:3926
 msgid "评论点赞"
-msgstr ""
+msgstr "Comment Upvoting"
+
+#: functions.php:3933
+msgid "开启后，每一条评论的头像下方会出现点赞按钮"
+msgstr "A upvote button will appear below the avatar of each comment."
 
 #: functions.php:3937
 msgid "评论者 UA 显示"

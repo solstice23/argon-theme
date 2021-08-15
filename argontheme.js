@@ -390,6 +390,11 @@ function waterflowInit() {
 	if (argonConfig.waterflow_columns == "1") {
 		return;
 	}
+	$("#main.article-list img").each(function(index, ele){
+		ele.onload = function(){
+			waterflowInit();
+		}
+	});
 	let columns;
 	if (argonConfig.waterflow_columns == "2and3") {
 		if ($("#main").outerWidth() > 1000) {
