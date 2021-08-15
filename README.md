@@ -23,7 +23,7 @@ Hexo 版本 : [github.com/solstice23/hexo-theme-argon](https://github.com/solsti
 + **评论功能扩展** - Ajax 评论，评论支持 Markdown、验证码、再次编辑、显示 UA、悄悄话模式、回复时邮件通知、查看编辑记录、无限加载等功能
 + **诸多功能** - 文章目录、阅读进度、Mathjax 或 Katex 公式解析、图片放大预览、Pangu.js 文本格式化、平滑滚动等
 + **丰富的短代码** - 支持通过短代码在文章中插入 TODO、标签、警告、提示、折叠区块、Github 信息卡、时间线、隐藏文本、视频等模块
-+ **适配 Gutenberg 编辑器** - 支持使用 Gutenberg 编辑器可视化插入模块
++ **适配 Gutenberg 编辑器** - 支持使用 Gutenberg 编辑器可视化插入区块
 + **多语言** - 支持中文、英文、俄文等语言
 + **其他** - 自适应、精心优化的文章阅读界面 CSS、可切换衬线/非衬线字体、可自定义 CSS 和 JS、支持使用 CDN 加速静态文件访问、SEO 友好、Banner 打字动画、留言板页面、文章脚注等
 

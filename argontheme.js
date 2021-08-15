@@ -247,6 +247,13 @@ function __(text){
 		toolbar.style.setProperty('box-shadow', '');
 		toolbar.classList.remove("navbar-ontop");
 	}
+	if ($("html").hasClass("no-banner")) {
+		return;
+	}
+	if (argonConfig.headroom == "absolute") {
+		toolbar.classList.add("navbar-ontop");
+		return;
+	}
 	changeToolbarTransparency();
 	document.addEventListener("scroll", changeToolbarTransparency, {passive: true});
 }();
@@ -317,6 +324,9 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 
 /*左侧栏随页面滚动浮动*/
 !function(){
+	if ($("#leftbar").length == 0){
+		return;
+	}
 	let $leftbarPart1 = $('#leftbar_part1');
 	let $leftbarPart2 = $('#leftbar_part2');
 	let leftbarPart1 = document.getElementById('leftbar_part1');
@@ -327,7 +337,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 
 	function changeLeftbarStickyStatus(){
 		let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-		if( part1OffsetTop + part1OuterHeight + 10 - scrollTop <= 90 ){
+		if( part1OffsetTop + part1OuterHeight + 10 - scrollTop <= (argonConfig.headroom != "absolute" ? 90 : 18) ){
 			//滚动条在页面中间浮动状态
 			leftbarPart2.classList.add('sticky');
 		}else{
@@ -343,19 +353,19 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 	changeLeftbarStickyStatus();
 	document.addEventListener("scroll", changeLeftbarStickyStatus, {passive: true});
 	$(window).resize(function(){
-		part1OffsetTop = $('#leftbar_part1').offset().top;
-		part1OuterHeight = $('#leftbar_part1').outerHeight();
+		part1OffsetTop = $leftbarPart1.offset().top;
+		part1OuterHeight = $leftbarPart1.outerHeight();
 		changeLeftbarStickyStatus();
 	});
 	new MutationObserver(function(){
-		part1OffsetTop = $('#leftbar_part1').offset().top;
-		part1OuterHeight = $('#leftbar_part1').outerHeight();
+		part1OffsetTop = $leftbarPart1.offset().top;
+		part1OuterHeight = $leftbarPart1.outerHeight();
 		changeLeftbarStickyStatus();
 	}).observe(leftbarPart1, {attributes: true, childList: true, subtree: true});
 }();
 
 /*Headroom*/
-if (argonConfig.headroom){
+if (argonConfig.headroom == "true"){
 	var headroom = new Headroom(document.querySelector("body"),{
 		"tolerance" : {
 			up : 0,

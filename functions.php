@@ -2918,16 +2918,17 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('顶栏', 'argon');?></h2></th></tr>
-					<tr><th class="subtitle"><h3><?php _e('自动折叠顶栏', 'argon');?></h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('状态', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label><?php _e('滚动时自动折叠顶栏', 'argon');?></label></th>
+						<th><label><?php _e('顶栏显示状态', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_headroom">
 								<?php $argon_enable_headroom = get_option('argon_enable_headroom'); ?>
-								<option value="false" <?php if ($argon_enable_headroom=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
-								<option value="true" <?php if ($argon_enable_headroom=='true'){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
+								<option value="false" <?php if ($argon_enable_headroom=='false'){echo 'selected';} ?>><?php _e('始终固定悬浮', 'argon');?></option>
+								<option value="true" <?php if ($argon_enable_headroom=='true'){echo 'selected';} ?>><?php _e('滚动时自动折叠', 'argon');?></option>
+								<option value="absolute" <?php if ($argon_enable_headroom=='absolute'){echo 'selected';} ?>><?php _e('不固定', 'argon');?></option>
 							</select>
-							<p class="description"><?php _e('在页面向下滚动时隐藏顶栏，向上滚动时显示顶栏', 'argon');?></p>
+							<p class="description"><?php _e('始终固定悬浮: 永远固定悬浮在页面最上方', 'argon');?></br><?php _e('滚动时自动折叠: 在页面向下滚动时隐藏顶栏，向上滚动时显示顶栏', 'argon');?></br><?php _e('不固定: 只有在滚动到页面最顶端时才显示顶栏', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('标题', 'argon');?></h3></th></tr>
@@ -2954,6 +2955,7 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('顶部 Banner (封面)', 'argon');?></h2></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('内容', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('Banner 标题', 'argon');?></label></th>
 						<td>
@@ -2966,6 +2968,36 @@ function themeoptions_page(){
 						<td>
 							<input type="text" class="regular-text" name="argon_banner_subtitle" value="<?php echo get_option('argon_banner_subtitle'); ?>"/>
 							<p class="description"><?php _e('显示在 Banner 标题下，留空则不显示', 'argon');?></p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h3><?php _e('外观', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('Banner 显示状态', 'argon');?></label></th>
+						<td>
+							<select name="argon_banner_size">
+							<?php $argon_banner_size = get_option('argon_banner_size', 'full'); ?>
+								<option value="full" <?php if ($argon_banner_size=='full'){echo 'selected';} ?>><?php _e('完整', 'argon');?></option>
+								<option value="mini" <?php if ($argon_banner_size=='mini'){echo 'selected';} ?>><?php _e('迷你', 'argon');?></option>
+								<option value="hide" <?php if ($argon_banner_size=='hide'){echo 'selected';} ?>><?php _e('隐藏', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('完整: Banner 高度占用半屏', 'argon');?></br><?php _e('迷你: 减小 Banner 的内边距', 'argon');?></br><?php _e('隐藏: 完全隐藏 Banner', 'argon');?></br></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label><?php _e('Banner 透明化', 'argon');?></label></th>
+						<td>
+							<select name="argon_page_background_banner_style">
+								<?php $argon_page_background_banner_style = get_option('argon_page_background_banner_style'); ?>
+								<option value="false" <?php if ($argon_page_background_banner_style=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
+								<option value="transparent" <?php if ($argon_page_background_banner_style=='transparent' || ($argon_page_background_banner_style!='' && $argon_page_background_banner_style!='false')){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
+							</select>
+							<div style="margin-top: 15px;margin-bottom: 15px;">
+								<label>
+									<?php $argon_show_toolbar_mask = get_option('argon_show_toolbar_mask');?>
+									<input type="checkbox" name="argon_show_toolbar_mask" value="true" <?php if ($argon_show_toolbar_mask=='true'){echo 'checked';}?>/>	<?php _e('在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）', 'argon');?>
+								</label>
+							</div>
+							<p class="description"><?php _e('Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置页面背景时生效。', 'argon');?></br><?php _e('开启后，Banner 背景图和渐变背景选项将失效。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -3034,7 +3066,7 @@ function themeoptions_page(){
 						<th><label><?php _e('页面背景', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_page_background_url" value="<?php echo get_option('argon_page_background_url'); ?>"/>
-							<p class="description"><?php _e('页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐修改以下选项来增强页面整体观感。', 'argon');?></p>
+							<p class="description"><?php _e('页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐开启 Banner 透明化。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -3049,23 +3081,6 @@ function themeoptions_page(){
 						<td>
 							<input type="number" name="argon_page_background_opacity" min="0" max="1" step="0.01" value="<?php echo (get_option('argon_page_background_opacity') == '' ? '1' : get_option('argon_page_background_opacity')); ?>"/>
 							<p class="description"><?php _e('0 ~ 1 的小数，越小透明度越高，默认为 1 不透明', 'argon');?></p>
-						</td>
-					</tr>
-					<tr>
-						<th><label><?php _e('Banner 透明化', 'argon');?></label></th>
-						<td>
-							<select name="argon_page_background_banner_style">
-								<?php $argon_page_background_banner_style = get_option('argon_page_background_banner_style'); ?>
-								<option value="false" <?php if ($argon_page_background_banner_style=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
-								<option value="transparent" <?php if ($argon_page_background_banner_style=='transparent' || ($argon_page_background_banner_style!='' && $argon_page_background_banner_style!='false')){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
-							</select>
-							<div style="margin-top: 15px;margin-bottom: 15px;">
-								<label>
-									<?php $argon_show_toolbar_mask = get_option('argon_show_toolbar_mask');?>
-									<input type="checkbox" name="argon_show_toolbar_mask" value="true" <?php if ($argon_show_toolbar_mask=='true'){echo 'checked';}?>/>	<?php _e('在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）', 'argon');?>
-								</label>
-							</div>
-							<p class="description"><?php _e('Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置页面背景时生效。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('左侧栏', 'argon');?></h2></th></tr>
@@ -4522,6 +4537,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_trim_words_count');
 		argon_update_option('argon_enable_comment_upvote');
 		argon_update_option('argon_article_list_waterflow');
+		argon_update_option('argon_banner_size');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

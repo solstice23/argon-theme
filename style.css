@@ -429,9 +429,20 @@ a.text-primary:hover {
 	margin: auto;
 	margin-top: -30vh;
 }
+html.no-banner #content{
+	margin-top: 85px;
+}
+html.banner-mini #content{
+	margin-top: unset;
+}
 @media screen and (min-width: 1700px) {
 	#content {
 		max-width: 1500px;
+	}
+}
+@media screen and (max-width: 900px) {
+	html.no-banner #content{
+		margin-top: 60px;
 	}
 }
 #primary {
@@ -456,6 +467,7 @@ a.text-primary:hover {
 .waterflow-placeholder{
 	pointer-events: none;
 }
+
 /*双栏反转布局*/
 html.double-column-reverse #leftbar {
 	float: right;
@@ -464,7 +476,7 @@ html.double-column-reverse #primary {
 	float: left;
 }
 /*单栏布局*/
-html.single-column #leftbar {
+html.single-column #leftbar{
 	display: none;
 }
 html.single-column #primary {
@@ -482,11 +494,14 @@ html.single-column #main {
 html.single-column #fabtn_open_sidebar {
 	display: none !important;
 }
-html.page-information-card {
+html.single-column .page-information-card {
 	width: 100%;
 	max-width: 1200px;
 	margin-left: auto;
 	margin-right: auto;
+}
+html.single-column #open_sidebar {
+	visibility: hidden;
 }
 /*三栏布局*/
 #rightbar {
@@ -647,7 +662,16 @@ body.leftbar-can-headroom.headroom---unpinned #navbar-main {
 #navbar_menu_mask {
 	display: none;
 }
-
+html.navbar-absolute #navbar-main{
+	position: absolute;
+}
+html.navbar-absolute:not(.no-banner) #navbar-main{
+	background-color: transparent;
+	box-shadow: none;
+}
+html.no-banner #navbar-main{
+	background-color: rgba(var(--themecolor-rgbstr), .85) !important;
+}
 .banner {
 	margin-bottom: 25px;
 	height: 71.8vh;
@@ -706,6 +730,20 @@ body.leftbar-can-headroom.headroom---unpinned #navbar-main {
 	100% {
 		opacity: 0;
 	}
+}
+html.no-banner .banner {
+	display: none;
+}
+html.banner-mini .banner {
+	height: unset;
+}
+html.banner-mini .banner > .banner-container {
+	height: unset !important;
+}
+html.banner-mini .banner > .banner-container > .banner-title {
+	position: unset;
+	top: unset;
+	transform: unset;
 }
 
 /*左侧栏*/
@@ -882,6 +920,9 @@ html.darkmode.amoled-dark #leftbar_search_container {
 }
 body.leftbar-can-headroom.headroom---unpinned #leftbar_part2.sticky {
 	top: 10px;
+}
+html.navbar-absolute #leftbar_part2.sticky {
+	top: 10px !important;
 }
 #leftbar_part2_inner {
 	max-height: calc(100vh - 110px);

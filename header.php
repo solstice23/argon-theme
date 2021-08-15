@@ -22,6 +22,17 @@
 	if (get_option('argon_disable_codeblock_style') == 'true'){
 		$htmlclasses .= 'disable-codeblock-style ';
 	}
+	if (get_option('argon_enable_headroom') == 'absolute'){
+		$htmlclasses .= 'navbar-absolute ';
+	}
+	$banner_size = get_option('argon_banner_size', 'full');
+	if ($banner_size != 'full'){
+		if ($banner_size == 'mini'){
+			$htmlclasses .= 'banner-mini ';
+		}else if ($banner_size == 'hide'){
+			$htmlclasses .= 'no-banner ';
+		}
+	}
 	$htmlclasses .= get_option('argon_article_header_style', 'article-header-style-default') . ' ';
 	if(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== false && strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') === false){
 		$htmlclasses .= ' using-safari';
@@ -134,7 +145,7 @@
 			fold_long_comments: <?php echo get_option('argon_fold_long_comments', 'false'); ?>,
 			disable_pjax: <?php echo get_option('argon_pjax_disabled', 'false'); ?>,
 			pjax_animation_durtion: <?php echo (get_option("argon_disable_pjax_animation") == 'true' ? '0' : '600'); ?>,
-			headroom: <?php echo get_option('argon_enable_headroom', 'false'); ?>,
+			headroom: "<?php echo get_option('argon_enable_headroom', 'false'); ?>",
 			waterflow_columns: "<?php echo get_option('argon_article_list_waterflow', '1'); ?>",
 			code_highlight: {
 				enable: <?php echo get_option('argon_enable_code_highlight', 'false'); ?>,
