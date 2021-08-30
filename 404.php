@@ -8,7 +8,7 @@
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/jquery/jquery.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/bootstrap/bootstrap.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/js/argon.min.js"></script>
-	<title>404 - 找不到页面</title>
+	<title><?php _e("404 - 找不到页面", "argon"); ?></title>
 	<script>
 		var darkmodeAutoSwitch = "<?php echo (get_option("argon_darkmode_autoswitch") == '' ? 'false' : get_option("argon_darkmode_autoswitch"));?>";
 		function setDarkmode(enable){
@@ -98,15 +98,15 @@
 					<div class="row">
 						<div class="col-lg-6 col-sm-12">
 							<div class="display-1 text-white">404</div>
-							<p class="lead text-white">Page not found.<br>这个页面不见了</p>
+							<p class="lead text-white">Page not found.<br><?php _e("这个页面不见了", "argon"); ?></p>
 							<div class="btn-wrapper">
 								<a href="javascript:window.history.back(-1);" ondragstart="return false;" class="btn btn-info btn-icon mb-3 mb-sm-0">
 									<span class="btn-inner--icon"><i class="fa fa-chevron-left"></i></span>
-									<span class="btn-inner--text">返回上一页</span>
+									<span class="btn-inner--text"><?php _e("返回上一页", "argon"); ?></span>
 								</a>
 								<a href="<?php bloginfo('url'); ?>" class="btn btn-white btn-icon mb-3 mb-sm-0">
 									<span class="btn-inner--icon"><i class="fa fa-home"></i></span>
-									<span class="btn-inner--text">回到首页</span>
+									<span class="btn-inner--text"><?php _e("回到首页", "argon"); ?></span>
 								</a>
 							</div>
 						</div>

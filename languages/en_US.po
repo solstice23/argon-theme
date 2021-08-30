@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: argon\n"
-"POT-Creation-Date: 2021-08-15 23:10+0800\n"
-"PO-Revision-Date: 2021-08-15 23:12+0800\n"
+"POT-Creation-Date: 2021-08-30 17:15+0800\n"
+"PO-Revision-Date: 2021-08-30 17:17+0800\n"
 "Last-Translator: \n"
 "Language-Team: solstice23\n"
 "Language: en_US\n"
@@ -19,6 +19,23 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: theme-update-checker\n"
 "X-Poedit-SearchPathExcluded-3: argontheme.js\n"
 "X-Poedit-SearchPathExcluded-4: gutenberg\n"
+
+#: 404.php:11
+msgid "404 - 找不到页面"
+msgstr "404 - Page Not Found"
+
+#: 404.php:101
+msgid "这个页面不见了"
+msgstr "Please check if the URL is correct."
+
+#: 404.php:105 template-parts/content-none-search.php:9
+#: template-parts/content-none-tag.php:9
+msgid "返回上一页"
+msgstr "Back"
+
+#: 404.php:109
+msgid "回到首页"
+msgstr "Home"
 
 #: archive.php:14
 msgid "篇文章"
@@ -2366,11 +2383,6 @@ msgstr "No Search Results"
 #: template-parts/content-none-search.php:5
 msgid "换个关键词试试 ?"
 msgstr "Try another keyword?"
-
-#: template-parts/content-none-search.php:9
-#: template-parts/content-none-tag.php:9
-msgid "返回上一页"
-msgstr "Back"
 
 #: template-parts/content-none-tag.php:4
 msgid "此分类没有文章"
