@@ -5,7 +5,7 @@
 <?php get_sidebar(); ?>
 
 <div id="primary" class="content-area">
-	<main id="main" class="site-main article-list" role="main">
+	<main id="main" class="site-main article-list article-list-home" role="main">
 	<?php if ( have_posts() ) : ?>
 		<?php
 			while ( have_posts() ) :

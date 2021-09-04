@@ -2990,9 +2990,10 @@ function themeoptions_page(){
 							<?php $argon_banner_size = get_option('argon_banner_size', 'full'); ?>
 								<option value="full" <?php if ($argon_banner_size=='full'){echo 'selected';} ?>><?php _e('完整', 'argon');?></option>
 								<option value="mini" <?php if ($argon_banner_size=='mini'){echo 'selected';} ?>><?php _e('迷你', 'argon');?></option>
+								<option value="fullscreen" <?php if ($argon_banner_size=='fullscreen'){echo 'selected';} ?>><?php _e('全屏', 'argon');?></option>
 								<option value="hide" <?php if ($argon_banner_size=='hide'){echo 'selected';} ?>><?php _e('隐藏', 'argon');?></option>
 							</select>
-							<p class="description"><?php _e('完整: Banner 高度占用半屏', 'argon');?></br><?php _e('迷你: 减小 Banner 的内边距', 'argon');?></br><?php _e('隐藏: 完全隐藏 Banner', 'argon');?></br></p>
+							<p class="description"><?php _e('完整: Banner 高度占用半屏', 'argon');?></br><?php _e('迷你: 减小 Banner 的内边距', 'argon');?></br><?php _e('全屏: Banner 占用全屏作为封面（仅在首页生效）', 'argon');?></br><?php _e('隐藏: 完全隐藏 Banner', 'argon');?></br></p>
 						</td>
 					</tr>
 					<tr>

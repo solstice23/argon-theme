@@ -70,6 +70,11 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20210905 v1.2.5
++ 滚动条沉浸
++ Banner 显示状态新增全屏选项（Banner 可全屏作为封面）
++ 更正翻译
+
 ## 20210815 v1.2.4
 + 新增 Banner 显示状态选项（新增隐藏 Banner、迷你 Banner）
 + 新增顶栏显示状态选项 （新增顶栏不随页面滚动）

@@ -31,6 +31,8 @@
 			$htmlclasses .= 'banner-mini ';
 		}else if ($banner_size == 'hide'){
 			$htmlclasses .= 'no-banner ';
+		}else if ($banner_size == 'fullscreen'){
+			$htmlclasses .= 'banner-as-cover ';
 		}
 	}
 	if (get_option('argon_toolbar_blur', 'false') == 'true'){
@@ -446,6 +448,11 @@
 				background-image: url(<?php echo get_banner_background_url(); ?>) !important;
 			}
 		</style>
+	<?php } ?>
+	<?php if ($banner_size == 'fullscreen') { ?>
+		<div class="cover-scroll-down">
+			<i class="fa fa-angle-down" aria-hidden="true"></i>
+		</div>
 	<?php } ?>
 </section>
 

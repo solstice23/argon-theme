@@ -1659,6 +1659,33 @@ function tippyInit(){
 }
 tippyInit();
 
+/*Banner 全屏封面相关*/
+if ($("html").hasClass("banner-as-cover")){
+	function classInit(){
+		if ($("#main").hasClass("article-list-home")){
+			if (!$("html").hasClass("is-home")){
+				$("html").addClass("is-home");
+				$("html").trigger("resize");
+			}
+		}else{
+			if ($("html").hasClass("is-home")){
+				$("html").removeClass("is-home");
+				$("html").trigger("resize");
+			}
+		}
+	}
+	classInit();
+	new MutationObserver(function(mutations, observer){
+		classInit();
+	}).observe(document.querySelector("#primary"), {
+		'childList': true
+	});
+	$(".cover-scroll-down").on("click" , function(){
+		gotoHash("#content", 500);
+		$("#content").focus();
+	});
+}
+
 /*Pjax*/
 $.pjax.defaults.timeout = 10000;
 $.pjax.defaults.container = ['#primary', '#leftbar_part1_menu', '#leftbar_part2_inner', '.page-information-card-container', '#wpadminbar'];
