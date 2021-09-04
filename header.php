@@ -123,6 +123,7 @@
 	<?php wp_head(); ?>
 	<?php $GLOBALS['wp_path'] = get_option('argon_wp_path') == '' ? '/' : get_option('argon_wp_path'); ?>
 	<script>
+		document.documentElement.classList.remove("no-js");
 		var argonConfig = {
 			wp_path: "<?php echo $GLOBALS['wp_path']; ?>",
 			language: "<?php echo argon_get_locate(); ?>",

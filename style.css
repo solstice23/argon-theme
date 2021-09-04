@@ -24,6 +24,7 @@ body {
 	background: #f4f5f7 !important;
 	font-family: "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
 		Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;
+	overflow: overlay;
 }
 a {
 	transition: color 0.25s ease;
@@ -239,18 +240,21 @@ article figure.is-style-stripes table > thead > tr > th {
 	border-bottom: none !important;
 }
 ::-webkit-scrollbar {
-	width: 8px;
+	width: 10px;
 	height: 8px;
 	background-color: rgba(0, 0, 0, 0);
 }
 ::-webkit-scrollbar-track {
-	background-color: rgba(0, 0, 0, 0.05);
+	background-color: transparent;
 }
 ::-webkit-scrollbar-thumb {
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0.25);
+	border-radius: 100px;
+	border: 2px solid transparent;
+	background-clip: content-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-	background-color: rgba(var(--themecolor-rgbstr), 0.8);
+	background-color: rgba(var(--themecolor-rgbstr), 0.7) !important;
 }
 *::selection {
 	background-color: #cce2ff;
@@ -1618,7 +1622,8 @@ html.filter-grayscale {
 }
 .post-header.post-header-with-thumbnail .post-header-text-container .post-title {
 	color: rgba(255, 255, 255, 0.95) !important;
-	text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+	/*text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);*/
+	filter: drop-shadow(0px 1px 5px #0005);
 }
 .post-header.post-header-with-thumbnail .post-header-text-container .post-meta {
 	text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
@@ -4292,15 +4297,10 @@ html.darkmode a:hover {
 }
 
 html.darkmode ::-webkit-scrollbar {
-	width: 8px;
-	height: 8px;
 	background-color: rgba(255, 255, 255, 0);
 }
-html.darkmode ::-webkit-scrollbar-track {
-	background-color: rgba(255, 255, 255, 0.05);
-}
 html.darkmode ::-webkit-scrollbar-thumb {
-	background-color: rgba(255, 255, 255, 0.2);
+	background-color: rgba(255, 255, 255, 0.25);
 }
 @media screen and (max-width: 900px) {
 	html.darkmode #leftbar {
@@ -5011,6 +5011,13 @@ html.darkmode.amoled-dark #content:after {
 			"WenQuanYi Bitmap Song", "AR PL UMing CN", "AR PL UMing HK", "AR PL UMing TW", "AR PL UMing TW MBE",
 			PMingLiU, MingLiU, serif !important;
 	}
+}
+/*Noscript*/
+html.no-js article img.lazyload[src^="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg"]{
+	display: none;
+}
+html.no-js .comment-item-text .comment-sticker.lazyload{
+	display: none;
 }
 
 /*Safari 兼容*/
