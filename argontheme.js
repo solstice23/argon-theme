@@ -1710,6 +1710,9 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 		$card.addClass("post-pjax-loading");
 		$("#main").addClass("post-list-pjax-loading");
 		let offsetTop = $($card).offset().top - $("#main").offset().top;
+		if ($("html").hasClass("is-home") && $("html").hasClass("banner-as-cover")){
+			offsetTop = $($card).offset().top - window.outerHeight * 0.418;
+		}
 		$card.css("transform" , "translateY(-" + offsetTop + "px)");
 		if (waterflowOn){
 			$card.css("left", "10px");
