@@ -374,7 +374,6 @@ function pjax(options, $tar) {
     var scrollTo = options.scrollTo
 
     if (pjaxScrollTop){
-      console.log("qwe")
       scrollTo = pjaxScrollTop
       pjaxScrollTop = 0
     }
