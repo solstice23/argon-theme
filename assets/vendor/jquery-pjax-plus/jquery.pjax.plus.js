@@ -373,6 +373,12 @@ function pjax(options, $tar) {
 
     var scrollTo = options.scrollTo
 
+    if (pjaxScrollTop){
+      console.log("qwe")
+      scrollTo = pjaxScrollTop
+      pjaxScrollTop = 0
+    }
+
     // Ensure browser scrolls to the element referenced by the URL anchor
     if (hash) {
       var name = decodeURIComponent(hash.slice(1))
