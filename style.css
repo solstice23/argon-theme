@@ -779,6 +779,10 @@ html:not(.is-home) .cover-scroll-down{
 	opacity: 0;
 	pointer-events: none;
 }
+.cover-scroll-down.hidden {
+	opacity: 0;
+	pointer-events: none;
+}
 
 /*左侧栏*/
 .leftbar-banner {
@@ -1181,6 +1185,10 @@ html.darkmode.amoled-dark #leftbar_tab_tools ul li {
 }
 #float_action_buttons:not(.fabtns-float-left) .fabtn-show-on-left {
 	display: none;
+}
+html.is-home.banner-as-cover #float_action_buttons.hidden {
+	opacity: 0;
+	pointer-events: none;
 }
 .fabtns-unloaded {
 	opacity: 0;

@@ -272,7 +272,6 @@ function __(text){
 	if ($("html").hasClass("no-banner")) {
 		changeToolbarOnTopClass();
 		document.addEventListener("scroll", changeToolbarOnTopClass, {passive: true});
-		console.log("asd");
 		return;
 	}
 	if (argonConfig.headroom == "absolute") {
@@ -1683,6 +1682,28 @@ if ($("html").hasClass("banner-as-cover")){
 	$(".cover-scroll-down").on("click" , function(){
 		gotoHash("#content", 500);
 		$("#content").focus();
+	});
+	$fabs = $("#float_action_buttons");
+	$coverScrollDownBtn = $(".cover-scroll-down");
+	function changeWidgetsDisplayStatus(){
+		let scrollTop = $(window).scrollTop();
+		if (scrollTop >= window.outerHeight * 0.2){
+			$fabs.removeClass("hidden");
+		}else{
+			$fabs.addClass("hidden");
+		}
+		if (scrollTop >= window.outerHeight * 0.6){
+			$coverScrollDownBtn.addClass("hidden");
+		}else{
+			$coverScrollDownBtn.removeClass("hidden");
+		}
+	}
+	changeWidgetsDisplayStatus();
+	$(window).scroll(function(){
+		changeWidgetsDisplayStatus();
+	});
+	$(window).resize(function(){
+		changeWidgetsDisplayStatus();
 	});
 }
 
