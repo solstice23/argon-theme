@@ -968,10 +968,22 @@ html.navbar-absolute #leftbar_part2.sticky {
 	padding: 10px;
 }
 #leftbar_part2_inner::-webkit-scrollbar {
-	width: 5px;
+	width: 6px;
 }
 #leftbar_part2_inner::-webkit-scrollbar-track {
 	background: transparent;
+}
+#leftbar_part2_inner::-webkit-scrollbar-thumb {
+    border-width: 1px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+html.darkmode #leftbar_part2_inner::-webkit-scrollbar-thumb {
+    border-width: 1px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+#leftbar_part2_inner::-webkit-scrollbar-button {
+    height: 5px;
+    pointer-events: none;
 }
 .sidebar-tab-switcher {
 	font-size: 13px;
