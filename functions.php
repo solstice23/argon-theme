@@ -179,6 +179,24 @@ function array_remove(&$arr, $item){
 		array_splice($arr, $pos, 1);
 	}
 }
+//数字格式化
+function format_number_in_kilos($number) {
+	if ($number < 1000){
+		return $number;
+	}
+	if (1000 <= $number && $number < 1000000){
+		if (1000 <= $number && $number < 10000){
+			return round($number / 1000, 1) . "K";
+		}else{
+			return round($number / 1000, 0) . "K";
+		}
+	}
+	if (1000000 <= $number && $number <= 10000000){
+		return round($number / 1000000, 1) . "M";
+	}else{
+		return round($number / 1000000, 0) . "M";
+	}
+}
 //表情包
 require_once(get_template_directory() . '/emotions.php');
 //文章特色图片
@@ -326,10 +344,13 @@ function set_user_token_cookie(){
 		$_COOKIE["argon_user_token"] = $newToken;
 	}
 }
-set_user_token_cookie();
-if (!session_id()){
-	session_start();
+function session_init(){
+	set_user_token_cookie();
+	if (!session_id()){
+		session_start();
+	}
 }
+add_action('setup_theme', 'session_init');
 //页面 Description Meta
 function get_seo_description(){
 	global $post;
@@ -824,16 +845,91 @@ function argon_get_comment_text($comment_ID = 0, $args = array()) {
 	}
 	return apply_filters( 'comment_text', $comment_text, $comment, $args );
 }
+//评论点赞
+function get_comment_upvotes($id) {
+	$comment = get_comment($id);
+	if ($comment == null){
+		return 0;
+	}
+	$upvotes = get_comment_meta($comment -> comment_ID, "upvotes", true);
+	if ($upvotes == null) {
+		$upvotes = 0;
+	}
+	return $upvotes;
+}
+function set_comment_upvotes($id){
+	$comment = get_comment($id);
+	if ($comment == null){
+		return 0;
+	}
+	$upvotes = get_comment_meta($comment -> comment_ID, "upvotes", true);
+	if ($upvotes == null) {
+		$upvotes = 0;
+	}
+	$upvotes++;
+	update_comment_meta($comment -> comment_ID, "upvotes", $upvotes);
+	return $upvotes;
+}
+function is_comment_upvoted($id){
+	$upvotedList = isset($_COOKIE['argon_comment_upvoted']) ? $_COOKIE['argon_comment_upvoted'] : '';
+	if (in_array($id, explode(',', $upvotedList))){
+		return true;
+	}
+	return false;
+}
+function upvote_comment(){
+	if (get_option("argon_enable_comment_upvote", "false") != "true"){
+		return;
+	}
+	header('Content-Type:application/json; charset=utf-8');
+	$ID = $_POST["comment_id"];
+	$comment = get_comment($ID);
+	if ($comment == null){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => __('评论不存在', 'argon'),
+			'total_upvote' => 0
+		)));
+	}
+	$upvotedList = isset($_COOKIE['argon_comment_upvoted']) ? $_COOKIE['argon_comment_upvoted'] : '';
+	if (in_array($ID, explode(',', $upvotedList))){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => __('该评论已被赞过', 'argon'),
+			'total_upvote' => get_comment_upvotes($ID)
+		)));
+	}
+	set_comment_upvotes($ID);
+	setcookie('argon_comment_upvoted', $upvotedList . $ID . "," , time() + 3153600000 , '/');
+	exit(json_encode(array(
+		'ID' => $ID,
+		'status' => 'success',
+		'msg' => __('点赞成功', 'argon'),
+		'total_upvote' => format_number_in_kilos(get_comment_upvotes($ID))
+	)));
+}
+add_action('wp_ajax_upvote_comment' , 'upvote_comment');
+add_action('wp_ajax_nopriv_upvote_comment' , 'upvote_comment');
 //评论样式格式化
 function argon_comment_format($comment, $args, $depth){
 	$GLOBALS['comment'] = $comment;
 	if (user_can_view_comment(get_comment_ID())){
 	?>
 	<li class="comment-item" id="comment-<?php comment_ID(); ?>" data-id="<?php comment_ID(); ?>" data-use-markdown="<?php echo get_comment_meta(get_comment_ID(), "use_markdown", true);?>">
-		<div class="comment-item-avatar">
-			<?php if(function_exists('get_avatar') && get_option('show_avatars')){
-				echo get_avatar($comment, 40);
-			}?>
+		<div class="comment-item-left-wrapper">
+			<div class="comment-item-avatar">
+				<?php if(function_exists('get_avatar') && get_option('show_avatars')){
+					echo get_avatar($comment, 40);
+				}?>
+			</div>
+			<?php if (get_option("argon_enable_comment_upvote", "false") == "true"){ ?>
+				<button class="comment-upvote btn btn-icon btn-outline-primary btn-sm <?php echo (is_comment_upvoted(get_comment_ID()) ? 'upvoted' : ''); ?>" type="button" data-id="<?php comment_ID(); ?>">
+					<span class="btn-inner--icon"><i class="fa fa-caret-up"></i></span>
+					<span class="btn-inner--text">
+						<span class="comment-upvote-num"><?php echo format_number_in_kilos(get_comment_upvotes(get_comment_ID())); ?></span>
+					</span>
+				</button>
+			<?php } ?>
 		</div>
 		<div class="comment-item-inner" id="comment-inner-<?php comment_ID();?>">
 			<div class="comment-item-title">
@@ -1588,6 +1684,9 @@ function get_shuoshuo_upvotes($ID){
 	return number_format_i18n($count);
 }
 function set_shuoshuo_upvotes($ID){
+	if (get_post_type($ID) != 'shuoshuo'){
+		return;
+	}
 	$count_key = 'upvotes';
 	$count = get_post_meta($ID, $count_key, true);
 	if ($count==''){
@@ -1600,7 +1699,8 @@ function set_shuoshuo_upvotes($ID){
 function upvote_shuoshuo(){
 	header('Content-Type:application/json; charset=utf-8');
 	$ID = $_POST["shuoshuo_id"];
-	if (isset($_COOKIE['argon_shuoshuo_' . $ID . '_upvoted'])){
+	$upvotedList = isset($_COOKIE['argon_shuoshuo_upvoted']) ? $_COOKIE['argon_shuoshuo_upvoted'] : '';
+	if (in_array($ID, explode(',', $upvotedList))){
 		exit(json_encode(array(
 			'status' => 'failed',
 			'msg' => __('该说说已被赞过', 'argon'),
@@ -1608,7 +1708,7 @@ function upvote_shuoshuo(){
 		)));
 	}
 	set_shuoshuo_upvotes($ID);
-	setcookie('argon_shuoshuo_' . $ID . '_upvoted' , 'true' , time() + 3153600000 , '/');
+	setcookie('argon_shuoshuo_upvoted', $upvotedList . $ID . "," , time() + 3153600000 , '/');
 	exit(json_encode(array(
 		'ID' => $ID,
 		'status' => 'success',
@@ -1892,6 +1992,48 @@ function argon_get_post_outdated_info(){
 	$content = str_replace("%post_date_delta%", $post_date_delta, $content);
 	return $before . $content . $after;
 }
+//Gutenberg 编辑器区块
+function argon_init_gutenberg_blocks() {
+	wp_register_script(
+		'argon-gutenberg-block-js',
+		$GLOBALS['assets_path'].'/gutenberg/dist/blocks.build.js',
+		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor'),
+		null,
+		true
+	);
+	wp_register_style(
+		'argon-gutenberg-block-backend-css',
+		$GLOBALS['assets_path'].'/gutenberg/dist/blocks.editor.build.css',
+		array('wp-edit-blocks'),
+		filemtime(get_template_directory() . '/gutenberg/dist/blocks.editor.build.css')
+	);
+	register_block_type(
+		'argon/argon-gutenberg-block', array(
+			//'style'         => 'argon-gutenberg-block-frontend-css',
+			'editor_script' => 'argon-gutenberg-block-js',
+			'editor_style'  => 'argon-gutenberg-block-backend-css',
+		)
+	);
+}
+add_action('init', 'argon_init_gutenberg_blocks');
+function argon_add_gutenberg_category($block_categories, $editor_context) {
+	if (!empty($editor_context->post)){
+		array_push(
+			$block_categories,
+			array(
+				'slug'  => 'argon',
+				'title' => 'Argon',
+				'icon'  => null,
+			)
+		);
+	}
+	return $block_categories;
+}
+add_filter('block_categories_all', 'argon_add_gutenberg_category', 10, 2);
+function argon_admin_i18n_info(){
+	echo "<script>var argon_language = '" . argon_get_locate() . "';</script>";
+}
+add_filter('admin_head', 'argon_admin_i18n_info');
 //主题文章短代码解析
 add_shortcode('br','shortcode_br');
 function shortcode_br($attr,$content=""){
@@ -2062,10 +2204,9 @@ function shortcode_admonition($attr,$content=""){
 add_shortcode('collapse','shortcode_collapse_block');
 add_shortcode('fold','shortcode_collapse_block');
 function shortcode_collapse_block($attr,$content=""){
-	$collapse_id = mt_rand(1000000000 , 9999999999);
 	$collapsed = isset($attr['collapsed']) ? $attr['collapsed'] : 'true';
 	$show_border_left = isset($attr['showleftborder']) ? $attr['showleftborder'] : 'false';
-	$out = "<div collapse-id='" . $collapse_id . "'" ;
+	$out = "<div " ;
 	$out .= " class='collapse-block shadow-sm";
 	$color = isset($attr['color']) ? $attr['color'] : 'none';
 	switch ($color){
@@ -2105,7 +2246,7 @@ function shortcode_collapse_block($attr,$content=""){
 	}
 	$out .= "'>";
 
-	$out .= "<div class='collapse-block-title' collapse-id='" . $collapse_id . "'>";
+	$out .= "<div class='collapse-block-title'>";
 	if (isset($attr['icon'])){
 		$out .= "<i class='fa fa-" . $attr['icon'] . "'></i> ";
 	}
@@ -2294,6 +2435,7 @@ function shortcode_timeline($attr,$content=""){
 	return $out;
 }
 add_shortcode('hidden','shortcode_hidden');
+add_shortcode('spoiler','shortcode_hidden');
 function shortcode_hidden($attr,$content=""){
 	$out = "<span class='argon-hidden-text";
 	$tip = isset($attr['tip']) ? $attr['tip'] : '';
@@ -2730,6 +2872,37 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('文章列表布局', 'argon');?></label></th>
+						<td>
+							<div class="radio-with-img">
+								<?php $argon_article_list_waterflow = get_option('argon_article_list_waterflow', '1'); ?>
+								<div class="radio-img">
+									<svg width="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1880.72 1340.71"><rect width="1880.72" height="1340.71" style="fill:#f7f8f8"/><rect x="46.34" y="46.48" width="1785.73" height="412.09" style="fill:#abb7ff"/><rect x="46.34" y="496.66" width="1785.73" height="326.05" style="fill:#abb7ff"/><rect x="46.34" y="860.8" width="1785.73" height="350.87" style="fill:#abb7ff"/><rect x="46.34" y="1249.76" width="1785.73" height="90.94" style="fill:#abb7ff"/></svg>
+								</div>
+								<label><input name="argon_article_list_waterflow" type="radio" value="1" <?php if ($argon_article_list_waterflow=='1'){echo 'checked';} ?>> <?php _e('单列', 'argon');?></label>
+							</div>
+							<div class="radio-with-img">
+								<div class="radio-img">
+									<svg width="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1880.72 1340.71"><rect width="1880.72" height="1340.71" style="fill:#f7f8f8"/><rect x="46.34" y="46.48" width="873.88" height="590.33" style="fill:#abb7ff"/><rect x="961.62" y="46.48" width="873.88" height="390.85" style="fill:#abb7ff"/><rect x="961.62" y="480.65" width="873.88" height="492.96" style="fill:#abb7ff"/><rect x="46.34" y="681.35" width="873.88" height="426.32" style="fill:#abb7ff"/><rect x="961.62" y="1016.92" width="873.88" height="323.79" style="fill:#abb7ff"/><rect x="46.34" y="1152.22" width="873.88" height="188.49" style="fill:#abb7ff"/></svg>
+								</div>
+								<label><input name="argon_article_list_waterflow" type="radio" value="2" <?php if ($argon_article_list_waterflow=='2'){echo 'checked';} ?>> <?php _e('瀑布流 (2 列)', 'argon');?></label>
+							</div>
+							<div class="radio-with-img">
+								<div class="radio-img">
+									<svg width="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1880.72 1340.71"><rect width="1880.72" height="1340.71" style="fill:#f7f8f8"/><rect x="46.34" y="46.48" width="568.6" height="531.27" style="fill:#abb7ff"/><rect x="656.62" y="46.48" width="568.6" height="400.51" style="fill:#abb7ff"/><rect x="1266.9" y="46.48" width="568.6" height="604.09" style="fill:#abb7ff"/><rect x="656.62" y="485.07" width="568.6" height="428.67" style="fill:#abb7ff"/><rect x="46.34" y="615.82" width="568.6" height="407.16" style="fill:#abb7ff"/><rect x="656.62" y="951.83" width="568.6" height="388.87" style="fill:#abb7ff"/><rect x="1266.9" y="695.24" width="568.6" height="400.53" style="fill:#abb7ff"/><rect x="1266.9" y="1140.44" width="568.6" height="200.26" style="fill:#abb7ff"/><rect x="46.34" y="1061.06" width="568.6" height="279.64" style="fill:#abb7ff"/></svg>
+								</div>
+								<label><input name="argon_article_list_waterflow" type="radio" value="3" <?php if ($argon_article_list_waterflow=='3'){echo 'checked';} ?>> <?php _e('瀑布流 (3 列)', 'argon');?></label>
+							</div>
+							<div class="radio-with-img">
+								<div class="radio-img">
+									<svg width="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1930.85 1340.71"><defs><clipPath id="a" transform="translate(18.64)"><rect x="-385.62" y="718.3" width="2290.76" height="1028.76" transform="translate(599.83 -206.47) rotate(25.31)" style="fill:none"/></clipPath><clipPath id="b" transform="translate(18.64)"><rect x="2.1" y="252.4" width="1878.62" height="991.45" style="fill:none"/></clipPath></defs><rect x="18.64" width="1880.72" height="1340.71" style="fill:#f7f8f8"/><rect x="64.98" y="46.48" width="568.6" height="531.27" style="fill:#abb7ff"/><rect x="675.26" y="46.48" width="568.6" height="400.51" style="fill:#abb7ff"/><rect x="1285.55" y="46.48" width="568.6" height="604.09" style="fill:#abb7ff"/><rect x="675.26" y="485.07" width="568.6" height="428.67" style="fill:#abb7ff"/><rect x="64.98" y="615.82" width="568.6" height="407.16" style="fill:#abb7ff"/><rect x="675.26" y="951.83" width="568.6" height="388.87" style="fill:#abb7ff"/><rect x="1285.55" y="695.24" width="568.6" height="400.53" style="fill:#abb7ff"/><rect x="1285.55" y="1140.44" width="568.6" height="200.26" style="fill:#abb7ff"/><rect x="64.98" y="1061.06" width="568.6" height="279.64" style="fill:#abb7ff"/><g style="clip-path:url(#a)"><rect x="18.64" width="1880.72" height="1340.71" style="fill:#f7f8f8"/><rect x="64.98" y="46.48" width="873.88" height="590.33" style="fill:#abb7ff"/><rect x="980.27" y="46.48" width="873.88" height="390.85" style="fill:#abb7ff"/><rect x="980.27" y="480.65" width="873.88" height="492.96" style="fill:#abb7ff"/><rect x="64.98" y="681.35" width="873.88" height="426.32" style="fill:#abb7ff"/><rect x="980.27" y="1016.92" width="873.88" height="323.79" style="fill:#abb7ff"/><rect x="64.98" y="1152.22" width="873.88" height="188.49" style="fill:#abb7ff"/></g><g style="clip-path:url(#b)"><line x1="18.64" y1="304.46" x2="1912.21" y2="1199.81" style="fill:none;stroke:#f7f8f8;stroke-linecap:square;stroke-miterlimit:10;stroke-width:28px"/></g></svg>
+								</div>
+								<label><input name="argon_article_list_waterflow" type="radio" value="2and3" <?php if ($argon_article_list_waterflow=='2and3'){echo 'checked';} ?>> <?php _e('瀑布流 (列数自适应)', 'argon');?></label>
+							</div>
+							<p class="description" style="margin-top: 15px;"><?php _e('列数自适应的瀑布流会根据可视区宽度自动调整瀑布流列数。', 'argon');?></br><?php _e('建议只有使用单栏页面布局时才开启 3 列瀑布流。', 'argon');?></br><?php _e('所有瀑布流布局都会在屏幕宽度过小时变为单列布局。', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('文章列表卡片布局', 'argon');?></label></th>
 						<td>
 							<div class="radio-with-img">
@@ -2744,6 +2917,12 @@ function themeoptions_page(){
 									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 870"><rect width="1920" height="870" style="fill:#f7f8f8;stroke: #231815;stroke-miterlimit: 10;"/><rect width="630.03" height="870" style="fill:#abb7ff"/><rect x="689.57" y="174.16" width="1144.6" height="35" rx="4" style="fill:#efefef"/><rect x="689.57" y="238.66" width="1144.6" height="35" rx="4" style="fill:#efefef"/><rect x="689.57" y="303.16" width="1144.6" height="35" rx="4" style="fill:#efefef"/><rect x="689.57" y="792.02" width="116.97" height="38.07" rx="4" style="fill:#dcdddd"/><rect x="820.02" y="792.02" width="97.38" height="38.07" rx="4" style="fill:#dcdddd"/><rect x="929.47" y="792.02" width="125.79" height="38.07" rx="4" style="fill:#dcdddd"/><g style="opacity:0.23"><rect x="689.57" y="52.26" width="1055.43" height="55.93" rx="4" style="fill:#5e72e4"/></g><rect x="689.57" y="677.09" width="451.48" height="25.08" rx="4" style="fill:#efefef"/><rect x="689.57" y="718.6" width="451.48" height="25.08" rx="4" style="fill:#efefef"/><rect x="689.57" y="363.63" width="1144.6" height="35" rx="4" style="fill:#efefef"/><rect x="689.57" y="426.13" width="1144.6" height="35" rx="4" style="fill:#efefef"/><rect x="689.57" y="492.63" width="1144.6" height="35" rx="4" style="fill:#efefef"/></svg>
 								</div>
 								<label><input name="argon_article_list_layout" type="radio" value="2" <?php if ($argon_article_list_layout=='2'){echo 'checked';} ?>> <?php _e('布局', 'argon');?> 2</label>
+							</div>
+							<div class="radio-with-img">
+								<div class="radio-img">
+									<svg width="250" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1921 871"><rect x="0.5" y="0.5" width="1920" height="870" style="fill:#f7f8f8;stroke:#231815;stroke-miterlimit:10"/><rect x="0.5" y="0.5" width="1920" height="363.36" style="fill:#abb7ff"/><rect x="48.5" y="613.55" width="1806" height="35" rx="4" style="fill:#efefef"/><rect x="48.5" y="663.05" width="1806" height="35" rx="4" style="fill:#efefef"/><rect x="48.5" y="712.55" width="1806" height="35" rx="4" style="fill:#efefef"/><rect x="48.5" y="792.52" width="116.97" height="38.07" rx="4" style="fill:#dcdddd"/><rect x="178.95" y="792.52" width="97.38" height="38.07" rx="4" style="fill:#dcdddd"/><rect x="288.4" y="792.52" width="125.79" height="38.07" rx="4" style="fill:#dcdddd"/><g style="opacity:0.23"><rect x="48.5" y="410.53" width="1055.43" height="55.93" rx="4" style="fill:#5e72e4"/></g><rect x="48.2" y="500.22" width="451.48" height="25.08" rx="4" style="fill:#efefef"/><rect x="48.2" y="541.72" width="451.48" height="25.08" rx="4" style="fill:#efefef"/></svg>
+								</div>
+								<label><input name="argon_article_list_layout" type="radio" value="3" <?php if ($argon_article_list_layout=='3'){echo 'checked';} ?>> <?php _e('布局', 'argon');?> 3</label>
 							</div>
 						</td>
 					</tr>
@@ -2800,16 +2979,17 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('顶栏', 'argon');?></h2></th></tr>
-					<tr><th class="subtitle"><h3><?php _e('自动折叠顶栏', 'argon');?></h3></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('状态', 'argon');?></h3></th></tr>
 					<tr>
-						<th><label><?php _e('滚动时自动折叠顶栏', 'argon');?></label></th>
+						<th><label><?php _e('顶栏显示状态', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_headroom">
 								<?php $argon_enable_headroom = get_option('argon_enable_headroom'); ?>
-								<option value="false" <?php if ($argon_enable_headroom=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
-								<option value="true" <?php if ($argon_enable_headroom=='true'){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
+								<option value="false" <?php if ($argon_enable_headroom=='false'){echo 'selected';} ?>><?php _e('始终固定悬浮', 'argon');?></option>
+								<option value="true" <?php if ($argon_enable_headroom=='true'){echo 'selected';} ?>><?php _e('滚动时自动折叠', 'argon');?></option>
+								<option value="absolute" <?php if ($argon_enable_headroom=='absolute'){echo 'selected';} ?>><?php _e('不固定', 'argon');?></option>
 							</select>
-							<p class="description"><?php _e('在页面向下滚动时隐藏顶栏，向上滚动时显示顶栏', 'argon');?></p>
+							<p class="description"><?php _e('始终固定悬浮: 永远固定悬浮在页面最上方', 'argon');?></br><?php _e('滚动时自动折叠: 在页面向下滚动时隐藏顶栏，向上滚动时显示顶栏', 'argon');?></br><?php _e('不固定: 只有在滚动到页面最顶端时才显示顶栏', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('标题', 'argon');?></h3></th></tr>
@@ -2835,7 +3015,20 @@ function themeoptions_page(){
 							<p class="description"><?php _e('点击图标后会跳转到的链接，留空则不跳转', 'argon');?></p>
 						</td>
 					</tr>
+					<tr><th class="subtitle"><h3><?php _e('外观', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('顶栏毛玻璃效果', 'argon');?></label></th>
+						<td>
+							<select name="argon_toolbar_blur">
+								<?php $argon_toolbar_blur = get_option('argon_toolbar_blur'); ?>
+								<option value="false" <?php if ($argon_toolbar_blur=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
+								<option value="true" <?php if ($argon_toolbar_blur=='true'){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('开启会带来微小的性能损失。', 'argon');?></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2><?php _e('顶部 Banner (封面)', 'argon');?></h2></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('内容', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('Banner 标题', 'argon');?></label></th>
 						<td>
@@ -2848,6 +3041,37 @@ function themeoptions_page(){
 						<td>
 							<input type="text" class="regular-text" name="argon_banner_subtitle" value="<?php echo get_option('argon_banner_subtitle'); ?>"/>
 							<p class="description"><?php _e('显示在 Banner 标题下，留空则不显示', 'argon');?></p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h3><?php _e('外观', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('Banner 显示状态', 'argon');?></label></th>
+						<td>
+							<select name="argon_banner_size">
+							<?php $argon_banner_size = get_option('argon_banner_size', 'full'); ?>
+								<option value="full" <?php if ($argon_banner_size=='full'){echo 'selected';} ?>><?php _e('完整', 'argon');?></option>
+								<option value="mini" <?php if ($argon_banner_size=='mini'){echo 'selected';} ?>><?php _e('迷你', 'argon');?></option>
+								<option value="fullscreen" <?php if ($argon_banner_size=='fullscreen'){echo 'selected';} ?>><?php _e('全屏', 'argon');?></option>
+								<option value="hide" <?php if ($argon_banner_size=='hide'){echo 'selected';} ?>><?php _e('隐藏', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('完整: Banner 高度占用半屏', 'argon');?></br><?php _e('迷你: 减小 Banner 的内边距', 'argon');?></br><?php _e('全屏: Banner 占用全屏作为封面（仅在首页生效）', 'argon');?></br><?php _e('隐藏: 完全隐藏 Banner', 'argon');?></br></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label><?php _e('Banner 透明化', 'argon');?></label></th>
+						<td>
+							<select name="argon_page_background_banner_style">
+								<?php $argon_page_background_banner_style = get_option('argon_page_background_banner_style'); ?>
+								<option value="false" <?php if ($argon_page_background_banner_style=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
+								<option value="transparent" <?php if ($argon_page_background_banner_style=='transparent' || ($argon_page_background_banner_style!='' && $argon_page_background_banner_style!='false')){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
+							</select>
+							<div style="margin-top: 15px;margin-bottom: 15px;">
+								<label>
+									<?php $argon_show_toolbar_mask = get_option('argon_show_toolbar_mask');?>
+									<input type="checkbox" name="argon_show_toolbar_mask" value="true" <?php if ($argon_show_toolbar_mask=='true'){echo 'checked';}?>/>	<?php _e('在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）', 'argon');?>
+								</label>
+							</div>
+							<p class="description"><?php _e('Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置页面背景时生效。', 'argon');?></br><?php _e('开启后，Banner 背景图和渐变背景选项将失效。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -2916,7 +3140,7 @@ function themeoptions_page(){
 						<th><label><?php _e('页面背景', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_page_background_url" value="<?php echo get_option('argon_page_background_url'); ?>"/>
-							<p class="description"><?php _e('页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐修改以下选项来增强页面整体观感。', 'argon');?></p>
+							<p class="description"><?php _e('页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐开启 Banner 透明化。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -2931,23 +3155,6 @@ function themeoptions_page(){
 						<td>
 							<input type="number" name="argon_page_background_opacity" min="0" max="1" step="0.01" value="<?php echo (get_option('argon_page_background_opacity') == '' ? '1' : get_option('argon_page_background_opacity')); ?>"/>
 							<p class="description"><?php _e('0 ~ 1 的小数，越小透明度越高，默认为 1 不透明', 'argon');?></p>
-						</td>
-					</tr>
-					<tr>
-						<th><label><?php _e('Banner 透明化', 'argon');?></label></th>
-						<td>
-							<select name="argon_page_background_banner_style">
-								<?php $argon_page_background_banner_style = get_option('argon_page_background_banner_style'); ?>
-								<option value="false" <?php if ($argon_page_background_banner_style=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
-								<option value="transparent" <?php if ($argon_page_background_banner_style=='transparent' || ($argon_page_background_banner_style!='' && $argon_page_background_banner_style!='false')){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
-							</select>
-							<div style="margin-top: 15px;margin-bottom: 15px;">
-								<label>
-									<?php $argon_show_toolbar_mask = get_option('argon_show_toolbar_mask');?>
-									<input type="checkbox" name="argon_show_toolbar_mask" value="true" <?php if ($argon_show_toolbar_mask=='true'){echo 'checked';}?>/>	<?php _e('在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）', 'argon');?>
-								</label>
-							</div>
-							<p class="description"><?php _e('Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置页面背景时生效。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('左侧栏', 'argon');?></h2></th></tr>
@@ -3790,6 +3997,17 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('评论点赞', 'argon');?></label></th>
+						<td>
+							<select name="argon_enable_comment_upvote">
+								<?php $argon_enable_comment_upvote = get_option('argon_enable_comment_upvote'); ?>
+								<option value="false" <?php if ($argon_enable_comment_upvote=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+								<option value="true" <?php if ($argon_enable_comment_upvote=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('开启后，每一条评论的头像下方会出现点赞按钮', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('评论者 UA 显示', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_ua">
@@ -3926,6 +4144,13 @@ window.pjaxLoaded = function(){
 								<option value="true" <?php if ($argon_hide_shortcode_in_preview=='true'){echo 'selected';} ?>><?php _e('是', 'argon');?></option>
 							</select>
 							<p class="description"></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label><?php _e('文章内容预览截取字数', 'argon');?></label></th>
+						<td>
+							<input type="number" name="argon_trim_words_count" min="0" max="1000" value="<?php echo get_option('argon_trim_words_count', 175); ?>"/>
+							<p class="description"><?php _e('设为 0 来隐藏文章内容预览', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -4383,6 +4608,11 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_disable_googlefont');
 		argon_update_option('argon_disable_codeblock_style');
 		argon_update_option('argon_reference_list_title');
+		argon_update_option('argon_trim_words_count');
+		argon_update_option('argon_enable_comment_upvote');
+		argon_update_option('argon_article_list_waterflow');
+		argon_update_option('argon_banner_size');
+		argon_update_option('argon_toolbar_blur');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');
@@ -4414,13 +4644,15 @@ function argon_update_themeoptions(){
 argon_update_themeoptions();
 
 /*主题菜单*/
-register_nav_menus( array(
-	'toolbar_menu' => __('顶部导航', 'argon'),
-	'leftbar_menu' => __('左侧栏菜单', 'argon'),
-	'leftbar_author_links' => __('左侧栏作者个人链接', 'argon'),
-	'leftbar_friend_links' => __('左侧栏友情链接', 'argon')
-));
-
+add_action('init', 'init_nav_menus');
+function init_nav_menus(){
+	register_nav_menus( array(
+		'toolbar_menu' => __('顶部导航', 'argon'),
+		'leftbar_menu' => __('左侧栏菜单', 'argon'),
+		'leftbar_author_links' => __('左侧栏作者个人链接', 'argon'),
+		'leftbar_friend_links' => __('左侧栏友情链接', 'argon')
+	));
+}
 
 //隐藏 admin 管理条
 //show_admin_bar(false);

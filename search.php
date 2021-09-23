@@ -18,12 +18,16 @@
 <?php get_sidebar(); ?>
 
 <div id="primary" class="content-area">
-	<main id="main" class="site-main" role="main">
+	<main id="main" class="site-main article-list" role="main">
 	<?php if ( have_posts() ) : ?>
 		<?php
 			while ( have_posts() ) :
 				the_post();
-				get_template_part( 'template-parts/content-preview', get_option('argon_article_list_layout', '1'));
+				if (get_post_type() == 'shuoshuo'){
+					get_template_part( 'template-parts/content-shuoshuo-preview' );
+				}else{
+					get_template_part( 'template-parts/content-preview', get_option('argon_article_list_layout', '1'));
+				}
 			endwhile;
 		?>
 		<?php

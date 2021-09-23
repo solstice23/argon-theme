@@ -1,3 +1,6 @@
+<?php if (get_option('argon_page_layout', 'double') == 'single') {
+	return;
+} ?>
 <div id="sidebar_mask"></div>
 <aside id="leftbar" class="leftbar widget-area" role="complementary">
 		<?php if (get_option('argon_sidebar_announcement') != '') { ?>

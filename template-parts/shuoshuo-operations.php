@@ -5,7 +5,11 @@
 			<span class="btn-inner--text" style="margin-left: 2px;"><?php _e('评论', 'argon');?><?php if (!comments_open()) {?><?php _e('已关闭', 'argon');?><?php } ?></span>
 		</button>
 	</a>
-	<?php $upvoted = isset($_COOKIE['argon_shuoshuo_' . get_the_ID() . '_upvoted']);?>
+
+	<?php 
+		$upvotedList = isset($_COOKIE['argon_shuoshuo_upvoted']) ? $_COOKIE['argon_shuoshuo_upvoted'] : '';
+		$upvoted = in_array(get_the_ID(), explode(',', $upvotedList));
+	?>
 	<button class="shuoshuo-upvote btn btn-icon btn-outline-primary btn-sm<?php if ($upvoted) {?> upvoted<?php } ?>" type="button" data-id="<?php the_ID(); ?>">
 		<span class="btn-inner--icon"><i class="fa fa-thumbs<?php if (!$upvoted) {?>-o<?php } ?>-up"></i></span>
 		<span class="btn-inner--text" style="margin-left: 2px;">

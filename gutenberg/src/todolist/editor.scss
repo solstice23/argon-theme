@@ -1,0 +1,93 @@
+.shortcode-todo{
+	margin: 10px 0;
+}
+
+.todolist-remove-item-btn {
+    position: absolute;
+    top: -8px;
+    right: 0;
+}
+
+.custom-control {
+	position: relative;
+	display: block;
+	min-height: 1.5rem;
+	padding-left: 3rem;
+}
+.custom-control-input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+	color: #fff;
+	border-color: #5e72e4;
+	background-color: #5e72e4;
+	box-shadow: none;
+}
+.custom-control-input:focus ~ .custom-control-label::before {
+	box-shadow: none, none;
+}
+.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+	border-color: rgba(50, 151, 211, 0.25);
+}
+.custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+	color: #fff;
+	border-color: #5e72e4;
+	background-color: #5e72e4;
+	box-shadow: none;
+}
+.custom-control-input:disabled ~ .custom-control-label {
+	color: #8898aa;
+}
+.custom-control-input:disabled ~ .custom-control-label::before {
+	background-color: #e9ecef;
+}
+.custom-control-label {
+	position: relative;
+	margin-bottom: 0;
+	vertical-align: top;
+}
+.custom-control-label::before {
+	position: absolute;
+	top: 0.125rem;
+	left: -3rem;
+	display: block;
+	width: 1.25rem;
+	height: 1.25rem;
+	content: "";
+	pointer-events: none;
+	border: #cad1d7 solid 1px;
+	background-color: #fff;
+	box-shadow: none;
+}
+.custom-control-label::after {
+	position: absolute;
+	top: 0.125rem;
+	left: -3rem;
+	display: block;
+	width: 1.25rem;
+	height: 1.25rem;
+	content: "";
+	background: no-repeat 50%/50% 50%;
+}
+.custom-checkbox .custom-control-label::before {
+	border-radius: 0.2rem;
+}
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+}
+.custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
+	border-color: #5e72e4;
+	background-color: #5e72e4;
+	box-shadow: none;
+}
+.custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::after {
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 4'%3e%3cpath stroke='%23fff' d='M0 2h4'/%3e%3c/svg%3e");
+}
+.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
+	background-color: rgba(94, 114, 228, 0.5);
+}
+.custom-checkbox .custom-control-input:disabled:indeterminate ~ .custom-control-label::before {
+	background-color: rgba(94, 114, 228, 0.5);
+}

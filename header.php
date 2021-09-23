@@ -22,6 +22,22 @@
 	if (get_option('argon_disable_codeblock_style') == 'true'){
 		$htmlclasses .= 'disable-codeblock-style ';
 	}
+	if (get_option('argon_enable_headroom') == 'absolute'){
+		$htmlclasses .= 'navbar-absolute ';
+	}
+	$banner_size = get_option('argon_banner_size', 'full');
+	if ($banner_size != 'full'){
+		if ($banner_size == 'mini'){
+			$htmlclasses .= 'banner-mini ';
+		}else if ($banner_size == 'hide'){
+			$htmlclasses .= 'no-banner ';
+		}else if ($banner_size == 'fullscreen'){
+			$htmlclasses .= 'banner-as-cover ';
+		}
+	}
+	if (get_option('argon_toolbar_blur', 'false') == 'true'){
+		$htmlclasses .= 'toolbar-blur ';
+	}
 	$htmlclasses .= get_option('argon_article_header_style', 'article-header-style-default') . ' ';
 	if(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== false && strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') === false){
 		$htmlclasses .= ' using-safari';
@@ -109,6 +125,7 @@
 	<?php wp_head(); ?>
 	<?php $GLOBALS['wp_path'] = get_option('argon_wp_path') == '' ? '/' : get_option('argon_wp_path'); ?>
 	<script>
+		document.documentElement.classList.remove("no-js");
 		var argonConfig = {
 			wp_path: "<?php echo $GLOBALS['wp_path']; ?>",
 			language: "<?php echo argon_get_locate(); ?>",
@@ -134,7 +151,8 @@
 			fold_long_comments: <?php echo get_option('argon_fold_long_comments', 'false'); ?>,
 			disable_pjax: <?php echo get_option('argon_pjax_disabled', 'false'); ?>,
 			pjax_animation_durtion: <?php echo (get_option("argon_disable_pjax_animation") == 'true' ? '0' : '600'); ?>,
-			headroom: <?php echo get_option('argon_enable_headroom', 'false'); ?>,
+			headroom: "<?php echo get_option('argon_enable_headroom', 'false'); ?>",
+			waterflow_columns: "<?php echo get_option('argon_article_list_waterflow', '1'); ?>",
 			code_highlight: {
 				enable: <?php echo get_option('argon_enable_code_highlight', 'false'); ?>,
 				hide_linenumber: <?php echo get_option('argon_code_highlight_hide_linenumber', 'false'); ?>,
@@ -418,10 +436,11 @@
 	<div id="banner_container" class="banner-container container text-center">
 		<?php if ($enable_banner_title_typing_effect != "true"){?>
 			<div class="banner-title text-white"><span class="banner-title-inner"><?php echo $banner_title; ?></span>
+			<?php echo get_option('argon_banner_subtitle') == '' ? '' : '<span class="banner-subtitle d-block">' . get_option('argon_banner_subtitle') . '</span>'; ?></div>
 		<?php } else {?>
-			<div class="banner-title text-white" data-text="<?php echo $banner_title; ?>" data-interval="<?php echo (get_option('argon_banner_typing_effect_interval') == '' ? '100' : get_option('argon_banner_typing_effect_interval')); ?>"><span class="banner-title-inner">&nbsp;</span>
+			<div class="banner-title text-white" data-interval="<?php echo get_option('argon_banner_typing_effect_interval', 100); ?>"><span data-text="<?php echo $banner_title; ?>" class="banner-title-inner">&nbsp;</span>
+			<?php echo get_option('argon_banner_subtitle') == '' ? '' : '<span data-text="' . get_option('argon_banner_subtitle') . '" class="banner-subtitle d-block">&nbsp;</span>'; ?></div>
 		<?php }?>
-		<?php echo get_option('argon_banner_subtitle') == '' ? '' : '<span class="banner-subtitle d-block">' . get_option('argon_banner_subtitle') . '</span>'; ?></div>
 	</div>
 	<?php if (get_option('argon_banner_background_url') != '') { ?>
 		<style>
@@ -430,9 +449,14 @@
 			}
 		</style>
 	<?php } ?>
+	<?php if ($banner_size == 'fullscreen') { ?>
+		<div class="cover-scroll-down">
+			<i class="fa fa-angle-down" aria-hidden="true"></i>
+		</div>
+	<?php } ?>
 </section>
 
-<?php if (get_option('argon_page_background_url') != '') { ?>
+<?php if (apply_filters('argon_page_background_url', get_option('argon_page_background_url')) != '') { ?>
 	<style>
 		<?php if (get_option('argon_page_background_banner_style', 'false') == 'transparent') { ?>
 			#banner, #banner .shape {
@@ -448,7 +472,7 @@
 			top: 0;
 			bottom: 0;
 			z-index: -2;
-			background: url(<?php echo get_option('argon_page_background_url');?>);
+			background: url(<?php echo apply_filters('argon_page_background_url', get_option('argon_page_background_url'));?>);
 			background-position: center;
 			background-size: cover;
 			background-repeat: no-repeat;
@@ -458,7 +482,7 @@
 		html.darkmode #content:before{
 			filter: brightness(0.65);
 		}
-		<?php if (get_option('argon_page_background_dark_url') != '') { ?>
+		<?php if (apply_filters('argon_page_background_dark_url', get_option('argon_page_background_dark_url')) != '') { ?>
 			#content:after {
 				content: '';
 				display: block;
@@ -468,7 +492,7 @@
 				top: 0;
 				bottom: 0;
 				z-index: -2;
-				background: url(<?php echo get_option('argon_page_background_dark_url');?>);
+				background: url(<?php echo apply_filters('argon_page_background_dark_url', get_option('argon_page_background_dark_url'));?>);
 				background-position: center;
 				background-size: cover;
 				background-repeat: no-repeat;

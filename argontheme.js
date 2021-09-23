@@ -219,6 +219,7 @@ function __(text){
 
 	let startTransitionHeight;
 	let endTransitionHeight;
+	let maxOpacity = 0.85;
 
 	startTransitionHeight = $bannerContainer.offset().top - 75;
 	endTransitionHeight = $content.offset().top - 75;
@@ -233,19 +234,55 @@ function __(text){
 		if (scrollTop < startTransitionHeight){
 			toolbar.style.setProperty('background-color', 'rgba(var(--toolbar-color), 0)', 'important');
 			toolbar.style.setProperty('box-shadow', 'none');
+			if (argonConfig.toolbar_blur){
+				toolbar.style.setProperty('backdrop-filter', 'blur(0px)');
+			}
 			toolbar.classList.add("navbar-ontop");
 			return;
 		}
 		if (scrollTop > endTransitionHeight){
-			toolbar.style.setProperty('background-color', 'rgba(var(--toolbar-color), 0.85)', 'important');
+			toolbar.style.setProperty('background-color', 'rgba(var(--toolbar-color), ' + maxOpacity + ')', 'important');
 			toolbar.style.setProperty('box-shadow', '');
+			if (argonConfig.toolbar_blur){
+				toolbar.style.setProperty('backdrop-filter', 'blur(16px)');
+			}
 			toolbar.classList.remove("navbar-ontop");
 			return;
 		}
-		let transparency = (scrollTop - startTransitionHeight) / (endTransitionHeight - startTransitionHeight) * 0.85;
+		let transparency = (scrollTop - startTransitionHeight) / (endTransitionHeight - startTransitionHeight) * maxOpacity;
 		toolbar.style.setProperty('background-color', 'rgba(var(--toolbar-color), ' + transparency, 'important');
 		toolbar.style.setProperty('box-shadow', '');
+		if (argonConfig.toolbar_blur){
+			if ((scrollTop - startTransitionHeight) / (endTransitionHeight - startTransitionHeight) > 0.3){
+				toolbar.style.setProperty('backdrop-filter', 'blur(16px)');
+			}else{
+				toolbar.style.setProperty('backdrop-filter', 'blur(0px)');
+			}
+		}
 		toolbar.classList.remove("navbar-ontop");
+	}
+	function changeToolbarOnTopClass(){
+		let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+		if (scrollTop < 30){
+			toolbar.classList.add("navbar-no-blur");
+		}else{
+			toolbar.classList.remove("navbar-no-blur");
+		}
+	}
+	if ($("html").hasClass("no-banner")) {
+		changeToolbarOnTopClass();
+		document.addEventListener("scroll", changeToolbarOnTopClass, {passive: true});
+		return;
+	}
+	if (argonConfig.headroom == "absolute") {
+		toolbar.classList.add("navbar-ontop");
+		return;
+	}
+	if ($("html").hasClass("toolbar-blur")) {
+		argonConfig.toolbar_blur = true;
+		maxOpacity = 0.65;
+	}else{
+		argonConfig.toolbar_blur = false;
 	}
 	changeToolbarTransparency();
 	document.addEventListener("scroll", changeToolbarTransparency, {passive: true});
@@ -317,6 +354,9 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 
 /*左侧栏随页面滚动浮动*/
 !function(){
+	if ($("#leftbar").length == 0){
+		return;
+	}
 	let $leftbarPart1 = $('#leftbar_part1');
 	let $leftbarPart2 = $('#leftbar_part2');
 	let leftbarPart1 = document.getElementById('leftbar_part1');
@@ -327,7 +367,7 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 
 	function changeLeftbarStickyStatus(){
 		let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-		if( part1OffsetTop + part1OuterHeight + 10 - scrollTop <= 90 ){
+		if( part1OffsetTop + part1OuterHeight + 10 - scrollTop <= (argonConfig.headroom != "absolute" ? 90 : 18) ){
 			//滚动条在页面中间浮动状态
 			leftbarPart2.classList.add('sticky');
 		}else{
@@ -343,19 +383,19 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 	changeLeftbarStickyStatus();
 	document.addEventListener("scroll", changeLeftbarStickyStatus, {passive: true});
 	$(window).resize(function(){
-		part1OffsetTop = $('#leftbar_part1').offset().top;
-		part1OuterHeight = $('#leftbar_part1').outerHeight();
+		part1OffsetTop = $leftbarPart1.offset().top;
+		part1OuterHeight = $leftbarPart1.outerHeight();
 		changeLeftbarStickyStatus();
 	});
 	new MutationObserver(function(){
-		part1OffsetTop = $('#leftbar_part1').offset().top;
-		part1OuterHeight = $('#leftbar_part1').outerHeight();
+		part1OffsetTop = $leftbarPart1.offset().top;
+		part1OuterHeight = $leftbarPart1.outerHeight();
 		changeLeftbarStickyStatus();
 	}).observe(leftbarPart1, {attributes: true, childList: true, subtree: true});
 }();
 
 /*Headroom*/
-if (argonConfig.headroom){
+if (argonConfig.headroom == "true"){
 	var headroom = new Headroom(document.querySelector("body"),{
 		"tolerance" : {
 			up : 0,
@@ -375,6 +415,94 @@ if (argonConfig.headroom){
 	}).init();
 }
 
+/*瀑布流布局*/
+function waterflowInit() {
+	if (argonConfig.waterflow_columns == "1") {
+		return;
+	}
+	$("#main.article-list img").each(function(index, ele){
+		ele.onload = function(){
+			waterflowInit();
+		}
+	});
+	let columns;
+	if (argonConfig.waterflow_columns == "2and3") {
+		if ($("#main").outerWidth() > 1000) {
+			columns = 3;
+		} else {
+			columns = 2;
+		}
+	}else{
+		columns = parseInt(argonConfig.waterflow_columns);
+	}
+	if ($("#main").outerWidth() < 650 && columns == 2) {
+		columns = 1;
+	}else if ($("#main").outerWidth() < 800 && columns == 3) {
+		columns = 1;
+	}
+
+	let heights = [0, 0, 0];
+	function getMinHeightPosition(){
+		let res = 0, minn = 2147483647;
+		for (var i = 0; i < columns; i++) {
+			if (heights[i] < minn) {
+				minn = heights[i];
+				res = i;
+			}
+		}
+		return res;
+	}
+	function getMaxHeight(){
+		let res = 0;
+		for (let i in heights) {
+			res = Math.max(res, heights[i]);
+		}
+		return res;
+	}
+	$("#primary").css("transition", "none")
+		.addClass("waterflow");
+	let $container = $("#main.article-list");
+	if (!$container.length){
+		return;
+	}
+	let $items = $container.find("article.post:not(.no-results), .shuoshuo-preview-container");
+	columns = Math.max(Math.min(columns, $items.length), 1);
+	if (columns == 1) {
+		$container.removeClass("waterflow");
+		$items.css("transition", "").css("position", "").css("width", "").css("top", "").css("left", "").css("margin", "");
+		$(".waterflow-placeholder").remove();
+	}else{
+		$container.addClass("waterflow");
+		$items.each(function(index, item) {
+			let $item = $(item);
+			$item.css("transition", "none")
+				.css("position", "absolute")
+				.css("width", "calc(" + (100 / columns) + "% - " + (10 * (columns - 1) / columns) + "px)").css("margin", 0);
+			let itemHeight = $item.outerHeight() + 10;
+			let pos = getMinHeightPosition();
+			$item.css("top", heights[getMinHeightPosition()] + "px")
+				.css("left", (pos * $item.outerWidth() + 10 * pos) + "px");
+			heights[pos] += itemHeight;
+		});
+	}
+	if ($(".waterflow-placeholder").length) {
+		$(".waterflow-placeholder").css("height", getMaxHeight() + "px");
+	}else{
+		$container.prepend("<div class='waterflow-placeholder' style='height: " + getMaxHeight() +"px;'></div>");
+	}
+}
+waterflowInit();
+if (argonConfig.waterflow_columns != "1") {
+	$(window).resize(function(){
+		waterflowInit();
+	});
+	new MutationObserver(function(mutations, observer){
+		waterflowInit();
+	}).observe(document.querySelector("#primary"), {
+		'childList': true
+	});
+}
+
 /*浮动按钮栏相关 (回顶等)*/
 !function(){
 	let $fabtns = $('#float_action_buttons');
@@ -385,6 +513,7 @@ if (argonConfig.headroom){
 	let $toggleBlogSettings = $('#fabtn_toggle_blog_settings_popup');
 	let $goToComment = $('#fabtn_go_to_comment');
 
+	let $readingProgressBtn = $('#fabtn_reading_progress');
 	let $readingProgressBar = $('#fabtn_reading_progress_bar');
 	let $readingProgressDetails = $('#fabtn_reading_progress_details');
 
@@ -492,13 +621,36 @@ if (argonConfig.headroom){
 		setBlogFilter(this.getAttribute("filter-name"));
 	});
 
+	let $window = $(window);
+
 	function changefabtnDisplayStatus(){
 		//阅读进度
-		let readingProgress = $(window).scrollTop() / Math.max($(document).height() - $(window).height(), 0.01);
-		$readingProgressDetails.html((readingProgress * 100).toFixed(0) + "%");
-		$readingProgressBar.css("width" , (readingProgress * 100).toFixed(0) + "%");
+		function hideReadingProgress(){
+			$readingProgressBtn.addClass("fabtn-hidden");
+		}
+		function setReadingProgress(percent){
+			$readingProgressBtn.removeClass("fabtn-hidden");
+			$readingProgressDetails.html((percent * 100).toFixed(0) + "%");
+			$readingProgressBar.css("width" , (percent * 100).toFixed(0) + "%");
+		}
+		if ($("article.post.post-full").length == 0){
+			hideReadingProgress();
+		}else{
+			let a = $window.scrollTop() - ($("article.post.post-full").offset().top - 80);
+			let b = $("article.post.post-full").outerHeight() + 50 - $window.height();
+			if (b <= 0){
+				hideReadingProgress();
+			}else{
+				readingProgress = a / b;
+				if (isNaN(readingProgress) || readingProgress < 0 || readingProgress > 1){
+					hideReadingProgress();
+				}else{
+					setReadingProgress(readingProgress);
+				}
+			}
+		}
 		//是否显示回顶
-		if ($(window).scrollTop() >= 400 || readingProgress >= 0.5){
+		if ($(window).scrollTop() >= 400){
 			$backToTopBtn.removeClass("fabtn-hidden");
 		}else{
 			$backToTopBtn.addClass("fabtn-hidden");
@@ -506,6 +658,9 @@ if (argonConfig.headroom){
 	}
 	changefabtnDisplayStatus();
 	$(window).scroll(function(){
+		changefabtnDisplayStatus();
+	});
+	$(window).resize(function(){
 		changefabtnDisplayStatus();
 	});
 	$fabtns.removeClass("fabtns-unloaded");
@@ -1073,6 +1228,57 @@ if (argonConfig.headroom){
 		}
 	});
 }();
+/*评论点赞*/
+$(document).on("click" , ".comment-upvote" , function(){
+	$this = $(this);
+	ID = $this.attr("data-id");
+	$this.addClass("comment-upvoting");
+	$.ajax({
+		url : argonConfig.wp_path + "wp-admin/admin-ajax.php",
+		type : "POST",
+		dataType : "json",
+		data : {
+			action: "upvote_comment",
+			comment_id : ID,
+		},
+		success : function(result){
+			$this.removeClass("comment-upvoting");
+			if (result.status == "success"){
+				$(".comment-upvote-num" , $this).html(result.total_upvote);
+				$this.addClass("upvoted");
+			}else{
+				$(".comment-upvote-num" , $this).html(result.total_upvote);
+				iziToast.show({
+					title: result.msg,
+					class: 'shadow-sm',
+					position: 'topRight',
+					backgroundColor: '#f5365c',
+					titleColor: '#ffffff',
+					messageColor: '#ffffff',
+					iconColor: '#ffffff',
+					progressBarColor: '#ffffff',
+					icon: 'fa fa-close',
+					timeout: 5000
+				});
+			}
+		},
+		error : function(xhr){
+			$this.removeClass("comment-upvoting");
+			iziToast.show({
+				title: __("点赞失败"),
+				class: 'shadow-sm',
+				position: 'topRight',
+				backgroundColor: '#f5365c',
+				titleColor: '#ffffff',
+				messageColor: '#ffffff',
+				iconColor: '#ffffff',
+				progressBarColor: '#ffffff',
+				icon: 'fa fa-close',
+				timeout: 5000
+			});
+		}
+	});
+});
 /*评论表情面板*/
 function lazyloadStickers(){
 	$(".emotion-keyboard .emotion-group:not(d-none) .emotion-item > img.lazyload").lazyload({threshold: 500, effect: "fadeIn"}).removeClass("lazyload");
@@ -1186,13 +1392,18 @@ $(document).on("click" , ".show-full-comment" , function(){
 });
 /*评论文字头像*/
 function generateCommentTextAvatar(img){
-	let emailHash = img.attr("src").match(/([a-f\d]{32}|[A-F\d]{32})/)[0];
+	let emailHash = '';
+	try{
+		emailHash = img.attr("src").match(/([a-f\d]{32}|[A-F\d]{32})/)[0];
+	}catch{
+		emailHash = img.parent().parent().parent().find("comment-name").text().trim();
+	}
 	let hash = 0;
 	for (i in emailHash){
 		hash = (hash * 233 + emailHash.charCodeAt(i)) % 16;
 	}
 	let colors = ['#e25f50', '#f25e90', '#bc67cb', '#9672cf', '#7984ce', '#5c96fa', '#7bdeeb', '#45d0e2', '#48b7ad', '#52bc89', '#9ace5f', '#d4e34a', '#f9d715', '#fac400', '#ffaa00', '#ff8b61', '#c2c2c2', '#8ea3af', '#a1877d', '#a3a3a3', '#b0b6e3', '#b49cde', '#c2c2c2', '#7bdeeb', '#bcaaa4', '#aed77f'];
-	let text = $(".comment-name", img.parent().parent()).text().trim()[0];
+	let text = $(".comment-name", img.parent().parent().parent()).text().trim()[0];
 	img.parent().html('<div class="avatar avatar-40 photo comment-text-avatar" style="background-color: ' + colors[hash] + ';">' + text + '</div>');
 }
 document.addEventListener("error", function(e){
@@ -1390,11 +1601,20 @@ function lazyloadInit(){
 	if (argonConfig.lazyload.effect == "none"){
 		delete argonConfig.lazyload.effect;
 	}
-	$("article img.lazyload:not(.lazyload-loaded) , .post-thumbnail.lazyload:not(.lazyload-loaded) , .related-post-thumbnail.lazyload:not(.lazyload-loaded)").lazyload(
+	$("article img.lazyload:not(.lazyload-loaded) , .related-post-thumbnail.lazyload:not(.lazyload-loaded)").lazyload(
 		Object.assign(argonConfig.lazyload, {
 			load: function () {
-				$(this).addClass("lazyload-loaded")
-				$(this).parent().removeClass("lazyload-container-unload")
+				$(this).addClass("lazyload-loaded");
+				$(this).parent().removeClass("lazyload-container-unload");
+			}
+		})
+	);
+	$(".post-thumbnail.lazyload:not(.lazyload-loaded)").lazyload(
+		Object.assign({threshold: argonConfig.lazyload.threshold}, {
+			load: function () {
+				$(this).addClass("lazyload-loaded");
+				$(this).parent().removeClass("lazyload-container-unload");
+				waterflowInit();
 			}
 		})
 	);
@@ -1438,7 +1658,57 @@ function tippyInit(){
 }
 tippyInit();
 
+/*Banner 全屏封面相关*/
+if ($("html").hasClass("banner-as-cover")){
+	function classInit(){
+		if ($("#main").hasClass("article-list-home")){
+			if (!$("html").hasClass("is-home")){
+				$("html").addClass("is-home");
+				$("html").trigger("resize");
+			}
+		}else{
+			if ($("html").hasClass("is-home")){
+				$("html").removeClass("is-home");
+				$("html").trigger("resize");
+			}
+		}
+	}
+	classInit();
+	new MutationObserver(function(mutations, observer){
+		classInit();
+	}).observe(document.querySelector("#primary"), {
+		'childList': true
+	});
+	$(".cover-scroll-down").on("click" , function(){
+		gotoHash("#content", 500);
+		$("#content").focus();
+	});
+	$fabs = $("#float_action_buttons");
+	$coverScrollDownBtn = $(".cover-scroll-down");
+	function changeWidgetsDisplayStatus(){
+		let scrollTop = $(window).scrollTop();
+		if (scrollTop >= window.outerHeight * 0.2){
+			$fabs.removeClass("hidden");
+		}else{
+			$fabs.addClass("hidden");
+		}
+		if (scrollTop >= window.outerHeight * 0.6){
+			$coverScrollDownBtn.addClass("hidden");
+		}else{
+			$coverScrollDownBtn.removeClass("hidden");
+		}
+	}
+	changeWidgetsDisplayStatus();
+	$(window).scroll(function(){
+		changeWidgetsDisplayStatus();
+	});
+	$(window).resize(function(){
+		changeWidgetsDisplayStatus();
+	});
+}
+
 /*Pjax*/
+var pjaxScrollTop = 0;
 $.pjax.defaults.timeout = 10000;
 $.pjax.defaults.container = ['#primary', '#leftbar_part1_menu', '#leftbar_part2_inner', '.page-information-card-container', '#wpadminbar'];
 $.pjax.defaults.fragment = ['#primary', '#leftbar_part1_menu', '#leftbar_part2_inner', '.page-information-card-container', '#wpadminbar'];
@@ -1453,14 +1723,32 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 }).on('pjax:afterGetContainers', function(e, f, g) {
 	if (g.is("#main article.post-preview a.post-title")){
 		let $card = $(g.parents("article.post-preview")[0]);
+		let waterflowOn = false;
+		if ($("#main").hasClass("waterflow")){
+			waterflowOn = true;
+			$card.css("transition", "all .5s ease");
+		}
 		$card.append("<div class='loading-css-animation'><div class='loading-dot loading-dot-1' ></div><div class='loading-dot loading-dot-2' ></div><div class='loading-dot loading-dot-3' ></div><div class='loading-dot loading-dot-4' ></div><div class='loading-dot loading-dot-5' ></div><div class='loading-dot loading-dot-6' ></div><div class='loading-dot loading-dot-7' ></div><div class='loading-dot loading-dot-8' ></div></div></div>");
 		$card.addClass("post-pjax-loading");
 		$("#main").addClass("post-list-pjax-loading");
 		let offsetTop = $($card).offset().top - $("#main").offset().top;
+		if ($("html").hasClass("is-home") && $("html").hasClass("banner-as-cover")){
+			offsetTop = $($card).offset().top - window.outerHeight * 0.418;
+		}
 		$card.css("transform" , "translateY(-" + offsetTop + "px)");
+		if (waterflowOn){
+			$card.css("left", "10px");
+			$card.css("width", "calc(100% - 20px)");
+		}
 		$("body,html").animate({
 			scrollTop: 0
 		}, 450);
+	}
+	pjaxScrollTop = 0;
+	if ($("html").hasClass("banner-as-cover")){
+		if (g.is(".page-link")){
+			pjaxScrollTop = $("#content").offset().top - 80;
+		}
 	}
 }).on('pjax:send', function() {
 	NProgress.set(0.618);
@@ -1469,6 +1757,11 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 		$("#fabtn_go_to_comment").removeClass("d-none");
 	}else{
 		$("#fabtn_go_to_comment").addClass("d-none");
+	}
+	if ($("html").hasClass("banner-as-cover")){
+		if (!$("#main").hasClass("article-list-home")){
+			pjaxScrollTop = 0;
+		}
 	}
 }).on('pjax:complete', function() {
 	NProgress.inc();
@@ -1493,6 +1786,7 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 		}
 	}catch (err){}
 
+	waterflowInit();
 	lazyloadInit();
 	zoomifyInit();
 	highlightJsRender();
@@ -1514,6 +1808,7 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 
 	NProgress.done();
 }).on('pjax:end', function() {
+	waterflowInit();
 	lazyloadInit();
 });
 
@@ -1562,13 +1857,13 @@ $(document).on("click" , "#blog_categories .tag" , function(){
 
 /*折叠区块小工具*/
 $(document).on("click" , ".collapse-block .collapse-block-title" , function(){
-	let id = this.getAttribute("collapse-id");
-	let selecter = ".collapse-block[collapse-id='" + id +"']";
-	$(selecter).toggleClass("collapsed");
-	if ($(selecter).hasClass("collapsed")){
-		$(selecter + " .collapse-block-body").stop(true , false).slideUp(200);
+	let block = $(this).parent();
+	$(block).toggleClass("collapsed");
+	let inner = $(".collapse-block-body", block);
+	if (block.hasClass("collapsed")){
+		inner.stop(true, false).slideUp(200);
 	}else{
-		$(selecter + " .collapse-block-body").stop(true , false).slideDown(200);
+		inner.stop(true, false).slideDown(200);
 	}
 	$("html").trigger("scroll");
 });
@@ -1600,7 +1895,6 @@ function getGithubInfoCardContent(){
 					$(".github-info-card-description" , $this).html(description);
 					$(".github-info-card-stars" , $this).html(result.stargazers_count);
 					$(".github-info-card-forks" , $this).html(result.forks_count);
-					//console.log(result);
 				},
 				error : function(xhr){
 					if (xhr.status == 404){
@@ -1915,21 +2209,28 @@ function updateThemeColor(color, setcookie){
 }
 
 /*打字效果*/
-function typeEffect(element, text, now, interval){
-	element.classList.add('typing-effect');
+function typeEffect($element, text, now, interval){
 	if (now > text.length){
 		setTimeout(function(){
-			element.classList.remove('typing-effect');
-		}, 1000 - ((interval * now) % 1000) - 50);
+			$element.removeClass("typing-effect");
+		}, 1000);
 		return;
 	}
-	element.innerText = text.substring(0, now);
-	setTimeout(function(){typeEffect(element, text, now + 1, interval)}, interval);
+	$element[0].innerText = text.substring(0, now);
+	setTimeout(function(){typeEffect($element, text, now + 1, interval)}, interval);
+}
+function startTypeEffect($element, text, interval){
+	$element.addClass("typing-effect");
+	$element.attr("style", "--animation-cnt: " + Math.ceil(text.length * interval / 1000));
+	typeEffect($element, text, 1, interval);
 }
 !function(){
-	$bannerTitle = $(".banner-title");
-	if ($bannerTitle.data("text") != undefined){
-		typeEffect($(".banner-title-inner")[0], $bannerTitle.data("text"), 0, $bannerTitle.data("interval"));
+	if ($(".banner-title").data("interval") != undefined){
+		let interval = $(".banner-title").data("interval");
+		let $title = $(".banner-title-inner");
+		let $subTitle = $(".banner-subtitle");
+		startTypeEffect($title, $title.data("text"), interval);
+		setTimeout(function(){startTypeEffect($subTitle, $subTitle.data("text"), interval);}, Math.ceil($title.data("text").length * interval / 1000) * 1000);
 	}
 }();
 
@@ -2058,6 +2359,7 @@ function highlightJsRender(){
 }
 $(document).ready(function(){
 	highlightJsRender();
+	waterflowInit();
 });
 $(document).on("click" , ".hljs-control-fullscreen" , function(){
 	let block = $(this).parent().parent();
