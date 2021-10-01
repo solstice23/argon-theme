@@ -4048,7 +4048,7 @@ html[lang] {
 }
 .archive-timeline-title > a {
 	width: max-content;
-    max-width: 100%;
+	max-width: 100%;
 }
 .archive-timeline-title > a:before {
 	display: none;
