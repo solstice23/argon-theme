@@ -1142,14 +1142,14 @@ html.darkmode.amoled-dark #leftbar_tab_tools ul li {
 #leftbar_tab_tools ul li:first-child {
 	padding-top: 5px;
 }
-#leftbar_tab_tools > div > h6:first-child {
+#leftbar_tab_tools > div > h6:first-child, #leftbar_tab_tools .wp-block-group__inner-container > h6:first-child {
 	font-size: 17px;
-	text-align: center;
+	font-weight: 600;
 	position: relative;
 	display: block;
 	width: max-content;
 }
-#leftbar_tab_tools > div > h6:first-child:after {
+#leftbar_tab_tools > div > h6:first-child:after, #leftbar_tab_tools .wp-block-group__inner-container > h6:first-child:after {
 	content: "";
 	display: block;
 	background: var(--themecolor);
