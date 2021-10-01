@@ -4056,7 +4056,7 @@ html[lang] {
 .argon-timeline-node:first-child > .archive-timeline-year + .archive-timeline-title {
 	margin-top: 0;
 }
-.archive-timeline h2:after, .archive-timeline h3:after {
+.archive-timeline h2:before, .archive-timeline h3:before, .archive-timeline h2:after, .archive-timeline h3:after {
 	display: none !important;
 }
 /*Loading Dot*/
