@@ -2227,6 +2227,9 @@ function startTypeEffect($element, text, interval){
 		let $title = $(".banner-title-inner");
 		let $subTitle = $(".banner-subtitle");
 		startTypeEffect($title, $title.data("text"), interval);
+		if (!$subTitle.length){
+			return;
+		}
 		setTimeout(function(){startTypeEffect($subTitle, $subTitle.data("text"), interval);}, Math.ceil($title.data("text").length * interval / 1000) * 1000);
 	}
 }();
