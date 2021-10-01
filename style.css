@@ -3203,7 +3203,7 @@ html.darkmode.amoled-dark .friend-links-style1 .friend-link-description:after {
 	padding-bottom: 10px;
 }
 .argon-timeline-time {
-	position: absolute;
+	position: absolute !important;
 	left: -110px;
 	margin-top: 12px;
 	width: 85px;
@@ -4055,6 +4055,9 @@ html[lang] {
 }
 .argon-timeline-node:first-child > .archive-timeline-year + .archive-timeline-title {
 	margin-top: 0;
+}
+.archive-timeline h2:after, .archive-timeline h3:after {
+	display: none !important;
 }
 /*Loading Dot*/
 .loading-css-animation {
