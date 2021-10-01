@@ -128,7 +128,7 @@
 							<h6 id="leftbar_overview_author_name"><?php echo get_option('argon_sidebar_auther_name') == '' ? bloginfo('name') : get_option('argon_sidebar_auther_name'); ?></h6>
 							<nav class="site-state">
 								<div class="site-state-item site-state-posts">
-									<a style="cursor: default;">
+									<a <?php $archives_page_url = get_option('argon_archives_timeline_url'); echo (empty($archives_page_url) ? ' style="cursor: default;"' : 'href="' . $archives_page_url . '"');?>>
 										<span class="site-state-item-count"><?php echo wp_count_posts() -> publish; ?></span>
 										<span class="site-state-item-name"><?php _e('文章', 'argon');?></span>
 									</a>

@@ -4019,14 +4019,36 @@ html[lang] {
 .archive-timeline-year {
 	font-size: 30px;
 	color: var(--themecolor);
+	margin-top: 12px !important;
+	margin-bottom: 0;
+}
+.archive-timeline-month {
+	font-size: 24px;
+	color: var(--themecolor);
+	opacity: .8;
+	margin-top: 12px !important;
+	margin-bottom: 0;
+	font-weight: unset;
 }
 .archive-timeline-year + .archive-timeline-title {
 	height: 50px;
 	margin-top: 30px;
 }
-.archive-timeline-year + .archive-timeline-title {
-	height: 50px;
-	margin-top: 30px;
+.archive-timeline *:not(.archive-timeline-year) + .archive-timeline-title:before {
+	width: 12px;
+	height: 12px;
+	left: -34px;
+	top: 18px;
+}
+.archive-timeline-month + .archive-timeline-title {
+	height: 30px;
+}
+.archive-timeline-month.first-month-of-year + .archive-timeline-title {
+	margin-top: -10px;
+}
+.archive-timeline-title > a {
+	width: max-content;
+    max-width: 100%;
 }
 .archive-timeline-title > a:before {
 	display: none;
