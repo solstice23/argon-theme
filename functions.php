@@ -3496,7 +3496,7 @@ function themeoptions_page(){
 					<tr>
 						<th><label><?php _e('介绍', 'argon');?></label></th>
 						<td>
-							<p class="description"><?php_e('新建一个页面，并将其模板设为 "归档时间轴"，即可创建一个归档页面。归档页面会按照时间顺序在时间轴上列出博客的所有文章。', 'argon');?></p>
+							<p class="description"><?php _e('新建一个页面，并将其模板设为 "归档时间轴"，即可创建一个归档页面。归档页面会按照时间顺序在时间轴上列出博客的所有文章。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('外观', 'argon');?></h3></th></tr>
