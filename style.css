@@ -974,16 +974,16 @@ html.navbar-absolute #leftbar_part2.sticky {
 	background: transparent;
 }
 #leftbar_part2_inner::-webkit-scrollbar-thumb {
-    border-width: 1px;
-    background-color: rgba(0, 0, 0, 0.2);
+	border-width: 1px;
+	background-color: rgba(0, 0, 0, 0.2);
 }
 html.darkmode #leftbar_part2_inner::-webkit-scrollbar-thumb {
-    border-width: 1px;
-    background-color: rgba(255, 255, 255, 0.2);
+	border-width: 1px;
+	background-color: rgba(255, 255, 255, 0.2);
 }
 #leftbar_part2_inner::-webkit-scrollbar-button {
-    height: 5px;
-    pointer-events: none;
+	height: 5px;
+	pointer-events: none;
 }
 .sidebar-tab-switcher {
 	font-size: 13px;
@@ -1124,7 +1124,7 @@ html.darkmode.amoled-dark .site-state-item {
 	padding-top: 8px;
 	opacity: 0.9;
 }
-#leftbar_tab_tools ul {
+#leftbar_tab_tools ul, #leftbar_tab_tools ol {
 	list-style: none;
 	padding: 0;
 }
@@ -2170,8 +2170,11 @@ html.darkmode.amoled-dark a.related-post-card:hover {
 	height: 40px;
 	width: 40px;
 }
-.comment-text-avatar {
+.text-avatar {
 	user-select: none;
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
 }
 .comment-item-inner {
 	display: block;
@@ -2196,6 +2199,13 @@ html.darkmode.amoled-dark a.related-post-card:hover {
 .comment-item-title .badge-unapproved {
 	transform: translateY(-2px);
 	margin-left: 5px;
+}
+.comment-item-text p:last-child {
+	margin-bottom: 0;
+}
+.comment-item-text {
+	min-height: 24px;
+	margin-bottom: 1rem;
 }
 .comment-name {
 	flex: 1;
