@@ -344,10 +344,13 @@ function set_user_token_cookie(){
 		$_COOKIE["argon_user_token"] = $newToken;
 	}
 }
-set_user_token_cookie();
-if (!session_id()){
-	session_start();
+function session_init(){
+	set_user_token_cookie();
+	if (!session_id()){
+		session_start();
+	}
 }
+add_action('init', 'session_init');
 //页面 Description Meta
 function get_seo_description(){
 	global $post;
