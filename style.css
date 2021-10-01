@@ -2111,6 +2111,36 @@ html.darkmode.amoled-dark a.related-post-card:hover {
 }
 #comments li {
 	list-style: none;
+	position: relative;
+}
+#comments li:target:before {
+	content: '';
+	display: block;
+	position: absolute;
+	left: -10px;
+	right: -10px;
+	top: 0;
+	bottom: 0;
+	background: var(--themecolor);
+	opacity: .15;
+	border-radius: var(--card-radius);
+	pointer-events: none;
+	animation: comment-focus-breath 2s linear;
+	animation-fill-mode: forwards;
+}
+@keyframes comment-focus-breath{
+	0%{
+		opacity: .5;
+	}
+	33%{
+		opacity: .05;
+	}
+	66%{
+		opacity: .3;
+	}
+	100%{
+		opacity: .15;
+	}
 }
 .comments-title {
 	font-size: 20px;
