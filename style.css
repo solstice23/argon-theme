@@ -1005,6 +1005,11 @@ html.darkmode .sidebar-tab-switcher > a.active {
 	margin-top: 15px;
 	font-size: 18px;
 }
+#leftbar_overview_author_description {
+	font-size: 14px;
+	margin-top: -4px;
+	opacity: .8;
+}
 .site-state {
 	overflow: hidden;
 	line-height: 1.4;

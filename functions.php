@@ -3136,6 +3136,13 @@ function themeoptions_page(){
 							<p class="description"><?php _e('需带上 http(s) 开头', 'argon');?></p>
 						</td>
 					</tr>
+					<tr>
+						<th><label><?php _e('左侧栏作者简介', 'argon');?></label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_sidebar_author_description" value="<?php echo get_option('argon_sidebar_author_description'); ?>"/>
+							<p class="description"><?php _e('留空则不显示', 'argon');?></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2><?php _e('博客公告', 'argon');?></h2></th></tr>
 					<tr>
 						<th><label><?php _e('公告内容', 'argon');?></label></th>
@@ -4499,6 +4506,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_sidebar_banner_subtitle');
 		argon_update_option('argon_sidebar_auther_name');
 		argon_update_option('argon_sidebar_auther_image');
+		argon_update_option('argon_sidebar_author_description');
 		argon_update_option('argon_banner_title');
 		argon_update_option('argon_banner_subtitle');
 		argon_update_option('argon_banner_background_url');
