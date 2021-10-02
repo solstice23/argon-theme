@@ -726,7 +726,7 @@ function user_can_view_comment($id){
 //过滤 RSS 中悄悄话
 function remove_rss_private_comment_title_and_author($str){
 	global $comment;
-	if (is_comment_private_mode($comment -> comment_ID)){
+	if (isset($comment -> comment_ID) && is_comment_private_mode($comment -> comment_ID)){
 		return "***";
 	}
 	return $str;

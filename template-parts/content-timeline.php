@@ -82,7 +82,7 @@
 					$month = mysql2date('M', $post -> post_date);
 					if ($year != $last_year){
 						echo "<div class='argon-timeline-node'>
-								<h2 class='argon-timeline-time archive-timeline-year'>" . $year . "</h2>
+								<h2 class='argon-timeline-time archive-timeline-year'><a href='" . get_year_link($year) . "'>" . $year . "</a></h2>
 								<div class='argon-timeline-card card bg-gradient-secondary archive-timeline-title'></div>
 							</div>";
 							$last_year = $year;
@@ -90,7 +90,7 @@
 					}
 					if ($month != $last_month && $show_month == 'true'){
 						echo "<div class='argon-timeline-node'>
-								<h3 class='argon-timeline-time archive-timeline-month" . ($last_month == 0 ? " first-month-of-year" : "") . "'>" . $month . "</h3>
+								<h3 class='argon-timeline-time archive-timeline-month" . ($last_month == 0 ? " first-month-of-year" : "") . "'><a href='" . get_month_link($year, $month) . "'>" . $month . "</a></h3>
 								<div class='argon-timeline-card card bg-gradient-secondary archive-timeline-title'></div>
 							</div>";
 							$last_month = $month;

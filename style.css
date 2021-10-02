@@ -4055,7 +4055,7 @@ html[lang] {
 	width: max-content;
 	max-width: 100%;
 }
-.archive-timeline-title > a:before {
+.argon-timeline-time > a:before, .archive-timeline-title > a:before {
 	display: none;
 }
 .argon-timeline-node:first-child > .archive-timeline-year + .archive-timeline-title {
