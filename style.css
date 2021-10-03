@@ -582,6 +582,9 @@ html.triple-column #content {
 #navbar-main {
 	--toolbar-color: var(--themecolor-rgbstr);
 }
+.headroom--pinned{
+	z-index: 100;
+}
 html.darkmode #navbar-main {
 	--toolbar-color: 33, 33, 33;
 }
