@@ -352,7 +352,8 @@ function session_init(){
 		session_start();
 	}
 }
-add_action('init', 'session_init');
+session_init();
+//add_action('init', 'session_init');
 //页面 Description Meta
 function get_seo_description(){
 	global $post;
