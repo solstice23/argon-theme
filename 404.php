@@ -109,7 +109,7 @@
 									<span class="btn-inner--text"><?php _e("回到首页", "argon"); ?></span>
 								</a>
 							</div>
-							<?php apply_filters('argon_404page_extra_html', '');
+							<?php echo apply_filters('argon_404page_extra_html', ''); ?>
 						</div>
 					</div>
 				</div>
