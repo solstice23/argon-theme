@@ -1170,6 +1170,63 @@ html.darkmode.amoled-dark #leftbar_tab_tools ul li {
 	opacity: 0.25;
 	pointer-events: none;
 }
+.wp-calendar-table caption{
+	font-size: 14px;
+	text-align: center;
+	opacity: .7;
+}
+.wp-block-calendar table * {
+	background: transparent !important;
+	border: none !important;
+	padding-top: 5px;
+	padding-bottom: 8px;
+}
+.wp-block-calendar table th {
+	opacity: .6;
+}
+.wp-block-calendar tbody td a {
+	position: relative;
+	text-decoration: none;
+}
+.wp-block-calendar tbody td a:before {
+	content: '';
+	display: block;
+	background: var(--themecolor);
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	border-radius: 20px;
+	opacity: .2;
+	left: -8px;
+	z-index: 0;
+}
+.wp-calendar-nav-prev a, .wp-calendar-nav-next a {
+	text-decoration: none !important;
+	border: 1px solid var(--themecolor);
+	color: var(--themecolor);
+	padding: 1px 8px;
+	border-radius: 19px;
+	font-size: 14px;
+	transition: all .25s ease;
+	user-select: none;
+}
+.wp-calendar-nav-prev a:hover, .wp-calendar-nav-next a:hover {
+	background-color: var(--themecolor);
+	color: #fff !important;
+	box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+.wp-calendar-nav {
+	padding-bottom: 12px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+html.darkmode .wp-calendar-table caption, html.darkmode .wp-block-calendar tbody td{
+	color: #eee;
+}
 /*底栏*/
 #footer {
 	background: var(--themecolor-gradient);
