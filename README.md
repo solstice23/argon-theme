@@ -70,6 +70,14 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20211024 v1.2.7
++ 适配侧栏 Wordpress 归档日历
++ 站点概览增加作者个人介绍选项
++ 增加 AHCDN ([#284](https://github.com/solstice23/argon-theme/issues/284))
++ 增加 2 个 Filter (404 页面额外 HTML、Banner 标题 HTML)
++ 归档时间轴页面增加对应年月链接
++ 其他修复与改进
+
 ## 20211001 v1.2.6
 + 优化归档时间轴页面，支持按月分节，支持左侧栏跳转和目录
 + 适配区块左侧栏，文字头像支持全局
