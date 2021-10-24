@@ -2906,7 +2906,7 @@ function themeoptions_page(){
 								<option value="default" <?php if ($argon_assets_path=='default'){echo 'selected';} ?>><?php _e('不使用', 'argon');?></option>
 								<option value="jsdelivr" <?php if ($argon_assets_path=='jsdelivr'){echo 'selected';} ?>>jsdelivr</option>
 								<option value="fastgit" <?php if ($argon_assets_path=='fastgit'){echo 'selected';} ?>>fastgit</option>
-								<option value="AHCDN" <?php if ($argon_assets_path=='AHCDN'){echo 'selected';} ?>>AHCDN</option>
+								<option value="AHCDN" <?php if ($argon_assets_path=='AHCDN'){echo 'selected';} ?>>AH Source Storage</option>
 							</select>
 							<p class="description"><?php _e('选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。', 'argon');?></p>
 						</td>
