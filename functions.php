@@ -11,14 +11,19 @@ add_action('after_setup_theme','theme_slug_setup');
 
 $GLOBALS['theme_version'] = wp_get_theme() -> Version;
 $argon_assets_path = get_option("argon_assets_path");
-if ($argon_assets_path== "jsdelivr"){
-	$GLOBALS['assets_path'] = "https://cdn.jsdelivr.net/gh/solstice23/argon-theme@" . wp_get_theme() -> Version;
-}else if ($argon_assets_path == "fastgit"){
-	$GLOBALS['assets_path'] = "https://raw.fastgit.org/solstice23/argon-theme/v" . wp_get_theme() -> Version;
-}else if ($argon_assets_path == "AHCDN"){
-	$GLOBALS['assets_path'] = "https://source.ahdark.com/wordpress/theme/argon-theme/" . wp_get_theme() -> Version;
-}else{
-	$GLOBALS['assets_path'] = get_bloginfo('template_url');
+switch ($argon_assets_path) {
+    case "jsdelivr":
+	    $GLOBALS['assets_path'] = "https://cdn.jsdelivr.net/gh/solstice23/argon-theme@" . wp_get_theme() -> Version;
+        break;
+    case "fastgit":
+	    $GLOBALS['assets_path'] = "https://raw.fastgit.org/solstice23/argon-theme/v" . wp_get_theme() -> Version;
+        break;
+    case "AHCDN":
+    case "sourcestorage":
+	    $GLOBALS['assets_path'] = "https://source.ahdark.com/wordpress/theme/argon-theme/" . wp_get_theme() -> Version;
+        break;
+    default:
+	    $GLOBALS['assets_path'] = get_bloginfo('template_url');
 }
 
 //翻译 Hook
@@ -877,7 +882,7 @@ function set_comment_upvotes($id){
 	return $upvotes;
 }
 function is_comment_upvoted($id){
-	$upvotedList = isset($_COOKIE['argon_comment_upvoted']) ? $_COOKIE['argon_comment_upvoted'] : '';
+	$upvotedList = $_COOKIE['argon_comment_upvoted'] ?? '';
 	if (in_array($id, explode(',', $upvotedList))){
 		return true;
 	}
@@ -897,7 +902,7 @@ function upvote_comment(){
 			'total_upvote' => 0
 		)));
 	}
-	$upvotedList = isset($_COOKIE['argon_comment_upvoted']) ? $_COOKIE['argon_comment_upvoted'] : '';
+	$upvotedList = $_COOKIE['argon_comment_upvoted'] ?? '';
 	if (in_array($ID, explode(',', $upvotedList))){
 		exit(json_encode(array(
 			'status' => 'failed',
@@ -1651,7 +1656,7 @@ function set_shuoshuo_upvotes($ID){
 function upvote_shuoshuo(){
 	header('Content-Type:application/json; charset=utf-8');
 	$ID = $_POST["shuoshuo_id"];
-	$upvotedList = isset($_COOKIE['argon_shuoshuo_upvoted']) ? $_COOKIE['argon_shuoshuo_upvoted'] : '';
+	$upvotedList = $_COOKIE['argon_shuoshuo_upvoted'] ?? '';
 	if (in_array($ID, explode(',', $upvotedList))){
 		exit(json_encode(array(
 			'status' => 'failed',
@@ -1994,11 +1999,8 @@ function shortcode_br($attr,$content=""){
 add_shortcode('label','shortcode_label');
 function shortcode_label($attr,$content=""){
 	$out = "<span class='badge";
-	$color = isset($attr['color']) ? $attr['color'] : 'indigo';
+	$color = $attr['color'] ?? 'indigo';
 	switch ($color){
-		case 'indigo':
-			$out .= " badge-primary";
-			break;
 		case 'green':
 			$out .= " badge-success";
 			break;
@@ -2011,11 +2013,12 @@ function shortcode_label($attr,$content=""){
 		case 'blue':
 			$out .= " badge-info";
 			break;
+		case 'indigo':
 		default:
 			$out .= " badge-primary";
 			break;
 	}
-	$shape = isset($attr['shape']) ? $attr['shape'] : 'square';
+	$shape = $attr['shape'] ?? 'square';
 	if ($shape=="round"){
 		$out .= " badge-pill";
 	}
@@ -2028,10 +2031,10 @@ function shortcode_progressbar($attr,$content=""){
 	if ($content != ""){
 		$out .= "<div class='progress-label'><span>" . $content . "</span></div>";
 	}
-	$progress = isset($attr['progress']) ? $attr['progress'] : 100;
+	$progress = $attr['progress'] ?? 100;
 	$out .= "<div class='progress-percentage'><span>" . $progress . "%</span></div>";
 	$out .= "</div><div class='progress'><div class='progress-bar";
-	$color = isset($attr['color']) ? $attr['color'] : 'indigo';
+	$color = $attr['color'] ?? 'indigo';
 	switch ($color){
 		case 'indigo':
 			$out .= " bg-primary";
@@ -2057,7 +2060,7 @@ function shortcode_progressbar($attr,$content=""){
 }
 add_shortcode('checkbox','shortcode_checkbox');
 function shortcode_checkbox($attr,$content=""){
-	$checked = isset($attr['checked']) ? $attr['checked'] : 'false';
+	$checked = $attr['checked'] ?? 'false';
 	$inline = isset($attr['inline']) ? $attr['checked'] : 'false';
 	$out = "<div class='shortcode-todo custom-control custom-checkbox";
 	if ($inline == 'true'){
@@ -2074,7 +2077,7 @@ function shortcode_checkbox($attr,$content=""){
 add_shortcode('alert','shortcode_alert');
 function shortcode_alert($attr,$content=""){
 	$out = "<div class='alert";
-	$color = isset($attr['color']) ? $attr['color'] : 'indigo';
+	$color = $attr['color'] ?? 'indigo';
 	switch ($color){
 		case 'indigo':
 			$out .= " alert-primary";
@@ -2112,7 +2115,7 @@ function shortcode_alert($attr,$content=""){
 add_shortcode('admonition','shortcode_admonition');
 function shortcode_admonition($attr,$content=""){
 	$out = "<div class='admonition shadow-sm";
-	$color = isset($attr['color']) ? $attr['color'] : 'indigo';
+	$color = $attr['color'] ?? 'indigo';
 	switch ($color){
 		case 'indigo':
 			$out .= " admonition-primary";
@@ -2156,11 +2159,11 @@ function shortcode_admonition($attr,$content=""){
 add_shortcode('collapse','shortcode_collapse_block');
 add_shortcode('fold','shortcode_collapse_block');
 function shortcode_collapse_block($attr,$content=""){
-	$collapsed = isset($attr['collapsed']) ? $attr['collapsed'] : 'true';
-	$show_border_left = isset($attr['showleftborder']) ? $attr['showleftborder'] : 'false';
+	$collapsed = $attr['collapsed'] ?? 'true';
+	$show_border_left = $attr['showleftborder'] ?? 'false';
 	$out = "<div " ;
 	$out .= " class='collapse-block shadow-sm";
-	$color = isset($attr['color']) ? $attr['color'] : 'none';
+	$color = $attr['color'] ?? 'none';
 	switch ($color){
 		case 'indigo':
 			$out .= " collapse-block-primary";
@@ -2184,8 +2187,6 @@ function shortcode_collapse_block($attr,$content=""){
 			$out .= " collapse-block-grey";
 			break;
 		case 'none':
-			$out .= " collapse-block-transparent";
-			break;
 		default:
 			$out .= " collapse-block-transparent";
 			break;
@@ -2214,13 +2215,13 @@ function shortcode_collapse_block($attr,$content=""){
 }
 add_shortcode('friendlinks','shortcode_friend_link');
 function shortcode_friend_link($attr,$content=""){
-	$sort = isset($attr['sort']) ? $attr['sort'] : 'name';
-	$order = isset($attr['order']) ? $attr['order'] : 'ASC';
+	$sort = $attr['sort'] ?? 'name';
+	$order = $attr['order'] ?? 'ASC';
 	$friendlinks = get_bookmarks( array(
 		'orderby' => $sort ,
 		'order'   => $order
 	));
-	$style = isset($attr['style']) ? $attr['style'] : '1';
+	$style = $attr['style'] ?? '1';
 	switch ($style) {
 		case '1':
 			$class = "friend-links-style1";
@@ -2275,7 +2276,7 @@ function shortcode_friend_link_simple($attr,$content=""){
 	$content = trim(strip_tags($content));
 	$entries = explode("\n" , $content);
 
-	$shuffle = isset($attr['shuffle']) ? $attr['shuffle'] : 'false';
+	$shuffle = $attr['shuffle'] ?? 'false';
 	if ($shuffle == "true"){
 		mt_srand();
 		$group_start = 0;
@@ -2390,8 +2391,8 @@ add_shortcode('hidden','shortcode_hidden');
 add_shortcode('spoiler','shortcode_hidden');
 function shortcode_hidden($attr,$content=""){
 	$out = "<span class='argon-hidden-text";
-	$tip = isset($attr['tip']) ? $attr['tip'] : '';
-	$type = isset($attr['type']) ? $attr['type'] : 'blur';
+	$tip = $attr['tip'] ?? '';
+	$type = $attr['type'] ?? 'blur';
 	if ($type == "background"){
 		$out .= " argon-hidden-text-background";
 	}else{
@@ -2407,10 +2408,10 @@ function shortcode_hidden($attr,$content=""){
 add_shortcode('github','shortcode_github');
 function shortcode_github($attr,$content=""){
 	$github_info_card_id = mt_rand(1000000000 , 9999999999);
-	$author = isset($attr['author']) ? $attr['author'] : '';
-	$project = isset($attr['project']) ? $attr['project'] : '';
-	$getdata = isset($attr['getdata']) ? $attr['getdata'] : 'frontend';
-	$size = isset($attr['size']) ? $attr['size'] : 'full';
+	$author = $attr['author'] ?? '';
+	$project = $attr['project'] ?? '';
+	$getdata = $attr['getdata'] ?? 'frontend';
+	$size = $attr['size'] ?? 'full';
 
 	$description = "";
 	$stars = "";
@@ -2476,11 +2477,11 @@ function shortcode_github($attr,$content=""){
 }
 add_shortcode('video','shortcode_video');
 function shortcode_video($attr,$content=""){
-	$url = isset($attr['mp4']) ? $attr['mp4'] : '';
-	$url = isset($attr['url']) ? $attr['url'] : $url;
-	$width = isset($attr['width']) ? $attr['width'] : '';
-	$height = isset($attr['height']) ? $attr['height'] : '';
-	$autoplay = isset($attr['autoplay']) ? $attr['autoplay'] : 'false';
+	$url = $attr['mp4'] ?? '';
+	$url = $attr['url'] ?? $url;
+	$width = $attr['width'] ?? '';
+	$height = $attr['height'] ?? '';
+	$autoplay = $attr['autoplay'] ?? 'false';
 	$out = "<video";
 	if ($width != ''){
 		$out .= " width='" . $width . "'";
@@ -2502,12 +2503,12 @@ function shortcode_hide_reading_time($attr,$content=""){
 }
 add_shortcode('post_time','shortcode_post_time');
 function shortcode_post_time($attr,$content=""){
-	$format = isset($attr['format']) ? $attr['format'] : 'Y-n-d G:i:s';
+	$format = $attr['format'] ?? 'Y-n-d G:i:s';
 	return get_the_time($format);
 }
 add_shortcode('post_modified_time','shortcode_post_modified_time');
 function shortcode_post_modified_time($attr,$content=""){
-	$format = isset($attr['format']) ? $attr['format'] : 'Y-n-d G:i:s';
+	$format = $attr['format'] ?? 'Y-n-d G:i:s';
 	return get_the_modified_time($format);
 }
 add_shortcode('noshortcode','shortcode_noshortcode');
@@ -2906,7 +2907,7 @@ function themeoptions_page(){
 								<option value="default" <?php if ($argon_assets_path=='default'){echo 'selected';} ?>><?php _e('不使用', 'argon');?></option>
 								<option value="jsdelivr" <?php if ($argon_assets_path=='jsdelivr'){echo 'selected';} ?>>jsdelivr</option>
 								<option value="fastgit" <?php if ($argon_assets_path=='fastgit'){echo 'selected';} ?>>fastgit</option>
-								<option value="AHCDN" <?php if ($argon_assets_path=='AHCDN'){echo 'selected';} ?>>AH Source Storage</option>
+								<option value="sourcestorage" <?php if ($argon_assets_path=='sourcestorage'){echo 'selected';} ?>>Source Storage</option>
 							</select>
 							<p class="description"><?php _e('选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。', 'argon');?></p>
 						</td>
