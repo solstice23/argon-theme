@@ -620,6 +620,27 @@ function get_article_meta($type){
 		return $res;
 	}
 }
+//获取文章字数统计和预计阅读时间
+function get_article_reading_time_meta($post_content_full){
+	$words = get_article_words($post_content_full);
+	$res = '</br><div class="post-meta-detail post-meta-detail-words">
+		<i class="fa fa-file-word-o" aria-hidden="true"></i>';
+	if ($words['code'] > 0){
+		$res .= '<span title="' . sprintf(__( '包含 %d 行代码', 'argon'), $words['code']) . '">';
+	}else{
+		$res .= '<span>';
+	}
+	$res .= ' ' . get_article_words_total($post_content_full) . " " . __("字", 'argon');
+	$res .= '</span>
+		</div>
+		<div class="post-meta-devide">|</div>
+		<div class="post-meta-detail post-meta-detail-words">
+			<i class="fa fa-hourglass-end" aria-hidden="true"></i>
+			' . get_reading_time(get_article_words($post_content_full)) . '
+		</div>
+	';
+	return $res;
+}
 //当前文章是否隐藏 阅读时间 Meta
 function is_readingtime_meta_hidden(){
 	if (strpos(get_the_content() , "[hide_reading_time][/hide_reading_time]") !== False){

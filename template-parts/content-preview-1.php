@@ -33,22 +33,9 @@
 				$post_content_full = apply_filters('the_content', preg_replace( '<!--more(.*?)-->', '', $post -> post_content));
 				$post_content_with_more = apply_filters('the_content', $post -> post_content);
 			?>
-			<?php if (!post_password_required() && get_option("argon_show_readingtime") != "false" && is_readingtime_meta_hidden() == False) { ?>
-				</br>
-				<div class="post-meta-detail post-meta-detail-words">
-					<i class="fa fa-file-word-o" aria-hidden="true"></i>
-					<?php
-						echo get_article_words_total($post_content_full) . " " . __("字", 'argon');
-					?>
-				</div>
-				<div class="post-meta-devide">|</div>
-				<div class="post-meta-detail post-meta-detail-words">
-					<i class="fa fa-hourglass-end" aria-hidden="true"></i>
-					<?php
-						echo get_reading_time(get_article_words($post_content_full));
-					?>
-				</div>
-			<?php } ?>
+			<?php if (!post_password_required() && get_option("argon_show_readingtime") != "false" && is_readingtime_meta_hidden() == False) {
+				echo get_article_reading_time_meta($post_content_full);
+			} ?>
 		</div>
 		<?php
 			if (has_post_thumbnail()){

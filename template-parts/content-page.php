@@ -42,22 +42,9 @@
 					echo get_article_meta($metaList[$i]);
 				}
 			?>
-			<?php if (!post_password_required() && get_option("argon_show_readingtime") != "false" && is_readingtime_meta_hidden() == False) { ?>
-				</br>
-				<div class="post-meta-detail post-meta-detail-words">
-					<i class="fa fa-file-word-o" aria-hidden="true"></i>
-					<?php
-						echo get_article_words_total(get_the_content()) . " " . __("字", 'argon');
-					?>
-				</div>
-				<div class="post-meta-devide">|</div>
-				<div class="post-meta-detail post-meta-detail-words">
-					<i class="fa fa-hourglass-end" aria-hidden="true"></i>
-					<?php
-						echo get_reading_time(get_article_words(get_the_content()));
-					?>
-				</div>
-			<?php } ?>
+			<?php if (!post_password_required() && get_option("argon_show_readingtime") != "false" && is_readingtime_meta_hidden() == False) {
+				echo get_article_reading_time_meta(get_the_content());
+			} ?>
 		</div>
 		<?php
 			if (has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') != 'true'){
