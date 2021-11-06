@@ -469,6 +469,18 @@ function set_post_views(){
 add_action('get_header', 'set_post_views');
 //字数和预计阅读时间
 function get_article_words($str){
+	preg_match_all('/<pre(.*?)>[\S\s]*?<code(.*?)>([\S\s]*?)<\/code>[\S\s]*?<\/pre>/im', $str, $codeSegments, PREG_PATTERN_ORDER);
+	$codeSegments = $codeSegments[3];
+	$codeTotal = 0;
+	foreach ($codeSegments as $codeSegment){
+		$codeLines = preg_split('/\r\n|\n|\r/', $codeSegment);
+		foreach ($codeLines as $line){
+			if (strlen(trim($str)) > 0){
+				$codeTotal++;
+			}
+		}
+	}
+
 	$str = preg_replace(
 		'/<code(.*?)>(.*?)<\/code>/is',
 		'',
@@ -497,17 +509,19 @@ function get_article_words($str){
 	$enTotal = count($enRes[0]);
 	return array(
 		'cn' => $cnTotal,
-		'en' => $enTotal
+		'en' => $enTotal,
+		'code' => $codeTotal,
 	);
 }
 function get_article_words_total($str){
 	$res = get_article_words($str);
-	return $res['cn'] + $res['en'];
+	return $res['cn'] + $res['en'] + $res['code'];
 }
 function get_reading_time($len){
 	$speedcn = get_option('argon_reading_speed', 300);
 	$speeden = get_option('argon_reading_speed_en', 160);
-	$reading_time = $len['cn'] / $speedcn + $len['en'] / $speeden;
+	$speedcode = get_option('argon_reading_speed_code', 20);
+	$reading_time = $len['cn'] / $speedcn + $len['en'] / $speeden + $len['code'] / $speedcode;
 	if ($reading_time < 0.3){
 		return __("几秒读完", 'argon');
 	}
@@ -3310,6 +3324,13 @@ function themeoptions_page(){
 						<td>
 							<input type="number" name="argon_reading_speed_en" min="1" max="5000"  value="<?php echo (get_option('argon_reading_speed_en') == '' ? '160' : get_option('argon_reading_speed_en')); ?>"/>
 							<?php _e('单词/分钟', 'argon');?>
+						</td>
+					</tr>
+					<tr>
+						<th><label><?php _e('每分钟阅读代码行数', 'argon');?></label></th>
+						<td>
+							<input type="number" name="argon_reading_speed_code" min="1" max="5000"  value="<?php echo (get_option('argon_reading_speed_code') == '' ? '20' : get_option('argon_reading_speed_code')); ?>"/>
+							<?php _e('行/分钟', 'argon');?>
 							<p class="description"><?php _e('预计阅读时间由每分钟阅读字数计算', 'argon');?></p>
 						</td>
 					</tr>
@@ -4522,6 +4543,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_show_readingtime');
 		argon_update_option('argon_reading_speed');
 		argon_update_option('argon_reading_speed_en');
+		argon_update_option('argon_reading_speed_code');
 		argon_update_option('argon_show_sharebtn');
 		argon_update_option('argon_enable_timezone_fix');
 		argon_update_option('argon_donate_qrcode_url');
