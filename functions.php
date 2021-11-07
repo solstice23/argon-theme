@@ -1644,7 +1644,7 @@ function the_content_filter($content){
 add_filter('the_content' , 'the_content_filter',20);
 //使用 CDN 加速 gravatar
 function gravatar_cdn($url){
-	$cdn = get_option('argon_gravatar_cdn', 'gravatar.loli.net/avatar/');
+	$cdn = get_option('argon_gravatar_cdn', 'gravatar.pho.ink/avatar/');
 	$cdn = str_replace("http://", "", $cdn);
 	$cdn = str_replace("https://", "", $cdn);
 	if (substr($cdn, -1) != '/'){
@@ -4068,7 +4068,7 @@ window.pjaxLoaded = function(){
 						<th><label>Gravatar CDN</label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_gravatar_cdn" value="<?php echo get_option('argon_gravatar_cdn' , ''); ?>"/>
-							<p class="description"><?php _e('使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。', 'argon');?></br><?php _e('在中国速度较快的一些 CDN :', 'argon');?><code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">gravatar.loli.net/avatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">cdn.v2ex.com/gravatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">dn-qiniu-avatar.qbox.me/avatar/</code></p>
+							<p class="description"><?php _e('使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。', 'argon');?></br><?php _e('在中国速度较快的一些 CDN :', 'argon');?><code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">gravatar.pho.ink/avatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">cdn.v2ex.com/gravatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">dn-qiniu-avatar.qbox.me/avatar/</code></p>
 						</td>
 					</tr>
 					<tr>
