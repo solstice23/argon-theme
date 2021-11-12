@@ -209,6 +209,9 @@ require_once(get_template_directory() . '/emotions.php');
 //文章特色图片
 function argon_get_first_image_of_article(){
 	global $post;
+	if (post_password_required()){
+		return false;
+	}
 	$post_content_full = apply_filters('the_content', preg_replace( '<!--more(.*?)-->', '', $post -> post_content));
 	preg_match('/<img(.*?)(src|data-original)=[\"\']((http:|https:)?\/\/(.*?))[\"\'](.*?)\/?>/', $post_content_full, $match);
 	if (isset($match[3])){
