@@ -487,25 +487,26 @@ function get_article_words($str){
 	}
 
 	$str = preg_replace(
-		'/<code(.*?)>(.*?)<\/code>/is',
+		'/<code(.*?)>[\S\s]*?<\/code>/im',
 		'',
 		$str
 	);
 	$str = preg_replace(
-		'/<pre(.*?)>(.*?)<\/pre>/is',
+		'/<pre(.*?)>[\S\s]*?<\/pre>/im',
 		'',
 		$str
 	);
 	$str = preg_replace(
-		'/<style(.*?)>(.*?)<\/style>/is',
+		'/<style(.*?)>[\S\s]*?<\/style>/im',
 		'',
 		$str
 	);
 	$str = preg_replace(
-		'/<script(.*?)>(.*?)<\/script>/is',
+		'/<script(.*?)>[\S\s]*?<\/script>/im',
 		'',
 		$str
 	);
+	$str =  preg_replace('/<[^>]+?>/', ' ', $str);
 	$str = html_entity_decode(strip_tags($str));
 	preg_match_all('/[\x{4e00}-\x{9fa5}]/u' , $str , $cnRes);
 	$cnTotal = count($cnRes[0]);
