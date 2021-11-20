@@ -355,6 +355,21 @@ $(document).on("keydown" , "#leftbar_search_input" , function(e){
 /*左侧栏随页面滚动浮动*/
 !function(){
 	if ($("#leftbar").length == 0){
+		let contentOffsetTop = $('#content').offset().top;
+		function changeLeftbarStickyStatusWithoutSidebar(){
+			let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			if( contentOffsetTop - 10 - scrollTop <= 20 ){
+				document.body.classList.add('leftbar-can-headroom');
+			}else{
+				document.body.classList.remove('leftbar-can-headroom');
+			}
+		}
+		changeLeftbarStickyStatusWithoutSidebar();
+		document.addEventListener("scroll", changeLeftbarStickyStatusWithoutSidebar, {passive: true});
+		$(window).resize(function(){
+			contentOffsetTop = $('#content').offset().top;
+			changeLeftbarStickyStatusWithoutSidebar();
+		});
 		return;
 	}
 	let $leftbarPart1 = $('#leftbar_part1');
