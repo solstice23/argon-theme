@@ -1196,8 +1196,8 @@ html.darkmode.amoled-dark #leftbar_tab_tools ul li {
 	width: 25px;
 	height: 25px;
 	border-radius: 20px;
-	opacity: .2;
-	left: -8px;
+	opacity: .2; 
+	transform: translateX(-2px);
 	z-index: 0;
 }
 .wp-calendar-nav-prev a, .wp-calendar-nav-next a {
