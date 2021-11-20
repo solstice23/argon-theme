@@ -209,6 +209,11 @@
 									echo "<div style='height: 20px;'></div>";
 								}
 							?>
+							<?php if ( is_active_sidebar( 'leftbar-siteinfo-extra-tools' ) ){?>
+								<div id="leftbar_siteinfo_extra_tools">
+									<?php dynamic_sidebar( 'leftbar-siteinfo-extra-tools' ); ?>
+								</div>
+							<?php }?>
 						</div>
 						<?php if ( is_active_sidebar( 'leftbar-tools' ) ){?>
 							<div class="tab-pane fade<?php if ($nowActiveTab == 2) { echo ' active show'; }?>" id="leftbar_tab_tools" role="tabpanel" aria-labelledby="leftbar_tab_tools_btn">

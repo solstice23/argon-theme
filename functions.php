@@ -167,8 +167,19 @@ function argon_widgets_init() {
 			'after_title'   => '</h6>',
 		)
 	);
+	register_sidebar(
+		array(
+			'name'          => __('站点概览额外内容', 'argon'),
+			'id'            => 'leftbar-siteinfo-extra-tools',
+			'description'   => __( '站点概览额外内容', 'argon'),
+			'before_widget' => '<div id="%1$s" class="widget %2$s card bg-white border-0">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h6 class="font-weight-bold text-black">',
+			'after_title'   => '</h6>',
+		)
+	);
 }
-add_action('widgets_init','argon_widgets_init');
+add_action('widgets_init', 'argon_widgets_init');
 //注册新后台主题配色方案
 function argon_add_admin_color(){
 	wp_admin_css_color(
