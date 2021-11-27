@@ -1390,7 +1390,7 @@ function foldLongComments(){
 		}
 		if (this.clientHeight > 800){
 			$(this).addClass("comment-folded");
-			$(this).append("<div class='show-full-comment'><i class='fa fa-angle-down'></i> " + __("展开") + "</div>");
+			$(this).append("<div class='show-full-comment'><i class='fa fa-angle-down' aria-hidden='true'></i> " + __("展开") + "</div>");
 		}
 	});
 }
@@ -1809,6 +1809,7 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 	showPostOutdateToast();
 	calcHumanTimesOnPage();
 	foldLongComments();
+	foldLongShuoshuo();
 
 	if (typeof(window.pjaxLoaded) == "function"){
 		try{
@@ -1985,6 +1986,25 @@ $(document).on("click" , ".shuoshuo-upvote" , function(){
 			});
 		}
 	});
+});
+//折叠长说说
+function foldLongShuoshuo(){
+	if (argonConfig.fold_long_shuoshuo == false){
+		return;
+	}
+	$("#main .shuoshuo-foldable > .shuoshuo-content").each(function(){
+		if ($(this).hasClass("shuoshuo-unfolded")){
+			return;
+		}
+		if (this.clientHeight > 400){
+			$(this).addClass("shuoshuo-folded");
+			$(this).append("<div class='show-full-shuoshuo'><i class='fa fa-angle-down' aria-hidden='true'></i> " + __("展开") + "</div>");
+		}
+	});
+}
+foldLongShuoshuo();
+$(document).on("click" , ".show-full-shuoshuo" , function(){
+	$(this).parent().removeClass("shuoshuo-folded").addClass("shuoshuo-unfolded");
 });
 
 //颜色计算

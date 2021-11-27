@@ -149,6 +149,7 @@
 				lazyload: false,
 			<?php } ?>
 			fold_long_comments: <?php echo get_option('argon_fold_long_comments', 'false'); ?>,
+			fold_long_shuoshuo: <?php echo get_option('argon_fold_long_shuoshuo', 'false'); ?>,
 			disable_pjax: <?php echo get_option('argon_pjax_disabled', 'false'); ?>,
 			pjax_animation_durtion: <?php echo (get_option("argon_disable_pjax_animation") == 'true' ? '0' : '600'); ?>,
 			headroom: "<?php echo get_option('argon_enable_headroom', 'false'); ?>",

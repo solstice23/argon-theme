@@ -4171,6 +4171,17 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('折叠长说说', 'argon');?></label></th>
+						<td>
+							<select name="argon_fold_long_shuoshuo">
+								<?php $argon_fold_long_shuoshuo = get_option('argon_fold_long_shuoshuo'); ?>
+								<option value="false" <?php if ($argon_fold_long_shuoshuo=='false'){echo 'selected';} ?>><?php _e('不折叠', 'argon');?></option>
+								<option value="true" <?php if ($argon_fold_long_shuoshuo=='true'){echo 'selected';} ?>><?php _e('折叠', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('开启后，长说说在预览状态下会被折叠，需要手动展开', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('是否修正时区错误', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_timezone_fix">
@@ -4643,6 +4654,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_hide_categories');
 		argon_update_option('argon_article_meta');
 		argon_update_option('argon_fold_long_comments');
+		argon_update_option('argon_fold_long_shuoshuo');
 		argon_update_option('argon_first_image_as_thumbnail_by_default');
 		argon_update_option('argon_enable_headroom');
 		argon_update_option('argon_comment_emotion_keyboard');

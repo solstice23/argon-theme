@@ -4067,6 +4067,48 @@ html[lang] {
 	opacity: 0;
 	pointer-events: none;
 }
+.shuoshuo-content.shuoshuo-folded {
+	position: relative;
+	max-height: 400px;
+	overflow: hidden;
+}
+.shuoshuo-content.shuoshuo-folded:after {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 100px;
+	background: linear-gradient(180deg, transparent 0%, #fff 100%);
+	pointer-events: none;
+}
+html.darkmode .shuoshuo-content.shuoshuo-folded:after {
+	background: linear-gradient(180deg, transparent 0%, #424242 100%);
+}
+html.darkmode.amoled-dark .shuoshuo-content.shuoshuo-folded:after {
+	background: linear-gradient(180deg, transparent 0%, #000 100%);
+}
+.shuoshuo-content.shuoshuo-folded .show-full-shuoshuo {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 25px;
+	color: var(--themecolor);
+	z-index: 2;
+	text-align: left;
+	cursor: pointer;
+	user-select: none;
+	opacity: 0.6;
+	transition: opacity 0.25s ease;
+}
+.shuoshuo-content.shuoshuo-folded:hover .show-full-shuoshuo {
+	opacity: 1;
+}
+.shuoshuo-content:not(.shuoshuo-folded) .show-full-shuoshuo {
+	display: none;
+}
 /*归档时间轴*/
 .archive-timeline {
 	padding-top: 10px;
