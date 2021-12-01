@@ -1316,6 +1316,8 @@ function comment_mail_notify($comment){
 	}
 	$parentComment = get_comment($parentID);
 	$parentEmail =  $parentComment -> comment_author_email;
+	$parentName = $parentComment -> comment_author;
+	$emailTo = "$parentName <$parentEmail>";
 	if (get_comment_meta($parentID, "enable_mailnotice", true) == "true"){
 		if (check_email_address($parentEmail)){
 			$title = __("您在", 'argon') . " 「" . wp_trim_words(get_post_title_by_id($commentPostID), 20) . "」 " . __("的评论有了新的回复", 'argon');
@@ -1338,7 +1340,7 @@ function comment_mail_notify($comment){
 					</div>
 				</div>";
 			$html = apply_filters("argon_comment_mail_notification_content", $html); 
-			send_mail($parentEmail, $title, $html);
+			send_mail($emailTo, $title, $html);
 		}
 	}
 }
