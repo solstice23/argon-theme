@@ -1899,11 +1899,14 @@ function argon_meta_box_1(){
 		</select>
 		<h4><?php _e("显示文章过时信息", 'argon');?></h4>
 		<?php $argon_show_post_outdated_info = get_post_meta($post->ID, "argon_show_post_outdated_info", true);?>
-		<select name="argon_show_post_outdated_info" id="argon_show_post_outdated_info">
-			<option value="default" <?php if ($argon_show_post_outdated_info=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
-			<option value="always" <?php if ($argon_show_post_outdated_info=='always'){echo 'selected';} ?>><?php _e("一直显示", 'argon');?></option>
-			<option value="never" <?php if ($argon_show_post_outdated_info=='never'){echo 'selected';} ?>><?php _e("永不显示", 'argon');?></option>
-		</select>
+		<div style="display: flex;">
+			<select name="argon_show_post_outdated_info" id="argon_show_post_outdated_info">
+				<option value="default" <?php if ($argon_show_post_outdated_info=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
+				<option value="always" <?php if ($argon_show_post_outdated_info=='always'){echo 'selected';} ?>><?php _e("一直显示", 'argon');?></option>
+				<option value="never" <?php if ($argon_show_post_outdated_info=='never'){echo 'selected';} ?>><?php _e("永不显示", 'argon');?></option>
+			</select>
+			<button id="apply_show_post_outdated_info" type="button" class="components-button is-primary" style="height: 22px; display: none;"><?php _e("应用", 'argon');?></button>
+		</div>
 		<p style="margin-top: 15px;"><?php _e("单独控制该文章的过时信息显示。", 'argon');?></p>
 		<h4><?php _e("文末附加内容", 'argon');?></h4>
 		<?php $argon_after_post = get_post_meta($post->ID, "argon_after_post", true);?>
@@ -1913,6 +1916,65 @@ function argon_meta_box_1(){
 		<?php $argon_custom_css = get_post_meta($post->ID, "argon_custom_css", true);?>
 		<textarea name="argon_custom_css" id="argon_custom_css" rows="5" cols="30" style="width:100%;"><?php if (!empty($argon_custom_css)){echo $argon_custom_css;} ?></textarea>
 		<p style="margin-top: 15px;"><?php _e("给该文章添加单独的 CSS", 'argon');?></p>
+
+		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/jquery/jquery.min.js"></script>
+		<script>
+			$("select[name=argon_show_post_outdated_info").change(function(){
+				$("#apply_show_post_outdated_info").css("display", "");
+			});
+			$("#apply_show_post_outdated_info").click(function(){
+				$("#apply_show_post_outdated_info").addClass("is-busy").attr("disabled", "disabled").css("opacity", "0.5");
+				$("#argon_show_post_outdated_info").attr("disabled", "disabled");
+				var data = {
+					action: 'update_post_meta_ajax',
+					argon_meta_box_nonce: $("#argon_meta_box_nonce").val(),
+					post_id: <?php echo $post->ID; ?>,
+					meta_key: 'argon_show_post_outdated_info',
+					meta_value: $("select[name=argon_show_post_outdated_info]").val()
+				};
+				$.ajax({
+					url: ajaxurl,
+					type: 'post',
+					data: data,
+					success: function(response) {
+						$("#apply_show_post_outdated_info").removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
+						$("#argon_show_post_outdated_info").removeAttr("disabled");
+						if (response.status == "failed"){
+							wp.data.dispatch("core/notices").createNotice(
+								"failed",
+								"<?php _e("应用失败", 'argon');?>",
+								{
+									type: "snackbar",
+									isDismissible: true,
+								}
+							);
+							return;
+						}
+						$("#apply_show_post_outdated_info").css("display", "none");
+						wp.data.dispatch("core/notices").createNotice(
+							"success",
+							"<?php _e("应用成功", 'argon');?>",
+							{
+								type: "snackbar",
+								isDismissible: true,
+							}
+						);
+					},
+					error: function(response) {
+						$("#apply_show_post_outdated_info").removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
+						$("#argon_show_post_outdated_info").removeAttr("disabled");
+						wp.data.dispatch("core/notices").createNotice(
+							"failed",
+							"<?php _e("应用失败", 'argon');?>",
+							{
+								type: "snackbar",
+								isDismissible: true,
+							}
+						);
+					}
+				});
+			});
+		</script>
 	<?php
 }
 function argon_add_meta_boxes(){
@@ -1948,6 +2010,41 @@ function argon_save_meta_data($post_id){
 	update_post_meta($post_id, 'argon_custom_css', $_POST['argon_custom_css']);
 }
 add_action('save_post', 'argon_save_meta_data');
+function update_post_meta_ajax(){
+	if (!isset($_POST['argon_meta_box_nonce'])){
+		return;
+	}
+	$nonce = $_POST['argon_meta_box_nonce'];
+	if (!wp_verify_nonce($nonce, 'argon_meta_box_nonce_action')){
+		return;
+	}
+	header('Content-Type:application/json; charset=utf-8');
+	$post_id = intval($_POST["post_id"]);
+	$meta_key = $_POST["meta_key"];
+	$meta_value = $_POST["meta_value"];
+
+	if (get_post_meta($post_id, $meta_key, true) == $meta_value){
+		exit(json_encode(array(
+			'status' => 'success'
+		)));
+		return;
+	}
+
+
+	$result = update_post_meta($post_id, $meta_key, $meta_value);
+
+	if ($result){
+		exit(json_encode(array(
+			'status' => 'success'
+		)));
+	}else{
+		exit(json_encode(array(
+			'status' => 'failed'
+		)));
+	}
+}
+add_action('wp_ajax_update_post_meta_ajax' , 'update_post_meta_ajax');
+add_action('wp_ajax_nopriv_update_post_meta_ajax' , 'update_post_meta_ajax');
 //首页显示说说
 function argon_home_add_post_type_shuoshuo($query){
 	if (is_home() && $query -> is_main_query()){
