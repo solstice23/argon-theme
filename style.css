@@ -1988,6 +1988,13 @@ html.darkmode.amoled-dark .tippy-box[data-theme~="light"] > .tippy-svg-arrow {
 	margin: 30px 20px;
 	margin-top: 0px;
 }
+.search-filter-wrapper {
+    display: inline-block;
+    margin-right: 12px;
+}
+.search-filter-wrapper > .custom-control-label {
+    line-height: 25px;
+}
 
 /*文章导航 (上/下一篇文章)*/
 .post-navigation {

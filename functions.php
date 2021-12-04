@@ -2030,7 +2030,6 @@ function update_post_meta_ajax(){
 		return;
 	}
 
-
 	$result = update_post_meta($post_id, $meta_key, $meta_value);
 
 	if ($result){
@@ -4281,6 +4280,19 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('搜索结果类型过滤器', 'argon');?></label></th>
+						<td>
+							<select name="argon_search_post_filter">
+								<?php $argon_search_post_filter = get_option('argon_search_post_filter', 'post,page'); ?>
+								<option value="off" <?php if ($argon_search_post_filter=='off'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+								<option value="post,page" <?php if ($argon_search_post_filter=='post,page'){echo 'selected';} ?>><?php _e('启用，默认不包括说说', 'argon');?></option>
+								<option value="post,page,shuoshuo" <?php if ($argon_search_post_filter=='post,page,shuoshuo'){echo 'selected';} ?>><?php _e('启用，默认包括说说', 'argon');?></option>
+								<option value="post,page,hide_shuoshuo" <?php if ($argon_search_post_filter=='post,page,hide_shuoshuo'){echo 'selected';} ?>><?php _e('启用，隐藏说说分类', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('开启后，将会在搜索结果界面显示一个过滤器，支持搜索说说', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('是否修正时区错误', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_timezone_fix">
@@ -4726,6 +4738,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_comment_pagination_type');
 		argon_update_option('argon_who_can_visit_comment_edit_history');
 		argon_update_option('argon_home_show_shuoshuo');
+		argon_update_option('argon_search_post_filter');
 		argon_update_option('argon_darkmode_autoswitch');
 		argon_update_option('argon_enable_amoled_dark');
 		argon_update_option('argon_outdated_info_time_type');
@@ -4856,6 +4869,40 @@ function init_shuoshuo(){
 	);
 	register_post_type('shuoshuo', $args);
 }
+
+function argon_get_search_post_type_array(){
+	$search_filter_option = get_option('argon_search_post_filter', 'post,page');
+	if (!isset($_GET['post_type'])) {
+		if ($search_filter_option == 'off'){
+			return array('post', 'page');
+		}
+		$default = explode(',', $search_filter_option);
+		return $default;
+	}
+	$post_type = $_GET['post_type'];
+	$arr = array();
+	if (strpos($post_type, 'post') !== false) {
+		array_push($arr, 'post');
+	}
+	if (strpos($post_type, 'page') !== false) {
+		array_push($arr, 'page');
+	}
+	if (strpos($post_type, 'shuoshuo') !== false && !in_array('hide_shuoshuo', explode(',', $search_filter_option))) {
+		array_push($arr, 'shuoshuo');
+	}
+	if (count($arr) == 0) {
+		array_push($arr, 'none');
+	}
+	return $arr;
+}
+function search_filter($query) {
+	if (!$query -> is_search) {
+		return $query;
+	}
+	$query -> set('post_type', argon_get_search_post_type_array());
+	return $query;
+}
+add_filter('pre_get_posts', 'search_filter');
 
 /*恢复链接管理器*/
 add_filter('pre_option_link_manager_enabled', '__return_true');
