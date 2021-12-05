@@ -1642,7 +1642,7 @@ function lazyloadInit(){
 	if (argonConfig.lazyload.effect == "none"){
 		delete argonConfig.lazyload.effect;
 	}
-	$("article img.lazyload:not(.lazyload-loaded) , .related-post-thumbnail.lazyload:not(.lazyload-loaded)").lazyload(
+	$("article img.lazyload:not(.lazyload-loaded) , .related-post-thumbnail.lazyload:not(.lazyload-loaded) , .shuoshuo-preview-container img.lazyload:not(.lazyload-loaded)").lazyload(
 		Object.assign(argonConfig.lazyload, {
 			load: function () {
 				$(this).addClass("lazyload-loaded");
@@ -1841,6 +1841,7 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 	calcHumanTimesOnPage();
 	foldLongComments();
 	foldLongShuoshuo();
+	$("html").trigger("resize");
 
 	if (typeof(window.pjaxLoaded) == "function"){
 		try{
