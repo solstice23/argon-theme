@@ -138,3 +138,17 @@ p.submit {
 	box-shadow: 0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba(0,0,0,.07)!important;
 	padding: 16px 20px;
 }
+
+.login .privacy-policy-page-link {
+	text-align: center;
+	width: 100%;
+	margin: 3em 0 2em;
+}
+
+.login .privacy-policy-page-link .privacy-policy-link {
+	color: white;
+	font-size: 14px;
+	letter-spacing: 1px;
+	opacity: .6;
+	text-decoration: none;
+}
