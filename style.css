@@ -1041,7 +1041,6 @@ html.darkmode.amoled-dark .site-state-item {
 	display: block;
 	text-align: center;
 	color: #32325d;
-	font-weight: bold;
 	font-size: 16px;
 }
 .site-state-item-name {
@@ -4086,7 +4085,7 @@ html[lang] {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	height: 100px;
+	height: 150px;
 	background: linear-gradient(180deg, transparent 0%, #fff 100%);
 	pointer-events: none;
 }
@@ -4098,21 +4097,36 @@ html.darkmode.amoled-dark .shuoshuo-content.shuoshuo-folded:after {
 }
 .shuoshuo-content.shuoshuo-folded .show-full-shuoshuo {
 	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 25px;
+	bottom: 10px;
+	right: 50%;
+	transform: translateX(50%);
 	color: var(--themecolor);
 	z-index: 2;
 	text-align: left;
 	cursor: pointer;
 	user-select: none;
-	opacity: 0.6;
-	transition: opacity 0.25s ease;
-}
-.shuoshuo-content.shuoshuo-folded:hover .show-full-shuoshuo {
 	opacity: 1;
 }
+
+.shuoshuo-content.shuoshuo-folded .show-full-shuoshuo button {
+	position: relative;
+	display: inline-block;
+	border-radius: var(--card-radius);
+	border: 1px solid var(--themecolor);
+	background-color: white;
+	padding: 0.3em 2em;
+	color: var(--themecolor);
+	font-weight: bold;
+	opacity: .8;
+	transition: all 0.3s ease;
+}
+
+.shuoshuo-content.shuoshuo-folded .show-full-shuoshuo button:hover {
+	background-color: var(--themecolor);
+	opacity: 1;
+	color: white;
+}
+
 .shuoshuo-content:not(.shuoshuo-folded) .show-full-shuoshuo {
 	display: none;
 }
