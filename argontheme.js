@@ -1419,7 +1419,7 @@ function foldLongComments(){
 		}
 		if (this.clientHeight > 800){
 			$(this).addClass("comment-folded");
-			$(this).append("<div class='show-full-comment'><i class='fa fa-angle-down' aria-hidden='true'></i> " + __("展开") + "</div>");
+			$(this).append("<div class='show-full-comment'><button><i class='fa fa-angle-down' aria-hidden='true'></i> " + __("展开") + "</button></div>");
 		}
 	});
 }
@@ -2030,7 +2030,7 @@ function foldLongShuoshuo(){
 		}
 		if (this.clientHeight > 400){
 			$(this).addClass("shuoshuo-folded");
-			$(this).append("<div class='show-full-shuoshuo'><i class='fa fa-angle-down' aria-hidden='true'></i> " + __("展开") + "</div>");
+			$(this).append("<div class='show-full-shuoshuo'><button><i class='fa fa-angle-down' aria-hidden='true'></i> " + __("展开") + "</button></div>");
 		}
 	});
 }
