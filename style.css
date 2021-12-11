@@ -4107,24 +4107,13 @@ html.darkmode.amoled-dark .shuoshuo-content.shuoshuo-folded:after {
 	user-select: none;
 	opacity: 1;
 }
-
-.shuoshuo-content.shuoshuo-folded .show-full-shuoshuo button {
-	position: relative;
-	display: inline-block;
+.shuoshuo-content.shuoshuo-folded .show-full-shuoshuo > button {
 	border-radius: var(--card-radius);
-	border: 1px solid var(--themecolor);
-	background-color: white;
-	padding: 0.3em 2em;
-	color: var(--themecolor);
-	font-weight: bold;
+	padding: 5px 20px;
 	opacity: .8;
-	transition: all 0.3s ease;
 }
-
 .shuoshuo-content.shuoshuo-folded .show-full-shuoshuo button:hover {
-	background-color: var(--themecolor);
 	opacity: 1;
-	color: white;
 }
 
 .shuoshuo-content:not(.shuoshuo-folded) .show-full-shuoshuo {
