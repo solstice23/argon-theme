@@ -1182,6 +1182,17 @@ function check_comment_captcha($comment){
 	return $comment;
 }
 add_filter('preprocess_comment' , 'check_comment_captcha');
+
+function ajax_get_captcha(){
+	if (get_option('argon_get_captcha_by_ajax', 'false') != 'true') {
+		return;
+	}
+	exit(json_encode(array(
+		'captcha' => get_comment_captcha(get_comment_captcha_seed())
+	)));
+}
+add_action('wp_ajax_get_captcha', 'ajax_get_captcha');
+add_action('wp_ajax_nopriv_get_captcha', 'ajax_get_captcha');
 //Ajax 发送评论
 function ajax_post_comment(){
 	$parentID = $_POST['comment_parent'];
@@ -4093,6 +4104,17 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('使用 Ajax 获取评论验证码', 'argon');?></label></th>
+						<td>
+							<select name="argon_get_captcha_by_ajax">
+								<?php $argon_get_captcha_by_ajax = get_option('argon_get_captcha_by_ajax'); ?>
+								<option value="false" <?php if ($argon_get_captcha_by_ajax=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+								<option value="true" <?php if ($argon_get_captcha_by_ajax=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('如果使用了 CDN 缓存，验证码不会刷新，请开启此选项，否则请不要开启。', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('是否允许在评论中使用 Markdown 语法', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_allow_markdown">
@@ -4763,6 +4785,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_page_background_banner_style');
 		argon_update_option('argon_hide_name_email_site_input');
 		argon_update_option('argon_comment_need_captcha');
+		argon_update_option('argon_get_captcha_by_ajax');
 		argon_update_option('argon_hide_footer_author');
 		argon_update_option('argon_card_radius');
 		argon_update_option('argon_comment_avatar_vcenter');
