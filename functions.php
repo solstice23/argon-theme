@@ -1965,7 +1965,7 @@ function argon_meta_box_1(){
 		<textarea name="argon_custom_css" id="argon_custom_css" rows="5" cols="30" style="width:100%;"><?php if (!empty($argon_custom_css)){echo $argon_custom_css;} ?></textarea>
 		<p style="margin-top: 15px;"><?php _e("给该文章添加单独的 CSS", 'argon');?></p>
 
-		<script src="<?php bloginfo('template_url'); ?>/assets/vendor/jquery/jquery.min.js"></script>
+		<script>$ = window.jQuery;</script>
 		<script>
 			$("select[name=argon_show_post_outdated_info").change(function(){
 				$("#apply_show_post_outdated_info").css("display", "");
