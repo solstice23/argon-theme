@@ -1325,20 +1325,57 @@ function comment_mail_notify($comment){
 			$content = htmlspecialchars(get_comment_meta($id, "comment_content_source", true));
 			$link = get_permalink($commentPostID) . "#comment-" . $id;
 			$unsubscribeLink = site_url("unsubscribe-comment-mailnotice?comment=" . $parentID . "&token=" . get_comment_meta($parentID, "mailnotice_unsubscribe_key", true));
-			$html = "<div style='background: #fff;box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);border-radius: 6px;margin: 15px auto 50px auto;padding: 35px 30px;max-width: min(calc(100% - 100px), 1200px);'>
-					<div style='font-size:30px;text-align:center;margin-bottom:15px;'>" . htmlspecialchars($fullTitle)  ."</div>
-					<div style='background: rgba(0, 0, 0, .15);height: 1px;width: 300px;margin: auto;margin-bottom: 35px;'></div>
-					<div style='font-size: 18px;border-left: 4px solid rgba(0, 0, 0, .15);width: max-content;width: -moz-max-content;margin: auto;padding: 20px 30px;background: rgba(0,0,0,.08);border-radius: 6px;box-shadow: 0 2px 4px rgba(0,0,0,.075)!important;min-width: 60%;max-width: 90%;margin-bottom: 60px;'>
-						<div style='margin-bottom: 10px;'><strong><span style='color: #5e72e4;'>@" . htmlspecialchars($commentAuthor) . "</span> " . __("回复了你", 'argon') . ":</strong></div>
-						" . str_replace("\n", "<div></div>", $content) . " 
-					</div>
-					<div style='width: max-content;width: --moz-max-content;margin: auto;margin-bottom:50px;'>
-						<a href='" . $link . "' style='color: #fff;background-color: #5e72e4;border-color: #5e72e4;box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);padding: 15px 25px;font-size: 18px;border-radius: 4px;text-decoration: none;'>" . __("前往查看", 'argon') . "</a>
-					</div>
-					<div style='width: max-content;width: --moz-max-content;margin: auto;margin-bottom:30px;'>
-						<a href='" . $unsubscribeLink . "' style='color: #5e72e4;font-size: 16px;text-decoration: none;'>" . __("退订该评论的邮件提醒", 'argon') . "</a>
-					</div>
-				</div>";
+			$html = '
+					<!DOCTYPE html>
+					<html>
+						<head>
+							<meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+						</head>
+						<body>
+							<div style="background: #fff;box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);border-radius: 6px;margin: 15px auto 50px auto;padding: 35px 30px;max-width: min(calc(100% - 100px), 1200px);">
+								<div style="font-size:30px;text-align:center;margin-bottom:15px;">' . htmlspecialchars($fullTitle)  .'</div>
+								<div style="background: rgba(0, 0, 0, .15);height: 1px;width: 300px;margin: auto;margin-bottom: 35px;"></div>
+								<div style="font-size: 18px;border-left: 4px solid rgba(0, 0, 0, .15);width: max-content;width: -moz-max-content;margin: auto;padding: 20px 30px;background: rgba(0,0,0,.08);border-radius: 6px;box-shadow: 0 2px 4px rgba(0,0,0,.075)!important;min-width: 60%;max-width: 90%;margin-bottom: 40px;">
+									<div style="margin-bottom: 10px;"><strong><span style="color: #5e72e4;">@' . htmlspecialchars($commentAuthor) . '</span> ' . __('回复了你', "argon") . ':</strong></div>
+									' . str_replace('\n', '<div></div>', $content) . ' 
+								</div>
+								<table width="100%" style="border-collapse:collapse;border:none;empty-cells:show;max-width:100%;box-sizing:border-box" cellspacing="0" cellpadding="0">
+									<tbody style="box-sizing:border-box">
+										<tr style="box-sizing:border-box" align="center">
+											<td style="min-width:5px;box-sizing:border-box">
+												<table style="border-collapse:collapse;border:none;empty-cells:show;max-width:100%;box-sizing:border-box" cellspacing="0" cellpadding="0">
+													<tbody style="box-sizing:border-box">
+														<tr style="box-sizing:border-box">
+															<td style="box-sizing:border-box">
+																<a href="' . $link . '" style="display: block; line-height: 1; color: #fff;background-color: #5e72e4;border-color: #5e72e4;box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);padding: 15px 25px;font-size: 18px;border-radius: 4px;text-decoration: none; margin: 10px;">' . __('前往查看', "argon") . '</a>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<table width="100%" style="border-collapse:collapse;border:none;empty-cells:show;max-width:100%;box-sizing:border-box" cellspacing="0" cellpadding="0">
+									<tbody style="box-sizing:border-box">
+										<tr style="box-sizing:border-box" align="center">
+											<td style="min-width:5px;box-sizing:border-box">
+												<table style="border-collapse:collapse;border:none;empty-cells:show;max-width:100%;box-sizing:border-box" cellspacing="0" cellpadding="0">
+													<tbody style="box-sizing:border-box">
+														<tr style="box-sizing:border-box">
+															<td style="box-sizing:border-box">
+																<a href="' . $unsubscribeLink . '" style="display: block; line-height: 1;color: #5e72e4;font-size: 16px;text-decoration: none; margin: 10px;">' . __('退订该评论的邮件提醒', "argon") . '</a>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</body>
+					</html>';
 			$html = apply_filters("argon_comment_mail_notification_content", $html); 
 			send_mail($emailTo, $title, $html);
 		}
