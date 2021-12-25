@@ -1666,13 +1666,13 @@ lazyloadInit();
 /*Pangu.js*/
 function panguInit(){
 	if (argonConfig.pangu.indexOf("article") >= 0){
-		pangu.spacingElementById('post_content');
+		pangu.spacingElementByClassName('post-content');
 	}
 	if (argonConfig.pangu.indexOf("comment") >= 0){
 		pangu.spacingElementById('comments');
 	}
 	if (argonConfig.pangu.indexOf("shuoshuo") >= 0){
-		pangu.spacingElementByClassName('shuoshuo-container');
+		pangu.spacingElementByClassName('shuoshuo-content');
 	}
 }
 panguInit();
