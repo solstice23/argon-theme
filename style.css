@@ -3653,7 +3653,7 @@ article img.lazyload[src^="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg"
 	width: max-content;
 	max-width: 100%;
 }
-figure > .fancybox-wrapper {
+figure > .fancybox-wrapper, figure > a > .fancybox-wrapper {
 	width: unset;
 }
 .fancybox-wrapper.lazyload-container-unload {
