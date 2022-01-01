@@ -2946,6 +2946,7 @@ html.darkmode.amoled-dark .emotion-item > img {
 }
 .emotion-keyboard-bar::-webkit-scrollbar-thumb {
 	background-color: rgba(0, 0, 0, 0.2);
+	border: none;
 }
 .emotion-keyboard-bar::-webkit-scrollbar-thumb:hover {
 	background-color: var(--themecolor);
