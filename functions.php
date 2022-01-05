@@ -2360,6 +2360,7 @@ function shortcode_collapse_block($attr,$content=""){
 	$out = "<div " ;
 	$out .= " class='collapse-block shadow-sm";
 	$color = $attr['color'] ?? 'none';
+	$title = $attr['title'] ?? 'untitled';
 	switch ($color){
 		case 'indigo':
 			$out .= " collapse-block-primary";
@@ -2399,7 +2400,7 @@ function shortcode_collapse_block($attr,$content=""){
 	if (isset($attr['icon'])){
 		$out .= "<i class='fa fa-" . $attr['icon'] . "'></i> ";
 	}
-	$out .= "<span class='collapse-block-title-inner'>" . $attr['title'] . "</span><i class='collapse-icon fa fa-angle-down'></i></div>";
+	$out .= "<span class='collapse-block-title-inner'>" . $title . "</span><i class='collapse-icon fa fa-angle-down'></i></div>";
 
 	$out .= "<div class='collapse-block-body'";
 	if ($collapsed != 'false'){
