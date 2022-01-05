@@ -3,7 +3,7 @@ Theme Name: argon
 Author: solstice23
 Author URI: https://solstice23.top/
 Description: 轻盈、简洁、美观的 Wordpress 主题
-Version: 1.2.5
+Version: 1.2.9
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, 夜间模式, 可自定义
@@ -582,6 +582,9 @@ html.triple-column #content {
 #navbar-main {
 	--toolbar-color: var(--themecolor-rgbstr);
 }
+.headroom--pinned{
+	z-index: 100;
+}
 html.darkmode #navbar-main {
 	--toolbar-color: 33, 33, 33;
 }
@@ -974,16 +977,16 @@ html.navbar-absolute #leftbar_part2.sticky {
 	background: transparent;
 }
 #leftbar_part2_inner::-webkit-scrollbar-thumb {
-    border-width: 1px;
-    background-color: rgba(0, 0, 0, 0.2);
+	border-width: 1px;
+	background-color: rgba(0, 0, 0, 0.2);
 }
 html.darkmode #leftbar_part2_inner::-webkit-scrollbar-thumb {
-    border-width: 1px;
-    background-color: rgba(255, 255, 255, 0.2);
+	border-width: 1px;
+	background-color: rgba(255, 255, 255, 0.2);
 }
 #leftbar_part2_inner::-webkit-scrollbar-button {
-    height: 5px;
-    pointer-events: none;
+	height: 5px;
+	pointer-events: none;
 }
 .sidebar-tab-switcher {
 	font-size: 13px;
@@ -1004,6 +1007,11 @@ html.darkmode .sidebar-tab-switcher > a.active {
 #leftbar_overview_author_name {
 	margin-top: 15px;
 	font-size: 18px;
+}
+#leftbar_overview_author_description {
+	font-size: 14px;
+	margin-top: -4px;
+	opacity: .8;
 }
 .site-state {
 	overflow: hidden;
@@ -1124,7 +1132,7 @@ html.darkmode.amoled-dark .site-state-item {
 	padding-top: 8px;
 	opacity: 0.9;
 }
-#leftbar_tab_tools ul {
+#leftbar_tab_tools ul, #leftbar_tab_tools ol {
 	list-style: none;
 	padding: 0;
 }
@@ -1142,14 +1150,14 @@ html.darkmode.amoled-dark #leftbar_tab_tools ul li {
 #leftbar_tab_tools ul li:first-child {
 	padding-top: 5px;
 }
-#leftbar_tab_tools > div > h6:first-child {
+#leftbar_tab_tools > div > h6:first-child, #leftbar_tab_tools .wp-block-group__inner-container > h6:first-child {
 	font-size: 17px;
-	text-align: center;
+	font-weight: 600;
 	position: relative;
 	display: block;
 	width: max-content;
 }
-#leftbar_tab_tools > div > h6:first-child:after {
+#leftbar_tab_tools > div > h6:first-child:after, #leftbar_tab_tools .wp-block-group__inner-container > h6:first-child:after {
 	content: "";
 	display: block;
 	background: var(--themecolor);
@@ -1161,6 +1169,63 @@ html.darkmode.amoled-dark #leftbar_tab_tools ul li {
 	border-radius: 10px;
 	opacity: 0.25;
 	pointer-events: none;
+}
+.wp-calendar-table caption{
+	font-size: 14px;
+	text-align: center;
+	opacity: .7;
+}
+.wp-block-calendar table * {
+	background: transparent !important;
+	border: none !important;
+	padding-top: 5px;
+	padding-bottom: 8px;
+}
+.wp-block-calendar table th {
+	opacity: .6;
+}
+.wp-block-calendar tbody td a {
+	position: relative;
+	text-decoration: none;
+}
+.wp-block-calendar tbody td a:before {
+	content: '';
+	display: block;
+	background: var(--themecolor);
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	border-radius: 20px;
+	opacity: .2; 
+	transform: translateX(-2px);
+	z-index: 0;
+}
+.wp-calendar-nav-prev a, .wp-calendar-nav-next a {
+	text-decoration: none !important;
+	border: 1px solid var(--themecolor);
+	color: var(--themecolor);
+	padding: 1px 8px;
+	border-radius: 19px;
+	font-size: 14px;
+	transition: all .25s ease;
+	user-select: none;
+}
+.wp-calendar-nav-prev a:hover, .wp-calendar-nav-next a:hover {
+	background-color: var(--themecolor);
+	color: #fff !important;
+	box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+.wp-calendar-nav {
+	padding-bottom: 12px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+html.darkmode .wp-calendar-table caption, html.darkmode .wp-block-calendar tbody td{
+	color: #eee;
 }
 /*底栏*/
 #footer {
@@ -1923,6 +1988,13 @@ html.darkmode.amoled-dark .tippy-box[data-theme~="light"] > .tippy-svg-arrow {
 	margin: 30px 20px;
 	margin-top: 0px;
 }
+.search-filter-wrapper {
+    display: inline-block;
+    margin-right: 12px;
+}
+.search-filter-wrapper > .custom-control-label {
+    line-height: 25px;
+}
 
 /*文章导航 (上/下一篇文章)*/
 .post-navigation {
@@ -2111,6 +2183,36 @@ html.darkmode.amoled-dark a.related-post-card:hover {
 }
 #comments li {
 	list-style: none;
+	position: relative;
+}
+#comments li:target:before {
+	content: '';
+	display: block;
+	position: absolute;
+	left: -10px;
+	right: -10px;
+	top: 0;
+	bottom: 0;
+	background: var(--themecolor);
+	opacity: .15;
+	border-radius: var(--card-radius);
+	pointer-events: none;
+	animation: comment-focus-breath 2s linear;
+	animation-fill-mode: forwards;
+}
+@keyframes comment-focus-breath{
+	0%{
+		opacity: .5;
+	}
+	33%{
+		opacity: .05;
+	}
+	66%{
+		opacity: .3;
+	}
+	100%{
+		opacity: .15;
+	}
 }
 .comments-title {
 	font-size: 20px;
@@ -2140,8 +2242,11 @@ html.darkmode.amoled-dark a.related-post-card:hover {
 	height: 40px;
 	width: 40px;
 }
-.comment-text-avatar {
+.text-avatar {
 	user-select: none;
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
 }
 .comment-item-inner {
 	display: block;
@@ -2166,6 +2271,13 @@ html.darkmode.amoled-dark a.related-post-card:hover {
 .comment-item-title .badge-unapproved {
 	transform: translateY(-2px);
 	margin-left: 5px;
+}
+.comment-item-text p:last-child {
+	margin-bottom: 0;
+}
+.comment-item-text {
+	min-height: 24px;
+	margin-bottom: 1rem;
 }
 .comment-name {
 	flex: 1;
@@ -2834,6 +2946,7 @@ html.darkmode.amoled-dark .emotion-item > img {
 }
 .emotion-keyboard-bar::-webkit-scrollbar-thumb {
 	background-color: rgba(0, 0, 0, 0.2);
+	border: none;
 }
 .emotion-keyboard-bar::-webkit-scrollbar-thumb:hover {
 	background-color: var(--themecolor);
@@ -3163,7 +3276,7 @@ html.darkmode.amoled-dark .friend-links-style1 .friend-link-description:after {
 	padding-bottom: 10px;
 }
 .argon-timeline-time {
-	position: absolute;
+	position: absolute !important;
 	left: -110px;
 	margin-top: 12px;
 	width: 85px;
@@ -3541,7 +3654,7 @@ article img.lazyload[src^="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg"
 	width: max-content;
 	max-width: 100%;
 }
-figure > .fancybox-wrapper {
+figure > .fancybox-wrapper, figure > a > .fancybox-wrapper {
 	width: unset;
 }
 .fancybox-wrapper.lazyload-container-unload {
@@ -3962,6 +4075,52 @@ html[lang] {
 	opacity: 0;
 	pointer-events: none;
 }
+.shuoshuo-content.shuoshuo-folded {
+	position: relative;
+	max-height: 400px;
+	overflow: hidden;
+}
+.shuoshuo-content.shuoshuo-folded:after {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 150px;
+	background: linear-gradient(180deg, transparent 0%, #fff 100%);
+	pointer-events: none;
+}
+html.darkmode .shuoshuo-content.shuoshuo-folded:after {
+	background: linear-gradient(180deg, transparent 0%, #424242 100%);
+}
+html.darkmode.amoled-dark .shuoshuo-content.shuoshuo-folded:after {
+	background: linear-gradient(180deg, transparent 0%, #000 100%);
+}
+.shuoshuo-content.shuoshuo-folded .show-full-shuoshuo {
+	position: absolute;
+	bottom: 10px;
+	right: 50%;
+	transform: translateX(50%);
+	color: var(--themecolor);
+	z-index: 2;
+	text-align: left;
+	cursor: pointer;
+	user-select: none;
+	opacity: 1;
+}
+.shuoshuo-content.shuoshuo-folded .show-full-shuoshuo > button {
+	border-radius: var(--card-radius);
+	padding: 5px 20px;
+	opacity: .8;
+}
+.shuoshuo-content.shuoshuo-folded .show-full-shuoshuo button:hover {
+	opacity: 1;
+}
+
+.shuoshuo-content:not(.shuoshuo-folded) .show-full-shuoshuo {
+	display: none;
+}
 /*归档时间轴*/
 .archive-timeline {
 	padding-top: 10px;
@@ -3979,20 +4138,45 @@ html[lang] {
 .archive-timeline-year {
 	font-size: 30px;
 	color: var(--themecolor);
+	margin-top: 12px !important;
+	margin-bottom: 0;
+}
+.archive-timeline-month {
+	font-size: 24px;
+	color: var(--themecolor);
+	opacity: .8;
+	margin-top: 12px !important;
+	margin-bottom: 0;
+	font-weight: unset;
 }
 .archive-timeline-year + .archive-timeline-title {
 	height: 50px;
 	margin-top: 30px;
 }
-.archive-timeline-year + .archive-timeline-title {
-	height: 50px;
-	margin-top: 30px;
+.archive-timeline *:not(.archive-timeline-year) + .archive-timeline-title:before {
+	width: 12px;
+	height: 12px;
+	left: -34px;
+	top: 18px;
 }
-.archive-timeline-title > a:before {
+.archive-timeline-month + .archive-timeline-title {
+	height: 30px;
+}
+.archive-timeline-month.first-month-of-year + .archive-timeline-title {
+	margin-top: -10px;
+}
+.archive-timeline-title > a {
+	width: max-content;
+	max-width: 100%;
+}
+.argon-timeline-time > a:before, .archive-timeline-title > a:before {
 	display: none;
 }
 .argon-timeline-node:first-child > .archive-timeline-year + .archive-timeline-title {
 	margin-top: 0;
+}
+.archive-timeline h2:before, .archive-timeline h3:before, .archive-timeline h2:after, .archive-timeline h3:after {
+	display: none !important;
 }
 /*Loading Dot*/
 .loading-css-animation {

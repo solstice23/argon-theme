@@ -11,12 +11,19 @@ add_action('after_setup_theme','theme_slug_setup');
 
 $GLOBALS['theme_version'] = wp_get_theme() -> Version;
 $argon_assets_path = get_option("argon_assets_path");
-if ($argon_assets_path== "jsdelivr"){
-	$GLOBALS['assets_path'] = "https://cdn.jsdelivr.net/gh/solstice23/argon-theme@" . wp_get_theme() -> Version;
-}else if ($argon_assets_path == "fastgit"){
-	$GLOBALS['assets_path'] = "https://raw.fastgit.org/solstice23/argon-theme/v" . wp_get_theme() -> Version;
-}else{
-	$GLOBALS['assets_path'] = get_bloginfo('template_url');
+switch ($argon_assets_path) {
+    case "jsdelivr":
+	    $GLOBALS['assets_path'] = "https://cdn.jsdelivr.net/gh/solstice23/argon-theme@" . wp_get_theme() -> Version;
+        break;
+    case "fastgit":
+	    $GLOBALS['assets_path'] = "https://raw.fastgit.org/solstice23/argon-theme/v" . wp_get_theme() -> Version;
+        break;
+    case "AHCDN":
+    case "sourcestorage":
+	    $GLOBALS['assets_path'] = "https://source.ahdark.com/wordpress/theme/argon-theme/" . wp_get_theme() -> Version;
+        break;
+    default:
+	    $GLOBALS['assets_path'] = get_bloginfo('template_url');
 }
 
 //翻译 Hook
@@ -160,8 +167,19 @@ function argon_widgets_init() {
 			'after_title'   => '</h6>',
 		)
 	);
+	register_sidebar(
+		array(
+			'name'          => __('站点概览额外内容', 'argon'),
+			'id'            => 'leftbar-siteinfo-extra-tools',
+			'description'   => __( '站点概览额外内容', 'argon'),
+			'before_widget' => '<div id="%1$s" class="widget %2$s card bg-white border-0">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h6 class="font-weight-bold text-black">',
+			'after_title'   => '</h6>',
+		)
+	);
 }
-add_action('widgets_init','argon_widgets_init');
+add_action('widgets_init', 'argon_widgets_init');
 //注册新后台主题配色方案
 function argon_add_admin_color(){
 	wp_admin_css_color(
@@ -202,6 +220,9 @@ require_once(get_template_directory() . '/emotions.php');
 //文章特色图片
 function argon_get_first_image_of_article(){
 	global $post;
+	if (post_password_required()){
+		return false;
+	}
 	$post_content_full = apply_filters('the_content', preg_replace( '<!--more(.*?)-->', '', $post -> post_content));
 	preg_match('/<img(.*?)(src|data-original)=[\"\']((http:|https:)?\/\/(.*?))[\"\'](.*?)\/?>/', $post_content_full, $match);
 	if (isset($match[3])){
@@ -350,7 +371,8 @@ function session_init(){
 		session_start();
 	}
 }
-add_action('setup_theme', 'session_init');
+session_init();
+//add_action('init', 'session_init');
 //页面 Description Meta
 function get_seo_description(){
 	global $post;
@@ -466,26 +488,39 @@ function set_post_views(){
 add_action('get_header', 'set_post_views');
 //字数和预计阅读时间
 function get_article_words($str){
+	preg_match_all('/<pre(.*?)>[\S\s]*?<code(.*?)>([\S\s]*?)<\/code>[\S\s]*?<\/pre>/im', $str, $codeSegments, PREG_PATTERN_ORDER);
+	$codeSegments = $codeSegments[3];
+	$codeTotal = 0;
+	foreach ($codeSegments as $codeSegment){
+		$codeLines = preg_split('/\r\n|\n|\r/', $codeSegment);
+		foreach ($codeLines as $line){
+			if (strlen(trim($str)) > 0){
+				$codeTotal++;
+			}
+		}
+	}
+
 	$str = preg_replace(
-		'/<code(.*?)>(.*?)<\/code>/is',
+		'/<code(.*?)>[\S\s]*?<\/code>/im',
 		'',
 		$str
 	);
 	$str = preg_replace(
-		'/<pre(.*?)>(.*?)<\/pre>/is',
+		'/<pre(.*?)>[\S\s]*?<\/pre>/im',
 		'',
 		$str
 	);
 	$str = preg_replace(
-		'/<style(.*?)>(.*?)<\/style>/is',
+		'/<style(.*?)>[\S\s]*?<\/style>/im',
 		'',
 		$str
 	);
 	$str = preg_replace(
-		'/<script(.*?)>(.*?)<\/script>/is',
+		'/<script(.*?)>[\S\s]*?<\/script>/im',
 		'',
 		$str
 	);
+	$str =  preg_replace('/<[^>]+?>/', ' ', $str);
 	$str = html_entity_decode(strip_tags($str));
 	preg_match_all('/[\x{4e00}-\x{9fa5}]/u' , $str , $cnRes);
 	$cnTotal = count($cnRes[0]);
@@ -494,17 +529,19 @@ function get_article_words($str){
 	$enTotal = count($enRes[0]);
 	return array(
 		'cn' => $cnTotal,
-		'en' => $enTotal
+		'en' => $enTotal,
+		'code' => $codeTotal,
 	);
 }
 function get_article_words_total($str){
 	$res = get_article_words($str);
-	return $res['cn'] + $res['en'];
+	return $res['cn'] + $res['en'] + $res['code'];
 }
 function get_reading_time($len){
 	$speedcn = get_option('argon_reading_speed', 300);
 	$speeden = get_option('argon_reading_speed_en', 160);
-	$reading_time = $len['cn'] / $speedcn + $len['en'] / $speeden;
+	$speedcode = get_option('argon_reading_speed_code', 20);
+	$reading_time = $len['cn'] / $speedcn + $len['en'] / $speeden + $len['code'] / $speedcode;
 	if ($reading_time < 0.3){
 		return __("几秒读完", 'argon');
 	}
@@ -523,6 +560,9 @@ function have_catalog(){
 	}
 	if (post_password_required()){
 		return false;
+	}
+	if (is_page() && is_page_template('timeline.php')){
+		return true;
 	}
 	$content = get_post(get_the_ID()) -> post_content;
 	if (preg_match('/<h[1-6](.*?)>/',$content)){
@@ -594,6 +634,27 @@ function get_article_meta($type){
 				</div>';
 		return $res;
 	}
+}
+//获取文章字数统计和预计阅读时间
+function get_article_reading_time_meta($post_content_full){
+	$words = get_article_words($post_content_full);
+	$res = '</br><div class="post-meta-detail post-meta-detail-words">
+		<i class="fa fa-file-word-o" aria-hidden="true"></i>';
+	if ($words['code'] > 0){
+		$res .= '<span title="' . sprintf(__( '包含 %d 行代码', 'argon'), $words['code']) . '">';
+	}else{
+		$res .= '<span>';
+	}
+	$res .= ' ' . get_article_words_total($post_content_full) . " " . __("字", 'argon');
+	$res .= '</span>
+		</div>
+		<div class="post-meta-devide">|</div>
+		<div class="post-meta-detail post-meta-detail-words">
+			<i class="fa fa-hourglass-end" aria-hidden="true"></i>
+			' . get_reading_time(get_article_words($post_content_full)) . '
+		</div>
+	';
+	return $res;
 }
 //当前文章是否隐藏 阅读时间 Meta
 function is_readingtime_meta_hidden(){
@@ -723,7 +784,7 @@ function user_can_view_comment($id){
 //过滤 RSS 中悄悄话
 function remove_rss_private_comment_title_and_author($str){
 	global $comment;
-	if (is_comment_private_mode($comment -> comment_ID)){
+	if (isset($comment -> comment_ID) && is_comment_private_mode($comment -> comment_ID)){
 		return "***";
 	}
 	return $str;
@@ -871,7 +932,7 @@ function set_comment_upvotes($id){
 	return $upvotes;
 }
 function is_comment_upvoted($id){
-	$upvotedList = isset($_COOKIE['argon_comment_upvoted']) ? $_COOKIE['argon_comment_upvoted'] : '';
+	$upvotedList = $_COOKIE['argon_comment_upvoted'] ?? '';
 	if (in_array($id, explode(',', $upvotedList))){
 		return true;
 	}
@@ -891,7 +952,7 @@ function upvote_comment(){
 			'total_upvote' => 0
 		)));
 	}
-	$upvotedList = isset($_COOKIE['argon_comment_upvoted']) ? $_COOKIE['argon_comment_upvoted'] : '';
+	$upvotedList = $_COOKIE['argon_comment_upvoted'] ?? '';
 	if (in_array($ID, explode(',', $upvotedList))){
 		exit(json_encode(array(
 			'status' => 'failed',
@@ -998,6 +1059,10 @@ function argon_comment_shuoshuo_preview_format($comment, $args, $depth){
 	</li>
 	<li>
 <?php }
+function comment_author_link_filter($html){
+	return str_replace('href=', 'target="_blank" href=', $html);
+}
+add_filter('get_comment_author_link', 'comment_author_link_filter');
 //评论验证码生成 & 验证
 function get_comment_captcha_seed($refresh = false){
 	if (isset($_SESSION['captchaSeed']) && !$refresh){
@@ -1117,6 +1182,17 @@ function check_comment_captcha($comment){
 	return $comment;
 }
 add_filter('preprocess_comment' , 'check_comment_captcha');
+
+function ajax_get_captcha(){
+	if (get_option('argon_get_captcha_by_ajax', 'false') != 'true') {
+		return;
+	}
+	exit(json_encode(array(
+		'captcha' => get_comment_captcha(get_comment_captcha_seed())
+	)));
+}
+add_action('wp_ajax_get_captcha', 'ajax_get_captcha');
+add_action('wp_ajax_nopriv_get_captcha', 'ajax_get_captcha');
 //Ajax 发送评论
 function ajax_post_comment(){
 	$parentID = $_POST['comment_parent'];
@@ -1251,6 +1327,8 @@ function comment_mail_notify($comment){
 	}
 	$parentComment = get_comment($parentID);
 	$parentEmail =  $parentComment -> comment_author_email;
+	$parentName = $parentComment -> comment_author;
+	$emailTo = "$parentName <$parentEmail>";
 	if (get_comment_meta($parentID, "enable_mailnotice", true) == "true"){
 		if (check_email_address($parentEmail)){
 			$title = __("您在", 'argon') . " 「" . wp_trim_words(get_post_title_by_id($commentPostID), 20) . "」 " . __("的评论有了新的回复", 'argon');
@@ -1258,22 +1336,59 @@ function comment_mail_notify($comment){
 			$content = htmlspecialchars(get_comment_meta($id, "comment_content_source", true));
 			$link = get_permalink($commentPostID) . "#comment-" . $id;
 			$unsubscribeLink = site_url("unsubscribe-comment-mailnotice?comment=" . $parentID . "&token=" . get_comment_meta($parentID, "mailnotice_unsubscribe_key", true));
-			$html = "<div style='background: #fff;box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);border-radius: 6px;margin: 15px auto 50px auto;padding: 35px 30px;max-width: min(calc(100% - 100px), 1200px);'>
-					<div style='font-size:30px;text-align:center;margin-bottom:15px;'>" . htmlspecialchars($fullTitle)  ."</div>
-					<div style='background: rgba(0, 0, 0, .15);height: 1px;width: 300px;margin: auto;margin-bottom: 35px;'></div>
-					<div style='font-size: 18px;border-left: 4px solid rgba(0, 0, 0, .15);width: max-content;width: -moz-max-content;margin: auto;padding: 20px 30px;background: rgba(0,0,0,.08);border-radius: 6px;box-shadow: 0 2px 4px rgba(0,0,0,.075)!important;min-width: 60%;max-width: 90%;margin-bottom: 60px;'>
-						<div style='margin-bottom: 10px;'><strong><span style='color: #5e72e4;'>@" . htmlspecialchars($commentAuthor) . "</span> " . __("回复了你", 'argon') . ":</strong></div>
-						" . str_replace("\n", "<div></div>", $content) . " 
-					</div>
-					<div style='width: max-content;width: --moz-max-content;margin: auto;margin-bottom:50px;'>
-						<a href='" . $link . "' style='color: #fff;background-color: #5e72e4;border-color: #5e72e4;box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);padding: 15px 25px;font-size: 18px;border-radius: 4px;text-decoration: none;'>" . __("前往查看", 'argon') . "</a>
-					</div>
-					<div style='width: max-content;width: --moz-max-content;margin: auto;margin-bottom:30px;'>
-						<a href='" . $unsubscribeLink . "' style='color: #5e72e4;font-size: 16px;text-decoration: none;'>" . __("退订该评论的邮件提醒", 'argon') . "</a>
-					</div>
-				</div>";
+			$html = '
+					<!DOCTYPE html>
+					<html>
+						<head>
+							<meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+						</head>
+						<body>
+							<div style="background: #fff;box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);border-radius: 6px;margin: 15px auto 50px auto;padding: 35px 30px;max-width: min(calc(100% - 100px), 1200px);">
+								<div style="font-size:30px;text-align:center;margin-bottom:15px;">' . htmlspecialchars($fullTitle)  .'</div>
+								<div style="background: rgba(0, 0, 0, .15);height: 1px;width: 300px;margin: auto;margin-bottom: 35px;"></div>
+								<div style="font-size: 18px;border-left: 4px solid rgba(0, 0, 0, .15);width: max-content;width: -moz-max-content;margin: auto;padding: 20px 30px;background: rgba(0,0,0,.08);border-radius: 6px;box-shadow: 0 2px 4px rgba(0,0,0,.075)!important;min-width: 60%;max-width: 90%;margin-bottom: 40px;">
+									<div style="margin-bottom: 10px;"><strong><span style="color: #5e72e4;">@' . htmlspecialchars($commentAuthor) . '</span> ' . __('回复了你', "argon") . ':</strong></div>
+									' . str_replace('\n', '<div></div>', $content) . ' 
+								</div>
+								<table width="100%" style="border-collapse:collapse;border:none;empty-cells:show;max-width:100%;box-sizing:border-box" cellspacing="0" cellpadding="0">
+									<tbody style="box-sizing:border-box">
+										<tr style="box-sizing:border-box" align="center">
+											<td style="min-width:5px;box-sizing:border-box">
+												<table style="border-collapse:collapse;border:none;empty-cells:show;max-width:100%;box-sizing:border-box" cellspacing="0" cellpadding="0">
+													<tbody style="box-sizing:border-box">
+														<tr style="box-sizing:border-box">
+															<td style="box-sizing:border-box">
+																<a href="' . $link . '" style="display: block; line-height: 1; color: #fff;background-color: #5e72e4;border-color: #5e72e4;box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);padding: 15px 25px;font-size: 18px;border-radius: 4px;text-decoration: none; margin: 10px;">' . __('前往查看', "argon") . '</a>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<table width="100%" style="border-collapse:collapse;border:none;empty-cells:show;max-width:100%;box-sizing:border-box" cellspacing="0" cellpadding="0">
+									<tbody style="box-sizing:border-box">
+										<tr style="box-sizing:border-box" align="center">
+											<td style="min-width:5px;box-sizing:border-box">
+												<table style="border-collapse:collapse;border:none;empty-cells:show;max-width:100%;box-sizing:border-box" cellspacing="0" cellpadding="0">
+													<tbody style="box-sizing:border-box">
+														<tr style="box-sizing:border-box">
+															<td style="box-sizing:border-box">
+																<a href="' . $unsubscribeLink . '" style="display: block; line-height: 1;color: #5e72e4;font-size: 16px;text-decoration: none; margin: 10px;">' . __('退订该评论的邮件提醒', "argon") . '</a>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</body>
+					</html>';
 			$html = apply_filters("argon_comment_mail_notification_content", $html); 
-			send_mail($parentEmail, $title, $html);
+			send_mail($emailTo, $title, $html);
 		}
 	}
 }
@@ -1652,7 +1767,7 @@ function content_pagesNav($content)
 add_filter('the_content', 'content_pagesNav');
 //使用 CDN 加速 gravatar
 function gravatar_cdn($url){
-	$cdn = get_option('argon_gravatar_cdn', 'gravatar.loli.net/avatar/');
+	$cdn = get_option('argon_gravatar_cdn', 'gravatar.pho.ink/avatar/');
 	$cdn = str_replace("http://", "", $cdn);
 	$cdn = str_replace("https://", "", $cdn);
 	if (substr($cdn, -1) != '/'){
@@ -1699,7 +1814,7 @@ function set_shuoshuo_upvotes($ID){
 function upvote_shuoshuo(){
 	header('Content-Type:application/json; charset=utf-8');
 	$ID = $_POST["shuoshuo_id"];
-	$upvotedList = isset($_COOKIE['argon_shuoshuo_upvoted']) ? $_COOKIE['argon_shuoshuo_upvoted'] : '';
+	$upvotedList = $_COOKIE['argon_shuoshuo_upvoted'] ?? '';
 	if (in_array($ID, explode(',', $upvotedList))){
 		exit(json_encode(array(
 			'status' => 'failed',
@@ -1890,11 +2005,14 @@ function argon_meta_box_1(){
 		</select>
 		<h4><?php _e("显示文章过时信息", 'argon');?></h4>
 		<?php $argon_show_post_outdated_info = get_post_meta($post->ID, "argon_show_post_outdated_info", true);?>
-		<select name="argon_show_post_outdated_info" id="argon_show_post_outdated_info">
-			<option value="default" <?php if ($argon_show_post_outdated_info=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
-			<option value="always" <?php if ($argon_show_post_outdated_info=='always'){echo 'selected';} ?>><?php _e("一直显示", 'argon');?></option>
-			<option value="never" <?php if ($argon_show_post_outdated_info=='never'){echo 'selected';} ?>><?php _e("永不显示", 'argon');?></option>
-		</select>
+		<div style="display: flex;">
+			<select name="argon_show_post_outdated_info" id="argon_show_post_outdated_info">
+				<option value="default" <?php if ($argon_show_post_outdated_info=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
+				<option value="always" <?php if ($argon_show_post_outdated_info=='always'){echo 'selected';} ?>><?php _e("一直显示", 'argon');?></option>
+				<option value="never" <?php if ($argon_show_post_outdated_info=='never'){echo 'selected';} ?>><?php _e("永不显示", 'argon');?></option>
+			</select>
+			<button id="apply_show_post_outdated_info" type="button" class="components-button is-primary" style="height: 22px; display: none;"><?php _e("应用", 'argon');?></button>
+		</div>
 		<p style="margin-top: 15px;"><?php _e("单独控制该文章的过时信息显示。", 'argon');?></p>
 		<h4><?php _e("文末附加内容", 'argon');?></h4>
 		<?php $argon_after_post = get_post_meta($post->ID, "argon_after_post", true);?>
@@ -1904,6 +2022,65 @@ function argon_meta_box_1(){
 		<?php $argon_custom_css = get_post_meta($post->ID, "argon_custom_css", true);?>
 		<textarea name="argon_custom_css" id="argon_custom_css" rows="5" cols="30" style="width:100%;"><?php if (!empty($argon_custom_css)){echo $argon_custom_css;} ?></textarea>
 		<p style="margin-top: 15px;"><?php _e("给该文章添加单独的 CSS", 'argon');?></p>
+
+		<script>$ = window.jQuery;</script>
+		<script>
+			$("select[name=argon_show_post_outdated_info").change(function(){
+				$("#apply_show_post_outdated_info").css("display", "");
+			});
+			$("#apply_show_post_outdated_info").click(function(){
+				$("#apply_show_post_outdated_info").addClass("is-busy").attr("disabled", "disabled").css("opacity", "0.5");
+				$("#argon_show_post_outdated_info").attr("disabled", "disabled");
+				var data = {
+					action: 'update_post_meta_ajax',
+					argon_meta_box_nonce: $("#argon_meta_box_nonce").val(),
+					post_id: <?php echo $post->ID; ?>,
+					meta_key: 'argon_show_post_outdated_info',
+					meta_value: $("select[name=argon_show_post_outdated_info]").val()
+				};
+				$.ajax({
+					url: ajaxurl,
+					type: 'post',
+					data: data,
+					success: function(response) {
+						$("#apply_show_post_outdated_info").removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
+						$("#argon_show_post_outdated_info").removeAttr("disabled");
+						if (response.status == "failed"){
+							wp.data.dispatch("core/notices").createNotice(
+								"failed",
+								"<?php _e("应用失败", 'argon');?>",
+								{
+									type: "snackbar",
+									isDismissible: true,
+								}
+							);
+							return;
+						}
+						$("#apply_show_post_outdated_info").css("display", "none");
+						wp.data.dispatch("core/notices").createNotice(
+							"success",
+							"<?php _e("应用成功", 'argon');?>",
+							{
+								type: "snackbar",
+								isDismissible: true,
+							}
+						);
+					},
+					error: function(response) {
+						$("#apply_show_post_outdated_info").removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
+						$("#argon_show_post_outdated_info").removeAttr("disabled");
+						wp.data.dispatch("core/notices").createNotice(
+							"failed",
+							"<?php _e("应用失败", 'argon');?>",
+							{
+								type: "snackbar",
+								isDismissible: true,
+							}
+						);
+					}
+				});
+			});
+		</script>
 	<?php
 }
 function argon_add_meta_boxes(){
@@ -1939,6 +2116,40 @@ function argon_save_meta_data($post_id){
 	update_post_meta($post_id, 'argon_custom_css', $_POST['argon_custom_css']);
 }
 add_action('save_post', 'argon_save_meta_data');
+function update_post_meta_ajax(){
+	if (!isset($_POST['argon_meta_box_nonce'])){
+		return;
+	}
+	$nonce = $_POST['argon_meta_box_nonce'];
+	if (!wp_verify_nonce($nonce, 'argon_meta_box_nonce_action')){
+		return;
+	}
+	header('Content-Type:application/json; charset=utf-8');
+	$post_id = intval($_POST["post_id"]);
+	$meta_key = $_POST["meta_key"];
+	$meta_value = $_POST["meta_value"];
+
+	if (get_post_meta($post_id, $meta_key, true) == $meta_value){
+		exit(json_encode(array(
+			'status' => 'success'
+		)));
+		return;
+	}
+
+	$result = update_post_meta($post_id, $meta_key, $meta_value);
+
+	if ($result){
+		exit(json_encode(array(
+			'status' => 'success'
+		)));
+	}else{
+		exit(json_encode(array(
+			'status' => 'failed'
+		)));
+	}
+}
+add_action('wp_ajax_update_post_meta_ajax' , 'update_post_meta_ajax');
+add_action('wp_ajax_nopriv_update_post_meta_ajax' , 'update_post_meta_ajax');
 //首页显示说说
 function argon_home_add_post_type_shuoshuo($query){
 	if (is_home() && $query -> is_main_query()){
@@ -2042,11 +2253,8 @@ function shortcode_br($attr,$content=""){
 add_shortcode('label','shortcode_label');
 function shortcode_label($attr,$content=""){
 	$out = "<span class='badge";
-	$color = isset($attr['color']) ? $attr['color'] : 'indigo';
+	$color = $attr['color'] ?? 'indigo';
 	switch ($color){
-		case 'indigo':
-			$out .= " badge-primary";
-			break;
 		case 'green':
 			$out .= " badge-success";
 			break;
@@ -2059,11 +2267,12 @@ function shortcode_label($attr,$content=""){
 		case 'blue':
 			$out .= " badge-info";
 			break;
+		case 'indigo':
 		default:
 			$out .= " badge-primary";
 			break;
 	}
-	$shape = isset($attr['shape']) ? $attr['shape'] : 'square';
+	$shape = $attr['shape'] ?? 'square';
 	if ($shape=="round"){
 		$out .= " badge-pill";
 	}
@@ -2076,10 +2285,10 @@ function shortcode_progressbar($attr,$content=""){
 	if ($content != ""){
 		$out .= "<div class='progress-label'><span>" . $content . "</span></div>";
 	}
-	$progress = isset($attr['progress']) ? $attr['progress'] : 100;
+	$progress = $attr['progress'] ?? 100;
 	$out .= "<div class='progress-percentage'><span>" . $progress . "%</span></div>";
 	$out .= "</div><div class='progress'><div class='progress-bar";
-	$color = isset($attr['color']) ? $attr['color'] : 'indigo';
+	$color = $attr['color'] ?? 'indigo';
 	switch ($color){
 		case 'indigo':
 			$out .= " bg-primary";
@@ -2105,7 +2314,7 @@ function shortcode_progressbar($attr,$content=""){
 }
 add_shortcode('checkbox','shortcode_checkbox');
 function shortcode_checkbox($attr,$content=""){
-	$checked = isset($attr['checked']) ? $attr['checked'] : 'false';
+	$checked = $attr['checked'] ?? 'false';
 	$inline = isset($attr['inline']) ? $attr['checked'] : 'false';
 	$out = "<div class='shortcode-todo custom-control custom-checkbox";
 	if ($inline == 'true'){
@@ -2122,7 +2331,7 @@ function shortcode_checkbox($attr,$content=""){
 add_shortcode('alert','shortcode_alert');
 function shortcode_alert($attr,$content=""){
 	$out = "<div class='alert";
-	$color = isset($attr['color']) ? $attr['color'] : 'indigo';
+	$color = $attr['color'] ?? 'indigo';
 	switch ($color){
 		case 'indigo':
 			$out .= " alert-primary";
@@ -2160,7 +2369,7 @@ function shortcode_alert($attr,$content=""){
 add_shortcode('admonition','shortcode_admonition');
 function shortcode_admonition($attr,$content=""){
 	$out = "<div class='admonition shadow-sm";
-	$color = isset($attr['color']) ? $attr['color'] : 'indigo';
+	$color = $attr['color'] ?? 'indigo';
 	switch ($color){
 		case 'indigo':
 			$out .= " admonition-primary";
@@ -2204,11 +2413,11 @@ function shortcode_admonition($attr,$content=""){
 add_shortcode('collapse','shortcode_collapse_block');
 add_shortcode('fold','shortcode_collapse_block');
 function shortcode_collapse_block($attr,$content=""){
-	$collapsed = isset($attr['collapsed']) ? $attr['collapsed'] : 'true';
-	$show_border_left = isset($attr['showleftborder']) ? $attr['showleftborder'] : 'false';
+	$collapsed = $attr['collapsed'] ?? 'true';
+	$show_border_left = $attr['showleftborder'] ?? 'false';
 	$out = "<div " ;
 	$out .= " class='collapse-block shadow-sm";
-	$color = isset($attr['color']) ? $attr['color'] : 'none';
+	$color = $attr['color'] ?? 'none';
 	switch ($color){
 		case 'indigo':
 			$out .= " collapse-block-primary";
@@ -2232,8 +2441,6 @@ function shortcode_collapse_block($attr,$content=""){
 			$out .= " collapse-block-grey";
 			break;
 		case 'none':
-			$out .= " collapse-block-transparent";
-			break;
 		default:
 			$out .= " collapse-block-transparent";
 			break;
@@ -2262,13 +2469,13 @@ function shortcode_collapse_block($attr,$content=""){
 }
 add_shortcode('friendlinks','shortcode_friend_link');
 function shortcode_friend_link($attr,$content=""){
-	$sort = isset($attr['sort']) ? $attr['sort'] : 'name';
-	$order = isset($attr['order']) ? $attr['order'] : 'ASC';
+	$sort = $attr['sort'] ?? 'name';
+	$order = $attr['order'] ?? 'ASC';
 	$friendlinks = get_bookmarks( array(
 		'orderby' => $sort ,
 		'order'   => $order
 	));
-	$style = isset($attr['style']) ? $attr['style'] : '1';
+	$style = $attr['style'] ?? '1';
 	switch ($style) {
 		case '1':
 			$class = "friend-links-style1";
@@ -2323,7 +2530,7 @@ function shortcode_friend_link_simple($attr,$content=""){
 	$content = trim(strip_tags($content));
 	$entries = explode("\n" , $content);
 
-	$shuffle = isset($attr['shuffle']) ? $attr['shuffle'] : 'false';
+	$shuffle = $attr['shuffle'] ?? 'false';
 	if ($shuffle == "true"){
 		mt_srand();
 		$group_start = 0;
@@ -2438,8 +2645,8 @@ add_shortcode('hidden','shortcode_hidden');
 add_shortcode('spoiler','shortcode_hidden');
 function shortcode_hidden($attr,$content=""){
 	$out = "<span class='argon-hidden-text";
-	$tip = isset($attr['tip']) ? $attr['tip'] : '';
-	$type = isset($attr['type']) ? $attr['type'] : 'blur';
+	$tip = $attr['tip'] ?? '';
+	$type = $attr['type'] ?? 'blur';
 	if ($type == "background"){
 		$out .= " argon-hidden-text-background";
 	}else{
@@ -2455,10 +2662,10 @@ function shortcode_hidden($attr,$content=""){
 add_shortcode('github','shortcode_github');
 function shortcode_github($attr,$content=""){
 	$github_info_card_id = mt_rand(1000000000 , 9999999999);
-	$author = isset($attr['author']) ? $attr['author'] : '';
-	$project = isset($attr['project']) ? $attr['project'] : '';
-	$getdata = isset($attr['getdata']) ? $attr['getdata'] : 'frontend';
-	$size = isset($attr['size']) ? $attr['size'] : 'full';
+	$author = $attr['author'] ?? '';
+	$project = $attr['project'] ?? '';
+	$getdata = $attr['getdata'] ?? 'frontend';
+	$size = $attr['size'] ?? 'full';
 
 	$description = "";
 	$stars = "";
@@ -2524,11 +2731,11 @@ function shortcode_github($attr,$content=""){
 }
 add_shortcode('video','shortcode_video');
 function shortcode_video($attr,$content=""){
-	$url = isset($attr['mp4']) ? $attr['mp4'] : '';
-	$url = isset($attr['url']) ? $attr['url'] : $url;
-	$width = isset($attr['width']) ? $attr['width'] : '';
-	$height = isset($attr['height']) ? $attr['height'] : '';
-	$autoplay = isset($attr['autoplay']) ? $attr['autoplay'] : 'false';
+	$url = $attr['mp4'] ?? '';
+	$url = $attr['url'] ?? $url;
+	$width = $attr['width'] ?? '';
+	$height = $attr['height'] ?? '';
+	$autoplay = $attr['autoplay'] ?? 'false';
 	$out = "<video";
 	if ($width != ''){
 		$out .= " width='" . $width . "'";
@@ -2550,12 +2757,12 @@ function shortcode_hide_reading_time($attr,$content=""){
 }
 add_shortcode('post_time','shortcode_post_time');
 function shortcode_post_time($attr,$content=""){
-	$format = isset($attr['format']) ? $attr['format'] : 'Y-n-d G:i:s';
+	$format = $attr['format'] ?? 'Y-n-d G:i:s';
 	return get_the_time($format);
 }
 add_shortcode('post_modified_time','shortcode_post_modified_time');
 function shortcode_post_modified_time($attr,$content=""){
-	$format = isset($attr['format']) ? $attr['format'] : 'Y-n-d G:i:s';
+	$format = $attr['format'] ?? 'Y-n-d G:i:s';
 	return get_the_modified_time($format);
 }
 add_shortcode('noshortcode','shortcode_noshortcode');
@@ -2692,6 +2899,7 @@ function themeoptions_page(){
 ?>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/jquery/jquery.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/headindex/headindex.js"></script>
+	<script>!function(n){"function"==typeof define&&define.amd?define(["jquery"],function(e){return n(e)}):"object"==typeof module&&"object"==typeof module.exports?module.exports=n(require("jquery")):n(jQuery)}(function(n){function e(n){var e=7.5625,t=2.75;return n<1/t?e*n*n:n<2/t?e*(n-=1.5/t)*n+.75:n<2.5/t?e*(n-=2.25/t)*n+.9375:e*(n-=2.625/t)*n+.984375}void 0!==n.easing&&(n.easing.jswing=n.easing.swing);var t=Math.pow,u=Math.sqrt,r=Math.sin,i=Math.cos,a=Math.PI,o=1.70158,c=1.525*o,s=2*a/3,f=2*a/4.5;return n.extend(n.easing,{def:"easeOutQuad",swing:function(e){return n.easing[n.easing.def](e)},easeInQuad:function(n){return n*n},easeOutQuad:function(n){return 1-(1-n)*(1-n)},easeInOutQuad:function(n){return n<.5?2*n*n:1-t(-2*n+2,2)/2},easeInCubic:function(n){return n*n*n},easeOutCubic:function(n){return 1-t(1-n,3)},easeInOutCubic:function(n){return n<.5?4*n*n*n:1-t(-2*n+2,3)/2},easeInQuart:function(n){return n*n*n*n},easeOutQuart:function(n){return 1-t(1-n,4)},easeInOutQuart:function(n){return n<.5?8*n*n*n*n:1-t(-2*n+2,4)/2},easeInQuint:function(n){return n*n*n*n*n},easeOutQuint:function(n){return 1-t(1-n,5)},easeInOutQuint:function(n){return n<.5?16*n*n*n*n*n:1-t(-2*n+2,5)/2},easeInSine:function(n){return 1-i(n*a/2)},easeOutSine:function(n){return r(n*a/2)},easeInOutSine:function(n){return-(i(a*n)-1)/2},easeInExpo:function(n){return 0===n?0:t(2,10*n-10)},easeOutExpo:function(n){return 1===n?1:1-t(2,-10*n)},easeInOutExpo:function(n){return 0===n?0:1===n?1:n<.5?t(2,20*n-10)/2:(2-t(2,-20*n+10))/2},easeInCirc:function(n){return 1-u(1-t(n,2))},easeOutCirc:function(n){return u(1-t(n-1,2))},easeInOutCirc:function(n){return n<.5?(1-u(1-t(2*n,2)))/2:(u(1-t(-2*n+2,2))+1)/2},easeInElastic:function(n){return 0===n?0:1===n?1:-t(2,10*n-10)*r((10*n-10.75)*s)},easeOutElastic:function(n){return 0===n?0:1===n?1:t(2,-10*n)*r((10*n-.75)*s)+1},easeInOutElastic:function(n){return 0===n?0:1===n?1:n<.5?-t(2,20*n-10)*r((20*n-11.125)*f)/2:t(2,-20*n+10)*r((20*n-11.125)*f)/2+1},easeInBack:function(n){return 2.70158*n*n*n-o*n*n},easeOutBack:function(n){return 1+2.70158*t(n-1,3)+o*t(n-1,2)},easeInOutBack:function(n){return n<.5?t(2*n,2)*(7.189819*n-c)/2:(t(2*n-2,2)*((c+1)*(2*n-2)+c)+2)/2},easeInBounce:function(n){return 1-e(1-n)},easeOutBounce:e,easeInOutBounce:function(n){return n<.5?(1-e(1-2*n))/2:(1+e(2*n-1))/2}}),n});</script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/dragula/dragula.min.js"></script>
 	<div>
 		<style type="text/css">
@@ -2953,6 +3161,7 @@ function themeoptions_page(){
 								<option value="default" <?php if ($argon_assets_path=='default'){echo 'selected';} ?>><?php _e('不使用', 'argon');?></option>
 								<option value="jsdelivr" <?php if ($argon_assets_path=='jsdelivr'){echo 'selected';} ?>>jsdelivr</option>
 								<option value="fastgit" <?php if ($argon_assets_path=='fastgit'){echo 'selected';} ?>>fastgit</option>
+								<option value="sourcestorage" <?php if ($argon_assets_path=='sourcestorage'){echo 'selected';} ?>>Source Storage</option>
 							</select>
 							<p class="description"><?php _e('选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。', 'argon');?></p>
 						</td>
@@ -3186,6 +3395,13 @@ function themeoptions_page(){
 							<p class="description"><?php _e('需带上 http(s) 开头', 'argon');?></p>
 						</td>
 					</tr>
+					<tr>
+						<th><label><?php _e('左侧栏作者简介', 'argon');?></label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_sidebar_author_description" value="<?php echo get_option('argon_sidebar_author_description'); ?>"/>
+							<p class="description"><?php _e('留空则不显示', 'argon');?></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h2><?php _e('博客公告', 'argon');?></h2></th></tr>
 					<tr>
 						<th><label><?php _e('公告内容', 'argon');?></label></th>
@@ -3349,6 +3565,13 @@ function themeoptions_page(){
 						<td>
 							<input type="number" name="argon_reading_speed_en" min="1" max="5000"  value="<?php echo (get_option('argon_reading_speed_en') == '' ? '160' : get_option('argon_reading_speed_en')); ?>"/>
 							<?php _e('单词/分钟', 'argon');?>
+						</td>
+					</tr>
+					<tr>
+						<th><label><?php _e('每分钟阅读代码行数', 'argon');?></label></th>
+						<td>
+							<input type="number" name="argon_reading_speed_code" min="1" max="5000"  value="<?php echo (get_option('argon_reading_speed_code') == '' ? '20' : get_option('argon_reading_speed_code')); ?>"/>
+							<?php _e('行/分钟', 'argon');?>
 							<p class="description"><?php _e('预计阅读时间由每分钟阅读字数计算', 'argon');?></p>
 						</td>
 					</tr>
@@ -3541,6 +3764,33 @@ function themeoptions_page(){
 							</br>
 							<textarea type="text" name="argon_outdated_info_tip_content" rows="3" cols="100" style="margin-top: 15px;"><?php echo get_option('argon_outdated_info_tip_content') == '' ? __('本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。', 'argpm') : get_option('argon_outdated_info_tip_content'); ?></textarea>
 							<p class="description"><?php _e('天数为 -1 表示永不提示。', 'argon');?></br><code>%date_delta%</code> <?php _e('表示文章发布/修改时间与当前时间的差距，', 'argon');?><code>%post_date_delta%</code> <?php _e('表示文章发布时间与当前时间的差距，', 'argon');?><code>%modify_date_delta%</code> <?php _e('表示文章修改时间与当前时间的差距（单位: 天）。', 'argon');?></p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h2><?php _e('归档页面', 'argon');?></h2></th></tr>
+					<tr>
+						<th><label><?php _e('介绍', 'argon');?></label></th>
+						<td>
+							<p class="description"><?php _e('新建一个页面，并将其模板设为 "归档时间轴"，即可创建一个归档页面。归档页面会按照时间顺序在时间轴上列出博客的所有文章。', 'argon');?></p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h3><?php _e('外观', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('在时间轴上显示月份', 'argon');?></label></th>
+						<td>
+							<select name="argon_archives_timeline_show_month">
+								<?php $argon_archives_timeline_show_month = get_option('argon_archives_timeline_show_month'); ?>
+								<option value="true" <?php if ($argon_archives_timeline_show_month=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>
+								<option value="false" <?php if ($argon_archives_timeline_show_month=='false'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('关闭后，时间轴只会按年份分节', 'argon');?></p>
+						</td>
+					</tr>
+					<tr><th class="subtitle"><h3><?php _e('配置', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('归档页面链接', 'argon');?></label></th>
+						<td>
+							<input type="text" class="regular-text" name="argon_archives_timeline_url" value="<?php echo get_option('argon_archives_timeline_url'); ?>"/>
+							<p class="description"><?php _e('归档页面的 URL。点击左侧栏 "博客概览" 中的 "博文总数" 一栏时可跳转到该地址。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('页脚', 'argon');?></h2></th></tr>
@@ -3912,6 +4162,17 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('使用 Ajax 获取评论验证码', 'argon');?></label></th>
+						<td>
+							<select name="argon_get_captcha_by_ajax">
+								<?php $argon_get_captcha_by_ajax = get_option('argon_get_captcha_by_ajax'); ?>
+								<option value="false" <?php if ($argon_get_captcha_by_ajax=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+								<option value="true" <?php if ($argon_get_captcha_by_ajax=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('如果使用了 CDN 缓存，验证码不会刷新，请开启此选项，否则请不要开启。', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('是否允许在评论中使用 Markdown 语法', 'argon');?></label></th>
 						<td>
 							<select name="argon_comment_allow_markdown">
@@ -4037,7 +4298,7 @@ window.pjaxLoaded = function(){
 						<th><label>Gravatar CDN</label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_gravatar_cdn" value="<?php echo get_option('argon_gravatar_cdn' , ''); ?>"/>
-							<p class="description"><?php _e('使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。', 'argon');?></br><?php _e('在中国速度较快的一些 CDN :', 'argon');?><code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">gravatar.loli.net/avatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">cdn.v2ex.com/gravatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">dn-qiniu-avatar.qbox.me/avatar/</code></p>
+							<p class="description"><?php _e('使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。', 'argon');?></br><?php _e('在中国速度较快的一些 CDN :', 'argon');?><code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">gravatar.pho.ink/avatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">cdn.v2ex.com/gravatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">dn-qiniu-avatar.qbox.me/avatar/</code></p>
 						</td>
 					</tr>
 					<tr>
@@ -4122,6 +4383,30 @@ window.pjaxLoaded = function(){
 								<option value="true" <?php if ($argon_home_show_shuoshuo=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('开启后，博客首页文章和说说穿插显示', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label><?php _e('折叠长说说', 'argon');?></label></th>
+						<td>
+							<select name="argon_fold_long_shuoshuo">
+								<?php $argon_fold_long_shuoshuo = get_option('argon_fold_long_shuoshuo'); ?>
+								<option value="false" <?php if ($argon_fold_long_shuoshuo=='false'){echo 'selected';} ?>><?php _e('不折叠', 'argon');?></option>
+								<option value="true" <?php if ($argon_fold_long_shuoshuo=='true'){echo 'selected';} ?>><?php _e('折叠', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('开启后，长说说在预览状态下会被折叠，需要手动展开', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label><?php _e('搜索结果类型过滤器', 'argon');?></label></th>
+						<td>
+							<select name="argon_search_post_filter">
+								<?php $argon_search_post_filter = get_option('argon_search_post_filter', 'post,page'); ?>
+								<option value="off" <?php if ($argon_search_post_filter=='off'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+								<option value="post,page" <?php if ($argon_search_post_filter=='post,page'){echo 'selected';} ?>><?php _e('启用，默认不包括说说', 'argon');?></option>
+								<option value="post,page,shuoshuo" <?php if ($argon_search_post_filter=='post,page,shuoshuo'){echo 'selected';} ?>><?php _e('启用，默认包括说说', 'argon');?></option>
+								<option value="post,page,hide_shuoshuo" <?php if ($argon_search_post_filter=='post,page,hide_shuoshuo'){echo 'selected';} ?>><?php _e('启用，隐藏说说分类', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('开启后，将会在搜索结果界面显示一个过滤器，支持搜索说说', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -4522,6 +4807,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_sidebar_banner_subtitle');
 		argon_update_option('argon_sidebar_auther_name');
 		argon_update_option('argon_sidebar_auther_image');
+		argon_update_option('argon_sidebar_author_description');
 		argon_update_option('argon_banner_title');
 		argon_update_option('argon_banner_subtitle');
 		argon_update_option('argon_banner_background_url');
@@ -4533,6 +4819,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_show_readingtime');
 		argon_update_option('argon_reading_speed');
 		argon_update_option('argon_reading_speed_en');
+		argon_update_option('argon_reading_speed_code');
 		argon_update_option('argon_show_sharebtn');
 		argon_update_option('argon_enable_timezone_fix');
 		argon_update_option('argon_donate_qrcode_url');
@@ -4556,6 +4843,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_page_background_banner_style');
 		argon_update_option('argon_hide_name_email_site_input');
 		argon_update_option('argon_comment_need_captcha');
+		argon_update_option('argon_get_captcha_by_ajax');
 		argon_update_option('argon_hide_footer_author');
 		argon_update_option('argon_card_radius');
 		argon_update_option('argon_comment_avatar_vcenter');
@@ -4568,6 +4856,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_comment_pagination_type');
 		argon_update_option('argon_who_can_visit_comment_edit_history');
 		argon_update_option('argon_home_show_shuoshuo');
+		argon_update_option('argon_search_post_filter');
 		argon_update_option('argon_darkmode_autoswitch');
 		argon_update_option('argon_enable_amoled_dark');
 		argon_update_option('argon_outdated_info_time_type');
@@ -4595,6 +4884,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_hide_categories');
 		argon_update_option('argon_article_meta');
 		argon_update_option('argon_fold_long_comments');
+		argon_update_option('argon_fold_long_shuoshuo');
 		argon_update_option('argon_first_image_as_thumbnail_by_default');
 		argon_update_option('argon_enable_headroom');
 		argon_update_option('argon_comment_emotion_keyboard');
@@ -4613,6 +4903,8 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_article_list_waterflow');
 		argon_update_option('argon_banner_size');
 		argon_update_option('argon_toolbar_blur');
+		argon_update_option('argon_archives_timeline_show_month');
+		argon_update_option('argon_archives_timeline_url');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');
@@ -4695,6 +4987,40 @@ function init_shuoshuo(){
 	);
 	register_post_type('shuoshuo', $args);
 }
+
+function argon_get_search_post_type_array(){
+	$search_filter_option = get_option('argon_search_post_filter', 'post,page');
+	if (!isset($_GET['post_type'])) {
+		if ($search_filter_option == 'off'){
+			return array('post', 'page');
+		}
+		$default = explode(',', $search_filter_option);
+		return $default;
+	}
+	$post_type = $_GET['post_type'];
+	$arr = array();
+	if (strpos($post_type, 'post') !== false) {
+		array_push($arr, 'post');
+	}
+	if (strpos($post_type, 'page') !== false) {
+		array_push($arr, 'page');
+	}
+	if (strpos($post_type, 'shuoshuo') !== false && !in_array('hide_shuoshuo', explode(',', $search_filter_option))) {
+		array_push($arr, 'shuoshuo');
+	}
+	if (count($arr) == 0) {
+		array_push($arr, 'none');
+	}
+	return $arr;
+}
+function search_filter($query) {
+	if (!$query -> is_search) {
+		return $query;
+	}
+	$query -> set('post_type', argon_get_search_post_type_array());
+	return $query;
+}
+add_filter('pre_get_posts', 'search_filter');
 
 /*恢复链接管理器*/
 add_filter('pre_option_link_manager_enabled', '__return_true');

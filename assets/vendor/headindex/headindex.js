@@ -57,7 +57,7 @@
                         }
                         manualValTimer = setTimeout(function () {
                             that.manual = false;
-                        }, 300);
+                        }, 400);
                         that.current(indexItem);
 
                         //滚动到当前的标题
@@ -157,12 +157,12 @@
                     }
                     this.indexScrollBox.stop().animate({
                         scrollTop: target
-                    }, 'fast');
+                    }, 'normal');
                 }
                 if (relativeOffsetTopToWrapper > indexScrollBoxHeight - 10){
                     this.indexScrollBox.stop().animate({
                         scrollTop: indexScrollBoxScrollTop + relativeOffsetTopToWrapper - indexScrollBoxHeight + 10 + indexItem.height()
-                    }, 'fast');
+                    }, 'normal');
                 }
             },
 
@@ -275,8 +275,8 @@
              */
             scrollTo: function (eid) {
                 this.scrollBody.stop().animate({
-                    scrollTop: this.offsetTop(document.getElementById(eid.substr(1)))
-                }, 'fast');
+                    scrollTop: this.offsetTop(document.getElementById(eid.substr(1))) + 8
+                }, 'normal', 'easeOutExpo');
             },
             /**
              * 更新当前位置

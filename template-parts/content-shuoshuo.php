@@ -17,7 +17,7 @@
 			</div>
 		<?php endif; ?>
 	</div>
-	<article class="card shuoshuo-main bg-white shadow-sm border-0" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+	<article class="card shuoshuo-main shuoshuo-foldable bg-white shadow-sm border-0" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<?php if ( get_the_title() != '' ) : ?>
 			<a class="shuoshuo-title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 		<?php endif; ?>
