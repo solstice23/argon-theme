@@ -2360,7 +2360,7 @@ function shortcode_collapse_block($attr,$content=""){
 	$out = "<div " ;
 	$out .= " class='collapse-block shadow-sm";
 	$color = $attr['color'] ?? 'none';
-	$title = $attr['title'] ?? 'untitled';
+	$title = $attr['title'] ?? '';
 	switch ($color){
 		case 'indigo':
 			$out .= " collapse-block-primary";
