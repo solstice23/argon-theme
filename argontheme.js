@@ -6,17 +6,17 @@ if (typeof(argonConfig.wp_path) == "undefined"){
 }
 /*Cookies 操作*/
 function setCookie(cname, cvalue, exdays) {
-	var d = new Date();
-	d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	var expires = "expires="+ d.toUTCString();
+	let d = new Date();
+	d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+	let expires = "expires=" + d.toUTCString();
 	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 function getCookie(cname) {
-	var name = cname + "=";
-	var decodedCookie = decodeURIComponent(document.cookie);
-	var ca = decodedCookie.split(';');
-	for(var i = 0; i <ca.length; i++) {
-		var c = ca[i];
+	let name = cname + "=";
+	let decodedCookie = decodeURIComponent(document.cookie);
+	let ca = decodedCookie.split(';');
+	for (let i = 0; i < ca.length; i++) {
+		let c = ca[i];
 		while (c.charAt(0) == ' ') {
 			c = c.substring(1);
 		}
@@ -50,7 +50,6 @@ translation['en_US'] = {
 	"您的评论已发送": "Your comment has been sent",
 	"评论": "Comments",
 	"未知原因": "Unknown Error",
-	"评论内容不能为空": "Comment content cannot be empty",
 	"编辑中": "Editing",
 	"正在编辑": "Editing",
 	"评论正在编辑中...": "Comment is being edited...",
@@ -107,7 +106,6 @@ translation['ru_RU'] = {
 	"您的评论已发送": "Ваш комментарий был отправлен",
 	"评论": "Комментарии",
 	"未知原因": "Неизвестная ошибка",
-	"评论内容不能为空": "Содержимое комментария не может быть пустым",
 	"编辑中": "Редактируется",
 	"正在编辑": "Редактируется",
 	"评论正在编辑中...": "Комментарий редактируется",
@@ -164,7 +162,6 @@ translation['zh_TW'] = {
 	"您的评论已发送": "您的評論已發送",
 	"评论": "評論",
 	"未知原因": "未知原因",
-	"评论内容不能为空": "評論內容不能為空",
 	"编辑中": "編輯中",
 	"正在编辑": "正在編輯",
 	"评论正在编辑中...": "評論正在編輯中...",
@@ -857,32 +854,29 @@ if (argonConfig.waterflow_columns != "1") {
 
 	//发送评论
 	function postComment(){
-		commentContent = $("#post_comment_content").val();
-		commentName = $("#post_comment_name").val();
-		commentEmail = $("#post_comment_email").val();
-		commentLink = $("#post_comment_link").val();
-		commentCaptcha = $("#post_comment_captcha").val();
+		let commentContent = $("#post_comment_content").val();
+		let commentName = $("#post_comment_name").val();
+		let commentEmail = $("#post_comment_email").val();
+		let commentLink = $("#post_comment_link").val();
+		let commentCaptcha = $("#post_comment_captcha").val();
+		let useMarkdown = false;
+		let privateMode = false;
+		let mailNotice = false;
 		if ($("#comment_post_use_markdown").length > 0){
 			useMarkdown = $("#comment_post_use_markdown")[0].checked;
-		}else{
-			useMarkdown = false;
 		}
 		if ($("#comment_post_privatemode").length > 0){
 			privateMode = $("#comment_post_privatemode")[0].checked;
-		}else{
-			privateMode = false;
 		}
 		if ($("#comment_post_mailnotice").length > 0){
 			mailNotice = $("#comment_post_mailnotice")[0].checked;
-		}else{
-			mailNotice = false;
 		}
 
-		postID = $("#post_comment_post_id").val();
-		commentCaptchaSeed = $("#post_comment_captcha_seed").val();
+		let postID = $("#post_comment_post_id").val();
+		let commentCaptchaSeed = $("#post_comment_captcha_seed").val();
 
-		isError = false;
-		errorMsg = "";
+		let isError = false;
+		let errorMsg = "";
 
 		//检查表单合法性
 		if (commentContent.match(/^\s*$/)){
@@ -1117,9 +1111,9 @@ if (argonConfig.waterflow_columns != "1") {
 	}
 	//编辑评论
 	function editComment(){
-		commentContent = $("#post_comment_content").val();
-		isError = false;
-		errorMsg = "";
+		let commentContent = $("#post_comment_content").val();
+		let isError = false;
+		let errorMsg = "";
 		if (commentContent.match(/^\s*$/)){
 			isError = true;
 			errorMsg += __("评论内容不能为空") + "</br>";
@@ -1565,8 +1559,7 @@ function getHash(url){
 }
 !function(){
 	$(window).on("hashchange" , function(){
-		hash = window.location.hash;
-		gotoHash(hash);
+		gotoHash(window.location.hash);
 	});
 	$(window).trigger("hashchange");
 }();
