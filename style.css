@@ -1004,6 +1004,15 @@ html.darkmode .sidebar-tab-switcher > a.active {
 	border-bottom: 1px solid var(--themecolor-light);
 }
 
+#leftbar_overview_author_image{
+	width: 100px;
+	height: 100px;
+	margin: auto;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color: rgba(127, 127, 127, 0.1);
+}
 #leftbar_overview_author_name {
 	margin-top: 15px;
 	font-size: 18px;
@@ -1989,11 +1998,11 @@ html.darkmode.amoled-dark .tippy-box[data-theme~="light"] > .tippy-svg-arrow {
 	margin-top: 0px;
 }
 .search-filter-wrapper {
-    display: inline-block;
-    margin-right: 12px;
+	display: inline-block;
+	margin-right: 12px;
 }
 .search-filter-wrapper > .custom-control-label {
-    line-height: 25px;
+	line-height: 25px;
 }
 
 /*文章导航 (上/下一篇文章)*/
