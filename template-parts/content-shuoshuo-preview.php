@@ -24,6 +24,24 @@
 				<?php _e('置顶', 'argon');?>
 			</div>
 		<?php endif; ?>
+		<?php 
+			$upvote_count = get_shuoshuo_upvotes(get_the_ID());
+			$comment_count = get_post(get_the_ID()) -> comment_count;
+		?>
+		<?php if ( $upvote_count > 0 ) : ?>
+			<div class="post-meta-devide">|</div>
+			<div class="post-meta-detail post-meta-detail-words">
+				<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+				<?php echo $upvote_count; ?>
+			</div>
+		<?php endif; ?>
+		<?php if ( $comment_count > 0 ) : ?>
+			<div class="post-meta-devide">|</div>
+			<div class="post-meta-detail post-meta-detail-words">
+				<i class="fa fa-comments-o" aria-hidden="true"></i>
+				<?php echo $comment_count; ?>
+			</div>
+		<?php endif; ?>
 	</div>		
 	<a class="shuoshuo-preview-link btn btn-outline-primary btn-icon-only rounded-circle" type="button" href="<?php the_permalink(); ?>">
 		<span class="btn-inner--icon"><i class="fa fa-arrow-right"></i></span>
