@@ -4536,6 +4536,9 @@ html.darkmode a {
 html.darkmode a:hover {
 	color: var(--themecolor);
 }
+html.darkmode hr {
+	border-top-color: rgba(255, 255, 255, .15);
+}
 
 html.darkmode ::-webkit-scrollbar {
 	background-color: rgba(255, 255, 255, 0);
