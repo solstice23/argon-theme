@@ -1,9 +1,14 @@
 <?php
 	require(preg_replace('/wp-content(.*?)$/', '', dirname( __FILE__ )) . 'wp-blog-header.php');
 	header('HTTP/1.1 200 OK');
-	$id = $_GET['comment'];
-	$token = $_GET['token'];
-	if (get_comment($id) == null){
+	$id = intval($_GET['comment'] ?? -1);
+	$token = $_GET['token'] ?? "";
+	if ($id == -1) {
+		$page_title = __('参数错误', 'argon');
+		$title = "<i class='fa fa-close' style='color: #f5365c;margin-right: 12px;'></i>" . __("错误", 'argon');
+		$info = __("提供的参数错误", 'argon');
+	}
+	else if (get_comment($id) == null){
 		$page_title = __('评论不存在', 'argon');
 		$title = "<i class='fa fa-close' style='color: #f5365c;margin-right: 12px;'></i>" . __("错误", 'argon');
 		$info = __("评论 #", 'argon') . $id . __(" 不存在", 'argon');
