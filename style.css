@@ -89,6 +89,12 @@ article img,
 	max-width: 100%;
 	height: auto;
 }
+.shuoshuo-preview-container img {
+	border-radius: var(--card-radius);
+}
+.shuoshuo-preview-container p + p > img:first-child {
+	margin-top: 12px;
+}
 article .wp-block-image figcaption,
 .shuoshuo-preview-container .wp-block-image figcaption {
 	text-align: center;
