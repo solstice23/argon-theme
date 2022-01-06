@@ -71,7 +71,7 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 # 更新日志
 
 ## 20220106 v1.2.10
-+ 新增通过 Ajax 获取验证码以绕过 CDN 缓存
++ 新增通过 Ajax 获取验证码以绕过 CDN 缓存选项
 + 说说预览显示赞数和评论数，优化折叠样式
 + 修复编辑器某些功能的失效
 + 修复评论提醒邮件格式错误
