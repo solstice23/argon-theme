@@ -378,11 +378,10 @@ function get_seo_description(){
 	global $post;
 	if (is_single() || is_page()){
 		if (get_the_excerpt() != ""){
-			return get_the_excerpt();
+			return preg_replace('/ \[&hellip;\]$/', '&hellip;', get_the_excerpt());
 		}
 		if (!post_password_required()){
-			return
-			htmlspecialchars(mb_substr(str_replace("\n", '', strip_tags($post -> post_content)), 0, 50)) . "...";
+			return htmlspecialchars(mb_substr(str_replace("\n", '', strip_tags($post -> post_content)), 0, 50)) . "...";
 		}else{
 			return __("这是一个加密页面，需要密码来查看", 'argon');
 		}
