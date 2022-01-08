@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<head>
+      <script src="https://kit.fontawesome.com/eab0d719f8.js" crossorigin="anonymous"></script>
+</head>
 <?php
 	$htmlclasses = "";
 	if (get_option('argon_page_layout') == "single"){
