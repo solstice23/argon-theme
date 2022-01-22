@@ -4975,3 +4975,34 @@ function argon_login_page_style() {
 if (get_option('argon_enable_login_css') == 'true'){
 	add_action('login_head', 'argon_login_page_style');
 }
+/*评论可见*/
+function reply_read($atts, $content=null) {
+    extract(shortcode_atts(array("notice" => '[admonition icon="key" title="隐藏资源" color="indigo"]此处内容需要 <a href="#post_comment_content" title="评论本文">评论本文</a> 后才能查看, 评论后请刷新本页面.[/admonition]'), $atts));
+    $email = null;
+    $user_ID = (int) wp_get_current_user()->ID;
+    if ($user_ID > 0) {
+        $email = get_userdata($user_ID)->user_email;
+        if ( current_user_can('level_10') ) {
+            return do_shortcode( $content );
+        }
+        if ($email == $admin_email) {
+            return do_shortcode($content);
+        }
+    } else if (isset($_COOKIE['comment_author_email_' . COOKIEHASH])) {
+        $email = str_replace('%40', '@', $_COOKIE['comment_author_email_' . COOKIEHASH]);
+    } else {
+        return do_shortcode( $notice );
+    }
+    if (empty($email)) {
+        return do_shortcode( $notice );
+    }
+    global $wpdb;
+    $post_id = get_the_ID();
+    $query = "SELECT `comment_ID` FROM {$wpdb->comments} WHERE `comment_post_ID`={$post_id} and `comment_approved`='1' and `comment_author_email`='{$email}' LIMIT 1";
+    if ($wpdb->get_results($query)) {
+        return do_shortcode( $content );
+    } else {
+        return do_shortcode( $notice );
+    }
+}
+add_shortcode('hide', 'reply_read');

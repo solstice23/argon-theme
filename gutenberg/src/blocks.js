@@ -6,3 +6,4 @@ import './timeline/timeline.js';
 import './progressbar/progressbar.js';
 import './todolist/todolist.js';
 import './tabpanel/tabpanel.js';
+import './hidden/hidden.js';
