@@ -900,18 +900,16 @@ if (argonConfig.waterflow_columns != "1") {
 				}
 			}
 		}else{
-			if (document.getElementById("comment_post_mailnotice") != null){
-				if (document.getElementById("comment_post_mailnotice").checked == true){
-					if ($("#post_comment").hasClass("enable-qq-avatar")){
-						if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail) && !(/^[1-9][0-9]{4,10}$/).test(commentEmail)){
-							isError = true;
-							errorMsg += __("邮箱或 QQ 号格式错误") + "</br>";
-						}
-					}else{
-						if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail)){
-							isError = true;
-							errorMsg += __("邮箱格式错误") + "</br>";
-						}
+			if (commentEmail.length || (document.getElementById("comment_post_mailnotice") != null && document.getElementById("comment_post_mailnotice").checked == true)){
+				if ($("#post_comment").hasClass("enable-qq-avatar")){
+					if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail) && !(/^[1-9][0-9]{4,10}$/).test(commentEmail)){
+						isError = true;
+						errorMsg += __("邮箱或 QQ 号格式错误") + "</br>";
+					}
+				}else{
+					if (!(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(commentEmail)){
+						isError = true;
+						errorMsg += __("邮箱格式错误") + "</br>";
 					}
 				}
 			}
