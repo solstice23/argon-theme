@@ -4956,7 +4956,7 @@ function argon_get_search_post_type_array(){
 	return $arr;
 }
 function search_filter($query) {
-	if (!$query -> is_search) {
+	if (!$query -> is_search || is_admin()) {
 		return $query;
 	}
 	$query -> set('post_type', argon_get_search_post_type_array());
