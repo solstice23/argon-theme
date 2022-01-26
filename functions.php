@@ -998,7 +998,6 @@ function argon_comment_format($comment, $args, $depth){
 					<?php if (user_can($comment -> user_id , "update_core")){
 						echo '<span class="badge badge-primary badge-admin">' . __('博主', 'argon') . '</span>';}
 					?>
-					<?php echo apply_filters("argon_comment_extra_info", $comment, $args, $depth) ?>
 					<?php if (is_comment_private_mode(get_comment_ID()) && user_can_view_comment(get_comment_ID())){
 						echo '<span class="badge badge-success badge-private-comment">' . __('悄悄话', 'argon') . '</span>';}
 					?>
@@ -2106,7 +2105,7 @@ if (get_option("argon_home_show_shuoshuo") == "true"){
 function argon_home_hide_categories($query){
 	if (is_home() && $query -> is_main_query()){
 		$excludeCategories = explode(",", get_option("argon_hide_categories"));
-		$excludeCategories = array_map(function($cat) { return "-" . $cat; }, $excludeCategories);
+		$excludeCategories = array_map(function($cat) { return -$cat; }, $excludeCategories);
 		$query -> set('cat', $excludeCategories);
 	}
 	return $query;
