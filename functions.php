@@ -1966,6 +1966,17 @@ function argon_meta_box_1(){
 
 		<script>$ = window.jQuery;</script>
 		<script>
+			function showAlert(type, message){
+				if (!wp.data){
+					alert(message);
+					return;
+				}
+				wp.data.dispatch('core/notices').createNotice(
+					type,
+					message,
+					{ type: "snackbar", isDismissible: true, }
+				);
+			}
 			$("select[name=argon_show_post_outdated_info").change(function(){
 				$("#apply_show_post_outdated_info").css("display", "");
 			});
@@ -1987,37 +1998,16 @@ function argon_meta_box_1(){
 						$("#apply_show_post_outdated_info").removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
 						$("#argon_show_post_outdated_info").removeAttr("disabled");
 						if (response.status == "failed"){
-							wp.data.dispatch("core/notices").createNotice(
-								"failed",
-								"<?php _e("应用失败", 'argon');?>",
-								{
-									type: "snackbar",
-									isDismissible: true,
-								}
-							);
+							showAlert("failed", "<?php _e("应用失败", 'argon');?>");
 							return;
 						}
 						$("#apply_show_post_outdated_info").css("display", "none");
-						wp.data.dispatch("core/notices").createNotice(
-							"success",
-							"<?php _e("应用成功", 'argon');?>",
-							{
-								type: "snackbar",
-								isDismissible: true,
-							}
-						);
+						showAlert("success", "<?php _e("应用成功", 'argon');?>");
 					},
 					error: function(response) {
 						$("#apply_show_post_outdated_info").removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
 						$("#argon_show_post_outdated_info").removeAttr("disabled");
-						wp.data.dispatch("core/notices").createNotice(
-							"failed",
-							"<?php _e("应用失败", 'argon');?>",
-							{
-								type: "snackbar",
-								isDismissible: true,
-							}
-						);
+						showAlert("failed", "<?php _e("应用失败", 'argon');?>");
 					}
 				});
 			});
