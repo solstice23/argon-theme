@@ -998,6 +998,7 @@ function argon_comment_format($comment, $args, $depth){
 					<?php if (user_can($comment -> user_id , "update_core")){
 						echo '<span class="badge badge-primary badge-admin">' . __('博主', 'argon') . '</span>';}
 					?>
+					<?php echo apply_filters("argon_comment_extra_info", $comment, $args, $depth) ?>
 					<?php if (is_comment_private_mode(get_comment_ID()) && user_can_view_comment(get_comment_ID())){
 						echo '<span class="badge badge-success badge-private-comment">' . __('悄悄话', 'argon') . '</span>';}
 					?>
