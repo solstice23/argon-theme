@@ -2105,7 +2105,7 @@ if (get_option("argon_home_show_shuoshuo") == "true"){
 function argon_home_hide_categories($query){
 	if (is_home() && $query -> is_main_query()){
 		$excludeCategories = explode(",", get_option("argon_hide_categories"));
-		$excludeCategories = array_map(create_function('$cat', 'return "-$cat";'), $excludeCategories);
+		$excludeCategories = array_map(function($cat) { return "-" . $cat; }, $excludeCategories);
 		$query -> set('cat', $excludeCategories);
 	}
 	return $query;
