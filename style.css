@@ -5295,6 +5295,6 @@ html.using-safari #blog_setting_card_radius_to_default:before {
 	transform: translate3d(-50%, 0, 0) !important;
 	white-space: nowrap;
 }
-html.using-safari html.darkmode .friend-links-style1 .friend-link-description:after{
+html.using-safari .friend-link-description:after{
 	display: none;
 }
