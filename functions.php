@@ -2096,7 +2096,8 @@ function argon_home_hide_categories($query){
 	if (is_home() && $query -> is_main_query()){
 		$excludeCategories = explode(",", get_option("argon_hide_categories"));
 		$excludeCategories = array_map(function($cat) { return -$cat; }, $excludeCategories);
-		$query -> set('cat', $excludeCategories);
+		$query -> set('category__not_in', $excludeCategories);
+		$query -> set('tag__not_in', $excludeCategories);
 	}
 	return $query;
 }
