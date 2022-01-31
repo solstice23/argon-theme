@@ -1428,7 +1428,7 @@ function generateCommentTextAvatar(img){
 	}catch{
 		emailHash = img.parent().parent().parent().find(".comment-name").text().trim();
 		if (emailHash == '' || emailHash == undefined){
-			emailHash = img.parent().find("*['class'*='comment-author']").text().trim();
+			emailHash = img.parent().find("*[class*='comment-author']").text().trim();
 		}
 	}
 	let hash = 0;
