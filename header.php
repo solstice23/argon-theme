@@ -157,6 +157,7 @@
 			code_highlight: {
 				enable: <?php echo get_option('argon_enable_code_highlight', 'false'); ?>,
 				hide_linenumber: <?php echo get_option('argon_code_highlight_hide_linenumber', 'false'); ?>,
+				transparent_linenumber: <?php echo get_option('argon_code_highlight_transparent_linenumber', 'false'); ?>,
 				break_line: <?php echo get_option('argon_code_highlight_break_line', 'false'); ?>
 			}
 		}

@@ -3788,6 +3788,17 @@ function themeoptions_page(){
 							</select>
 						</td>
 					</tr>
+					<tr>
+						<th><label><?php _e('行号背景透明', 'argon');?></label></th>
+						<td>
+							<select name="argon_code_highlight_transparent_linenumber">
+								<?php $argon_code_highlight_transparent_linenumber = get_option('argon_code_highlight_transparent_linenumber', 'false'); ?>
+								<option value="false" <?php if ($argon_code_highlight_transparent_linenumber=='false'){echo 'selected';} ?>><?php _e('不透明', 'argon');?></option>
+								<option value="true" <?php if ($argon_code_highlight_transparent_linenumber=='true'){echo 'selected';} ?>><?php _e('透明', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('适用于某些背景渐变的高亮主题', 'argon');?></p>
+						</td>
+					</tr>
 					<tr style="opacity: 0.5;">
 						<th><label><?php _e('如果您想使用其他代码高亮插件，而非 Argon 自带高亮，请前往 "杂项" 打开 "禁用 Argon 代码块样式" 来防止样式冲突', 'argon');?></label></th>
 						<td>
@@ -4810,6 +4821,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_card_shadow');
 		argon_update_option('argon_enable_code_highlight');
 		argon_update_option('argon_code_highlight_hide_linenumber');
+		argon_update_option('argon_code_highlight_linenumber_background_transparent');
 		argon_update_option('argon_code_highlight_break_line');
 		argon_update_option('argon_code_theme');
 		argon_update_option('argon_comment_enable_qq_avatar');

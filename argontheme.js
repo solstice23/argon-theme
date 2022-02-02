@@ -2363,6 +2363,9 @@ function highlightJsRender(){
 		if (argonConfig.code_highlight.break_line){
 			$(block).parent().addClass("hljs-break-line");
 		}
+		if (argonConfig.transparent_linenumber){
+			$(block).parent().addClass("hljs-transparent-linenumber");
+		}
 		$(block).attr("hljs-codeblock-inner", "");
 		let copyBtnID = "copy_btn_" + randomString();
 		$(block).parent().append(`<div class="hljs-control hljs-title">
