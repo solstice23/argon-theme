@@ -2367,7 +2367,7 @@ function highlightJsRender(){
 		if (argonConfig.code_highlight.break_line){
 			$(block).parent().addClass("hljs-break-line");
 		}
-		if (argonConfig.transparent_linenumber){
+		if (argonConfig.code_highlight.transparent_linenumber){
 			$(block).parent().addClass("hljs-transparent-linenumber");
 		}
 		$(block).attr("hljs-codeblock-inner", "");
