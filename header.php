@@ -279,7 +279,10 @@
 		--themecolor-light: <?php echo $themecolor_light; ?>;
 		--themecolor-rgbstr: <?php echo $themecolor_rgbstr; ?>;
 		--themecolor-gradient: linear-gradient(150deg,var(--themecolor-light) 15%, var(--themecolor) 70%, var(--themecolor-dark0) 94%);
-
+		--base-hue: <?php echo round($HSL['h'] * 360); ?>;
+		--themecolor-R: <?php echo $RGB['R']; ?>;
+		--themecolor-G: <?php echo $RGB['G']; ?>;
+		--themecolor-B: <?php echo $RGB['B']; ?>;
 	}
 </style>
 <style id="theme_cardradius_css">
