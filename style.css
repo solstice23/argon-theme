@@ -3081,10 +3081,7 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 	transform: scaleY(-1);
 }
 .emotion-group-name:hover {
-	background: #eee;
-}
-html.darkmode .emotion-group-name:hover {
-	background: #555;
+	background: var(--color-border-on-foreground);
 }
 .emotion-group-name.active:after {
 	content: "";
