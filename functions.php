@@ -2930,6 +2930,23 @@ function themeoptions_page(){
 							</p>
 						</td>
 					</tr>
+					<tr>
+						<th><label><?php _e('沉浸式主题色', 'argon');?></label></th>
+						<td>
+							<select name="argon_enable_immersion_color">
+								<?php $argon_enable_immersion_color = get_option('argon_enable_immersion_color', 'false'); ?>
+								<option value="true" <?php if ($argon_enable_immersion_color=='true'){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
+								<option value="false" <?php if ($argon_enable_immersion_color=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('开启后，主题色将会全局沉浸。</br>页面背景、卡片及页面上的其它元素会变为沉浸式主题色（气氛色）。类似 Material You。', 'argon');?></br></p>
+							<div style="display: flex;flex-direction: row;flex-wrap: wrap;align-items: center;margin-top:15px;">
+								<div class="immersion-color-example" style="background: #f4f5f7;"><div class="immersion-color-example-card" style="background: #fff;"></div></div>
+								<div class="immersion-color-example-arrow"><span class="dashicons dashicons-arrow-right-alt"></span></div>
+								<div class="immersion-color-example" style="background: #e8ebfb;"><div class="immersion-color-example-card" style="background: #f2f4fd;"></div></div>
+							<div>
+							<style>.immersion-color-example {width: 250px;height: 150px;border-radius: 4px;display: inline-block;position: relative;box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);}.immersion-color-example-arrow {margin-left: 20px;margin-right: 20px;color: #646970;}.immersion-color-example-card {position: absolute;left: 40px;right: 40px;top: 35px;bottom: 35px;background: #fff;box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);}</style>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h3><?php _e('夜间模式', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('夜间模式切换方案', 'argon');?></label></th>
@@ -4838,6 +4855,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_toolbar_blur');
 		argon_update_option('argon_archives_timeline_show_month');
 		argon_update_option('argon_archives_timeline_url');
+		argon_update_option('argon_enable_immersion_color');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

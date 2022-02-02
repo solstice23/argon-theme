@@ -10,6 +10,9 @@
 	if (get_option('argon_page_layout') == "double-reverse"){
 		$htmlclasses .= "double-column-reverse ";
 	}
+	if (get_option('argon_enable_immersion_color') == "true"){
+		$htmlclasses .= "immersion-color ";
+	}
 	if (get_option('argon_enable_amoled_dark') == "true"){
 		$htmlclasses .= "amoled-dark ";
 	}
