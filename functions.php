@@ -3789,13 +3789,14 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr>
-						<th><label><?php _e('默认行号背景透明', 'argon');?></label></th>
+						<th><label><?php _e('行号背景透明', 'argon');?></label></th>
 						<td>
-							<select name="argon_code_highlight_linenumber_background_transparent">
-								<?php $argon_code_highlight_linenumber_background_transparent = get_option('argon_code_highlight_linenumber_background_transparent'); ?>
-								<option value="true" <?php if ($argon_code_highlight_linenumber_background_transparent=='true'){echo 'selected';} ?>><?php _e('透明', 'argon');?></option>
-								<option value="false" <?php if ($argon_code_highlight_linenumber_background_transparent=='false'){echo 'selected';} ?>><?php _e('不透明', 'argon');?></option>
+							<select name="argon_code_highlight_transparent_linenumber">
+								<?php $argon_code_highlight_transparent_linenumber = get_option('argon_code_highlight_transparent_linenumber', 'false'); ?>
+								<option value="false" <?php if ($argon_code_highlight_transparent_linenumber=='false'){echo 'selected';} ?>><?php _e('不透明', 'argon');?></option>
+								<option value="true" <?php if ($argon_code_highlight_transparent_linenumber=='true'){echo 'selected';} ?>><?php _e('透明', 'argon');?></option>
 							</select>
+							<p class="description"><a href="https://highlightjs.org/static/demo/" target="_blank"><?php _e('适用于某些背景渐变的高亮主题', 'argon');?></a></p>
 						</td>
 					</tr>
 					<tr style="opacity: 0.5;">

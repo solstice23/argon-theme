@@ -4362,6 +4362,9 @@ code[hljs-codeblock-inner] {
 	height: 100%;
 	background: inherit;
 }
+pre.hljs-codeblock.hljs-transparent-linenumber .hljs-ln-numbers {
+	background: transparent !important;
+}
 .hljs-ln-code {
 	padding-left: 30px !important;
 	transition: all 0.3s ease;
