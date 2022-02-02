@@ -4838,7 +4838,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_card_shadow');
 		argon_update_option('argon_enable_code_highlight');
 		argon_update_option('argon_code_highlight_hide_linenumber');
-		argon_update_option('argon_code_highlight_linenumber_background_transparent');
+		argon_update_option('argon_code_highlight_transparent_linenumber');
 		argon_update_option('argon_code_highlight_break_line');
 		argon_update_option('argon_code_theme');
 		argon_update_option('argon_comment_enable_qq_avatar');
