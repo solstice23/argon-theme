@@ -4353,7 +4353,6 @@ code[hljs-codeblock-inner] {
 	overflow-x: visible !important;
 	white-space: nowrap;
 	transition: all 0.3s ease;
-	background: transparent !important;
 }
 .hljs-ln-numbers:before {
 	content: "";

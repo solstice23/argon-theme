@@ -2415,6 +2415,9 @@ function highlightJsRender(){
 			});
 		});
 	});
+	if (!argonConfig.code_highlight.hide_linenumber && argonConfig.code_highlight.linenumber_background_transparent){
+	    $("article").append("<style>.hljs-ln-numbers {background: transparent !important;}</style>");
+	}
 }
 $(document).ready(function(){
 	highlightJsRender();
