@@ -18,45 +18,70 @@ Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, �
 	--themecolor-G: 114;
 	--themecolor-B: 228;
 
-	--color-tint-70: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.7),
+	--color-tint-70: 
+		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.7),
 		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.7),
 		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.7);
-	--color-tint-78: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.78),
+	--color-tint-78: 
+		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.78),
 		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.78),
 		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.78);
-	--color-tint-80: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.8),
+	--color-tint-80: 
+		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.8),
 		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.8),
 		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.8);
-	--color-tint-82: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.82),
+	--color-tint-82: 
+		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.82),
 		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.82),
 		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.82);
-	--color-tint-86: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.86),
+	--color-tint-86: 
+		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.86),
 		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.86),
 		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.86);
-	--color-tint-92: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.92),
+	--color-tint-92: 
+		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.92),
 		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.92),
 		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.92);
-	--color-tint-95: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.95),
+	--color-tint-95: 
+		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.95),
 		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.95),
 		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.95);
-	--color-shade-70: calc(30 * 0.7 + var(--themecolor-R) * (1 - 0.7)), calc(30 * 0.7 + var(--themecolor-G) * (1 - 0.7)),
+	--color-shade-70: 
+		calc(30 * 0.7 + var(--themecolor-R) * (1 - 0.7)),
+		calc(30 * 0.7 + var(--themecolor-G) * (1 - 0.7)),
 		calc(30 * 0.7 + var(--themecolor-B) * (1 - 0.7));
-	--color-shade-75: calc(30 * 0.75 + var(--themecolor-R) * (1 - 0.75)),
-		calc(30 * 0.75 + var(--themecolor-G) * (1 - 0.75)), calc(30 * 0.75 + var(--themecolor-B) * (1 - 0.75));
-	--color-shade-80: calc(30 * 0.8 + var(--themecolor-R) * (1 - 0.8)), calc(30 * 0.8 + var(--themecolor-G) * (1 - 0.8)),
+	--color-shade-75: 
+		calc(30 * 0.75 + var(--themecolor-R) * (1 - 0.75)),
+		calc(30 * 0.75 + var(--themecolor-G) * (1 - 0.75)),
+		calc(30 * 0.75 + var(--themecolor-B) * (1 - 0.75));
+	--color-shade-80: 
+		calc(30 * 0.8 + var(--themecolor-R) * (1 - 0.8)),
+		calc(30 * 0.8 + var(--themecolor-G) * (1 - 0.8)),
 		calc(30 * 0.8 + var(--themecolor-B) * (1 - 0.8));
-	--color-shade-82: calc(30 * 0.82 + var(--themecolor-R) * (1 - 0.82)),
-		calc(30 * 0.82 + var(--themecolor-G) * (1 - 0.82)), calc(30 * 0.82 + var(--themecolor-B) * (1 - 0.82));
-	--color-shade-86: calc(30 * 0.86 + var(--themecolor-R) * (1 - 0.86)),
-		calc(30 * 0.86 + var(--themecolor-G) * (1 - 0.86)), calc(30 * 0.86 + var(--themecolor-B) * (1 - 0.86));
-	--color-shade-90: calc(30 * 0.9 + var(--themecolor-R) * (1 - 0.9)), calc(30 * 0.9 + var(--themecolor-G) * (1 - 0.9)),
+	--color-shade-82: 
+		calc(30 * 0.82 + var(--themecolor-R) * (1 - 0.82)),
+		calc(30 * 0.82 + var(--themecolor-G) * (1 - 0.82)),
+		calc(30 * 0.82 + var(--themecolor-B) * (1 - 0.82));
+	--color-shade-86: 
+		calc(30 * 0.86 + var(--themecolor-R) * (1 - 0.86)),
+		calc(30 * 0.86 + var(--themecolor-G) * (1 - 0.86)),
+		calc(30 * 0.86 + var(--themecolor-B) * (1 - 0.86));
+	--color-shade-90: 
+		calc(30 * 0.9 + var(--themecolor-R) * (1 - 0.9)),
+		calc(30 * 0.9 + var(--themecolor-G) * (1 - 0.9)),
 		calc(30 * 0.9 + var(--themecolor-B) * (1 - 0.9));
-	--color-shade-94: calc(30 * 0.94 + var(--themecolor-R) * (1 - 0.94)),
-		calc(30 * 0.94 + var(--themecolor-G) * (1 - 0.94)), calc(30 * 0.94 + var(--themecolor-B) * (1 - 0.94));
-	--color-shade-96: calc(30 * 0.96 + var(--themecolor-R) * (1 - 0.96)),
-		calc(30 * 0.96 + var(--themecolor-G) * (1 - 0.96)), calc(30 * 0.96 + var(--themecolor-B) * (1 - 0.96));
-	--color-tint-blue: calc(204 * 0.6 + var(--themecolor-R) * (1 - 0.6)),
-		calc(226 * 0.6 + var(--themecolor-G) * (1 - 0.6)), calc(255 * 0.6 + var(--themecolor-B) * (1 - 0.6));
+	--color-shade-94: 
+		calc(30 * 0.94 + var(--themecolor-R) * (1 - 0.94)),
+		calc(30 * 0.94 + var(--themecolor-G) * (1 - 0.94)),
+		calc(30 * 0.94 + var(--themecolor-B) * (1 - 0.94));
+	--color-shade-96: 
+		calc(30 * 0.96 + var(--themecolor-R) * (1 - 0.96)),
+		calc(30 * 0.96 + var(--themecolor-G) * (1 - 0.96)),
+		calc(30 * 0.96 + var(--themecolor-B) * (1 - 0.96));
+	--color-tint-blue: 
+		calc(204 * 0.6 + var(--themecolor-R) * (1 - 0.6)),
+		calc(226 * 0.6 + var(--themecolor-G) * (1 - 0.6)),
+		calc(255 * 0.6 + var(--themecolor-B) * (1 - 0.6));
 
 	--color-background: #f4f5f7;
 	--color-foreground: #fff;
