@@ -11,7 +11,6 @@ Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, �
 
 @charset "utf-8";
 
-
 :root {
 	--themecolor: #5e72e4;
 	--base-hue: 231;
@@ -19,59 +18,46 @@ Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, �
 	--themecolor-G: 114;
 	--themecolor-B: 228;
 
-	--color-tint-78:
-		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.78),
+	--color-tint-70: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.7),
+		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.7),
+		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.7);
+	--color-tint-78: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.78),
 		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.78),
 		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.78);
-	--color-tint-80:
-		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.80),
-		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.80),
-		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.80);
-	--color-tint-82:
-		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.82),
+	--color-tint-80: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.8),
+		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.8),
+		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.8);
+	--color-tint-82: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.82),
 		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.82),
 		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.82);
-	--color-tint-86:
-		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.86),
+	--color-tint-86: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.86),
 		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.86),
 		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.86);
-	--color-tint-92:
-		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.92),
+	--color-tint-92: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.92),
 		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.92),
 		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.92);
-	--color-tint-95:
-		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.95),
+	--color-tint-95: calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.95),
 		calc(var(--themecolor-G) + (255 - var(--themecolor-G)) * 0.95),
 		calc(var(--themecolor-B) + (255 - var(--themecolor-B)) * 0.95);
-	--color-shade-75:
-		calc(30 * 0.75 + var(--themecolor-R) * (1 - 0.75)),
-		calc(30 * 0.75 + var(--themecolor-G) * (1 - 0.75)),
-		calc(30 * 0.75 + var(--themecolor-B) * (1 - 0.75));
-	--color-shade-80:
-		calc(30 * 0.80 + var(--themecolor-R) * (1 - 0.80)),
-		calc(30 * 0.80 + var(--themecolor-G) * (1 - 0.80)),
-		calc(30 * 0.80 + var(--themecolor-B) * (1 - 0.80));
-	--color-shade-82:
-		calc(30 * 0.82 + var(--themecolor-R) * (1 - 0.82)),
-		calc(30 * 0.82 + var(--themecolor-G) * (1 - 0.82)),
-		calc(30 * 0.82 + var(--themecolor-B) * (1 - 0.82));
-	--color-shade-86:
-		calc(30 * 0.86 + var(--themecolor-R) * (1 - 0.86)),
-		calc(30 * 0.86 + var(--themecolor-G) * (1 - 0.86)),
-		calc(30 * 0.86 + var(--themecolor-B) * (1 - 0.86));
-	--color-shade-90:
-		calc(30 * 0.90 + var(--themecolor-R) * (1 - 0.90)),
-		calc(30 * 0.90 + var(--themecolor-G) * (1 - 0.90)),
-		calc(30 * 0.90 + var(--themecolor-B) * (1 - 0.90));
-	--color-shade-94:
-		calc(30 * 0.94 + var(--themecolor-R) * (1 - 0.94)),
-		calc(30 * 0.94 + var(--themecolor-G) * (1 - 0.94)),
-		calc(30 * 0.94 + var(--themecolor-B) * (1 - 0.94));
-	--color-shade-96:
-		calc(30 * 0.96 + var(--themecolor-R) * (1 - 0.96)),
-		calc(30 * 0.96 + var(--themecolor-G) * (1 - 0.96)),
-		calc(30 * 0.96 + var(--themecolor-B) * (1 - 0.96));
-	
+	--color-shade-70: calc(30 * 0.7 + var(--themecolor-R) * (1 - 0.7)), calc(30 * 0.7 + var(--themecolor-G) * (1 - 0.7)),
+		calc(30 * 0.7 + var(--themecolor-B) * (1 - 0.7));
+	--color-shade-75: calc(30 * 0.75 + var(--themecolor-R) * (1 - 0.75)),
+		calc(30 * 0.75 + var(--themecolor-G) * (1 - 0.75)), calc(30 * 0.75 + var(--themecolor-B) * (1 - 0.75));
+	--color-shade-80: calc(30 * 0.8 + var(--themecolor-R) * (1 - 0.8)), calc(30 * 0.8 + var(--themecolor-G) * (1 - 0.8)),
+		calc(30 * 0.8 + var(--themecolor-B) * (1 - 0.8));
+	--color-shade-82: calc(30 * 0.82 + var(--themecolor-R) * (1 - 0.82)),
+		calc(30 * 0.82 + var(--themecolor-G) * (1 - 0.82)), calc(30 * 0.82 + var(--themecolor-B) * (1 - 0.82));
+	--color-shade-86: calc(30 * 0.86 + var(--themecolor-R) * (1 - 0.86)),
+		calc(30 * 0.86 + var(--themecolor-G) * (1 - 0.86)), calc(30 * 0.86 + var(--themecolor-B) * (1 - 0.86));
+	--color-shade-90: calc(30 * 0.9 + var(--themecolor-R) * (1 - 0.9)), calc(30 * 0.9 + var(--themecolor-G) * (1 - 0.9)),
+		calc(30 * 0.9 + var(--themecolor-B) * (1 - 0.9));
+	--color-shade-94: calc(30 * 0.94 + var(--themecolor-R) * (1 - 0.94)),
+		calc(30 * 0.94 + var(--themecolor-G) * (1 - 0.94)), calc(30 * 0.94 + var(--themecolor-B) * (1 - 0.94));
+	--color-shade-96: calc(30 * 0.96 + var(--themecolor-R) * (1 - 0.96)),
+		calc(30 * 0.96 + var(--themecolor-G) * (1 - 0.96)), calc(30 * 0.96 + var(--themecolor-B) * (1 - 0.96));
+	--color-tint-blue: calc(204 * 0.6 + var(--themecolor-R) * (1 - 0.6)),
+		calc(226 * 0.6 + var(--themecolor-G) * (1 - 0.6)), calc(255 * 0.6 + var(--themecolor-B) * (1 - 0.6));
+
 	--color-background: #f4f5f7;
 	--color-foreground: #fff;
 	--color-widgets: #fff;
@@ -80,8 +66,9 @@ Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, �
 	--color-border-on-foreground: #f3f3f3;
 	--color-border-on-foreground-deeper: #eee;
 	--color-text-deeper: #212529;
+	--color-selection: #cce2ff;
 }
-html.darkmode body{
+html.darkmode body {
 	--color-background: #282828;
 	--color-foreground: #424242;
 	--color-widgets: #555;
@@ -92,9 +79,10 @@ html.darkmode body{
 	--color-text-deeper: #eee;
 	--color-darkmode-toolbar: 33, 33, 33;
 	--color-darkmode-banner: #212121;
-
+	--color-selection: #607799;
 }
-html.darkmode.amoled-dark body{
+html.darkmode.amoled-dark body,
+html.darkmode.amoled-dark.immersion-color body {
 	--color-background: #111;
 	--color-foreground: #000;
 	--color-widgets: #151515;
@@ -103,11 +91,11 @@ html.darkmode.amoled-dark body{
 	--color-border-on-foreground: #181818;
 	--color-border-on-foreground-deeper: #252525;
 	--color-text-deeper: #eee;
-	
+	--color-selection: #607799;
+
 	--color-darkmode-toolbar: 0, 0, 0;
 	--color-darkmode-banner: #131313;
 }
-
 
 html.immersion-color body {
 	--color-background: rgb(var(--color-tint-86));
@@ -118,8 +106,9 @@ html.immersion-color body {
 	--color-border-on-foreground: rgb(var(--color-tint-86));
 	--color-border-on-foreground-deeper: rgb(var(--color-tint-80));
 	--color-text-deeper: rgb(var(--color-shade-82));
+	--color-selection: rgb(var(--color-tint-70));
 }
-html.immersion-color.darkmode body{
+html.immersion-color.darkmode body {
 	--color-background: rgb(var(--color-shade-94));
 	--color-foreground: rgb(var(--color-shade-90));
 	--color-widgets: rgb(var(--color-shade-86));
@@ -128,29 +117,41 @@ html.immersion-color.darkmode body{
 	--color-border-on-foreground: rgb(var(--color-shade-82));
 	--color-border-on-foreground-deeper: rgb(var(--color-shade-75));
 	--color-text-deeper: rgb(var(--color-tint-82));
-	
+	--color-selection: rgb(var(--color-shade-70));
+
 	--color-darkmode-toolbar: var(--color-shade-90);
 	--color-darkmode-banner: rgb(var(--color-shade-96));
 }
 
 /*Argon CSS Override*/
-.bg-white, .card, .dropdown-menu, .dropdown-menu:before{
+.bg-white,
+.card,
+.dropdown-menu,
+.dropdown-menu:before {
 	background-color: var(--color-foreground) !important;
 }
-
-.form-control, .form-control:focus, .focused .input-group-text, .btn-neutral, .input-group-text, .page-link, .modal-content, .custom-control-label::before{
+.form-control,
+.form-control:focus,
+.focused .input-group-text,
+.btn-neutral,
+.input-group-text,
+.page-link,
+.modal-content,
+.custom-control-label::before {
 	background-color: var(--color-widgets);
 }
-.page-link{
+.page-link {
 	border-color: var(--color-border) !important;
 }
-.modal-header, .custom-control-label::before{
+.modal-header,
+.custom-control-label::before {
 	border-color: var(--color-border-on-foreground-deeper) !important;
 }
-.page-link:hover{
+.page-link:hover {
 	background-color: var(--color-widgets-disabled);
 }
-.form-control:disabled, .form-control[readonly]{
+.form-control:disabled,
+.form-control[readonly] {
 	background-color: var(--color-widgets-disabled);
 }
 
@@ -393,8 +394,9 @@ article figure.is-style-stripes table > thead > tr > th {
 .wp-block-table.is-style-stripes {
 	border-bottom: none !important;
 }
-article hr, article .wp-block-separator{
-    border-top: 0.0625rem solid var(--color-border-on-foreground-deeper);
+article hr,
+article .wp-block-separator {
+	border-top: 0.0625rem solid var(--color-border-on-foreground-deeper);
 	border-bottom: none;
 }
 ::-webkit-scrollbar {
@@ -415,22 +417,22 @@ article hr, article .wp-block-separator{
 	background-color: rgba(var(--themecolor-rgbstr), 0.7) !important;
 }
 *::selection {
-	background-color: #cce2ff;
+	background-color: var(--color-selection);
 }
 *::-moz-selection {
-	background-color: #cce2ff;
+	background-color: var(--color-selection);
 }
 *::-webkit-selection {
-	background-color: #cce2ff;
+	background-color: var(--color-selection);
 }
 html.darkmode *::selection {
-	background-color: #607799;
+	background-color: var(--color-selection);
 }
 html.darkmode *::-moz-selection {
-	background-color: #607799;
+	background-color: var(--color-selection);
 }
 html.darkmode *::-webkit-selection {
-	background-color: #607799;
+	background-color: var(--color-selection);
 }
 html.use-serif body {
 	--font: "Noto Serif SC", serif, system-ui;
@@ -1080,8 +1082,8 @@ html:not(.is-home) .cover-scroll-down {
 	height: 30px;
 	transform: unset !important;
 	text-transform: capitalize;
-    background-color: var(--color-border-on-foreground-deeper);
-    color: var(--color-text-deeper);
+	background-color: var(--color-border-on-foreground-deeper);
+	color: var(--color-text-deeper);
 }
 html.darkmode.amoled-dark #leftbar_search_container {
 	background: #151515;
@@ -1794,8 +1796,8 @@ html.filter-grayscale {
 .pagination.pagination-mobile {
 	display: none;
 }
-.page-link{
-	transition: background-color .2s ease;
+.page-link {
+	transition: background-color 0.2s ease;
 }
 
 /*文章*/
