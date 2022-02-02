@@ -4431,7 +4431,6 @@ code[hljs-codeblock-inner] {
 	overflow-x: visible !important;
 	white-space: nowrap;
 	transition: all 0.3s ease;
-	background: transparent !important;
 }
 .hljs-ln-numbers:before {
 	content: "";
@@ -4440,6 +4439,9 @@ code[hljs-codeblock-inner] {
 	width: 20px;
 	height: 100%;
 	background: inherit;
+}
+pre.hljs-codeblock.hljs-transparent-linenumber .hljs-ln-numbers {
+	background: transparent !important;
 }
 .hljs-ln-code {
 	padding-left: 30px !important;
