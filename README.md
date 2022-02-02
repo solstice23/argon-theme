@@ -70,6 +70,20 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20220203 v1.3.0
++ 🎨 新增 气氛色 选项：主题色全局沉浸（类似 Material You）
++ 新增 `argon_comment_extra_info` filter
++ 代码块行号默认不透明
++ 修复首页排除文章和 Tag 选项不生效的 Bug
++ 修复友情链接页面显示错误
++ 修复评论区表单验证问题
++ 修复 session 干扰 REST API 回环问题
++ 修复开启衬线字体后代码块显示问题
++ 修复后台媒体库不能搜索问题
++ 其他改进与修复
+
+
+
 ## 20220106 v1.2.10
 + 新增通过 Ajax 获取验证码以绕过 CDN 缓存选项
 + 说说预览显示赞数和评论数，优化折叠样式
