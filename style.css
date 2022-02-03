@@ -4431,13 +4431,12 @@ pre.hljs-codeblock:before {
 code[hljs-codeblock-inner] {
 	line-height: 1.5;
 	font-size: 16px;
-	border-radius: 100px;
-	padding: 22px 20px;
+	padding: 22px 20px !important;
 	border-radius: 8px;
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 20px;
 	margin-top: 15px !important;
 	margin-bottom: 15px !important;
-	padding-top: 55px;
+	padding-top: 55px !important;
 }
 .hljs-ln-numbers {
 	-webkit-touch-callout: none;
