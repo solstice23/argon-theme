@@ -606,7 +606,7 @@ a.text-primary:hover {
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before,
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before,
 .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
-	border-color: var(--themecolor);
+	border-color: var(--themecolor) !important;
 	background-color: var(--themecolor);
 }
 /*页面框架*/
