@@ -2438,6 +2438,7 @@ html.darkmode .has-thumbnail .related-post-title.clamp {
 	margin-bottom: 3px;
 }
 .comment-item-title .badge-admin,
+.comment-item-title .badge-pinned,
 .comment-item-title .badge-private-comment,
 .comment-item-title .badge-unapproved {
 	transform: translateY(-2px);

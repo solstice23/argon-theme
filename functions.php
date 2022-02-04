@@ -818,7 +818,7 @@ function can_visit_comment_edit_history($id){
 			break;
 
 		default:
-			if (current_user_can("manage_options")){
+			if (current_user_can("moderate_comments")){
 				return true;
 			}
 			return false;
@@ -860,6 +860,19 @@ function get_comment_edit_history(){
 }
 add_action('wp_ajax_get_comment_edit_history', 'get_comment_edit_history');
 add_action('wp_ajax_nopriv_get_comment_edit_history', 'get_comment_edit_history');
+//是否可以置顶/取消置顶
+function is_comment_pinable($id){
+	if (get_comment($id) -> comment_approved != "1"){
+		return false;
+	}
+	if (get_comment($id) -> comment_parent != 0){
+		return false;
+	}
+	if (is_comment_private_mode($id)){
+		return false;
+	}
+	return true;
+}
 //评论内容格式化
 function argon_get_comment_text($comment_ID = 0, $args = array()) {
 	$comment = get_comment($comment_ID);
@@ -971,7 +984,11 @@ function upvote_comment(){
 add_action('wp_ajax_upvote_comment' , 'upvote_comment');
 add_action('wp_ajax_nopriv_upvote_comment' , 'upvote_comment');
 //评论样式格式化
+$GLOBALS['argon_comment_options']['enable_upvote'] = (get_option("argon_enable_comment_upvote", "false") == "true");
+$GLOBALS['argon_comment_options']['enable_pinning'] = (get_option("argon_enable_comment_pinning", "false") == "true");
+$GLOBALS['argon_comment_options']['current_user_can_moderate_comments'] = current_user_can('moderate_comments');
 function argon_comment_format($comment, $args, $depth){
+	global $comment_enable_upvote, $comment_enable_pinning;
 	$GLOBALS['comment'] = $comment;
 	if (user_can_view_comment(get_comment_ID())){
 	?>
@@ -982,7 +999,7 @@ function argon_comment_format($comment, $args, $depth){
 					echo get_avatar($comment, 40);
 				}?>
 			</div>
-			<?php if (get_option("argon_enable_comment_upvote", "false") == "true"){ ?>
+			<?php if ($GLOBALS['argon_comment_options']['enable_upvote']){ ?>
 				<button class="comment-upvote btn btn-icon btn-outline-primary btn-sm <?php echo (is_comment_upvoted(get_comment_ID()) ? 'upvoted' : ''); ?>" type="button" data-id="<?php comment_ID(); ?>">
 					<span class="btn-inner--icon"><i class="fa fa-caret-up"></i></span>
 					<span class="btn-inner--text">
@@ -998,6 +1015,9 @@ function argon_comment_format($comment, $args, $depth){
 					<?php if (user_can($comment -> user_id , "update_core")){
 						echo '<span class="badge badge-primary badge-admin">' . __('博主', 'argon') . '</span>';}
 					?>
+					<?php if ($GLOBALS['argon_comment_options']['enable_pinning'] && get_comment_meta(get_comment_ID(), "pinned", true) == "true"){
+						echo '<span class="badge badge-danger badge-pinned"><i class="fa fa-thumb-tack" aria-hidden="true"></i> ' . __('置顶', 'argon') . '</span>';
+					}?>
 					<?php if (is_comment_private_mode(get_comment_ID()) && user_can_view_comment(get_comment_ID())){
 						echo '<span class="badge badge-success badge-private-comment">' . __('悄悄话', 'argon') . '</span>';}
 					?>
@@ -1026,6 +1046,13 @@ function argon_comment_format($comment, $args, $depth){
 			<div class="comment-item-source" style="display: none;" aria-hidden="true"><?php echo htmlspecialchars(get_comment_meta(get_comment_ID(), "comment_content_source", true));?></div>
 
 			<div class="comment-operations">
+				<?php if ($GLOBALS['argon_comment_options']['enable_pinning'] && $GLOBALS['argon_comment_options']['current_user_can_moderate_comments'] && is_comment_pinable(get_comment_ID())) {
+					if (get_comment_meta(get_comment_ID(), "pinned", true) == "true") { ?>
+						<button class="comment-unpin btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _e('取消置顶', 'argon')?></button>
+					<?php } else { ?>
+						<button class="comment-pin btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _e('置顶', 'argon')?></button>
+				<?php }
+					} ?>
 				<?php if ((check_comment_token(get_comment_ID()) || check_login_user_same($comment -> user_id)) && (get_option("argon_comment_allow_editing") != "false")) { ?>
 					<button class="comment-edit btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _e('编辑', 'argon')?></button>
 				<?php } ?>
@@ -1512,6 +1539,50 @@ function user_edit_comment(){
 }
 add_action('wp_ajax_user_edit_comment', 'user_edit_comment');
 add_action('wp_ajax_nopriv_user_edit_comment', 'user_edit_comment');
+//置顶评论
+function pin_comment(){
+	header('Content-Type:application/json; charset=utf-8');
+	if (get_option("argon_enable_comment_pinning") == "false"){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => __('博主关闭了评论置顶功能', 'argon')
+		)));
+	}
+	if (!current_user_can("moderate_comments")){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => __('您没有权限进行此操作', 'argon')
+		)));
+	}
+	$id = $_POST["id"];
+	$newPinnedStat = $_POST["pinned"] == "true";
+	$origPinnedStat = get_comment_meta($id, "pinned", true) == "true";
+	if ($newPinnedStat == $origPinnedStat){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => $newPinnedStat ? __('评论已经是置顶状态', 'argon') : __('评论已经是取消置顶状态', 'argon')
+		)));
+	}
+	if (get_comment($id) -> comment_parent != 0){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => __('不能置顶子评论', 'argon')
+		)));
+	}
+	if (is_comment_private_mode($id)){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => __('不能置顶悄悄话', 'argon')
+		)));
+	}
+	update_comment_meta($id, "pinned", $newPinnedStat ? "true" : "false");
+	exit(json_encode(array(
+		'status' => 'success',
+		'msg' => $newPinnedStat ? __('置顶评论成功', 'argon') : __('取消置顶成功', 'argon'),
+	)));
+}
+add_action('wp_ajax_pin_comment', 'pin_comment');
+add_action('wp_ajax_nopriv_pin_comment', 'pin_comment');
 //输出评论分页页码
 function get_argon_formatted_comment_paginate_links($maxPageNumbers, $extraClasses = ''){
 	$args = array(
@@ -1617,6 +1688,54 @@ function get_argon_comment_paginate_links_prev_url(){
 		return NULL;
 	}
 	return $url[1];
+}
+//评论重排序（置顶优先）
+$GLOBALS['comment_order'] = get_option('comment_order');
+function argon_comment_cmp($a, $b){
+	$a_pinned = get_comment_meta($a -> comment_ID, 'pinned', true);
+	$b_pinned = get_comment_meta($b -> comment_ID, 'pinned', true);
+	if ($a_pinned != "true"){
+		$a_pinned = "false";
+	}
+	if ($b_pinned != "true"){
+		$b_pinned = "false";
+	}
+	if ($a_pinned == $b_pinned){
+		if ($GLOBALS['comment_order'] == 'desc'){
+			return ($a -> comment_date_gmt) > ($b -> comment_date_gmt);
+		}else{
+			return ($a -> comment_date_gmt) < ($b -> comment_date_gmt);
+		}
+	}else{
+		if ($a_pinned == "true"){
+			return true;
+		}else{
+			return false;
+		}
+	}
+}
+function argon_get_comments(){
+	global $wp_query;
+	/*$cpage = get_query_var('cpage') ?? 1;
+	$maxiumPages = $wp_query -> max_num_pages;*/
+	$args = array(
+		'post__in'		 => array(get_the_ID()),
+		'type'           => 'comment',
+		'order'          => 'DESC',
+		'orderby'        => 'comment_date_gmt'
+	);
+
+	$comment_query = new WP_Comment_Query;
+	$comments = $comment_query -> query($args);
+
+	/*$comments_count = $comment_query -> found_comments;
+	$comments_per_page = get_option('comments_per_page');
+	$comments_pages = ceil($comments_count / $comments_per_page);*/
+	
+	if (get_option("argon_enable_comment_pinning", "false") == "true"){
+		usort($comments, "argon_comment_cmp");
+	}
+	return $comments;
 }
 //QQ Avatar 获取
 function get_avatar_by_qqnumber($avatar){
@@ -4219,6 +4338,17 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('开启评论置顶功能', 'argon');?></label></th>
+						<td>
+							<select name="argon_enable_comment_pinning">
+								<?php $argon_enable_comment_pinning = get_option('argon_enable_comment_pinning'); ?>
+								<option value="false" <?php if ($argon_enable_comment_pinning=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
+								<option value="true" <?php if ($argon_enable_comment_pinning=='true'){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('开启后，博主将可以置顶评论。已置顶的评论将会在评论区顶部显示。如果关闭，评论将以正常顺序显示。', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('评论点赞', 'argon');?></label></th>
 						<td>
 							<select name="argon_enable_comment_upvote">
@@ -4868,6 +4998,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_archives_timeline_show_month');
 		argon_update_option('argon_archives_timeline_url');
 		argon_update_option('argon_enable_immersion_color');
+		argon_update_option('argon_enable_comment_pinning');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');

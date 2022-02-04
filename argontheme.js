@@ -84,6 +84,20 @@ translation['en_US'] = {
 	"复制": "Copy",
 	"全屏": "Fullscreen",
 	"退出全屏": "Exit Fullscreen",
+	"置顶评论": "Pin Comment",
+	"取消置顶评论": "Unpin Comment",
+	"是否要取消置顶评论 #": "Do you want to unpin the comment #",
+	"是否要置顶评论 #": "Do you want to pin the comment #",
+	"确认": "Confirm",
+	"取消": "取消",
+	"置顶": "Pin",
+	"取消置顶": "Unpin",
+	"置顶成功": "Pinned",
+	"取消置顶成功": "Unpinned",
+	"该评论已置顶": "The comment has been pinned",
+	"该评论已取消置顶": "The comment has been unpinned",
+	"置顶失败": "Failed to pin",
+	"取消置顶失败": "Failed to unpin",
 };
 translation['ru_RU'] = {
 	"确定": "ОК",
@@ -811,18 +825,99 @@ if (argonConfig.waterflow_columns != "1") {
 		$("#post_comment_content").trigger("change");
 		$('#post_comment').removeClass("editing");
 	}
-	$(document).on("click" , ".comment-edit" , function(){
+	$(document).on("click", ".comment-edit", function(){
 		edit(this.getAttribute("data-id"));
 	});
-	$(document).on("click" , "#post_comment_edit_cancel" , function(){
+	$(document).on("click", "#post_comment_edit_cancel", function(){
 		$("body,html").animate({
 			scrollTop: $("#comment-" + editID).offset().top - 100
 		}, 400, 'easeOutCirc');
 		cancelEdit(true);
 	});
-	$(document).on("pjax:click" , function(){
+	$(document).on("pjax:click", function(){
 		cancelEdit(true);
 	});
+	$(document).on("click", ".comment-pin, .comment-unpin", function(){
+		toogleCommentPin(this.getAttribute("data-id"), !this.classList.contains("comment-pin"));
+	});
+	//切换评论置顶状态
+	function toogleCommentPin(commentID, pinned){
+		$("#comment_pin_comfirm_dialog .modal-title").html(pinned ? __("取消置顶评论") : __("置顶评论"));
+		$("#comment_pin_comfirm_dialog .modal-body").html(pinned ? __("是否要取消置顶评论 #") + commentID + "?" : __("是否要置顶评论 #") + commentID + "?");
+		$("#comment_pin_comfirm_dialog .btn-comfirm").html(__("确认")).attr("disabled", false);
+		$("#comment_pin_comfirm_dialog .btn-dismiss").html(__("取消")).attr("disabled", false);
+		$("#comment_pin_comfirm_dialog .btn-comfirm").off("click").on("click", function(){
+			$("#comment_pin_comfirm_dialog .btn-dismiss").attr("disabled", true)
+			$("#comment_pin_comfirm_dialog .btn-comfirm").attr("disabled", true).prepend(__(`<span class="btn-inner--icon" style="margin-right: 10px;"><i class="fa fa-spinner fa-spin"></i></span>`));
+			$.ajax({
+				type: 'POST',
+				url: argonConfig.wp_path + "wp-admin/admin-ajax.php",
+				dataType : "json",
+				data: {
+					action: "pin_comment",
+					id: commentID,
+					pinned: pinned ? "false" : "true"
+				},
+				success: function(result){
+					$("#comment_pin_comfirm_dialog").modal('hide');
+					if (result.status == "success"){
+						if (pinned){
+							$("#comment-" + commentID + " .comment-name .badge-pinned").remove();
+							$("#comment-" + commentID + " .comment-unpin").removeClass("comment-unpin").addClass("comment-pin").html(__("置顶"));
+						}else{
+							$("#comment-" + commentID + " .comment-name").append(`<span class="badge badge-danger badge-pinned">${__("置顶")}</span>`);
+							$("#comment-" + commentID + " .comment-pin").removeClass("comment-pin").addClass("comment-unpin").html(__("取消置顶"));
+						}
+						iziToast.show({
+							title: pinned ? __("取消置顶成功") : __("置顶成功"),
+							message: pinned ? __("该评论已取消置顶") : __("该评论已置顶"),
+							class: 'shadow-sm',
+							position: 'topRight',
+							backgroundColor: '#2dce89',
+							titleColor: '#ffffff',
+							messageColor: '#ffffff',
+							iconColor: '#ffffff',
+							progressBarColor: '#ffffff',
+							icon: 'fa fa-check',
+							timeout: 5000
+						});
+					} else {
+						iziToast.show({
+							title: pinned ? __("取消置顶失败") : __("置顶失败"),
+							message: result.msg,
+							class: 'shadow-sm',
+							position: 'topRight',
+							backgroundColor: '#f5365c',
+							titleColor: '#ffffff',
+							messageColor: '#ffffff',
+							iconColor: '#ffffff',
+							progressBarColor: '#ffffff',
+							icon: 'fa fa-close',
+							timeout: 5000
+						});
+					}
+				},
+				error: function(result){
+					$("#comment_pin_comfirm_dialog").modal('hide');
+					iziToast.show({
+						title: pinned ? __("取消置顶失败") : __("置顶失败"),
+						message: __("未知错误"),
+						class: 'shadow-sm',
+						position: 'topRight',
+						backgroundColor: '#f5365c',
+						titleColor: '#ffffff',
+						messageColor: '#ffffff',
+						iconColor: '#ffffff',
+						progressBarColor: '#ffffff',
+						icon: 'fa fa-close',
+						timeout: 5000
+					});
+				}
+			});
+		});
+		$("#comment_pin_comfirm_dialog").modal(null);
+	}
+		
 
 	//显示/隐藏额外输入框 (评论者网站)
 	$(document).on("click" , "#post_comment_toggle_extra_input" , function(){
