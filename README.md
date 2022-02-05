@@ -70,6 +70,12 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20220205 v1.3.1
++ 📌 新增 评论置顶 功能（需要在选项中开启）
++ 子评论支持显示被回复者昵称
++ 同步 Highlight.js 高亮方案
++ 其他改进与修复
+
 ## 20220203 v1.3.0
 + 🎨 新增 气氛色 选项：主题色全局沉浸（类似 Material You）
 + 新增 `argon_comment_extra_info` filter
@@ -81,8 +87,6 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 + 修复开启衬线字体后代码块显示问题
 + 修复后台媒体库不能搜索问题
 + 其他改进与修复
-
-
 
 ## 20220106 v1.2.10
 + 新增通过 Ajax 获取验证码以绕过 CDN 缓存选项
