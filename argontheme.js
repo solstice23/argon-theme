@@ -840,6 +840,12 @@ if (argonConfig.waterflow_columns != "1") {
 	$(document).on("click", ".comment-pin, .comment-unpin", function(){
 		toogleCommentPin(this.getAttribute("data-id"), !this.classList.contains("comment-pin"));
 	});
+	$(document).on("mouseenter", ".comment-parent-info", function(){
+		$("#comment-" + this.getAttribute("data-parent-id")).addClass("highlight");
+	});
+	$(document).on("mouseleave", ".comment-parent-info", function(){
+		$("#comment-" + this.getAttribute("data-parent-id")).removeClass("highlight");
+	});
 	//切换评论置顶状态
 	function toogleCommentPin(commentID, pinned){
 		$("#comment_pin_comfirm_dialog .modal-title").html(pinned ? __("取消置顶评论") : __("置顶评论"));

@@ -2356,7 +2356,7 @@ html.darkmode .has-thumbnail .related-post-title.clamp {
 	list-style: none;
 	position: relative;
 }
-#comments li:target:before {
+#comments .comment-item:target:before, #comments .comment-item:before {
 	content: "";
 	display: block;
 	position: absolute;
@@ -2364,12 +2364,20 @@ html.darkmode .has-thumbnail .related-post-title.clamp {
 	right: -10px;
 	top: 0;
 	bottom: 0;
-	background: var(--themecolor);
+	background-color: var(--themecolor);
 	opacity: 0.15;
 	border-radius: var(--card-radius);
 	pointer-events: none;
 	animation: comment-focus-breath 2s linear;
 	animation-fill-mode: forwards;
+}
+#comments .comment-item:before{
+	animation: none;
+	opacity: 0;
+	transition: opacity 0.25s ease;
+}
+#comments .comment-item.highlight:before{
+	opacity: 0.2;
 }
 @keyframes comment-focus-breath {
 	0% {
@@ -2433,7 +2441,6 @@ html.darkmode .has-thumbnail .related-post-title.clamp {
 }
 .comment-item-title {
 	font-size: 16px;
-	font-weight: bold;
 	display: flex;
 	margin-bottom: 3px;
 }
@@ -2453,6 +2460,18 @@ html.darkmode .has-thumbnail .related-post-title.clamp {
 }
 .comment-name {
 	flex: 1;
+	font-weight: bold;
+}
+.comment-author, .comment-parent-info{
+	display: inline-block;
+}
+.comment-parent-info{
+	opacity: 0.6;
+	margin-left: 4px;
+	transition: opacity 0.3s ease;
+}
+.comment-item:hover .comment-parent-info{
+	opacity: 0.8;
 }
 .comment-info {
 	margin-top: 2px;

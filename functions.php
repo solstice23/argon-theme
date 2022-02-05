@@ -799,6 +799,17 @@ function remove_rss_private_comment_content($str){
 	return $str;
 }
 add_filter('comment_text_rss' , 'remove_rss_private_comment_content');
+//评论回复信息
+function get_comment_parent_info($comment){
+	if (!$GLOBALS['argon_comment_options']['show_comment_parent_info']){
+		return "";
+	}
+	if ($comment -> comment_parent == 0){
+		return "";
+	}
+	$parent_comment = get_comment($comment -> comment_parent);
+	return '<div class="comment-parent-info" data-parent-id=' . $parent_comment -> comment_ID . '><i class="fa fa-reply" aria-hidden="true"></i> ' . get_comment_author($parent_comment -> comment_ID) . '</div>';
+}
 //是否可以查看评论编辑记录
 function can_visit_comment_edit_history($id){
 	$who_can_visit_comment_edit_history = get_option("argon_who_can_visit_comment_edit_history");
@@ -987,6 +998,7 @@ add_action('wp_ajax_nopriv_upvote_comment' , 'upvote_comment');
 $GLOBALS['argon_comment_options']['enable_upvote'] = (get_option("argon_enable_comment_upvote", "false") == "true");
 $GLOBALS['argon_comment_options']['enable_pinning'] = (get_option("argon_enable_comment_pinning", "false") == "true");
 $GLOBALS['argon_comment_options']['current_user_can_moderate_comments'] = current_user_can('moderate_comments');
+$GLOBALS['argon_comment_options']['show_comment_parent_info'] = (get_option("argon_show_comment_parent_info", "true") == "true");
 function argon_comment_format($comment, $args, $depth){
 	global $comment_enable_upvote, $comment_enable_pinning;
 	$GLOBALS['comment'] = $comment;
@@ -1011,7 +1023,8 @@ function argon_comment_format($comment, $args, $depth){
 		<div class="comment-item-inner" id="comment-inner-<?php comment_ID();?>">
 			<div class="comment-item-title">
 				<div class="comment-name">
-					<?php echo get_comment_author_link();?>
+					<div class="comment-author"><?php echo get_comment_author_link();?></div>
+					<?php echo get_comment_parent_info($comment); ?>
 					<?php if (user_can($comment -> user_id , "update_core")){
 						echo '<span class="badge badge-primary badge-admin">' . __('博主', 'argon') . '</span>';}
 					?>
@@ -4371,6 +4384,17 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('在子评论中显示被回复者用户名', 'argon');?></label></th>
+						<td>
+							<select name="argon_show_comment_parent_info">
+								<?php $argon_show_comment_parent_info = get_option('argon_show_comment_parent_info'); ?>
+								<option value="true" <?php if ($argon_show_comment_parent_info=='true'){echo 'selected';} ?>><?php _e('显示', 'argon');?></option>
+								<option value="false" <?php if ($argon_show_comment_parent_info=='false'){echo 'selected';} ?>><?php _e('不显示', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('开启后，被回复的评论者昵称会显示在子评论中，鼠标移上后会高亮被回复的评论', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('折叠过长评论', 'argon');?></label></th>
 						<td>
 							<select name="argon_fold_long_comments">
@@ -4995,6 +5019,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_archives_timeline_url');
 		argon_update_option('argon_enable_immersion_color');
 		argon_update_option('argon_enable_comment_pinning');
+		argon_update_option('argon_show_comment_parent_info');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');
