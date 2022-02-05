@@ -1701,16 +1701,12 @@ function argon_comment_cmp($a, $b){
 		$b_pinned = "false";
 	}
 	if ($a_pinned == $b_pinned){
-		if ($GLOBALS['comment_order'] == 'desc'){
-			return ($a -> comment_date_gmt) > ($b -> comment_date_gmt);
-		}else{
-			return ($a -> comment_date_gmt) < ($b -> comment_date_gmt);
-		}
+		return ($a -> comment_date_gmt) > ($b -> comment_date_gmt);
 	}else{
 		if ($a_pinned == "true"){
-			return true;
+			return ($GLOBALS['comment_order'] == 'desc');
 		}else{
-			return false;
+			return ($GLOBALS['comment_order'] != 'desc');
 		}
 	}
 }
