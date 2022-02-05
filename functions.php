@@ -636,6 +636,7 @@ function get_article_meta($type){
 }
 //获取文章字数统计和预计阅读时间
 function get_article_reading_time_meta($post_content_full){
+	$post_content_full = apply_filters("argon_html_before_wordcount", $post_content_full);
 	$words = get_article_words($post_content_full);
 	$res = '</br><div class="post-meta-detail post-meta-detail-words">
 		<i class="fa fa-file-word-o" aria-hidden="true"></i>';
