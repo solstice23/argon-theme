@@ -13,12 +13,19 @@
 			</h2>
 			<ol class="comment-list">
 				<?php
+					get_option("argon_enable_comment_pinning", "false") == "true" ? 
 					wp_list_comments(
 						array(
 							'type'      => 'comment',
 							'callback'  => 'argon_comment_format'
 						),
 						argon_get_comments()
+					) :	
+					wp_list_comments(
+						array(
+							'type'      => 'comment',
+							'callback'  => 'argon_comment_format'
+						)
 					);
 				?>
 			</ol>
