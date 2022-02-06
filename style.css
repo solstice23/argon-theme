@@ -4431,6 +4431,9 @@ article table.hljs-ln > thead > tr > th {
 	vertical-align: unset;
 	border: unset !important;
 }
+.hljs {
+	overflow-x: auto;
+}
 pre.hljs-codeblock {
 	overflow: visible;
 	position: relative;
