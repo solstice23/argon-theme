@@ -70,6 +70,14 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20220207 v1.3.2
++ 使评论区第一页填满评论（评论分页方式为无限加载时）
++ 新增 `argon_html_before_wordcount` Filter
++ 修复代码块溢出边界的问题
++ 优化代码块控制栏可见性
++ 修复评论排序问题
++ 其他改进与修复
+
 ## 20220205 v1.3.1
 + 📌 新增 评论置顶 功能（需要在选项中开启）
 + 子评论支持显示被回复者昵称
