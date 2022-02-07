@@ -4567,7 +4567,7 @@ pre.hljs-codeblock .hljs-control {
 	right: 20px;
 	user-select: none;
 	opacity: 0.15;
-	color: #e2e1e4;
+	color: var(--themecolor-light);
 	transition: all 0.2s ease;
 	white-space: nowrap;
 }
