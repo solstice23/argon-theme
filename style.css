@@ -4562,13 +4562,18 @@ pre.hljs-codeblock.hljs-hide-linenumber .hljs-ln-code {
 	padding-left: 4px !important;
 }
 pre.hljs-codeblock .hljs-control {
+	display: block;
 	position: absolute;
-	top: 16px;
-	right: 20px;
+	top: 16px !important;
+	right: 20px !important;
 	user-select: none;
 	opacity: 0;
 	transition: all 0.2s ease;
 	white-space: nowrap;
+	overflow: visible;
+	background: transparent;
+	padding: 0;
+	margin: 0;
 }
 pre.hljs-codeblock:hover .hljs-control {
 	opacity: 0.4;
