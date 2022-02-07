@@ -13,7 +13,7 @@
 			</h2>
 			<ol class="comment-list">
 				<?php
-					get_option("argon_enable_comment_pinning", "false") == "true" ? 
+					get_option("argon_comment_pagination_type", "feed") == "feed" ? 
 					wp_list_comments(
 						array(
 							'type'      => 'comment',

@@ -1003,7 +1003,7 @@ $GLOBALS['argon_comment_options']['show_comment_parent_info'] = (get_option("arg
 function argon_comment_format($comment, $args, $depth){
 	global $comment_enable_upvote, $comment_enable_pinning;
 	$GLOBALS['comment'] = $comment;
-	if (user_can_view_comment(get_comment_ID())){
+	if (!($comment -> placeholder) && user_can_view_comment(get_comment_ID())){
 	?>
 	<li class="comment-item" id="comment-<?php comment_ID(); ?>" data-id="<?php comment_ID(); ?>" data-use-markdown="<?php echo get_comment_meta(get_comment_ID(), "use_markdown", true);?>">
 		<div class="comment-item-left-wrapper">
@@ -1737,13 +1737,32 @@ function argon_get_comments(){
 
 	$comment_query = new WP_Comment_Query;
 	$comments = $comment_query -> query($args);
-
-	/*$comments_count = $comment_query -> found_comments;
-	$comments_per_page = get_option('comments_per_page');
-	$comments_pages = ceil($comments_count / $comments_per_page);*/
 	
 	if (get_option("argon_enable_comment_pinning", "false") == "true"){
 		usort($comments, "argon_comment_cmp");
+	}else{
+		$comments = array_reverse($comments);
+	}
+	
+	//向评论数组中填充 placeholder comments 以填满第一页
+	if (get_option("argon_comment_pagination_type", "feed") == "page"){
+		return $comments;
+	}
+	$comments_per_page = get_option('comments_per_page');
+	$comments_count = 0;
+	foreach ($comments as $comment){
+		if ($comment -> comment_parent == 0){
+			$comments_count++;
+		}
+	}
+	$comments_pages = ceil($comments_count / $comments_per_page);
+	if ($comments_pages > 1){
+		$placeholders_count = $comments_pages * $comments_per_page - $comments_count;
+		while ($placeholders_count--){
+			array_unshift($comments, new WP_Comment((object) array(
+				"placeholder" => true
+			)));
+		}
 	}
 	return $comments;
 }
@@ -4214,7 +4233,34 @@ window.pjaxLoaded = function(){
 								<option value="feed" <?php if ($argon_comment_pagination_type=='feed'){echo 'selected';} ?>><?php _e('无限加载', 'argon');?></option>
 								<option value="page" <?php if ($argon_comment_pagination_type=='page'){echo 'selected';} ?>><?php _e('页码', 'argon');?></option>
 							</select>
-							<p class="description"><?php _e('无限加载：点击 "加载更多" 按钮来加载更多评论。', 'argon');?></br><?php _e('页码：显示页码来分页。', 'argon');?></br><?php _e('推荐选择"无限加载"时将 Wordpress 设置中的讨论设置项设为 "默认显示最后一页，在每个页面顶部显示新的评论"。', 'argon');?></p>
+							<p class="description">
+								<?php _e('无限加载：点击 "加载更多" 按钮来加载更多评论。', 'argon');?></br>
+								<?php _e('页码：显示页码来分页。', 'argon');?></br>
+								<span class="go-to-wp-comment-settings"><?php _e('选择"无限加载"时，如果开启了评论分页，请将 Wordpress 的讨论设置设为 "默认显示<b>最后</b>一页，在每个页面顶部显示<b>新的</b>评论"。', 'argon');?> <a href="./options-discussion.php" target="_blank"><?php _e('去设置', 'argon');?>&gt;&gt;&gt;</a></span>
+								<?php if (get_option('page_comments') == '1' && get_option('default_comments_page') != 'newest' && get_option('comment_order') != 'desc') {
+									echo '<script>$(".go-to-wp-comment-settings").addClass("wrong-options");</script>';
+								};?>
+								<script>
+									$("select[name='argon_comment_pagination_type']").change(function(){
+										if ($(this).val() == 'feed') {
+											$(".go-to-wp-comment-settings").addClass("using-feed");
+										} else {
+											$(".go-to-wp-comment-settings").removeClass("using-feed");
+										}
+									}).change();
+								</script>
+								<style>
+									.go-to-wp-comment-settings a{
+										display: none;
+									}
+									.go-to-wp-comment-settings.wrong-options.using-feed a{
+										display: inline-block;
+									}
+									.go-to-wp-comment-settings.wrong-options.using-feed{
+										color: #f00;
+									}
+								</style>
+							</p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('发送评论', 'argon');?></h3></th></tr>
