@@ -9,18 +9,19 @@ function theme_slug_setup() {
 }
 add_action('after_setup_theme','theme_slug_setup');
 
-$GLOBALS['theme_version'] = wp_get_theme() -> Version;
+$argon_version = !(wp_get_theme() -> Template) ? wp_get_theme() -> Version : wp_get_theme(wp_get_theme() -> Template) -> Version;
+$GLOBALS['theme_version'] = $argon_version;
 $argon_assets_path = get_option("argon_assets_path");
 switch ($argon_assets_path) {
     case "jsdelivr":
-	    $GLOBALS['assets_path'] = "https://cdn.jsdelivr.net/gh/solstice23/argon-theme@" . wp_get_theme() -> Version;
+	    $GLOBALS['assets_path'] = "https://cdn.jsdelivr.net/gh/solstice23/argon-theme@" . $argon_version;
         break;
     case "fastgit":
-	    $GLOBALS['assets_path'] = "https://raw.fastgit.org/solstice23/argon-theme/v" . wp_get_theme() -> Version;
+	    $GLOBALS['assets_path'] = "https://raw.fastgit.org/solstice23/argon-theme/v" . $argon_version;
         break;
     case "AHCDN":
     case "sourcestorage":
-	    $GLOBALS['assets_path'] = "https://source.ahdark.com/wordpress/theme/argon-theme/" . wp_get_theme() -> Version;
+	    $GLOBALS['assets_path'] = "https://source.ahdark.com/wordpress/theme/argon-theme/" . $argon_version;
         break;
     default:
 	    $GLOBALS['assets_path'] = get_bloginfo('template_url');
@@ -1930,7 +1931,7 @@ function alert_footer_copyright_changed(){ ?>
 <?php }
 function check_footer_copyright(){
 	$footer = file_get_contents(get_theme_root() . "/" . wp_get_theme() -> template . "/footer.php");
-	if ((strpos($footer, "github.com/solstice23/argon-theme") === false) && (strpos($footer, "solstice23.top") === false) && (strpos($footer, "solstice23.top") === false)){
+	if ((strpos($footer, "github.com/solstice23/argon-theme") === false) && (strpos($footer, "solstice23.top") === false)){
 		add_action('admin_notices', 'alert_footer_copyright_changed');
 	}
 }
