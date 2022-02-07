@@ -2327,12 +2327,20 @@ function argon_admin_i18n_info(){
 }
 add_filter('admin_head', 'argon_admin_i18n_info');
 //主题文章短代码解析
+function shortcode_content_preprocess($attr, $content = ""){
+	if ($attr['nested'] ?? 'true' != 'false'){
+		return do_shortcode($content);
+	}else{
+		return $content;
+	}	
+}
 add_shortcode('br','shortcode_br');
 function shortcode_br($attr,$content=""){
 	return "</br>";
 }
 add_shortcode('label','shortcode_label');
 function shortcode_label($attr,$content=""){
+	$content = shortcode_content_preprocess($attr, $content);
 	$out = "<span class='badge";
 	$color = $attr['color'] ?? 'indigo';
 	switch ($color){
@@ -2362,6 +2370,7 @@ function shortcode_label($attr,$content=""){
 }
 add_shortcode('progressbar','shortcode_progressbar');
 function shortcode_progressbar($attr,$content=""){
+	$content = shortcode_content_preprocess($attr, $content);
 	$out = "<div class='progress-wrapper'><div class='progress-info'>";
 	if ($content != ""){
 		$out .= "<div class='progress-label'><span>" . $content . "</span></div>";
@@ -2395,6 +2404,7 @@ function shortcode_progressbar($attr,$content=""){
 }
 add_shortcode('checkbox','shortcode_checkbox');
 function shortcode_checkbox($attr,$content=""){
+	$content = shortcode_content_preprocess($attr, $content);
 	$checked = $attr['checked'] ?? 'false';
 	$inline = isset($attr['inline']) ? $attr['checked'] : 'false';
 	$out = "<div class='shortcode-todo custom-control custom-checkbox";
@@ -2411,6 +2421,7 @@ function shortcode_checkbox($attr,$content=""){
 }
 add_shortcode('alert','shortcode_alert');
 function shortcode_alert($attr,$content=""){
+	$content = shortcode_content_preprocess($attr, $content);
 	$out = "<div class='alert";
 	$color = $attr['color'] ?? 'indigo';
 	switch ($color){
@@ -2449,6 +2460,7 @@ function shortcode_alert($attr,$content=""){
 }
 add_shortcode('admonition','shortcode_admonition');
 function shortcode_admonition($attr,$content=""){
+	$content = shortcode_content_preprocess($attr, $content);
 	$out = "<div class='admonition shadow-sm";
 	$color = $attr['color'] ?? 'indigo';
 	switch ($color){
@@ -2494,6 +2506,7 @@ function shortcode_admonition($attr,$content=""){
 add_shortcode('collapse','shortcode_collapse_block');
 add_shortcode('fold','shortcode_collapse_block');
 function shortcode_collapse_block($attr,$content=""){
+	$content = shortcode_content_preprocess($attr, $content);
 	$collapsed = $attr['collapsed'] ?? 'true';
 	$show_border_left = $attr['showleftborder'] ?? 'false';
 	$out = "<div " ;
@@ -2609,6 +2622,7 @@ function shortcode_friend_link($attr,$content=""){
 }
 add_shortcode('sfriendlinks','shortcode_friend_link_simple');
 function shortcode_friend_link_simple($attr,$content=""){
+	$content = shortcode_content_preprocess($attr, $content);
 	$content = trim(strip_tags($content));
 	$entries = explode("\n" , $content);
 
@@ -2694,6 +2708,7 @@ function shortcode_friend_link_simple($attr,$content=""){
 }
 add_shortcode('timeline','shortcode_timeline');
 function shortcode_timeline($attr,$content=""){
+	$content = shortcode_content_preprocess($attr, $content);
 	$content = trim(strip_tags($content));
 	$entries = explode("\n" , $content);
 	$out = "<div class='argon-timeline'>";
@@ -2726,6 +2741,7 @@ function shortcode_timeline($attr,$content=""){
 add_shortcode('hidden','shortcode_hidden');
 add_shortcode('spoiler','shortcode_hidden');
 function shortcode_hidden($attr,$content=""){
+	$content = shortcode_content_preprocess($attr, $content);
 	$out = "<span class='argon-hidden-text";
 	$tip = $attr['tip'] ?? '';
 	$type = $attr['type'] ?? 'blur';

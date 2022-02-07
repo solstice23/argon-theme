@@ -149,7 +149,7 @@
 				title : '视频',
 				image : url+'/video.svg',
 				onclick : function(){
-					ed.selection.setContent('[video url="视频地址" /]');
+					ed.selection.setContent('[video url="" /]');
 				}
 			});
 		},
@@ -165,7 +165,7 @@
 				title : '隐藏文本',
 				image : url+'/hiddentext.svg',
 				onclick : function(){
-					ed.selection.setContent('[hidden]' + ed.selection.getContent() + '[/hidden]');
+					ed.selection.setContent('[spoiler]' + ed.selection.getContent() + '[/spoiler]');
 				}
 			});
 		},
