@@ -1912,7 +1912,7 @@ function alert_footer_copyright_changed(){ ?>
 <?php }
 function check_footer_copyright(){
 	$footer = file_get_contents(get_theme_root() . "/" . wp_get_theme() -> template . "/footer.php");
-	if ((strpos($footer, "github.com/solstice23/argon-theme") === false) && (strpos($footer, "solstice23.top") === false) && (strpos($footer, "solstice23.top") === false)){
+	if ((strpos($footer, "github.com/solstice23/argon-theme") === false) && (strpos($footer, "solstice23.top") === false)){
 		add_action('admin_notices', 'alert_footer_copyright_changed');
 	}
 }
