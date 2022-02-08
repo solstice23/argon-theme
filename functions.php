@@ -92,31 +92,37 @@ if (version_compare($argon_last_version, $GLOBALS['theme_version'], '<' )){
 //检测更新
 require_once(get_template_directory() . '/theme-update-checker/plugin-update-checker.php');
 $argon_update_source = get_option('argon_update_source');
-if ($argon_update_source == 'stop'){}
-else if ($argon_update_source == 'solstice23top' || $argon_update_source == 'abc233site'){
-	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://api.solstice23.top/argon/info.json?source=0',
-		get_template_directory() . '/functions.php',
-		'argon'
-	);
-}else if ($argon_update_source == 'jsdelivr'){
-	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://api.solstice23.top/argon/info.json?source=jsdelivr',
-		get_template_directory() . '/functions.php',
-		'argon'
-	);
-}else if ($argon_update_source == 'fastgit'){
-	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://api.solstice23.top/argon/info.json?source=fastgit',
-		get_template_directory() . '/functions.php',
-		'argon'
-	);
-}else{
-	$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://raw.githubusercontent.com/solstice23/argon-theme/master/info.json',
-		get_template_directory() . '/functions.php',
-		'argon'
-	);
+switch ($argon_update_source) {
+	case "stop":
+		break;
+    case "fastgit":
+	    $argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+			'https://api.solstice23.top/argon/info.json?source=fastgit',
+			get_template_directory() . '/functions.php',
+			'argon'
+		);
+        break;
+    case "cfworker":
+	    $argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+			'https://api.solstice23.top/argon/info.json?source=cfworker',
+			get_template_directory() . '/functions.php',
+			'argon'
+		);
+        break;
+	case "solstice23top":
+		$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+			'https://api.solstice23.top/argon/info.json?source=0',
+			get_template_directory() . '/functions.php',
+			'argon'
+		);
+		break;
+	case "github":
+    default:
+		$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+			'https://raw.githubusercontent.com/solstice23/argon-theme/master/info.json',
+			get_template_directory() . '/functions.php',
+			'argon'
+		);
 }
 
 //初次使用时发送安装量统计信息 (数据仅用于统计安装量)
@@ -4652,9 +4658,9 @@ window.pjaxLoaded = function(){
 							<select name="argon_update_source">
 								<?php $argon_update_source = get_option('argon_update_source'); ?>
 								<option value="github" <?php if ($argon_update_source=='github'){echo 'selected';} ?>>Github</option>
-								<option value="jsdelivr" <?php if ($argon_update_source=='jsdelivr'){echo 'selected';} ?>>jsdelivr</option>
-								<option value="fastgit" <?php if ($argon_update_source=='fastgit'){echo 'selected';} ?>>fastgit</option>
-								<option value="solstice23top" <?php if ($argon_update_source=='solstice23top' || $argon_update_source=='abc233site'){echo 'selected';} ?>>solstice23.top</option>
+								<option value="fastgit" <?php if ($argon_update_source=='fastgit'){echo 'selected';} ?>>Fastgit</option>
+								<option value="cfworker" <?php if ($argon_update_source=='cfworker'){echo 'selected';} ?>>CF Worker</option>
+								<option value="solstice23top" <?php if ($argon_update_source=='solstice23top'){echo 'selected';} ?>>solstice23.top</option>
 								<option value="stop" <?php if ($argon_update_source=='stop'){echo 'selected';} ?>><?php _e('暂停更新 (不推荐)', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('如更新主题速度较慢，可考虑更换更新源。', 'argon');?></p>
