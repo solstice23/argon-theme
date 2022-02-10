@@ -70,6 +70,13 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20220211 v1.3.3
++ 🌈 新增 后台管理界面美化 (在"用户-个人资料-管理界面配色方案" 或 "Argon设置-杂项" 中开启)
++ 新增 CF Worker 更新源，移除 jsdelivr 更新源
++ 支持短代码嵌套
++ 修复多站点下无法编辑主题设置的问题
++ 其他改进与修复
+
 ## 20220207 v1.3.2
 + 使评论区第一页填满评论（评论分页方式为无限加载时）
 + 新增 `argon_html_before_wordcount` Filter
