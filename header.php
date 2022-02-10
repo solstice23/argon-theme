@@ -48,10 +48,7 @@
 ?>
 <html <?php language_attributes(); ?> class="no-js <?php echo $htmlclasses;?>">
 <?php
-	$themecolor = get_option('argon_theme_color');
-	if ($themecolor == ""){
-		$themecolor = "#5e72e4";
-	}
+	$themecolor = get_option("argon_theme_color", "#5e72e4");
 	$themecolor_origin = $themecolor;
 	if (isset($_COOKIE["argon_custom_theme_color"])){
 		if (checkHEX($_COOKIE["argon_custom_theme_color"]) && get_option('argon_show_customize_theme_color_picker') != 'false'){

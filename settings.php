@@ -1557,6 +1557,15 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
+						<th><label><?php _e('美化后台界面', 'argon');?></label></th>
+						<td>
+							<p class="description">
+								<?php _e('使用 Argon Design 风格的后台界面', 'argon');?><br>
+								<?php echo sprintf(__('前往<a href="%s" target="_blank">个人资料</a>页面将 "管理界面配色方案" 设为 "Argon" 即可开启。', 'argon'), admin_url('profile.php'));?>
+							</p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('博客首页是否显示说说', 'argon');?></label></th>
 						<td>
 							<select name="argon_home_show_shuoshuo">
