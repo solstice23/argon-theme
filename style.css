@@ -17,6 +17,16 @@ Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, �
 	--themecolor-R: 94;
 	--themecolor-G: 114;
 	--themecolor-B: 228;
+	--themecolor-H: 231;
+	--themecolor-S: 71;
+	--themecolor-L: 63;
+	--themecolor-rgbstr: var(--themecolor-R), var(--themecolor-G), var(--themecolor-B);
+	--themecolor-dark0: hsl(var(--themecolor-H), calc(var(--themecolor-S) * 1%), max(calc(var(--themecolor-L) * 1% - 2.5%), 0%));
+	--themecolor-dark: hsl(var(--themecolor-H), calc(var(--themecolor-S) * 1%), max(calc(var(--themecolor-L) * 1% - 5%), 0%));
+	--themecolor-dark2: hsl(var(--themecolor-H), calc(var(--themecolor-S) * 1%), max(calc(var(--themecolor-L) * 1% - 10%), 0%));
+	--themecolor-dark3: hsl(var(--themecolor-H), calc(var(--themecolor-S) * 1%), max(calc(var(--themecolor-L) * 1% - 15%), 0%));
+	--themecolor-light: hsl(var(--themecolor-H), calc(var(--themecolor-S) * 1%), min(calc(var(--themecolor-L) * 1% + 10%), 100%));
+	--themecolor-gradient: linear-gradient(150deg, var(--themecolor-light) 15%, var(--themecolor) 70%, var(--themecolor-dark0) 94%);
 
 	--color-tint-70: 
 		calc(var(--themecolor-R) + (255 - var(--themecolor-R)) * 0.7),

@@ -258,35 +258,15 @@
 		$themecolor_rgbstr = hex2str($themecolor);
 		$RGB = hexstr2rgb($themecolor);
 		$HSL = rgb2hsl($RGB['R'], $RGB['G'], $RGB['B']);
-
-		$RGB_dark0 = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.025, 0));
-		$themecolor_dark0 = rgb2hex($RGB_dark0['R'],$RGB_dark0['G'],$RGB_dark0['B']);
-
-		$RGB_dark = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.05, 0));
-		$themecolor_dark = rgb2hex($RGB_dark['R'], $RGB_dark['G'], $RGB_dark['B']);
-
-		$RGB_dark2 = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.1, 0));
-		$themecolor_dark2 = rgb2hex($RGB_dark2['R'],$RGB_dark2['G'],$RGB_dark2['B']);
-
-		$RGB_dark3 = hsl2rgb($HSL['h'], $HSL['s'], max($HSL['l'] - 0.15, 0));
-		$themecolor_dark3 = rgb2hex($RGB_dark3['R'],$RGB_dark3['G'],$RGB_dark3['B']);
-
-		$RGB_light = hsl2rgb($HSL['h'], $HSL['s'], min($HSL['l'] + 0.1, 1));
-		$themecolor_light = rgb2hex($RGB_light['R'],$RGB_light['G'],$RGB_light['B']);
 	?>
 	:root{
 		--themecolor: <?php echo $themecolor; ?>;
-		--themecolor-dark0: <?php echo $themecolor_dark0; ?>;
-		--themecolor-dark: <?php echo $themecolor_dark; ?>;
-		--themecolor-dark2: <?php echo $themecolor_dark2; ?>;
-		--themecolor-dark3: <?php echo $themecolor_dark3; ?>;
-		--themecolor-light: <?php echo $themecolor_light; ?>;
-		--themecolor-rgbstr: <?php echo $themecolor_rgbstr; ?>;
-		--themecolor-gradient: linear-gradient(150deg,var(--themecolor-light) 15%, var(--themecolor) 70%, var(--themecolor-dark0) 94%);
-		--base-hue: <?php echo round($HSL['h'] * 360); ?>;
 		--themecolor-R: <?php echo $RGB['R']; ?>;
 		--themecolor-G: <?php echo $RGB['G']; ?>;
 		--themecolor-B: <?php echo $RGB['B']; ?>;
+		--themecolor-H: <?php echo $HSL['H']; ?>;
+		--themecolor-S: <?php echo $HSL['S']; ?>;
+		--themecolor-L: <?php echo $HSL['L']; ?>;
 	}
 </style>
 <style id="theme_cardradius_css">

@@ -2173,7 +2173,10 @@ function rgb2hsl(R,G,B){
 	return {
 		'h': H,//0~1
 		's': S,
-		'l': L
+		'l': L,
+		'H': Math.round(H * 360),//0~360
+		'S': Math.round(S * 100),//0~100
+		'L': Math.round(L * 100),//0~100
 	};
 }
 function Hue_2_RGB(v1,v2,vH){
@@ -2328,32 +2331,14 @@ function updateThemeColor(color, setcookie){
 	let RGB = hex2rgb(themecolor);
 	let HSL = rgb2hsl(RGB['R'], RGB['G'], RGB['B']);
 
-	let RGB_dark0 = hsl2rgb(HSL['h'], HSL['s'], Math.max(HSL['l'] - 0.025, 0));
-	let themecolor_dark0 = rgb2hex(RGB_dark0['R'], RGB_dark0['G'], RGB_dark0['B']);
-
-	let RGB_dark = hsl2rgb(HSL['h'], HSL['s'], Math.max(HSL['l'] - 0.05, 0));
-	let themecolor_dark = rgb2hex(RGB_dark['R'], RGB_dark['G'], RGB_dark['B']);
-
-	let RGB_dark2 = hsl2rgb(HSL['h'], HSL['s'], Math.max(HSL['l'] - 0.1, 0));
-	let themecolor_dark2 = rgb2hex(RGB_dark2['R'], RGB_dark2['G'], RGB_dark2['B']);
-
-	let RGB_dark3 = hsl2rgb(HSL['h'], HSL['s'], Math.max(HSL['l'] - 0.15, 0));
-	let themecolor_dark3 = rgb2hex(RGB_dark3['R'], RGB_dark3['G'], RGB_dark3['B']);
-
-	let RGB_light = hsl2rgb(HSL['h'], HSL['s'], Math.min(HSL['l'] + 0.1, 1));
-	let themecolor_light = rgb2hex(RGB_light['R'], RGB_light['G'], RGB_light['B']);
-
 	document.documentElement.style.setProperty('--themecolor', themecolor);
-	document.documentElement.style.setProperty('--themecolor-dark0', themecolor_dark0);
-	document.documentElement.style.setProperty('--themecolor-dark', themecolor_dark);
-	document.documentElement.style.setProperty('--themecolor-dark2', themecolor_dark2);
-	document.documentElement.style.setProperty('--themecolor-dark3', themecolor_dark3);
-	document.documentElement.style.setProperty('--themecolor-light', themecolor_light);
-	document.documentElement.style.setProperty('--themecolor-rgbstr', themecolor_rgbstr);
-	document.documentElement.style.setProperty('--base-hue', Math.round(HSL['h'] * 360));
 	document.documentElement.style.setProperty('--themecolor-R', RGB['R']);
 	document.documentElement.style.setProperty('--themecolor-G', RGB['G']);
 	document.documentElement.style.setProperty('--themecolor-B', RGB['B']);
+	document.documentElement.style.setProperty('--themecolor-H', HSL['H']);
+	document.documentElement.style.setProperty('--themecolor-S', HSL['S']);
+	document.documentElement.style.setProperty('--themecolor-L', HSL['L']);
+
 
 	if (rgb2gray(RGB['R'], RGB['G'], RGB['B']) < 50){
 		$("html").addClass("themecolor-toodark");

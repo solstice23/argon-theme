@@ -1983,7 +1983,10 @@ function rgb2hsl($R,$G,$B){
 	return array(
 		'h' => $H,//0~1
 		's' => $S,
-		'l' => $L
+		'l' => $L,
+		'H' => round($H * 360),//0~360
+		'S' => round($S * 100),//0~100
+		'L' => round($L * 100),//0~100
 	);
 }
 function Hue_2_RGB($v1,$v2,$vH){
