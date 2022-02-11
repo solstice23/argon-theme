@@ -4470,6 +4470,7 @@ code[hljs-codeblock-inner] {
 	margin-top: 15px !important;
 	margin-bottom: 15px !important;
 	padding-top: 55px !important;
+	display: block;
 }
 .hljs-ln-numbers {
 	-webkit-touch-callout: none;
