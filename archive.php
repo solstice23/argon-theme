@@ -10,7 +10,7 @@
 				</p>
 			<?php } ?>
 			<p class="text-black mt-3 mb-0 opacity-8">
-				<i class="fa fa-file-o mr-1"></i>
+				<i class="fa fa-file mr-1"></i>
 				<?php echo $wp_query -> found_posts; ?> <?php _e('篇文章', 'argon');?>
 			</p>
 		</div>

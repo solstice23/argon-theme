@@ -16,6 +16,13 @@
 
 */
 
+var $ = window.$;
+
+import 'bootstrap';
+import '@popperjs/core';
+import 'nouislider'
+import './plugins/jquery-ui.js'
+
 "use strict";
 $(document).ready(function() {
 

@@ -1,0 +1,37 @@
+{
+  "name": "argon-js",
+  "version": "1.0.0",
+  "description": "",
+  "source": "src/argon-theme.js",
+  "scripts": {
+    "watch": "parcel watch",
+    "build": "parcel build"
+  },
+  "author": "solstice23",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "@parcel/reporter-bundle-analyzer": "^2.3.1",
+    "parcel": "^2.3.1",
+    "path-browserify": "^1.0.1"
+  },
+  "dependencies": {
+    "@fancyapps/ui": "^4.0.25",
+    "@fortawesome/fontawesome-free": "^6.0.0",
+    "@simonwep/pickr": "^1.5.0",
+    "bootstrap": "^4.1.3",
+    "clamp-js": "^0.7.0",
+    "clipboard": "^2.0.10",
+    "headroom.js": "^0.12.0",
+    "highlight.js": "^11.4.0",
+    "highlightjs-line-numbers.js": "^2.8.0",
+    "izitoast": "^1.4.0",
+    "jquery": "^3.6.0",
+    "jquery-ui-dist": "^1.13.1",
+    "jquery.easing": "^1.4.1",
+    "nouislider": "^15.5.1",
+    "nprogress": "^0.2.0",
+    "pangu": "^4.0.7",
+    "popper.js": "^1.16.1",
+    "tippy.js": "^6.3.7"
+  }
+}

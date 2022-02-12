@@ -1,0 +1,50 @@
+.index-box {
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.index-box ul {
+    padding: 0;
+    list-style: none;
+}
+
+.index-box .index-subItem-box {
+    display: none;
+}
+
+.index-box .index-item,
+.index-box .index-link {
+    width: 100%;
+    display: block;
+    color: #333333;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.index-box .index-link {
+    padding: 4px 8px 4px 12px;
+    cursor: pointer;
+    -webkit-transition: background-color 0.3s, border-left-color 0.3s;
+    -moz-transition: background-color 0.3s, border-left-color 0.3s;
+    -o-transition: background-color 0.3s, border-left-color 0.3s;
+    transition: background-color 0.3s, border-left-color 0.3s;
+    border-left: 3px solid transparent;
+    word-break: break-all;
+}
+
+.index-box .index-item.current > .index-link {
+    background-color: rgba(0, 0, 0, 0.15);
+    border-left: 3px solid #555555;
+}
+
+.index-box .index-link:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.index-box .index-subItem-box .index-item {
+    padding-left: 1em;
+}
+

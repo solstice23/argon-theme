@@ -7,7 +7,7 @@
 				</main>
 			</div>
 		</div>
-		<script src="<?php echo $GLOBALS['assets_path']; ?>/argontheme.js?v<?php echo $GLOBALS['theme_version']; ?>"></script>
+		<!--<script src="<?php echo $GLOBALS['assets_path']; ?>/assets/dist/argon-theme.js?v<?php echo $GLOBALS['theme_version']; ?>"></script>-->
 		<?php if (get_option('argon_math_render') == 'mathjax3') { /*Mathjax V3*/?>
 			<script>
 				window.MathJax = {
