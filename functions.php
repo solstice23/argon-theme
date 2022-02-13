@@ -3082,7 +3082,7 @@ function argon_get_search_post_type_array(){
 	$search_filter_option = get_option('argon_search_post_filter', 'post,page');
 	if (!isset($_GET['post_type'])) {
 		if ($search_filter_option == 'off'){
-			return array('post', 'page');
+			return get_post_types();
 		}
 		$default = explode(',', $search_filter_option);
 		return $default;
