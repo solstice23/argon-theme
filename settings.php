@@ -1595,9 +1595,24 @@ window.pjaxLoaded = function(){
 								<option value="off" <?php if ($argon_search_post_filter=='off'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
 								<option value="post,page" <?php if ($argon_search_post_filter=='post,page'){echo 'selected';} ?>><?php _e('启用，默认不包括说说', 'argon');?></option>
 								<option value="post,page,shuoshuo" <?php if ($argon_search_post_filter=='post,page,shuoshuo'){echo 'selected';} ?>><?php _e('启用，默认包括说说', 'argon');?></option>
-								<option value="post,page,hide_shuoshuo" <?php if ($argon_search_post_filter=='post,page,hide_shuoshuo'){echo 'selected';} ?>><?php _e('启用，隐藏说说分类', 'argon');?></option>
+								<!-- <option value="post,page,hide_shuoshuo" <?php if ($argon_search_post_filter=='post,page,hide_shuoshuo'){echo 'selected';} ?>><?php _e('启用，隐藏说说分类', 'argon');?></option> -->
 							</select>
 							<p class="description"><?php _e('开启后，将会在搜索结果界面显示一个过滤器，支持搜索说说', 'argon');?></p>
+						</td>
+					</tr>
+					<th><label><?php _e('可以搜索到的内容', 'argon');?></label></th>
+						<td>
+							<?php 
+								$get_post_types_args = array(
+									'public'   => true,
+									);
+								$post_types_object = get_post_types($get_post_types_args, 'objects');  // objects
+								$argon_search_post_types = get_option('argon_search_post_types', get_post_types()); // array
+								foreach ($post_types_object as $post_type): 
+							?>
+									<label><input type="checkbox" name="argon_search_post_types[]" value=<?php echo $post_type->name;?> <?php if (in_array($post_type->name, $argon_search_post_types)){echo 'checked';};?>><?php echo $post_type->label;?></label>
+							<?php endforeach?>
+							<p class="description"><?php _e('当搜索内容过滤器启用时，允许搜索的内容类型', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -1978,6 +1993,12 @@ function argon_update_option_checkbox($name){
 		update_option($name, 'false');
 	}
 }
+function argon_update_option_array($name){
+	update_option($name, array());
+	$value = $_POST[$name];
+	update_option($name, $value);
+	// see: https://global-s-h.com/article/article.php?id=29
+}
 function argon_update_themeoptions(){
 	if (!isset($_POST['update_themeoptions'])){
 		return;
@@ -2048,6 +2069,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_who_can_visit_comment_edit_history');
 		argon_update_option('argon_home_show_shuoshuo');
 		argon_update_option('argon_search_post_filter');
+		argon_update_option_array('argon_search_post_types');
 		argon_update_option('argon_darkmode_autoswitch');
 		argon_update_option('argon_enable_amoled_dark');
 		argon_update_option('argon_outdated_info_time_type');

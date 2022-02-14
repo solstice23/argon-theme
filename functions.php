@@ -3079,29 +3079,20 @@ function init_shuoshuo(){
 }
 
 function argon_get_search_post_type_array(){
-	$search_filter_option = get_option('argon_search_post_filter', 'post,page');
+	$search_filter_type_option = get_option('argon_search_post_types');
+	$search_filter_option = get_option('argon_search_post_filter');
 	if (!isset($_GET['post_type'])) {
 		if ($search_filter_option == 'off'){
-			return get_post_types();
+			return get_post_types(); 
 		}
-		$default = explode(',', $search_filter_option);
-		return $default;
+		if (! in_array('shuoshuo', explode(',',$search_filter_option)) AND array_search('shuoshuo', $search_filter_type_option)){
+			unset($search_filter_type_option[array_search('shuoshuo', $search_filter_type_option)]);
+			return $search_filter_type_option;
+		}
+		return $search_filter_type_option;
 	}
 	$post_type = $_GET['post_type'];
-	$arr = array();
-	if (strpos($post_type, 'post') !== false) {
-		array_push($arr, 'post');
-	}
-	if (strpos($post_type, 'page') !== false) {
-		array_push($arr, 'page');
-	}
-	if (strpos($post_type, 'shuoshuo') !== false && !in_array('hide_shuoshuo', explode(',', $search_filter_option))) {
-		array_push($arr, 'shuoshuo');
-	}
-	if (count($arr) == 0) {
-		array_push($arr, 'none');
-	}
-	return $arr;
+	return explode(',', $post_type);
 }
 function search_filter($query) {
 	if (!$query -> is_search || is_admin()) {

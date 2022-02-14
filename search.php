@@ -8,23 +8,22 @@
 				<?php _e('的搜索结果', 'argon');?>
 			</p>
 			<?php 
-				$search_post_type = argon_get_search_post_type_array();
-				if (get_option('argon_search_post_filter', 'post,page') != 'off'){ ?>
+				$search_post_types_checked = argon_get_search_post_type_array(); // array
+				$search_post_types = get_option('argon_search_post_types'); // array
+				$search_post_filter = get_option('argon_search_post_filter', 'post,page'); // string
+				if ($search_post_filter != 'off'){ ?>
 					<div class="search-filters">
-						<div class="custom-control custom-checkbox search-filter-wrapper">
-							<input class="custom-control-input search-filter" name="post" id="search_filter_post" type="checkbox" <?php echo in_array('post', $search_post_type) ? 'checked="true"' : ''; ?>>
-							<label class="custom-control-label" for="search_filter_post">文章</label>
-						</div>
-						<div class="custom-control custom-checkbox search-filter-wrapper">
-							<input class="custom-control-input search-filter" name="page" id="search_filter_page" type="checkbox" <?php echo in_array('page', $search_post_type) ? 'checked="true"' : ''; ?>>
-							<label class="custom-control-label" for="search_filter_page">页面</label>
-						</div>
-						<?php if (strpos(get_option('argon_search_post_filter', 'post,page'), 'hide_shuoshuo') === false) { ?>
+						<?php foreach($search_post_types as $search_post_type): 
+							$obj = get_post_type_object( $search_post_type );
+							$post_type_label = $obj->label;
+							if(! (in_array('hide_shuoshuo', explode(',', $search_post_filter)) AND $search_post_type == 'shuoshuo')):
+						?>
 							<div class="custom-control custom-checkbox search-filter-wrapper">
-								<input class="custom-control-input search-filter" name="shuoshuo" id="search_filter_shuoshuo" type="checkbox" <?php echo in_array('shuoshuo', $search_post_type) ? 'checked="true"' : ''; ?>>
-								<label class="custom-control-label" for="search_filter_shuoshuo">说说</label>
+								<input class="custom-control-input search-filter" name=<?php echo $search_post_type?> id="search_filter_<?php echo $search_post_type?>" type="checkbox" <?php echo in_array($search_post_type, $search_post_types_checked) ? 'checked="true"' : ''; ?>>
+								<label class="custom-control-label" for="search_filter_<?php echo $search_post_type ?>"><?php echo $post_type_label ?></label>
 							</div>
-						<?php } ?>
+							<?php endif ?>
+						<?php endforeach ?>
 					</div>
 					<script>
 						$(".search-filter").prop("checked", false);
