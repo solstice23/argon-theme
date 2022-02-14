@@ -14,7 +14,6 @@
 							$all_post_types= get_post_types(array(
 								'public'   => true,
 							), 'objects');
-							//print_r($all_post_types);
 							$search_filters_type = explode(',', get_option('argon_search_filters_type', '*post,*page,shuoshuo'));
 							$current_filters_type = argon_get_search_post_type_array();
 							foreach ($search_filters_type as $filter_type) {
