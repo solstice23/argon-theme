@@ -21,7 +21,7 @@ switch ($argon_assets_path) {
         break;
     case "AHCDN":
     case "sourcestorage":
-	    $GLOBALS['assets_path'] = "https://source.ahdark.com/wordpress/theme/argon-theme/" . $argon_version;
+	    $GLOBALS['assets_path'] = "https://gh.sourcegcdn.com/solstice23/argon-theme/v" . $argon_version;
         break;
     default:
 	    $GLOBALS['assets_path'] = get_bloginfo('template_url');
