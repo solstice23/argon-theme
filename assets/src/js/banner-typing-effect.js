@@ -1,28 +1,32 @@
-var $ = window.$;
-function typeEffect($element, text, now, interval){
+const typeEffect = (element, text, now, interval) => {
 	if (now > text.length){
 		setTimeout(function(){
-			$element.removeClass("typing-effect");
+			element.classList.remove("typing-effect");
 		}, 1000);
 		return;
 	}
-	$element[0].innerText = text.substring(0, now);
-	setTimeout(function(){typeEffect($element, text, now + 1, interval)}, interval);
+	element.innerText = text.substring(0, now);
+	setTimeout(() => {typeEffect(element, text, now + 1, interval)}, interval);
 }
-function startTypeEffect($element, text, interval){
-	$element.addClass("typing-effect");
-	$element.attr("style", "--animation-cnt: " + Math.ceil(text.length * interval / 1000));
-	typeEffect($element, text, 1, interval);
+const startTypeEffect = (element, text, interval) => {
+	element.classList.add("typing-effect");
+	element.setAttribute("style", "--animation-cnt: " + Math.ceil(text.length * interval / 1000));
+	typeEffect(element, text, 1, interval);
 }
-!function(){
-	if ($(".banner-title").data("interval") != undefined){
-		let interval = $(".banner-title").data("interval");
-		let $title = $(".banner-title-inner");
-		let $subTitle = $(".banner-subtitle");
-		startTypeEffect($title, $title.data("text"), interval);
-		if (!$subTitle.length){
+document.addEventListener("DOMContentLoaded", () => {
+	if (document.getElementsByClassName("banner-title")[0].hasAttribute("data-interval")){
+		let interval = document.getElementsByClassName("banner-title")[0].getAttribute("data-interval");
+		let title = document.getElementsByClassName("banner-title-inner")[0];
+		let subTitle = document.getElementsByClassName("banner-subtitle")[0];
+		startTypeEffect(title, title.getAttribute("data-text"), interval);
+		if (!subTitle){
 			return;
 		}
-		setTimeout(function(){startTypeEffect($subTitle, $subTitle.data("text"), interval);}, Math.ceil($title.data("text").length * interval / 1000) * 1000);
+		setTimeout(
+			() => {
+				startTypeEffect(subTitle, subTitle.getAttribute("data-text"), interval);
+			},
+			Math.ceil(title.getAttribute("data-text").length * interval / 1000) * 1000
+		);
 	}
-}();
+});
