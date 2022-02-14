@@ -11,6 +11,11 @@ Hexo 版本 : [github.com/solstice23/hexo-theme-argon](https://github.com/solsti
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/solstice23/argon-theme?style=flat-square)](https://github.com/solstice23/argon-theme/commits/master) [![GitHub Release Date](https://img.shields.io/github/release-date/solstice23/argon-theme?style=flat-square)](https://github.com/solstice23/argon-theme/releases) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/solstice23/argon-theme?style=flat-square)
 
+# 状态
+
+> 前端工程化重构初步完成，1.x 版本将冻结开发，如有前端相关的 PR 请提交到 dev (https://github.com/solstice23/argon-theme/tree/dev) 分支。后续将逐渐重构前端代码。
+
+
 # 特性
 
 + **轻盈美观** - 使用 Argon Design System 前端框架，细节精致，轻盈美观
