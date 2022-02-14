@@ -13,7 +13,7 @@
 			<div class="post-meta-devide">|</div>
 			<div class="post-meta-detail post-meta-detail-words">
 				<i class="fa fa-thumb-tack" aria-hidden="true"></i>
-				<?php _e('置顶', 'argon');?>
+				<?php _ex('置顶', 'pinned', 'argon');?>
 			</div>
 		<?php endif; ?>
 	</div>
