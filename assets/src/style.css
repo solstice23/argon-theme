@@ -179,7 +179,9 @@ html.immersion-color.darkmode body {
 	border-color: var(--color-border) !important;
 }
 .modal-header,
-.custom-control-label::before {
+.custom-control-label::before,
+.modal-footer,
+.btn-secondary{
 	border-color: var(--color-border-on-foreground-deeper) !important;
 }
 .page-link:hover {
@@ -188,6 +190,9 @@ html.immersion-color.darkmode body {
 .form-control:disabled,
 .form-control[readonly] {
 	background-color: var(--color-widgets-disabled);
+}
+.btn-secondary:hover {
+	background-color: var(--color-border-on-foreground-deeper);
 }
 
 /* Main CSS */
@@ -4695,6 +4700,10 @@ html.darkmode ::-webkit-scrollbar {
 }
 html.darkmode ::-webkit-scrollbar-thumb {
 	background-color: rgba(255, 255, 255, 0.25);
+}
+
+html.darkmode .btn-secondary {
+	color: #eee;
 }
 
 html.darkmode .leftbar-menu-item > a {
