@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: argon\n"
-"POT-Creation-Date: 2022-02-14 14:49+0800\n"
-"PO-Revision-Date: 2022-02-14 14:58+0800\n"
+"POT-Creation-Date: 2022-02-14 19:14+0800\n"
+"PO-Revision-Date: 2022-02-14 19:14+0800\n"
 "Last-Translator: \n"
 "Language-Team: solstice23\n"
 "Language: en_US\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: __;_e;_x;_ex;_n;_nx\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n;_nx\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: assets\n"
 "X-Poedit-SearchPathExcluded-1: languages\n"
@@ -194,10 +194,11 @@ msgstr "minutes"
 msgid "小时"
 msgstr "hour"
 
-#: functions.php:607 functions.php:1062 functions.php:1096
+#: functions.php:607 functions.php:1062
 #: template-parts/content-shuoshuo-details.php:16
 #: template-parts/content-shuoshuo-preview.php:24
 #: template-parts/content-shuoshuo.php:16
+msgctxt "pinned"
 msgid "置顶"
 msgstr "Pinned"
 
@@ -265,6 +266,11 @@ msgstr " ago"
 #: functions.php:1094
 msgid "取消置顶"
 msgstr "Unpin"
+
+#: functions.php:1096
+msgctxt "to pin"
+msgid "置顶"
+msgstr "Pin"
 
 #: functions.php:1102
 msgid "回复"
@@ -336,7 +342,7 @@ msgstr "The comment is already unpinned"
 
 #: functions.php:1612
 msgid "不能置顶子评论"
-msgstr "Cannot pin a sub comment"
+msgstr "Cannot pin a sub-comment"
 
 #: functions.php:1618
 msgid "不能置顶悄悄话"
@@ -2316,7 +2322,7 @@ msgstr ""
 
 #: settings.php:1458
 msgid "在子评论中显示被回复者用户名"
-msgstr "Display respondent username in subcomments"
+msgstr "Display respondent username in sub-comments"
 
 #: settings.php:1465
 msgid ""

@@ -604,7 +604,7 @@ function get_article_meta($type){
 	if ($type == 'sticky'){
 		return '<div class="post-meta-detail post-meta-detail-stickey">
 					<i class="fa fa-thumb-tack" aria-hidden="true"></i>
-					' . __('置顶', 'argon') . '
+					' . _x('置顶', 'pinned', 'argon') . '
 				</div>';
 	}
 	if ($type == 'needpassword'){
@@ -1059,7 +1059,7 @@ function argon_comment_format($comment, $args, $depth){
 						echo '<span class="badge badge-primary badge-admin">' . __('博主', 'argon') . '</span>';}
 					?>
 					<?php if ($GLOBALS['argon_comment_options']['enable_pinning'] && get_comment_meta(get_comment_ID(), "pinned", true) == "true"){
-						echo '<span class="badge badge-danger badge-pinned"><i class="fa fa-thumb-tack" aria-hidden="true"></i> ' . __('置顶', 'argon') . '</span>';
+						echo '<span class="badge badge-danger badge-pinned"><i class="fa fa-thumb-tack" aria-hidden="true"></i> ' . _x('置顶', 'pinned', 'argon') . '</span>';
 					}?>
 					<?php if (is_comment_private_mode(get_comment_ID()) && user_can_view_comment(get_comment_ID())){
 						echo '<span class="badge badge-success badge-private-comment">' . __('悄悄话', 'argon') . '</span>';}
@@ -1093,7 +1093,7 @@ function argon_comment_format($comment, $args, $depth){
 					if (get_comment_meta(get_comment_ID(), "pinned", true) == "true") { ?>
 						<button class="comment-unpin btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _e('取消置顶', 'argon')?></button>
 					<?php } else { ?>
-						<button class="comment-pin btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _e('置顶', 'argon')?></button>
+						<button class="comment-pin btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _ex('置顶', 'to pin', 'argon')?></button>
 				<?php }
 					} ?>
 				<?php if ((check_comment_token(get_comment_ID()) || check_login_user_same($comment -> user_id)) && (get_option("argon_comment_allow_editing") != "false")) { ?>
