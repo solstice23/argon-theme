@@ -1,9 +1,3 @@
-//
-/*import $ from 'jquery';
-window['$'] = $;
-global.$ = $;
-*/
-
 global.$ = global.jQuery = window.$ = window.jQuery = $ = require('jquery');
 window['$'] = $;
 

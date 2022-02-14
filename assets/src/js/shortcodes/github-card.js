@@ -37,4 +37,6 @@ export const getGithubInfoCardContent = () => {
 		})($(this));
 	});
 }
-getGithubInfoCardContent();
+document.addEventListener('DOMContentLoaded', function() {
+	getGithubInfoCardContent();
+});
