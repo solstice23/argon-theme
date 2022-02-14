@@ -23,6 +23,19 @@ switch ($argon_assets_path) {
     case "sourcestorage":
 	    $GLOBALS['assets_path'] = "https://gh.sourcegcdn.com/solstice23/argon-theme/v" . $argon_version;
         break;
+	case "jsdelivr_gcore":
+	    $GLOBALS['assets_path'] = "https://gcore.jsdelivr.net/gh/solstice23/argon-theme@" . $argon_version;
+        break;
+	case "jsdelivr_fastly":
+	    $GLOBALS['assets_path'] = "https://fastly.jsdelivr.net/gh/solstice23/argon-theme@" . $argon_version;
+        break;
+	case "jsdelivr_cf":
+	    $GLOBALS['assets_path'] = "https://testingcf.jsdelivr.net/gh/solstice23/argon-theme@" . $argon_version;
+        break;
+	case "custom":
+		$GLOBALS['assets_path'] = preg_replace('/\/$/', '', get_option("argon_custom_assets_path"));
+		$GLOBALS['assets_path'] = preg_replace('/%theme_version%/', $argon_version, $GLOBALS['assets_path']);
+		break;
     default:
 	    $GLOBALS['assets_path'] = get_bloginfo('template_url');
 }
