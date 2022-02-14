@@ -1074,10 +1074,10 @@ function argon_comment_format($comment, $args, $depth){
 			<div class="comment-item-title">
 				<div class="comment-name">
 					<div class="comment-author"><?php echo get_comment_author_link();?></div>
-					<?php echo get_comment_parent_info($comment); ?>
 					<?php if (user_can($comment -> user_id , "update_core")){
 						echo '<span class="badge badge-primary badge-admin">' . __('博主', 'argon') . '</span>';}
 					?>
+					<?php echo get_comment_parent_info($comment); ?>
 					<?php if ($GLOBALS['argon_comment_options']['enable_pinning'] && get_comment_meta(get_comment_ID(), "pinned", true) == "true"){
 						echo '<span class="badge badge-danger badge-pinned"><i class="fa fa-thumb-tack" aria-hidden="true"></i> ' . __('置顶', 'argon') . '</span>';
 					}?>
