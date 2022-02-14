@@ -15,7 +15,8 @@ $(document).on("change" , ".search-filter" , function(e){
 	}
 	let url = new URL(document.location.href);
 	url.searchParams.set("post_type", postTypes.join(","));
-	url.pathname = url.pathname.replace(/\/page\/\d+$/, '');
+	console.log(url.pathname);
+	url.pathname = url.pathname.replace(/\/page\/\d+\/?$/, '');
 	$.pjax({
 		url: url.href
 	});
