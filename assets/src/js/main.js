@@ -98,5 +98,8 @@ require('./banner-typing-effect.js');
 //一言
 require('./hitokoto');
 
+//分享
+require('./share');
+
 //Console Info
 require('./console-info');

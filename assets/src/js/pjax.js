@@ -11,6 +11,7 @@ import { showPostOutdateToast } from './post-outdated-toast';
 import { calcHumanTimesOnPage } from './utils/time-calculation';
 import { foldLongComments } from './comments/comment-fold';
 import { foldLongShuoshuo } from './shuoshuo-fold';
+import { shareInit } from './share';
 
 
 var $ = window.$;
@@ -107,6 +108,7 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 	calcHumanTimesOnPage();
 	foldLongComments();
 	foldLongShuoshuo();
+	shareInit();
 	$("html").trigger("resize");
 
 	if (typeof(window.pjaxLoaded) == "function"){

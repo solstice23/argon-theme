@@ -11,6 +11,7 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "@parcel/reporter-bundle-analyzer": "^2.3.1",
+    "@parcel/transformer-sass": "^2.3.1",
     "parcel": "^2.3.1",
     "path-browserify": "^1.0.1"
   },
@@ -32,6 +33,7 @@
     "nprogress": "^0.2.0",
     "pangu": "^4.0.7",
     "popper.js": "^1.16.1",
+    "qrcode": "^1.5.0",
     "tippy.js": "^6.3.7"
   }
 }
