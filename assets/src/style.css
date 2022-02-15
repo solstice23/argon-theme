@@ -5059,6 +5059,17 @@ html.darkmode.amoled-dark #content:after {
 	.navbar-toggler-searcg-icon {
 		background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMzAgMzAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMwIDMwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48Zz48Y2lyY2xlIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgY3g9IjE0IiBjeT0iMTEuNiIgcj0iOC44Ii8+PGxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHgxPSIyMC43IiB5MT0iMTcuNCIgeDI9IjI3LjMiIHkyPSIyNCIvPjwvZz48L3N2Zz4=) !important;
 	}
+
+	.navbar-nav > .nav-item.dropdown .nav-link-inner--text::after {
+		content: "\f0d7";
+		margin-left: .35em;
+		font: normal normal normal 14px/1 FontAwesome;
+		display: inline-block;
+		font-size: inherit;
+		text-rendering: auto;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
 }
 @media screen and (min-width: 900px) and (max-width: 1000px) {
 	#leftbar_part2.sticky {
