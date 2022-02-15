@@ -72,11 +72,7 @@ const QRCodeShareInit = () => {
 			transitionIn: 'fadeInUp',
 			transitionOut: 'fadeOut',
 			transitionInMobile: 'fadeInUp',
-			transitionOutMobile: 'fadeOut',
-			onOpening: function () {},
-			onOpened: function () {},
-			onClosing: function () {},
-			onClosed: function () {}
+			transitionOutMobile: 'fadeOut'
 		});
 	});
 }
