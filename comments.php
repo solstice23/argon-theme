@@ -222,7 +222,7 @@
 					</button>
 					<?php if (get_option("argon_comment_emotion_keyboard", "true") != "false"){ ?>
 						<button id="comment_emotion_btn" class="btn btn-icon btn-primary float-right" type="button" title="<?php _e('表情', 'argon');?>">
-							<i class="fa-regular fa-smile" aria-hidden="true"></i>
+							<i class="fa fa-regular fa-smile fa-smile-o" aria-hidden="true"></i>
 						</button>
 						<?php get_template_part( 'template-parts/emotion-keyboard' ); ?>
 					<?php } ?>

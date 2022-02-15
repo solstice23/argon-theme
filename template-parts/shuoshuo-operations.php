@@ -17,7 +17,7 @@
 		$upvoted = in_array(get_the_ID(), explode(',', $upvotedList));
 	?>
 	<button class="shuoshuo-upvote btn btn-icon btn-outline-primary btn-sm<?php if ($upvoted) {?> upvoted<?php } ?>" type="button" data-id="<?php the_ID(); ?>">
-		<span class="btn-inner--icon"><i class="fa fa<?php if (!$upvoted) {?>-regular<?php } ?> fa-thumbs-up"></i></span>
+		<span class="btn-inner--icon"><i class="fa <?php echo $upvoted ? "fa-thumbs-up" : "fa-thumbs-o-up"?>"></i></span>
 		<span class="btn-inner--text" style="margin-left: 2px;">
 			<span class="shuoshuo-upvote-num"><?php echo get_shuoshuo_upvotes(get_the_ID());?></span>
 			<i class="fa fa-spinner fa-spin" style="margin-left: 0;"></i>

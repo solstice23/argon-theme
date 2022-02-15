@@ -17,7 +17,7 @@ $(document).on("click" , ".shuoshuo-upvote" , function(){
 			$this.removeClass("shuoshuo-upvoting");
 			if (result.status == "success"){
 				$(".shuoshuo-upvote-num" , $this).html(result.total_upvote);
-				$("i.fa-thumbs-up" , $this).removeClass("fa-regular");
+				$("i.fa-thumbs-o-up", $this).removeClass("fa-thumbs-o-up").addClass("fa-thumbs-up");
 				$this.addClass("upvoted");
 				$this.addClass("shuoshuo-upvoted-animation");
 				iziToast.show({

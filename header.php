@@ -522,10 +522,10 @@
 		<span class="btn-inner--icon"><i class="fa fa-angle-up"></i></span>
 	</button>
 	<button id="fabtn_go_to_comment" class="btn btn-icon btn-neutral fabtn shadow-sm d-none" type="button" <?php if (get_option('argon_fab_show_gotocomment_button') != 'true') echo " style='display: none;'";?> aria-label="Comment" tooltip="<?php _e('评论', 'argon'); ?>">
-		<span class="btn-inner--icon"><i class="fa fa-comment"></i></span>
+		<span class="btn-inner--icon"><i class="fa fa-comment fa-comment-o"></i></span>
 	</button>
 	<button id="fabtn_toggle_darkmode" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" <?php if (get_option('argon_fab_show_darkmode_button') != 'true') echo " style='display: none;'";?> aria-label="Toggle Darkmode" tooltip-darkmode="<?php _e('夜间模式', 'argon'); ?>" tooltip-blackmode="<?php _e('暗黑模式', 'argon'); ?>" tooltip-lightmode="<?php _e('日间模式', 'argon'); ?>">
-		<span class="btn-inner--icon"><i class="fa fa-moon"></i><i class='fa fa-lightbulb'></i></span>
+		<span class="btn-inner--icon"><i class="fa fa-moon fa-moon-o"></i><i class='fa fa-lightbulb fa-lightbulb-o'></i></span>
 	</button>
 	<button id="fabtn_toggle_blog_settings_popup" class="btn btn-icon btn-neutral fabtn shadow-sm" type="button" <?php if (get_option('argon_fab_show_settings_button') == 'false') echo " style='display: none;'";?> aria-label="Open Blog Settings Menu" tooltip="<?php _e('设置', 'argon'); ?>">
 		<span class="btn-inner--icon"><i class="fa fa-cog"></i></span>

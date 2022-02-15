@@ -6,7 +6,7 @@
 			<span class="shuoshuo-date-date"><?php echo get_the_time('d')?></span> <?php _e('日', 'argon');?> , 
 			<span class="shuoshuo-date-year"><?php echo get_the_time('Y')?></span>
 			<div class="post-meta-devide">|</div>
-			<i class="fa fa-clock" aria-hidden="true"></i> 
+			<i class="fa fa-clock fa-clock-o" aria-hidden="true"></i> 
 			<span class="shuoshuo-date-time"><?php echo get_the_time('G:i:s')?></span>
 		</span>
 		<?php if ( is_sticky() ) : ?>

@@ -11,7 +11,7 @@ window['$'].fn.headIndex = require("./libs/headindex/headindex.js").default;
 require('./js/main.js');
 
 import './argon-design-system/css/argon.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'fontawesome-4.7/css/font-awesome.css';
 
 require('./style.css');
 

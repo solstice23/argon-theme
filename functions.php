@@ -648,7 +648,7 @@ function get_article_meta($type){
 	}
 	if ($type == 'time'){
 		return '<div class="post-meta-detail post-meta-detail-time">
-					<i class="fa fa-clock" aria-hidden="true"></i>
+					<i class="fa fa-clock fa-clock-o" aria-hidden="true"></i>
 					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
 						get_the_time('Y-n-d G:i') . '
 					</time>
@@ -656,7 +656,7 @@ function get_article_meta($type){
 	}
 	if ($type == 'edittime'){
 		return '<div class="post-meta-detail post-meta-detail-edittime">
-					<i class="fa fa-pen" aria-hidden="true"></i>
+					<i class="fa fa-pencil fa-pen" aria-hidden="true"></i>
 					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
 						get_the_modified_time('Y-n-d G:i') . '
 					</time>
@@ -670,13 +670,13 @@ function get_article_meta($type){
 	}
 	if ($type == 'comments'){
 		return '<div class="post-meta-detail post-meta-detail-comments">
-					<i class="fa fa-comments" aria-hidden="true"></i> ' .
+					<i class="fa fa-comments fa-comments-o" aria-hidden="true"></i> ' .
 					get_post(get_the_ID()) -> comment_count .
 				'</div>';
 	}
 	if ($type == 'categories'){
 		$res = '<div class="post-meta-detail post-meta-detail-categories">
-				<i class="fa fa-bookmark" aria-hidden="true"></i> ';
+				<i class="fa fa-bookmark fa-bookmark-o" aria-hidden="true"></i> ';
 		$categories = get_the_category();
 		foreach ($categories as $index => $category){
 			$res .= '<a href="' . get_category_link($category -> term_id) . '" target="_blank" class="post-meta-detail-catagory-link">' . $category -> cat_name . '</a>';
@@ -689,7 +689,7 @@ function get_article_meta($type){
 	}
 	if ($type == 'author'){
 		$res = '<div class="post-meta-detail post-meta-detail-author">
-					<i class="fa fa-circle-user" aria-hidden="true"></i> ';
+					<i class="fa fa-circle-user fa-user-circle-o" aria-hidden="true"></i> ';
 					global $authordata;
 		$res .= '<a href="' . get_author_posts_url($authordata -> ID, $authordata -> user_nicename) . '" target="_blank">' . get_the_author() . '</a>
 				</div>';
@@ -701,7 +701,7 @@ function get_article_reading_time_meta($post_content_full){
 	$post_content_full = apply_filters("argon_html_before_wordcount", $post_content_full);
 	$words = get_article_words($post_content_full);
 	$res = '</br><div class="post-meta-detail post-meta-detail-words">
-		<i class="fa fa-file-word" aria-hidden="true"></i>';
+		<i class="fa fa-file-word fa-file-word-o" aria-hidden="true"></i>';
 	if ($words['code'] > 0){
 		$res .= '<span title="' . sprintf(__( '包含 %d 行代码', 'argon'), $words['code']) . '">';
 	}else{
