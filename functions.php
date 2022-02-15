@@ -102,15 +102,15 @@ if (version_compare($argon_last_version, $GLOBALS['theme_version'], '<' )){
 		switch (get_option('argon_search_post_filter', 'post,page')){
 			case 'post,page':
 				update_option("argon_enable_search_filters", 'true');
-				update_option("argon_search_filters_type", 'post,page,shuoshuo');
+				update_option("argon_search_filters_type", '*post,*page,shuoshuo');
 				break;
 			case 'post,page,shuoshuo':
 				update_option("argon_enable_search_filters", 'true');
-				update_option("argon_search_filters_type", 'post,page,*shuoshuo');
+				update_option("argon_search_filters_type", '*post,*page,*shuoshuo');
 				break;
 			case 'post,page,hide_shuoshuo':
 				update_option("argon_enable_search_filters", 'true');
-				update_option("argon_search_filters_type", 'post,page');
+				update_option("argon_search_filters_type", '*post,*page');
 				break;
 			case 'off':
 			default:
