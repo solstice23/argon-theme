@@ -82,6 +82,9 @@ const QRCodeShareInit = () => {
 }
 
 export const shareInit = () => {
+	if (!document.getElementById("share")){
+		return;
+	}
 	var shareInfo = window.shareInfo;
 	document.getElementById("share_show").addEventListener("click", () => {
 		document.getElementById("share_container").classList.add("opened");
@@ -93,13 +96,13 @@ export const shareInit = () => {
 	const image = ogImgMeta ? ogImgMeta.content : "";
 	const source = shareInfo.source;
 	const description = encodeURIComponent(shareInfo.description);
-	document.querySelector("#share .icon-telegram").href = `https://telegram.me/share/url?url=${url}&text=${title}`;
-	document.querySelector("#share .icon-twitter").href = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
-	document.querySelector("#share .icon-facebook").href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-	document.querySelector("#share .icon-weibo").href = `https://service.weibo.com/share/share.php?url=${url}&title=${title}`;
-	document.querySelector("#share .icon-qq").href = `https://connect.qq.com/widget/shareqq/index.html?url=${url}&title=${title}&source=${source}&desc=${description}&pics=${image}`;
-	document.querySelector("#share .icon-qzone").href = `http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${url}&title=${title}&desc=${description}&summary=${description}&site=${source}&pics=${image}`;
-	document.querySelector("#share .icon-douban").href = `https://www.douban.com/sharebutton?image=${image}&href=${url}&name=${title}&text=${description}`;
+	(document.querySelector("#share .icon-telegram") ?? {}).href = `https://telegram.me/share/url?url=${url}&text=${title}`;
+	(document.querySelector("#share .icon-twitter") ?? {}).href = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+	(document.querySelector("#share .icon-facebook") ?? {}).href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+	(document.querySelector("#share .icon-weibo") ?? {}).href = `https://service.weibo.com/share/share.php?url=${url}&title=${title}`;
+	(document.querySelector("#share .icon-qq") ?? {}).href = `https://connect.qq.com/widget/shareqq/index.html?url=${url}&title=${title}&source=${source}&desc=${description}&pics=${image}`;
+	(document.querySelector("#share .icon-qzone") ?? {}).href = `http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${url}&title=${title}&desc=${description}&summary=${description}&site=${source}&pics=${image}`;
+	(document.querySelector("#share .icon-douban") ?? {}).href = `https://www.douban.com/sharebutton?image=${image}&href=${url}&name=${title}&text=${description}`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
