@@ -663,9 +663,14 @@ function get_article_meta($type){
 				</div>';
 	}
 	if ($type == 'views'){
+		if (function_exists('pvc_get_post_views')){
+			$views = pvc_get_post_views(get_the_ID());
+		}else{
+			$views = get_post_views(get_the_ID());
+		}
 		return '<div class="post-meta-detail post-meta-detail-views">
 					<i class="fa fa-eye" aria-hidden="true"></i> ' .
-					get_post_views(get_the_ID()) .
+					$views .
 				'</div>';
 	}
 	if ($type == 'comments'){
