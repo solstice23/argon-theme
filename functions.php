@@ -1802,6 +1802,14 @@ function argon_get_comments(){
 		'orderby'        => 'comment_date_gmt',
 		'status'         => 'approve'
 	);
+	if (is_user_logged_in()){
+		$args['include_unapproved'] = array(get_current_user_id());
+	} else {
+		$unapproved_email = wp_get_unapproved_comment_author_email();
+		if ($unapproved_email) {
+			$args['include_unapproved'] = array($unapproved_email);
+		}
+	}
 
 	$comment_query = new WP_Comment_Query;
 	$comments = $comment_query -> query($args);
