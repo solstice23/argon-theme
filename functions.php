@@ -1799,7 +1799,8 @@ function argon_get_comments(){
 		'post__in'		 => array(get_the_ID()),
 		'type'           => 'comment',
 		'order'          => 'DESC',
-		'orderby'        => 'comment_date_gmt'
+		'orderby'        => 'comment_date_gmt',
+		'status'         => 'approve'
 	);
 
 	$comment_query = new WP_Comment_Query;
