@@ -85,7 +85,7 @@
                     <i class="fa fa-book"></i>
 			        <span>' . __("推荐文章", 'argon') . '</span>
 		            </h2>
-		            <div style="overflow-x: auto;padding: 1.5rem;padding-top: 0.8rem;padding-bottom: 0.8rem;">';
+		            <div class="related-post-container horizontal-scroll" style="overflow-x: auto;padding: 1.5rem;padding-top: 0.8rem;padding-bottom: 0.8rem;">';
 					while ($query -> have_posts()) {
 						$query -> the_post();
 						$hasThumbnail = argon_has_post_thumbnail(get_the_ID());

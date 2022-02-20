@@ -101,5 +101,8 @@ require('./hitokoto');
 //分享
 require('./share');
 
+//横向滚动
+require('./horizontal-scroll');
+
 //Console Info
 require('./console-info');
