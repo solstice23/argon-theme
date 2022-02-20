@@ -158,22 +158,20 @@
 			}
 		}
 	</script>
-	<?php 
-		wp_enqueue_script("argonjs", $GLOBALS['assets_path'] . "/assets/dist/argon-theme.js", null, $GLOBALS['theme_version']);
-	?>
-	<?php wp_head(); ?>
 	<script>
 		var darkmodeAutoSwitch = "<?php echo (get_option("argon_darkmode_autoswitch") == '' ? 'false' : get_option("argon_darkmode_autoswitch"));?>";
 		function setDarkmode(enable){
-			if (enable == true){
-				$("html").addClass("darkmode");
+			if (enable){
+				document.documentElement.classList.add("darkmode");
 			}else{
-				$("html").removeClass("darkmode");
+				document.documentElement.classList.remove("darkmode");
 			}
-			$(window).trigger("scroll");
+			let scrollEvent = document.createEvent('HTMLEvents');
+			scrollEvent.initEvent('scroll', true, false);
+			document.documentElement.dispatchEvent(scrollEvent);
 		}
 		function toggleDarkmode(){
-			if ($("html").hasClass("darkmode")){
+			if (document.documentElement.classList.contains("darkmode")){
 				setDarkmode(false);
 				sessionStorage.setItem("Argon_Enable_Dark_Mode", "false");
 			}else{
@@ -218,24 +216,28 @@
 		}
 
 		function toggleAmoledDarkMode(){
-			$("html").toggleClass("amoled-dark");
-			if ($("html").hasClass("amoled-dark")){
+			document.documentElement.classList.toggle("amoled-dark");
+			if (document.documentElement.classList.contains("amoled-dark")){
 				localStorage.setItem("Argon_Enable_Amoled_Dark_Mode", "true");
 			}else{
 				localStorage.setItem("Argon_Enable_Amoled_Dark_Mode", "false");
 			}
 		}
 		if (localStorage.getItem("Argon_Enable_Amoled_Dark_Mode") == "true"){
-			$("html").addClass("amoled-dark");
+			document.documentElement.classList.add("amoled-dark");
 		}else if (localStorage.getItem("Argon_Enable_Amoled_Dark_Mode") == "false"){
-			$("html").removeClass("amoled-dark");
+			document.documentElement.classList.remove("amoled-dark");
 		}
 	</script>
 	<script>
 		if (navigator.userAgent.indexOf("Safari") !== -1 && navigator.userAgent.indexOf("Chrome") === -1){
-			$("html").addClass("using-safari");
+			document.documentElement.classList.add("using-safari");
 		}
 	</script>
+	<?php 
+		wp_enqueue_script("argonjs", $GLOBALS['assets_path'] . "/assets/dist/argon-theme.js", null, $GLOBALS['theme_version']);
+	?>
+	<?php wp_head(); ?>
 
 	<?php if (get_option('argon_enable_smoothscroll_type') == '2') { /*平滑滚动*/?>
 		<script src="<?php echo $GLOBALS['assets_path']; ?>/assets/vendor/smoothscroll/smoothscroll2.js"></script>
