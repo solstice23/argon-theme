@@ -1023,7 +1023,7 @@ function set_comment_upvotes($id){
 	return $upvotes;
 }
 function is_comment_upvoted($id){
-	$upvotedList = $_COOKIE['argon_comment_upvoted'] ?? '';
+	$upvotedList = isset( $_COOKIE['argon_comment_upvoted'] ) ? $_COOKIE['argon_comment_upvoted'] : '';
 	if (in_array($id, explode(',', $upvotedList))){
 		return true;
 	}
@@ -1043,7 +1043,7 @@ function upvote_comment(){
 			'total_upvote' => 0
 		)));
 	}
-	$upvotedList = $_COOKIE['argon_comment_upvoted'] ?? '';
+	$upvotedList = isset( $_COOKIE['argon_comment_upvoted'] ) ? $_COOKIE['argon_comment_upvoted'] : '';
 	if (in_array($ID, explode(',', $upvotedList))){
 		exit(json_encode(array(
 			'status' => 'failed',
@@ -1979,7 +1979,7 @@ function set_shuoshuo_upvotes($ID){
 function upvote_shuoshuo(){
 	header('Content-Type:application/json; charset=utf-8');
 	$ID = $_POST["shuoshuo_id"];
-	$upvotedList = $_COOKIE['argon_shuoshuo_upvoted'] ?? '';
+	$upvotedList = isset( $_COOKIE['argon_shuoshuo_upvoted'] ) ? $_COOKIE['argon_shuoshuo_upvoted'] : '';
 	if (in_array($ID, explode(',', $upvotedList))){
 		exit(json_encode(array(
 			'status' => 'failed',
@@ -2406,7 +2406,7 @@ function argon_admin_i18n_info(){
 add_filter('admin_head', 'argon_admin_i18n_info');
 //主题文章短代码解析
 function shortcode_content_preprocess($attr, $content = ""){
-	if ($attr['nested'] ?? 'true' != 'false'){
+	if ( isset( $attr['nested'] ) ? $attr['nested'] : 'true' != 'false' ){
 		return do_shortcode($content);
 	}else{
 		return $content;
@@ -2420,7 +2420,7 @@ add_shortcode('label','shortcode_label');
 function shortcode_label($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
 	$out = "<span class='badge";
-	$color = $attr['color'] ?? 'indigo';
+	$color = isset( $attr['color'] ) ? $attr['color'] : 'indigo';
 	switch ($color){
 		case 'green':
 			$out .= " badge-success";
@@ -2439,7 +2439,7 @@ function shortcode_label($attr,$content=""){
 			$out .= " badge-primary";
 			break;
 	}
-	$shape = $attr['shape'] ?? 'square';
+	$shape = isset( $attr['shape'] ) ? $attr['shape'] : 'square';
 	if ($shape=="round"){
 		$out .= " badge-pill";
 	}
@@ -2453,10 +2453,10 @@ function shortcode_progressbar($attr,$content=""){
 	if ($content != ""){
 		$out .= "<div class='progress-label'><span>" . $content . "</span></div>";
 	}
-	$progress = $attr['progress'] ?? 100;
+	$progress = isset( $attr['progress'] ) ? $attr['progress'] : 100;
 	$out .= "<div class='progress-percentage'><span>" . $progress . "%</span></div>";
 	$out .= "</div><div class='progress'><div class='progress-bar";
-	$color = $attr['color'] ?? 'indigo';
+	$color = isset( $attr['color'] ) ? $attr['color'] : 'indigo';
 	switch ($color){
 		case 'indigo':
 			$out .= " bg-primary";
@@ -2483,7 +2483,7 @@ function shortcode_progressbar($attr,$content=""){
 add_shortcode('checkbox','shortcode_checkbox');
 function shortcode_checkbox($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
-	$checked = $attr['checked'] ?? 'false';
+	$checked = isset( $attr['checked'] ) ? $attr['checked'] : 'false';
 	$inline = isset($attr['inline']) ? $attr['checked'] : 'false';
 	$out = "<div class='shortcode-todo custom-control custom-checkbox";
 	if ($inline == 'true'){
@@ -2501,7 +2501,7 @@ add_shortcode('alert','shortcode_alert');
 function shortcode_alert($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
 	$out = "<div class='alert";
-	$color = $attr['color'] ?? 'indigo';
+	$color = isset( $attr['color'] ) ? $attr['color'] : 'indigo';
 	switch ($color){
 		case 'indigo':
 			$out .= " alert-primary";
@@ -2540,7 +2540,7 @@ add_shortcode('admonition','shortcode_admonition');
 function shortcode_admonition($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
 	$out = "<div class='admonition shadow-sm";
-	$color = $attr['color'] ?? 'indigo';
+	$color = isset( $attr['color'] ) ? $attr['color'] : 'indigo';
 	switch ($color){
 		case 'indigo':
 			$out .= " admonition-primary";
@@ -2585,12 +2585,12 @@ add_shortcode('collapse','shortcode_collapse_block');
 add_shortcode('fold','shortcode_collapse_block');
 function shortcode_collapse_block($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
-	$collapsed = $attr['collapsed'] ?? 'true';
-	$show_border_left = $attr['showleftborder'] ?? 'false';
+	$collapsed = isset( $attr['collapsed'] ) ? $attr['collapsed'] : 'true';
+	$show_border_left = isset( $attr['showleftborder'] ) ? $attr['showleftborder'] : 'false';
 	$out = "<div " ;
 	$out .= " class='collapse-block shadow-sm";
-	$color = $attr['color'] ?? 'none';
-	$title = $attr['title'] ?? '';
+	$color = isset( $attr['color'] ) ? $attr['color'] : 'none';
+	$title = isset( $attr['title'] ) ? $attr['title'] : '';
 	switch ($color){
 		case 'indigo':
 			$out .= " collapse-block-primary";
@@ -2642,13 +2642,13 @@ function shortcode_collapse_block($attr,$content=""){
 }
 add_shortcode('friendlinks','shortcode_friend_link');
 function shortcode_friend_link($attr,$content=""){
-	$sort = $attr['sort'] ?? 'name';
-	$order = $attr['order'] ?? 'ASC';
+	$sort = isset( $attr['sort'] ) ? $attr['sort'] : 'name';
+	$order = isset( $attr['order'] ) ? $attr['order'] : 'ASC';
 	$friendlinks = get_bookmarks( array(
 		'orderby' => $sort ,
 		'order'   => $order
 	));
-	$style = $attr['style'] ?? '1';
+	$style = isset( $attr['style'] ) ? $attr['style'] : '1';
 	switch ($style) {
 		case '1':
 			$class = "friend-links-style1";
@@ -2704,7 +2704,7 @@ function shortcode_friend_link_simple($attr,$content=""){
 	$content = trim(strip_tags($content));
 	$entries = explode("\n" , $content);
 
-	$shuffle = $attr['shuffle'] ?? 'false';
+	$shuffle = isset( $attr['shuffle'] ) ? $attr['shuffle'] : 'false';
 	if ($shuffle == "true"){
 		mt_srand();
 		$group_start = 0;
@@ -2821,8 +2821,8 @@ add_shortcode('spoiler','shortcode_hidden');
 function shortcode_hidden($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
 	$out = "<span class='argon-hidden-text";
-	$tip = $attr['tip'] ?? '';
-	$type = $attr['type'] ?? 'blur';
+	$tip = isset( $attr['tip'] ) ? $attr['tip'] : '';
+	$type = isset( $attr['type'] ) ? $attr['type'] : 'blur';
 	if ($type == "background"){
 		$out .= " argon-hidden-text-background";
 	}else{
@@ -2838,10 +2838,10 @@ function shortcode_hidden($attr,$content=""){
 add_shortcode('github','shortcode_github');
 function shortcode_github($attr,$content=""){
 	$github_info_card_id = mt_rand(1000000000 , 9999999999);
-	$author = $attr['author'] ?? '';
-	$project = $attr['project'] ?? '';
-	$getdata = $attr['getdata'] ?? 'frontend';
-	$size = $attr['size'] ?? 'full';
+	$author = isset( $attr['author'] ) ? $attr['author'] : '';
+	$project = isset( $attr['project'] ) ? $attr['project'] : '';
+	$getdata = isset( $attr['getdata'] ) ? $attr['getdata'] : 'frontend';
+	$size = isset( $attr['size'] ) ? $attr['size'] : 'full';
 
 	$description = "";
 	$stars = "";
@@ -2907,11 +2907,11 @@ function shortcode_github($attr,$content=""){
 }
 add_shortcode('video','shortcode_video');
 function shortcode_video($attr,$content=""){
-	$url = $attr['mp4'] ?? '';
-	$url = $attr['url'] ?? $url;
-	$width = $attr['width'] ?? '';
-	$height = $attr['height'] ?? '';
-	$autoplay = $attr['autoplay'] ?? 'false';
+	$url = isset( $attr['mp4'] ) ? $attr['mp4'] : '';
+	$url = isset( $attr['url'] ) ? $attr['url'] : $url;
+	$width = isset( $attr['width'] ) ? $attr['width'] : '';
+	$height = isset( $attr['height'] ) ? $attr['height'] : '';
+	$autoplay = isset( $attr['autoplay'] ) ? $attr['autoplay'] : 'false';
 	$out = "<video";
 	if ($width != ''){
 		$out .= " width='" . $width . "'";
@@ -2933,12 +2933,12 @@ function shortcode_hide_reading_time($attr,$content=""){
 }
 add_shortcode('post_time','shortcode_post_time');
 function shortcode_post_time($attr,$content=""){
-	$format = $attr['format'] ?? 'Y-n-d G:i:s';
+	$format = isset( $attr['format'] ) ? $attr['format'] : 'Y-n-d G:i:s';
 	return get_the_time($format);
 }
 add_shortcode('post_modified_time','shortcode_post_modified_time');
 function shortcode_post_modified_time($attr,$content=""){
-	$format = $attr['format'] ?? 'Y-n-d G:i:s';
+	$format = isset( $attr['format'] ) ? $attr['format'] : 'Y-n-d G:i:s';
 	return get_the_modified_time($format);
 }
 add_shortcode('noshortcode','shortcode_noshortcode');
