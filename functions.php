@@ -1,6 +1,6 @@
 <?php
 if (version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' )) {
-	echo "<div style='background: #5e72e4;color: #fff;font-size: 30px;padding: 50px 30px;position: fixed;width: 100%;left: 0;right: 0;bottom: 0px;z-index: 2147483647;'>" . __("Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress", 'argon') . "</div>";
+	echo "<div style='background: #5e72e4;color: #fff;font-size: 30px;padding: 50px 30px;position: fixed;width: 100%;left: 0;right: 0;bottom: 0;z-index: 2147483647;'>" . __("Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress", 'argon') . "</div>";
 }
 function theme_slug_setup() {
 	add_theme_support('title-tag');
@@ -440,7 +440,7 @@ function get_seo_description(){
 	global $post;
 	if (is_single() || is_page()){
 		if (get_the_excerpt() != ""){
-			return preg_replace('/ \[&hellip;\]$/', '&hellip;', get_the_excerpt());
+			return preg_replace('/ \[&hellip;]$/', '&hellip;', get_the_excerpt());
 		}
 		if (!post_password_required()){
 			return htmlspecialchars(mb_substr(str_replace("\n", '', strip_tags($post -> post_content)), 0, 50)) . "...";
@@ -794,10 +794,7 @@ function send_mail($to, $subject, $content){
 	wp_mail($to, $subject, $content, array('Content-Type: text/html; charset=UTF-8'));
 }
 function check_email_address($email){
-	if (!preg_match("/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/", $email)) {
-		return false;
-	}
-	return true;
+	return (bool) preg_match( "/^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+(([.\-])[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/", $email );
 }
 //检验评论 Token 和用户 Token 是否一致
 function check_comment_token($id){
@@ -887,23 +884,19 @@ function can_visit_comment_edit_history($id){
 	switch ($who_can_visit_comment_edit_history) {
 		case 'everyone':
 			return true;
-			break;
 
 		case 'commentsender':
 			if (check_comment_token($id) || check_comment_userid($id)){
 				return true;
 			}
 			return false;
-			break;
 
 		default:
 			if (current_user_can("moderate_comments")){
 				return true;
 			}
 			return false;
-			break;
 	}
-	return false;
 }
 //获取评论编辑记录
 function get_comment_edit_history(){
@@ -1945,7 +1938,7 @@ if (get_option('argon_gravatar_cdn' , '') != ''){
 	add_filter('get_avatar_url', 'gravatar_cdn');
 }
 function text_gravatar($url){
-	$url = preg_replace("/[\?\&]d[^&]+/i", "" , $url);
+	$url = preg_replace("/[?&]d[^&]+/i", "" , $url);
 	$url .= '&d=404';
 	return $url;
 }
