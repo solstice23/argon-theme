@@ -283,7 +283,7 @@ function themeoptions_page(){
 								<option value="default" <?php if ($argon_assets_path=='default'){echo 'selected';} ?>><?php _e('不使用', 'argon');?></option>
 								<option value="jsdelivr" <?php if ($argon_assets_path=='jsdelivr'){echo 'selected';} ?>>Jsdelivr</option>
 								<option value="fastgit" <?php if ($argon_assets_path=='fastgit'){echo 'selected';} ?>>Fastgit</option>
-								<option value="sourcestorage" <?php if ($argon_assets_path=='sourcestorage'){echo 'selected';} ?>>Source Storage</option>
+								<option value="sourcegcdn" <?php if ($argon_assets_path=='sourcegcdn'){echo 'selected';} ?>>Source Global CDN</option>
 								<option value="jsdelivr_gcore" <?php if ($argon_assets_path=='jsdelivr_gcore'){echo 'selected';} ?>>Jsdelivr (gcore)</option>
 								<option value="jsdelivr_fastly" <?php if ($argon_assets_path=='jsdelivr_fastly'){echo 'selected';} ?>>Jsdelivr (fastly)</option>
 								<option value="jsdelivr_cf" <?php if ($argon_assets_path=='jsdelivr_cf'){echo 'selected';} ?>>Jsdelivr (cf)</option>
@@ -447,7 +447,7 @@ function themeoptions_page(){
 								<input type="checkbox" name="argon_banner_background_hide_shapes" value="true" <?php if ($hide_shapes=='true'){echo 'checked';}?>/>	<?php _e('隐藏背景半透明圆', 'argon');?>
 							</label>
 							<p class="description"><strong><?php _e('如果设置了背景图则不生效', 'argon');?></strong>
-								</br><div style="margin-top: 15px;"><?php _e('样式预览 (推荐选择前三个样式)', 'argon');?></div>
+								<br/><div style="margin-top: 15px;"><?php _e('样式预览 (推荐选择前三个样式)', 'argon');?></div>
 								<div style="margin-top: 10px;">
 									<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#281483 15%,#8f6ed5 70%,#d782d9 94%);"><?php _e('样式', 'argon');?> 1</div>
 									<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);"><?php _e('样式', 'argon');?> 2</div>
@@ -842,7 +842,7 @@ function themeoptions_page(){
 								<option value="article-header-style-1" <?php if ($argon_article_header_style=='article-header-style-1'){echo 'selected';} ?>><?php _e('样式 1', 'argon');?></option>
 								<option value="article-header-style-2" <?php if ($argon_article_header_style=='article-header-style-2'){echo 'selected';} ?>><?php _e('样式 2', 'argon');?></option>
 							</select>
-							<p class="description"><?php _e('样式预览', 'argon');?> :</br>
+							<p class="description"><?php _e('样式预览', 'argon');?> :<br/>
 								<div class="article-header-style-preview style-default"><?php _e('默认样式', 'argon');?></div>
 								<div class="article-header-style-preview style-1"><?php _e('样式 1', 'argon');?></div>
 								<div class="article-header-style-preview style-2"><?php _e('样式 2', 'argon');?></div>

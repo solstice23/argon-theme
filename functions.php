@@ -19,8 +19,7 @@ switch ($argon_assets_path) {
     case "fastgit":
 	    $GLOBALS['assets_path'] = "https://raw.fastgit.org/solstice23/argon-theme/v" . $argon_version;
         break;
-    case "AHCDN":
-    case "sourcestorage":
+    case "sourcegcdn":
 	    $GLOBALS['assets_path'] = "https://gh.sourcegcdn.com/solstice23/argon-theme/v" . $argon_version;
         break;
 	case "jsdelivr_gcore":
