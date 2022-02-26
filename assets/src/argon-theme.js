@@ -12,6 +12,7 @@ require('./js/main.js');
 
 import './argon-design-system/css/argon.css';
 import 'fontawesome-4.7/css/font-awesome.css';
+import './style.js';
 
 require('./style.css');
 

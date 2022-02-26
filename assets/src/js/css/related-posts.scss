@@ -1,0 +1,90 @@
+.related-posts {
+	display: block;
+	white-space: nowrap;
+	margin-bottom: 25px;
+	padding: 0;
+	padding-bottom: 0;
+	> h2 {
+		margin-top: 1.2rem;
+		margin-left: 1.5rem;
+		margin-right: 1.5rem;
+	}
+	.related-post-container {
+		overflow-x: auto;
+		padding: 1.5rem;
+		padding-top: 0.8rem;
+		padding-bottom: 0.8rem;
+	}
+}
+.related-post-card {
+	display: inline-block;
+	height: 105px;
+	width: 180px;
+	border-radius: 5px;
+	margin-right: 10px;
+	font-size: 16px;
+	line-height: 27px;
+	white-space: normal;
+	transition: all 0.3s ease;
+	position: relative;
+	background: var(--themecolor-gradient);
+	overflow: hidden;
+	&:hover {
+		filter: brightness(0.9);
+		box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+		border-color: transparent;
+	}
+}
+.related-post-title.clamp {
+	color: white;
+}
+.related-post-card-container {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	padding: 10px 15px;
+	&.has-thumbnail {
+		background: rgba(0, 0, 0, 0.2);
+		color: #fff;
+		transition: all 0.3s ease;
+	}
+	&.has-thumbnail:hover {
+		background: rgba(0, 0, 0, 0.3);
+	}
+}
+.related-post-title {
+	max-height: 81px;
+	overflow: hidden;
+}
+.related-post-arrow {
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+	font-size: 15px;
+	pointer-events: none;
+}
+.related-post-thumbnail {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+img.related-post-thumbnail {
+	vertical-align: unset;
+}
+i.related-post-arrow.fa.fa-chevron-right {
+	color: white;
+}
+html.darkmode {
+	a.related-post-card {
+		background: var(--color-border-on-foreground);
+		border-radius: 5px;
+	}
+	.related-post-title.clamp {
+		color: var(--themecolor-light);
+	}
+	.has-thumbnail .related-post-title.clamp {
+		color: #eee;
+	}
+}

@@ -142,10 +142,10 @@
       this[globalName] = mainExports;
     }
   }
-})({"aQJFD":[function(require,module,exports) {
+})({"dxeLZ":[function(require,module,exports) {
 "use strict";
 var HMR_HOST = null;
-var HMR_PORT = 8468;
+var HMR_PORT = 4298;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "916932b22e4085ab";
 module.bundle.HMR_BUNDLE_ID = "94b306ea1c927fa7";
@@ -523,6 +523,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _argonCss = require("./argon-design-system/css/argon.css");
 var _fontAwesomeCss = require("fontawesome-4.7/css/font-awesome.css");
+var _styleJs = require("./style.js");
 var global = arguments[3];
 global.$ = global.jQuery = window.$ = window.jQuery = $ = require('jquery');
 window['$'] = $;
@@ -535,7 +536,7 @@ require('./style.css');
 exports.default = {
 };
 
-},{"./argon-design-system/css/argon.css":"7kxGU","fontawesome-4.7/css/font-awesome.css":"72s5l","jquery":"HtqFp","./argon-design-system/js/argon.js":"3ogSF","./libs/jquery-pjax-plus/jquery.pjax.plus.js":"6MoHE","jquery.easing/jquery.easing.js":"1wppg","./libs/headindex/headindex.js":"ez7rd","./js/main.js":"lFcwH","./style.css":"hWyEE","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"7kxGU":[function() {},{}],"72s5l":[function() {},{}],"HtqFp":[function(require,module,exports) {
+},{"./argon-design-system/css/argon.css":"7kxGU","fontawesome-4.7/css/font-awesome.css":"72s5l","jquery":"HtqFp","./argon-design-system/js/argon.js":"3ogSF","./libs/jquery-pjax-plus/jquery.pjax.plus.js":"6MoHE","jquery.easing/jquery.easing.js":"1wppg","./libs/headindex/headindex.js":"ez7rd","./js/main.js":"lFcwH","./style.css":"hWyEE","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","./style.js":"3v7od"}],"7kxGU":[function() {},{}],"72s5l":[function() {},{}],"HtqFp":[function(require,module,exports) {
 var _helpers = require("@swc/helpers");
 /*!
  * jQuery JavaScript Library v3.6.0
@@ -46515,6 +46516,10 @@ document.addEventListener("wheel", function(e) {
     passive: false
 });
 
-},{"./css/horizontal-scroll.scss":"67BM1"}],"67BM1":[function() {},{}],"hWyEE":[function() {},{}]},["aQJFD","4XUH8"], "4XUH8", "parcelRequire1a91")
+},{"./css/horizontal-scroll.scss":"67BM1"}],"67BM1":[function() {},{}],"hWyEE":[function() {},{}],"3v7od":[function(require,module,exports) {
+//相关文章
+var _relatedPostsScss = require("./js/css/related-posts.scss");
+
+},{"./js/css/related-posts.scss":"duqkF"}],"duqkF":[function() {},{}]},["dxeLZ","4XUH8"], "4XUH8", "parcelRequire1a91")
 
 //# sourceMappingURL=argon-theme.js.map
