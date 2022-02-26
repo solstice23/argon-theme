@@ -1760,6 +1760,17 @@ function get_argon_comment_paginate_links_prev_url(){
 	if (!isset($url[1])){
 		return NULL;
 	}
+	
+	if (isset($_GET['fill_first_page']) || strpos(parse_url($_SERVER['REQUEST_URI'])['path'], 'comment-page-') === false){
+		$parsed_url = parse_url($url[1]);
+		if (!isset($parsed_url['query'])){
+			$parsed_url['query'] = 'fill_first_page=true';
+		}else
+			if (strpos($parsed_url['query'], 'fill_first_page=true') === false){
+			$parsed_url['query'] .= '&fill_first_page=true';
+		}
+		return $parsed_url['scheme'] . '://' . $parsed_url['host'] . $parsed_url['path'] . '?' . $parsed_url['query'];
+	}
 	return $url[1];
 }
 //评论重排序（置顶优先）
@@ -1816,8 +1827,11 @@ function argon_get_comments(){
 	if (get_option("argon_comment_pagination_type", "feed") == "page"){
 		return $comments;
 	}
+	if (!isset($_GET['fill_first_page']) && strpos(parse_url($_SERVER['REQUEST_URI'])['path'], 'comment-page-') !== false){
+		return $comments;
+	}
 	$comments_per_page = get_option('comments_per_page');
-	$comments_count = 0;
+	$comments_count = 0; 
 	foreach ($comments as $comment){
 		if ($comment -> comment_parent == 0){
 			$comments_count++;
