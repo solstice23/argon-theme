@@ -1,3 +1,4 @@
+import '../css/comment-emotion.scss'
 var $ = window.$;
 function lazyloadStickers(){
 	$(".emotion-keyboard .emotion-group:not(d-none) .emotion-item > img.lazyload").lazyload({threshold: 500, effect: "fadeIn"}).removeClass("lazyload");

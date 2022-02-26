@@ -1,4 +1,4 @@
-import './css/horizontal-scroll.css';
+import './css/horizontal-scroll.scss';
 document.addEventListener("wheel", function(e) {
     for (let target = e.target; target && target != this; target = target.parentNode) {
         if (target.matches(".horizontal-scroll")) {
