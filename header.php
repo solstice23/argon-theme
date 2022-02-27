@@ -355,7 +355,7 @@
 							}
 						}
 						if ( has_nav_menu('toolbar_menu') ){
-							echo "<ul class='navbar-nav navbar-nav-hover align-items-lg-center'>";
+							echo "<ul class='navbar-nav navbar-nav-hover'>";
 							wp_nav_menu( array(
 								'container'  => '',
 								'theme_location'  => 'toolbar_menu',
@@ -366,7 +366,7 @@
 							echo "</ul>";
 						}
 					?>
-					<ul class="navbar-nav align-items-lg-center ml-lg-auto">
+					<ul class="navbar-nav navbar-search">
 						<li id="navbar_search_container" class="nav-item" data-toggle="modal">
 							<div id="navbar_search_input_container">
 								<div class="input-group input-group-alternative">

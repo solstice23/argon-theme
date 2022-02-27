@@ -802,6 +802,11 @@ html.darkmode #navbar-main {
 		max-width: 100%;
 	}
 }
+@media (min-width: 992px){
+	.navbar-nav{
+		align-items: center;
+	}
+}
 .navbar-nav > .nav-item.dropdown .nav-link-inner--text i.fa-caret-down:last-child {
 	display: none;
 }
@@ -814,6 +819,9 @@ html.darkmode #navbar-main {
 	text-rendering: auto;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+.navbar-search{
+	margin-left: auto;
 }
 .dropdown-menu .dropdown-item {
 	line-height: 1.5;

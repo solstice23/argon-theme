@@ -19,6 +19,8 @@
 var $ = window.$;
 
 import 'bootstrap/js/src/modal.js';
+import 'bootstrap/js/src/collapse.js';
+import 'bootstrap/js/src/dropdown.js';
 import '@popperjs/core';
 import 'nouislider'
 
@@ -68,7 +70,7 @@ $(document).ready(function() {
     });
 
     // Tooltip
-    $('[data-toggle="tooltip"]').tooltip();
+    //$('[data-toggle="tooltip"]').tooltip();
 
     // Popover
     $('[data-toggle="popover"]').each(function() {
