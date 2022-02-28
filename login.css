@@ -4,7 +4,7 @@ body {
 .login h1 {
 	display: none;
 }
-.login form {
+#loginform {
 	background-color: #fafafa;
 	border: none;
 	border-radius: .25rem;
