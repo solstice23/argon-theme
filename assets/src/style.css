@@ -2963,6 +2963,8 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 #post_comment.editing .comment-post-mailnotice {
 	display: none;
 }
+/*相关文章*/
+@import './js/css/related-posts.scss';
 /*短代码适配*/
 /*短代码-checkbox*/
 .shortcode-todo {
