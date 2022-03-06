@@ -2044,6 +2044,19 @@ article.post-preview-layout-2 .loading-css-animation {
 	position: absolute;
 	bottom: -8px;
 }
+@media screen and (max-width: 800px) {
+    article.post-preview-layout-2 {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
+    article.post-preview-layout-2 .post-header.post-header-with-thumbnail {
+        margin: 0;
+        border-radius: var(--card-radius);
+        text-align: left;
+        width: 100%;
+    }
+}
 /* 文章预览样式 3 */
 article.post-preview-layout-3 .post-header {
 	margin-bottom: 10px;
