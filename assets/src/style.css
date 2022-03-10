@@ -3792,6 +3792,9 @@ html[lang] {
 .shuoshuo-comment-item-title {
 	font-weight: bold;
 }
+html.darkmode .shuoshuo-content pre{
+	color: #eee;
+}
 .shuoshuo-comment-item-title .badge-admin,
 .shuoshuo-comment-item-title .badge-private-comment,
 .shuoshuo-comment-item-title .badge-unapproved {
