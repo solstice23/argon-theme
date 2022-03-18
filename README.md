@@ -76,6 +76,13 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # 更新日志
 
+## 20220319 v1.3.5
++ 支持自定义 CDN 域名
++ 支持读取 Post Views Counter 插件的阅读量数据
++ 修复未审核评论被显示的问题
++ 修复评论分页问题
++ 其他改进与修复
+
 ## 20220214 v1.3.4
 + 支持自定义搜索过滤器顺序和默认选中状态
 + 支持添加自定义文章类型的搜索过滤器
