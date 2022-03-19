@@ -1828,7 +1828,7 @@ function argon_get_comments(){
 		return $comments;
 	}
 	if (!isset($_GET['fill_first_page']) && strpos(parse_url($_SERVER['REQUEST_URI'])['path'], 'comment-page-') !== false){
-		return $comments;
+		return null;
 	}
 	$comments_per_page = get_option('comments_per_page');
 	$comments_count = 0; 
