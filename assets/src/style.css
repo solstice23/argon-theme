@@ -4235,7 +4235,7 @@ pre.hljs-codeblock.hljs-codeblock-fullscreen:before {
 		opacity: 1;
 	}
 }
-pre.hljs-codeblock.hljs-hide-linenumber .hljs-ln-numbers.hljs {
+pre.hljs-codeblock.hljs-hide-linenumber .hljs-ln-numbers {
 	width: 0px;
 	opacity: 0;
 }

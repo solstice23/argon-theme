@@ -9,7 +9,6 @@
 * Licensed under MIT (https://github.com/creativetimofficial/argon-design-system/blob/master/LICENSE.md)
 
 * Coded by www.creative-tim.com
-* Modified by solstice23
 
 =========================================================
 
@@ -794,7 +793,7 @@ pre code
 
     flex-wrap: wrap;
 }
-/*
+
 .no-gutters
 {
     margin-right: 0;
@@ -805,7 +804,7 @@ pre code
 {
     padding-right: 0;
     padding-left: 0;
-}*/
+}
 
 .col-1,
 .col-2,
@@ -984,7 +983,7 @@ pre code
 
     flex: 0 0 100%;
 }
-/*
+
 .order-first
 {
     order: -1;
@@ -1114,7 +1113,7 @@ pre code
 {
     margin-left: 91.66667%;
 }
-*/
+
 @media (min-width: 576px)
 {
     .col-sm
@@ -1203,7 +1202,7 @@ pre code
 
         flex: 0 0 100%;
     }
-    /*.order-sm-first
+    .order-sm-first
     {
         order: -1;
     }
@@ -1310,7 +1309,7 @@ pre code
     .offset-sm-11
     {
         margin-left: 91.66667%;
-    }*/
+    }
 }
 
 @media (min-width: 768px)
@@ -1401,7 +1400,7 @@ pre code
 
         flex: 0 0 100%;
     }
-    /*.order-md-first
+    .order-md-first
     {
         order: -1;
     }
@@ -1508,7 +1507,7 @@ pre code
     .offset-md-11
     {
         margin-left: 91.66667%;
-    }*/
+    }
 }
 
 @media (min-width: 992px)
@@ -1599,7 +1598,7 @@ pre code
 
         flex: 0 0 100%;
     }
-    /*.order-lg-first
+    .order-lg-first
     {
         order: -1;
     }
@@ -1706,7 +1705,7 @@ pre code
     .offset-lg-11
     {
         margin-left: 91.66667%;
-    }*/
+    }
 }
 
 @media (min-width: 1200px)
@@ -1797,7 +1796,7 @@ pre code
 
         flex: 0 0 100%;
     }
-    /*.order-xl-first
+    .order-xl-first
     {
         order: -1;
     }
@@ -1904,7 +1903,7 @@ pre code
     .offset-xl-11
     {
         margin-left: 91.66667%;
-    }*/
+    }
 }
 
 .table
@@ -2596,7 +2595,7 @@ textarea.form-control
     padding-right: 5px;
     padding-left: 5px;
 }
-/*
+
 .form-check
 {
     position: relative;
@@ -2907,7 +2906,7 @@ textarea.form-control
 .custom-file-input.is-invalid:focus ~ .custom-file-label
 {
     box-shadow: 0 0 0 0 rgba(251, 99, 64, .25);
-}*/
+}
 
 .form-inline
 {
@@ -4168,7 +4167,7 @@ input[type='button'].btn-block
     background-clip: padding-box;
     box-shadow: 0 50px 100px rgba(50, 50, 93, .1), 0 15px 35px rgba(50, 50, 93, .15), 0 5px 15px rgba(0, 0, 0, .1);
 }
-/*
+
 .dropdown-menu-left
 {
     right: auto;
@@ -4367,7 +4366,7 @@ input[type='button'].btn-block
     margin: .5rem 0;
 
     border-top: 1px solid #e9ecef;
-}*/
+}
 
 .dropdown-item
 {
@@ -4415,7 +4414,7 @@ input[type='button'].btn-block
 {
     display: block;
 }
-/*
+
 .dropdown-header
 {
     font-size: .875rem;
@@ -4437,7 +4436,7 @@ input[type='button'].btn-block
     padding: .25rem 1.5rem;
 
     color: #212529;
-}*/
+}
 
 .btn-group,
 .btn-group-vertical
@@ -5146,7 +5145,7 @@ input[type='button'].btn-block
     border-radius: 0 .25rem .25rem 0;
     background-color: #fff;
 }
-/*
+
 .custom-range
 {
     width: 100%;
@@ -5330,7 +5329,7 @@ input[type='button'].btn-block
 .custom-range:disabled::-ms-thumb
 {
     background-color: #adb5bd;
-}*/
+}
 
 .custom-control-label::before,
 .custom-file-label,
@@ -5792,7 +5791,7 @@ input[type='button'].btn-block
 {
     display: none;
 }
-/*
+
 .navbar-light .navbar-brand
 {
     color: rgba(0, 0, 0, .9);
@@ -5906,7 +5905,7 @@ input[type='button'].btn-block
 {
     color: rgba(255, 255, 255, .65);
 }
-*/
+
 .card
 {
     position: relative;
@@ -5956,7 +5955,7 @@ input[type='button'].btn-block
     margin-top: -.625rem;
     margin-bottom: 0;
 }
-/*
+
 .card-text:last-child
 {
     margin-bottom: 0;
@@ -6189,8 +6188,8 @@ input[type='button'].btn-block
 .accordion > .card .card-header
 {
     margin-bottom: -.0625rem;
-}*/
-/*
+}
+
 .breadcrumb
 {
     display: flex;
@@ -6235,7 +6234,7 @@ input[type='button'].btn-block
 {
     color: #8898aa;
 }
-*/
+
 .pagination
 {
     display: flex;
@@ -6886,7 +6885,7 @@ a.badge:focus
 {
     flex: 1 1;
 }
-/*
+
 .list-group
 {
     display: flex;
@@ -7331,7 +7330,7 @@ a.badge:focus
     border-color: black;
     background-color: black;
 }
-*/
+
 .close
 {
     font-size: 1.5rem;
@@ -7637,7 +7636,7 @@ a.close.disabled
         max-width: 1140px;
     }
 }
-/*
+
 .tooltip
 {
     font-family: 'Open Sans', sans-serif;
@@ -7999,8 +7998,8 @@ a.close.disabled
     padding: .75rem .75rem;
 
     color: #525f7f;
-}*/
-/*
+}
+
 .carousel
 {
     position: relative;
@@ -8241,8 +8240,8 @@ a.close.disabled
 
     color: #fff;
 }
-*/
-/*.align-baseline
+
+.align-baseline
 {
     vertical-align: baseline !important;
 }
@@ -8270,7 +8269,7 @@ a.close.disabled
 .align-text-top
 {
     vertical-align: text-top !important;
-}*/
+}
 
 .bg-primary
 {
@@ -8437,7 +8436,7 @@ button.bg-darker:focus
 {
     background-color: transparent !important;
 }
-/*
+
 .border
 {
     border: .0625rem solid #e9ecef !important;
@@ -8462,12 +8461,12 @@ button.bg-darker:focus
 {
     border-left: .0625rem solid #e9ecef !important;
 }
-*/
+
 .border-0
 {
     border: 0 !important;
 }
-/*
+
 .border-top-0
 {
     border-top: 0 !important;
@@ -8590,7 +8589,7 @@ button.bg-darker:focus
 .rounded-lg
 {
     border-radius: .3rem !important;
-}*/
+}
 
 .rounded-circle
 {
@@ -8659,7 +8658,7 @@ button.bg-darker:focus
 {
     display: inline-flex !important;
 }
-/*
+
 @media (min-width: 576px)
 {
     .d-sm-none
@@ -9642,7 +9641,7 @@ button.bg-darker:focus
         align-self: stretch !important;
     }
 }
-*/
+
 .float-left
 {
     float: left !important;
@@ -10108,7 +10107,7 @@ button.bg-darker:focus
 {
     margin-left: 3rem !important;
 }
-/*
+
 .m-sm
 {
     margin: 2rem !important;
@@ -13700,7 +13699,7 @@ button.bg-darker:focus
         margin-left: auto !important;
     }
 }
-*/
+
 .text-monospace
 {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
@@ -15076,7 +15075,7 @@ button.section-darker:focus
 {
     opacity: 1 !important;
 }
-/*
+
 .top-0
 {
     top: 0;
@@ -15275,7 +15274,7 @@ button.section-darker:focus
 .left-xl
 {
     left: 8rem;
-}*/
+}
 
 .center
 {
@@ -19459,7 +19458,7 @@ article h5 + figure
 {
     margin-top: 0;
 }
-/*
+
 .datepicker
 {
     border-radius: .25rem;
@@ -19752,7 +19751,7 @@ article h5 + figure
     padding: 0 2px 0 5px;
 
     vertical-align: middle;
-}*/
+}
 
 .headroom
 {
