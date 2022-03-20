@@ -2,7 +2,8 @@
 /*
 Template Name: 说说
 */
-query_posts("post_type=shuoshuo&post_status=publish&posts_per_page=-1");
+$paged = isset($_GET['current_page']) ? $_GET['current_page'] : 1;
+query_posts("post_type=shuoshuo&post_status=publish&posts_per_page=30&paged=$paged");
 ?>
 
 <?php get_header(); ?>
@@ -36,7 +37,9 @@ query_posts("post_type=shuoshuo&post_status=publish&posts_per_page=-1");
 			endwhile;
 		?>
 		<?php
-			echo get_argon_formatted_paginate_links_for_all_platforms();
+			echo get_argon_formatted_paginate_links_for_all_platforms(array(
+				'format' => '?current_page=%#%',
+			));
 		?>
 		<?php
 	else :

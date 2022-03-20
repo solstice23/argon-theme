@@ -340,7 +340,7 @@ function get_additional_content_after_post(){
 	return $res;
 }
 //输出分页页码
-function get_argon_formatted_paginate_links($maxPageNumbers, $extraClasses = ''){
+function get_argon_formatted_paginate_links($maxPageNumbers, $extraArgs = array(), $extraClasses = ''){
 	$args = array(
 		'prev_text' => '',
 		'next_text' => '',
@@ -348,6 +348,7 @@ function get_argon_formatted_paginate_links($maxPageNumbers, $extraClasses = '')
 		'after_page_number' => '',
 		'show_all' => True
 	);
+	$args = array_merge($args, $extraArgs);
 	$res = paginate_links($args);
 	//单引号转双引号 & 去除上一页和下一页按钮
 	$res = preg_replace(
@@ -413,8 +414,8 @@ function get_argon_formatted_paginate_links($maxPageNumbers, $extraClasses = '')
 	}
 	return '<nav><ul class="pagination' . $extraClasses . '">' . $html . '</ul></nav>';
 }
-function get_argon_formatted_paginate_links_for_all_platforms(){
-	return get_argon_formatted_paginate_links(7) . get_argon_formatted_paginate_links(5, " pagination-mobile");
+function get_argon_formatted_paginate_links_for_all_platforms($extraArgs = array()){
+	return get_argon_formatted_paginate_links(7, $extraArgs) . get_argon_formatted_paginate_links(5, $extraArgs, " pagination-mobile");
 }
 //访问者 Token & Session
 function get_random_token(){
