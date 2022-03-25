@@ -108,7 +108,6 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 	calcHumanTimesOnPage();
 	foldLongComments();
 	foldLongShuoshuo();
-	shareInit();
 	$("html").trigger("resize");
 
 	if (typeof(window.pjaxLoaded) == "function"){
@@ -123,6 +122,7 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 }).on('pjax:end', function() {
 	waterflowInit();
 	lazyloadInit();
+	shareInit();
 });
 
 

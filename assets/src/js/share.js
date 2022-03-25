@@ -43,6 +43,9 @@ const copyLinkInit = () => {
 	});
 }
 const QRCodeShareInit = () => {
+	let QRBtn = document.getElementById("share_qrcode");
+	QRBtn.parentNode.replaceChild(QRBtn.cloneNode(true), QRBtn);
+	QRBtn = document.getElementById("share_qrcode");
 	document.getElementById("share_qrcode").addEventListener("click", async () => {
 		const img = await QRCode.toDataURL(shareInfo.url, {
 			toSJISFunc: QRCode.toSJIS,
