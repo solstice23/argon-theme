@@ -340,16 +340,23 @@ function get_additional_content_after_post(){
 	return $res;
 }
 //输出分页页码
-function get_argon_formatted_paginate_links($maxPageNumbers, $extraArgs = array(), $extraClasses = ''){
+function get_argon_formatted_paginate_links($maxPageNumbers, $extraArgs = array(), $extraClasses = '', $target = 'list'){
 	$args = array(
 		'prev_text' => '',
 		'next_text' => '',
 		'before_page_number' => '',
 		'after_page_number' => '',
-		'show_all' => True
+		'show_all' => True,
+		'echo' => False,
 	);
 	$args = array_merge($args, $extraArgs);
-	$res = paginate_links($args);
+	if ($target == 'post') {
+		global $multipage;
+		if (!$multipage) return "";
+		$res = wp_link_pages($args);
+	}else {
+		$res = paginate_links($args);
+	}
 	//单引号转双引号 & 去除上一页和下一页按钮
 	$res = preg_replace(
 		'/\'/',
@@ -414,8 +421,8 @@ function get_argon_formatted_paginate_links($maxPageNumbers, $extraArgs = array(
 	}
 	return '<nav><ul class="pagination' . $extraClasses . '">' . $html . '</ul></nav>';
 }
-function get_argon_formatted_paginate_links_for_all_platforms($extraArgs = array()){
-	return get_argon_formatted_paginate_links(7, $extraArgs) . get_argon_formatted_paginate_links(5, $extraArgs, " pagination-mobile");
+function get_argon_formatted_paginate_links_for_all_platforms($extraArgs = array(), $target = 'list'){
+	return get_argon_formatted_paginate_links(7, $extraArgs, "", $target) . get_argon_formatted_paginate_links(5, $extraArgs, " pagination-mobile", $target);
 }
 //访问者 Token & Session
 function get_random_token(){

@@ -12,6 +12,8 @@
 
 			get_template_part( 'template-parts/content', 'single' );
 
+			echo get_argon_formatted_paginate_links_for_all_platforms(array(), 'post');
+
 			if (get_option("argon_show_sharebtn") != 'false') {
 				get_template_part( 'template-parts/share' );
 			}
