@@ -611,6 +611,7 @@ a.text-primary:hover {
 .btn-outline-primary:hover {
 	border-color: var(--themecolor-dark);
 	background-color: var(--themecolor-dark);
+	color: #fff !important;
 }
 .btn-primary:active,
 .btn-outline-primary:active {
