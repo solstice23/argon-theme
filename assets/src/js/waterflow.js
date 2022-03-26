@@ -1,5 +1,5 @@
 var $ = window.$;
-export let waterflowInit = () => {
+export let waterflowInit = (keepInColumn = false) => {
 	if (window.argonConfig.waterflow_columns == "1") {
 		return;
 	}
@@ -63,9 +63,14 @@ export let waterflowInit = () => {
 				.css("width", "calc(" + (100 / columns) + "% - " + (10 * (columns - 1) / columns) + "px)").css("margin", 0);
 			let itemHeight = $item.outerHeight() + 10;
 			let pos = getMinHeightPosition();
-			$item.css("top", heights[getMinHeightPosition()] + "px")
+			if (keepInColumn) {
+				pos = parseInt($item.attr("waterflow-column"));
+			}
+			$item.css("top", heights[pos] + "px")
 				.css("left", (pos * $item.outerWidth() + 10 * pos) + "px");
 			heights[pos] += itemHeight;
+			$item.css("z-index", pos)
+				.attr("waterflow-column", pos);
 		});
 	}
 	if ($(".waterflow-placeholder").length) {

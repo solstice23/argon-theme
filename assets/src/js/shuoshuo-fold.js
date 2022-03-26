@@ -1,3 +1,5 @@
+import __ from './i18n';
+import {waterflowInit} from './waterflow';
 var $ = window.$;
 export const foldLongShuoshuo = () => {
 	if (window.argonConfig.fold_long_shuoshuo == false){
@@ -12,8 +14,12 @@ export const foldLongShuoshuo = () => {
 			$(this).append("<div class='show-full-shuoshuo'><button class='btn btn-outline-primary'><i class='fa fa-angle-down' aria-hidden='true'></i> " + __("展开") + "</button></div>");
 		}
 	});
+	waterflowInit();
 }
-foldLongShuoshuo();
+document.addEventListener("DOMContentLoaded", () => {
+	foldLongShuoshuo();
+});
 $(document).on("click" , ".show-full-shuoshuo" , function(){
 	$(this).parent().removeClass("shuoshuo-folded").addClass("shuoshuo-unfolded");
+	waterflowInit(true);
 });

@@ -48,6 +48,7 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 		if (waterflowOn){
 			$card.css("left", "10px");
 			$card.css("width", "calc(100% - 20px)");
+			$card.css("z-index", "3");
 		}
 		$("body,html").animate({
 			scrollTop: 0
