@@ -190,7 +190,7 @@
 						<span class="btn-inner--icon"><i class="fa fa-angle-down"></i></span>
 					</button>
 				</div></div>
-			<div class="row" style="margin-top: 5px; margin-bottom: 10px; overflow-x: hidden;">
+			<div class="row" style="margin-top: 5px; margin-bottom: 10px; overflow-x: clip;">
 				<div class="col-md-12">
 					<?php if (get_option("argon_comment_allow_markdown") != "false") {?>
 						<div class="custom-control custom-checkbox comment-post-checkbox comment-post-use-markdown">
