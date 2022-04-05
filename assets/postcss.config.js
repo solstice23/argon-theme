@@ -17,6 +17,7 @@ module.exports = {
 				'./src/js/*/*/*.css',
 				'./node_modules/nouislider/dist/*.css',
 				'./node_modules/bootstrap/js/src/*.js',
+				'./node_modules/tippy.js/dist/*.css',
 			],
 		})
 	]

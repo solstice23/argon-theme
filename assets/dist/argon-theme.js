@@ -531,11 +531,11 @@ require('./libs/jquery-pjax-plus/jquery.pjax.plus.js');
 require('jquery.easing/jquery.easing.js');
 window['$'].fn.headIndex = require("./libs/headindex/headindex.js").default;
 require('./js/main.js');
-require('./style.css');
+require('./style.scss');
 exports.default = {
 };
 
-},{"./argon-design-system/css/argon.css":"7kxGU","fontawesome-4.7/css/font-awesome.css":"72s5l","jquery":"HtqFp","./argon-design-system/js/argon.js":"3ogSF","./libs/jquery-pjax-plus/jquery.pjax.plus.js":"6MoHE","jquery.easing/jquery.easing.js":"1wppg","./libs/headindex/headindex.js":"ez7rd","./js/main.js":"lFcwH","./style.css":"hWyEE","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"7kxGU":[function() {},{}],"72s5l":[function() {},{}],"HtqFp":[function(require,module,exports) {
+},{"./argon-design-system/css/argon.css":"7kxGU","fontawesome-4.7/css/font-awesome.css":"72s5l","jquery":"HtqFp","./argon-design-system/js/argon.js":"3ogSF","./libs/jquery-pjax-plus/jquery.pjax.plus.js":"6MoHE","jquery.easing/jquery.easing.js":"1wppg","./libs/headindex/headindex.js":"ez7rd","./js/main.js":"lFcwH","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","./style.scss":"3Y8nt"}],"7kxGU":[function() {},{}],"72s5l":[function() {},{}],"HtqFp":[function(require,module,exports) {
 var _helpers = require("@swc/helpers");
 /*!
  * jQuery JavaScript Library v3.6.0
@@ -43454,27 +43454,51 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "tippyInit", function() {
     return tippyInit;
 });
+parcelHelpers.export(exports, "removeAllTippies", function() {
+    return removeAllTippies;
+});
+var _helpers = require("@swc/helpers");
 var _tippyJs = require("tippy.js");
 var _tippyJsDefault = parcelHelpers.interopDefault(_tippyJs);
 var _tippyCss = require("tippy.js/dist/tippy.css");
 var _lightCss = require("tippy.js/themes/light.css");
-var _lightBorderCss = require("tippy.js/themes/light-border.css");
-var _materialCss = require("tippy.js/themes/material.css");
-var _translucentCss = require("tippy.js/themes/translucent.css");
+//import 'tippy.js/themes/light-border.css';
+//import 'tippy.js/themes/material.css';
+//import 'tippy.js/themes/translucent.css';
+var _backdropCss = require("tippy.js/dist/backdrop.css");
+var _backdropOverrideScss = require("./css/tippy.js/backdrop-override.scss");
+var _shiftAwayCss = require("tippy.js/animations/shift-away.css");
 var $ = window.$;
+var isJson = function(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+};
 var tooltips = function() {
-    _tippyJsDefault.default('sup.reference[data-content]', {
-        content: function(reference) {
-            return reference.getAttribute('data-content');
+    _tippyJsDefault.default('[tooltip]', {
+        content: function(dom) {
+            var attr = dom.getAttribute('tooltip').replace(/\'/g, '"');
+            if (isJson(attr)) // [[className, content], ...]
+            return JSON.parse(attr).map(function(item) {
+                return "<span class=\"".concat(item[0], "\">").concat(item[1], "</span>");
+            }).join('');
+            return dom.getAttribute('tooltip');
         },
-        allowHTML: true,
-        interactive: true,
-        theme: 'light scroll-y',
-        delay: [
-            100,
-            250
+        appendTo: 'parent',
+        offset: [
+            0,
+            5
         ],
-        animation: 'fade'
+        allowHTML: true,
+        interactive: false,
+        animateFill: true,
+        animation: 'fade',
+        plugins: [
+            _tippyJs.animateFill
+        ]
     });
 };
 var footnotes = function() {
@@ -43499,8 +43523,13 @@ var tippyInit = function() {
 document.addEventListener('DOMContentLoaded', function() {
     tippyInit();
 });
+var removeAllTippies = function() {
+    _helpers.toConsumableArray(document.querySelectorAll("*[data-tippy-root]")).forEach(function(node) {
+        node.parentElement.removeChild(node);
+    });
+};
 
-},{"tippy.js":"bFFfD","tippy.js/dist/tippy.css":"fTCQl","tippy.js/themes/light.css":"8Ndlx","tippy.js/themes/light-border.css":"gvya9","tippy.js/themes/material.css":"bkRPh","tippy.js/themes/translucent.css":"lT6ck","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"bFFfD":[function(require,module,exports) {
+},{"tippy.js":"bFFfD","tippy.js/dist/tippy.css":"fTCQl","tippy.js/themes/light.css":"8Ndlx","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","tippy.js/animations/shift-away.css":"jKkF5","tippy.js/dist/backdrop.css":"fNtb9","./css/tippy.js/backdrop-override.scss":"hP4Yr","@swc/helpers":"erO4s"}],"bFFfD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "animateFill", function() {
@@ -45586,7 +45615,7 @@ tippy.setDefaultProps({
 });
 exports.default = tippy;
 
-},{"@popperjs/core":"lBr89","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"fTCQl":[function() {},{}],"8Ndlx":[function() {},{}],"gvya9":[function() {},{}],"bkRPh":[function() {},{}],"lT6ck":[function() {},{}],"4zzLb":[function(require,module,exports) {
+},{"@popperjs/core":"lBr89","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"fTCQl":[function() {},{}],"8Ndlx":[function() {},{}],"jKkF5":[function() {},{}],"fNtb9":[function() {},{}],"hP4Yr":[function() {},{}],"4zzLb":[function(require,module,exports) {
 var _goToHash = require("./utils/go-to-hash");
 var $ = window.$;
 if ($("html").hasClass("banner-as-cover")) {
@@ -45759,10 +45788,11 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
         console.error(err2);
     }
     _nprogressDefault.default.done();
-}).on('pjax:end', function(e) {
+}).on('pjax:end', function() {
     _waterflow.waterflowInit();
     _lazyload.lazyloadInit();
     _share.shareInit();
+    _tippy.removeAllTippies();
     _tippy.tippyInit();
 });
 $(document).on("click", "#blog_tags .tag", function() {
@@ -49342,6 +49372,6 @@ console.log('%cTheme: %cArgon%cBy solstice23', 'color: rgba(255,255,255,.6); bac
 console.log('%cVersion%c' + $("meta[name='theme-version']").attr("content"), 'color:#fff; background: #5e72e4;font-size: 12px;border-radius:5px 0 0 5px;padding:3px 10px 3px 10px;', 'color:#fff; background: #92a1f4;font-size: 12px;border-radius:0 5px 5px 0;padding:3px 10px 3px 10px;');
 console.log('%chttps://github.com/solstice23/argon-theme', 'font-size: 12px;border-radius:5px;padding:3px 10px 3px 10px;border:1px solid #5e72e4;');
 
-},{}],"hWyEE":[function() {},{}]},["jdJaK","4XUH8"], "4XUH8", "parcelRequire1a91")
+},{}],"3Y8nt":[function() {},{}]},["jdJaK","4XUH8"], "4XUH8", "parcelRequire1a91")
 
 //# sourceMappingURL=argon-theme.js.map

@@ -186,7 +186,7 @@
 			</div>
 			<div class="row hide-on-comment-editing <?php if (get_option('argon_hide_name_email_site_input') == 'true') {echo 'd-none';}?>" style="margin-top: 10px; <?php if (is_user_logged_in()) {echo('display: none');}?>">
 				<div class="col-md-12">
-					<button id="post_comment_toggle_extra_input" type="button" class="btn btn-icon btn-outline-primary btn-sm" tooltip-show-extra-field="<?php _e('展开附加字段', 'argon'); ?>" tooltip-hide-extra-field="<?php _e('折叠附加字段', 'argon'); ?>">
+					<button id="post_comment_toggle_extra_input" type="button" class="btn btn-icon btn-outline-primary btn-sm" tooltip="[['show-extra-field', '<?php _e('展开附加字段', 'argon'); ?>'], ['hide-extra-field', '<?php _e('折叠附加字段', 'argon'); ?>']]">
 						<span class="btn-inner--icon"><i class="fa fa-angle-down"></i></span>
 					</button>
 				</div></div>

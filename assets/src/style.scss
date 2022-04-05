@@ -2857,9 +2857,7 @@ html.darkmode .comment-edit-history-item {
 	opacity: 0;
 }
 .post-comment-link-container:before,
-.post-comment-captcha-container:before,
-#post_comment_toggle_extra_input:before,
-.comment-post-checkbox:before {
+.post-comment-captcha-container:before {
 	pointer-events: none;
 	position: absolute;
 	top: -35px;
@@ -2881,9 +2879,7 @@ html.darkmode .comment-edit-history-item {
 .post-comment-link-container:hover:before,
 .post-comment-link-container.active:before,
 .post-comment-captcha-container:hover:before,
-.post-comment-captcha-container.active:before,
-#post_comment_toggle_extra_input:hover:before,
-.comment-post-checkbox:hover:before {
+.post-comment-captcha-container.active:before {
 	transform: translateY(0);
 	opacity: 0.7;
 }
@@ -2894,8 +2890,27 @@ html.darkmode .comment-edit-history-item {
 	content: attr(tooltip-show-extra-field);
 	text-transform: none;
 }
-.show-extra-input #post_comment_toggle_extra_input:before {
-	content: attr(tooltip-hide-extra-field);
+#post_comment {
+	&:not(.show-extra-input) {
+		.tippy-content {
+			.show-extra-field {
+				display: inline;
+			}
+			.hide-extra-field {
+				display: none;
+			}
+		}
+	}
+	&.show-extra-input {
+		.tippy-content {
+			.show-extra-field {
+				display: none;
+			}
+			.hide-extra-field {
+				display: inline;
+			}
+		}
+	}
 }
 #post_comment_toggle_extra_input {
 	border-radius: 100px;
@@ -2948,12 +2963,6 @@ html.darkmode #post_comment.post-comment-force-privatemode-off .comment-post-pri
 }
 #post_comment.post-comment-force-privatemode-off .comment-post-privatemode .custom-control-label::after {
 	background-image: unset;
-}
-.comment-post-privatemode:before {
-	content: attr(tooltip);
-}
-.comment-post-mailnotice:before {
-	content: attr(tooltip);
 }
 #post_comment.sending .comment-post-checkbox {
 	opacity: 0.6;

@@ -4,7 +4,7 @@ import { lazyloadInit } from './lazyload';
 import { zoomifyInit } from './zoomify';
 import { highlightJsRender } from './code-highlight';
 import { panguInit } from './pangu';
-import { tippyInit } from './tippy';
+import { tippyInit, removeAllTippies } from './tippy';
 import { clampInit } from './utils/clamp';
 import { getGithubInfoCardContent } from './shortcodes/github-card';
 import { showPostOutdateToast } from './post-outdated-toast';
@@ -119,12 +119,13 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 	}
 
 	NProgress.done();
-}).on('pjax:end', function(e) {
+}).on('pjax:end', function() {
 	waterflowInit();
 	lazyloadInit();
 	shareInit();
+	removeAllTippies();
 	tippyInit();
-});
+})
 
 
 $(document).on("click" , "#blog_tags .tag" , function(){
