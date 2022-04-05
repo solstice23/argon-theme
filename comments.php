@@ -70,7 +70,7 @@
 	}
 ?>
 <div id="post_comment" class="card shadow-sm <?php if (is_user_logged_in()) {echo("logged");}?><?php if (!$name_and_email_required) {echo(" no-need-name-email");}?><?php if (get_option('argon_comment_need_captcha') == 'false') {echo(" no-need-captcha");}?><?php if ($enable_qq_avatar == 'true') {echo(" enable-qq-avatar");}?>">
-	<div class="card-body">
+	<div class="card-body" style="overflow-x: hidden;">
 		<h2 class="post-comment-title">
 			<i class="fa fa-commenting"></i>
 			<span class="hide-on-comment-editing"><?php echo apply_filters("argon_comment_title", __('发送评论', 'argon'))?></span>
