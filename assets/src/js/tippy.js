@@ -13,7 +13,7 @@ export const tippyInit = () => {
 		delay: [100, 250],
 		animation: 'fade'
 	});
-	$("sup.reference[data-content]:not(.tippy-initialized)").addClass("tippy-initialized");
+	//$("sup.reference[data-content]:not(.tippy-initialized)").addClass("tippy-initialized");
 }
 document.addEventListener('DOMContentLoaded', function() {
 	tippyInit();

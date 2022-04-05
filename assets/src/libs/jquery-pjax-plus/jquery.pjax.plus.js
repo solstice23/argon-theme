@@ -547,8 +547,9 @@ function onPjaxPopstate(event) {
           container[i].trigger(beforeReplaceEvent, [contents, options])
           container[i].html(contents[i])
 
-          container[i].trigger('pjax:end', [null, options])
+          //container[i].trigger('pjax:end', [null, options])
         }
+        container[0].trigger('pjax:end', [null, options])
       } else {
         pjax(options)
       }

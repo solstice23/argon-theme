@@ -103,7 +103,6 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 	highlightJsRender();
 	panguInit();
 	clampInit();
-	tippyInit();
 	getGithubInfoCardContent();
 	showPostOutdateToast();
 	calcHumanTimesOnPage();
@@ -120,10 +119,11 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 	}
 
 	NProgress.done();
-}).on('pjax:end', function() {
+}).on('pjax:end', function(e) {
 	waterflowInit();
 	lazyloadInit();
 	shareInit();
+	tippyInit();
 });
 
 
