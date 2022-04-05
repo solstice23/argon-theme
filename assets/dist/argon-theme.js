@@ -43462,8 +43462,8 @@ var _lightBorderCss = require("tippy.js/themes/light-border.css");
 var _materialCss = require("tippy.js/themes/material.css");
 var _translucentCss = require("tippy.js/themes/translucent.css");
 var $ = window.$;
-var tippyInit = function() {
-    _tippyJsDefault.default('sup.reference[data-content]:not(.tippy-initialized)', {
+var tooltips = function() {
+    _tippyJsDefault.default('sup.reference[data-content]', {
         content: function(reference) {
             return reference.getAttribute('data-content');
         },
@@ -43476,7 +43476,25 @@ var tippyInit = function() {
         ],
         animation: 'fade'
     });
-//$("sup.reference[data-content]:not(.tippy-initialized)").addClass("tippy-initialized");
+};
+var footnotes = function() {
+    _tippyJsDefault.default('sup.reference[data-content]', {
+        content: function(reference) {
+            return reference.getAttribute('data-content');
+        },
+        allowHTML: true,
+        interactive: true,
+        theme: 'light scroll-y',
+        delay: [
+            100,
+            250
+        ],
+        animation: 'fade'
+    });
+};
+var tippyInit = function() {
+    tooltips();
+    footnotes();
 };
 document.addEventListener('DOMContentLoaded', function() {
     tippyInit();

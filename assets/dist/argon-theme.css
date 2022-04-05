@@ -9572,7 +9572,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle
   font-size: 25px;
   background: transparent !important;
   box-shadow: none;
-  color: inherit;
+  color: inherit !important;
   border: none;
   transform: none;
   opacity: 0.8;
@@ -9580,9 +9580,13 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle
   margin-right: 10px;
   transition: all 0.3s ease;
 }
+#comment_emotion_btn:hover {
+  transform: scale(1.1);
+}
 #comment_emotion_btn.comment-emotion-keyboard-open {
   border-radius: 100px;
-  color: var(--themecolor);
+  transform: scale(1.1);
+  color: var(--themecolor) !important;
 }
 .emotion-keyboard {
   max-width: min(500px, 100vw - 40px);
