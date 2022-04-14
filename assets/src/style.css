@@ -12,6 +12,8 @@ Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, �
 @charset "utf-8";
 
 :root {
+	--sidebar-width: 240px;
+
 	--themecolor: #5e72e4;
 	--themecolor-R: 94;
 	--themecolor-G: 114;
@@ -650,13 +652,13 @@ html.is-home.banner-as-cover #content {
 	}
 }
 #primary {
-	width: calc(100% - 280px);
+	width: calc(100% - var(--sidebar-width) - 40px);
 	float: right;
 }
 #leftbar {
 	padding-left: 20px;
 	padding-right: 20px;
-	width: 280px;
+	width: calc(var(--sidebar-width) + 40px);
 	float: left;
 	margin-bottom: 25px;
 }
@@ -1180,7 +1182,7 @@ html.darkmode.amoled-dark #leftbar_search_container {
 }
 #leftbar_part2.sticky {
 	position: fixed;
-	width: 240px;
+	width: var(--sidebar-width);
 	top: 80px;
 }
 body.leftbar-can-headroom.headroom---unpinned #leftbar_part2.sticky {
@@ -1336,7 +1338,7 @@ html.darkmode .sidebar-tab-switcher > a.active {
 	margin-bottom: 3px;
 }
 .site-friend-links-item > a {
-	max-width: 280px;
+	max-width: calc(var(--sidebar-width) + 40px);
 	box-sizing: border-box;
 	display: inline-block;
 	max-width: 100%;
