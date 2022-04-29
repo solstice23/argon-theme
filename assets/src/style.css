@@ -867,6 +867,7 @@ body.leftbar-can-headroom.headroom---unpinned #navbar-main {
 }
 #navbar_search_input_container .input-group {
 	box-shadow: none;
+	flex-wrap: nowrap;
 }
 #navbar_search_input_container:not(.open) .input-group-text {
 	background: transparent;
