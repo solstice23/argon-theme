@@ -4778,6 +4778,9 @@ html.darkmode.amoled-dark #content:after {
 	.post-full {
 		margin-left: -10px;
 		margin-right: -10px;
+		padding-left: 20px;
+		padding-right: 20px;
+		border-radius: 0;
 	}
 	/*显示更少的页码*/
 	.pagination:not(.pagination-mobile) {
