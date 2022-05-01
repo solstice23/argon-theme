@@ -18,13 +18,8 @@ Template Name: 留言板 (请打开页面的评论功能)
 
 			get_template_part( 'template-parts/content', 'page' );
 
-			if (get_option("argon_show_sharebtn") != 'false') {
-				get_template_part( 'template-parts/share' );
-			}
-
-			if (comments_open() || get_comments_number()) {
-				comments_template();
-			}
+			do_action( 'argon_show_sharebtn' );
+			do_action( 'argon_show_comment' );
 
 		endwhile;
 		?>
