@@ -1,12 +1,5 @@
-<article class="post post-full card bg-white shadow-sm border-0" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<?php 
-		do_action( 'argon_entry_header' ); 
-		do_action( 'argon_entry_content' );
-	?>
-
-
-
-	<?php if (has_tag()) { ?>
+<?php
+	if (has_tag()) { ?>
 		<div class="post-tags">
 			<i class="fa fa-tags" aria-hidden="true"></i>
 			<?php
@@ -17,4 +10,3 @@
 			?>
 		</div>
 	<?php } ?>
-</article>
