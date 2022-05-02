@@ -1,6 +1,7 @@
 <?php get_header(); ?>
 
-<div class="page-information-card-container"></div>
+
+<?php do_action( 'argon_page_info_card' ); ?>
 
 <?php get_sidebar(); ?>
 
@@ -10,15 +11,10 @@
 		while ( have_posts() ) :
 			the_post();
 
-			get_template_part( 'template-parts/content', 'page' );
+			get_template_part( 'template-parts/content', get_post_type() );
 
-			if (get_option("argon_show_sharebtn") != 'false') {
-				get_template_part( 'template-parts/share' );
-			}
-
-			if (comments_open() || get_comments_number()) {
-				comments_template();
-			}
+			do_action( 'argon_show_sharebtn' );
+			do_action( 'argon_show_comment' );
 
 		endwhile;
 		?>

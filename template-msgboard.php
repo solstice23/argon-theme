@@ -16,25 +16,12 @@ Template Name: 留言板 (请打开页面的评论功能)
 		while ( have_posts() ) :
 			the_post();
 
-			get_template_part( 'template-parts/content', 'page' );
-
-			if (get_option("argon_show_sharebtn") != 'false') {
-				get_template_part( 'template-parts/share' );
-			}
-
-			if (comments_open() || get_comments_number()) {
-				comments_template();
-			}
+			do_action( 'argon_show_comment' );
 
 		endwhile;
 		?>
 <style>
-#main article {
-	display: none !important;
-}
-#share_container {
-	display: none;
-}
+
 .comments-area .comments-title {
 	font-size: 0px;
 }

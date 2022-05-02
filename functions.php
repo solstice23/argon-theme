@@ -1,4 +1,6 @@
 <?php
+require get_template_directory() . '/inc/functions.php';
+
 if (version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' )) {
 	echo "<div style='background: #5e72e4;color: #fff;font-size: 30px;padding: 50px 30px;position: fixed;width: 100%;left: 0;right: 0;bottom: 0px;z-index: 2147483647;'>" . __("Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress", 'argon') . "</div>";
 }
@@ -3110,7 +3112,7 @@ function init_shuoshuo(){
 			'with_front' => false
 		),
 		'capability_type' => 'post',
-		'has_archive' => false,
+		'has_archive' => true,
 		'hierarchical' => false,
 		'menu_position' => null,
 		'menu_icon' => 'dashicons-format-quote',
