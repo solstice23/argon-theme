@@ -65,4 +65,4 @@ Argon использует лицензию [GPL V3.0](https://github.com/solsti
 
 # Список обновлений
 
-Смотрите [readme.md Chinese version](https://github.com/solstice23/argon-theme#%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97).
+Смотрите [readme.md Chinese version](https://github.com/solstice23/argon-theme/CHANGLOG.md).

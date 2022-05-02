@@ -67,7 +67,7 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 # Update logs
 
-見 [readme.md](https://github.com/solstice23/argon-theme#%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)
+見 [readme.md](https://github.com/solstice23/argon-theme/CHANGLOG.md)
 
 # 捐贈
 如果妳覺得 Argon 主題不錯，可以請我壹杯咖啡來支持我的開發。
