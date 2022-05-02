@@ -77,6 +77,20 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 
 [查看更新日志](./CHANGLOG.md)
 
+# 贡献指南
+
+## Bugs
+
+我们使用 GitHub [Issues](https://github.com/solstice23/argon-theme/issues/new/choose) 来做 bug 追踪。 如果你想要你发现的 bug 被快速解决，请使用这个 模板 来报告。
+
+在你报告一个 bug 之前，请先确保已经搜索过已有的 [issue](https://github.com/solstice23/argon-theme/issues) 和阅读了我们的 [文档](https://argon-docs.solstice23.top/) 及 [常见问题](https://argon-docs.solstice23.top/#/faq) 。
+
+## 新增功能
+
+如果你有改进或者新增功能的想法，我们推荐你在 [Discussions](https://github.com/solstice23/argon-theme/discussions) 发起讨论。
+
+其他未尽事宜请查阅 [贡献指南](https://github.com/solstice23/argon-theme/CONTRBUTING.md)
+
 # 捐赠
 
 如果你觉得 Argon 主题不错，可以请我一杯咖啡来支持我的开发。
