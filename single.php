@@ -10,7 +10,7 @@
 		while ( have_posts() ) :
 			the_post();
 
-			get_template_part( 'template-parts/content', get_post_type() );
+			do_action( 'argon_single_content' );
 
 			echo get_argon_formatted_paginate_links_for_all_platforms(array(), 'post');
 

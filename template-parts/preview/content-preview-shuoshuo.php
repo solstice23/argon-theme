@@ -1,34 +1,15 @@
 <div class="shuoshuo-preview-container shuoshuo-foldable card bg-white shadow-sm border-0" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<?php if ( get_the_title() != '' ) : ?>
-			<a class="shuoshuo-title"><?php the_title(); ?></a>
-		<?php endif; ?>
+		<?php 
+			do_action( 'argon_entry_title' ); 
+			do_action( 'argon_entry_excerpt' );
+		?>
 
-		<div class="shuoshuo-content">
+		<!-- <div class="shuoshuo-content">
 			<?php the_content(); ?>
-		</div>
-	</article>
+		</div> -->
+	
 	<div class="shuoshuo-preview-meta">
-		<span>
-			
-			<div class="post-meta-detail">
-				<i class="fa fa-calendar-o" aria-hidden="true"></i> 
-				<span class="shuoshuo-date-month"><?php echo get_the_time('n')?></span> <?php _e('月', 'argon');?> 
-				<span class="shuoshuo-date-date"><?php echo get_the_time('d')?></span> <?php _e('日', 'argon');?> , 
-				<span class="shuoshuo-date-year"><?php echo get_the_time('Y')?></span>
-			</div>
-			<div class="post-meta-devide">|</div>
-			<div class="post-meta-detail">
-				<i class="fa fa-clock fa-clock-o" aria-hidden="true"></i> 
-				<span class="shuoshuo-date-time"><?php echo get_the_time('G:i')?></span>
-			</div>
-		</span>
-		<?php if ( is_sticky() ) : ?>
-			<div class="post-meta-devide">|</div>
-			<div class="post-meta-detail post-meta-detail-words">
-				<i class="fa fa-thumb-tack" aria-hidden="true"></i>
-				<?php _ex('置顶', 'pinned', 'argon');?>
-			</div>
-		<?php endif; ?>
+		<?php do_action( 'argon_entry_meta' ); ?>
 		<?php 
 			$upvote_count = get_shuoshuo_upvotes(get_the_ID());
 			$comment_count = get_post(get_the_ID()) -> comment_count;

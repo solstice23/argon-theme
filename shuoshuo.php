@@ -9,7 +9,7 @@ query_posts("post_type=shuoshuo&post_status=publish&posts_per_page=30&paged=$pag
 
 <?php get_header(); ?>
 
-<?php do_action( 'argon_page_info_card' ); ?>
+<?php do_action( 'argon_page_info_card', 'shuoshuo' ); ?>
 
 <?php get_sidebar(); ?>
 
@@ -19,7 +19,7 @@ query_posts("post_type=shuoshuo&post_status=publish&posts_per_page=30&paged=$pag
 		<?php
 			while ( have_posts() ) :
 				the_post();
-				get_template_part( 'template-parts/content', 'shuoshuo-foldable' );
+				do_action( 'argon_single_content', 'shuoshuo' );
 			endwhile;
 		?>
 		<?php

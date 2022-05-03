@@ -6,9 +6,32 @@
 
 // 存档页、搜索页 等页面上部的信息框：存档：xxxx，xxxx篇文章
 // <div class='page-information-card-container'></div> 
-add_action( 'argon_page_info_card', 'argon_page_info_card' );
-function argon_page_info_card(){
-    get_template_part( 'template-parts/page-info-card', get_post_type() );
+// 调用 hooks 时，如果给了参数 $args，
+// 则 template-parts/page-info-card-{$args}.php, template-parts/archive/page-info-card-body-{$args}.php 
+// 否则 template-parts/page-info-card-{post_type}.php, template-parts/archive/page-info-card-body-{post_type}.php 
+// 默认 template-parts/page-info-card.php, template-parts/archive/page-info-card-body.php 
+add_action( 'argon_page_info_card', 'argon_page_info_card', '', '1' );
+function argon_page_info_card( $args = '' ){
+    if( $args == '' ) { 
+        $args = get_post_type(); 
+    }
+    get_template_part( 'template-parts/page-info-card', $args, $args = array( $args ) );
+}
+
+// single content
+// do_action('argon_entry_herder');
+// do_action('argon_entry_content');
+// do_action('argon_entry_footer');
+// 调用 hooks 时，如果给了参数 $args，
+// 则 template-parts/content-{$args}.php, template-parts/entry/no-passwd-{$args}.php 
+// 否则 template-parts/content-{post_type}.php, template-parts/entry/no-passwd-{post_type}.php
+// 默认 template-parts/content.php, template-parts/entry/no-passwd.php
+add_action( 'argon_single_content', 'argon_single_content', '', '1' );
+function argon_single_content( $args = '' ){
+    if( $args == '' ) { 
+        $args = get_post_type(); 
+    }
+    get_template_part( 'template-parts/content', $args, $args = array( $args ) );
 }
 
 // single header 部分：feature picture 显示在 banner 或 below ，文章标题和 meta
@@ -29,22 +52,37 @@ function argon_entry_meta(){
     get_template_part( 'template-parts/entry/meta', get_post_type() );
 }
 
-// 内容主体部分：输出正文和参考文献，如果加密，则输出 passwd_required
-add_action( 'argon_entry_content', 'argon_entry_content' );
-function argon_entry_content(){
-    get_template_part( 'template-parts/entry/content', get_post_type() );
+// 内容主体部分容器：
+// 无密码: argon_entry_content_no_passwd_required
+// 加密: argon_entry_content_passwd_required
+add_action( 'argon_entry_content', 'argon_entry_content', '', '1' );
+function argon_entry_content( $args = array() ){
+    if( empty( $args ) ) { 
+        $args[0] = get_post_type(); 
+    }
+    get_template_part( 'template-parts/entry/content-container', $args[0], $args );
+}
+
+// 无密码时的内容模板
+add_action( 'argon_entry_content_no_passwd_required', 'argon_entry_content_no_passwd_required', '', '1' );
+function argon_entry_content_no_passwd_required( $name = array() ){
+    // 防止直接 get_template_part( 'template-parts/content' ) 导致 name array 为空
+    if( empty( $name ) ){ 
+        $name = get_post_type(); 
+    }
+    get_template_part( 'template-parts/entry/no-passwd', $name[0] );
+}
+
+// 密码保护的内容模板
+add_action( 'argon_entry_content_passwd_required', 'argon_entry_content_passwd_required' );
+function argon_entry_content_passwd_required(){
+    get_template_part( 'template-parts/entry/passwd-required', get_post_type() );
 }
 
 // 摘要
 add_action( 'argon_entry_excerpt', 'argon_entry_excerpt' );
 function argon_entry_excerpt(){
     get_template_part( 'template-parts/entry/excerpt', get_post_type() );
-}
-
-// 密码保护的内容模板
-add_action( 'argon_passwd_required', 'argon_passwd_required' );
-function argon_passwd_required(){
-    get_template_part( 'template-parts/entry/passwd-required', get_post_type() );
 }
 
 // 文末附加内容

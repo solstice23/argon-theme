@@ -15,8 +15,8 @@ Template Name: 归档时间轴
 		<?php
 			while ( have_posts() ) :
 				the_post();
-
-				get_template_part( 'template-parts/content', 'timeline' );
+				
+				do_action( 'argon_single_content', 'timeline' );
 
 				do_action( 'argon_show_sharebtn' );
 				do_action( 'argon_show_comment' );

@@ -11,7 +11,7 @@
 		while ( have_posts() ) :
 			the_post();
 
-			get_template_part( 'template-parts/content', get_post_type() );
+			do_action( 'argon_single_content' );
 
 			do_action( 'argon_show_sharebtn' );
 			do_action( 'argon_show_comment' );
