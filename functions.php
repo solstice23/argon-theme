@@ -1,4 +1,6 @@
 <?php
+require get_template_directory() . '/inc/functions.php';
+
 if (version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' )) {
 	echo "<div style='background: #5e72e4;color: #fff;font-size: 30px;padding: 50px 30px;position: fixed;width: 100%;left: 0;right: 0;bottom: 0;z-index: 2147483647;'>" . __("Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress", 'argon') . "</div>";
 }
@@ -339,15 +341,23 @@ function get_additional_content_after_post(){
 	return $res;
 }
 //输出分页页码
-function get_argon_formatted_paginate_links($maxPageNumbers, $extraClasses = ''){
+function get_argon_formatted_paginate_links($maxPageNumbers, $extraArgs = array(), $extraClasses = '', $target = 'list'){
 	$args = array(
 		'prev_text' => '',
 		'next_text' => '',
 		'before_page_number' => '',
 		'after_page_number' => '',
-		'show_all' => True
+		'show_all' => True,
+		'echo' => False,
 	);
-	$res = paginate_links($args);
+	$args = array_merge($args, $extraArgs);
+	if ($target == 'post') {
+		global $multipage;
+		if (!$multipage) return "";
+		$res = wp_link_pages($args);
+	}else {
+		$res = paginate_links($args);
+	}
 	//单引号转双引号 & 去除上一页和下一页按钮
 	$res = preg_replace(
 		'/\'/',
@@ -412,8 +422,8 @@ function get_argon_formatted_paginate_links($maxPageNumbers, $extraClasses = '')
 	}
 	return '<nav><ul class="pagination' . $extraClasses . '">' . $html . '</ul></nav>';
 }
-function get_argon_formatted_paginate_links_for_all_platforms(){
-	return get_argon_formatted_paginate_links(7) . get_argon_formatted_paginate_links(5, " pagination-mobile");
+function get_argon_formatted_paginate_links_for_all_platforms($extraArgs = array(), $target = 'list'){
+	return get_argon_formatted_paginate_links(7, $extraArgs, "", $target) . get_argon_formatted_paginate_links(5, $extraArgs, " pagination-mobile", $target);
 }
 //访问者 Token & Session
 function get_random_token(){
@@ -647,7 +657,7 @@ function get_article_meta($type){
 	}
 	if ($type == 'time'){
 		return '<div class="post-meta-detail post-meta-detail-time">
-					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					<i class="fa fa-clock fa-clock-o" aria-hidden="true"></i>
 					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
 						get_the_time('Y-n-d G:i') . '
 					</time>
@@ -655,7 +665,7 @@ function get_article_meta($type){
 	}
 	if ($type == 'edittime'){
 		return '<div class="post-meta-detail post-meta-detail-edittime">
-					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					<i class="fa fa-pencil fa-pen" aria-hidden="true"></i>
 					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
 						get_the_modified_time('Y-n-d G:i') . '
 					</time>
@@ -674,13 +684,13 @@ function get_article_meta($type){
 	}
 	if ($type == 'comments'){
 		return '<div class="post-meta-detail post-meta-detail-comments">
-					<i class="fa fa-comments-o" aria-hidden="true"></i> ' .
+					<i class="fa fa-comments fa-comments-o" aria-hidden="true"></i> ' .
 					get_post(get_the_ID()) -> comment_count .
 				'</div>';
 	}
 	if ($type == 'categories'){
 		$res = '<div class="post-meta-detail post-meta-detail-categories">
-				<i class="fa fa-bookmark-o" aria-hidden="true"></i> ';
+				<i class="fa fa-bookmark fa-bookmark-o" aria-hidden="true"></i> ';
 		$categories = get_the_category();
 		foreach ($categories as $index => $category){
 			$res .= '<a href="' . get_category_link($category -> term_id) . '" target="_blank" class="post-meta-detail-catagory-link">' . $category -> cat_name . '</a>';
@@ -693,7 +703,7 @@ function get_article_meta($type){
 	}
 	if ($type == 'author'){
 		$res = '<div class="post-meta-detail post-meta-detail-author">
-					<i class="fa fa-user-circle-o" aria-hidden="true"></i> ';
+					<i class="fa fa-circle-user fa-user-circle-o" aria-hidden="true"></i> ';
 					global $authordata;
 		$res .= '<a href="' . get_author_posts_url($authordata -> ID, $authordata -> user_nicename) . '" target="_blank">' . get_the_author() . '</a>
 				</div>';
@@ -705,7 +715,7 @@ function get_article_reading_time_meta($post_content_full){
 	$post_content_full = apply_filters("argon_html_before_wordcount", $post_content_full);
 	$words = get_article_words($post_content_full);
 	$res = '</br><div class="post-meta-detail post-meta-detail-words">
-		<i class="fa fa-file-word-o" aria-hidden="true"></i>';
+		<i class="fa fa-file-word fa-file-word-o" aria-hidden="true"></i>';
 	if ($words['code'] > 0){
 		$res .= '<span title="' . sprintf(__( '包含 %d 行代码', 'argon'), $words['code']) . '">';
 	}else{
@@ -2887,7 +2897,7 @@ function shortcode_github($attr,$content=""){
 	}
 
 	$out = "<div class='github-info-card github-info-card-" . $size . " card shadow-sm' data-author='" . $author . "' data-project='" . $project . "' githubinfo-card-id='" . $github_info_card_id . "' data-getdata='" . $getdata . "' data-description='" . $description . "' data-stars='" . $stars . "' data-forks='" . $forks . "'>";
-	$out .= "<div class='github-info-card-header'><a href='https://github.com/' ref='nofollow' target='_blank' title='Github' no-pjax><span><i class='fa fa-github'></i>";
+	$out .= "<div class='github-info-card-header'><a href='https://github.com/' ref='nofollow' target='_blank' title='Github' no-pjax><span><i class='fa-brands fa-github'></i>";
 	if ($size != "mini"){
 		$out .= " GitHub";
 	}

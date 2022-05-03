@@ -31,7 +31,7 @@
 			}
 		?>
 	</div>
-	<div class="emotion-keyboard-bar">
+	<div class="emotion-keyboard-bar horizontal-scroll">
 		<?php
 			foreach ($emotionList as $groupIndex => $group){
 				$className = "emotion-group-name";

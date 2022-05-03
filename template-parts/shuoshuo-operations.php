@@ -1,3 +1,9 @@
+<?php
+/**
+ * 展示说说的操作按钮，右下角点赞和评论
+ *
+ */
+?>
 <div class="shuoshuo-operations">
 	<a href="<?php the_permalink(); ?>#post_comment" class="shuoshuo-preview-add-comment-out-container-a" <?php if (!comments_open()) {?>style="pointer-events: none;"<?php } ?>>
 		<button class="shuoshuo-preview-add-comment btn btn-icon btn-outline-primary btn-sm" type="button"<?php if (!comments_open()) {?> disabled<?php } ?>>
@@ -17,7 +23,7 @@
 		$upvoted = in_array(get_the_ID(), explode(',', $upvotedList));
 	?>
 	<button class="shuoshuo-upvote btn btn-icon btn-outline-primary btn-sm<?php if ($upvoted) {?> upvoted<?php } ?>" type="button" data-id="<?php the_ID(); ?>">
-		<span class="btn-inner--icon"><i class="fa fa-thumbs<?php if (!$upvoted) {?>-o<?php } ?>-up"></i></span>
+		<span class="btn-inner--icon"><i class="fa <?php echo $upvoted ? "fa-thumbs-up" : "fa-thumbs-o-up"?>"></i></span>
 		<span class="btn-inner--text" style="margin-left: 2px;">
 			<span class="shuoshuo-upvote-num"><?php echo get_shuoshuo_upvotes(get_the_ID());?></span>
 			<i class="fa fa-spinner fa-spin" style="margin-left: 0;"></i>

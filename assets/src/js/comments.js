@@ -1,0 +1,12 @@
+import './comments/reply-comment';
+import './comments/comment-pin';
+import './comments/comment-form';
+import './comments/send-comment';
+import './comments/edit-comment';
+import './comments/comment-edit-history';
+import './comments/comment-page';
+import './comments/comment-fold';
+import './comments/comment-vote';
+import './comments/emotion-panel';
+import './comments/text-avatar';
+import './comments/comment-parent-info';

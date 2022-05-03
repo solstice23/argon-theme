@@ -1,0 +1,115 @@
+.qrcode-share-toast {
+    overflow: hidden;
+    position: relative;
+    padding: 0px;
+    padding-bottom: 45px;
+    background: transparent;
+    width: auto;
+
+    * {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .iziToast-close {
+        position: relative;
+        top: unset;
+        bottom: -20px;
+        width: 100%;
+        height: 30px;
+        transform: scale(2);
+    }
+    img {
+        border-radius: 6px;
+        max-width: 80vw;
+    }
+}
+
+#share_container {
+	height: 38px;
+	margin-bottom: 25px;
+	position: relative;
+    .btn {
+        height: 36px;
+        padding: 0 15px;
+        line-height: 36px;
+        margin-left: 5px;
+        margin-right: 0;
+        margin-bottom: 15px;
+        min-width: 50px;
+    }
+    &.opened{
+        height: max-content;
+        height: -moa-max-content;
+        margin-bottom: 10px;
+        min-height: 38px;
+        #share {
+            transform: none;
+            opacity: 1;
+            pointer-events: unset;
+        }
+        #share_show {
+            top: -50px;
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}
+#share {
+	margin-left: auto;
+	max-width: 100%;
+	transform: translateY(50px);
+	opacity: 0;
+	pointer-events: none;
+	width: max-content;
+	width: -moz-max-content;
+	transition: all 0.3s ease;
+    > a {
+        position: relative;
+        &::before {
+            content: attr(tooltip);
+        }
+    }
+}
+#share_show {
+	position: absolute;
+	right: 0;
+	top: 0;
+	opacity: 1;
+	width: max-content;
+	width: -moz-max-content;
+	transition: all 0.3s ease;
+    &:before {
+        content: attr(tooltip);
+        top: -40px;
+        height: max-content;
+        height: -moz-max-content;
+        text-transform: none;
+    }
+}
+#share > a,
+#share_show {
+    &::before{
+        pointer-events: none;
+        position: absolute;
+        top: -50px;
+        right: 0px;
+        line-height: 25px;
+        width: max-content;
+        width: -moz-max-content;
+        text-align: center;
+        font-weight: normal;
+        color: #fff;
+        background: #32325d;
+        padding: 3px 10px;
+        font-size: 14px;
+        border-radius: 3px;
+        z-index: 3;
+        transition: all 0.3s ease;
+        transform: translateY(5px);
+        opacity: 0;
+    }
+    &:hover::before {
+        transform: translateY(0);
+        opacity: 0.7;
+    }
+}

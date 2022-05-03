@@ -27,7 +27,7 @@ const getStyleClass = (className = "") => {
 
 registerBlockType('argon/github', {
 	title: __('Github Repo 信息卡'),
-	icon: 'github fa fa-github',
+	icon: 'github fa fa-brands fa-github',
 	category: 'argon',
 	keywords: [
 		'argon',
@@ -67,7 +67,7 @@ registerBlockType('argon/github', {
 				<div className={`github-info-card shadow-sm ${getStyleClass(props.className)}`}>
 					<div className="github-info-card-header">
 						<a title="Github">
-							<span><i className="fa fa-github"></i> GitHub</span>
+							<span><i className="fa fa-brands fa-github"></i> GitHub</span>
 						</a>
 					</div>
 					<div className="github-info-card-body">
@@ -120,7 +120,7 @@ registerBlockType('argon/github', {
 			<div className={`github-info-card card shadow-sm ${getStyleClass(props.className || props.attributes.className)}`} data-author={props.attributes.author} data-project={props.attributes.project}>
 				<div className="github-info-card-header">
 					<a href="https://github.com/" ref="nofollow" target="_blank" title="Github" rel="noopener">
-						<span><i className="fa fa-github"></i>&nbsp;GitHub</span>
+						<span><i className="fa fa-brands fa-github"></i>&nbsp;GitHub</span>
 					</a>
 				</div>
 				<div className="github-info-card-body">

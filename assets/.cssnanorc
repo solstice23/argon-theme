@@ -1,0 +1,11 @@
+{
+  "preset": [
+    "advanced",
+    {
+      "calc": true,
+      "discardComments": {
+        "removeAll": true
+      }
+    }
+  ]
+}
