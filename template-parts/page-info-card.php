@@ -18,8 +18,6 @@
 					if( is_search() ){
 						$template_name = 'search';
 					}
-
-					echo $template_name;
 					get_template_part( 'template-parts/archive/page-info-card-body', $template_name ); ?>
 			</div>
 		</div>

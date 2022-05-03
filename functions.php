@@ -3112,7 +3112,7 @@ function init_shuoshuo(){
 			'with_front' => false
 		),
 		'capability_type' => 'post',
-		'has_archive' => true,
+		'has_archive' => false,
 		'hierarchical' => false,
 		'menu_position' => null,
 		'menu_icon' => 'dashicons-format-quote',
