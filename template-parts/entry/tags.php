@@ -1,4 +1,11 @@
 <?php
+/**
+ * 展示页面的标签
+ * Template part for displaying post tags
+ *
+ */
+?>
+<?php
 if (has_tag()) { ?>
     <div class="post-tags">
         <i class="fa fa-tags" aria-hidden="true"></i>

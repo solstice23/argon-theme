@@ -1,3 +1,9 @@
+<?php
+/**
+ * 展示说说的操作按钮，右下角点赞和评论
+ *
+ */
+?>
 <div class="shuoshuo-operations">
 	<a href="<?php the_permalink(); ?>#post_comment" class="shuoshuo-preview-add-comment-out-container-a" <?php if (!comments_open()) {?>style="pointer-events: none;"<?php } ?>>
 		<button class="shuoshuo-preview-add-comment btn btn-icon btn-outline-primary btn-sm" type="button"<?php if (!comments_open()) {?> disabled<?php } ?>>

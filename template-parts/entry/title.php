@@ -1,5 +1,6 @@
 <?php
 /**
+ * 页面标题
  * Template part for displaying a post's title
  *
  */

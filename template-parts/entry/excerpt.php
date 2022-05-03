@@ -1,4 +1,11 @@
 <?php
+/**
+ * 展示文章的摘要，主要是文章列表里使用
+ * Template part for displaying post excerpt
+ *
+ */
+?>
+<?php
     $trim_words_count = get_option('argon_trim_words_count', 175);
     if ($trim_words_count > 0): ?>
         <div class="post-content">

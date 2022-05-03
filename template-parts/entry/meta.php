@@ -1,3 +1,9 @@
+<?php
+/**
+ * 展示文章的 meta：日期、作者、分类等
+ *
+ */
+?>
 <div class="post-meta">
     <?php
         $metaList = explode('|', get_option('argon_article_meta', 'time|views|comments|categories'));
