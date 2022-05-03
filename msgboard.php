@@ -26,7 +26,7 @@ Template Name: 留言板 (请打开页面的评论功能)
 	font-size: 0px;
 }
 .comments-area .comments-title:after {
-	content: '<?php _e("留言板"); ?>';
+	content: '<?php _e("留言板", "argon"); ?>';
 	font-size: 20px;
 }
 .comments-area .comments-title i {
@@ -37,7 +37,7 @@ Template Name: 留言板 (请打开页面的评论功能)
 	font-size: 0px;
 }
 .post-comment-title:after {
-	content: '<?php _e("发送留言"); ?>';
+	content: '<?php _e("发送留言", "argon"); ?>';
 	font-size: 20px;
 }
 .post-comment-title i {

@@ -76,6 +76,7 @@
 	<?php }else{ ?>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 	<?php } ?>
+	<meta property="og:site_name" content="<?php echo get_bloginfo('name');?>">
 	<meta property="og:title" content="<?php echo wp_get_document_title();?>">
 	<meta property="og:type" content="article">
 	<meta property="og:url" content="<?php echo home_url(add_query_arg(array(),$wp->request));?>">
