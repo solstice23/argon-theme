@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 
-<?php do_action( 'argon_page_info_card' ); ?>
+
 
 <?php get_sidebar(); ?>
 

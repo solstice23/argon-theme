@@ -6,14 +6,13 @@
 
 // 存档页、搜索页 等页面上部的信息框：存档：xxxx，xxxx篇文章
 // <div class='page-information-card-container'></div> 
-// 调用 hooks 时，如果给了参数 $args，
-// 则 template-parts/page-info-card-{$args}.php, template-parts/archive/page-info-card-body-{$args}.php 
-// 否则 template-parts/page-info-card-{post_type}.php, template-parts/archive/page-info-card-body-{post_type}.php 
-// 默认 template-parts/page-info-card.php, template-parts/archive/page-info-card-body.php 
 add_action( 'argon_page_info_card', 'argon_page_info_card', '', '1' );
 function argon_page_info_card( $args = '' ){
-    if( $args == '' ) { 
-        $args = get_post_type(); 
+    if( $args == '' ){
+        $args = get_post_type();
+    }
+    if( is_search() ){
+        $args = 'search';
     }
     get_template_part( 'template-parts/page-info-card', $args, $args = array( $args ) );
 }
