@@ -14,10 +14,10 @@ require get_template_directory() . '/inc/fun/search.php';  // 搜索相关的功
 require get_template_directory() . '/inc/fun/seo.php';  // seo 相关的功能
 
 // 注册编辑文章界面 Meta box
-require get_template_directory() . '/inc/fun/post-meta.php';
+require get_template_directory() . '/inc/fun/post-extra-meta-editor.php';
 
 // 注册古腾堡区块和简码，编辑器添加相关按钮
-require get_template_directory() . '/inc/fun/shortcode.php';
+require get_template_directory() . '/inc/fun/shortcodes.php';
 
 // 注册小工具
 require get_template_directory() . '/inc/fun/widgets.php';
