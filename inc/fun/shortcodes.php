@@ -636,32 +636,7 @@ function shortcode_ref($attr,$content=""){
 		}
 	}
 }
-function get_reference_list(){
-	global $post_references;
-	if (count($post_references) == 0){
-		return "";
-	}
-	$res = "<div class='reference-list-container'>";
-	$res .= "<h3>" . (get_option('argon_reference_list_title') == "" ? __('参考', 'argon') : get_option('argon_reference_list_title')) . "</h3>";
-	$res .= "<ol class='reference-list'>";
-		foreach ($post_references as $index => $ref) {
-			$res .= "<li id='ref_" . ($index + 1)  . "'><div>";
-			if ($ref['count'] == 1){
-				$res .= "<a class='reference-list-backlink' href='#ref_" . ($index + 1) . "_1' aria-label='back'>^</a>";
-			}else{
-				$res .= "<span class='reference-list-backlink'>^</span>";
-				for ($i = 1, $j = 'a'; $i <= $ref['count']; $i++, $j++){
-					$res .= "<sup><a class='reference-list-backlink' href='#ref_" . ($index + 1) . "_" . $i . "' aria-label='back'>" . $j . "</a></sup>";
-				}
-			}
-			$res .= "<span>" . $ref['content'] . "</span>";
-			$res .= "<div class='space' tabindex='-1'></div>";
-			$res .= "</div></li>";
-		}
-	$res .= "</ol>";
-	$res .= "</div>";
-	return $res;
-}
+
 //TinyMce 按钮
 function argon_tinymce_extra_buttons(){
 	if(!current_user_can('edit_posts') && !current_user_can('edit_pages')){

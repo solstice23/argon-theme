@@ -93,6 +93,12 @@ function argon_after_entry_content(){
     }
 }
 
+// References 模块
+add_action( 'argon_entry_reference_list', 'argon_entry_reference_list' );
+function argon_entry_reference_list(){
+    get_template_part( 'template-parts/entry/reference-list', get_post_type() );
+}
+
 // 捐赠模块
 add_action( 'argon_entry_donate', 'argon_entry_donate' );
 function argon_entry_donate(){
@@ -110,6 +116,7 @@ function argon_entry_tag(){
 add_action( 'argon_entry_footer', 'argon_entry_footer' );
 function argon_entry_footer(){
     // get_template_part( 'template-parts/entry/footer', get_post_type() );
+    do_action( 'argon_entry_reference_list' );
 	do_action( 'argon_entry_donate' );
     do_action( 'argon_entry_tags' );
 }
