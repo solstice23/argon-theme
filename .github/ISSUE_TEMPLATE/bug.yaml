@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         在提交 Issue 之前，请确保：
-        + 先前不存在相同的 Issue。
+        + 先前不存在相同的 Issue
         + 该 Bug 不是由 Wordpress 插件、浏览器插件导致的
         + 该 Bug 是由主题导致（在其他主题下不能复现）
   - type: input
