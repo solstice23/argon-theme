@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-
+<div class="page-information-card-container"></div>
 
 
 <?php get_sidebar(); ?>
