@@ -7,8 +7,8 @@ body:
     attributes:
       value: |
         在提交 Issue 之前，请确保：
-        + 先前不存在相同的 Issue。
-        + 该功能和主题有关。
+        + 先前不存在相同的 Issue
+        + 该功能和主题有关
   - type: textarea
     id: description
     attributes:
