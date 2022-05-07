@@ -21,6 +21,11 @@ function argon_single_content( $args = '' ){
     get_template_part( 'template-parts/content', $args, $args = array( $args ) );
 }
 
+// single header 部分：feature picture 显示在 banner 或 below ，文章标题和 meta
+add_action( 'argon_entry_header', 'argon_entry_header' );
+function argon_entry_header(){
+    get_template_part( 'template-parts/entry/header', get_post_type() );
+}
 
 // 文章标题
 add_action( 'argon_entry_title', 'argon_entry_title' );

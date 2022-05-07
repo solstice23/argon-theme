@@ -9,12 +9,14 @@
 $thumbnail_url = argon_get_post_thumbnail();   ?>
 <header class="post-header text-center<?php if (argon_has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') != 'true'){echo " post-header-with-thumbnail";}?>">
     <?php
-        echo "
-        <style>
-            body section.banner {
-                background-image: url(" . $thumbnail_url . ") !important;
-            }
-        </style>";
+        if( $thumbnail_url ){
+            echo "
+            <style>
+                body section.banner {
+                    background-image: url(" . $thumbnail_url . ") !important;
+                }
+            </style>";
+        }
         do_action( 'argon_entry_title' ); 
         do_action( 'argon_entry_meta' ); 
     ?>
