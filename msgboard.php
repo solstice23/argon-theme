@@ -15,13 +15,19 @@ Template Name: 留言板 (请打开页面的评论功能)
 		<?php
 		while ( have_posts() ) :
 			the_post();
-
+			do_action( 'argon_single_content' );
+			do_action( 'argon_show_sharebtn' );
 			do_action( 'argon_show_comment' );
 
 		endwhile;
 		?>
 <style>
-
+#main article {
+	display: none !important;
+}
+#share_container {
+	display: none;
+}
 .comments-area .comments-title {
 	font-size: 0px;
 }
