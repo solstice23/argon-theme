@@ -1,0 +1,23 @@
+name: 功能请求 / Feature Request
+description: 提议新功能
+title: "[Feature Request] "
+labels: [Feature Request]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        在提交 Issue 之前，请确保：
+        + 先前不存在相同的 Issue。
+        + 该功能和主题有关。
+  - type: textarea
+    id: description
+    attributes:
+      label: 功能描述
+      description: 描述新功能及其作用
+    validations:
+      required: true
+  - type: textarea
+    id: other
+    attributes:
+      label: 附加说明
+      description: 在此添加附加说明。
