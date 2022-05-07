@@ -1,0 +1,81 @@
+name: Bug 反馈 / Bug report
+description: 反馈问题
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        在提交 Issue 之前，请确保：
+        + 先前不存在相同的 Issue。
+        + 该 Bug 不是由 Wordpress 插件、浏览器插件导致的
+        + 该 Bug 是由主题导致（在其他主题下不能复现）
+  - type: input
+    id: theme-version
+    attributes:
+      label: 主题版本
+      description: 出现 Bug 的主题版本（或该 Bug 最早出现时的主题版本）
+      placeholder: "如 v1.0.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Bug 类型
+      options:
+        - 该 Bug 是后端问题
+        - 该 Bug 是前端问题，且似乎和浏览器无关
+        - 该 Bug 是前端问题，但只在特定的浏览器上出现
+        - 不能判断 Bug 类型
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: 浏览器
+      description: 该 Bug 在什么浏览器上出现
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Other
+        - 此问题与前端无关
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: is-universal-issue
+    attributes:
+      label: 是否是普遍的 Bug
+      description: 该 Bug 出现在所有应用 Argon 主题的网站吗
+      options:
+        - 是
+        - 否，只出现在特定的网站，并且知道触发条件
+        - 否，只出现在特定的网站，但触发条件未知
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 这个 Bug 关于什么功能？何处有异常？
+      validations:
+        required: true
+  - type: textarea
+    id: reproduce-steps
+    attributes:
+      label: 复现步骤
+      description: 该 Bug 是否可复现？如何复现？
+      validations:
+        required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: 截图
+      description: 添加截图可以更清晰地描述存在的问题。
+      value: 
+  - type: textarea
+    id: other
+    attributes:
+      label: 附加说明
+      description: "在此添加附加说明"
