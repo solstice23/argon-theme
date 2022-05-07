@@ -2,7 +2,7 @@
 	<div class="shuoshuo-meta shadow-sm">
 		<?php do_action( 'argon_entry_meta' ); ?>
 	</div>
-	<article class="card shuoshuo-main shuoshuo-foldable bg-white shadow-sm border-0" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+	<article class="card shuoshuo-main <?php if( !is_singular( 'shuoshuo' ) ){echo 'shuoshuo-foldable';}?> bg-white shadow-sm border-0" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<?php 
 			do_action( 'argon_entry_title' ); 
 			if( is_singular( 'shuoshuo' ) ){
