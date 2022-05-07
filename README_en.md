@@ -67,4 +67,4 @@ Automatically push update informations and other news about Argon.
 
 # Update logs
 
-See [readme.md Chinese version](https://github.com/solstice23/argon-theme#%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97).
+See [readme.md Chinese version](https://github.com/solstice23/argon-theme/CHANGLOG.md).

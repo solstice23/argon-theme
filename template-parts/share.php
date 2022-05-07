@@ -1,3 +1,10 @@
+<?php
+/**
+ * 展示文章的分享按钮
+ * Template part for displaying share btn
+ *
+ */
+?>
 <div id="share_container">
 	<div id="share" data-initialized="true">
 			<?php if (get_option('argon_show_sharebtn') != 'abroad') { ?>
