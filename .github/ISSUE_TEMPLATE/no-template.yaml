@@ -1,0 +1,17 @@
+name: 其它
+description: 提交其它 Issue
+title: ""
+body:
+  - type: markdown
+    attributes:
+      value: |
+        在提交 Issue 之前，请确保：
+        + 先前不存在相同的 Issue
+        + 该 Issue 不属于 Bug 反馈或功能请求，否则请选择上述分类提交
+        + 准确描述 Issue 内容
+  - type: textarea
+    id: description
+    attributes:
+      label: 
+    validations:
+      required: true
