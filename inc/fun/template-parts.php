@@ -4,18 +4,6 @@
  * Template-function
  */
 
-// 存档页、搜索页 等页面上部的信息框：存档：xxxx，xxxx篇文章
-// <div class='page-information-card-container'></div> 
-add_action( 'argon_page_info_card', 'argon_page_info_card', '', '1' );
-function argon_page_info_card( $args = '' ){
-    if( $args == '' ){
-        $args = get_post_type();
-    }
-    if( is_search() ){
-        $args = 'search';
-    }
-    get_template_part( 'template-parts/page-info-card', $args, $args = array( $args ) );
-}
 
 // single content
 // do_action('argon_entry_herder');
@@ -33,11 +21,6 @@ function argon_single_content( $args = '' ){
     get_template_part( 'template-parts/content', $args, $args = array( $args ) );
 }
 
-// single header 部分：feature picture 显示在 banner 或 below ，文章标题和 meta
-add_action( 'argon_entry_header', 'argon_entry_header' );
-function argon_entry_header(){
-    get_template_part( 'template-parts/entry/header', get_post_type() );
-}
 
 // 文章标题
 add_action( 'argon_entry_title', 'argon_entry_title' );
