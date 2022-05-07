@@ -45,7 +45,7 @@ function argon_entry_meta(){
 add_action( 'argon_entry_content', 'argon_entry_content', '', '1' );
 function argon_entry_content( $args = array() ){
     if( empty( $args ) ) { 
-        $args[0] = get_post_type(); 
+        $args = array(get_post_type()); 
     }
     get_template_part( 'template-parts/entry/content-container', $args[0], $args );
 }
