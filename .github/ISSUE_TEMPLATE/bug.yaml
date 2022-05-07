@@ -35,7 +35,7 @@ body:
       label: 浏览器
       description: 该 Bug 在什么浏览器上出现
       options:
-        - Chrome
+        - Chrome / Edge
         - Firefox
         - Safari
         - Other
@@ -46,7 +46,7 @@ body:
   - type: dropdown
     id: is-universal-issue
     attributes:
-      label: 是否是普遍的 Bug
+      label: 普遍性
       description: 该 Bug 出现在所有应用 Argon 主题的网站吗
       options:
         - 是
@@ -58,7 +58,7 @@ body:
     id: description
     attributes:
       label: 问题描述
-      description: 这个 Bug 关于什么功能？何处有异常？
+      description: 该 Bug 关于什么功能？何处有异常？
     validations:
       required: true
   - type: textarea
@@ -78,4 +78,4 @@ body:
     id: other
     attributes:
       label: 附加说明
-      description: "在此添加附加说明"
+      description: 在此添加附加说明。
