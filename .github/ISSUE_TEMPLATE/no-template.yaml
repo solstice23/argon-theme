@@ -1,4 +1,4 @@
-name: 其它
+name: 其它类别
 description: 提交其它 Issue
 body:
   - type: markdown
