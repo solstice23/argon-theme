@@ -12,6 +12,6 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: 
+      label: Issue 内容
     validations:
       required: true
