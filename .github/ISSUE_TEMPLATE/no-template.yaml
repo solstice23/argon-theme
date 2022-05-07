@@ -1,5 +1,5 @@
-name: 其它类别
-description: 提交其它 Issue
+name: 其它类别 / Other categories
+description: 提交其它类别的 Issue / Submit issues in other categories
 body:
   - type: markdown
     attributes:
