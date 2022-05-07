@@ -1,6 +1,5 @@
 name: 其它
 description: 提交其它 Issue
-title: ""
 body:
   - type: markdown
     attributes:
