@@ -7,7 +7,7 @@
  */
 
 $thumbnail_url = argon_get_post_thumbnail();   ?>
-<header class="post-header text-center<?php if (argon_has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') != 'true'){echo " post-header-with-thumbnail";}?>">
+<header class="post-header text-center">
     <?php
         if( $thumbnail_url ){
             echo "

@@ -9,7 +9,7 @@
 if ( get_option('argon_show_thumbnail_in_banner_in_content_page') == 'true' ){
     get_template_part( 'template-parts/entry/header', 'thumbnail-in-banner' );
 } else{
-    $article_list_layout = get_option('argon_article_list_layout', '1')
+    $article_list_layout = get_option('argon_article_list_layout', '1');
     switch ( $article_list_layout ) {
         case '2':
             get_template_part( 'template-parts/entry/header', '1' );
