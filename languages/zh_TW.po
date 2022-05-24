@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: argon\n"
-"POT-Creation-Date: 2022-02-14 19:15+0800\n"
-"PO-Revision-Date: 2022-02-14 19:19+0800\n"
+"POT-Creation-Date: 2022-05-24 20:22+0800\n"
+"PO-Revision-Date: 2022-05-24 20:31+0800\n"
 "Last-Translator: \n"
 "Language-Team: solstice23\n"
 "Language: zh_TW\n"
@@ -20,20 +20,20 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-3: argontheme.js\n"
 "X-Poedit-SearchPathExcluded-4: gutenberg\n"
 
-#: 404.php:11
+#: 404.php:9
 msgid "404 - 找不到页面"
 msgstr "404 - 找不到頁面"
 
-#: 404.php:101
+#: 404.php:99
 msgid "这个页面不见了"
 msgstr "這個頁面不見了"
 
-#: 404.php:105 template-parts/content-none-search.php:13
-#: template-parts/content-none-tag.php:9
+#: 404.php:103 template-parts/preview/content-none-search.php:13
+#: template-parts/preview/content-none-tag.php:9
 msgid "返回上一页"
 msgstr "返回上一頁"
 
-#: 404.php:109
+#: 404.php:107
 msgid "回到首页"
 msgstr "回到首頁"
 
@@ -41,8 +41,8 @@ msgstr "回到首頁"
 msgid "篇文章"
 msgstr "篇文章"
 
-#: comments.php:12 header.php:524 settings.php:1250
-#: template-parts/shuoshuo-operations.php:10
+#: comments.php:12 header.php:527 settings.php:1267
+#: template-parts/shuoshuo-operations.php:16
 msgid "评论"
 msgstr "評論"
 
@@ -54,7 +54,7 @@ msgstr "暫無評論"
 msgid "本文评论已关闭"
 msgstr "本文評論已關閉"
 
-#: comments.php:76 settings.php:1290
+#: comments.php:76 settings.php:1307
 msgid "发送评论"
 msgstr "發怖評論"
 
@@ -114,7 +114,7 @@ msgstr "摺疊附加欄位"
 msgid "评论仅发送者和博主可见"
 msgstr "評論僅發怖者和博主可見"
 
-#: comments.php:204 functions.php:1065
+#: comments.php:204 inc/fun/comment.php:280
 msgid "悄悄话"
 msgstr "悄悄話"
 
@@ -130,7 +130,7 @@ msgstr "郵件提醒"
 msgid "发送"
 msgstr "傳送"
 
-#: comments.php:217 functions.php:1100
+#: comments.php:217 inc/fun/comment.php:315
 msgid "编辑"
 msgstr "編輯"
 
@@ -142,221 +142,108 @@ msgstr "取消"
 msgid "表情"
 msgstr "表情"
 
-#: emotions.php:4
-msgid "颜文字"
-msgstr "顏文字"
+#: header.php:377 searchform.php:7 sidebar.php:67
+msgid "搜索什么..."
+msgstr "搜尋什麼..."
 
-#: functions.php:3
+#: header.php:395 searchform.php:11 settings.php:1514 sidebar.php:66
+msgid "搜索"
+msgstr "搜尋"
+
+#: header.php:520
+msgid "移至左侧"
+msgstr "移至左側"
+
+#: header.php:520
+msgid "移至右侧"
+msgstr "移至右側"
+
+#: header.php:524
+msgid "回到顶部"
+msgstr "回到頂部"
+
+#: header.php:530 header.php:539 settings.php:122
+msgid "夜间模式"
+msgstr "夜間模式"
+
+#: header.php:530 header.php:539
+msgid "暗黑模式"
+msgstr "暗黑模式"
+
+#: header.php:530
+msgid "日间模式"
+msgstr "日間模式"
+
+#: header.php:533
+msgid "设置"
+msgstr "設定"
+
+#: header.php:539
+msgid "切换到夜间模式"
+msgstr "切換到夜間模式"
+
+#: header.php:539
+msgid "切换到暗黑模式"
+msgstr "切換到暗黑模式"
+
+#: header.php:546 settings.php:259
+msgid "字体"
+msgstr "字型"
+
+#: header.php:552
+msgid "阴影"
+msgstr "陰影"
+
+#: header.php:554 settings.php:162
+msgid "浅阴影"
+msgstr "淺陰影"
+
+#: header.php:554 settings.php:166
+msgid "深阴影"
+msgstr "深陰影"
+
+#: header.php:558
+msgid "滤镜"
+msgstr "濾鏡"
+
+#: header.php:560 settings.php:111 settings.php:372 settings.php:413
+#: settings.php:796 settings.php:1442 settings.php:1734
+msgid "关闭"
+msgstr "關閉"
+
+#: header.php:561
+msgid "日落"
+msgstr "日落"
+
+#: header.php:562
+msgid "暗化"
+msgstr "暗化"
+
+#: header.php:563
+msgid "灰度"
+msgstr "灰度"
+
+#: header.php:567
+msgid "恢复默认"
+msgstr "回復預設"
+
+#: header.php:567
+msgid "圆角"
+msgstr "圓角"
+
+#: header.php:574 settings.php:48
+msgid "主题色"
+msgstr "主題色彩"
+
+#: header.php:579
+msgid "阅读进度"
+msgstr "閱讀進度"
+
+#: inc/argon.php:3
 msgid "Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress"
 msgstr "Argon 主題不支援 WordPress 4.4 以下版本，請更新 WordPress"
 
-#: functions.php:157
-msgid "左侧栏小工具"
-msgstr "左側欄小工具"
-
-#: functions.php:159
-msgid "左侧栏小工具 (如果设置会在侧栏增加一个 Tab)"
-msgstr "左側欄小工具 (如果設置會在側欄新增一個 Tab)"
-
-#: functions.php:168
-msgid "右侧栏小工具"
-msgstr "右側欄小工具"
-
-#: functions.php:170
-msgid "右侧栏小工具 (在 \"Argon 主题选项\" 中选择 \"三栏布局\" 才会显示)"
-msgstr "右側欄小工具 (在「Argon 主題選項」 中選擇「三欄布局」 才會顯示)"
-
-#: functions.php:179 functions.php:181
-msgid "站点概览额外内容"
-msgstr "站點概覽額外內容"
-
-#: functions.php:415
-msgid "这是一个加密页面，需要密码来查看"
-msgstr "這篇內容受到密碼保護，請輸入密碼以查看"
-
-#: functions.php:574
-msgid "几秒读完"
-msgstr "幾秒讀完"
-
-#: functions.php:577
-msgid "1 分钟内"
-msgstr "1 分鐘內"
-
-#: functions.php:580
-msgid "分钟"
-msgstr "分鐘"
-
-#: functions.php:582
-msgid "小时"
-msgstr "小時"
-
-#: functions.php:607 functions.php:1062
-#: template-parts/content-shuoshuo-details.php:16
-#: template-parts/content-shuoshuo-preview.php:24
-#: template-parts/content-shuoshuo.php:16
-msgctxt "pinned"
-msgid "置顶"
-msgstr "置頂"
-
-#: functions.php:613
-msgid "需要密码"
-msgstr "需要密碼"
-
-#: functions.php:619 functions.php:627
-msgid "发布于"
-msgstr "發布於"
-
-#: functions.php:619 functions.php:627
-msgid "编辑于"
-msgstr "編輯於"
-
-#: functions.php:673
-#, php-format
-msgid "包含 %d 行代码"
-msgstr "包含 %d 行代碼"
-
-#: functions.php:677
-msgid "字"
-msgstr "字"
-
-#: functions.php:826
-msgid "该评论为悄悄话"
-msgstr "此評論為悄悄話"
-
-#: functions.php:891
-msgid "最初版本"
-msgstr "最初版本"
-
-#: functions.php:935
-msgid "查看图片"
-msgstr "檢視圖片"
-
-#: functions.php:1004 unsubscribe-comment-mailnotice.php:12
-msgid "评论不存在"
-msgstr "評論不存在"
-
-#: functions.php:1012
-msgid "该评论已被赞过"
-msgstr "已按讚此評論"
-
-#: functions.php:1021 functions.php:1948
-msgid "点赞成功"
-msgstr "按讚成功"
-
-#: functions.php:1059 functions.php:1117
-msgid "博主"
-msgstr "博主"
-
-#: functions.php:1068 functions.php:1120
-msgid "待审核"
-msgstr "待審核"
-
-#: functions.php:1077
-msgid "已编辑"
-msgstr "已編輯"
-
-#: functions.php:1081
-msgid "前"
-msgstr "前"
-
-#: functions.php:1094
-msgid "取消置顶"
-msgstr "取消置頂"
-
-#: functions.php:1096
-msgctxt "to pin"
-msgid "置顶"
-msgstr "置頂"
-
-#: functions.php:1102
-msgid "回复"
-msgstr "回覆"
-
-#: functions.php:1226
-msgid "验证码错误"
-msgstr "驗證碼錯誤"
-
-#: functions.php:1273
-msgid "不能回复其他人的悄悄话评论"
-msgstr "無法回覆其他人的悄悄話評論"
-
-#: functions.php:1403 functions.php:1404
-msgid "您在"
-msgstr "您在"
-
-#: functions.php:1403 functions.php:1404
-msgid "的评论有了新的回复"
-msgstr "的評論有了新的回覆"
-
-#: functions.php:1419
-msgid "回复了你"
-msgstr "回覆了您"
-
-#: functions.php:1430
-msgid "前往查看"
-msgstr "前往閱讀"
-
-#: functions.php:1447
-msgid "退订该评论的邮件提醒"
-msgstr "取消訂閱該評論的郵件提醒"
-
-#: functions.php:1530
-msgid "博主关闭了编辑评论功能"
-msgstr "博主關閉了編輯評論功能"
-
-#: functions.php:1539
-msgid "您不是这条评论的作者或 Token 已过期"
-msgstr "您不是這條評論的作者或 Token 已過期"
-
-#: functions.php:1545
-msgid "新的评论为空"
-msgstr "新的評論為空"
-
-#: functions.php:1571
-msgid "编辑评论成功"
-msgstr "編輯評論成功"
-
-#: functions.php:1579
-msgid "编辑评论失败，可能原因: 与原评论相同"
-msgstr "編輯評論失敗，可能原因: 與原評論相同"
-
-#: functions.php:1591
-msgid "博主关闭了评论置顶功能"
-msgstr "博主關閉了評論置頂功能"
-
-#: functions.php:1597
-msgid "您没有权限进行此操作"
-msgstr "您沒有權限進行此操作"
-
-#: functions.php:1606
-msgid "评论已经是置顶状态"
-msgstr "評論已經是置頂狀態"
-
-#: functions.php:1606
-msgid "评论已经是取消置顶状态"
-msgstr "評論已經是取消置頂狀態"
-
-#: functions.php:1612
-msgid "不能置顶子评论"
-msgstr "不能置頂子評論"
-
-#: functions.php:1618
-msgid "不能置顶悄悄话"
-msgstr "不能置頂悄悄話"
-
-#: functions.php:1624
-msgid "置顶评论成功"
-msgstr "置頂評論成功"
-
-#: functions.php:1624
-msgid "取消置顶成功"
-msgstr "取消置頂成功"
-
-#: functions.php:1939
-msgid "该说说已被赞过"
-msgstr "該說說已被讚過"
-
-#: functions.php:1957
+#: inc/argon.php:151
 msgid ""
 "警告：你可能修改了 Argon 主题页脚的版权声明，Argon 主题要求你至少保留主题的 "
 "Github 链接或主题的发布文章链接。"
@@ -364,81 +251,249 @@ msgstr ""
 "警告: 您似乎修改了 Argon 主題頁尾的版權聲明，如要使用 Argon 主題必須保留主題"
 "的 GitHub 連結或主題發布文章連結。"
 
-#: functions.php:2106 settings.php:668
+#: inc/fun/admin.php:47 settings.php:40
+msgid "Argon 主题设置"
+msgstr "Argon 主題設定"
+
+#: inc/fun/admin.php:47
+msgid "Argon 主题选项"
+msgstr "Argon 主題選項"
+
+#: inc/fun/admin.php:55
+msgid "顶部导航"
+msgstr "頂部導覽列"
+
+#: inc/fun/admin.php:56
+msgid "左侧栏菜单"
+msgstr "左側欄選單"
+
+#: inc/fun/admin.php:57
+msgid "左侧栏作者个人链接"
+msgstr "左側欄作者個人連結"
+
+#: inc/fun/admin.php:58
+msgid "左侧栏友情链接"
+msgstr "左側欄友情連結"
+
+#: inc/fun/comment.php:106
+msgid "最初版本"
+msgstr "最初版本"
+
+#: inc/fun/comment.php:150
+msgid "查看图片"
+msgstr "檢視圖片"
+
+#: inc/fun/comment.php:219 inc/fun/unsubscribe-comment-mailnotice.php:12
+msgid "评论不存在"
+msgstr "評論不存在"
+
+#: inc/fun/comment.php:227
+msgid "该评论已被赞过"
+msgstr "已按讚此評論"
+
+#: inc/fun/comment.php:236 inc/fun/shuoshuo.php:83
+msgid "点赞成功"
+msgstr "按讚成功"
+
+#: inc/fun/comment.php:273 inc/fun/comment.php:332
+msgid "博主"
+msgstr "博主"
+
+#: inc/fun/comment.php:277 inc/fun/post.php:215
+#: template-parts/entry/meta-shuoshuo.php:25
+msgctxt "pinned"
+msgid "置顶"
+msgstr "置頂"
+
+#: inc/fun/comment.php:283 inc/fun/comment.php:335
+msgid "待审核"
+msgstr "待審核"
+
+#: inc/fun/comment.php:292
+msgid "已编辑"
+msgstr "已編輯"
+
+#: inc/fun/comment.php:296
+msgid "前"
+msgstr "前"
+
+#: inc/fun/comment.php:309
+msgid "取消置顶"
+msgstr "取消置頂"
+
+#: inc/fun/comment.php:311
+msgctxt "to pin"
+msgid "置顶"
+msgstr "置頂"
+
+#: inc/fun/comment.php:317
+msgid "回复"
+msgstr "回覆"
+
+#: inc/fun/comment.php:441
+msgid "验证码错误"
+msgstr "驗證碼錯誤"
+
+#: inc/fun/comment.php:488
+msgid "不能回复其他人的悄悄话评论"
+msgstr "無法回覆其他人的悄悄話評論"
+
+#: inc/fun/comment.php:619 inc/fun/comment.php:620
+msgid "您在"
+msgstr "您在"
+
+#: inc/fun/comment.php:619 inc/fun/comment.php:620
+msgid "的评论有了新的回复"
+msgstr "的評論有了新的回覆"
+
+#: inc/fun/comment.php:635
+msgid "回复了你"
+msgstr "回覆了您"
+
+#: inc/fun/comment.php:646
+msgid "前往查看"
+msgstr "前往閱讀"
+
+#: inc/fun/comment.php:663
+msgid "退订该评论的邮件提醒"
+msgstr "取消訂閱該評論的郵件提醒"
+
+#: inc/fun/comment.php:746
+msgid "博主关闭了编辑评论功能"
+msgstr "博主關閉了編輯評論功能"
+
+#: inc/fun/comment.php:755
+msgid "您不是这条评论的作者或 Token 已过期"
+msgstr "您不是這條評論的作者或 Token 已過期"
+
+#: inc/fun/comment.php:761
+msgid "新的评论为空"
+msgstr "新的評論為空"
+
+#: inc/fun/comment.php:787
+msgid "编辑评论成功"
+msgstr "編輯評論成功"
+
+#: inc/fun/comment.php:795
+msgid "编辑评论失败，可能原因: 与原评论相同"
+msgstr "編輯評論失敗，可能原因: 與原評論相同"
+
+#: inc/fun/comment.php:807
+msgid "博主关闭了评论置顶功能"
+msgstr "博主關閉了評論置頂功能"
+
+#: inc/fun/comment.php:813
+msgid "您没有权限进行此操作"
+msgstr "您沒有權限進行此操作"
+
+#: inc/fun/comment.php:822
+msgid "评论已经是置顶状态"
+msgstr "評論已經是置頂狀態"
+
+#: inc/fun/comment.php:822
+msgid "评论已经是取消置顶状态"
+msgstr "評論已經是取消置頂狀態"
+
+#: inc/fun/comment.php:828
+msgid "不能置顶子评论"
+msgstr "不能置頂子評論"
+
+#: inc/fun/comment.php:834
+msgid "不能置顶悄悄话"
+msgstr "不能置頂悄悄話"
+
+#: inc/fun/comment.php:840
+msgid "置顶评论成功"
+msgstr "置頂評論成功"
+
+#: inc/fun/comment.php:840
+msgid "取消置顶成功"
+msgstr "取消置頂成功"
+
+#: inc/fun/comment.php:1097
+msgid "该评论为悄悄话"
+msgstr "此評論為悄悄話"
+
+#: inc/fun/emotions.php:4
+msgid "颜文字"
+msgstr "顏文字"
+
+#: inc/fun/post-extra-meta-editor.php:7 settings.php:685
 msgid "显示字数和预计阅读时间"
 msgstr "顯示字數和預計閱讀時間"
 
-#: functions.php:2109 functions.php:2123 functions.php:2131
+#: inc/fun/post-extra-meta-editor.php:10 inc/fun/post-extra-meta-editor.php:24
+#: inc/fun/post-extra-meta-editor.php:32
 msgid "跟随全局设置"
 msgstr "使用全域設定"
 
-#: functions.php:2110 settings.php:543 settings.php:553 settings.php:564
-#: settings.php:629 settings.php:673 settings.php:740 settings.php:751
-#: settings.php:905 settings.php:966 settings.php:1447 settings.php:1463
-#: settings.php:1573
+#: inc/fun/post-extra-meta-editor.php:11 settings.php:560 settings.php:570
+#: settings.php:581 settings.php:646 settings.php:690 settings.php:757
+#: settings.php:768 settings.php:922 settings.php:983 settings.php:1464
+#: settings.php:1480 settings.php:1712
 msgid "不显示"
 msgstr "不顯示"
 
-#: functions.php:2112
+#: inc/fun/post-extra-meta-editor.php:13
 msgid "是否显示字数和预计阅读时间 Meta 信息"
 msgstr "是否顯示字數和預計閱讀時間 Meta 資訊"
 
-#: functions.php:2113
+#: inc/fun/post-extra-meta-editor.php:14
 msgid "Meta 中隐藏发布时间和分类"
 msgstr "Meta 中隱藏發布時間和分類"
 
-#: functions.php:2116 settings.php:1307
+#: inc/fun/post-extra-meta-editor.php:17 settings.php:1324
 msgid "不隐藏"
 msgstr "不隱藏"
 
-#: functions.php:2117 settings.php:386 settings.php:1308
+#: inc/fun/post-extra-meta-editor.php:18 settings.php:403 settings.php:1325
 msgid "隐藏"
 msgstr "隱藏"
 
-#: functions.php:2119
+#: inc/fun/post-extra-meta-editor.php:20
 msgid ""
 "适合特定的页面，例如友链页面。开启后文章 Meta 的第一行只显示阅读数和评论数。"
 msgstr ""
 "開啟後文章 Meta 資訊第一行僅顯示閱讀數和評論數。適用於特定的頁面 (例如友連頁"
 "面)。"
 
-#: functions.php:2120
+#: inc/fun/post-extra-meta-editor.php:21
 msgid "使用文章中第一张图作为头图"
 msgstr "使用文章中第一張圖作為精選圖片"
 
-#: functions.php:2124
+#: inc/fun/post-extra-meta-editor.php:25
 msgid "使用"
 msgstr "使用"
 
-#: functions.php:2125 settings.php:283 settings.php:1102
+#: inc/fun/post-extra-meta-editor.php:26 settings.php:283 settings.php:1119
 msgid "不使用"
 msgstr "不使用"
 
-#: functions.php:2127
+#: inc/fun/post-extra-meta-editor.php:28
 msgid "显示文章过时信息"
 msgstr "顯示文章過時資訊"
 
-#: functions.php:2132
+#: inc/fun/post-extra-meta-editor.php:33
 msgid "一直显示"
 msgstr "永遠顯示"
 
-#: functions.php:2133
+#: inc/fun/post-extra-meta-editor.php:34
 msgid "永不显示"
 msgstr "永不顯示"
 
-#: functions.php:2135
+#: inc/fun/post-extra-meta-editor.php:36
 msgid "应用"
 msgstr "應用"
 
-#: functions.php:2137
+#: inc/fun/post-extra-meta-editor.php:38
 msgid "单独控制该文章的过时信息显示。"
 msgstr "為文章獨立配置過時資訊顯示。"
 
-#: functions.php:2138 settings.php:765 settings.php:767
+#: inc/fun/post-extra-meta-editor.php:39 settings.php:782 settings.php:784
 msgid "文末附加内容"
 msgstr "文末附加內容"
 
-#: functions.php:2141
+#: inc/fun/post-extra-meta-editor.php:42
 msgid ""
 "给该文章设置单独的文末附加内容，留空则跟随全局，设为 <code>--none--</code> "
 "则不显示。"
@@ -446,188 +501,182 @@ msgstr ""
 "為文章配置獨立的文末附加內容，留空則使用全域設定，設為 <code>--none--</"
 "code> 則不顯示。"
 
-#: functions.php:2142
+#: inc/fun/post-extra-meta-editor.php:43
 msgid "自定义 CSS"
 msgstr "自訂 CSS"
 
-#: functions.php:2145
+#: inc/fun/post-extra-meta-editor.php:46
 msgid "给该文章添加单独的 CSS"
 msgstr "為文章新增獨立的 CSS"
 
-#: functions.php:2181 functions.php:2190
+#: inc/fun/post-extra-meta-editor.php:82 inc/fun/post-extra-meta-editor.php:91
 msgid "应用失败"
 msgstr "應用失敗"
 
-#: functions.php:2185
+#: inc/fun/post-extra-meta-editor.php:86
 msgid "应用成功"
 msgstr "應用成功"
 
-#: functions.php:2198
+#: inc/fun/post-extra-meta-editor.php:99
 msgid "文章设置"
 msgstr "文章設定"
 
-#: functions.php:2961 settings.php:727
-msgid "参考"
-msgstr "參考"
+#: inc/fun/post.php:182
+msgid "几秒读完"
+msgstr "幾秒讀完"
 
-#: functions.php:3024 settings.php:40
-msgid "Argon 主题设置"
-msgstr "Argon 主題設定"
+#: inc/fun/post.php:185
+msgid "1 分钟内"
+msgstr "1 分鐘內"
 
-#: functions.php:3024
-msgid "Argon 主题选项"
-msgstr "Argon 主題選項"
+#: inc/fun/post.php:188
+msgid "分钟"
+msgstr "分鐘"
 
-#: functions.php:3032
-msgid "顶部导航"
-msgstr "頂部導覽列"
+#: inc/fun/post.php:190
+msgid "小时"
+msgstr "小時"
 
-#: functions.php:3033
-msgid "左侧栏菜单"
-msgstr "左側欄選單"
+#: inc/fun/post.php:221
+msgid "需要密码"
+msgstr "需要密碼"
 
-#: functions.php:3034
-msgid "左侧栏作者个人链接"
-msgstr "左側欄作者個人連結"
+#: inc/fun/post.php:227 inc/fun/post.php:235
+msgid "发布于"
+msgstr "發布於"
 
-#: functions.php:3035
-msgid "左侧栏友情链接"
-msgstr "左側欄友情連結"
+#: inc/fun/post.php:227 inc/fun/post.php:235
+msgid "编辑于"
+msgstr "編輯於"
 
-#: functions.php:3046 functions.php:3047 functions.php:3057 shuoshuo.php:13
+#: inc/fun/post.php:286
+#, php-format
+msgid "包含 %d 行代码"
+msgstr "包含 %d 行代碼"
+
+#: inc/fun/post.php:290
+msgid "字"
+msgstr "字"
+
+#: inc/fun/seo.php:12
+msgid "这是一个加密页面，需要密码来查看"
+msgstr "這篇內容受到密碼保護，請輸入密碼以查看"
+
+#: inc/fun/shuoshuo.php:7 inc/fun/shuoshuo.php:8 inc/fun/shuoshuo.php:18
+#: shuoshuo.php:15
 msgid "说说"
 msgstr "說說"
 
-#: functions.php:3048 functions.php:3049
+#: inc/fun/shuoshuo.php:9 inc/fun/shuoshuo.php:10
 msgid "发表说说"
 msgstr "發表說說"
 
-#: functions.php:3050
+#: inc/fun/shuoshuo.php:11
 msgid "编辑说说"
 msgstr "編輯說說"
 
-#: functions.php:3051
+#: inc/fun/shuoshuo.php:12
 msgid "新说说"
 msgstr "新說說"
 
-#: functions.php:3052
+#: inc/fun/shuoshuo.php:13
 msgid "查看说说"
 msgstr "檢視說說"
 
-#: functions.php:3053
+#: inc/fun/shuoshuo.php:14
 msgid "搜索说说"
 msgstr "搜尋說說"
 
-#: functions.php:3054
+#: inc/fun/shuoshuo.php:15
 msgid "暂无说说"
 msgstr "暫無說說"
 
-#: functions.php:3055
+#: inc/fun/shuoshuo.php:16
 msgid "没有已遗弃的说说"
 msgstr "沒有已遺棄的說說"
 
-#: header.php:374 searchform.php:7 sidebar.php:67
-msgid "搜索什么..."
-msgstr "搜尋什麼..."
+#: inc/fun/shuoshuo.php:74
+msgid "该说说已被赞过"
+msgstr "該說說已被讚過"
 
-#: header.php:392 searchform.php:11 sidebar.php:66
-msgid "搜索"
-msgstr "搜尋"
+#: inc/fun/unsubscribe-comment-mailnotice.php:7
+msgid "参数错误"
+msgstr "參數錯誤"
 
-#: header.php:517
-msgid "移至左侧"
-msgstr "移至左側"
+#: inc/fun/unsubscribe-comment-mailnotice.php:8
+#: inc/fun/unsubscribe-comment-mailnotice.php:13
+msgid "错误"
+msgstr "錯誤"
 
-#: header.php:517
-msgid "移至右侧"
-msgstr "移至右側"
+#: inc/fun/unsubscribe-comment-mailnotice.php:9
+msgid "提供的参数错误"
+msgstr "提供的參數錯誤"
 
-#: header.php:521
-msgid "回到顶部"
-msgstr "回到頂部"
+#: inc/fun/unsubscribe-comment-mailnotice.php:14
+#: inc/fun/unsubscribe-comment-mailnotice.php:19
+msgid "评论 #"
+msgstr "評論 #"
 
-#: header.php:527 header.php:536 settings.php:122
-msgid "夜间模式"
-msgstr "夜間模式"
+#: inc/fun/unsubscribe-comment-mailnotice.php:14
+msgid " 不存在"
+msgstr " 不存在"
 
-#: header.php:527 header.php:536
-msgid "暗黑模式"
-msgstr "暗黑模式"
+#: inc/fun/unsubscribe-comment-mailnotice.php:17
+#: inc/fun/unsubscribe-comment-mailnotice.php:18
+msgid "无需退订"
+msgstr "無需取消訂閱"
 
-#: header.php:527
-msgid "日间模式"
-msgstr "日間模式"
+#: inc/fun/unsubscribe-comment-mailnotice.php:19
+msgid " 的邮件通知已被退订或没有开启邮件通知"
+msgstr " 的郵件通知已被取消訂閱或沒有開啟郵件通知"
 
-#: header.php:530
-msgid "设置"
-msgstr "設定"
+#: inc/fun/unsubscribe-comment-mailnotice.php:22
+#: inc/fun/unsubscribe-comment-mailnotice.php:23
+msgid "退订失败"
+msgstr "取消訂閱失敗"
 
-#: header.php:536
-msgid "切换到夜间模式"
-msgstr "切換到夜間模式"
+#: inc/fun/unsubscribe-comment-mailnotice.php:24
+msgid "Token 不正确"
+msgstr "Token 不正確"
 
-#: header.php:536
-msgid "切换到暗黑模式"
-msgstr "切換到暗黑模式"
+#: inc/fun/unsubscribe-comment-mailnotice.php:28
+#: inc/fun/unsubscribe-comment-mailnotice.php:29
+msgid "退订成功"
+msgstr "取消訂閱成功"
 
-#: header.php:543 settings.php:259
-msgid "字体"
-msgstr "字型"
+#: inc/fun/unsubscribe-comment-mailnotice.php:30
+msgid "您已成功退订评论 #"
+msgstr "您已成功取消訂閱評論 #"
 
-#: header.php:549
-msgid "阴影"
-msgstr "陰影"
+#: inc/fun/unsubscribe-comment-mailnotice.php:30
+msgid " 的邮件通知<br>该评论下有新回复时您将不会再收到通知"
+msgstr " 的郵件通知<br>該評論下有新回覆時您將不會再收到通知"
 
-#: header.php:551 settings.php:162
-msgid "浅阴影"
-msgstr "淺陰影"
+#: inc/fun/widgets.php:5
+msgid "左侧栏小工具"
+msgstr "左側欄小工具"
 
-#: header.php:551 settings.php:166
-msgid "深阴影"
-msgstr "深陰影"
+#: inc/fun/widgets.php:7
+msgid "左侧栏小工具 (如果设置会在侧栏增加一个 Tab)"
+msgstr "左側欄小工具 (如果設置會在側欄新增一個 Tab)"
 
-#: header.php:555
-msgid "滤镜"
-msgstr "濾鏡"
+#: inc/fun/widgets.php:16
+msgid "右侧栏小工具"
+msgstr "右側欄小工具"
 
-#: header.php:557 settings.php:111 settings.php:355 settings.php:396
-#: settings.php:779 settings.php:1425 settings.php:1608
-msgid "关闭"
-msgstr "關閉"
+#: inc/fun/widgets.php:18
+msgid "右侧栏小工具 (在 \"Argon 主题选项\" 中选择 \"三栏布局\" 才会显示)"
+msgstr "右側欄小工具 (在「Argon 主題選項」 中選擇「三欄布局」 才會顯示)"
 
-#: header.php:558
-msgid "日落"
-msgstr "日落"
+#: inc/fun/widgets.php:27 inc/fun/widgets.php:29
+msgid "站点概览额外内容"
+msgstr "站點概覽額外內容"
 
-#: header.php:559
-msgid "暗化"
-msgstr "暗化"
-
-#: header.php:560
-msgid "灰度"
-msgstr "灰度"
-
-#: header.php:564
-msgid "恢复默认"
-msgstr "回復預設"
-
-#: header.php:564
-msgid "圆角"
-msgstr "圓角"
-
-#: header.php:571 settings.php:48
-msgid "主题色"
-msgstr "主題色彩"
-
-#: header.php:576
-msgid "阅读进度"
-msgstr "閱讀進度"
-
-#: msgboard.php:42
+#: msgboard.php:35
 msgid "留言板"
 msgstr "留言板"
 
-#: msgboard.php:53
+#: msgboard.php:46
 msgid "发送留言"
 msgstr "傳送留言"
 
@@ -635,7 +684,7 @@ msgstr "傳送留言"
 msgid "的搜索结果"
 msgstr "的搜尋結果"
 
-#: search.php:36
+#: search.php:41
 msgid "个结果"
 msgstr "個結果"
 
@@ -727,17 +776,17 @@ msgstr "允許訪客自訂主題色彩 (於網頁懸浮操作設定選單中)"
 msgid "沉浸式主题色"
 msgstr "沉浸式主題色"
 
-#: settings.php:110 settings.php:356 settings.php:397 settings.php:1426
-#: settings.php:1609
+#: settings.php:110 settings.php:373 settings.php:414 settings.php:1443
+#: settings.php:1735
 msgid "开启"
 msgstr "開啟"
 
 #: settings.php:113
 msgid ""
-"开启后，主题色将会全局沉浸。</br>页面背景、卡片及页面上的其它元素会变为沉浸"
+"开启后，主题色将会全局沉浸。<br/>页面背景、卡片及页面上的其它元素会变为沉浸"
 "式主题色（气氛色）。类似 Material You。"
 msgstr ""
-"開啟後，主題色將會全局沉浸。 </br>頁面背景、卡片及頁面上的其它元素會變為沈浸"
+"開啟後，主題色將會全局沉浸。</br>頁面背景、卡片及頁面上的其它元素會變為沈浸"
 "式主題色（氣氛色）。類似 Material You。"
 
 #: settings.php:124
@@ -884,188 +933,196 @@ msgstr "預設字型"
 msgid "默认使用无衬线字体/衬线字体。"
 msgstr "預設使用無襯線字型/襯線字型。"
 
-#: settings.php:288
+#: settings.php:290
+msgid "自定义..."
+msgstr "自定義..."
+
+#: settings.php:293
 msgid ""
 "选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压"
 "力。"
 msgstr ""
 "配置主題資源文件的引用地址。使用 CDN 以加速資源文件的訪問並減少伺服器壓力。"
 
-#: settings.php:291
+#: settings.php:294
+msgid "在自定义路径中使用 <code>%theme_version%</code> 来表示主题版本号。"
+msgstr "在自定義路徑中使用 <code>%theme_version%</code> 來表示主題版本號。"
+
+#: settings.php:308
 msgid "子目录"
 msgstr "子目錄"
 
-#: settings.php:293
+#: settings.php:310
 msgid "Wordpress 安装目录"
 msgstr "WordPress 安裝目錄"
 
-#: settings.php:296
+#: settings.php:313
 msgid "如果 Wordpress 安装在子目录中，请在此填写子目录地址（例如"
 msgstr "如果 WordPress 安裝在子目錄中，請在此填寫子目錄地址 (例如"
 
-#: settings.php:296
+#: settings.php:313
 msgid "），注意前后各有一个斜杠。默认为"
 msgstr ")，注意前後各有一個斜槓。預設"
 
-#: settings.php:296
+#: settings.php:313
 msgid "。"
 msgstr "。"
 
-#: settings.php:296
+#: settings.php:313
 msgid "如果不清楚该选项的用处，请保持默认。"
 msgstr "如果不清楚該選項的用處，請使用 [預設]。"
 
-#: settings.php:299 settings.php:301
+#: settings.php:316 settings.php:318
 msgid "日期格式"
 msgstr "日期格式"
 
-#: settings.php:312
+#: settings.php:329
 msgid "顶栏"
 msgstr "導覽列"
 
-#: settings.php:313
+#: settings.php:330
 msgid "状态"
 msgstr "狀態"
 
-#: settings.php:315
+#: settings.php:332
 msgid "顶栏显示状态"
 msgstr "導覽列顯示狀態"
 
-#: settings.php:319
+#: settings.php:336
 msgid "始终固定悬浮"
 msgstr "保持固定懸浮"
 
-#: settings.php:320
+#: settings.php:337
 msgid "滚动时自动折叠"
 msgstr "滾動時自動折疊"
 
-#: settings.php:321
+#: settings.php:338
 msgid "不固定"
 msgstr "不固定"
 
-#: settings.php:323
+#: settings.php:340
 msgid "始终固定悬浮: 永远固定悬浮在页面最上方"
 msgstr "保持固定懸浮: 永遠固定導覽列懸浮在頁面最上方"
 
-#: settings.php:323
+#: settings.php:340
 msgid "滚动时自动折叠: 在页面向下滚动时隐藏顶栏，向上滚动时显示顶栏"
 msgstr "滾動時自動折疊: 在頁面向下滾動時隱藏導覽列，向上滾動時顯示導覽列"
 
-#: settings.php:323
+#: settings.php:340
 msgid "不固定: 只有在滚动到页面最顶端时才显示顶栏"
 msgstr "不固定: 只有在滾動到頁首時才顯示導覽列"
 
-#: settings.php:326 settings.php:795
+#: settings.php:343 settings.php:812
 msgid "标题"
 msgstr "標題"
 
-#: settings.php:328
+#: settings.php:345
 msgid "顶栏标题"
 msgstr "導覽列標題"
 
-#: settings.php:331
+#: settings.php:348
 msgid "留空则显示博客名称，输入 <code>--hidden--</code> 可以隐藏标题"
 msgstr "留空則顯示博客名稱，輸入 <code>--hidden--</code> 隱藏標題"
 
-#: settings.php:334
+#: settings.php:351
 msgid "顶栏图标"
 msgstr "導覽列圖標"
 
-#: settings.php:336
+#: settings.php:353
 msgid "图标地址"
 msgstr "圖標位址"
 
-#: settings.php:339
+#: settings.php:356
 msgid "图片地址，留空则不显示"
 msgstr "圖片位址，留空則不顯示"
 
-#: settings.php:343
+#: settings.php:360
 msgid "图标链接"
 msgstr "圖標連結"
 
-#: settings.php:346
+#: settings.php:363
 msgid "点击图标后会跳转到的链接，留空则不跳转"
 msgstr "按下圖標後愈前往的連結，留空則不配置"
 
-#: settings.php:349 settings.php:377 settings.php:898
+#: settings.php:366 settings.php:394 settings.php:915
 msgid "外观"
 msgstr "外觀"
 
-#: settings.php:351
+#: settings.php:368
 msgid "顶栏毛玻璃效果"
 msgstr "導覽列毛玻璃效果"
 
-#: settings.php:358
+#: settings.php:375
 msgid "开启会带来微小的性能损失。"
 msgstr "開啟會帶來微小的性能損失。"
 
-#: settings.php:361
+#: settings.php:378
 msgid "顶部 Banner (封面)"
 msgstr "頂部 Banner (封面)"
 
-#: settings.php:362
+#: settings.php:379
 msgid "内容"
 msgstr "內容"
 
-#: settings.php:364
+#: settings.php:381
 msgid "Banner 标题"
 msgstr "Banner 標題"
 
-#: settings.php:367 settings.php:496
+#: settings.php:384 settings.php:513
 msgid "留空则显示博客名称"
 msgstr "留空則顯示博客名稱"
 
-#: settings.php:371
+#: settings.php:388
 msgid "Banner 副标题"
 msgstr "Banner 副標題"
 
-#: settings.php:374
+#: settings.php:391
 msgid "显示在 Banner 标题下，留空则不显示"
 msgstr "顯示在 Banner 標題下，留空則不顯示"
 
-#: settings.php:379
+#: settings.php:396
 msgid "Banner 显示状态"
 msgstr "Banner 顯示狀態"
 
-#: settings.php:383
+#: settings.php:400
 msgid "完整"
 msgstr "完整"
 
-#: settings.php:384
+#: settings.php:401
 msgid "迷你"
 msgstr "迷你"
 
-#: settings.php:385
+#: settings.php:402
 msgid "全屏"
 msgstr "全屏"
 
-#: settings.php:388
+#: settings.php:405
 msgid "完整: Banner 高度占用半屏"
 msgstr "完整: Banner 高度佔用一半螢幕"
 
-#: settings.php:388
+#: settings.php:405
 msgid "迷你: 减小 Banner 的内边距"
 msgstr "迷你: 減小 Banner 的內邊距"
 
-#: settings.php:388
+#: settings.php:405
 msgid "全屏: Banner 占用全屏作为封面（仅在首页生效）"
 msgstr "全屏: Banner 佔用全屏作為封面（僅在首頁生效）"
 
-#: settings.php:388
+#: settings.php:405
 msgid "隐藏: 完全隐藏 Banner"
 msgstr "隱藏: 完全隱藏 Banner"
 
-#: settings.php:392
+#: settings.php:409
 msgid "Banner 透明化"
 msgstr "Banner 透明化"
 
-#: settings.php:402
+#: settings.php:419
 msgid ""
 "在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）"
 msgstr ""
 "在導覽列增加淺色遮罩，為 Banner 標題增加陰影 (當背景過亮影響文字閱讀時勾選)"
 
-#: settings.php:405
+#: settings.php:422
 msgid ""
 "Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设"
 "置页面背景时生效。"
@@ -1073,86 +1130,86 @@ msgstr ""
 "Banner 透明化可使博客背景沈浸。建議已配置背景後開啟此選項。此選項僅在已設定"
 "頁面背景後生效。"
 
-#: settings.php:405
+#: settings.php:422
 msgid "开启后，Banner 背景图和渐变背景选项将失效。"
 msgstr "開啟後，Banner 背景圖和漸變背景選項將失效。"
 
-#: settings.php:409
+#: settings.php:426
 msgid "Banner 背景图 (地址)"
 msgstr "Banner 背景圖 (位址)"
 
-#: settings.php:412
+#: settings.php:429
 msgid "需带上 http(s) ，留空则显示默认背景"
 msgstr "需保留 http(s) ，留空則顯示預設背景"
 
-#: settings.php:412 settings.php:503
+#: settings.php:429 settings.php:520
 msgid "输入"
 msgstr "輸入"
 
-#: settings.php:412
+#: settings.php:429
 msgid "调用必应每日一图"
 msgstr "使用 Bing 每日一圖"
 
-#: settings.php:416
+#: settings.php:433
 msgid "Banner 渐变背景样式"
 msgstr "Banner 漸變背景樣式"
 
-#: settings.php:420 settings.php:421 settings.php:422 settings.php:423
-#: settings.php:424 settings.php:425 settings.php:426 settings.php:435
-#: settings.php:436 settings.php:437 settings.php:438 settings.php:439
-#: settings.php:440 settings.php:441
+#: settings.php:437 settings.php:438 settings.php:439 settings.php:440
+#: settings.php:441 settings.php:442 settings.php:443 settings.php:452
+#: settings.php:453 settings.php:454 settings.php:455 settings.php:456
+#: settings.php:457 settings.php:458
 msgid "样式"
 msgstr "樣式"
 
-#: settings.php:430
+#: settings.php:447
 msgid "隐藏背景半透明圆"
 msgstr "隱藏背景半透明圓"
 
-#: settings.php:432
+#: settings.php:449
 msgid "如果设置了背景图则不生效"
 msgstr "如果配置了背景圖片則不生效"
 
-#: settings.php:433
+#: settings.php:450
 msgid "样式预览 (推荐选择前三个样式)"
 msgstr "樣式預覽 (推薦選擇前三個樣式)"
 
-#: settings.php:450 settings.php:1213
+#: settings.php:467 settings.php:1230
 msgid "动画"
 msgstr "動畫"
 
-#: settings.php:452
+#: settings.php:469
 msgid "Banner 标题打字动画"
 msgstr "Banner 標題打字動畫"
 
-#: settings.php:456 settings.php:932 settings.php:975 settings.php:1007
-#: settings.php:1233 settings.php:1504 settings.php:1553
+#: settings.php:473 settings.php:949 settings.php:992 settings.php:1024
+#: settings.php:1250 settings.php:1584 settings.php:1643 settings.php:1692
 msgid "不启用"
 msgstr "不啟用"
 
-#: settings.php:457 settings.php:718 settings.php:933 settings.php:976
-#: settings.php:1061 settings.php:1113 settings.php:1137 settings.php:1234
-#: settings.php:1296 settings.php:1330 settings.php:1437 settings.php:1492
-#: settings.php:1503 settings.php:1554
+#: settings.php:474 settings.php:735 settings.php:950 settings.php:993
+#: settings.php:1078 settings.php:1130 settings.php:1154 settings.php:1251
+#: settings.php:1313 settings.php:1347 settings.php:1454 settings.php:1509
+#: settings.php:1521 settings.php:1580 settings.php:1642 settings.php:1693
 msgid "启用"
 msgstr "啟用"
 
-#: settings.php:459
+#: settings.php:476
 msgid "启用后 Banner 标题会以打字的形式出现。"
 msgstr "啟用後 Banner 標題會以打字機特效出現。"
 
-#: settings.php:463
+#: settings.php:480
 msgid "Banner 标题打字动画时长"
 msgstr "Banner 標題打字機特效時長"
 
-#: settings.php:465
+#: settings.php:482
 msgid "ms/字"
 msgstr "ms/字"
 
-#: settings.php:469 settings.php:471
+#: settings.php:486 settings.php:488
 msgid "页面背景"
 msgstr "網頁背景"
 
-#: settings.php:474
+#: settings.php:491
 msgid ""
 "页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐开"
 "启 Banner 透明化。"
@@ -1160,11 +1217,11 @@ msgstr ""
 "配置網頁背景的位址，需保留 http(s)。留空則不配置網頁背景。如果已配置背景，推"
 "薦開啟 Banner 透明化。"
 
-#: settings.php:478
+#: settings.php:495
 msgid "页面背景（夜间模式时）"
 msgstr "網頁背景 (夜間模式時)"
 
-#: settings.php:481
+#: settings.php:498
 msgid ""
 "夜间模式时页面背景的地址，需带上 http(s)。设置后日间模式和夜间模式会使用不同"
 "的背景。留空则跟随日间模式背景。该选项仅在设置了日间模式背景时生效。"
@@ -1173,85 +1230,85 @@ msgstr ""
 "使用不同的背景圖片。留空則使用日間模式背景圖片。此設定僅在已配置日間模式背景"
 "圖片後生效。"
 
-#: settings.php:485
+#: settings.php:502
 msgid "背景不透明度"
 msgstr "背景不透明度"
 
-#: settings.php:488
+#: settings.php:505
 msgid "0 ~ 1 的小数，越小透明度越高，默认为 1 不透明"
 msgstr "0 ~ 1 的小數，越小透明度越高，預設 1 不透明"
 
-#: settings.php:491
+#: settings.php:508
 msgid "左侧栏"
 msgstr "左側欄"
 
-#: settings.php:493
+#: settings.php:510
 msgid "左侧栏标题"
 msgstr "左側欄標題"
 
-#: settings.php:500
+#: settings.php:517
 msgid "左侧栏子标题（格言）"
 msgstr "左側欄子標題 (格言)"
 
-#: settings.php:503 settings.php:524
+#: settings.php:520 settings.php:541
 msgid "留空则不显示"
 msgstr "留空則不顯示"
 
-#: settings.php:503
+#: settings.php:520
 msgid "调用一言 API"
 msgstr "使用一言 API"
 
-#: settings.php:507
+#: settings.php:524
 msgid "左侧栏作者名称"
 msgstr "左側欄作者名稱"
 
-#: settings.php:510
+#: settings.php:527
 msgid "留空则显示博客名"
 msgstr "留空則顯示博客名"
 
-#: settings.php:514
+#: settings.php:531
 msgid "左侧栏作者头像地址"
 msgstr "左側欄作者大頭貼位址"
 
-#: settings.php:517
+#: settings.php:534
 msgid "需带上 http(s) 开头"
 msgstr "需保留 http(s) 開頭"
 
-#: settings.php:521
+#: settings.php:538
 msgid "左侧栏作者简介"
 msgstr "左側欄作者簡介"
 
-#: settings.php:527
+#: settings.php:544
 msgid "博客公告"
 msgstr "博客公告"
 
-#: settings.php:529
+#: settings.php:546
 msgid "公告内容"
 msgstr "公告內容"
 
-#: settings.php:532
+#: settings.php:549
 msgid "显示在左侧栏顶部，留空则不显示，支持 HTML 标签"
 msgstr "顯示在左側欄頂部，留空則不顯示，支援 HTML 標籤"
 
-#: settings.php:535
+#: settings.php:552
 msgid "浮动操作按钮"
 msgstr "懸浮操作按鈕"
 
-#: settings.php:536
+#: settings.php:553
 msgid "浮动操作按钮位于页面右下角（或左下角）"
 msgstr "懸浮操作按鈕位於頁面右下角 (或左下角)"
 
-#: settings.php:538
+#: settings.php:555
 msgid "显示设置按钮"
 msgstr "顯示設定按鈕"
 
-#: settings.php:542 settings.php:554 settings.php:565 settings.php:625
-#: settings.php:672 settings.php:752 settings.php:904 settings.php:965
-#: settings.php:1462 settings.php:1574
+#: settings.php:559 settings.php:571 settings.php:582 settings.php:642
+#: settings.php:689 settings.php:769 settings.php:921 settings.php:982
+#: settings.php:1479 settings.php:1713
 msgid "显示"
 msgstr "顯示"
 
-#: settings.php:545
+#: settings.php:562
 msgid ""
 "是否在浮动操作按钮栏中显示设置按钮。点击设置按钮可以唤出设置菜单修改夜间模"
 "式/字体/滤镜等外观选项。"
@@ -1259,33 +1316,33 @@ msgstr ""
 "是否在懸浮操作按鈕欄中顯示設定按鈕。按下設定按鈕後可顯示設定選單，以修改夜間"
 "模式/字型/濾鏡等外觀設定。"
 
-#: settings.php:549
+#: settings.php:566
 msgid "显示夜间模式切换按钮"
 msgstr "顯示夜間模式切換按鈕"
 
-#: settings.php:556
+#: settings.php:573
 msgid ""
 "如果开启了设置按钮显示，建议关闭此选项。（夜间模式选项在设置菜单中已经存在）"
 msgstr ""
 "如果開啟了顯示設定按鈕，建議關閉此選項。(夜間模式選項已存在於設定選單)"
 
-#: settings.php:560
+#: settings.php:577
 msgid "显示跳转到评论按钮"
 msgstr "顯示評論按鈕捷徑"
 
-#: settings.php:567
+#: settings.php:584
 msgid "仅在允许评论的文章中显示"
 msgstr "僅在允許評論的文章中顯示"
 
-#: settings.php:572
+#: settings.php:589
 msgid "网站描述 (Description Meta 标签)"
 msgstr "網站描述 (Description Meta 標籤)"
 
-#: settings.php:575
+#: settings.php:592
 msgid "设置针对搜索引擎的 Description Meta 标签内容。"
 msgstr "配置針對搜尋引擎的 Description Meta 標籤內容。"
 
-#: settings.php:575
+#: settings.php:592
 msgid ""
 "在文章中，Argon 会自动根据文章内容生成描述。在其他页面中，Argon 将使用这里设"
 "置的内容。如不填，Argon 将不会在其他页面输出 Description Meta 标签。"
@@ -1293,11 +1350,11 @@ msgstr ""
 "在文章中，Argon 會自動依照文章內容產生描述。在其他頁面中，Argon 將使用此處設"
 "定的內容。如不填，Argon 將不會在其他頁面輸出 Description Meta 標籤。"
 
-#: settings.php:579
+#: settings.php:596
 msgid "搜索引擎关键词（Keywords Meta 标签）"
 msgstr "搜尋引擎關鍵詞 (Keywords Meta 標籤)"
 
-#: settings.php:582
+#: settings.php:599
 msgid ""
 "设置针对搜索引擎使用的关键词（Keywords Meta 标签内容）。用英文逗号隔开。不设"
 "置则不输出该 Meta 标签。"
@@ -1305,180 +1362,184 @@ msgstr ""
 "配置針對搜尋引擎所使用的關鍵詞 (Keywords Meta 標籤內容)。以英文逗號分隔。留"
 "空則不輸出 Meta 標籤。"
 
-#: settings.php:585 sidebar.php:134
+#: settings.php:602 sidebar.php:134
 msgid "文章"
 msgstr "文章"
 
-#: settings.php:586
+#: settings.php:603
 msgid "文章 Meta 信息"
 msgstr "文章 Meta 資訊"
 
-#: settings.php:588
+#: settings.php:605
 msgid "第一行"
 msgstr "第一行"
 
-#: settings.php:623
+#: settings.php:640
 msgid "拖动来自定义文章 Meta 信息的显示和顺序"
 msgstr "拖移以自訂文章 Meta 資訊的顯示和排序"
 
-#: settings.php:631 settings.php:791 settings.php:875
+#: settings.php:648 settings.php:808 settings.php:892
 msgid "发布时间"
 msgstr "發布時間"
 
-#: settings.php:632 settings.php:792
+#: settings.php:649 settings.php:809
 msgid "修改时间"
 msgstr "修改時間"
 
-#: settings.php:633
+#: settings.php:650
 msgid "浏览量"
 msgstr "瀏覽量"
 
-#: settings.php:634
+#: settings.php:651
 msgid "评论数"
 msgstr "評論數"
 
-#: settings.php:635
+#: settings.php:652
 msgid "所属分类"
 msgstr "所屬分類"
 
-#: settings.php:636 settings.php:796
+#: settings.php:653 settings.php:813
 msgid "作者"
 msgstr "作者"
 
-#: settings.php:666
+#: settings.php:683
 msgid "第二行"
 msgstr "第二行"
 
-#: settings.php:678
+#: settings.php:695
 msgid "每分钟阅读字数（中文）"
 msgstr "每分鐘閱讀字數 (中文)"
 
-#: settings.php:681
+#: settings.php:698
 msgid "字/分钟"
 msgstr "字/分鐘"
 
-#: settings.php:686
+#: settings.php:703
 msgid "每分钟阅读单词数（英文）"
 msgstr "每分鐘閱讀單詞數 (英文)"
 
-#: settings.php:689
+#: settings.php:706
 msgid "单词/分钟"
 msgstr "單詞/分鐘"
 
-#: settings.php:693
+#: settings.php:710
 msgid "每分钟阅读代码行数"
 msgstr "每分鐘閱讀代碼行數"
 
-#: settings.php:696
+#: settings.php:713
 msgid "行/分钟"
 msgstr "行/分鐘"
 
-#: settings.php:697
+#: settings.php:714
 msgid "预计阅读时间由每分钟阅读字数计算"
 msgstr "預計閱讀時間由每分鐘閱讀字數計算"
 
-#: settings.php:700
+#: settings.php:717
 msgid "文章头图 (特色图片)"
 msgstr "文章精選圖片"
 
-#: settings.php:702
+#: settings.php:719
 msgid "文章头图的位置"
 msgstr "文章精選圖片的位置"
 
-#: settings.php:706
+#: settings.php:723
 msgid "文章卡片顶端"
 msgstr "文章卡片頂端"
 
-#: settings.php:707
+#: settings.php:724
 msgid "Banner (顶部背景)"
 msgstr "Banner (頂部背景)"
 
-#: settings.php:709
+#: settings.php:726
 msgid "阅读界面中文章头图的位置"
 msgstr "閱讀界面中文章精選圖片的位置"
 
-#: settings.php:713
+#: settings.php:730
 msgid "默认使用文章中第一张图作为头图"
 msgstr "預設使用文章中第一張圖作為頭圖"
 
-#: settings.php:717 settings.php:1062 settings.php:1114 settings.php:1138
-#: settings.php:1172 settings.php:1245 settings.php:1297 settings.php:1329
-#: settings.php:1436 settings.php:1491 settings.php:1595 settings.php:1649
-#: settings.php:1660
+#: settings.php:734 settings.php:1079 settings.php:1131 settings.php:1155
+#: settings.php:1189 settings.php:1262 settings.php:1314 settings.php:1346
+#: settings.php:1453 settings.php:1508 settings.php:1522 settings.php:1775
+#: settings.php:1786
 msgid "禁用"
 msgstr "停用"
 
-#: settings.php:720
+#: settings.php:737
 msgid "也可以针对每篇文章单独设置"
 msgstr "亦可針對每篇文章單獨配置"
 
-#: settings.php:723
+#: settings.php:740
 msgid "脚注(引用)"
 msgstr "引用"
 
-#: settings.php:725
+#: settings.php:742
 msgid "脚注列表标题"
 msgstr "引用列表標題"
 
-#: settings.php:728
+#: settings.php:744 template-parts/entry/reference-list.php:14
+msgid "参考"
+msgstr "參考"
+
+#: settings.php:745
 msgid ""
-"脚注列表显示在文末，在文章中有脚注的时候会显示。</br>使用 <code>ref</code> "
+"脚注列表显示在文末，在文章中有脚注的时候会显示。<br/>使用 <code>ref</code> "
 "短代码可以在文中插入脚注。"
 msgstr ""
-"引用列表顯示在文末，在文章中有引用的時候會顯示。 </br>使用 <code>ref</code> "
+"引用列表顯示在文末，在文章中有引用的時候會顯示。</br>使用 <code>ref</code> "
 "短代碼可以在文中插入引用。"
 
-#: settings.php:731 template-parts/share.php:53
+#: settings.php:748 template-parts/share.php:59
 msgid "分享"
 msgstr "分享"
 
-#: settings.php:733
+#: settings.php:750
 msgid "显示文章分享按钮"
 msgstr "顯示文章分享按鈕"
 
-#: settings.php:737
+#: settings.php:754
 msgid "显示全部社交媒体"
 msgstr "顯示全部社交媒體"
 
-#: settings.php:738
+#: settings.php:755
 msgid "显示国内社交媒体"
 msgstr "顯示大陸社交媒體"
 
-#: settings.php:739
+#: settings.php:756
 msgid "显示国外社交媒体"
 msgstr "顯示非大陸社交媒體"
 
-#: settings.php:745
+#: settings.php:762
 msgid "左侧栏文章目录"
 msgstr "左側欄文章目錄"
 
-#: settings.php:747
+#: settings.php:764
 msgid "在目录中显示序号"
 msgstr "在目錄中顯示序號"
 
-#: settings.php:754
+#: settings.php:771
 msgid "例：3.2.5"
 msgstr "例：3.2.5"
 
-#: settings.php:757 template-parts/content-single.php:100
+#: settings.php:774 template-parts/entry/donate.php:10
 msgid "赞赏"
 msgstr "讚賞"
 
-#: settings.php:759
+#: settings.php:776
 msgid "赞赏二维码图片链接"
-msgstr "讚賞 QR Code 圖片連結"
+msgstr "讚賞二維碼圖片鏈接"
 
-#: settings.php:762
+#: settings.php:779
 msgid ""
 "赞赏二维码图片链接，填写后会在文章最后显示赞赏按钮，留空则不显示赞赏按钮"
 msgstr ""
-"讚賞 QR Code 圖片連結，填寫後會在文末顯示讚賞按鈕，留空則不顯示讚賞按鈕"
+"讚賞二維碼圖片鏈接，填寫後會在文章最後顯示讚賞按鈕，留空則不顯示讚賞按鈕"
 
-#: settings.php:770
+#: settings.php:787
 msgid "将会显示在每篇文章末尾，支持 HTML 标签，留空则不显示。"
 msgstr "顯示於文末，支援 HTML，留空則不顯示。"
 
-#: settings.php:770
+#: settings.php:787
 msgid ""
 "使用 <code>%url%</code> 来代替当前页面 URL，<code>%link%</code> 来代替当前页"
 "面链接，<code>%title%</code> 来代替当前文章标题，<code>%author%</code> 来代"
@@ -1488,145 +1549,145 @@ msgstr ""
 "連結，<code>%title%</code> 來代替目前文章標題，<code>%author%</code> 來代替"
 "目前文章作者。"
 
-#: settings.php:773 settings.php:775
+#: settings.php:790 settings.php:792
 msgid "相似文章推荐"
 msgstr "相似文章推薦"
 
-#: settings.php:780
+#: settings.php:797
 msgid "根据分类推荐"
 msgstr "依照分類推薦"
 
-#: settings.php:781
+#: settings.php:798
 msgid "根据标签推荐"
 msgstr "依照標籤推薦"
 
-#: settings.php:782
+#: settings.php:799
 msgid "根据分类和标签推荐"
 msgstr "依照分類和標籤推薦"
 
-#: settings.php:783
+#: settings.php:800
 msgid "显示在文章卡片后"
 msgstr "顯示在文章卡片後"
 
-#: settings.php:787
+#: settings.php:804
 msgid "排序依据"
 msgstr "排序依據"
 
-#: settings.php:793
+#: settings.php:810
 msgid "阅读量"
 msgstr "閱讀量"
 
-#: settings.php:797
+#: settings.php:814
 msgid "随机"
 msgstr "隨機"
 
-#: settings.php:802
+#: settings.php:819
 msgid "顺序"
 msgstr "順序"
 
-#: settings.php:806
+#: settings.php:823
 msgid "倒序"
 msgstr "倒序"
 
-#: settings.php:807
+#: settings.php:824
 msgid "正序"
 msgstr "正序"
 
-#: settings.php:812
+#: settings.php:829
 msgid "推荐文章数"
 msgstr "推薦文章數"
 
-#: settings.php:815
+#: settings.php:832
 msgid "最多推荐多少篇文章"
 msgstr "最多推薦多少篇文章"
 
-#: settings.php:818 settings.php:820
+#: settings.php:835 settings.php:837
 msgid "文章内标题样式"
 msgstr "文章內標題樣式"
 
-#: settings.php:824 settings.php:829
+#: settings.php:841 settings.php:846
 msgid "默认样式"
 msgstr "預設樣式"
 
-#: settings.php:825 settings.php:830
+#: settings.php:842 settings.php:847
 msgid "样式 1"
 msgstr "樣式 1"
 
-#: settings.php:826 settings.php:831
+#: settings.php:843 settings.php:848
 msgid "样式 2"
 msgstr "樣式 2"
 
-#: settings.php:828
+#: settings.php:845
 msgid "样式预览"
 msgstr "樣式預覽"
 
-#: settings.php:867
+#: settings.php:884
 msgid "其他"
 msgstr "其他"
 
-#: settings.php:869
+#: settings.php:886
 msgid "文章过时信息显示"
 msgstr "文章過時資訊顯示"
 
-#: settings.php:871
+#: settings.php:888
 msgid "当一篇文章的"
 msgstr "當一篇文章的"
 
-#: settings.php:874
+#: settings.php:891
 msgid "最后修改时间"
 msgstr "最後修改時間"
 
-#: settings.php:877
+#: settings.php:894
 msgid "距离现在超过"
 msgstr "距離現在超過"
 
-#: settings.php:879
+#: settings.php:896
 msgid "天时，用"
 msgstr "天時，用"
 
-#: settings.php:882
+#: settings.php:899
 msgid "在文章顶部显示信息条"
 msgstr "在文章頂部顯示資訊條"
 
-#: settings.php:883
+#: settings.php:900
 msgid "在页面右上角弹出提示条"
 msgstr "在頁面右上角彈出提示條"
 
-#: settings.php:885
+#: settings.php:902
 msgid "的方式提示"
 msgstr "的方式提示"
 
-#: settings.php:887
+#: settings.php:904
 msgid ""
 "本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。"
 msgstr ""
 "本文最後更新於 %date_delta% 天前，其中的資訊可能已經有所發展或是發生改變。"
 
-#: settings.php:888
+#: settings.php:905
 msgid "天数为 -1 表示永不提示。"
 msgstr "天數為 -1 表示永不提示。"
 
-#: settings.php:888
+#: settings.php:905
 msgid "表示文章发布/修改时间与当前时间的差距，"
 msgstr "表示文章發布/修改時間與目前時間的差距，"
 
-#: settings.php:888
+#: settings.php:905
 msgid "表示文章发布时间与当前时间的差距，"
 msgstr "表示文章發布時間與目前時間的差距，"
 
-#: settings.php:888
+#: settings.php:905
 msgid "表示文章修改时间与当前时间的差距（单位: 天）。"
 msgstr "表示文章修改時間與目前時間的差距(單位: 天)。"
 
-#: settings.php:891
+#: settings.php:908
 msgid "归档页面"
 msgstr "歸檔頁面"
 
-#: settings.php:893
+#: settings.php:910
 msgid "介绍"
 msgstr "介紹"
 
-#: settings.php:895
+#: settings.php:912
 msgid ""
 "新建一个页面，并将其模板设为 \"归档时间轴\"，即可创建一个归档页面。归档页面"
 "会按照时间顺序在时间轴上列出博客的所有文章。"
@@ -1634,23 +1695,23 @@ msgstr ""
 "新建一個頁面，並將其模板設為 \"歸檔時間軸\"，即可創建一個歸檔頁面。歸檔頁面"
 "會按照時間順序在時間軸上列出博客的所有文章。"
 
-#: settings.php:900
+#: settings.php:917
 msgid "在时间轴上显示月份"
 msgstr "在時間軸上顯示月份"
 
-#: settings.php:907
+#: settings.php:924
 msgid "关闭后，时间轴只会按年份分节"
 msgstr "關閉後，時間軸只會按年份分節"
 
-#: settings.php:910
+#: settings.php:927
 msgid "配置"
 msgstr "配置"
 
-#: settings.php:912
+#: settings.php:929
 msgid "归档页面链接"
 msgstr "歸檔頁面鏈接"
 
-#: settings.php:915
+#: settings.php:932
 msgid ""
 "归档页面的 URL。点击左侧栏 \"博客概览\" 中的 \"博文总数\" 一栏时可跳转到该地"
 "址。"
@@ -1658,63 +1719,63 @@ msgstr ""
 "歸檔頁面的 URL。點擊左側欄 \"博客概覽\" 中的 \"博文總數\" 一欄時可跳轉到該地"
 "址。"
 
-#: settings.php:918
+#: settings.php:935
 msgid "页脚"
 msgstr "頁尾"
 
-#: settings.php:920
+#: settings.php:937
 msgid "页脚内容"
 msgstr "頁尾內容"
 
-#: settings.php:923 settings.php:1203 settings.php:1210
+#: settings.php:940 settings.php:1220 settings.php:1227
 msgid "HTML , 支持 script 等标签"
 msgstr "HTML，支援 script 等標籤"
 
-#: settings.php:926
+#: settings.php:943
 msgid "代码高亮"
 msgstr "代碼標記"
 
-#: settings.php:928
+#: settings.php:945
 msgid "启用 Highlight.js 代码高亮"
 msgstr "啟用 Highlight.js 代碼標記"
 
-#: settings.php:935
+#: settings.php:952
 msgid "所有 pre 下的 code 标签会被自动解析"
 msgstr "所有 pre 下的 code 標籤將被自動解析"
 
-#: settings.php:939
+#: settings.php:956
 msgid "高亮配色方案（主题）"
 msgstr "標記配色方案(主題)"
 
-#: settings.php:957
+#: settings.php:974
 msgid "查看所有主题预览"
 msgstr "檢視所有主題預覽"
 
-#: settings.php:961
+#: settings.php:978
 msgid "默认显示行号"
 msgstr "預設顯示行號"
 
-#: settings.php:971
+#: settings.php:988
 msgid "默认启用自动折行"
 msgstr "預設啟用自動折行"
 
-#: settings.php:981
+#: settings.php:998
 msgid "行号背景透明"
 msgstr "行號背景透明"
 
-#: settings.php:985
+#: settings.php:1002
 msgid "不透明"
 msgstr "不透明"
 
-#: settings.php:986
+#: settings.php:1003
 msgid "透明"
 msgstr "透明"
 
-#: settings.php:988
+#: settings.php:1005
 msgid "适用于某些背景渐变的高亮主题"
 msgstr "適用於某些背景漸變的高亮主題"
 
-#: settings.php:992
+#: settings.php:1009
 msgid ""
 "如果您想使用其他代码高亮插件，而非 Argon 自带高亮，请前往 \"杂项\" 打开 \"禁"
 "用 Argon 代码块样式\" 来防止样式冲突"
@@ -1722,31 +1783,31 @@ msgstr ""
 "如果您想使用其他代碼標記外掛，而非 Argon 自帶標記，請前往 [雜項] 開啟「停用 "
 "Argon 代碼塊樣式」以防止樣式衝突"
 
-#: settings.php:996
+#: settings.php:1013
 msgid "数学公式"
 msgstr "數學公式"
 
-#: settings.php:998
+#: settings.php:1015
 msgid "数学公式渲染方案"
 msgstr "數學公式渲染方式"
 
-#: settings.php:1017 settings.php:1030 settings.php:1043
+#: settings.php:1034 settings.php:1047 settings.php:1060
 msgid "地址"
 msgstr "地址"
 
-#: settings.php:1019 settings.php:1032
+#: settings.php:1036 settings.php:1049
 msgid "，默认为"
 msgstr "，預設為"
 
-#: settings.php:1045
+#: settings.php:1062
 msgid "Argon 会同时引用"
 msgstr "Argon 會同時引用"
 
-#: settings.php:1045
+#: settings.php:1062
 msgid "和"
 msgstr "和"
 
-#: settings.php:1045
+#: settings.php:1062
 msgid ""
 "两个文件，所以在此填写的是上层的路径，而不是具体的文件。注意路径后要带一个斜"
 "杠。"
@@ -1754,73 +1815,73 @@ msgstr ""
 "兩個文件，所以在此填寫的是上層的路徑，而不是具體的文件。注意路徑後應要有一"
 "個 \"/\"。"
 
-#: settings.php:1045
+#: settings.php:1062
 msgid "默认为"
 msgstr "預設為"
 
-#: settings.php:1057
+#: settings.php:1074
 msgid "是否启用 Lazyload"
 msgstr "是否啟用 Lazyload"
 
-#: settings.php:1064
+#: settings.php:1081
 msgid "是否启用 Lazyload 加载文章内图片"
 msgstr "是否啟用 Lazyload 載入文章內圖片"
 
-#: settings.php:1068
+#: settings.php:1085
 msgid "提前加载阈值"
 msgstr "提前載入閾值"
 
-#: settings.php:1071
+#: settings.php:1088
 msgid "图片距离页面底部还有多少距离就开始提前加载"
 msgstr "圖片距離頁面底部還有多少距離就開始提前載入"
 
-#: settings.php:1075
+#: settings.php:1092
 msgid "LazyLoad 图片加载完成过渡"
 msgstr "LazyLoad 圖片載入完成過渡"
 
-#: settings.php:1081
+#: settings.php:1098
 msgid "不使用过渡"
 msgstr "不使用過渡"
 
-#: settings.php:1087
+#: settings.php:1104
 msgid "LazyLoad 图片加载动效"
 msgstr "LazyLoad 圖片載入動效"
 
-#: settings.php:1091 settings.php:1092 settings.php:1093 settings.php:1094
-#: settings.php:1095 settings.php:1096 settings.php:1097 settings.php:1098
-#: settings.php:1099 settings.php:1100 settings.php:1101
+#: settings.php:1108 settings.php:1109 settings.php:1110 settings.php:1111
+#: settings.php:1112 settings.php:1113 settings.php:1114 settings.php:1115
+#: settings.php:1116 settings.php:1117 settings.php:1118
 msgid "加载动画"
 msgstr "載入動畫"
 
-#: settings.php:1104
+#: settings.php:1121
 msgid "在图片被加载之前显示的加载效果"
 msgstr "在圖片載入前所顯示的載入效果"
 
-#: settings.php:1104
+#: settings.php:1121
 msgid "预览所有效果"
 msgstr "預覽所有效果"
 
-#: settings.php:1107
+#: settings.php:1124
 msgid "图片放大浏览"
 msgstr "圖片放大瀏覽"
 
-#: settings.php:1109
+#: settings.php:1126
 msgid "是否启用图片放大浏览 (Fancybox)"
 msgstr "是否啟用圖片放大瀏覽 (Fancybox)"
 
-#: settings.php:1116
+#: settings.php:1133
 msgid "开启后，文章中图片被单击时会放大预览"
 msgstr "開啟後，文章中圖片被單擊時會放大預覽"
 
-#: settings.php:1120
+#: settings.php:1137
 msgid "展开旧版图片放大浏览 (Zoomify) 设置 ▼"
 msgstr "展開舊版圖片放大瀏覽 (Zoomify) 設定 ▼"
 
-#: settings.php:1133
+#: settings.php:1150
 msgid "是否启用旧版图片放大浏览 (Zoomify)"
 msgstr "是否啟用舊版圖片放大瀏覽 (Zoomify)"
 
-#: settings.php:1140
+#: settings.php:1157
 msgid ""
 "自 Argon 1.1.0 版本后，图片缩放预览库由 Zoomify 更换为 Fancybox，如果您还想"
 "使用旧版图片预览，请开启此选项。注意: Zoomify 和 Fancybox 不能同时开启。"
@@ -1828,83 +1889,83 @@ msgstr ""
 "自 Argon 1.1.0 版本後，圖片縮放預覽庫由 Zoomify 更換為 Fancybox，如果您愈使"
 "用舊版圖片預覽，請開啟此選項。注意: Zoomify 和 Fancybox 不能同時開啟。"
 
-#: settings.php:1144
+#: settings.php:1161
 msgid "缩放动画长度"
 msgstr "縮放動畫長度"
 
-#: settings.php:1147
+#: settings.php:1164
 msgid "图片被单击后缩放到全屏动画的时间长度"
 msgstr "圖片被單次點選後，縮放到全螢幕動畫的時間長度"
 
-#: settings.php:1151
+#: settings.php:1168
 msgid "缩放动画曲线"
 msgstr "縮放動畫曲線"
 
-#: settings.php:1155
+#: settings.php:1172
 msgid "例："
 msgstr "例："
 
-#: settings.php:1155
+#: settings.php:1172
 msgid "如果你不知道这是什么，参考"
 msgstr "如果此為何物，請參考"
 
-#: settings.php:1155
+#: settings.php:1172
 msgid "这里"
 msgstr "這裡"
 
-#: settings.php:1160
+#: settings.php:1177
 msgid "图片最大缩放比例"
 msgstr "圖片最大縮放比例"
 
-#: settings.php:1163
+#: settings.php:1180
 msgid "图片相对于页面的最大缩放比例 (0 ~ 1 的小数)"
 msgstr "圖片相對於頁面的最大縮放比例 (0 ~ 1 的小數)"
 
-#: settings.php:1168
+#: settings.php:1185
 msgid "启用 Pangu.js (自动在中英文之间添加空格)"
 msgstr "啟用 Pangu.js (自動在中英文之間添加空格)"
 
-#: settings.php:1173
+#: settings.php:1190
 msgid "格式化文章内容"
 msgstr "格式化文章內容"
 
-#: settings.php:1174
+#: settings.php:1191
 msgid "格式化说说"
 msgstr "格式化說說"
 
-#: settings.php:1175
+#: settings.php:1192
 msgid "格式化评论区"
 msgstr "格式化評論區"
 
-#: settings.php:1176
+#: settings.php:1193
 msgid "格式化文章内容和评论区"
 msgstr "格式化文章內容和評論區"
 
-#: settings.php:1177
+#: settings.php:1194
 msgid "格式化文章内容和说说"
 msgstr "格式化文章內容和說說"
 
-#: settings.php:1178
+#: settings.php:1195
 msgid "格式化说说和评论区"
 msgstr "格式化說說和評論區"
 
-#: settings.php:1179
+#: settings.php:1196
 msgid "格式化文章内容、说说和评论区"
 msgstr "格式化文章內容、說說和評論區"
 
-#: settings.php:1181
+#: settings.php:1198
 msgid "开启后，会自动在中文和英文之间添加空格"
 msgstr "開啟後，會自動在中文和英文之間增加空格"
 
-#: settings.php:1184
+#: settings.php:1201
 msgid "脚本"
 msgstr "腳本"
 
-#: settings.php:1186
+#: settings.php:1203
 msgid "注意"
 msgstr "注意"
 
-#: settings.php:1188
+#: settings.php:1205
 msgid ""
 "Argon 使用 pjax 方式加载页面 (无刷新加载) , 所以除非页面手动刷新，否则您的脚"
 "本只会被执行一次。"
@@ -1912,127 +1973,127 @@ msgstr ""
 "Argon 使用 pjax 方式載入頁面 (無重新載入)，除因網頁手動重新載入，否則您的腳"
 "本只會被執行一次。"
 
-#: settings.php:1189
+#: settings.php:1206
 msgid "如果您想让每次页面跳转(加载新页面)时都执行脚本，请将脚本写入"
 msgstr "如果您想讓每次頁面跳轉(載入新頁面)時都執行腳本，請將腳本寫入"
 
-#: settings.php:1189
+#: settings.php:1206
 msgid "中"
 msgstr "中"
 
-#: settings.php:1189
+#: settings.php:1206
 msgid "示例写法"
 msgstr "範例寫法"
 
-#: settings.php:1192
+#: settings.php:1209
 msgid "页面每次跳转都会执行这里的代码"
 msgstr "網頁每次導向都會執行這裡的代碼"
 
-#: settings.php:1196
+#: settings.php:1213
 msgid "当页面第一次载入时，"
 msgstr "當網頁第一次載入時，"
 
-#: settings.php:1196
+#: settings.php:1213
 msgid "中的脚本不会执行，所以您可以手动执行"
 msgstr "中的腳本不會執行，所以您可以手動執行"
 
-#: settings.php:1196
+#: settings.php:1213
 msgid "来让页面初次加载时也执行脚本"
 msgstr "來讓頁面初次載入時也執行腳本"
 
-#: settings.php:1200
+#: settings.php:1217
 msgid "页头脚本"
 msgstr "頁首腳本"
 
-#: settings.php:1203
+#: settings.php:1220
 msgid "插入到 body 之前"
 msgstr "插入到 body 之前"
 
-#: settings.php:1207
+#: settings.php:1224
 msgid "页尾脚本"
 msgstr "頁尾腳本"
 
-#: settings.php:1210
+#: settings.php:1227
 msgid "插入到 body 之后"
 msgstr "插入到 body 之後"
 
-#: settings.php:1215
+#: settings.php:1232
 msgid "是否启用平滑滚动"
 msgstr "是否啟用平滑滾動"
 
-#: settings.php:1219
+#: settings.php:1236
 msgid "使用平滑滚动方案 1 (平滑) (推荐)"
 msgstr "使用平滑滾動方案 1 (平滑) (推薦)"
 
-#: settings.php:1220
+#: settings.php:1237
 msgid "使用平滑滚动方案 1 (脉冲式滚动) (仿 Edge) (推荐)"
 msgstr "使用平滑滾動方案 1 (脈衝式滾動) (仿 Edge) (推薦)"
 
-#: settings.php:1221
+#: settings.php:1238
 msgid "使用平滑滚动方案 2 (较稳)"
 msgstr "使用平滑滾動方案 2 (較穩)"
 
-#: settings.php:1222
+#: settings.php:1239
 msgid "使用平滑滚动方案 3"
 msgstr "使用平滑滾動方案 3"
 
-#: settings.php:1223
+#: settings.php:1240
 msgid "不使用平滑滚动"
 msgstr "不使用平滑滾動"
 
-#: settings.php:1225
+#: settings.php:1242
 msgid ""
 "能增强浏览体验，但可能出现一些小问题，如果有问题请切换方案或关闭平滑滚动"
 msgstr ""
 "可增強瀏覽體驗，但可能出現一些小問題，如果有問題請切換方案或關閉平滑滾動"
 
-#: settings.php:1229
+#: settings.php:1246
 msgid "是否启用进入文章动画"
 msgstr "是否啟用進入文章動畫"
 
-#: settings.php:1236
+#: settings.php:1253
 msgid "从首页或分类目录进入文章时，使用平滑过渡（可能影响加载文章时的性能）"
 msgstr "從首頁或分類目錄進入文章時，使用平滑過渡(可能影響載入文章時的性能)"
 
-#: settings.php:1240
+#: settings.php:1257
 msgid "禁用 Pjax 加载后的页面滚动动画"
 msgstr "停用 Pjax 載入後的網頁滾動動畫"
 
-#: settings.php:1244 settings.php:1648 settings.php:1659
+#: settings.php:1261 settings.php:1774 settings.php:1785
 msgid "不禁用"
 msgstr "不停用"
 
-#: settings.php:1247
+#: settings.php:1264
 msgid ""
 "Pjax 替换页面内容后会平滑滚动到页面顶部，如果你不喜欢，可以禁用这个选项"
 msgstr ""
 "Pjax 替換頁面內容後會平滑滾動到頁面頂部，如果你不喜歡，可以停用這個選項"
 
-#: settings.php:1251
+#: settings.php:1268
 msgid "评论分页"
 msgstr "評論分頁"
 
-#: settings.php:1253
+#: settings.php:1270
 msgid "评论分页方式"
 msgstr "評論分頁方式"
 
-#: settings.php:1257
+#: settings.php:1274
 msgid "无限加载"
 msgstr "無限載入"
 
-#: settings.php:1258
+#: settings.php:1275
 msgid "页码"
 msgstr "頁碼"
 
-#: settings.php:1261
+#: settings.php:1278
 msgid "无限加载：点击 \"加载更多\" 按钮来加载更多评论。"
 msgstr "無限載入: 點擊 [載入更多] 以載入更多評論。"
 
-#: settings.php:1262
+#: settings.php:1279
 msgid "页码：显示页码来分页。"
 msgstr "頁碼: 顯示頁碼來分頁。"
 
-#: settings.php:1263
+#: settings.php:1280
 msgid ""
 "选择\"无限加载\"时，如果开启了评论分页，请将 Wordpress 的讨论设置设为 \"默认"
 "显示<b>最后</b>一页，在每个页面顶部显示<b>新的</b>评论\"。"
@@ -2040,27 +2101,27 @@ msgstr ""
 "選擇\"無限加載\"時，如果開啟了評論分頁，請將 Wordpress 的討論設置設為 \"默認"
 "顯示<b>最後</b>一頁，在每個頁面頂部顯示<b>新的</b>評論\"。"
 
-#: settings.php:1263
+#: settings.php:1280
 msgid "去设置"
 msgstr "設定"
 
-#: settings.php:1292
+#: settings.php:1309
 msgid "评论表情面板"
 msgstr "評論表情面板"
 
-#: settings.php:1299
+#: settings.php:1316
 msgid "开启后评论支持插入表情，会在评论输入框下显示表情键盘按钮。"
 msgstr "開啟後評論支援插入表情，會在評論輸入框下顯示表情鍵盤按鈕。"
 
-#: settings.php:1299
+#: settings.php:1316
 msgid "如何添加新的表情或修改已有表情列表？"
 msgstr "如何新增新的表情或修改已有表情列表？"
 
-#: settings.php:1303
+#: settings.php:1320
 msgid "是否隐藏 \"昵称\"、\"邮箱\"、\"网站\" 输入框"
 msgstr "是否隱藏「暱稱」、「電子信箱」、「網站」輸入欄"
 
-#: settings.php:1310
+#: settings.php:1327
 msgid ""
 "选项仅在 \"设置-评论-评论作者必须填入姓名和电子邮件地址\" 选项未勾选的前提下"
 "生效。如勾选了 \"评论作者必须填入姓名和电子邮件地址\"，则只有 \"网站\" 输入"
@@ -2070,120 +2131,120 @@ msgstr ""
 "位] 選項未勾選的前提下生效。如勾選了 [留言者必須填寫 [顯示名稱] 及 [電子郵件"
 "地址] 欄位]，則只有 [網站] 輸入欄隱藏。"
 
-#: settings.php:1314
+#: settings.php:1331
 msgid "评论是否需要验证码"
 msgstr "評論是否需要驗證碼"
 
-#: settings.php:1318
+#: settings.php:1335
 msgid "需要"
 msgstr "需要"
 
-#: settings.php:1319
+#: settings.php:1336
 msgid "不需要"
 msgstr "不需要"
 
-#: settings.php:1325
+#: settings.php:1342
 msgid "使用 Ajax 获取评论验证码"
 msgstr "使用 Ajax 獲取評論驗證碼"
 
-#: settings.php:1332
+#: settings.php:1349
 msgid "如果使用了 CDN 缓存，验证码不会刷新，请开启此选项，否则请不要开启。"
 msgstr "如果使用了 CDN 緩存，驗證碼不會刷新，請開啟此選項，否則請不要開啟。"
 
-#: settings.php:1336
+#: settings.php:1353
 msgid "是否允许在评论中使用 Markdown 语法"
 msgstr "是否允許在評論中使用 Markdown 語法"
 
-#: settings.php:1340 settings.php:1351 settings.php:1363 settings.php:1374
-#: settings.php:1391
+#: settings.php:1357 settings.php:1368 settings.php:1380 settings.php:1391
+#: settings.php:1408
 msgid "允许"
 msgstr "允許"
 
-#: settings.php:1341 settings.php:1352 settings.php:1362 settings.php:1373
-#: settings.php:1390
+#: settings.php:1358 settings.php:1369 settings.php:1379 settings.php:1390
+#: settings.php:1407
 msgid "不允许"
 msgstr "不允許"
 
-#: settings.php:1347
+#: settings.php:1364
 msgid "是否允许评论者再次编辑评论"
 msgstr "是否允許評論者再次編輯評論"
 
-#: settings.php:1354
+#: settings.php:1371
 msgid "同一个评论者可以再次编辑评论。"
 msgstr "同一個評論者可以再次編輯評論。"
 
-#: settings.php:1358
+#: settings.php:1375
 msgid "是否允许评论者使用悄悄话模式"
 msgstr "是否允許評論者使用悄悄話模式"
 
-#: settings.php:1365
+#: settings.php:1382
 msgid "评论者使用悄悄话模式发送的评论和其下的所有回复只有发送者和博主能看到。"
 msgstr ""
 "評論者使用悄悄話模式發送的評論和其下的所有回覆只有評論者和博主能看到。"
 
-#: settings.php:1369
+#: settings.php:1386
 msgid "是否允许评论者接收评论回复邮件提醒"
 msgstr "是否允許評論者接收評論回覆郵件提醒"
 
-#: settings.php:1379
+#: settings.php:1396
 msgid "评论时默认勾选 \"启用邮件通知\" 复选框"
 msgstr "評論時預設勾選 [啟用郵件通知] 複選框"
 
-#: settings.php:1382
+#: settings.php:1399
 msgid "评论者开启邮件提醒后，其评论有回复时会有邮件通知。"
 msgstr "評論者開啟郵件提醒後，其評論有回覆時會有郵件通知。"
 
-#: settings.php:1386
+#: settings.php:1403
 msgid "允许评论者使用 QQ 头像"
 msgstr "允許評論者使用 QQ 大頭貼"
 
-#: settings.php:1393
+#: settings.php:1410
 msgid ""
 "开启后，评论者可以使用 QQ 号代替邮箱输入，头像会根据评论者的 QQ 号获取。"
 msgstr ""
 "開啟後，評論者可以使用 QQ 號取代郵箱輸入，大頭貼會依照評論者的 QQ 號取得。"
 
-#: settings.php:1396
+#: settings.php:1413
 msgid "评论区"
 msgstr "評論區"
 
-#: settings.php:1398
+#: settings.php:1415
 msgid "评论头像垂直位置"
 msgstr "評論大頭貼垂直位置"
 
-#: settings.php:1402
+#: settings.php:1419
 msgid "居上"
 msgstr "靠上"
 
-#: settings.php:1403
+#: settings.php:1420
 msgid "居中"
 msgstr "置中"
 
-#: settings.php:1409
+#: settings.php:1426
 msgid "谁可以查看评论编辑记录"
 msgstr "誰可以檢視評論編輯記錄"
 
-#: settings.php:1413
+#: settings.php:1430
 msgid "只有博主"
 msgstr "只有博主"
 
-#: settings.php:1414
+#: settings.php:1431
 msgid "评论发送者和博主"
 msgstr "評論發送者和博主"
 
-#: settings.php:1415
+#: settings.php:1432
 msgid "任何人"
 msgstr "任何人"
 
-#: settings.php:1417
+#: settings.php:1434
 msgid "点击评论右侧的 \"已编辑\" 标记来查看编辑记录"
 msgstr "點選評論右側的 [已編輯] 標記來檢視編輯記錄"
 
-#: settings.php:1421
+#: settings.php:1438
 msgid "开启评论置顶功能"
 msgstr "開啟評論置頂功能"
 
-#: settings.php:1428
+#: settings.php:1445
 msgid ""
 "开启后，博主将可以置顶评论。已置顶的评论将会在评论区顶部显示。如果关闭，评论"
 "将以正常顺序显示。"
@@ -2191,83 +2252,83 @@ msgstr ""
 "開啟後，博主將可以置頂評論。已置頂的評論將會在評論區頂部顯示。如果關閉，評論"
 "將以正常順序顯示。"
 
-#: settings.php:1432
+#: settings.php:1449
 msgid "评论点赞"
 msgstr "評論點讚"
 
-#: settings.php:1439
+#: settings.php:1456
 msgid "开启后，每一条评论的头像下方会出现点赞按钮"
 msgstr "開啟後，每一條評論的大頭貼下方將顯示按讚鈕"
 
-#: settings.php:1443
+#: settings.php:1460
 msgid "评论者 UA 显示"
 msgstr "評論者 UA 顯示"
 
-#: settings.php:1448
+#: settings.php:1465
 msgid "浏览器"
 msgstr "瀏覽器"
 
-#: settings.php:1449
+#: settings.php:1466
 msgid "浏览器+版本号"
 msgstr "瀏覽器+版本號"
 
-#: settings.php:1450
+#: settings.php:1467
 msgid "平台+浏览器+版本号"
 msgstr "平台+瀏覽器+版本號"
 
-#: settings.php:1451
+#: settings.php:1468
 msgid "平台+浏览器"
 msgstr "平台+瀏覽器"
 
-#: settings.php:1452
+#: settings.php:1469
 msgid "平台"
 msgstr "平台"
 
-#: settings.php:1454
+#: settings.php:1471
 msgid "设置是否在评论区显示评论者 UA 及显示哪些部分"
 msgstr "配置是否在評論區顯示評論者 UA 及顯示哪些部分"
 
-#: settings.php:1458
+#: settings.php:1475
 msgid "在子评论中显示被回复者用户名"
 msgstr "在子評論中顯示被回复者用戶名"
 
-#: settings.php:1465
+#: settings.php:1482
 msgid ""
 "开启后，被回复的评论者昵称会显示在子评论中，鼠标移上后会高亮被回复的评论"
 msgstr ""
 "開啟後，被回复的評論者暱稱會顯示在子評論中，鼠標移上後會高亮被回复的評論"
 
-#: settings.php:1469
+#: settings.php:1486
 msgid "折叠过长评论"
 msgstr "摺疊過長評論"
 
-#: settings.php:1473 settings.php:1584
+#: settings.php:1490 settings.php:1723
 msgid "不折叠"
 msgstr "不摺疊"
 
-#: settings.php:1474 settings.php:1585
+#: settings.php:1491 settings.php:1724
 msgid "折叠"
 msgstr "摺疊"
 
-#: settings.php:1476
+#: settings.php:1493
 msgid "开启后，过长的评论会被折叠，需要手动展开"
 msgstr "開啟後，過長的評論會被摺疊，需要手動展開"
 
-#: settings.php:1483
+#: settings.php:1500
 msgid ""
 "使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。"
 msgstr ""
 "使用 CDN 來加速 Gravatar 在某些地區的訪問，填寫 CDN 地址，留空則不使用。"
 
-#: settings.php:1483
+#: settings.php:1500
 msgid "在中国速度较快的一些 CDN :"
 msgstr "在中國速度較快的一些 CDN :"
 
-#: settings.php:1487
+#: settings.php:1504
 msgid "评论文字头像"
 msgstr "評論文字大頭貼"
 
-#: settings.php:1494
+#: settings.php:1511
 msgid ""
 "在评论者没有设置 Gravatar 时自动生成文字头像，头像颜色由邮箱哈希计算。生成时"
 "会在 Console 中抛出 404 错误，但没有影响。"
@@ -2275,51 +2336,71 @@ msgstr ""
 "在評論者沒有配置 Gravatar 時自動生成文字頭像，大頭貼色彩由郵箱哈希計算。生成"
 "時會在 Console 中拋出 404 錯誤，但沒有影響。"
 
-#: settings.php:1497
+#: settings.php:1515
+msgid "搜索过滤器"
+msgstr "搜索過濾器"
+
+#: settings.php:1517
+msgid "启用过滤器"
+msgstr "啟用過濾器"
+
+#: settings.php:1524
+msgid "开启后，将会在搜索结果界面显示一个过滤器，支持搜索说说及其他类型文章"
+msgstr "開啟後，將會在搜索結果界面顯示一個過濾器，支持搜索說說及其他類型文章"
+
+#: settings.php:1537
+msgid "过滤器类型"
+msgstr "過濾器類型"
+
+#: settings.php:1578
+msgid "拖动来自定义启用的过滤器，单击来切换默认勾选状态"
+msgstr "拖動來自定義啟用的過濾器，單擊來切換默認勾選狀態"
+
+#: settings.php:1636
 msgid "杂项"
 msgstr "雜項"
 
-#: settings.php:1499
+#: settings.php:1638
 msgid "是否启用 Pjax"
 msgstr "是否啟用 Pjax"
 
-#: settings.php:1506
+#: settings.php:1645
 msgid "Pjax 可以增强页面的跳转体验"
 msgstr "Pjax 可以增強頁面的跳轉體驗"
 
-#: settings.php:1510
+#: settings.php:1649
 msgid "首页隐藏特定 分类/Tag 下的文章"
 msgstr "首頁隱藏特定 分類/標籤 下的文章"
 
-#: settings.php:1513
+#: settings.php:1652
 msgid "输入要隐藏的 分类/Tag 的 ID，用英文逗号分隔，留空则不隐藏"
 msgstr "輸入要隱藏的 分類/標籤 的 ID，用英文逗號分隔，留空則不隱藏"
 
-#: settings.php:1513
+#: settings.php:1652
 msgid "点此查看"
 msgstr "點此檢視"
 
-#: settings.php:1513
+#: settings.php:1652
 msgid "所有分类和 Tag 的 ID"
 msgstr "所有分類和標籤的識別碼"
 
-#: settings.php:1549
+#: settings.php:1688
 msgid "美化登录界面"
 msgstr "美化登入介面"
 
-#: settings.php:1556
+#: settings.php:1695
 msgid "使用 Argon Design 风格的登录界面"
 msgstr "使用 Argon Design 風格的登入介面"
 
-#: settings.php:1560
+#: settings.php:1699
 msgid "美化后台界面"
 msgstr "美化後台界面"
 
-#: settings.php:1563
+#: settings.php:1702
 msgid "使用 Argon Design 风格的后台界面"
 msgstr "使用 Argon Design 風格的後台界面"
 
-#: settings.php:1564
+#: settings.php:1703
 #, php-format
 msgid ""
 "前往<a href=\"%s\" target=\"_blank\">个人资料</a>页面将 \"管理界面配色方案"
@@ -2328,87 +2409,67 @@ msgstr ""
 "前往<a href=\"%s\" target=\"_blank\">個人資料</a>頁面將 \"管理界面配色方案"
 "\" 設為 \"Argon\" 即可開啟。"
 
-#: settings.php:1569
+#: settings.php:1708
 msgid "博客首页是否显示说说"
 msgstr "博客首頁是否顯示說說"
 
-#: settings.php:1576
+#: settings.php:1715
 msgid "开启后，博客首页文章和说说穿插显示"
 msgstr "開啟後，博客首頁文章和說說穿插顯示"
 
-#: settings.php:1580
+#: settings.php:1719
 msgid "折叠长说说"
 msgstr "折疊長說說"
 
-#: settings.php:1587
+#: settings.php:1726
 msgid "开启后，长说说在预览状态下会被折叠，需要手动展开"
 msgstr "開啟後，長說說在預覽狀態下會被折疊，需要手動展開"
 
-#: settings.php:1591
-msgid "搜索结果类型过滤器"
-msgstr "搜索結果類型過濾器"
-
-#: settings.php:1596
-msgid "启用，默认不包括说说"
-msgstr "啟用，默認不包括說說"
-
-#: settings.php:1597
-msgid "启用，默认包括说说"
-msgstr "啟用，默認包括說說"
-
-#: settings.php:1598
-msgid "启用，隐藏说说分类"
-msgstr "啟用，隱藏說說分類"
-
-#: settings.php:1600
-msgid "开启后，将会在搜索结果界面显示一个过滤器，支持搜索说说"
-msgstr "開啟後，將會在搜索結果界面顯示一個過濾器，支持搜索說說"
-
-#: settings.php:1604
+#: settings.php:1730
 msgid "是否修正时区错误"
 msgstr "是否修正時區錯誤"
 
-#: settings.php:1611
+#: settings.php:1737
 msgid "如遇到时区错误（例如一条刚发的评论显示 8 小时前），这个选项"
 msgstr "如遇到時區錯誤 (例如一條剛發的評論顯示 8 小時前)，這個選項"
 
-#: settings.php:1611
+#: settings.php:1737
 msgid "可能"
 msgstr "可能"
 
-#: settings.php:1611
+#: settings.php:1737
 msgid "可以修复这个问题"
 msgstr "可以修復這個問題"
 
-#: settings.php:1615
+#: settings.php:1741
 msgid "是否在文章列表内容预览中隐藏短代码"
 msgstr "是否在文章列表內容預覽中隱藏短代碼"
 
-#: settings.php:1619 settings.php:1637
+#: settings.php:1745 settings.php:1763
 msgid "否"
 msgstr "否"
 
-#: settings.php:1620 settings.php:1638
+#: settings.php:1746 settings.php:1764
 msgid "是"
 msgstr "是"
 
-#: settings.php:1626
+#: settings.php:1752
 msgid "文章内容预览截取字数"
 msgstr "文章內容預覽擷取字數"
 
-#: settings.php:1629
+#: settings.php:1755
 msgid "设为 0 来隐藏文章内容预览"
 msgstr "設為 0 以隱藏文章內容預覽"
 
-#: settings.php:1633
+#: settings.php:1759
 msgid "是否允许移动端缩放页面"
 msgstr "是否允許行動裝置縮放頁面"
 
-#: settings.php:1644
+#: settings.php:1770
 msgid "禁用 Google 字体"
 msgstr "停用 Google 字型"
 
-#: settings.php:1651
+#: settings.php:1777
 msgid ""
 "Google 字体在中国大陆访问可能会阻塞，禁用可以解决页面加载被阻塞的问题。禁用"
 "后，Serif 字体将失效。"
@@ -2416,11 +2477,11 @@ msgstr ""
 "Google 字型在中國大陸訪問可能會阻塞，停用即可解決頁面載入阻塞的問題。停用"
 "後，Serif 字型將失效。"
 
-#: settings.php:1655
+#: settings.php:1781
 msgid "禁用 Argon 代码块样式"
 msgstr "停用 Argon 代碼塊樣式"
 
-#: settings.php:1662
+#: settings.php:1788
 msgid ""
 "如果您启用了其他代码高亮插件，发现代码块样式被 Argon 覆盖，出现了显示错误，"
 "请将此选项设为禁用"
@@ -2428,71 +2489,71 @@ msgstr ""
 "如果您啟用了其他代碼標記插件，發現代碼塊樣式被 Argon 覆蓋，出現了顯示錯誤，"
 "請將此選項設為停用"
 
-#: settings.php:1666
+#: settings.php:1792
 msgid "检测更新源"
 msgstr "檢測更新來源"
 
-#: settings.php:1674
+#: settings.php:1800
 msgid "暂停更新 (不推荐)"
 msgstr "暫停更新 (不推薦)"
 
-#: settings.php:1676
+#: settings.php:1802
 msgid "如更新主题速度较慢，可考虑更换更新源。"
 msgstr "如更新主題速度較慢，可考慮更換更新源。"
 
-#: settings.php:1680
+#: settings.php:1806
 msgid "页脚附加内容"
 msgstr "頁尾附加內容"
 
-#: settings.php:1693
+#: settings.php:1819
 msgid "保存更改"
 msgstr "儲存變更"
 
-#: settings.php:1694
+#: settings.php:1820
 msgid "导入设置"
 msgstr "匯入配置"
 
-#: settings.php:1695
+#: settings.php:1821
 msgid "导出设置"
 msgstr "匯出配置"
 
-#: settings.php:1700
+#: settings.php:1826
 msgid "收起"
 msgstr "收起"
 
-#: settings.php:1703
+#: settings.php:1829
 msgid "到顶部"
 msgstr "最頂層"
 
-#: settings.php:1703
+#: settings.php:1829
 msgid "到底部"
 msgstr "最底層"
 
-#: settings.php:1704
+#: settings.php:1830
 msgid "请复制并保存导出后的 JSON"
 msgstr "請複製並儲存匯出後的 JSON"
 
-#: settings.php:1704
+#: settings.php:1830
 msgid "确定"
 msgstr "確定"
 
-#: settings.php:1781
+#: settings.php:1907
 msgid "展开"
 msgstr "展開"
 
-#: settings.php:1947
+#: settings.php:2073
 msgid "字段导入失败"
 msgstr "欄位匯入失敗"
 
-#: settings.php:1958
+#: settings.php:2084
 msgid "请输入要导入的备份 JSON"
 msgstr "請輸入要匯入的備份 JSON"
 
-#: settings.php:1961
+#: settings.php:2087
 msgid "已导入，请保存更改"
 msgstr "已匯入，請儲存變更"
 
-#: shuoshuo.php:21
+#: shuoshuo.php:23
 msgid "条说说"
 msgstr "條說說"
 
@@ -2520,182 +2581,140 @@ msgstr "分類"
 msgid "标签"
 msgstr "標籤"
 
-#: single.php:27
-msgid "上一篇"
-msgstr "上一篇"
+#: template-parts/entry/excerpt-shuoshuo.php:15
+msgid "这条说说受密码保护，输入密码才能阅读"
+msgstr "這篇說說受到密碼保護，請輸入密碼以查看"
 
-#: single.php:32
-msgid "下一篇"
-msgstr "下一篇"
+#: template-parts/entry/excerpt-shuoshuo.php:17
+msgid "这条说说是空白的"
+msgstr "這條說說是空白的"
 
-#: single.php:86
-msgid "推荐文章"
-msgstr "推薦文章"
-
-#: template-parts/content-none-search.php:4
-msgid "没有搜索结果"
-msgstr "沒有搜尋結果"
-
-#: template-parts/content-none-search.php:6
-msgid "似乎没有勾选任何分类"
-msgstr "似乎沒有勾選任何分類"
-
-#: template-parts/content-none-search.php:8
-msgid "换个关键词试试 ?"
-msgstr "換個關鍵詞試試 ?"
-
-#: template-parts/content-none-tag.php:4
-msgid "此分类没有文章"
-msgstr "此分類沒有文章"
-
-#: template-parts/content-none-tag.php:5
-msgid "这里什么都没有"
-msgstr "這裡什麼都沒有"
-
-#: template-parts/content-page.php:60 template-parts/content-single.php:57
-#: template-parts/content-timeline.php:57
-msgid "这是一篇受密码保护的文章，您需要提供访问密码"
-msgstr "這篇文章受到密碼保護，請輸入密碼以查看"
-
-#: template-parts/content-page.php:67 template-parts/content-single.php:64
-msgid "密码"
-msgstr "密碼"
-
-#: template-parts/content-page.php:77 template-parts/content-single.php:74
-msgid "确认"
-msgstr "確認"
-
-#: template-parts/content-preview-1.php:59
-#: template-parts/content-preview-2.php:29
-#: template-parts/content-preview-3.php:55
+#: template-parts/entry/excerpt.php:19
 msgid "这篇文章受密码保护，输入密码才能阅读"
 msgstr "這篇文章受到密碼保護，請輸入密碼以查看"
 
-#: template-parts/content-preview-1.php:62
-#: template-parts/content-preview-2.php:32
-#: template-parts/content-preview-3.php:58
+#: template-parts/entry/excerpt.php:22
 msgid "这篇文章没有摘要"
 msgstr "這篇文章沒有摘要"
 
-#: template-parts/content-shuoshuo-details.php:5
-#: template-parts/content-shuoshuo-preview.php:13
-#: template-parts/content-shuoshuo.php:5
+#: template-parts/entry/meta-shuoshuo.php:11
 msgid "月"
 msgstr "月"
 
-#: template-parts/content-shuoshuo-details.php:6
-#: template-parts/content-shuoshuo-preview.php:14
-#: template-parts/content-shuoshuo.php:6
+#: template-parts/entry/meta-shuoshuo.php:12
 msgid "日"
 msgstr "日"
 
-#: template-parts/share.php:4 template-parts/share.php:61
-msgid "分享到微信"
-msgstr "分享到微信"
+#: template-parts/entry/passwd-required.php:9
+msgid "这是一篇受密码保护的文章，您需要提供访问密码"
+msgstr "這篇文章受到密碼保護，請輸入密碼以查看"
 
-#: template-parts/share.php:9
+#: template-parts/entry/passwd-required.php:16
+msgid "密码"
+msgstr "密碼"
+
+#: template-parts/entry/passwd-required.php:26
+msgid "确认"
+msgstr "確認"
+
+#: template-parts/post-navigation.php:6
+msgid "上一篇"
+msgstr "上一篇"
+
+#: template-parts/post-navigation.php:11
+msgid "下一篇"
+msgstr "下一篇"
+
+#: template-parts/preview/content-none-search.php:4
+msgid "没有搜索结果"
+msgstr "沒有搜尋結果"
+
+#: template-parts/preview/content-none-search.php:6
+msgid "似乎没有勾选任何分类"
+msgstr "似乎沒有勾選任何分類"
+
+#: template-parts/preview/content-none-search.php:8
+msgid "换个关键词试试 ?"
+msgstr "換個關鍵詞試試 ?"
+
+#: template-parts/preview/content-none-tag.php:4
+msgid "此分类没有文章"
+msgstr "此分類沒有文章"
+
+#: template-parts/preview/content-none-tag.php:5
+msgid "这里什么都没有"
+msgstr "這裡什麼都沒有"
+
+#: template-parts/related.php:48
+msgid "推荐文章"
+msgstr "推薦文章"
+
+#: template-parts/share.php:11
 msgid "分享到豆瓣"
 msgstr "分享到豆瓣"
 
-#: template-parts/share.php:14
+#: template-parts/share.php:16
 msgid "分享到 QQ"
 msgstr "分享到 QQ"
 
-#: template-parts/share.php:19
+#: template-parts/share.php:21
 msgid "分享到 QQ 空间"
 msgstr "分享到 QQ 空間"
 
-#: template-parts/share.php:24
+#: template-parts/share.php:26
 msgid "分享到微博"
 msgstr "分享到微博"
 
-#: template-parts/share.php:30
+#: template-parts/share.php:32
 msgid "分享到 Facebook"
 msgstr "分享到 Facebook"
 
-#: template-parts/share.php:35
+#: template-parts/share.php:37
 msgid "分享到 Twitter"
 msgstr "分享到 Twitter"
 
-#: template-parts/share.php:41
+#: template-parts/share.php:42
 msgid "分享到 Telegram"
 msgstr "分享到 Telegram"
 
-#: template-parts/share.php:47
+#: template-parts/share.php:48
+msgid "二维码"
+msgstr "二維碼"
+
+#: template-parts/share.php:53
 msgid "复制链接"
 msgstr "複製連結"
 
-#: template-parts/share.php:62
-msgid "微信扫描二维码"
-msgstr "微信掃描二維碼"
-
-#: template-parts/share.php:77
-msgid "链接已复制"
-msgstr "連結已複製"
-
-#: template-parts/share.php:78
-msgid "链接已复制到剪贴板"
-msgstr "連結已複製到剪貼簿"
-
-#: template-parts/share.php:91
-msgid "复制失败"
-msgstr "複製失敗"
-
-#: template-parts/share.php:92
-msgid "请手动复制链接"
-msgstr "請手動複製連結"
-
-#: template-parts/shuoshuo-operations.php:10
+#: template-parts/shuoshuo-operations.php:16
 msgid "已关闭"
 msgstr "已關閉"
 
-#: unsubscribe-comment-mailnotice.php:7
-msgid "参数错误"
-msgstr "參數錯誤"
+#~ msgid "搜索结果类型过滤器"
+#~ msgstr "搜索結果類型過濾器"
 
-#: unsubscribe-comment-mailnotice.php:8 unsubscribe-comment-mailnotice.php:13
-msgid "错误"
-msgstr "錯誤"
+#~ msgid "启用，默认不包括说说"
+#~ msgstr "啟用，默認不包括說說"
 
-#: unsubscribe-comment-mailnotice.php:9
-msgid "提供的参数错误"
-msgstr "提供的參數錯誤"
+#~ msgid "启用，默认包括说说"
+#~ msgstr "啟用，默認包括說說"
 
-#: unsubscribe-comment-mailnotice.php:14 unsubscribe-comment-mailnotice.php:19
-msgid "评论 #"
-msgstr "評論 #"
+#~ msgid "启用，隐藏说说分类"
+#~ msgstr "啟用，隱藏說說分類"
 
-#: unsubscribe-comment-mailnotice.php:14
-msgid " 不存在"
-msgstr " 不存在"
+#~ msgid "分享到微信"
+#~ msgstr "分享到微信"
 
-#: unsubscribe-comment-mailnotice.php:17 unsubscribe-comment-mailnotice.php:18
-msgid "无需退订"
-msgstr "無需取消訂閱"
+#~ msgid "链接已复制"
+#~ msgstr "連結已複製"
 
-#: unsubscribe-comment-mailnotice.php:19
-msgid " 的邮件通知已被退订或没有开启邮件通知"
-msgstr " 的郵件通知已被取消訂閱或沒有開啟郵件通知"
+#~ msgid "链接已复制到剪贴板"
+#~ msgstr "連結已複製到剪貼簿"
 
-#: unsubscribe-comment-mailnotice.php:22 unsubscribe-comment-mailnotice.php:23
-msgid "退订失败"
-msgstr "取消訂閱失敗"
+#~ msgid "复制失败"
+#~ msgstr "複製失敗"
 
-#: unsubscribe-comment-mailnotice.php:24
-msgid "Token 不正确"
-msgstr "Token 不正確"
-
-#: unsubscribe-comment-mailnotice.php:28 unsubscribe-comment-mailnotice.php:29
-msgid "退订成功"
-msgstr "取消訂閱成功"
-
-#: unsubscribe-comment-mailnotice.php:30
-msgid "您已成功退订评论 #"
-msgstr "您已成功取消訂閱評論 #"
-
-#: unsubscribe-comment-mailnotice.php:30
-msgid " 的邮件通知<br>该评论下有新回复时您将不会再收到通知"
-msgstr " 的郵件通知<br>該評論下有新回覆時您將不會再收到通知"
+#~ msgid "请手动复制链接"
+#~ msgstr "請手動複製連結"
 
 #, fuzzy
 #~| msgid "显示"
