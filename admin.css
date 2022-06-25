@@ -89,7 +89,7 @@
 	--color-text-deeper: #212529;
 	--color-selection: #cce2ff;
 }
-html.immersion-color body {
+html.color-immersion body {
 	--color-background: rgb(var(--color-tint-86));
 	--color-foreground: rgb(var(--color-tint-92));
 	--color-widgets: rgb(var(--color-tint-95));

@@ -27,8 +27,8 @@ function argon_admin_themecolor_css(){
 			}
 		</style>
 	";
-	if (get_option("argon_enable_immersion_color", "false") == "true"){
-		echo "<script> document.documentElement.classList.add('immersion-color'); </script>";
+	if (get_option("argon_enable_color_immersion", "false") == "true"){
+		echo "<script> document.documentElement.classList.add('color-immersion'); </script>";
 	}
 }
 add_filter('admin_head', 'argon_admin_themecolor_css');

@@ -10,8 +10,8 @@
 	if (get_option('argon_page_layout') == "double-reverse"){
 		$htmlclasses .= "double-column-reverse ";
 	}
-	if (get_option('argon_enable_immersion_color') == "true"){
-		$htmlclasses .= "immersion-color ";
+	if (get_option('argon_enable_color_immersion') == "true"){
+		$htmlclasses .= "color-immersion ";
 	}
 	if (get_option('argon_enable_amoled_dark') == "true"){
 		$htmlclasses .= "amoled-dark ";
@@ -274,6 +274,17 @@
 		--card-radius: <?php echo $cardradius; ?>px;
 	}
 </style>
+<?php $sidebar_width = get_option('argon_sidebar_width', 240);
+	if ($sidebar_width != 240){
+		?>
+		<style id="theme_sidebar_width_css">
+			:root{
+				--sidebar-width: max(<?php echo $sidebar_width; ?>px, calc(100vw - 20px));
+			}
+		</style>
+		<?php
+	}
+?>
 
 <body <?php body_class(); ?>>
 <?php /*wp_body_open();*/ ?>

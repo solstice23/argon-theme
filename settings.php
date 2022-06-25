@@ -105,18 +105,18 @@ function themeoptions_page(){
 					<tr>
 						<th><label><?php _e('沉浸式主题色', 'argon');?></label></th>
 						<td>
-							<select name="argon_enable_immersion_color">
-								<?php $argon_enable_immersion_color = get_option('argon_enable_immersion_color', 'false'); ?>
-								<option value="true" <?php if ($argon_enable_immersion_color=='true'){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
-								<option value="false" <?php if ($argon_enable_immersion_color=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
+							<select name="argon_enable_color_immersion">
+								<?php $argon_enable_color_immersion = get_option('argon_enable_color_immersion', 'false'); ?>
+								<option value="true" <?php if ($argon_enable_color_immersion=='true'){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
+								<option value="false" <?php if ($argon_enable_color_immersion=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('开启后，主题色将会全局沉浸。<br/>页面背景、卡片及页面上的其它元素会变为沉浸式主题色（气氛色）。类似 Material You。', 'argon');?><br/></p>
 							<div style="display: flex;flex-direction: row;flex-wrap: wrap;align-items: center;margin-top:15px;">
-								<div class="immersion-color-example" style="background: #f4f5f7;"><div class="immersion-color-example-card" style="background: #fff;"></div></div>
-								<div class="immersion-color-example-arrow"><span class="dashicons dashicons-arrow-right-alt"></span></div>
-								<div class="immersion-color-example" style="background: #e8ebfb;"><div class="immersion-color-example-card" style="background: #f2f4fd;"></div></div>
+								<div class="color-immersion-example" style="background: #f4f5f7;"><div class="color-immersion-example-card" style="background: #fff;"></div></div>
+								<div class="color-immersion-example-arrow"><span class="dashicons dashicons-arrow-right-alt"></span></div>
+								<div class="color-immersion-example" style="background: #e8ebfb;"><div class="color-immersion-example-card" style="background: #f2f4fd;"></div></div>
 							<div>
-							<style>.immersion-color-example {width: 250px;height: 150px;border-radius: 4px;display: inline-block;position: relative;box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);}.immersion-color-example-arrow {margin-left: 20px;margin-right: 20px;color: #646970;}.immersion-color-example-card {position: absolute;left: 40px;right: 40px;top: 35px;bottom: 35px;background: #fff;box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);}</style>
+							<style>.color-immersion-example {width: 250px;height: 150px;border-radius: 4px;display: inline-block;position: relative;box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);}.color-immersion-example-arrow {margin-left: 20px;margin-right: 20px;color: #646970;}.color-immersion-example-card {position: absolute;left: 40px;right: 40px;top: 35px;bottom: 35px;background: #fff;box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);}</style>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('夜间模式', 'argon');?></h3></th></tr>
@@ -539,6 +539,14 @@ function themeoptions_page(){
 						<td>
 							<input type="text" class="regular-text" name="argon_sidebar_author_description" value="<?php echo get_option('argon_sidebar_author_description'); ?>"/>
 							<p class="description"><?php _e('留空则不显示', 'argon');?></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label><?php _e('左侧栏宽度', 'argon');?></label></th>
+						<td>
+							<input type="number" name="argon_sidebar_width" min="1" max="2000"  value="<?php echo get_option('argon_sidebar_width', 240); ?>"/>
+							px
+							<p class="description"><?php _e('默认为 240px，不建议更改', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('博客公告', 'argon');?></h2></th></tr>
@@ -2225,9 +2233,10 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_toolbar_blur');
 		argon_update_option('argon_archives_timeline_show_month');
 		argon_update_option('argon_archives_timeline_url');
-		argon_update_option('argon_enable_immersion_color');
+		argon_update_option('argon_enable_color_immersion');
 		argon_update_option('argon_enable_comment_pinning');
 		argon_update_option('argon_show_comment_parent_info');
+		argon_update_option('argon_sidebar_width');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');
