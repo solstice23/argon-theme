@@ -69,7 +69,7 @@
 	cursor: pointer;
 	transition: all 0.3s ease;
 
-	&.emotion-item-sticker {
+	&.emotion-item-sticker, &.emotion-item-video {
 		padding: 2px;
 		background: rgba(126, 126, 126, 0.15);
 
@@ -78,12 +78,16 @@
 		}
 	}
 
-	> img {
+	> img, > video {
 		max-height: 60px;
 		border-radius: 3px;
 		transition: filter 0.3s ease, transform 0.3s ease;
 		transition-delay: 0s;
 		background: var(--color-widgets);
+		vertical-align: top;
+	}
+	> video {
+		max-height: 90px;
 	}
 
 	&:hover {
@@ -92,9 +96,8 @@
 	}
 }
 
-.emotion-group:active
-	.emotion-item:hover
-	> img:not([src^="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iZW1vdGlvbi1sb2FkaW5nI"]) {
+.emotion-group:active .emotion-item:hover > img:not([src^="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iZW1vdGlvbi1sb2FkaW5nI"]),
+.emotion-group:active .emotion-item:hover > video {
 	transition: all 0.3s ease;
 	transition-delay: 0.3s;
 	transform: scale(1.5);

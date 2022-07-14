@@ -14,14 +14,22 @@
 				foreach ($group['list'] as $index => $emotion){
 					if (isset($emotion['title'])){
 						$title = $emotion['title'];
-					}else{
-						$title = "";
+						if (isset($emotion['code'])){
+							$title .= " (:" . $emotion['code'] . ":)";
+						}
+					}else if (isset($emotion['code'])){
+						$title = ":" . $emotion['code'] . ":";
 					}
+					
 					if ($emotion['type'] == 'text'){
 						echo "<div class='emotion-item' text='" . esc_attr($emotion['text']) . "' title='" . esc_attr($title) . "'>" . esc_html($emotion['text']) . "</div>";
+						continue;
 					}
 					if ($emotion['type'] == 'sticker'){
 						echo "<div class='emotion-item emotion-item-sticker' code='" . $emotion['code'] . "' title='" . esc_attr($title) . "'><img class='lazyload' src='data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iZW1vdGlvbi1sb2FkaW5nIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9Ii04IC04IDQwIDQwIiBzdHJva2U9IiM4ODgiIG9wYWNpdHk9Ii41IiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiPgogIDxwYXRoIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGQ9Ik0xNC44MjggMTQuODI4YTQgNCAwIDAxLTUuNjU2IDBNOSAxMGguMDFNMTUgMTBoLjAxTTIxIDEyYTkgOSAwIDExLTE4IDAgOSA5IDAgMDExOCAweiIvPgo8L3N2Zz4=' data-original='" . $emotion['src'] . "'/></div>";
+					}
+					if ($emotion['type'] == 'video'){
+						echo "<div class='emotion-item emotion-item-sticker emotion-item-video' code='" . $emotion['code'] . "' title='" . esc_attr($title) . "'><video src='" . $emotion['src'] . "' loop autoplay muted playsinline preload='metadata'/></div>";
 					}
 				}
 				if (isset($group['description'])){

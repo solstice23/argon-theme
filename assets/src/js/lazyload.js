@@ -1,6 +1,7 @@
 var $ = window.$;
 require('../libs/jquery-lazyload/lazyload')
 export const lazyloadInit = () => {
+	$(".comment-item-text .comment-sticker.lazyload").lazyload(Object.assign(window.argonConfig.lazyload, {load: function(){$(this).removeClass("lazyload")}}));
 	if (window.argonConfig.lazyload == false){
 		return;
 	}
@@ -24,6 +25,5 @@ export const lazyloadInit = () => {
 			}
 		})
 	);
-	$(".comment-item-text .comment-sticker.lazyload").lazyload(Object.assign(window.argonConfig.lazyload, {load: function(){$(this).removeClass("lazyload")}}));
 }
 document.addEventListener("DOMContentLoaded", lazyloadInit);

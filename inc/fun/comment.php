@@ -159,7 +159,7 @@ function argon_get_comment_text($comment_ID = 0, $args = array()) {
 		$emotionList = apply_filters("argon_emotion_list", $emotionListDefault);
 		foreach ($emotionList as $groupIndex => $group){ 
 			foreach ($group['list'] as $index => $emotion){
-				if ($emotion['type'] != 'sticker'){
+				if ($emotion['type'] != 'sticker' && $emotion['type'] != 'video'){
 					continue;
 				}
 				if (!isset($emotion['code']) || mb_strlen($emotion['code']) == 0){
@@ -168,7 +168,23 @@ function argon_get_comment_text($comment_ID = 0, $args = array()) {
 				if (!isset($emotion['src']) || mb_strlen($emotion['src']) == 0){
 					continue;
 				}
-				$comment_text = str_replace(':' . $emotion['code'] . ':', "<img class='comment-sticker lazyload' src='data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iZW1vdGlvbi1sb2FkaW5nIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9Ii04IC04IDQwIDQwIiBzdHJva2U9IiM4ODgiIG9wYWNpdHk9Ii41IiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiPgogIDxwYXRoIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGQ9Ik0xNC44MjggMTQuODI4YTQgNCAwIDAxLTUuNjU2IDBNOSAxMGguMDFNMTUgMTBoLjAxTTIxIDEyYTkgOSAwIDExLTE4IDAgOSA5IDAgMDExOCAweiIvPgo8L3N2Zz4=' data-original='" . $emotion['src'] . "'/><noscript><img class='comment-sticker' src='" . $emotion['src'] . "'/></noscript>", $comment_text);
+
+				if (isset($emotion['title'])){
+					$title = $emotion['title'];
+					if (isset($emotion['code'])){
+						$title .= " (:" . $emotion['code'] . ":)";
+					}
+				}else if (isset($emotion['code'])){
+					$title = ":" . $emotion['code'] . ":";
+				}
+
+				if ($emotion['type'] == 'sticker'){
+					$comment_text = str_replace(':' . $emotion['code'] . ':', "<img class='comment-sticker lazyload' title='" . esc_attr($title) . "' src='data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iZW1vdGlvbi1sb2FkaW5nIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9Ii04IC04IDQwIDQwIiBzdHJva2U9IiM4ODgiIG9wYWNpdHk9Ii41IiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiPgogIDxwYXRoIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGQ9Ik0xNC44MjggMTQuODI4YTQgNCAwIDAxLTUuNjU2IDBNOSAxMGguMDFNMTUgMTBoLjAxTTIxIDEyYTkgOSAwIDExLTE4IDAgOSA5IDAgMDExOCAweiIvPgo8L3N2Zz4=' data-original='" . $emotion['src'] . "'/><noscript><img class='comment-sticker' src='" . $emotion['src'] . "'/></noscript>", $comment_text);
+				}else if ($emotion['type'] == 'video'){
+					$comment_text = str_replace(':' . $emotion['code'] . ':', "<video class='comment-sticker comment-sticker-video' title='" . esc_attr($title) . "' src='" . $emotion['src'] . "' loop autoplay muted playsinline preload='metadata'/>", $comment_text);
+					
+				}
+				
 			}
 		}
 	}

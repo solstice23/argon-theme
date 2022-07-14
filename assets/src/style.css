@@ -57,7 +57,7 @@ Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, �
 
 /*评论区*/
 @import './styles/comment.css';
-@import './styles/comment-content.css';
+@import './styles/comment-content.scss';
 @import './styles/comment-fold.css';
 @import './styles/comment-load.css';
 @import './styles/comment-edit-history.css';
