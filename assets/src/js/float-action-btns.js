@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		$("html").removeClass("use-serif");
 	}
 	//阴影
-	$("#blog_setting_shadow_small").on("click" , function(){
+	/*$("#blog_setting_shadow_small").on("click" , function(){
 		$("html").removeClass("use-big-shadow");
 		localStorage['Argon_Use_Big_Shadow'] = "false";
 	});
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		$("html").addClass("use-big-shadow");
 	}else if (localStorage['Argon_Use_Big_Shadow'] == "false"){
 		$("html").removeClass("use-big-shadow");
-	}
+	}*/
 	//滤镜
 	function setBlogFilter(name){
 		if (name == undefined || name == ""){
@@ -155,5 +155,5 @@ document.addEventListener("DOMContentLoaded", () => {
 	$fabtns.removeClass("fabtns-unloaded");
 });
 
-import './blog-settings/card-radius'
+//import './blog-settings/card-radius'
 import './blog-settings/theme-color'

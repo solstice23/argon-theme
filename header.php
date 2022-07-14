@@ -559,12 +559,6 @@
 				<button id="blog_setting_font_sans_serif" type="button" class="blog-setting-font btn btn-outline-primary blog-setting-selector-left">Sans Serif</button><button id="blog_setting_font_serif" type="button" class="blog-setting-font btn btn-outline-primary blog-setting-selector-right">Serif</button>
 			</div>
 		</div>
-		<div class="blog-setting-item mt-3">
-			<div style="flex: 1;"><?php _e('阴影', 'argon');?></div>
-			<div>
-				<button id="blog_setting_shadow_small" type="button" class="blog-setting-shadow btn btn-outline-primary blog-setting-selector-left"><?php _e('浅阴影', 'argon');?></button><button id="blog_setting_shadow_big" type="button" class="blog-setting-shadow btn btn-outline-primary blog-setting-selector-right"><?php _e('深阴影', 'argon');?></button>
-			</div>
-		</div>
 		<div class="blog-setting-item mt-3 mb-3">
 			<div style="flex: 1;"><?php _e('滤镜', 'argon');?></div>
 			<div id="blog_setting_filters" class="ml-3">
@@ -572,12 +566,6 @@
 				<button id="blog_setting_filter_sunset" type="button" class="blog-setting-filter-btn" filter-name="sunset"><?php _e('日落', 'argon');?></button>
 				<button id="blog_setting_filter_darkness" type="button" class="blog-setting-filter-btn" filter-name="darkness"><?php _e('暗化', 'argon');?></button>
 				<button id="blog_setting_filter_grayscale" type="button" class="blog-setting-filter-btn" filter-name="grayscale"><?php _e('灰度', 'argon');?></button>
-			</div>
-		</div>
-		<div class="blog-setting-item mb-3">
-			<div id="blog_setting_card_radius_to_default" style="cursor: pointer;" tooltip="<?php _e('恢复默认', 'argon'); ?>"><?php _e('圆角', 'argon');?></div>
-			<div style="flex: 1;margin-left: 20px;margin-right: 8px;transform: translateY(2px);">
-				<div id="blog_setting_card_radius"></div>
 			</div>
 		</div>
 		<?php if (get_option('argon_show_customize_theme_color_picker') != 'false') {?>
