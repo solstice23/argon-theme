@@ -1,12 +1,13 @@
 const purgecss = require('@fullhuman/postcss-purgecss')
 
-
 module.exports = {
 	plugins: [
 		purgecss({
 			content: [
 				'../*.php',
 				'../*/*.php',
+				'../*/*/*.php',
+				'../*/*/*/*.php',
 				'./src/*.js',
 				'./src/*/*.js',
 				'./src/*/*/*.js',
