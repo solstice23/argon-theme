@@ -1,6 +1,6 @@
 name: 功能请求 / Feature Request
 description: 提议新功能 / Suggest a feature
-title: "[Feature Request] "
+title: "[Feature Request] 在此输入标题"
 labels: [enhancement]
 body:
   - type: markdown
