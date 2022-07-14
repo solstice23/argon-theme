@@ -1,0 +1,130 @@
+#content {
+	padding: 0 5px;
+	max-width: 1200px;
+	margin: auto;
+	margin-top: -30vh;
+}
+html.no-banner #content {
+	margin-top: 85px;
+}
+html.banner-mini #content,
+html.is-home.banner-as-cover #content {
+	margin-top: unset;
+}
+@media screen and (min-width: 1700px) {
+	#content {
+		max-width: 1500px;
+	}
+}
+@media screen and (max-width: 900px) {
+	html.no-banner #content {
+		margin-top: 60px;
+	}
+}
+#primary {
+	width: calc(100% - var(--sidebar-width) - 40px);
+	float: right;
+}
+#leftbar {
+	padding-left: 20px;
+	padding-right: 20px;
+	width: calc(var(--sidebar-width) + 40px);
+	float: left;
+	margin-bottom: 25px;
+}
+#main {
+	padding: 0 20px;
+	overflow: visible;
+	position: relative;
+}
+#main.waterflow {
+	padding: 0;
+}
+.waterflow-placeholder {
+	pointer-events: none;
+}
+
+/*双栏反转布局*/
+html.double-column-reverse #leftbar {
+	float: right;
+}
+html.double-column-reverse #primary {
+	float: left;
+}
+/*单栏布局*/
+html.single-column #leftbar {
+	display: none;
+}
+html.single-column #primary {
+	width: 100%;
+	float: none;
+	max-width: 1200px;
+	margin: auto;
+}
+html.single-column #primary.waterflow {
+	max-width: 1500px;
+}
+html.single-column #main {
+	padding: 0;
+}
+html.single-column #fabtn_open_sidebar {
+	display: none !important;
+}
+html.single-column .page-information-card {
+	width: 100%;
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+html.single-column #open_sidebar {
+	visibility: hidden;
+}
+/*三栏布局*/
+#rightbar {
+	padding-left: 0;
+	padding-right: 0;
+	width: 280px;
+	float: right;
+	margin-bottom: 25px;
+}
+#rightbar > .card {
+	margin-left: 10px;
+	margin-right: 20px;
+	margin-bottom: 15px;
+	padding: 20px 25px;
+}
+#rightbar > .card ul {
+	list-style: none;
+	padding-inline-start: 0;
+}
+#rightbar > .card ul li {
+	margin-bottom: 5px;
+}
+#rightbar > .card > h6 {
+	margin-bottom: 15px;
+}
+@media screen and (min-width: 1100px) {
+	html.triple-column #leftbar {
+		padding-right: 10px;
+	}
+	html.triple-column #leftbar_part2.sticky {
+		width: 250px;
+	}
+	html.triple-column #primary {
+		width: calc(100% - 560px);
+		float: left;
+	}
+}
+html.triple-column #content {
+	max-width: 1500px;
+}
+@media screen and (min-width: 1700px) {
+	html.triple-column #content {
+		max-width: 1600px;
+	}
+}
+@media screen and (max-width: 1100px) {
+	#rightbar {
+		display: none;
+	}
+}

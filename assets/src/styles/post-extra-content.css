@@ -1,0 +1,7 @@
+.additional-content-after-post {
+	border-left: 3px solid var(--themecolor);
+	padding: 15px 20px;
+	background: rgba(var(--themecolor-rgbstr), 0.1);
+	border-radius: 3px;
+	margin-top: 10px;
+}

@@ -1,0 +1,12 @@
+.page-information-card {
+	margin: 30px 20px;
+	margin-top: 0px;
+	background: var(--color-foreground) !important;
+}
+.custom-control.search-filter-wrapper {
+	display: inline-block;
+	margin-right: 12px;
+}
+.custom-control.search-filter-wrapper > .custom-control-label {
+	line-height: 25px;
+}

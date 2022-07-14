@@ -1,0 +1,14 @@
+.MathJax {
+	outline: none !important;
+}
+#MathJax_Zoom {
+	background: var(--color-widgets) !important;
+	border: var(--color-border-on-foreground-deeper) solid 1px !important;
+	border-radius: 3px !important;
+	box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07) !important;
+}
+.CtxtMenu_Menu {
+	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+	border: none !important;
+	border-radius: 5px !important;
+}

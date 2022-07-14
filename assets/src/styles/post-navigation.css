@@ -1,0 +1,31 @@
+.post-navigation {
+	margin-bottom: 25px;
+	padding: 30px 25px;
+	padding-top: 25px;
+	font-size: 18px;
+	display: block !important;
+}
+.post-navigation-item {
+	width: calc(50%);
+	display: inline-block;
+	vertical-align: top;
+}
+.page-navigation-extra-text {
+	font-size: 22px;
+	opacity: 0.85;
+	display: block;
+	margin-bottom: 15px;
+}
+.post-navigation-pre .page-navigation-extra-text i {
+	margin-right: 10px;
+}
+.post-navigation-next .page-navigation-extra-text i {
+	margin-left: 10px;
+}
+.post-navigation-pre {
+	padding-right: 10px;
+}
+.post-navigation-next {
+	padding-left: 10px;
+	text-align: right;
+}

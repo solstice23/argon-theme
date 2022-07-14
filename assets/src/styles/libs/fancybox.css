@@ -1,0 +1,17 @@
+.fancybox-wrapper {
+	width: max-content;
+	max-width: 100%;
+}
+figure > .fancybox-wrapper,
+figure > a > .fancybox-wrapper {
+	width: unset;
+}
+.fancybox-wrapper.lazyload-container-unload {
+	width: 100%;
+}
+
+.fancybox-wrapper > img {
+	cursor: pointer;
+	cursor: -webkit-zoom-in;
+	cursor: zoom-in;
+}

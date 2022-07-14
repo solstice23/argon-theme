@@ -1,0 +1,164 @@
+html.darkmode body {
+	color: #eee;
+}
+html.darkmode body:before {
+	content: "";
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	height: 100vh;
+	width: 100vw;
+	background: rgba(0, 0, 0, 0.2);
+	z-index: 999999999;
+	pointer-events: none;
+	transition: background 0.3s ease;
+}
+html.darkmode body.fancybox-active:before {
+	background: rgba(0, 0, 0, 0);
+}
+html.darkmode .h1,
+html.darkmode .h2,
+html.darkmode .h3,
+html.darkmode .h4,
+html.darkmode .h5,
+html.darkmode .h6,
+html.darkmode h1,
+html.darkmode h2,
+html.darkmode h3,
+html.darkmode h4,
+html.darkmode h5,
+html.darkmode h6 {
+	color: #eee;
+}
+html.darkmode a {
+	color: var(--themecolor-light);
+}
+html.darkmode a:hover {
+	color: var(--themecolor);
+}
+
+html.darkmode ::-webkit-scrollbar {
+	background-color: rgba(255, 255, 255, 0);
+}
+html.darkmode ::-webkit-scrollbar-thumb {
+	background-color: rgba(255, 255, 255, 0.25);
+}
+
+html.darkmode .btn-secondary {
+	color: #eee;
+}
+
+html.darkmode .leftbar-menu-item > a {
+	color: #eee !important;
+}
+
+html.darkmode .site-state-item-count,
+html.darkmode .site-author-links-item > a,
+html.darkmode .site-friend-links-item > a {
+	color: #eee !important;
+}
+
+html.darkmode .site-state-item-name {
+	color: #aaa;
+}
+
+html.darkmode .banner {
+	background-color: var(--color-darkmode-banner);
+}
+html.darkmode .leftbar-banner {
+	background: var(--color-widgets);
+}
+
+html.darkmode #footer {
+	background: var(--color-foreground) !important;
+}
+
+html.darkmode .close > span:not(.sr-only) {
+	color: #eee;
+}
+
+html.darkmode .fabtn {
+	color: #eee;
+}
+html.darkmode .fabtn:hover {
+	background: var(--color-border-on-foreground-deeper) !important;
+}
+html.darkmode .tag.badge {
+	color: #eee;
+}
+
+html.darkmode .dropdown-item:active {
+	background: var(--color-border-on-foreground-deeper);
+}
+html.darkmode .dropdown-item {
+	color: #eee !important;
+}
+
+html.darkmode #leftbar_catalog .index-item,
+html.darkmode #leftbar_catalog .index-link {
+	color: #eee;
+}
+html.darkmode #leftbar_catalog .index-item.current > .index-link {
+	color: var(--themecolor-light);
+}
+
+html.darkmode article .post-content pre:not(.hljs-codeblock) {
+	color: #eee;
+}
+html.darkmode article .post-content code:not([hljs-codeblock-inner]) {
+	color: #eee;
+}
+html.darkmode .form-control {
+	color: #eee;
+}
+html.darkmode input[disabled],
+html.darkmode textarea[disabled],
+html.darkmode #post_comment.logged #post_comment_name,
+html.darkmode #post_comment.logged #post_comment_email {
+	opacity: 0.3;
+}
+
+html.darkmode .comment-item-text .comment-image {
+	color: var(--themecolor-light) !important;
+}
+html.darkmode #blog_setting_darkmode_switch .custom-toggle-slider {
+	border-color: var(--themecolor);
+}
+html.darkmode #blog_setting_darkmode_switch .custom-toggle-slider:before {
+	transform: translateX(1.625rem);
+	background-color: var(--themecolor);
+}
+html.darkmode .badge {
+	color: #eee;
+}
+html.darkmode .page-link {
+	color: #eee !important;
+}
+html.darkmode .zoomify-shadow {
+	background: rgba(0, 0, 0, 0.6);
+}
+html.darkmode #share .wechat-qrcode .help {
+	color: #eee;
+}
+html.darkmode .github-info-card {
+	background: #24292e !important;
+}
+html.darkmode .CtxtMenu_Menu {
+	filter: invert(0.8);
+}
+
+/*==========Style-Dark-For-AMOLED==========*/
+
+html.darkmode.amoled-dark .leftbar-banner {
+	background: var(--color-foreground);
+}
+html.darkmode.amoled-dark .github-info-card {
+	background: #000 !important;
+	border: 1px solid #222;
+}
+html.darkmode.amoled-dark #content:before,
+html.darkmode.amoled-dark #content:after {
+	display: none;
+}

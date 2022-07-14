@@ -1,0 +1,84 @@
+sup.reference {
+	white-space: nowrap;
+	transition: box-shadow 0.3s ease;
+	border-radius: 1px;
+}
+sup.reference:focus {
+	box-shadow: 0 0 0 2px var(--color-widgets), 0 0 0 4px rgba(var(--themecolor-rgbstr), 0.3);
+	outline: none;
+}
+.tippy-box[data-theme~="scroll-y"] .tippy-content {
+	max-height: 200px;
+	overflow-y: auto;
+}
+.tippy-box[data-theme~="light"] {
+	background-color: var(--color-widgets);
+}
+.tippy-box[data-theme~="light"][data-placement^="top"] > .tippy-arrow:before {
+	border-top-color: var(--color-widgets);
+}
+.tippy-box[data-theme~="light"][data-placement^="bottom"] > .tippy-arrow:before {
+	border-bottom-color: var(--color-widgets);
+}
+.tippy-box[data-theme~="light"][data-placement^="left"] > .tippy-arrow:before {
+	border-left-color: var(--color-widgets);
+}
+.tippy-box[data-theme~="light"][data-placement^="right"] > .tippy-arrow:before {
+	border-right-color: var(--color-widgets);
+}
+.tippy-box[data-theme~="light"] > .tippy-backdrop {
+	background-color: var(--color-widgets);
+}
+.tippy-box[data-theme~="light"] > .tippy-svg-arrow {
+	fill: var(--color-widgets);
+}
+
+html.darkmode .tippy-box[data-theme~="light"] {
+	color: #eee;
+	background-color: var(--color-widgets);
+}
+.reference-list {
+	padding-left: 0;
+	list-style: inside none;
+	counter-reset: ol;
+	margin-bottom: 0;
+}
+.reference-list li {
+	font-size: 14px;
+	position: relative;
+	display: flex;
+}
+.reference-list li .space {
+	pointer-events: none;
+}
+.reference-list li .space:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: block;
+	border-radius: 3px;
+	transition: background 0.3s ease;
+	pointer-events: none;
+	background: transparent;
+}
+.reference-list li .space:focus:before {
+	background: rgba(var(--themecolor-rgbstr), 0.15);
+}
+.reference-list li:before {
+	text-align: right;
+	counter-increment: ol;
+	content: counter(ol) ". ";
+	white-space: pre;
+}
+.reference-list li > div > *:first-child {
+	margin-right: 5px;
+}
+.reference-list li > div > sup {
+	margin-left: 1px;
+}
+.reference-list li > div > sup:last-of-type {
+	margin-right: 5px;
+}

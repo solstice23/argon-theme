@@ -1,0 +1,92 @@
+/*Loading Dot*/
+.loading-css-animation {
+	text-align: center;
+}
+.loading-dot {
+	display: inline-block;
+	background: var(--themecolor);
+	height: 6px;
+	width: 6px;
+	opacity: 0;
+	border-radius: 50%;
+	transform: translateX(-300px);
+	animation: loading-animation 4s infinite ease;
+}
+.loading-dot-1 {
+	animation-delay: 0.8s;
+}
+.loading-dot-2 {
+	animation-delay: 0.7s;
+}
+.loading-dot-3 {
+	animation-delay: 0.6s;
+}
+.loading-dot-4 {
+	animation-delay: 0.5s;
+}
+.loading-dot-5 {
+	animation-delay: 0.4s;
+}
+.loading-dot-6 {
+	animation-delay: 0.3s;
+}
+.loading-dot-7 {
+	animation-delay: 0.2s;
+}
+.loading-dot-8 {
+	animation-delay: 0.1s;
+}
+@keyframes loading-animation {
+	40% {
+		transform: translateX(0);
+		opacity: 0.8;
+	}
+	100% {
+		transform: translateX(300px);
+		opacity: 0;
+	}
+}
+/*Loading Spinner*/
+@keyframes spin {
+	to {
+		transform: rotate(1turn);
+	}
+}
+.spinner-border {
+	display: inline-block;
+	width: 2rem;
+	height: 2rem;
+	vertical-align: text-bottom;
+	border: 0.25em solid currentColor;
+	border-right-color: transparent;
+	border-radius: 50%;
+	animation: spin 0.75s linear infinite;
+}
+.spinner-border-sm {
+	width: 1rem;
+	height: 1rem;
+	border-width: 0.2em;
+}
+/*Loading Spinner Grow*/
+@keyframes grow {
+	0% {
+		transform: scale(0);
+	}
+	50% {
+		opacity: 1;
+	}
+}
+.spinner-grow {
+	display: inline-block;
+	width: 2rem;
+	height: 2rem;
+	vertical-align: text-bottom;
+	background-color: currentColor;
+	border-radius: 50%;
+	opacity: 0;
+	animation: grow 0.75s linear infinite;
+}
+.spinner-grow-sm {
+	width: 1rem;
+	height: 1rem;
+}

@@ -1,0 +1,32 @@
+.comment-edit-history-item {
+	border-bottom: 1px solid #e9ecef;
+	margin-bottom: 22px;
+	padding-bottom: 30px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+html.darkmode .comment-edit-history-item {
+	border-bottom-color: #666;
+}
+.comment-edit-history-title {
+	margin-bottom: 6px;
+}
+.comment-edit-history-id {
+	font-size: 22px;
+	font-weight: bold;
+	display: inline-block;
+}
+.comment-edit-history-title .badge {
+	transform: translateY(-3px);
+	margin-left: 8px;
+	display: inline-block;
+}
+.comment-edit-history-time {
+	opacity: 0.6;
+	font-size: 15px;
+	margin-bottom: 12px;
+}
+#comment_edit_history .modal-body .comment-edit-history-item:last-child {
+	border: navajowhite;
+	padding-bottom: 0;
+}

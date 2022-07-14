@@ -1,0 +1,38 @@
+.comment-item-inner.comment-folded {
+	max-height: 200px;
+	overflow: hidden;
+}
+.comment-item-inner.comment-folded:after {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 80px;
+	background: linear-gradient(180deg, transparent 0%, var(--color-foreground) 100%);
+	pointer-events: none;
+}
+.comment-item-inner.comment-folded .comment-operations {
+	display: none;
+}
+.comment-item-inner.comment-folded .show-full-comment {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 35px;
+	color: var(--themecolor);
+	z-index: 2;
+	text-align: left;
+	cursor: pointer;
+	user-select: none;
+	opacity: 0.6;
+	transition: opacity 0.25s ease;
+}
+.comment-item-inner.comment-folded:hover .show-full-comment {
+	opacity: 1;
+}
+.comment-item-inner:not(.comment-folded) .show-full-comment {
+	display: none;
+}

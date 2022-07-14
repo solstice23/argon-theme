@@ -1,0 +1,140 @@
+.comment-item-text .comment-sticker {
+	max-height: 60px;
+	transition: all 0.3s ease;
+	transition-delay: 0s;
+	transform: none;
+}
+.comment-item-text .comment-sticker:active {
+	transition-delay: 0.3s;
+	transform: scale(2);
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+	background: var(--color-widgets);
+}
+.comment-item-text .comment-image br {
+	display: none;
+}
+.comment-item-text .comment-image {
+	color: var(--themecolor) !important;
+	cursor: pointer;
+	user-select: none;
+	position: relative;
+}
+.comment-image-preview-mask {
+	display: none;
+}
+.comment-item-text .comment-image.comment-image-preview-zoomed .comment-image-preview-mask {
+	display: block;
+	background: transparent;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 1501;
+	cursor: zoom-out;
+}
+.comment-item-text .comment-image .comment-image-preview {
+	width: 22px;
+	height: 22px;
+	position: absolute;
+	left: 0;
+	opacity: 0;
+	/*pointer-events: none;*/
+}
+.comment-item-text .comment-image.comment-image-preview-zoomed .comment-image-preview {
+	z-index: 1502;
+	opacity: 1;
+	pointer-events: unset;
+}
+.comment-item-text b,
+.comment-item-text strong {
+	font-weight: 600;
+	opacity: 0.78;
+}
+.comment-item-text pre {
+	font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter",
+		"DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier,
+		monospace;
+	font-size: 14px;
+	line-height: 1.375;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	tab-size: 4;
+	hyphens: none;
+	color: #5e6687;
+	background: var(--color-widgets);
+	direction: ltr;
+	border: 1px solid var(--color-border-on-foreground);
+	padding: 14px;
+	border-radius: 3px;
+	margin-top: 15px;
+}
+html.darkmode .comment-item-text pre {
+	color: #eee;
+}
+.comment-item-text blockquote {
+	padding-left: 1.2em;
+	margin: 1em 3em 1em 0;
+	font-weight: 400;
+	border-left: 3px solid rgba(0, 0, 0, 0.12);
+}
+html.darkmode .comment-item-text blockquote {
+	border-color: rgba(255, 255, 255, 0.2);
+}
+.comment-item-text ol li {
+	list-style-type: decimal !important;
+}
+.comment-item-text ul,
+.comment-item-text ol {
+	padding-inline-start: 20px;
+}
+.comment-item-text ul li {
+	list-style-type: disc !important;
+}
+.comment-item-text ul ul li {
+	list-style-type: square !important;
+}
+.comment-item-text h1,
+.comment-item-text h2,
+.comment-item-text h3,
+.comment-item-text h4,
+.comment-item-text h5,
+.comment-item-text h6 {
+	font-weight: 600;
+	opacity: 0.6;
+	font-size: inherit;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	transition: opacity 0.3s ease;
+}
+.comment-item-text:hover h1,
+.comment-item-text:hover h2,
+.comment-item-text:hover h3,
+.comment-item-text:hover h4,
+.comment-item-text:hover h5,
+.comment-item-text:hover h6 {
+	font-weight: 600;
+	opacity: 0.8;
+}
+.comment-item-text h1 {
+	font-size: 20px;
+}
+.comment-item-text h2 {
+	font-size: 19px;
+}
+.comment-item-text h3 {
+	font-size: 18px;
+}
+.comment-item-text h4 {
+	font-size: 17px;
+}
+.comment-item-text h5 {
+	font-size: 16px;
+}
+.comment-item-text h6 {
+	font-size: 15px;
+}

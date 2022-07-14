@@ -1,0 +1,37 @@
+/*Argon CSS Override*/
+.bg-white,
+.card,
+.dropdown-menu,
+.dropdown-menu:before {
+	background-color: var(--color-foreground) !important;
+}
+.form-control,
+.form-control:focus,
+.focused .input-group-text,
+.btn-neutral,
+.input-group-text,
+.page-link,
+.modal-content,
+.custom-control-label::before,
+.btn-secondary {
+	background-color: var(--color-widgets);
+}
+.page-link {
+	border-color: var(--color-border) !important;
+}
+.modal-header,
+.custom-control-label::before,
+.modal-footer,
+.btn-secondary{
+	border-color: var(--color-border-on-foreground-deeper) !important;
+}
+.page-link:hover {
+	background-color: var(--color-widgets-disabled);
+}
+.form-control:disabled,
+.form-control[readonly] {
+	background-color: var(--color-widgets-disabled);
+}
+.btn-secondary:hover {
+	background-color: var(--color-border-on-foreground-deeper);
+}

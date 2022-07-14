@@ -1,0 +1,19 @@
+.shortcode-todo {
+	cursor: default;
+	margin: 3px 0;
+	.custom-control-input{
+		pointer-events: none;
+	}
+	* {
+		cursor: default !important;
+	}
+	.custom-control-label span {
+		transform: translateY(-2.5px);
+		display: block;
+		cursor: text !important;
+	}
+	.inline {
+		display: inline-block;
+		margin-right: 10px;
+	}
+}

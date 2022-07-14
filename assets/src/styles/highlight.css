@@ -1,0 +1,216 @@
+article table.hljs-ln > tbody > tr > td,
+article table.hljs-ln > tbody > tr > th,
+article table.hljs-ln > tfoot > tr > td,
+article table.hljs-ln > tfoot > tr > th,
+article table.hljs-ln > thead > tr > td,
+article table.hljs-ln > thead > tr > th {
+	padding: unset;
+	vertical-align: unset;
+	border: unset !important;
+}
+.hljs {
+	overflow-x: auto;
+}
+pre.hljs-codeblock {
+	overflow: visible;
+	position: relative;
+	tab-size: 4;
+}
+pre.hljs-codeblock:before {
+	content: "";
+	position: absolute;
+	background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDU0IDE0Ij48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEgMSkiPjxjaXJjbGUgY3g9IjYiIGN5PSI2IiByPSI2IiBmaWxsPSIjRkY1RjU2IiBzdHJva2U9IiNFMDQ0M0UiIHN0cm9rZS13aWR0aD0iLjUiPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjI2IiBjeT0iNiIgcj0iNiIgZmlsbD0iI0ZGQkQyRSIgc3Ryb2tlPSIjREVBMTIzIiBzdHJva2Utd2lkdGg9Ii41Ij48L2NpcmNsZT48Y2lyY2xlIGN4PSI0NiIgY3k9IjYiIHI9IjYiIGZpbGw9IiMyN0M5M0YiIHN0cm9rZT0iIzFBQUIyOSIgc3Ryb2tlLXdpZHRoPSIuNSI+PC9jaXJjbGU+PC9nPjwvc3ZnPg==)
+		no-repeat;
+	background-position-y: center;
+	top: 22px;
+	left: 20px;
+	height: 14px;
+	width: 54px;
+	margin-left: 5px;
+	display: block;
+}
+code[hljs-codeblock-inner] {
+	line-height: 1.5;
+	font-size: 16px;
+	padding: 22px 20px !important;
+	border-radius: 8px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 20px;
+	margin-top: 15px !important;
+	margin-bottom: 15px !important;
+	padding-top: 55px !important;
+	display: block;
+}
+.hljs-ln-numbers {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	text-align: center;
+	vertical-align: top;
+	padding-right: 12px !important;
+	position: absolute;
+	left: 20px;
+	width: 30px;
+	overflow-x: visible !important;
+	white-space: nowrap;
+	transition: all 0.3s ease;
+}
+.hljs-ln-numbers:before {
+	content: "";
+	position: absolute;
+	left: -20px;
+	width: 20px;
+	height: 100%;
+	background: inherit;
+}
+pre.hljs-codeblock.hljs-transparent-linenumber .hljs-ln-numbers {
+	background: transparent !important;
+}
+.hljs-ln-code {
+	padding-left: 30px !important;
+	transition: all 0.3s ease;
+}
+pre.hljs-codeblock.hljs-break-line .hljs-ln-code {
+	line-break: anywhere;
+	white-space: break-spaces;
+}
+pre.hljs-codeblock:not(.hljs-break-line) .hljs-ln-code {
+	white-space: pre;
+}
+code[hljs-codeblock-inner]::-webkit-scrollbar-track {
+	border: none;
+	background: transparent !important;
+}
+code[hljs-codeblock-inner]::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.3) !important;
+	box-shadow: none !important;
+	border: none !important;
+	border-radius: 10px;
+	transition: background 0.3s ease;
+}
+code[hljs-codeblock-inner]::-webkit-scrollbar-thumb:hover {
+	background: rgba(255, 255, 255, 0.5) !important;
+}
+code[hljs-codeblock-inner]::-webkit-scrollbar {
+	background: transparent;
+	height: 6px;
+}
+code[hljs-codeblock-inner] *::selection {
+	background-color: rgba(204, 226, 255, 0.2) !important;
+}
+pre.hljs-codeblock.hljs-codeblock-fullscreen {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 10000;
+	margin: 0 !important;
+	animation: codeblock-fullscreen 0.5s cubic-bezier(0.18, 0.89, 0.37, 1.12);
+}
+pre.hljs-codeblock.hljs-codeblock-fullscreen > code[hljs-codeblock-inner] {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	border-radius: 0;
+	margin: 0 !important;
+}
+pre.hljs-codeblock.hljs-codeblock-fullscreen:before {
+	z-index: 10001;
+}
+@keyframes codeblock-fullscreen {
+	0% {
+		transform: scale(0.5);
+		opacity: 1;
+	}
+	100% {
+		transform: none;
+		opacity: 1;
+	}
+}
+pre.hljs-codeblock.hljs-hide-linenumber .hljs-ln-numbers {
+	width: 0px;
+	opacity: 0;
+}
+pre.hljs-codeblock.hljs-hide-linenumber .hljs-ln-code {
+	padding-left: 4px !important;
+}
+pre.hljs-codeblock .hljs-control {
+	display: block;
+	position: absolute;
+	top: 16px !important;
+	right: 20px !important;
+	user-select: none;
+	opacity: 0;
+	transition: all 0.2s ease;
+	white-space: nowrap;
+	overflow: visible;
+	background: transparent;
+	padding: 0;
+	margin: 0;
+}
+pre.hljs-codeblock:hover .hljs-control {
+	opacity: 0.4;
+}
+pre.hljs-codeblock:hover .hljs-control:hover {
+	opacity: 1;
+}
+pre.hljs-codeblock .hljs-control i.fa {
+	font: normal normal normal 14px/1 FontAwesome !important;
+}
+.hljs-control .hljs-control-btn {
+	display: inline-block;
+	opacity: 0.8;
+	transition: all 0.2s ease;
+	cursor: pointer;
+	margin-left: 15px;
+	width: 12px;
+	position: relative;
+}
+.hljs-control .hljs-control-btn:hover {
+	opacity: 0.5;
+}
+.hljs-control-btn:before {
+	position: absolute;
+	top: 22px;
+	left: -40px;
+	width: 92px;
+	text-align: center;
+	opacity: 0;
+	pointer-events: none;
+	transition: all 0.2s ease;
+	font-size: 12px;
+	font-family: sans-serif;
+}
+.hljs-control-btn:hover:before {
+	opacity: 1;
+	top: 25px;
+}
+.hljs-control-toggle-linenumber:before {
+	content: attr(tooltip-hide-linenumber);
+}
+pre.hljs-codeblock.hljs-hide-linenumber .hljs-control-toggle-linenumber:before {
+	content: attr(tooltip-show-linenumber);
+}
+.hljs-control-toggle-break-line:before {
+	content: attr(tooltip-enable-breakline);
+}
+pre.hljs-codeblock.hljs-break-line .hljs-control-toggle-break-line:before {
+	content: attr(tooltip-disable-breakline);
+}
+.hljs-control-copy:before {
+	content: attr(tooltip);
+}
+.hljs-control-fullscreen:before {
+	content: attr(tooltip-fullscreen);
+}
+pre.hljs-codeblock.hljs-codeblock-fullscreen .hljs-control-fullscreen:before {
+	content: attr(tooltip-exit-fullscreen);
+}
+pre.hljs-codeblock.hljs-codeblock-fullscreen .hljs-control-fullscreen > i:before {
+	content: "\f066";
+}

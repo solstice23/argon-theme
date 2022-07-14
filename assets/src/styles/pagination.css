@@ -1,0 +1,14 @@
+.pagination {
+	width: max-content;
+	width: -moz-max-content;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	margin: auto;
+	margin-bottom: 25px;
+}
+.pagination.pagination-mobile {
+	display: none;
+}
+.page-link {
+	transition: background-color 0.2s ease;
+}

@@ -1,0 +1,6 @@
+html.no-js article img.lazyload[src^="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPg"] {
+	display: none;
+}
+html.no-js .comment-item-text .comment-sticker.lazyload {
+	display: none;
+}

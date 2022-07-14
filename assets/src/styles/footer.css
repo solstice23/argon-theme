@@ -1,0 +1,14 @@
+#footer {
+	background: var(--themecolor-gradient);
+	color: #fff;
+	width: 100%;
+	float: right;
+	margin-bottom: 25px;
+	text-align: center;
+	padding: 25px 20px;
+	line-height: 1.8;
+	transition: none;
+}
+#footer a {
+	color: #fff;
+}

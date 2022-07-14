@@ -1,0 +1,205 @@
+.post {
+	margin-bottom: 25px;
+	padding: 30px 30px;
+	padding-bottom: 35px;
+}
+.post-preview {
+	transition: all 0.5s ease;
+}
+.post-preview .loading-css-animation {
+	padding-top: 20px;
+	padding-bottom: 10px;
+	width: 100%;
+}
+.post-preview.post-pjax-loading {
+	opacity: 1 !important;
+}
+.post-list-pjax-loading .post-preview {
+	opacity: 0;
+	pointer-events: none;
+}
+.post-title {
+	font-size: 26px;
+	letter-spacing: 0.5px;
+	transition: all 0.35s ease;
+}
+.post-title:hover {
+	letter-spacing: 1px;
+}
+#main.waterflow .post-title {
+	transition: all 0.3s ease;
+	display: inline-block;
+}
+#main.waterflow .post-title:hover {
+	letter-spacing: 0.5px;
+	transform: scale(1.02);
+	text-rendering: optimizeLegibility;
+}
+.post-header {
+	margin-bottom: 20px;
+}
+.post-meta {
+	margin-top: 10px;
+}
+.post-meta-detail {
+	font-size: 14.5px;
+	line-height: 24px;
+	opacity: 0.8;
+	display: inline-block;
+}
+.post-meta-detail i {
+	margin-right: 3px;
+}
+.post-meta-devide {
+	display: inline-block;
+	font-size: 14.5px;
+	line-height: 24px;
+	margin-left: 3px;
+	margin-right: 3px;
+	opacity: 0.5;
+	user-select: none;
+}
+.post-meta-detail-categories-space {
+	margin-left: 2px;
+	margin-right: 2px;
+}
+.post-header.post-header-with-thumbnail {
+	margin: -30px -30px 35px -30px;
+	border-radius: var(--card-radius) var(--card-radius) 0 0;
+	overflow: hidden;
+	position: relative;
+}
+.post-thumbnail {
+	width: 100%;
+	min-height: 250px;
+	max-height: 25vh;
+	object-fit: cover;
+	pointer-events: none;
+}
+.post-thumbnail.lazyload {
+	transition: opacity 0.3s ease 0s;
+}
+.post-thumbnail.lazyload.lazyload-loaded {
+	opacity: 1 !important;
+}
+.single .post-thumbnail,
+.page .post-thumbnail {
+	max-height: 30vh;
+	min-height: 250px;
+}
+.post-header.post-header-with-thumbnail .post-header-text-container {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	color: #fff;
+	opacity: 0.9;
+	padding-bottom: 35px;
+	padding-top: 35px;
+	background: rgba(0, 0, 0, 0.05);
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.3) 20%, rgba(0, 0, 0, 0));
+}
+.post-header.post-header-with-thumbnail .post-header-text-container .post-title {
+	color: rgba(255, 255, 255, 0.95) !important;
+	/*text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);*/
+	filter: drop-shadow(0px 1px 5px #0005);
+}
+.post-header.post-header-with-thumbnail .post-header-text-container .post-meta {
+	text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+}
+.post-outdated-info {
+	color: var(--themecolor);
+	border-left: 2px solid var(--themecolor);
+	padding: 5px 20px;
+	margin-top: 10px;
+	margin-bottom: 25px;
+	background: rgba(var(--themecolor-rgbstr), 0.1);
+}
+.post-outdated-info > i {
+	font-size: 20px;
+	margin-right: 15px;
+	transform: translateY(2px);
+}
+.post-header-with-thumbnail + .post-content > .post-outdated-info {
+	margin-top: -15px;
+}
+.post-content {
+	line-height: 1.8;
+	margin-bottom: 10px;
+}
+.post-content p {
+	font-weight: normal;
+}
+.post-tags {
+	margin-top: 15px;
+	margin-bottom: -4px;
+}
+.post-tags > i {
+	margin-right: 5px;
+}
+.tag.post-meta-detail-tag {
+	margin-bottom: 4px;
+	margin-right: 7px;
+	font-size: 12px;
+}
+.additional-content-after-post + .post-tags {
+	margin-top: 25px;
+}
+/* 文章预览样式 2 */
+article.post-preview-layout-2 {
+	display: flex;
+	flex-direction: row;
+	padding: 0;
+}
+article.post-preview-layout-2 .post-header.post-header-with-thumbnail {
+	margin: 0;
+	border-radius: var(--card-radius) 0 0 var(--card-radius);
+	text-align: left;
+	width: min(33%, 500px);
+}
+article.post-preview-layout-2 .post-thumbnail {
+	width: 100%;
+	height: 100%;
+	max-height: unset;
+}
+article.post-preview-layout-2 .post-content-container {
+	padding: 25px 30px 25px 30px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	max-width: 100%;
+}
+article.post-preview-layout-2 .post-content {
+	flex: 1;
+	margin-top: 10px;
+}
+article.post-preview-layout-2 .post-title {
+	max-width: max-content;
+}
+article.post-preview-layout-2 .loading-css-animation {
+	position: absolute;
+	bottom: -8px;
+}
+@media screen and (max-width: 800px) {
+    article.post-preview-layout-2 {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
+    article.post-preview-layout-2 .post-header.post-header-with-thumbnail {
+        margin: 0;
+        border-radius: var(--card-radius);
+        text-align: left;
+        width: 100%;
+    }
+}
+/* 文章预览样式 3 */
+article.post-preview-layout-3 .post-header {
+	margin-bottom: 10px;
+}
+article.post-preview-layout-3 .post-header.post-header-with-thumbnail {
+	margin-bottom: 25px;
+}
+article.post-preview-layout-3 .post-thumbnail {
+	max-height: 20vh;
+}

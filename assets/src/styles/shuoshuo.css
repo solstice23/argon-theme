@@ -1,0 +1,209 @@
+.shuoshuo-container {
+	margin-bottom: 25px;
+}
+.shuoshuo-meta {
+	text-align: center;
+	background: var(--color-foreground);
+	border-radius: 5px 5px 0 0;
+	width: max-content;
+	width: -moz-max-content;
+	padding: 3px 15px;
+	font-size: 15px;
+	opacity: 0.95;
+}
+.shuoshuo-meta i.fa {
+	margin-right: 3px;
+}
+.shuoshuo-date-date,
+.shuoshuo-date-month {
+	font-size: 18px;
+}
+.shuoshuo-main {
+	border-top-left-radius: 0;
+	padding: 20px 20px;
+}
+.shuoshuo-title {
+	font-size: 18px;
+	color: #555;
+	font-weight: bold;
+	margin-bottom: 10px;
+	width: max-content;
+	width: -moz-max-content;
+	max-width: 100%;
+}
+.shuoshuo-content {
+	padding-bottom: 10px;
+}
+.shuoshuo-content p {
+	margin-bottom: 0;
+	line-height: 1.8;
+}
+.shuoshuo-content * {
+	max-width: 100%;
+}
+.shuoshuo-comments {
+	font-size: 14px;
+	opacity: 0.85;
+	margin-top: 10px;
+}
+.shuoshuo-comments li {
+	list-style: none;
+}
+.shuoshuo-comment-item-title {
+	font-weight: bold;
+}
+html.darkmode .shuoshuo-content pre{
+	color: #eee;
+}
+.shuoshuo-comment-item-title .badge-admin,
+.shuoshuo-comment-item-title .badge-private-comment,
+.shuoshuo-comment-item-title .badge-unapproved {
+	transform: translateY(-2px);
+	padding: 3px 5px;
+}
+.shuoshuo-comments .comment-item-inner {
+	margin-top: 2px;
+	padding-bottom: 3px;
+	border: none !important;
+}
+.shuoshuo-comments ul.children {
+	padding-inline-start: 20px;
+}
+.shuoshuo-operations {
+	margin-top: 5px;
+	margin-left: auto;
+	width: max-content;
+	width: -moz-max-content;
+}
+.shuoshuo-operations button {
+	margin-left: 3px;
+}
+.shuoshuo-operations button.upvoted {
+	color: #fff;
+	border-color: var(--themecolor);
+	background-color: var(--themecolor);
+	pointer-events: none;
+}
+@keyframes shuoshuo-upvoted-animation {
+	0% {
+		transform: none;
+	}
+	50% {
+		transform: scale(1.35);
+	}
+	100% {
+		transform: none;
+	}
+}
+.shuoshuo-upvoted-animation i.fa {
+	animation: shuoshuo-upvoted-animation 1s ease;
+}
+.shuoshuo-upvote i.fa-spin {
+	display: none;
+}
+.shuoshuo-upvote.shuoshuo-upvoting i.fa-spin {
+	display: inline-block;
+}
+.shuoshuo-upvote.shuoshuo-upvoting {
+	opacity: 0.8;
+	pointer-events: none;
+}
+
+.shuoshuo-preview-container {
+	margin-bottom: 20px;
+	padding: 25px 35px;
+	transition: opacity 0.5s ease;
+}
+.shuoshuo-preview-container:before {
+	content: "";
+	display: block;
+	position: absolute;
+	left: -20px;
+	top: -10px;
+	width: 40px;
+	height: 30px;
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTgzNDIzNDcwNTE4IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjMwOTciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNzc1Ljk5MTUxIDQzNy43MjYzOWM0OC4xMzEyMDctNzQuODg3NTk0IDExNi4yODY0Ny0xMzguMjQ5NjkxIDE4My4wMzg3OC0xODMuNTU2NTczbC03NS4xMzQyMTEtNzkuNDAxMzk4Yy0xNzIuNDgwMzA2IDY3LjY0MDU0LTMzNi43ODMzNzMgMjQyLjYxMTU3My0zMzYuNzgzMzczIDQ0OC40MzkzODJsMS4zMjcyMjggMGMtMC41Njg5NTggNi4yMzE5MzUtMC44NzQ5MjcgMTIuNTQwNjE3LTAuODc0OTI3IDE4LjkyMDkzMiAwIDExMy41ODU5NjUgOTIuMDc3MDkyIDIwNS42NjMwNTYgMjA1LjY2MzA1NiAyMDUuNjYzMDU2IDExMy41ODE4NzEgMCAyMDUuNjYzMDU2LTkyLjA3NzA5MiAyMDUuNjYzMDU2LTIwNS42NjMwNTZDOTU4Ljg5MjE0MyA1MzYuMjM5MDU0IDg3OC44NjAzODkgNDQ5LjA1NTQxMiA3NzUuOTkxNTEgNDM3LjcyNjM5ek00NzIuOTE2ODY2IDI1NC4xNjk4MTdsLTc1LjEzNDIxMS03OS40MDEzOThjLTE3Mi40ODAzMDYgNjcuNjQwNTQtMzM2Ljc4MzM3MyAyNDIuNjExNTczLTMzNi43ODMzNzMgNDQ4LjQzOTM4MmwxLjMyNzIyOCAwYy0wLjU2ODk1OCA2LjIzMTkzNS0wLjg3NDkyNyAxMi41NDA2MTctMC44NzQ5MjcgMTguOTIwOTMyIDAgMTEzLjU4NTk2NSA5Mi4wNzcwOTIgMjA1LjY2MzA1NiAyMDUuNjYzMDU2IDIwNS42NjMwNTZzMjA1LjY2MzA1Ni05Mi4wNzcwOTIgMjA1LjY2MzA1Ni0yMDUuNjYzMDU2YzAtMTA1Ljg5MDcwMi04MC4wMjg2ODUtMTkzLjA3NTM2Ny0xODIuOTAwNjMzLTIwNC40MDMzNjdDMzM4LjAwODI3IDM2Mi44Mzg3OTUgNDA2LjE2MzUzMyAyOTkuNDc2Njk5IDQ3Mi45MTY4NjYgMjU0LjE2OTgxN3oiIHAtaWQ9IjMwOTgiIGZpbGw9IiNmZmZmZmYiIGRhdGEtc3BtLWFuY2hvci1pZD0iYTMxM3guNzc4MTA2OS4wLmkyIiBjbGFzcz0ic2VsZWN0ZWQiPjwvcGF0aD48L3N2Zz4=);
+	background-color: var(--themecolor);
+	background-position: 40% 35%;
+	border-radius: 20px;
+	background-size: 32%;
+	background-repeat: no-repeat;
+	transition: all 0.3s ease;
+}
+.shuoshuo-preview-container:hover:before {
+	left: -20px;
+	top: -10px;
+	width: 40px;
+	height: 40px;
+	background-position: 45% 45%;
+	border-radius: 20px;
+	background-size: 40%;
+	background-repeat: no-repeat;
+}
+.shuoshuo-preview-meta {
+	font-size: 14px;
+	opacity: 0.6;
+	transition: all 0.3s ease;
+	margin-top: 10px;
+}
+.shuoshuo-preview-container .shuoshuo-preview-meta:hover {
+	opacity: 0.8;
+}
+.shuoshuo-preview-meta .shuoshuo-date-date,
+.shuoshuo-preview-meta .shuoshuo-date-month {
+	font-size: 14px;
+}
+.shuoshuo-preview-link {
+	position: absolute;
+	right: 20px;
+	bottom: 25px;
+	opacity: 0;
+	transition: all 0.3s ease;
+}
+.shuoshuo-preview-container:hover .shuoshuo-preview-link {
+	opacity: 1;
+}
+.post-list-pjax-loading .shuoshuo-preview-container {
+	opacity: 0;
+	pointer-events: none;
+}
+.shuoshuo-content.shuoshuo-folded {
+	position: relative;
+	max-height: 400px;
+	overflow: hidden;
+}
+.shuoshuo-content.shuoshuo-folded:after {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 150px;
+	background: linear-gradient(180deg, transparent 0%, var(--color-foreground) 100%);
+	pointer-events: none;
+}
+.shuoshuo-content.shuoshuo-folded .show-full-shuoshuo {
+	position: absolute;
+	bottom: 10px;
+	right: 50%;
+	transform: translateX(50%);
+	color: var(--themecolor);
+	z-index: 2;
+	text-align: left;
+	cursor: pointer;
+	user-select: none;
+	opacity: 1;
+}
+.shuoshuo-content.shuoshuo-folded .show-full-shuoshuo > button {
+	border-radius: var(--card-radius);
+	padding: 5px 20px;
+	opacity: 0.8;
+}
+.shuoshuo-content.shuoshuo-folded .show-full-shuoshuo button:hover {
+	opacity: 1;
+}
+
+.shuoshuo-content:not(.shuoshuo-folded) .show-full-shuoshuo {
+	display: none;
+}

@@ -1,0 +1,471 @@
+/*短代码-checkbox*/
+@import './shortcodes/todo.scss';
+
+
+/*Todo: refactor*/
+
+
+
+
+
+
+
+
+/*短代码-警告与折叠块*/
+.admonition,
+.collapse-block {
+	border-radius: 3px;
+	border-left-width: 3px;
+	border-left-style: solid;
+	margin-bottom: 20px;
+	background-color: var(--color-widgets) !important;
+}
+.admonition i:first-child,
+.collapse-block .collapse-block-title i:first-child {
+	margin-right: 5px;
+}
+.collapse-block.hide-border-left {
+	border-left: none;
+}
+.collapse-block .collapse-icon {
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+	transform: rotateZ(180deg);
+	transition: all 0.2s ease;
+}
+.collapse-block.collapsed .collapse-icon {
+	transform: rotateZ(0deg);
+}
+.admonition-title,
+.collapse-block-title {
+	padding: 10px 15px;
+	font-weight: bold;
+}
+.collapse-block-title-inner {
+	max-width: calc(100% - 20px);
+	display: inline-block;
+}
+.collapse-block-title {
+	cursor: pointer;
+	position: relative;
+}
+.admonition-body,
+.collapse-block-body {
+	padding: 20px 15px;
+	padding-bottom: 20px;
+}
+.admonition-primary,
+.collapse-block-primary {
+	border-left-color: #7889e8;
+}
+.admonition-primary > .admonition-title,
+.collapse-block-primary > .collapse-block-title {
+	background: #7889e833;
+}
+.admonition-success,
+.collapse-block-success {
+	border-left-color: #4fd69c;
+}
+.admonition-success > .admonition-title,
+.collapse-block-success > .collapse-block-title {
+	background: #4fd69c33;
+}
+.admonition-danger,
+.collapse-block-danger {
+	border-left-color: #f75676;
+}
+.admonition-danger > .admonition-title,
+.collapse-block-danger > .collapse-block-title {
+	background: #f7567633;
+}
+.admonition-info,
+.collapse-block-info {
+	border-left-color: #37d5f2;
+}
+.admonition-info > .admonition-title,
+.collapse-block-info > .collapse-block-title {
+	background: #37d5f233;
+}
+.admonition-warning,
+.collapse-block-warning {
+	border-left-color: #fc7c5f;
+}
+.admonition-warning > .admonition-title,
+.collapse-block-warning > .collapse-block-title {
+	background: #fc7c5f33;
+}
+.admonition-default,
+.collapse-block-default {
+	border-left-color: #3c4d69;
+}
+.admonition-default > .admonition-title,
+.collapse-block-default > .collapse-block-title {
+	background: #3c4d6933;
+}
+.admonition-grey,
+.collapse-block-grey {
+	border-left-color: #888888;
+}
+.admonition-grey > .admonition-title,
+.collapse-block-grey > .collapse-block-title {
+	background: #88888833;
+}
+
+/*短代码-友链-简洁*/
+.friend-links-simple .friend-category-title {
+	font-size: 22px;
+	text-align: center;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 25px;
+}
+.friend-links-simple .link {
+	padding: 0 10px;
+}
+.friend-links-simple .link .card {
+	padding: 12px 12px;
+}
+.friend-links-simple .link .friend-link-avatar {
+	margin-top: 8px;
+}
+.friend-links-simple .link .card img {
+	border: none;
+	max-width: unset;
+}
+.friend-links-simple .link .friend-link-title {
+	font-size: 17px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.friend-links-simple .link a:before {
+	display: none;
+}
+
+/*短代码-友链*/
+.friend-links .link {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 15px;
+}
+.friend-links .friend-link-container {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	background-color: var(--color-widgets) !important;
+}
+.friend-links .link a:before {
+	display: none;
+}
+/*短代码-友链-样式 1*/
+.friend-links-style1 .friend-link-avatar {
+	display: inline-block;
+	width: 125px;
+	height: 140px;
+	border-radius: 0 65px 65px 0;
+	object-fit: cover;
+	pointer-events: none;
+}
+.friend-links-style1 .friend-link-content {
+	display: inline-block;
+	width: calc(100% - 125px);
+	height: 140px;
+	vertical-align: middle;
+	padding: 10px 15px 10px 15px;
+	white-space: normal;
+}
+.friend-links-style1 .no-avatar .friend-link-content {
+	width: 100%;
+}
+.friend-links-style1 .friend-link-title {
+	font-weight: bold;
+	font-size: 18px;
+	height: 36px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.friend-links-style1 .friend-link-description {
+	height: 50px;
+	overflow: hidden;
+	line-height: 25px;
+	position: relative;
+}
+.friend-links-style1 .friend-link-description:after {
+	content: "";
+	width: 45px;
+	height: 22px;
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 25px;
+	pointer-events: none;
+	background: linear-gradient(90deg, transparent 0%, var(--color-widgets) 100%);
+}
+.friend-links-style1 .friend-link-links {
+	height: 32px;
+	overflow: hidden;
+	font-size: 18px;
+	margin-top: 2px;
+}
+.friend-links-style1 .friend-link-links > a {
+	margin-right: 12px;
+}
+/*短代码-友链-样式 1-方形头像*/
+.friend-links-style1.friend-links-style1-square .friend-link-avatar {
+	border-radius: 0;
+	width: 130px;
+}
+.friend-links-style1.friend-links-style1-square .friend-link-content {
+	width: calc(100% - 130px);
+}
+.friend-links-style1.friend-links-style1-square .no-avatar .friend-link-content {
+	width: 100%;
+}
+/*短代码-友链-样式 2*/
+.friend-links-style2 .friend-link-avatar {
+	display: block;
+	width: 100%;
+	height: 160px;
+	object-fit: cover;
+	pointer-events: none;
+}
+.friend-links-style2 .friend-link-content {
+	display: block;
+	width: 100%;
+	padding: 10px 15px 12px 15px;
+}
+.friend-links-style2 .friend-link-title {
+	font-weight: bold;
+	font-size: 18px;
+	height: 36px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.friend-links-style2 .friend-link-description {
+	height: 25px;
+	line-height: 25px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.friend-links-style2 .friend-link-links {
+	height: 30px;
+	overflow: hidden;
+	font-size: 18px;
+	margin-top: 8px;
+}
+.friend-links-style2 .friend-link-links > a {
+	margin-right: 15px;
+}
+/*短代码-友链-样式 2-大头像*/
+.friend-links-style2.friend-links-style2-big .friend-link-avatar {
+	height: calc(100vw * 0.2);
+	min-height: 200px;
+	max-height: 250px;
+}
+.friend-links-style2.friend-links-style2-big .friend-link-links > a {
+	margin-right: 12px;
+}
+@media (min-width: 900px) {
+	.friend-links.friend-links-style2-big .link {
+		max-width: 33.33333%;
+		flex: 0 0 33.33333%;
+	}
+}
+
+/*短代码-时间线*/
+.argon-timeline {
+	margin-left: 110px;
+	border-left: 3px solid rgba(var(--themecolor-rgbstr), 0.2);
+	padding-left: 25px;
+	position: relative;
+	padding-top: 30px;
+	padding-bottom: 10px;
+}
+.argon-timeline-time {
+	position: absolute !important;
+	left: -110px;
+	margin-top: 12px;
+	width: 85px;
+	text-align: right;
+	font-size: 15px;
+	line-height: 26px;
+}
+.argon-timeline-card {
+	margin-bottom: 35px;
+	padding: 18px 25px;
+	background: var(--color-widgets) !important;
+}
+.argon-timeline-card:before {
+	content: "";
+	position: absolute;
+	left: -35px;
+	top: 17px;
+	background: var(--themecolor);
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+}
+.argon-timeline-title {
+	font-size: 17px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+/*短代码-隐藏文本*/
+.argon-hidden-text {
+	transition: all 0.3s ease;
+}
+.argon-hidden-text.argon-hidden-text-blur {
+	filter: blur(4px);
+}
+.argon-hidden-text.argon-hidden-text-blur:hover {
+	filter: blur(0px);
+}
+.argon-hidden-text.argon-hidden-text-background {
+	background: #000;
+	color: transparent;
+	border-radius: 1px;
+}
+.argon-hidden-text.argon-hidden-text-background:hover {
+	background: transparent;
+	color: inherit;
+	border-radius: 0px;
+}
+
+/*短代码-Github*/
+.github-info-card {
+	background: #24292e !important;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 20px 25px;
+	color: #eee;
+}
+.github-info-card a {
+	color: var(--themecolor-light);
+}
+.github-info-card-header {
+	margin-bottom: 5px;
+}
+.github-info-card-header a {
+	color: #eee !important;
+	font-size: 16px;
+}
+.github-info-card-header a:before {
+	display: none;
+}
+.github-info-card-header a i {
+	margin-right: 2px;
+}
+.github-info-card-name-a {
+	font-size: 20px;
+}
+.github-info-card-bottom {
+	margin-top: 15px;
+}
+.github-info-card-bottom .github-info-card-meta {
+	margin-right: 10px;
+	opacity: 0.7;
+}
+.github-info-card-bottom .github-info-card-meta i {
+	margin-right: 2px;
+}
+/*短代码-Github-Mini*/
+.github-info-card-mini {
+	display: flex;
+	flex-direction: row;
+	white-space: nowrap;
+	align-items: center;
+	padding: 15px 20px;
+}
+.github-info-card-mini .github-info-card-name-a {
+	display: inline-block;
+	margin-right: 12px;
+	font-size: 19px;
+}
+.github-info-card-mini .github-info-card-description {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	word-break: break-all;
+	display: inline-block;
+}
+.github-info-card-mini .github-info-card-body {
+	flex: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+}
+.github-info-card-mini .github-info-card-bottom {
+	display: inline-block;
+	margin-top: 0;
+	margin-left: 10px;
+}
+.github-info-card-mini .github-info-card-header {
+	margin-right: 7px;
+	margin-bottom: 0;
+}
+.github-info-card-mini .github-info-card-header a i {
+	font-size: 19px;
+	transform: translateY(2px);
+	margin-right: 2px;
+}
+.github-info-card-mini .github-info-card-bottom .github-info-card-meta-forks {
+	display: none;
+}
+.github-info-card-mini .github-info-card-bottom .github-info-card-meta-stars {
+	margin-right: 0;
+}
+
+/*短代码-进度条*/
+.progress {
+	background: var(--color-border-on-foreground-deeper);
+}
+/*Gutenburg 区块-Tab 面板*/
+.argon-tabpanel {
+	margin-bottom: 20px;
+}
+.argon-tabpanel > .tabpanel-header {
+	padding: 0;
+}
+.argon-tabpanel > .tabpanel-body {
+	background-color: var(--color-widgets) !important;
+}
+.argon-tabpanel .nav {
+	display: flex;
+	justify-content: flex-start;
+	align-content: center;
+	flex-wrap: wrap;
+}
+.argon-tabpanel .nav-pills .nav-item {
+	padding: 0;
+	flex: 0;
+	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+	margin-bottom: 0;
+}
+.argon-tabpanel .nav-pills .nav-link {
+	box-shadow: none;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	background-color: var(--color-widgets);
+	border: solid 1px var(--color-border-on-foreground);
+	border-bottom: none;
+	padding: 8px 16px;
+	white-space: nowrap;
+}
+html.darkmode .argon-tabpanel .nav-pills .nav-link {
+	color: #fff;
+}
+.argon-tabpanel .nav-pills .nav-link:not(:first-of-type) {
+	border-left: none;
+}
+.argon-tabpanel .nav-pills .nav-link:before {
+	display: none;
+}
+.argon-tabpanel .nav-pills .nav-link.active,
+.argon-tabpanel .nav-pills .show > .nav-link {
+	background-color: var(--themecolor) !important;
+}

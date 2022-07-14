@@ -1,0 +1,23 @@
+.noUi-connect,
+.noUi-handle {
+	background: var(--themecolor) !important;
+}
+.noUi-handle:before {
+	content: attr(aria-valuenow) " px";
+	position: absolute;
+	left: -36px;
+	top: -20px;
+	font-size: 10px;
+	display: block;
+	width: 90px;
+	text-align: center;
+	transition: opacity 0.15s ease;
+	opacity: 0;
+	pointer-events: none;
+}
+.noUi-handle.noUi-active:before {
+	opacity: 1;
+}
+.noUi-target {
+	background: var(--color-border-on-foreground-deeper);
+}

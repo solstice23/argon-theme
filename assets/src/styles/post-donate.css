@@ -1,0 +1,48 @@
+.post-donate {
+	text-align: center;
+	position: relative;
+}
+.post-donate img {
+	/*width: max-content;
+	width: -moz-max-content;*/
+	max-width: min(30vw, 500px);
+}
+.post-donate .donate-qrcode {
+	width: max-content;
+	width: -moz-max-content;
+	position: absolute;
+	left: 50%;
+	bottom: 100px;
+	padding: 25px;
+	z-index: 2;
+	transition: all 0.3s ease;
+	transform: translate(-50%, 10px) scale(0.9);
+	transform-origin: bottom;
+	opacity: 0;
+	pointer-events: none;
+	background-color: var(--color-widgets) !important;
+}
+.post-donate .donate-btn:focus ~ .donate-qrcode {
+	transform: translateX(-50%);
+	opacity: 1;
+}
+.post-donate .donate-btn {
+	margin-right: 0;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+.post-donate .donate-qrcode:before {
+	position: absolute;
+	z-index: 3;
+	bottom: 0;
+	left: 50%;
+	display: block;
+	width: 16px;
+	height: 16px;
+	content: "";
+	transform: translate(-50%, 8px) rotate(-45deg);
+	border-radius: 0.2rem;
+	background: var(--color-widgets);
+	z-index: 1;
+	box-shadow: -2px 2px 5px 0px rgba(0, 0, 0, 0.1);
+}
