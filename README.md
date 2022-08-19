@@ -3,7 +3,7 @@
 **简体中文** | [繁體中文](README_tw.md) | [English](README_en.md) | [Russian](README_ru.md)
 
 # Argon-Theme
-Argon - 一个轻盈、简洁、美观的 WordPress 主题
+Argon - 轻盈、简洁、美观的 WordPress 主题
 
 Hexo 版本 : [github.com/solstice23/hexo-theme-argon](https://github.com/solstice23/hexo-theme-argon)
 
