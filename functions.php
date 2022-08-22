@@ -3005,6 +3005,15 @@ function shortcode_ref($attr,$content=""){
 		}
 	}
 }
+// 添加BiliBili简码，可以快速通过bvid解析BiliBili视频
+/* 使用方法：
+[bilibili bvid="BV1GJ411x7h7"] 效果见https://senge.dev/bili_shortcode
+*/
+add_shortcode('bilibili', 'bilibili_shortcode');
+function bilibili_shortcode($atts) {
+ 	$bvid = $atts['bvid'];
+ 	return '<div style="position: relative; padding: 40% 45%;"><iframe src="//player.bilibili.com/player.html?bvid='.$bvid.'&page=1&as_wide=1&high_quality=1&danmaku=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;"></iframe></div>';
+}
 function get_reference_list(){
 	global $post_references;
 	if (count($post_references) == 0){
