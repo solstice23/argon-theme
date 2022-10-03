@@ -1060,7 +1060,10 @@ function get_avatar_by_qqnumber($avatar){
 	if (!empty($qqnumber)){
 		preg_match_all('/width=\'(.*?)\'/', $avatar, $preg_res);
 		$size = $preg_res[1][0];
-		return "<img src='https://q1.qlogo.cn/g?b=qq&s=640&nk=" . $qqnumber ."' class='avatar avatar-" . $size . " photo' width='" . $size . "' height='" . $size . "'>";
+		$qa_getkurl = 'http://ptlogin2.qq.com/getface?&imgtype=1&uin='.$qqnumber;
+		$qa_getk = file_get_contents($qa_getkurl);
+		$qa_k = explode('&s=', explode('&k=', $qa_getk)[1])[0];
+		return "<img src='https://thirdqq.qlogo.cn/g?b=sdk&s=640&k=" . $qa_k ."' class='avatar avatar-" . $size . " photo' width='" . $size . "' height='" . $size . "'>";
 	}
 	return $avatar;
 }
