@@ -35,3 +35,6 @@
 .btn-secondary:hover {
 	background-color: var(--color-border-on-foreground-deeper);
 }
+.alert {
+        overflow: scroll;
+}
