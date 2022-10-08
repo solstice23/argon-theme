@@ -6601,6 +6601,8 @@ a.badge:focus
 
     border: .0625rem solid transparent;
     border-radius: .25rem;
+
+    overflow: scroll;
 }
 
 .alert-heading
