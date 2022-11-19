@@ -37,10 +37,29 @@ var headIndex = (function () {
             this.event();
         },
 
+        usedHeaderIDs: {},
+        getCalculatedID: function (header) {
+            let id = header.innerText.trim();
+            if (!id.match(/^[a-zA-Z\u4e00-\u9fa5]/)) {
+                id = 'header-' + id;
+            }
+            id = id.replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, '-');
+            id = id.replace(/-{2,}/g, '-');
+            id = id.replace(/-$/, '');
+            if (this.usedHeaderIDs[id]) {
+                id += '-' + this.usedHeaderIDs[id]++;
+            } else {
+                this.usedHeaderIDs[id] = 1;
+            }
+            id = id.replace(/-{2,}/g, '-');
+            return id;
+        },
+
         initHeader: function () {
+            usedHeaderIDs = {};
             for (var i = 0; i < this.headerList.length; i++, this.autoId++) {
                 //文章header添加id和计算高度
-                this.headerList[i].id = this.headerList[i].id || "header-id-" + this.autoId;
+                this.headerList[i].id = this.headerList[i].id || this.getCalculatedID(this.headerList[i]);
                 this.headerList[i].topHeight = this.offsetTop(this.headerList[i]);
                 this.headerList[i].h = Number(this.headerList[i].tagName.charAt(1));
             }
