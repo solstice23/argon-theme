@@ -225,7 +225,7 @@ function __(text){
 /*根据滚动高度改变顶栏透明度*/
 !function(){
 	let toolbar = document.getElementById("navbar-main");
-	let $bannerContainer = $("#banner_container");
+	let $bannerContainer = $("#banner_container_main");
 	let $content = $("#content");
 
 	let startTransitionHeight;
