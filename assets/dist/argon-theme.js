@@ -16509,7 +16509,7 @@ document.addEventListener("DOMContentLoaded", lazyloadInit);
 var _jquery = require("jquery");
 /*根据滚动高度改变顶栏透明度*/ document.addEventListener("DOMContentLoaded", ()=>{
     let toolbar = document.getElementById("navbar-main");
-    let $bannerContainer = _jquery("#banner_container");
+    let $bannerContainer = _jquery("#banner_container_main");
     let $content = _jquery("#content");
     let startTransitionHeight;
     let endTransitionHeight;
