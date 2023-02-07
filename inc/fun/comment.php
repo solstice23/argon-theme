@@ -487,8 +487,10 @@ function ajax_get_captcha(){
 	if (get_option('argon_get_captcha_by_ajax', 'false') != 'true') {
 		return;
 	}
+	$seed = get_comment_captcha_seed();
 	exit(json_encode(array(
-		'captcha' => get_comment_captcha(get_comment_captcha_seed())
+		'captcha' => get_comment_captcha($seed),
+		'captchaSeed' => $seed
 	)));
 }
 add_action('wp_ajax_get_captcha', 'ajax_get_captcha');

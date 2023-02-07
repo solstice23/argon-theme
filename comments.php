@@ -161,6 +161,7 @@
 										},
 										success : function(result){
 											$(".post-comment-captcha-container").attr("captcha", result['captcha']);
+											$("#post_comment_captcha_seed").val(result['captchaSeed']);
 										},
 										error : function(xhr){
 											$(".post-comment-captcha-container").attr("captcha", "<?php _e('获取验证码失败', 'argon');?>");
