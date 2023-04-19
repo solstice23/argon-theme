@@ -423,7 +423,7 @@ function argon_get_ai_post_summary(): string {
 	$content = esc_html(get_post_meta( $post->ID, "argon_ai_summary", true ));
 
 
-	return trim( strtr( '<div class="post-ai-summary" style="border: 1px solid;border-radius: 5px;padding: 25px 30px;">
+	return trim( strtr( '<div class="post-ai-summary" style="border: 1px solid; border-radius: 5px; padding: 25px 30px; margin-bottom: 25px">
 			<div class="post-ai-summary_title" style="display: flex; align-items: center; margin-bottom: 15px;">
 				<i class="fa fa-android" aria-hidden="true" style="margin-right: 10px; font-size: 2em;"></i>
 				<span style="font-weight: bold; font-size: 15px">$title</span>
