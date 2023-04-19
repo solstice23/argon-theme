@@ -162,7 +162,7 @@ function argon_generate_chatgpt_client(): ?ChatGPTV2 {
 		return null;
 	}
 
-	return new ChatGPTV2( $apikey, $baseurl ,timeout: 30);
+	return new ChatGPTV2( $apikey, $baseurl , model: get_option('argon_ai_model', 'gpt-3.5-turbo'), timeout: 30 );
 }
 
 /**

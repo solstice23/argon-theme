@@ -931,6 +931,13 @@ function themeoptions_page(){
                         </td>
                     </tr>
                     <tr>
+                        <th><label><?php _e('对话模型', 'argon');?></label></th>
+                        <td>
+                            <input type="text" class="regular-text" name="argon_ai_model" value="<?php echo get_option('argon_ai_model', 'gpt-3.5-turbo'); ?>"/>
+                            <p class="description"><?php _e('生成文章摘要使用的对话模型，默认为 "gpt-3.5-turbo"', 'argon')?></p>
+                        </td>
+                    </tr>
+                    <tr>
                         <th><label><?php _e('更新文章时不重复生成摘要', 'argon');?></label></th>
                         <td>
                             <select name="argon_ai_no_update_post_summary">
@@ -2335,6 +2342,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_openai_baseurl');
         argon_update_option('argon_custom_openai_baseurl');
 		argon_update_option('argon_openai_api_key');
+        argon_update_option('argon_ai_model');
         argon_update_option('argon_ai_no_update_post_summary');
         argon_update_option('argon_ai_extra_prompt');
         argon_update_option('argon_ai_max_content_length');
