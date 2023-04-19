@@ -166,7 +166,7 @@ function argon_generate_chatgpt_client(): ?ChatGPTV2 {
 }
 
 /**
- * @throws GuzzleException
+ * @throws Exception|GuzzleException
  */
 function argon_generate_article_summary( int $post_id, WP_Post $post ): string {
 	$client = argon_generate_chatgpt_client();
@@ -234,6 +234,7 @@ add_action( "save_post_post", function ( int $post_id, WP_Post $post, bool $upda
 	try {
 		$summary = argon_generate_article_summary( $post_id, $post );
 		update_post_meta( $post_id, "argon_ai_summary", $summary );
-	} catch ( GuzzleException ) {
+	} catch ( Exception|GuzzleException $e ) {
+		error_log( $e );
 	}
 }, 10, 3 );
