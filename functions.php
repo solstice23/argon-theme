@@ -168,7 +168,7 @@ function argon_generate_chatgpt_client(): ?ChatGPTV2 {
 /**
  * @throws GuzzleException
  */
-function argon_generate_article_summary( WP_Post $post ): string {
+function argon_generate_article_summary( int $post_id, WP_Post $post ): string {
 	$client = argon_generate_chatgpt_client();
 
 	$client->addMessage(
@@ -185,7 +185,7 @@ function argon_generate_article_summary( WP_Post $post ): string {
 	$content = $post->post_content;
 	$content = wp_strip_all_tags(apply_filters('the_content', $content));
 	$max_content_length = get_option( 'argon_ai_max_content_length', 4000 );
-	if ($max_content_length <= 0){
+	if ($max_content_length > 0){
 		$content = substr($content, 0, $max_content_length);
 	}
 
@@ -194,7 +194,24 @@ function argon_generate_article_summary( WP_Post $post ): string {
 	if ( $previous_summary != "" ) {
 		$client->addMessage( "The previous summary of the article: " . $previous_summary);
 	}
-	$client->addMessage(get_option( 'argon_ai_extra_prompt', "" ),'system');
+
+	$post_argon_ai_extra_prompt_mode = get_post_meta( $post->ID, "argon_ai_extra_prompt_mode", true );
+	$post_argon_ai_extra_prompt      = get_post_meta( $post->ID, "argon_ai_extra_prompt", true );
+	$global_argon_ai_extra_prompt    = get_option( 'argon_ai_extra_prompt', "" );
+	switch ( $post_argon_ai_extra_prompt_mode ) {
+		case 'replace':
+			$client->addMessage( $post_argon_ai_extra_prompt, 'system' );
+			break;
+		case 'append':
+			$client->addMessage( $global_argon_ai_extra_prompt . $post_argon_ai_extra_prompt, 'system' );
+			break;
+		case 'none':
+			break;
+		case 'default':
+		default:
+			$client->addMessage( $global_argon_ai_extra_prompt, 'system' );
+			break;
+	}
 
 	$result = "";
 	foreach ( $client->ask( "Now please generate the summary of the article given before" ) as $item ) {
@@ -206,14 +223,16 @@ function argon_generate_article_summary( WP_Post $post ): string {
 
 
 add_action( "save_post_post", function ( int $post_id, WP_Post $post, bool $update ) {
-	if ( $update && get_option( 'argon_ai_no_update_post_summary', true ) == 'true' ) {
-		return;
-	}
 	if ( get_option( 'argon_ai_post_summary', false ) == 'false' ) {
 		return;
 	}
+	$post_argon_ai_no_update_post_summary   = get_post_meta( $post_id, "argon_ai_no_update_post_summary", true );
+	$global_argon_ai_no_update_post_summary = get_option( 'argon_ai_no_update_post_summary', true );
+	if ( $update && $post_argon_ai_no_update_post_summary != 'false' && ( $post_argon_ai_no_update_post_summary == 'true' || $global_argon_ai_no_update_post_summary == 'true' ) ) {
+		return;
+	}
 	try {
-		$summary = argon_generate_article_summary( $post );
+		$summary = argon_generate_article_summary( $post_id, $post );
 		update_post_meta( $post_id, "argon_ai_summary", $summary );
 	} catch ( GuzzleException ) {
 	}

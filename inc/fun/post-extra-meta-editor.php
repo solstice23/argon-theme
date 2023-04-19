@@ -45,6 +45,38 @@ function argon_meta_box_1(){
 		<textarea name="argon_custom_css" id="argon_custom_css" rows="5" cols="30" style="width:100%;"><?php if (!empty($argon_custom_css)){echo $argon_custom_css;} ?></textarea>
 		<p style="margin-top: 15px;"><?php _e("给该文章添加单独的 CSS", 'argon');?></p>
 
+        <h4><?php _e("更新文章时不重复生成摘要", 'argon');?></h4>
+	    <?php $argon_ai_no_update_post_summary = get_post_meta($post->ID, "argon_ai_no_update_post_summary", true);?>
+        <select name="argon_ai_no_update_post_summary" id="argon_ai_no_update_post_summary">
+            <option value="default" <?php if ($argon_ai_no_update_post_summary=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
+            <option value="true" <?php if ($argon_ai_no_update_post_summary=='true'){echo 'selected';} ?>><?php _e("不更新", 'argon');?></option>
+            <option value="false" <?php if ($argon_ai_no_update_post_summary=='false'){echo 'selected';} ?>><?php _e("更新", 'argon');?></option>
+        </select>
+        <p style="margin-top: 15px;"><?php _e('设置本项为"不更新"以阻止摘要在更新文章时重新生成，避免产生高额的 API 调用开销。', 'argon');;?></p>
+        <h4><?php _e("额外 Prompt", 'argon');?></h4>
+	    <?php $argon_ai_extra_prompt_mode = get_post_meta($post->ID, "argon_ai_extra_prompt_mode", true);?>
+        <select style="margin-bottom: 1px" name="argon_ai_extra_prompt_mode" id="argon_ai_extra_prompt_mode">
+            <option value="default" <?php if ($argon_ai_extra_prompt_mode=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
+            <option value="replace" <?php if ($argon_ai_extra_prompt_mode=='replace'){echo 'selected';} ?>><?php _e("替换全局设置", 'argon');?></option>
+            <option value="append" <?php if ($argon_ai_extra_prompt_mode=='append'){echo 'selected';} ?>><?php _e("附加在全局设置后", 'argon');?></option>
+            <option value="none" <?php if ($argon_ai_extra_prompt_mode=='none'){echo 'selected';} ?>><?php _e("不使用", 'argon');?></option>
+        </select>
+	    <?php $argon_ai_extra_prompt = get_post_meta($post->ID, "argon_ai_extra_prompt", true);?>
+        <textarea name="argon_ai_extra_prompt" id="argon_ai_extra_prompt" rows="5" cols="30" style="width:100%;"><?php if (!empty($argon_ai_extra_prompt)){echo $argon_ai_extra_prompt;} ?></textarea>
+        <p style="margin-top: 15px;"><?php _e('发送给 ChatGPT 的额外 Prompt，将被以"system"的角色插入在文章信息后。', 'argon');?></p>
+        <script>
+            let mode = document.getElementById('argon_ai_extra_prompt_mode');
+            let prompts = document.getElementById('argon_ai_extra_prompt');
+            mode.addEventListener('change', () => {
+                if (mode.value === 'none' || mode.value === 'default') {
+                    prompts.style.display = 'none'
+                } else {
+                    prompts.style.display = ''
+                }
+            })
+            mode.dispatchEvent(new Event('change'))
+        </script>
+
 		<script>$ = window.jQuery;</script>
 		<script>
 			function showAlert(type, message){
@@ -126,6 +158,9 @@ function argon_save_meta_data($post_id){
 	update_post_meta($post_id, 'argon_show_post_outdated_info', $_POST['argon_show_post_outdated_info']);
 	update_post_meta($post_id, 'argon_after_post', $_POST['argon_after_post']);
 	update_post_meta($post_id, 'argon_custom_css', $_POST['argon_custom_css']);
+    update_post_meta($post_id,'argon_ai_no_update_post_summary', $_POST['argon_ai_no_update_post_summary']);
+	update_post_meta($post_id,'argon_ai_extra_prompt_mode', $_POST['argon_ai_extra_prompt_mode']);
+	update_post_meta($post_id,'argon_ai_extra_prompt', $_POST['argon_ai_extra_prompt']);
 }
 add_action('save_post', 'argon_save_meta_data');
 function update_post_meta_ajax(){
