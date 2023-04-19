@@ -11,7 +11,7 @@
         <div class="post-content">
             <?php
                 $content = get_post_meta( get_post()->ID, "argon_ai_summary", true );
-                if ( get_option( 'argon_ai_post_summary', false ) == 'false' || $content == '') {
+                if ( get_option( 'argon_ai_post_summary', false ) == 'false' || get_post_meta( get_post()->ID, "argon_ai_post_summary", true ) == 'false' || $content == '' ) {
 	                $content = get_the_content( '...' );
                 }
 	            if ( get_option( "argon_hide_shortcode_in_preview" ) == 'true' ) {

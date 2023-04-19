@@ -223,7 +223,7 @@ function argon_generate_article_summary( int $post_id, WP_Post $post ): string {
 
 
 add_action( "save_post_post", function ( int $post_id, WP_Post $post, bool $update ) {
-	if ( get_option( 'argon_ai_post_summary', false ) == 'false' ) {
+	if ( get_option( 'argon_ai_post_summary', false ) == 'false' || get_post_meta( $post_id, "argon_ai_post_summary", true ) == 'false' ) {
 		return;
 	}
 	$post_argon_ai_no_update_post_summary   = get_post_meta( $post_id, "argon_ai_no_update_post_summary", true );
