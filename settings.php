@@ -890,6 +890,71 @@ function themeoptions_page(){
 							</p>
 						</td>
 					</tr>
+                    <tr><th class="subtitle"><h3><?php _e('AI 文章摘要', 'argon');?></h3></th></tr>
+                    <tr>
+                        <th><label><?php _e('启用 AI 文章摘要', 'argon');?></label></th>
+                        <td>
+                            <select name="argon_ai_post_summary">
+								<?php $argon_ai_post_summary = get_option('argon_ai_post_summary', false); ?>
+                                <option value="false" <?php if ($argon_ai_post_summary=='false'){echo 'selected';} ?>><?php _e('不启用', 'argon');?></option>
+                                <option value="true" <?php if ($argon_ai_post_summary=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+                            </select>
+                            <p class="description"><?php _e('使用 ChatGPT 自动生成文章摘要。这将替换您主页的文章摘要，并在文章页面头部显示一个摘要卡片。', 'argon');?></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label><?php _e('OpenAI API 地址', 'argon');?></label></th>
+                        <td>
+                            <select name="argon_openai_baseurl">
+								<?php $argon_openai_baseurl = get_option('argon_openai_baseurl'); ?>
+                                <option value="openai" <?php if ($argon_openai_baseurl=='openai'){echo 'selected';} ?>>OpenAI</option>
+                                <option value="custom" <?php if ($argon_openai_baseurl=='custom'){echo 'selected';} ?>><?php _e('自定义...', 'argon');?></option>
+                            </select>
+                            <input type="text" class="regular-text" name="argon_custom_openai_baseurl" placeholder="https://" value="<?php echo get_option('argon_custom_openai_baseurl', ''); ?>" autocomplete="off">
+                            <p class="description"><?php _e('自定义 OpenAI API 地址。', 'argon');?></p>
+                        </td>
+                        <script>
+                            $("select[name='argon_openai_baseurl']").change(function(){
+                                if ($(this).val() == 'custom') {
+                                    $("input[name='argon_custom_openai_baseurl']").css('display', '');
+                                } else {
+                                    $("input[name='argon_custom_openai_baseurl']").css('display', 'none');
+                                }
+                            }).change();
+                        </script>
+                    </tr>
+                    <tr>
+                        <th><label><?php _e('OpenAI API 密钥', 'argon');?></label></th>
+                        <td>
+                            <input type="text" class="regular-text" name="argon_openai_api_key" value="<?php echo get_option('argon_openai_api_key', ''); ?>"/>
+                            <p class="description"><?php _e('前往 <a href="https://platform.openai.com/account/api-keys" target="_blank">OpenAI 账户 API Key</a> 页面以申请一个 API Key。', 'argon')?></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label><?php _e('更新文章时不重复生成摘要', 'argon');?></label></th>
+                        <td>
+                            <select name="argon_ai_no_update_post_summary">
+			                    <?php $argon_ai_no_update_post_summary = get_option('argon_ai_no_update_post_summary', true); ?>
+                                <option value="true" <?php if ($argon_ai_no_update_post_summary=='true'){echo 'selected';} ?>><?php _e('不更新', 'argon');?></option>
+                                <option value="false" <?php if ($argon_ai_no_update_post_summary=='false'){echo 'selected';} ?>><?php _e('更新', 'argon');?></option>
+                            </select>
+                            <p class="description"><?php _e('设置本项为"不更新"以阻止摘要在更新文章时重新生成，避免产生高额的 API 调用开销。', 'argon');?></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label><?php _e( '额外 Prompt', 'argon' ); ?></label></th>
+                        <td>
+                            <textarea type="text" rows="15" cols="100" name="argon_ai_extra_prompt"><?php echo get_option( 'argon_ai_extra_prompt', '' ); ?></textarea>
+                            <p class="description"><?php _e( '发送给 ChatGPT 的额外 Prompt，将被以"system"的角色插入在文章信息后。', 'argon' ) ?></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label><?php _e( '正文最大长度', 'argon' ); ?></label></th>
+                        <td>
+                            <input type="number" name="argon_ai_max_content_length" min="0" value="<?php echo get_option('argon_ai_max_content_length', 4000); ?>"/>
+                            <p class="description"><?php _e('发送给 ChatGPT 的最大正文长度，超出部分将会被截断，避免因正文过长产生高额的 API 调用开销。设为 0 以发送全文。', 'argon');?></p>
+                        </td>
+                    </tr>
 					<tr><th class="subtitle"><h3><?php _e('其他', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('文章过时信息显示', 'argon');?></label></th>
@@ -2264,6 +2329,15 @@ function argon_update_themeoptions(){
 
 		//公告
 		argon_update_option_allow_tags('argon_sidebar_announcement');
+
+        // AI 文章摘要
+		argon_update_option('argon_ai_post_summary');
+		argon_update_option('argon_openai_baseurl');
+        argon_update_option('argon_custom_openai_baseurl');
+		argon_update_option('argon_openai_api_key');
+        argon_update_option('argon_ai_no_update_post_summary');
+        argon_update_option('argon_ai_extra_prompt');
+        argon_update_option('argon_ai_max_content_length');
 	}
 }
 argon_update_themeoptions();

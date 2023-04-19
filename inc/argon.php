@@ -41,6 +41,11 @@ switch ($argon_assets_path) {
     default:
 	    $GLOBALS['assets_path'] = get_bloginfo('template_url');
 }
+$argon_openai_baseurl = get_option("argon_openai_baseurl");
+$GLOBALS['openai_baseurl'] = match ( $argon_openai_baseurl ) {
+	"custom" => preg_replace( '/\/$/', '', get_option( "argon_custom_openai_baseurl" ) ),
+	default => "https://api.openai.com",
+};
 //更新主题版本后的兼容
 $argon_last_version = get_option("argon_last_version");
 if ($argon_last_version == ""){
