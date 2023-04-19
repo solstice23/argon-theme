@@ -926,15 +926,16 @@ function themeoptions_page(){
                     <tr>
                         <th><label><?php _e('OpenAI API 密钥', 'argon');?></label></th>
                         <td>
-                            <input type="text" class="regular-text" name="argon_openai_api_key" value="<?php echo get_option('argon_openai_api_key', ''); ?>"/>
+                            <input type="text" class="regular-text" name="argon_openai_api_key" placeholder="sk-..." pattern="^(sk-[0-9A-Za-z]{48})?$" value="<?php echo get_option('argon_openai_api_key', ''); ?>"/>
                             <p class="description"><?php _e('前往 <a href="https://platform.openai.com/account/api-keys" target="_blank">OpenAI 账户 API Key</a> 页面以申请一个 API Key。', 'argon')?></p>
                         </td>
+						<style> input[name='argon_openai_api_key']:invalid { background-color: lightpink; } </style>
                     </tr>
                     <tr>
                         <th><label><?php _e('对话模型', 'argon');?></label></th>
                         <td>
                             <input type="text" class="regular-text" name="argon_ai_model" value="<?php echo get_option('argon_ai_model', 'gpt-3.5-turbo'); ?>"/>
-                            <p class="description"><?php _e('生成文章摘要使用的对话模型，默认为 "gpt-3.5-turbo"', 'argon')?></p>
+                            <p class="description"><?php _e('生成文章摘要使用的对话模型，默认为 <code>gpt-3.5-turbo</code>', 'argon')?></p>
                         </td>
                     </tr>
                     <tr>
