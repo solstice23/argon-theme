@@ -27,8 +27,6 @@ function argon_generate_article_summary( int $post_id, WP_Post $post ): string {
 		"with provided title and content, ".
 		"the language of the summary must equals to the article's mainly used language, ".
 		"do not write summary in third person.".
-		"If there's a previous summary of an article provided, ".
-		"please generate the summary similar with the previous one.",
 		"system" );
 	$client->addMessage( "The title of the article：" . $post->post_title );
 
@@ -42,7 +40,7 @@ function argon_generate_article_summary( int $post_id, WP_Post $post ): string {
 	$client->addMessage( "The content of the article：" . $content );
 	$previous_summary = get_post_meta( $post_id, "argon_ai_summary", true );
 	if ( $previous_summary != "" ) {
-		$client->addMessage( "The previous summary of the article: " . $previous_summary);
+		$client->addMessage( "The previous summary of the article, please generate the summary similar with the previous one: " . $previous_summary);
 	}
 
 	$post_argon_ai_extra_prompt_mode = get_post_meta( $post_id, "argon_ai_extra_prompt_mode", true );
