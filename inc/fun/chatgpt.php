@@ -70,10 +70,10 @@ function argon_generate_article_summary( int $post_id, WP_Post $post ): string {
 }
 
 
-add_action( "save_post_post", function ( int $post_id, WP_Post $post, bool $update ) {
-	if ( false !== wp_is_post_autosave( $post_id ) || 'auto-draft' == $post->post_status ) {
-		return;
-	}
+function argon_on_save_post( int $post_id, WP_Post $post, string $old_status ): void {
+//	if ( false !== wp_is_post_autosave( $post_id ) || 'auto-draft' == $post->post_status ) {
+//		return;
+//	}
 
 	// If this is a revision, get real post ID.
 	$revision_id = wp_is_post_revision( $post_id );
@@ -85,6 +85,7 @@ add_action( "save_post_post", function ( int $post_id, WP_Post $post, bool $upda
 	if ( get_option( 'argon_ai_post_summary', false ) == 'false' || get_post_meta( $post_id, "argon_ai_post_summary", true ) == 'false' ) {
 		return;
 	}
+	$update = $old_status === $post->post_status;
 	$post_argon_ai_no_update_post_summary   = get_post_meta( $post_id, "argon_ai_no_update_post_summary", true );
 	$global_argon_ai_no_update_post_summary = get_option( 'argon_ai_no_update_post_summary', true );
 	if ( $update && $post_argon_ai_no_update_post_summary != 'false' && ( $post_argon_ai_no_update_post_summary == 'true' || $global_argon_ai_no_update_post_summary == 'true' ) ) {
@@ -96,4 +97,6 @@ add_action( "save_post_post", function ( int $post_id, WP_Post $post, bool $upda
 	} catch ( Exception|GuzzleException $e ) {
 		error_log( $e );
 	}
-}, 20, 3 );
+}
+
+add_action( "publish_post", "argon_on_save_post", 20, 3 );
