@@ -71,8 +71,7 @@ function argon_generate_article_summary( int $post_id, WP_Post $post ): string {
 
 
 add_action( "save_post_post", function ( int $post_id, WP_Post $post, bool $update ) {
-	$autosave_id = wp_is_post_autosave( $post_id );
-	if (false !== $autosave_id){
+	if ( false !== wp_is_post_autosave( $post_id ) || 'auto-draft' == $post->post_status ) {
 		return;
 	}
 
