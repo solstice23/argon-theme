@@ -73,6 +73,18 @@ function argon_generate_article_summary( int $post_id, WP_Post $post ): string {
 
 
 add_action( "save_post_post", function ( int $post_id, WP_Post $post, bool $update ) {
+	$autosave_id = wp_is_post_autosave( $post_id );
+	if (false !== $autosave_id){
+		return;
+	}
+
+	// If this is a revision, get real post ID.
+	$revision_id = wp_is_post_revision( $post_id );
+
+	if ( false !== $revision_id ) {
+		$post_id = $revision_id;
+	}
+
 	if ( get_option( 'argon_ai_post_summary', false ) == 'false' || get_post_meta( $post_id, "argon_ai_post_summary", true ) == 'false' ) {
 		return;
 	}
@@ -82,9 +94,9 @@ add_action( "save_post_post", function ( int $post_id, WP_Post $post, bool $upda
 		return;
 	}
 	try {
-		$summary = argon_generate_article_summary( $post_id, $post );
+		$summary = argon_generate_article_summary( $post_id, get_post($post_id) );
 		update_post_meta( $post_id, "argon_ai_summary", $summary );
 	} catch ( Exception|GuzzleException $e ) {
 		error_log( $e );
 	}
-}, 10, 3 );
+}, 20, 3 );
