@@ -85,18 +85,28 @@ function argon_on_save_post( int $post_id, WP_Post $post, string $old_status ): 
 	if ( get_option( 'argon_ai_post_summary', false ) == 'false' || get_post_meta( $post_id, "argon_ai_post_summary", true ) == 'false' ) {
 		return;
 	}
-	$update = $old_status === $post->post_status;
+	$update                                 = $old_status === $post->post_status;
 	$post_argon_ai_no_update_post_summary   = get_post_meta( $post_id, "argon_ai_no_update_post_summary", true );
 	$global_argon_ai_no_update_post_summary = get_option( 'argon_ai_no_update_post_summary', true );
 	if ( $update && $post_argon_ai_no_update_post_summary != 'false' && ( $post_argon_ai_no_update_post_summary == 'true' || $global_argon_ai_no_update_post_summary == 'true' ) ) {
 		return;
 	}
+
+	if ( get_option( 'argon_ai_async_generate', true ) != 'false' ) {
+		wp_schedule_single_event( time() + 1, 'argon_update_ai_post_meta', array( $post_id ) );
+	} else {
+		argon_update_ai_post_meta( $post_id );
+	}
+}
+
+function argon_update_ai_post_meta( $post_id ): void {
 	try {
-		$summary = argon_generate_article_summary( $post_id, get_post($post_id) );
+		$summary = argon_generate_article_summary( $post_id, get_post( $post_id ) );
 		update_post_meta( $post_id, "argon_ai_summary", $summary );
 	} catch ( Exception|GuzzleException $e ) {
 		error_log( $e );
 	}
 }
 
+add_action( "argon_update_ai_post_meta", "argon_update_ai_post_meta" );
 add_action( "publish_post", "argon_on_save_post", 20, 3 );

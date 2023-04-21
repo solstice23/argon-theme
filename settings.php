@@ -961,6 +961,17 @@ function themeoptions_page(){
                         </td>
                     </tr>
                     <tr>
+                        <th><label><?php _e('启用异步生成文章摘要', 'argon');?></label></th>
+                        <td>
+                            <select name="argon_ai_async_generate">
+								<?php $argon_ai_async_generate = get_option('argon_ai_async_generate', true); ?>
+                                <option value="true" <?php if ($argon_ai_async_generate=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+                                <option value="false" <?php if ($argon_ai_async_generate=='false'){echo 'selected';} ?>><?php _e('不启用', 'argon');?></option>
+                            </select>
+                            <p class="description"><?php _e('启用后，将大幅度增加文章发布时的响应速度，文章摘要信息会在稍后显示。', 'argon');?></p>
+                        </td>
+                    </tr>
+                    <tr>
                         <th><label><?php _e( '额外 Prompt', 'argon' ); ?></label></th>
                         <td>
                             <textarea type="text" rows="15" cols="100" name="argon_ai_extra_prompt"><?php echo get_option( 'argon_ai_extra_prompt', '' ); ?></textarea>
@@ -2359,6 +2370,7 @@ function argon_update_themeoptions(){
         argon_update_option('argon_ai_no_update_post_summary');
         argon_update_option('argon_ai_extra_prompt');
         argon_update_option('argon_ai_max_content_length');
+        argon_update_option('argon_ai_async_generate');
 	}
 }
 argon_update_themeoptions();
