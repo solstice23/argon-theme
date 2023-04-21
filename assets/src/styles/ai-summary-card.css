@@ -1,0 +1,35 @@
+.post-ai-summary {
+    padding: 25px 30px;
+    margin-bottom: 25px;
+
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.post-ai-summary_title {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.post-ai-summary_title i {
+    margin-right: 10px;
+
+    font-size: 2em;
+}
+
+.post-ai-summary_title span {
+    font-weight: bold;
+    font-size: 15px
+}
+
+.post-ai-summary_content {
+    display: block;
+}
+
+.post-ai-summary_content span {
+    vertical-align: middle;
+
+    font-size: .875rem;
+}
