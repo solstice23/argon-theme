@@ -55,20 +55,26 @@ function argon_meta_box_1(){
             <p style="margin-top: 15px;"><?php _e("当且仅当该选项和全局选项同时启用时才会有效。使用 ChatGPT 自动生成文章摘要。这将替换您主页的文章摘要，并在文章页面头部显示一个摘要卡片。", 'argon');?></p>
             <h4><?php _e("更新文章时不重复生成摘要", 'argon');?></h4>
 	        <?php $argon_ai_no_update_post_summary = get_post_meta($post->ID, "argon_ai_no_update_post_summary", true);?>
-            <select name="argon_ai_no_update_post_summary" id="argon_ai_no_update_post_summary">
-                <option value="default" <?php if ($argon_ai_no_update_post_summary=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
-                <option value="true" <?php if ($argon_ai_no_update_post_summary=='true'){echo 'selected';} ?>><?php _e("不更新", 'argon');?></option>
-                <option value="false" <?php if ($argon_ai_no_update_post_summary=='false'){echo 'selected';} ?>><?php _e("更新", 'argon');?></option>
-            </select>
+            <div style="display: flex;">
+                <select name="argon_ai_no_update_post_summary" id="argon_ai_no_update_post_summary">
+                    <option value="default" <?php if ($argon_ai_no_update_post_summary=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
+                    <option value="true" <?php if ($argon_ai_no_update_post_summary=='true'){echo 'selected';} ?>><?php _e("不更新", 'argon');?></option>
+                    <option value="false" <?php if ($argon_ai_no_update_post_summary=='false'){echo 'selected';} ?>><?php _e("更新", 'argon');?></option>
+                </select>
+                <button id="apply_ai_no_update_post_summary" type="button" class="components-button is-primary" style="height: 22px; display: none;"><?php _e("应用", 'argon');?></button>
+            </div>
             <p style="margin-top: 15px;"><?php _e('设置本项为"不更新"以阻止摘要在更新文章时重新生成，避免产生高额的 API 调用开销。', 'argon');;?></p>
             <h4><?php _e("额外 Prompt", 'argon');?></h4>
 	        <?php $argon_ai_extra_prompt_mode = get_post_meta($post->ID, "argon_ai_extra_prompt_mode", true);?>
-            <select style="margin-bottom: 1px" name="argon_ai_extra_prompt_mode" id="argon_ai_extra_prompt_mode">
-                <option value="default" <?php if ($argon_ai_extra_prompt_mode=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
-                <option value="replace" <?php if ($argon_ai_extra_prompt_mode=='replace'){echo 'selected';} ?>><?php _e("替换全局设置", 'argon');?></option>
-                <option value="append" <?php if ($argon_ai_extra_prompt_mode=='append'){echo 'selected';} ?>><?php _e("附加在全局设置后", 'argon');?></option>
-                <option value="none" <?php if ($argon_ai_extra_prompt_mode=='none'){echo 'selected';} ?>><?php _e("不使用", 'argon');?></option>
-            </select>
+            <div style="display: flex;">
+                <select style="margin-bottom: 1px" name="argon_ai_extra_prompt_mode" id="argon_ai_extra_prompt_mode">
+                    <option value="default" <?php if ($argon_ai_extra_prompt_mode=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
+                    <option value="replace" <?php if ($argon_ai_extra_prompt_mode=='replace'){echo 'selected';} ?>><?php _e("替换全局设置", 'argon');?></option>
+                    <option value="append" <?php if ($argon_ai_extra_prompt_mode=='append'){echo 'selected';} ?>><?php _e("附加在全局设置后", 'argon');?></option>
+                    <option value="none" <?php if ($argon_ai_extra_prompt_mode=='none'){echo 'selected';} ?>><?php _e("不使用", 'argon');?></option>
+                </select>
+                <button id="apply_ai_extra_prompt_mode" type="button" class="components-button is-primary" style="height: 22px; display: none;"><?php _e("应用", 'argon');?></button>
+            </div>
 	        <?php $argon_ai_extra_prompt = get_post_meta($post->ID, "argon_ai_extra_prompt", true);?>
             <textarea name="argon_ai_extra_prompt" id="argon_ai_extra_prompt" rows="5" cols="30" style="width:100%;"><?php if (!empty($argon_ai_extra_prompt)){echo $argon_ai_extra_prompt;} ?></textarea>
             <p style="margin-top: 15px;"><?php _e('发送给 ChatGPT 的额外 Prompt，将被以"system"的角色插入在文章信息后。', 'argon');?></p>
@@ -99,40 +105,49 @@ function argon_meta_box_1(){
 					{ type: "snackbar", isDismissible: true, }
 				);
 			}
-			$("select[name=argon_show_post_outdated_info").change(function(){
-				$("#apply_show_post_outdated_info").css("display", "");
-			});
-			$("#apply_show_post_outdated_info").click(function(){
-				$("#apply_show_post_outdated_info").addClass("is-busy").attr("disabled", "disabled").css("opacity", "0.5");
-				$("#argon_show_post_outdated_info").attr("disabled", "disabled");
-				var data = {
-					action: 'update_post_meta_ajax',
-					argon_meta_box_nonce: $("#argon_meta_box_nonce").val(),
-					post_id: <?php echo $post->ID; ?>,
-					meta_key: 'argon_show_post_outdated_info',
-					meta_value: $("select[name=argon_show_post_outdated_info]").val()
-				};
-				$.ajax({
-					url: ajaxurl,
-					type: 'post',
-					data: data,
-					success: function(response) {
-						$("#apply_show_post_outdated_info").removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
-						$("#argon_show_post_outdated_info").removeAttr("disabled");
-						if (response.status == "failed"){
-							showAlert("failed", "<?php _e("应用失败", 'argon');?>");
-							return;
-						}
-						$("#apply_show_post_outdated_info").css("display", "none");
-						showAlert("success", "<?php _e("应用成功", 'argon');?>");
-					},
-					error: function(response) {
-						$("#apply_show_post_outdated_info").removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
-						$("#argon_show_post_outdated_info").removeAttr("disabled");
-						showAlert("failed", "<?php _e("应用失败", 'argon');?>");
-					}
-				});
-			});
+            function registerListener(elementName, buttonID){
+                const element = $(`#${elementName}`);
+                const button = $(`#${buttonID}`);
+                element.change(function(){
+                    button.css("display", "");
+                });
+                button.click(function(){
+                    button.addClass("is-busy").attr("disabled", "disabled").css("opacity", "0.5");
+                    element.attr("disabled", "disabled");
+                    const data = {
+                        action: 'update_post_meta_ajax',
+                        argon_meta_box_nonce: $("#argon_meta_box_nonce").val(),
+                        post_id: <?php echo $post->ID; ?>,
+                        meta_key: elementName,
+                        meta_value: element.val()
+                    };
+                    $.ajax({
+                        url: ajaxurl,
+                        type: 'post',
+                        data: data,
+                        success: function(response) {
+                            button.removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
+                            element.removeAttr("disabled");
+                            if (response.status == "failed"){
+                                showAlert("failed", "<?php _e("应用失败", 'argon');?>");
+                                return;
+                            }
+                            button.css("display", "none");
+                            showAlert("success", "<?php _e("应用成功", 'argon');?>");
+                        },
+                        error: function(response) {
+                            button.removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
+                            element.removeAttr("disabled");
+                            showAlert("failed", "<?php _e("应用失败", 'argon');?>");
+                        }
+                    });
+                });
+            }
+
+            registerListener('argon_show_post_outdated_info', 'apply_show_post_outdated_info')
+            registerListener('argon_ai_no_update_post_summary', 'apply_ai_no_update_post_summary')
+            registerListener('argon_ai_extra_prompt_mode', 'apply_ai_extra_prompt_mode')
+            registerListener('argon_ai_extra_prompt', 'apply_ai_extra_prompt_mode')
 		</script>
 	<?php
 }
