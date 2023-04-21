@@ -932,6 +932,17 @@ function themeoptions_page(){
 						<style> input[name='argon_openai_api_key']:invalid { background-color: lightpink; } </style>
                     </tr>
                     <tr>
+                        <th><label><?php _e('替换首页文章摘要', 'argon');?></label></th>
+                        <td>
+                            <select name="argon_ai_show_post_summary_in_home">
+			                    <?php $argon_ai_show_post_summary_in_home = get_option('argon_ai_show_post_summary_in_home', true); ?>
+                                <option value="true" <?php if ($argon_ai_show_post_summary_in_home=='true'){echo 'selected';} ?>><?php _e('替换', 'argon');?></option>
+                                <option value="false" <?php if ($argon_ai_show_post_summary_in_home=='false'){echo 'selected';} ?>><?php _e('不替换', 'argon');?></option>
+                            </select>
+                            <p class="description"><?php _e('替换后，首页文章摘要将会显示 AI 摘要，而不是文章开头内容。', 'argon');?></p>
+                        </td>
+                    </tr>
+                    <tr>
                         <th><label><?php _e('对话模型', 'argon');?></label></th>
                         <td>
                             <input type="text" class="regular-text" name="argon_ai_model" value="<?php echo get_option('argon_ai_model', 'gpt-3.5-turbo'); ?>"/>
@@ -2343,6 +2354,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_openai_baseurl');
         argon_update_option('argon_custom_openai_baseurl');
 		argon_update_option('argon_openai_api_key');
+		argon_update_option('argon_ai_show_post_summary_in_home');
         argon_update_option('argon_ai_model');
         argon_update_option('argon_ai_no_update_post_summary');
         argon_update_option('argon_ai_extra_prompt');
