@@ -1,0 +1,14 @@
+{
+    "name": "solstice23/argon-theme",
+    "description": "A light, simple and beautiful WordPress theme",
+    "type": "project",
+    "require": {
+        "haozi-team/chatgpt-php": "^2.0"
+    },
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "solstice23"
+        }
+    ]
+}

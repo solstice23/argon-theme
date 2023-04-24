@@ -10,11 +10,15 @@
     if ($trim_words_count > 0): ?>
         <div class="post-content">
             <?php
-                if (get_option("argon_hide_shortcode_in_preview") == 'true'){
-                    $preview = wp_trim_words(do_shortcode(get_the_content('...')), $trim_words_count);
-                }else{
-                    $preview = wp_trim_words(get_the_content('...'), $trim_words_count);
+                $content = get_post_meta( get_post()->ID, "argon_ai_summary", true );
+                if ( get_option( 'argon_ai_post_summary', false ) == 'false' || get_post_meta( get_post()->ID, "argon_ai_post_summary", true ) == 'false' || get_option('argon_ai_show_post_summary_in_home', true) == 'false' || $content == '' ) {
+                    $content = get_the_content( '...' );
                 }
+	            if ( get_option( "argon_hide_shortcode_in_preview" ) == 'true' ) {
+		            $preview = wp_trim_words( do_shortcode( $content ), $trim_words_count );
+	            } else {
+		            $preview = wp_trim_words( $content, $trim_words_count );
+	            }
                 if (post_password_required()){
                     $preview = __("这篇文章受密码保护，输入密码才能阅读", 'argon');
                 }

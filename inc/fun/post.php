@@ -416,3 +416,24 @@ function argon_get_post_outdated_info(){
 	return $before . $content . $after;
 }
 
+function argon_get_ai_post_summary(): string {
+	global $post;
+
+	$title   = __( "由 ChatGPT 生成的文章摘要", 'agron' );
+	$content = esc_html(get_post_meta( $post->ID, "argon_ai_summary", true ));
+
+
+	return trim( strtr( '<div class="post-ai-summary">
+			<div class="post-ai-summary_title">
+				<i class="fa fa-android" aria-hidden="true"></i>
+				<span>$title</span>
+			</div>
+			<div class="post-ai-summary_content">
+				<span>$content</span>
+			</div>
+		</div>', array(
+		'$title'  => $title,
+		'$content' => $content,
+	) ) );
+}
+

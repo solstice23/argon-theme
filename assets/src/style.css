@@ -44,6 +44,9 @@ Tags: 简约, 两栏, 侧栏在左边, 浮动侧栏, 文章目录, 自适应, �
 @import './styles/post-donate.css';
 @import './styles/post-extra-content.css';
 
+/* AI 摘要卡片 */
+@import "./styles/ai-summary-card.css";
+
 
 /*Reference*/
 @import './styles/reference.css';
