@@ -238,10 +238,12 @@ function get_article_meta($type){
 				</div>';
 	}
 	if ($type == 'views'){
-		if (function_exists('pvc_get_post_views')){
-			$views = pvc_get_post_views(get_the_ID());
-		}else{
-			$views = get_post_views(get_the_ID());
+		if ( get_option( "argon_view_counter" ) == 'wp-statistics' && function_exists( 'wp_statistics_pages' ) ) {
+			$views = wp_statistics_pages( 'total', "", get_the_ID() );
+		} else if ( get_option( "argon_view_counter" ) == 'post-views-counter' && function_exists( 'pvc_get_post_views' ) ) {
+			$views = pvc_get_post_views( get_the_ID() );
+		} else {
+			$views = get_post_views( get_the_ID() );
 		}
 		return '<div class="post-meta-detail post-meta-detail-views">
 					<i class="fa fa-eye" aria-hidden="true"></i> ' .
