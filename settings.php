@@ -1619,7 +1619,7 @@ window.pjaxLoaded = function(){
 					<tr><th class="subtitle"><h3><?php _e('搜索过滤器', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('启用过滤器', 'argon');?></label></th>
-						<td>	
+						<td>
 							<select name="argon_enable_search_filters">
 								<?php $argon_enable_search_filters = get_option('argon_enable_search_filters', 'true'); ?>
 								<option value="true" <?php if ($argon_enable_search_filters=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
@@ -1628,7 +1628,7 @@ window.pjaxLoaded = function(){
 							<p class="description"><?php _e('开启后，将会在搜索结果界面显示一个过滤器，支持搜索说说及其他类型文章', 'argon');?></p>
 						</td>
 					</tr>
-					<script>	
+					<script>
 						$("select[name='argon_enable_search_filters']").change(function(){
 							if ($(this).val() == 'true') {
 								$(".argon-search-filters-type").css('display', '');
@@ -1687,7 +1687,7 @@ window.pjaxLoaded = function(){
 							<div class="search-filters-container">
 								<?php _e('不启用', 'argon');?>
 								<div id="search_filters_inactive">
-									<?php 
+									<?php
 										$all_post_types= get_post_types(array(
 											'public'   => true,
 										), 'objects');
@@ -1892,6 +1892,17 @@ window.pjaxLoaded = function(){
 							<p class="description"><?php _e('如果您启用了其他代码高亮插件，发现代码块样式被 Argon 覆盖，出现了显示错误，请将此选项设为禁用', 'argon');?></p>
 						</td>
 					</tr>
+                    <tr>
+                        <th><label><?php _e('使用的页面阅读量统计 API', 'argon');?></label></th>
+                        <td>
+                            <select name="argon_view_counter">
+								<?php $argon_view_counter = get_option('argon_view_counter','default'); ?>
+                                <option value="default" <?php if ($argon_view_counter=='default'){echo 'selected';} ?>><?php _e('内建 API', 'argon');?></option>
+                                <option value="wp-statistics" <?php if ($argon_view_counter=='wp-statistics'){echo 'selected';} ?> <?php if(!function_exists( 'wp_statistics_pages' )) echo 'disabled' ?>><?php _e('WP Statistics', 'argon');?></option>
+                                <option value="post-views-counter" <?php if ($argon_view_counter=='post-views-counter'){echo 'selected';} ?> <?php if(!function_exists( 'pvc_get_post_views' )) echo 'disabled' ?>><?php _e('Post Views Counter', 'argon');?></option>
+                            </select>
+                        </td>
+                    </tr>
 					<tr>
 						<th><label><?php _e('检测更新源', 'argon');?></label></th>
 						<td>
@@ -2371,6 +2382,9 @@ function argon_update_themeoptions(){
         argon_update_option('argon_ai_extra_prompt');
         argon_update_option('argon_ai_max_content_length');
         argon_update_option('argon_ai_async_generate');
+
+		// 集成
+		argon_update_option('argon_view_counter');
 	}
 }
 argon_update_themeoptions();
