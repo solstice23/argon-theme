@@ -2,17 +2,9 @@ var $ = window.$;
 
 /*搜索*/
 const searchPosts = (word) => {
-	if ($(".search-result").length > 0){
-		let url = new URL(window.location.href);
-		url.searchParams.set("s", word);
-		$.pjax({
-			url: url.href
-		});
-	}else{
-		$.pjax({
-			url: argonConfig.wp_path + "?s=" + encodeURI(word)
-		});
-	}
+	$.pjax({
+		url: argonConfig.wp_path + "?s=" + encodeURI(word)
+	});
 }
 /*顶栏搜索*/
 $(document).on("click" , "#navbar_search_input_container" , function(){
