@@ -44,7 +44,16 @@ export const highlightJsRender = () => {
 			return;
 		}
 		$(block).parent().attr("id", randomString());
-		hljs.highlightBlock(block);
+
+        let languageClass = $(block)[0].className.split(/\s+/).find(it => it.startsWith("language-"))
+        let language = languageClass?.substring(9)
+        if (language && language !== '' && hljs.getLanguage(language) === undefined) {
+            $(block)[0].classList.remove(languageClass)
+            $(block)[0].classList.add("language-plaintext")
+            $(block).attr("data-original-language", language)
+        }
+
+		hljs.highlightElement(block);
 		hljs.lineNumbersBlock(block, {singleLine: true});
 		$(block).parent().addClass("hljs-codeblock");
 		if (window.argonConfig.code_highlight.hide_linenumber){
