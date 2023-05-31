@@ -32,3 +32,19 @@ function search_filter($query) {
 }
 add_filter('pre_get_posts', 'search_filter');
 
+/**
+ * 修复 WordPress 搜索结果为空，返回为 200 的问题。
+ * @author ivampiresp <im@ivampiresp.com>
+ */
+function search_404_fix_template_redirect()
+{
+    if (is_search()) {
+        global $wp_query;
+
+        if ($wp_query->found_posts == 0) {
+            status_header(404);
+        }
+    }
+}
+
+add_action('template_redirect', 'search_404_fix_template_redirect');
