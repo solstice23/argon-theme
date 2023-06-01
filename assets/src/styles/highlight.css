@@ -68,6 +68,9 @@ code[hljs-codeblock-inner] {
 pre.hljs-codeblock.hljs-transparent-linenumber .hljs-ln-numbers {
 	background: transparent !important;
 }
+pre.hljs-codeblock:not(.hljs-transparent-linenumber) .hljs-ln-numbers {
+	background: var(--hljs-background-color) !important;
+}
 .hljs-ln-code {
 	padding-left: 30px !important;
 	transition: all 0.3s ease;
