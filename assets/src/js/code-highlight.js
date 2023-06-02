@@ -64,8 +64,6 @@ export const highlightJsRender = () => {
 		}
 		if (window.argonConfig.code_highlight.transparent_linenumber){
 			$(block).parent().addClass("hljs-transparent-linenumber");
-		} else {
-			$(block).parent().css("--hljs-background-color", $(".hljs").css("background-color"))
 		}
 		$(block).attr("hljs-codeblock-inner", "");
 		let copyBtnID = "copy_btn_" + randomString();
@@ -140,4 +138,6 @@ $(document).on("click" , ".hljs-control-toggle-linenumber" , function(){
 
 document.addEventListener('DOMContentLoaded', function() {
 	highlightJsRender();
+
+	$(":root").css("--hljs-background-color", $(".hljs").css("background-color"))
 });
