@@ -3190,7 +3190,7 @@ function argon_blogroll_inner_meta_box($post) {
 ?>
     <input value="1" id="argon_blogroll_nofollow_checkbox" name="argon_blogroll_nofollow_checkbox"
            type="checkbox"<?php echo $checked; ?>> <label
-    for="argon_blogroll_nofollow_checkbox"><?php echo __('添加 <code>nofollow</code> 属性', 'mdx'); ?></label>
+    for="argon_blogroll_nofollow_checkbox"><?php echo __('添加 <code>nofollow</code> 属性'); ?></label>
 <?php
 }
 
