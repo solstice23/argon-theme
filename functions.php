@@ -2681,9 +2681,13 @@ function shortcode_friend_link($attr,$content=""){
 			$out .= "
 					<img src='" . $friendlink -> link_image . "' class='friend-link-avatar bg-gradient-secondary'>";
 		}
+		$rel = "";
+		if($friendlink -> link_rel != ''){
+			$rel = "rel='" . $friendlink -> link_rel . "'";
+		}
 		$out .= "	<div class='friend-link-content'>
 						<div class='friend-link-title title text-primary'>
-							<a target='_blank' href='" . esc_url($friendlink -> link_url) . "'>" . esc_html($friendlink -> link_name) . "</a>
+							<a target='_blank' href='" . esc_url($friendlink -> link_url) . "' " . $rel .">" . esc_html($friendlink -> link_name) . "</a>
 						</div>
 						<div class='friend-link-description'>" . esc_html($friendlink -> link_description) . "</div>";
 		$out .= "		<div class='friend-link-links'>";
@@ -3166,6 +3170,38 @@ add_filter('pre_get_posts', 'search_filter');
 
 /*恢复链接管理器*/
 add_filter('pre_option_link_manager_enabled', '__return_true');
+
+/*自定义链接 nofollow 属性，参考自 MDX*/
+function argon_blogroll_nofollow() {
+    add_action('add_meta_boxes', 'argon_blogroll_add_meta_box', 1, 1);
+    add_filter('pre_link_rel', 'argon_blogroll_save_meta_box', 10, 1);
+}
+
+function argon_blogroll_add_meta_box() {
+    add_meta_box('argon_blogroll_nofollow_div', __('nofollow'), 'argon_blogroll_inner_meta_box', 'link', 'side');
+}
+
+function argon_blogroll_inner_meta_box($post) {
+    $bookmark = get_bookmark($post->ID, 'ARRAY_A');
+    if (strpos($bookmark['link_rel'], 'nofollow') !== FALSE)
+        $checked = ' checked="checked"';
+    else
+        $checked = '';
+?>
+    <input value="1" id="argon_blogroll_nofollow_checkbox" name="argon_blogroll_nofollow_checkbox"
+           type="checkbox"<?php echo $checked; ?>> <label
+    for="argon_blogroll_nofollow_checkbox"><?php echo __('添加 <code>nofollow</code> 属性', 'mdx'); ?></label>
+<?php
+}
+
+function argon_blogroll_save_meta_box($link_rel) {
+    $rel = trim(str_replace('nofollow', '', $link_rel));
+    if ($_POST['argon_blogroll_nofollow_checkbox'])
+        $rel .= ' nofollow';
+    return trim($rel);
+}
+add_action('load-link.php', 'argon_blogroll_nofollow');
+add_action('load-link-add.php', 'argon_blogroll_nofollow');
 
 /*登录界面 CSS*/
 function argon_login_page_style() {
