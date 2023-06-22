@@ -312,9 +312,13 @@ function shortcode_friend_link($attr,$content=""){
 			$out .= "
 					<img src='" . $friendlink -> link_image . "' class='friend-link-avatar bg-gradient-secondary'>";
 		}
+		$rel = "";
+		if ($friendlink -> link_rel != ''){
+			$rel = "' rel='" . $friendlink -> link_rel;
+		}
 		$out .= "	<div class='friend-link-content'>
 						<div class='friend-link-title title text-primary'>
-							<a target='_blank' href='" . esc_url($friendlink -> link_url) . "'>" . esc_html($friendlink -> link_name) . "</a>
+							<a target='_blank' href='" . esc_url($friendlink -> link_url) . $rel . "'>" . esc_html($friendlink -> link_name) . "</a>
 						</div>
 						<div class='friend-link-description'>" . esc_html($friendlink -> link_description) . "</div>";
 		$out .= "		<div class='friend-link-links'>";

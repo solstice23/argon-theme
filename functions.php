@@ -149,5 +149,6 @@ if ( get_option( "argon_hide_categories" ) != "" ) {
 /*恢复链接管理器*/
 add_filter( 'pre_option_link_manager_enabled', '__return_true' );
 
+require('inc/fun/nofollow-friendlink.php');
 
 require('inc/fun/chatgpt.php');
