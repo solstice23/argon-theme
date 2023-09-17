@@ -648,17 +648,13 @@ function get_article_meta($type){
 	if ($type == 'time'){
 		return '<div class="post-meta-detail post-meta-detail-time">
 					<i class="fa fa-clock-o" aria-hidden="true"></i>
-					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
-						get_the_time('Y-n-d G:i') . '
-					</time>
+					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . '">' . get_the_time('Y-n-d G:i') . ' </time>
 				</div>';
 	}
 	if ($type == 'edittime'){
 		return '<div class="post-meta-detail post-meta-detail-edittime">
 					<i class="fa fa-clock-o" aria-hidden="true"></i>
-					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
-						get_the_modified_time('Y-n-d G:i') . '
-					</time>
+					<time title="' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' . get_the_modified_time('Y-n-d G:i') . ' </time>
 				</div>';
 	}
 	if ($type == 'views'){
