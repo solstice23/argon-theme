@@ -23,7 +23,7 @@ switch ($argon_assets_path) {
 	    $GLOBALS['assets_path'] = "https://gh.sourcegcdn.com/solstice23/argon-theme/v" . $argon_version;
         break;
 	case "fivecdn":
-	    $GLOBALS['assets_path'] = "https://mecdn.mcserverx.com/gh/solstice23/argon-theme/v" . $argon_version;
+	    $GLOBALS['assets_path'] = "https://mecdn.mcserverx.com/static/argon-theme/v" . $argon_version;
         break;
 	case "jsdelivr_gcore":
 	    $GLOBALS['assets_path'] = "https://gcore.jsdelivr.net/gh/solstice23/argon-theme@" . $argon_version;
