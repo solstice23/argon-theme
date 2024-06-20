@@ -3,9 +3,9 @@
 [繁體中文](README_tw.md) | [English](README_en.md) | [Russian](README_ru.md) | **日本語** 
 
 # Argon-Theme
-Argon - 軽やかでシンプル、美しいWordPressテーマ
+Argon - 轻盈、简洁、美观的 WordPress 主题
 
-Hexo : [github.com/solstice23/hexo-theme-argon](https://github.com/solstice23/hexo-theme-argon)
+Hexo 版本 : [github.com/solstice23/hexo-theme-argon](https://github.com/solstice23/hexo-theme-argon)
 
 [![GitHub release](https://img.shields.io/github/v/release/solstice23/argon-theme?color=%235e72e4&style=for-the-badge)](https://github.com/solstice23/argon-theme/releases) [![GitHub All Releases](https://img.shields.io/github/downloads/solstice23/argon-theme/total?style=for-the-badge)](https://github.com/solstice23/argon-theme/releases) [![GitHub](https://img.shields.io/github/license/solstice23/argon-theme?color=blue&style=for-the-badge)](https://github.com/solstice23/argon-theme/blob/master/LICENSE) [![Author]( https://img.shields.io/badge/author-solstice23-yellow?style=for-the-badge)](https://github.com/solstice23) [![GitHub stars](https://img.shields.io/github/stars/solstice23/argon-theme?color=ff69b4&style=for-the-badge)](https://github.com/solstice23/argon-theme/stargazers)
 
