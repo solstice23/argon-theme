@@ -1,13 +1,13 @@
-name: 其它类别 / Other categories
-description: 提交其它类别的 Issue / Submit issues in other categories
+name: その他のカテゴリー
+description: その他のカテゴリーでIssueを立てる
 body:
   - type: markdown
     attributes:
       value: |
-        在提交 Issue 之前，请确保：
-        + 先前不存在相同的 Issue
-        + 该 Issue 不属于 Bug 反馈或功能请求，否则请选择上述分类提交
-        + 准确描述 Issue 内容
+        問題を送信する前に、次のことを確認してください。:
+        + 同じ問題は以前には存在しませんでした 
+        + この問題は バグのフィードバックや feature リクエストに属していません。それ以外の場合は、上記のカテゴリを選択して送信してください 
+        + 問題の内容を正確に説明する
   - type: textarea
     id: description
     attributes:
