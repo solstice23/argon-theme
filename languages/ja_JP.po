@@ -31,7 +31,7 @@ msgstr "URLが正しいか確認をしてください。"
 #: 404.php:105 template-parts/content-none-search.php:13
 #: template-parts/content-none-tag.php:9
 msgid "返回上一页"
-msgstr "Back"
+msgstr "戻る"
 
 #: 404.php:109
 msgid "回到首页"
@@ -39,160 +39,156 @@ msgstr "Home"
 
 #: archive.php:14
 msgid "篇文章"
-msgstr "Posts"
+msgstr "投稿"
 
 #: comments.php:12 header.php:524 settings.php:1250
 #: template-parts/shuoshuo-operations.php:10
 msgid "评论"
-msgstr "Comments"
+msgstr "コメント"
 
 #: comments.php:51
 msgid "暂无评论"
-msgstr "No Comments"
+msgstr "コメントはありません"
 
 #: comments.php:59
 msgid "本文评论已关闭"
-msgstr "Commenting is disabled"
+msgstr "コメント機能は無効です"
 
 #: comments.php:76 settings.php:1290
 msgid "发送评论"
-msgstr "Send Comment"
+msgstr "コメントを送信"
 
 #: comments.php:77
 msgid "编辑评论"
-msgstr "Edit Comment"
+msgstr "コメントを編集"
 
 #: comments.php:80
 msgid "正在回复"
-msgstr "Replying"
+msgstr "返信中"
 
 #: comments.php:80
 msgid " 的评论"
-msgstr " のコメント"
+msgstr "のコメント"
 
 #: comments.php:82
 msgid "取消回复"
-msgstr "Cancel"
+msgstr "キャンセル"
 
 #: comments.php:87
 msgid "评论内容"
-msgstr "コメント・・・"
+msgstr "コメント"
 
 #: comments.php:126
 msgid "昵称"
-msgstr "Name"
+msgstr "ニックネーム"
 
 #: comments.php:136
 msgid "邮箱"
-msgstr "Email"
+msgstr "メールアドレス"
 
 #: comments.php:136
 msgid " / QQ 号"
-msgstr "/ QQ Number"
+msgstr "/ QQ 番号"
 
 #: comments.php:146
 msgid "验证码"
-msgstr "CAPTCHA"
+msgstr "認証コード"
 
 #: comments.php:166
 msgid "获取验证码失败"
-msgstr "Failed to get CAPTCHA"
+msgstr "認証コードの取得に失敗しました"
 
 #: comments.php:182
 msgid "网站"
-msgstr "Website"
+msgstr "ウェブサイト"
 
 #: comments.php:189
 msgid "展开附加字段"
-msgstr "Show Extra Field"
+msgstr "追加フィールドを展開"
 
 #: comments.php:189
 msgid "折叠附加字段"
-msgstr "Hide Extra Field"
+msgstr "追加フィールドを折りたたむ"
 
 #: comments.php:202
 msgid "评论仅发送者和博主可见"
-msgstr "Only sender and blog owner can see the comment"
+msgstr "コメントは送信者とブログの所有者のみが閲覧できます"
 
 #: comments.php:204 functions.php:1065
 msgid "悄悄话"
-msgstr "Private Comment"
+msgstr "プライベートコメント"
 
 #: comments.php:208
 msgid "有回复时邮件通知我"
-msgstr "Email me when comment is replied"
+msgstr "返信があった場合はメールで通知してください"
 
 #: comments.php:210
 msgid "邮件提醒"
-msgstr "Email Notification"
+msgstr "メール通知"
 
 #: comments.php:216
 msgid "发送"
-msgstr "Send"
+msgstr "送信"
 
 #: comments.php:217 functions.php:1100
 msgid "编辑"
-msgstr "Edit"
+msgstr "編集"
 
 #: comments.php:221
 msgid "取消"
-msgstr "Cancel"
+msgstr "キャンセル"
 
 #: comments.php:224
 msgid "表情"
-msgstr "Emotions"
+msgstr "絵文字"
 
 #: emotions.php:4
 msgid "颜文字"
-msgstr "ASCII Arts"
+msgstr "ASCIIアート"
 
 #: functions.php:3
 msgid "Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress"
-msgstr ""
-"Argon theme does not support Wordpress version below 4.4, please update "
-"Wordpress"
+msgstr "ArgonテーマはWordpress 4.4以下のバージョンをサポートしていません。Wordpressを更新してください"
 
 #: functions.php:157
 msgid "左侧栏小工具"
-msgstr "Left sidebar widget"
+msgstr "左サイドバーのウィジェット"
 
 #: functions.php:159
 msgid "左侧栏小工具 (如果设置会在侧栏增加一个 Tab)"
-msgstr "Left sidebar widget (if set, a Tab will be added to the sidebar)"
+msgstr "左サイドバーのウィジェット（設定するとサイドバーにタブが追加されます）"
 
 #: functions.php:168
 msgid "右侧栏小工具"
-msgstr "Right sidebar widget"
+msgstr "右サイドバーのウィジェット"
 
 #: functions.php:170
 msgid "右侧栏小工具 (在 \"Argon 主题选项\" 中选择 \"三栏布局\" 才会显示)"
-msgstr ""
-"Right sidebar widget (only displayed when \"three-column layout\" is "
-"selected in \"Argon Theme Options\")"
+msgstr "右サイドバーのウィジェット（\"Argonテーマオプション\"で\"三列レイアウト\"を選択した場合のみ表示されます）"
 
 #: functions.php:179 functions.php:181
 msgid "站点概览额外内容"
-msgstr "Extra content of site overview"
+msgstr "サイト概要の追加コンテンツ"
 
 #: functions.php:415
 msgid "这是一个加密页面，需要密码来查看"
-msgstr "This page requires a password to view"
+msgstr "これはパスワードで保護されたページです。閲覧にはパスワードが必要です"
 
 #: functions.php:574
 msgid "几秒读完"
-msgstr "Few seconds"
+msgstr "数秒で読めます"
 
 #: functions.php:577
 msgid "1 分钟内"
-msgstr "A minute"
+msgstr "1分以内"
 
 #: functions.php:580
 msgid "分钟"
-msgstr "minutes"
+msgstr "分"
 
 #: functions.php:582
 msgid "小时"
-msgstr "hour"
+msgstr "時間"
 
 #: functions.php:607 functions.php:1062
 #: template-parts/content-shuoshuo-details.php:16
@@ -200,276 +196,273 @@ msgstr "hour"
 #: template-parts/content-shuoshuo.php:16
 msgctxt "pinned"
 msgid "置顶"
-msgstr "Pinned"
+msgstr "ピン留め"
 
 #: functions.php:613
 msgid "需要密码"
-msgstr "Password Required"
+msgstr "パスワードが必要です"
 
 #: functions.php:619 functions.php:627
 msgid "发布于"
-msgstr "Posted at"
+msgstr "投稿日"
 
 #: functions.php:619 functions.php:627
 msgid "编辑于"
-msgstr "Edited at"
+msgstr "編集日"
 
 #: functions.php:673
 #, php-format
 msgid "包含 %d 行代码"
-msgstr "Includes %d lines of code"
+msgstr "%d 行のコードを含む"
 
 #: functions.php:677
 msgid "字"
-msgstr "Words"
+msgstr "文字"
 
 #: functions.php:826
 msgid "该评论为悄悄话"
-msgstr "This comment is private"
+msgstr "このコメントはプライベートです"
 
 #: functions.php:891
 msgid "最初版本"
-msgstr "First Edition"
+msgstr "初版"
 
 #: functions.php:935
 msgid "查看图片"
-msgstr "Show Image"
+msgstr "画像を表示"
 
 #: functions.php:1004 unsubscribe-comment-mailnotice.php:12
 msgid "评论不存在"
-msgstr "Comment not found."
+msgstr "コメントが存在しません"
 
 #: functions.php:1012
 msgid "该评论已被赞过"
-msgstr "This comment has been voted"
+msgstr "このコメントは既に評価されています"
 
 #: functions.php:1021 functions.php:1948
 msgid "点赞成功"
-msgstr "Vote success"
+msgstr "評価しました"
 
 #: functions.php:1059 functions.php:1117
 msgid "博主"
-msgstr "Owner"
+msgstr "オーナー"
 
 #: functions.php:1068 functions.php:1120
 msgid "待审核"
-msgstr "Pending"
+msgstr "審査待ち"
 
 #: functions.php:1077
 msgid "已编辑"
-msgstr "Edited"
+msgstr "編集済み"
 
 #: functions.php:1081
 msgid "前"
-msgstr " ago"
+msgstr "前"
 
 #: functions.php:1094
 msgid "取消置顶"
-msgstr "Unpin"
+msgstr "ピン留め解除"
 
 #: functions.php:1096
 msgctxt "to pin"
 msgid "置顶"
-msgstr "Pin"
+msgstr "ピン留め"
 
 #: functions.php:1102
 msgid "回复"
-msgstr "Reply"
+msgstr "返信"
 
 #: functions.php:1226
 msgid "验证码错误"
-msgstr "CAPTCHA Wrong"
+msgstr "CAPTCHAが間違っています"
 
 #: functions.php:1273
 msgid "不能回复其他人的悄悄话评论"
-msgstr "Cannot reply to other's private comments"
+msgstr "他人のプライベートコメントには返信できません"
 
 #: functions.php:1403 functions.php:1404
 msgid "您在"
-msgstr "Your Comment on"
+msgstr "あなたのコメント："
 
 #: functions.php:1403 functions.php:1404
 msgid "的评论有了新的回复"
-msgstr "Has a New Reply"
+msgstr "に新しい返信がありました"
 
 #: functions.php:1419
 msgid "回复了你"
-msgstr "Replys"
+msgstr "あなたに返信しました"
 
 #: functions.php:1430
 msgid "前往查看"
-msgstr "View"
+msgstr "表示する"
 
 #: functions.php:1447
 msgid "退订该评论的邮件提醒"
-msgstr "Unsubscribe"
+msgstr "メール通知を解除する"
 
 #: functions.php:1530
 msgid "博主关闭了编辑评论功能"
-msgstr "Comment editing unavailable"
+msgstr "コメントの編集は無効になっています"
 
 #: functions.php:1539
 msgid "您不是这条评论的作者或 Token 已过期"
-msgstr "You are not the author of this comment or the token has expired"
+msgstr "このコメントの作者ではないか、トークンが期限切れです"
 
 #: functions.php:1545
 msgid "新的评论为空"
-msgstr "New comment is empty"
+msgstr "新しいコメントは空です"
 
 #: functions.php:1571
 msgid "编辑评论成功"
-msgstr "Comment Edited"
+msgstr "コメントの編集に成功しました"
 
 #: functions.php:1579
 msgid "编辑评论失败，可能原因: 与原评论相同"
-msgstr "Failed, possible reason: same as old comment"
+msgstr "コメントの編集に失敗しました。原コメントと同じです"
 
 #: functions.php:1591
 msgid "博主关闭了评论置顶功能"
-msgstr "Comment pinning unavailable"
+msgstr "コメントのピン留めは無効になっています"
 
 #: functions.php:1597
 msgid "您没有权限进行此操作"
-msgstr "You have no permission to do this"
+msgstr "この操作を実行する権限がありません"
 
 #: functions.php:1606
 msgid "评论已经是置顶状态"
-msgstr "The comment is already pinned"
+msgstr "コメントは既にピン留めされています"
 
 #: functions.php:1606
 msgid "评论已经是取消置顶状态"
-msgstr "The comment is already unpinned"
+msgstr "コメントは既にピン留め解除されています"
 
 #: functions.php:1612
 msgid "不能置顶子评论"
-msgstr "Cannot pin a sub-comment"
+msgstr "子コメントはピン留めできません"
 
 #: functions.php:1618
 msgid "不能置顶悄悄话"
-msgstr "Cannot pin a private comment"
+msgstr "プライベートコメントはピン留めできません"
 
 #: functions.php:1624
 msgid "置顶评论成功"
-msgstr "Pinned successfully"
+msgstr "コメントのピン留めに成功しました"
 
 #: functions.php:1624
 msgid "取消置顶成功"
-msgstr "Unpinned successfully"
+msgstr "ピン留め解除に成功しました"
 
 #: functions.php:1939
 msgid "该说说已被赞过"
-msgstr "This essay has been voted"
+msgstr "このエッセイは既に評価されています"
 
 #: functions.php:1957
 msgid ""
 "警告：你可能修改了 Argon 主题页脚的版权声明，Argon 主题要求你至少保留主题的 "
 "Github 链接或主题的发布文章链接。"
 msgstr ""
-"Alert: The copyright in the footer may have been modified. You should "
-"maintain the GitHub Repo link of the theme."
+"警告：Argonテーマのフッターの著作権表示を変更した可能性があります。Argonテーマでは、少なくともテーマの "
+"Githubリンクまたはテーマの公開記事リンクを保持する必要があります。"
 
 #: functions.php:2106 settings.php:668
 msgid "显示字数和预计阅读时间"
-msgstr "Display word count and estimated reading time"
+msgstr "文字数と予想読了時間を表示する"
 
 #: functions.php:2109 functions.php:2123 functions.php:2131
 msgid "跟随全局设置"
-msgstr "Follow general"
+msgstr "全体設定に従う"
 
 #: functions.php:2110 settings.php:543 settings.php:553 settings.php:564
 #: settings.php:629 settings.php:673 settings.php:740 settings.php:751
 #: settings.php:905 settings.php:966 settings.php:1447 settings.php:1463
 #: settings.php:1573
 msgid "不显示"
-msgstr "Hide"
+msgstr "非表示"
 
 #: functions.php:2112
 msgid "是否显示字数和预计阅读时间 Meta 信息"
-msgstr "Show meta of word count and estimated reading time"
+msgstr "文字数と予想読了時間のメタ情報を表示するかどうか"
 
 #: functions.php:2113
 msgid "Meta 中隐藏发布时间和分类"
-msgstr "Hide post time and categories in meta"
+msgstr "メタ情報から投稿日時とカテゴリを非表示にする"
 
 #: functions.php:2116 settings.php:1307
 msgid "不隐藏"
-msgstr "Show"
+msgstr "非表示にしない"
 
 #: functions.php:2117 settings.php:386 settings.php:1308
 msgid "隐藏"
-msgstr "Hide"
+msgstr "非表示"
 
 #: functions.php:2119
 msgid ""
 "适合特定的页面，例如友链页面。开启后文章 Meta 的第一行只显示阅读数和评论数。"
 msgstr ""
-"For special pages, like friend links page. If this option is on, the first "
-"line of the meta will only show the number of reading and comments."
+"特定のページに適しています。例えば、友達リンクページなど。このオプションをオンにすると、メタの最初の行には閲覧数とコメント数のみが表示されます。"
 
 #: functions.php:2120
 msgid "使用文章中第一张图作为头图"
-msgstr "Use the first image of article as the thumbnail by default"
+msgstr "デフォルトで記事の最初の画像をサムネイルとして使用する"
 
 #: functions.php:2124
 msgid "使用"
-msgstr "Use"
+msgstr "使用する"
 
 #: functions.php:2125 settings.php:283 settings.php:1102
 msgid "不使用"
-msgstr "Do not use"
+msgstr "使用しない"
 
 #: functions.php:2127
 msgid "显示文章过时信息"
-msgstr "Show Article Outdated Information"
+msgstr "記事の古い情報を表示する"
 
 #: functions.php:2132
 msgid "一直显示"
-msgstr "Always"
+msgstr "常に表示する"
 
 #: functions.php:2133
 msgid "永不显示"
-msgstr "Never"
+msgstr "表示しない"
 
 #: functions.php:2135
 msgid "应用"
-msgstr "Apply"
+msgstr "適用"
 
 #: functions.php:2137
 msgid "单独控制该文章的过时信息显示。"
-msgstr ""
-"Separately control the display of outdated information for this article."
+msgstr "この記事の古い情報の表示を個別に制御します。"
 
 #: functions.php:2138 settings.php:765 settings.php:767
 msgid "文末附加内容"
-msgstr "Additional Content After Post"
+msgstr "記事の追加コンテンツ"
 
 #: functions.php:2141
 msgid ""
 "给该文章设置单独的文末附加内容，留空则跟随全局，设为 <code>--none--</code> 则"
 "不显示。"
 msgstr ""
-"Set a additional content at the end of the article, leave it blank to follow "
-"the global setting, set it to <code>--none--</code> to not display it."
+"この記事に個別の追加コンテンツを設定します。空白の場合は全体設定に従い、<code>--none--</code> に設定すると表示されません。"
 
 #: functions.php:2142
 msgid "自定义 CSS"
-msgstr "Custom CSS"
+msgstr "カスタムCSS"
 
 #: functions.php:2145
 msgid "给该文章添加单独的 CSS"
-msgstr "Custom CSS for this page."
+msgstr "このページにカスタムCSSを追加する"
 
 #: functions.php:2181 functions.php:2190
 msgid "应用失败"
-msgstr "failed"
+msgstr "適用に失敗しました"
 
 #: functions.php:2185
 msgid "应用成功"
-msgstr "Successfully applied"
+msgstr "適用に成功しました"
 
 #: functions.php:2198
 msgid "文章设置"
-msgstr "Article Settings"
+msgstr "記事設定"
 
 #: functions.php:2961 settings.php:727
 msgid "参考"
@@ -477,1059 +470,1001 @@ msgstr "References"
 
 #: functions.php:3024 settings.php:40
 msgid "Argon 主题设置"
-msgstr "Argon Theme Options"
+msgstr "Argonテーマの設定"
 
 #: functions.php:3024
 msgid "Argon 主题选项"
-msgstr "Argon Options"
+msgstr "Argonオプション"
 
 #: functions.php:3032
 msgid "顶部导航"
-msgstr "Toolbar Menu"
+msgstr "トップナビゲーション"
 
 #: functions.php:3033
 msgid "左侧栏菜单"
-msgstr "Left Sidebar Menu"
+msgstr "サイドバーメニュー"
 
 #: functions.php:3034
 msgid "左侧栏作者个人链接"
-msgstr "Left Sidebar Author Links"
+msgstr "サイドバーの作者の個人リンク"
 
 #: functions.php:3035
 msgid "左侧栏友情链接"
-msgstr "Left Sidebar Friend Links"
+msgstr "サイドバーのFriendリンク"
 
 #: functions.php:3046 functions.php:3047 functions.php:3057 shuoshuo.php:13
 msgid "说说"
-msgstr "Essays"
+msgstr "エッセイ"
 
 #: functions.php:3048 functions.php:3049
 msgid "发表说说"
-msgstr "Post a essay"
+msgstr "エッセイを投稿"
 
 #: functions.php:3050
 msgid "编辑说说"
-msgstr "Edit essay"
+msgstr "エッセイを編集"
 
 #: functions.php:3051
 msgid "新说说"
-msgstr "Add new essay"
+msgstr "新しいエッセイ"
 
 #: functions.php:3052
 msgid "查看说说"
-msgstr "View essay"
+msgstr "エッセイを表示"
 
 #: functions.php:3053
 msgid "搜索说说"
-msgstr "Search essays"
+msgstr "エッセイを検索"
 
 #: functions.php:3054
 msgid "暂无说说"
-msgstr "No essays"
+msgstr "エッセイはありません"
 
 #: functions.php:3055
 msgid "没有已遗弃的说说"
-msgstr "No trashed essays"
+msgstr "削除されたエッセイはありません"
 
 #: header.php:374 searchform.php:7 sidebar.php:67
 msgid "搜索什么..."
-msgstr "Search..."
+msgstr "検索..."
 
 #: header.php:392 searchform.php:11 sidebar.php:66
 msgid "搜索"
-msgstr "Search"
+msgstr "検索"
 
 #: header.php:517
 msgid "移至左侧"
-msgstr "Move To Left"
+msgstr "左に移動"
 
 #: header.php:517
 msgid "移至右侧"
-msgstr "Move To Right"
+msgstr "右に移動"
 
 #: header.php:521
 msgid "回到顶部"
-msgstr "Back To Top"
+msgstr "トップに戻る"
 
 #: header.php:527 header.php:536 settings.php:122
 msgid "夜间模式"
-msgstr "Dark Mode"
+msgstr "ダークモード"
 
 #: header.php:527 header.php:536
 msgid "暗黑模式"
-msgstr "Black Mode"
+msgstr "ブラックモード"
 
 #: header.php:527
 msgid "日间模式"
-msgstr "Light Mode"
+msgstr "ライトモード"
 
 #: header.php:530
 msgid "设置"
-msgstr "Settings"
+msgstr "設定"
 
 #: header.php:536
 msgid "切换到夜间模式"
-msgstr "Switch To Dark Mode"
+msgstr "ダークモードに切り替え"
 
 #: header.php:536
 msgid "切换到暗黑模式"
-msgstr "Switch To Black Mode"
+msgstr "ブラックモードに切り替え"
 
 #: header.php:543 settings.php:259
 msgid "字体"
-msgstr "Font"
+msgstr "フォント"
 
 #: header.php:549
 msgid "阴影"
-msgstr "Shadow"
+msgstr "シャドウ"
 
 #: header.php:551 settings.php:162
 msgid "浅阴影"
-msgstr "Small"
+msgstr "小"
 
 #: header.php:551 settings.php:166
 msgid "深阴影"
-msgstr "Large"
+msgstr "大"
 
 #: header.php:555
 msgid "滤镜"
-msgstr "Filter"
+msgstr "フィルター"
 
 #: header.php:557 settings.php:111 settings.php:355 settings.php:396
 #: settings.php:779 settings.php:1425 settings.php:1608
 msgid "关闭"
-msgstr "Disabled"
+msgstr "無効"
 
 #: header.php:558
 msgid "日落"
-msgstr "Sunset"
+msgstr "サンセット"
 
 #: header.php:559
 msgid "暗化"
-msgstr "Brightless"
+msgstr "暗くする"
 
 #: header.php:560
 msgid "灰度"
-msgstr "Greyscale"
+msgstr "グレースケール"
 
 #: header.php:564
 msgid "恢复默认"
-msgstr "Set To Default"
+msgstr "デフォルトに戻す"
 
 #: header.php:564
 msgid "圆角"
-msgstr "Radius"
+msgstr "角丸"
 
 #: header.php:571 settings.php:48
 msgid "主题色"
-msgstr "Theme Color"
+msgstr "テーマカラー"
 
 #: header.php:576
 msgid "阅读进度"
-msgstr "Reading Progress"
+msgstr "読み進める"
 
 #: msgboard.php:42
 msgid "留言板"
-msgstr "Message Board"
+msgstr "メッセージボード"
 
 #: msgboard.php:53
 msgid "发送留言"
-msgstr "Send Message"
+msgstr "メッセージを送信"
 
 #: search.php:8
 msgid "的搜索结果"
-msgstr "Search Results"
+msgstr "の検索結果"
 
 #: search.php:36
 msgid "个结果"
-msgstr "Results"
+msgstr "件の結果"
 
 #: settings.php:41
 msgid "按下"
-msgstr "Press"
+msgstr "押す"
 
 #: settings.php:41
 msgid "或在右侧目录中来查找设置"
-msgstr "or find options in right catalog"
+msgstr "または右側の目次で設定を検索"
 
 #: settings.php:47
 msgid "全局"
-msgstr "General"
+msgstr "全体"
 
 #: settings.php:50
 msgid "主题颜色"
-msgstr "Theme Color"
+msgstr "テーマカラー"
 
 #: settings.php:54
 msgid "选择预置颜色 或"
-msgstr "Choose preset colors or"
+msgstr "プリセットカラーを選択するか"
 
 #: settings.php:54
 msgid "自定义色值"
-msgstr "custom color"
+msgstr "カスタムカラー"
 
 #: settings.php:55
 msgid "预置颜色："
-msgstr "Presets"
+msgstr "プリセット："
 
 #: settings.php:57
 msgid "默认"
-msgstr "Default"
+msgstr "デフォルト"
 
 #: settings.php:58
 msgid "粉"
-msgstr "Pink"
+msgstr "ピンク"
 
 #: settings.php:59
 msgid "水鸭青"
-msgstr "Teal"
+msgstr "ティール"
 
 #: settings.php:60
 msgid "蓝灰"
-msgstr "Bluegrey"
+msgstr "ブルーグレー"
 
 #: settings.php:61
 msgid "天蓝"
-msgstr "Blue"
+msgstr "ブルー"
 
 #: settings.php:62
 msgid "靛蓝"
-msgstr "Indigo"
+msgstr "インディゴ"
 
 #: settings.php:63
 msgid "橙"
-msgstr "Orange"
+msgstr "オレンジ"
 
 #: settings.php:64
 msgid "绿"
-msgstr "Green"
+msgstr "グリーン"
 
 #: settings.php:65
 msgid "红"
-msgstr "Red"
+msgstr "レッド"
 
 #: settings.php:66
 msgid "紫"
-msgstr "Purple"
+msgstr "パープル"
 
 #: settings.php:67
 msgid "黑"
-msgstr "Black"
+msgstr "ブラック"
 
 #: settings.php:68
 msgid "棕"
-msgstr "Brown"
+msgstr "茶色"
 
 #: settings.php:70
 msgid "主题色与 \"Banner 渐变背景样式\" 选项搭配使用效果更佳"
-msgstr ""
-"Use this option with \"Banner gradient background style\" for better effects"
+msgstr "テーマカラーと \"Banner gradient background style\" オプションを組み合わせて使用すると効果がより良くなります"
 
 #: settings.php:99
 msgid "允许用户自定义主题色（位于博客浮动操作栏设置菜单中）"
-msgstr "Allow custom theme color (at blog floating settings menu)"
+msgstr "ユーザーがテーマカラーをカスタマイズできるようにします（ブログのフローティング操作バーの設定メニューにあります）"
 
 #: settings.php:106
 msgid "沉浸式主题色"
-msgstr "Immersive theme color"
+msgstr "没入型テーマカラー"
 
 #: settings.php:110 settings.php:356 settings.php:397 settings.php:1426
 #: settings.php:1609
 msgid "开启"
-msgstr "Enabled"
+msgstr "有効"
 
 #: settings.php:113
 msgid ""
 "开启后，主题色将会全局沉浸。</br>页面背景、卡片及页面上的其它元素会变为沉浸式"
 "主题色（气氛色）。类似 Material You。"
 msgstr ""
-"If turn it on, the theme color will be globally immersed. </br>The "
-"background, cards, and other elements on the page change to the immersive "
-"theme color. Just like Material You."
+"有効にすると、テーマカラーがグローバルに没入します。</br>ページの背景、カード、および他の要素は、没入型"
+"テーマカラー（アクセントカラー）に変わります。Material You に似ています。"
 
 #: settings.php:124
 msgid "夜间模式切换方案"
-msgstr "Darkmode Toggle Plan"
+msgstr "ダークモード切り替えプラン"
 
 #: settings.php:128
 msgid "默认使用日间模式"
-msgstr "Lightmode as default"
+msgstr "デフォルトでライトモードを使用"
 
 #: settings.php:129
 msgid "默认使用夜间模式"
-msgstr "Darkmode as default"
+msgstr "デフォルトでダークモードを使用"
 
 #: settings.php:130
 msgid "跟随系统夜间模式"
-msgstr "Follow system"
+msgstr "システムのダークモードに従う"
 
 #: settings.php:131
 msgid "根据时间切换夜间模式 (22:00 ~ 7:00)"
-msgstr "Toggle by time (22.p.m to 7.a.m)"
+msgstr "時間によるダークモードの切り替え (22:00 ~ 7:00)"
 
 #: settings.php:133
 msgid "Argon 主题会根据这里的选项来决定是否默认使用夜间模式。"
-msgstr ""
-"Theme will decide whether to use darkmode by default according to the "
-"options here."
+msgstr "Argon テーマは、ここでのオプションに基づいてデフォルトでダークモードを使用するかどうかを決定します。"
 
 #: settings.php:133
 msgid "用户也可以手动切换夜间模式，用户的设置将保留到标签页关闭为止。"
-msgstr ""
-"Users can also manually switch the darkmode, and the user's settings will be "
-"retained until the tab is closed."
+msgstr "ユーザーは手動でダークモードに切り替えることもできますが、ユーザーの設定はタブを閉じるまで保持されます。"
 
 #: settings.php:137
 msgid "夜间模式颜色方案"
-msgstr "Darkmode Color Scheme"
+msgstr "ダークモードのカラースキーム"
 
 #: settings.php:141
 msgid "灰黑"
-msgstr "Dark Grey"
+msgstr "ダークグレー"
 
 #: settings.php:142
 msgid "暗黑 (AMOLED Black)"
-msgstr "Black (For AMOLED)"
+msgstr "ブラック (AMOLED)"
 
 #: settings.php:144
 msgid "夜间模式默认的配色方案。"
-msgstr "The default color scheme of darkmode."
+msgstr "ダークモードのデフォルトのカラースキーム。"
 
 #: settings.php:147
 msgid "卡片"
-msgstr "Cards"
+msgstr "カード"
 
 #: settings.php:149
 msgid "卡片圆角大小"
-msgstr "Card radius"
+msgstr "カードの角丸の大きさ"
 
 #: settings.php:152
 msgid "卡片的圆角大小，默认为"
-msgstr "The default radius of card, default is"
+msgstr "カードの角丸のデフォルトの大きさは"
 
 #: settings.php:152
 msgid "。建议设置为"
-msgstr ". Recommend :"
+msgstr "。おすすめは"
 
 #: settings.php:156
 msgid "卡片阴影"
-msgstr "Card Shadow"
+msgstr "カードの影"
 
 #: settings.php:169
 msgid "卡片默认阴影大小。"
-msgstr "Default shadow size of cards."
+msgstr "カードのデフォルトの影の大きさ。"
 
 #: settings.php:172 settings.php:243 settings.php:249 settings.php:255
 msgid "布局"
-msgstr "Layouts"
+msgstr "レイアウト"
 
 #: settings.php:174
 msgid "页面布局"
-msgstr "Page Layout"
+msgstr "ページのレイアウト"
 
 #: settings.php:181
 msgid "双栏"
-msgstr "Double-Column"
+msgstr "2カラム"
 
 #: settings.php:187
 msgid "单栏"
-msgstr "Single-Column"
+msgstr "1カラム"
 
 #: settings.php:193
 msgid "三栏"
-msgstr "Triple-Column"
+msgstr "3カラム"
 
 #: settings.php:199
 msgid "双栏(反转)"
-msgstr "Double-Column (Reverse)"
+msgstr "2カラム (反転)"
 
 #: settings.php:201
 msgid "使用单栏时，关于左侧栏的设置将失效。"
-msgstr ""
-"If using single column mod, the settings about the left sidebar will take no "
-"effect."
+msgstr "1カラムを使用する場合、左サイドバーに関する設定は無効になります。"
 
 #: settings.php:201
 msgid "使用三栏时，请前往 \"外观-小工具\" 设置页面配置右侧栏内容。"
-msgstr ""
-"If using three columns, please go to the \"Appearance - Widgets\" setting "
-"page to configure the content of the right column."
+msgstr "3カラムを使用する場合は、「外観 - ウィジェット」設定ページに移動して右サイドバーの内容を設定してください。"
 
 #: settings.php:205
 msgid "文章列表布局"
-msgstr "Article list layout"
+msgstr "記事リストのレイアウト"
 
 #: settings.php:212
 msgid "单列"
-msgstr "Single Column"
+msgstr "1列"
 
 #: settings.php:218
 msgid "瀑布流 (2 列)"
-msgstr "Waterfall (2 Columns)"
+msgstr "ウォーターフォール (2列)"
 
 #: settings.php:224
 msgid "瀑布流 (3 列)"
-msgstr "Waterfall (3 Columns)"
+msgstr "ウォーターフォール (3列)"
 
 #: settings.php:230
 msgid "瀑布流 (列数自适应)"
-msgstr "Waterfall (Adaptive)"
+msgstr "ウォーターフォール (自動列数)"
 
 #: settings.php:232
 msgid "列数自适应的瀑布流会根据可视区宽度自动调整瀑布流列数。"
-msgstr ""
-"The adaptive waterfall will automatically adjust the count of columns "
-"according to the width of the view."
+msgstr "自動列数のウォーターフォールは、表示領域の幅に応じてウォーターフォールの列数を自動調整します。"
 
 #: settings.php:232
 msgid "建议只有使用单栏页面布局时才开启 3 列瀑布流。"
-msgstr ""
-"It is recommended to enable the 3-column waterfall flow only when using "
-"single-column page layout."
+msgstr "3列のウォーターフォールは、1列のページレイアウトの場合にのみ有効にすることをお勧めします。"
 
 #: settings.php:232
 msgid "所有瀑布流布局都会在屏幕宽度过小时变为单列布局。"
-msgstr ""
-"All waterfall layouts will change to single-column when the screen is too "
-"narrow."
+msgstr "すべてのウォーターフォールレイアウトは、画面の幅が狭すぎる場合には1列レイアウトに変更されます。"
 
 #: settings.php:236
 msgid "文章列表卡片布局"
-msgstr "Article list card layout"
+msgstr "記事リストのカードレイアウト"
 
 #: settings.php:261
 msgid "默认字体"
-msgstr "Default Font"
+msgstr "デフォルトフォント"
 
 #: settings.php:274
 msgid "默认使用无衬线字体/衬线字体。"
-msgstr "Default font style"
+msgstr "デフォルトでサンセリフフォント/セリフフォントを使用します。"
 
 #: settings.php:288
-msgid ""
-"选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。"
-msgstr ""
-"The address of the theme resource file. Using CDN can speed up access to "
-"resource files and reduce server pressure."
+msgid "选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。"
+msgstr "テーマのリソースファイルの参照アドレスを選択します。CDNを使用すると、リソースファイルへのアクセスが高速化され、サーバーの負荷が軽減されます。"
 
 #: settings.php:291
 msgid "子目录"
-msgstr "Sub Path"
+msgstr "サブディレクトリ"
 
 #: settings.php:293
 msgid "Wordpress 安装目录"
-msgstr "WordPress Installation Directory"
+msgstr "WordPress インストールディレクトリ"
 
 #: settings.php:296
 msgid "如果 Wordpress 安装在子目录中，请在此填写子目录地址（例如"
-msgstr ""
-"If Wordpress is installed in a subdirectory, please fill in the subdirectory "
-"address here (for example"
+msgstr "WordPressがサブディレクトリにインストールされている場合は、サブディレクトリのアドレスをここに入力してください（例："
 
 #: settings.php:296
 msgid "），注意前后各有一个斜杠。默认为"
-msgstr "), there is a slash before and after each. The default is"
+msgstr "）。前後にスラッシュがあることに注意してください。デフォルトは"
 
 #: settings.php:296
 msgid "。"
-msgstr "."
+msgstr "。"
 
 #: settings.php:296
 msgid "如果不清楚该选项的用处，请保持默认。"
-msgstr "If you don't know about this option, keep the default."
+msgstr "このオプションの目的がわからない場合は、デフォルトのままにしてください。"
 
 #: settings.php:299 settings.php:301
 msgid "日期格式"
-msgstr "Date Format"
+msgstr "日付の形式"
 
 #: settings.php:312
 msgid "顶栏"
-msgstr "Toolbar"
+msgstr "トップバー"
 
 #: settings.php:313
 msgid "状态"
-msgstr "Status"
+msgstr "ステータス"
 
 #: settings.php:315
 msgid "顶栏显示状态"
-msgstr "Toolbar Display Status"
+msgstr "トップバーの表示状態"
 
 #: settings.php:319
 msgid "始终固定悬浮"
-msgstr "Fixed"
+msgstr "常に固定"
 
 #: settings.php:320
 msgid "滚动时自动折叠"
-msgstr "Collapse when scrolling"
+msgstr "スクロール時に自動で折りたたむ"
 
 #: settings.php:321
 msgid "不固定"
-msgstr "Absolute"
+msgstr "固定しない"
 
 #: settings.php:323
 msgid "始终固定悬浮: 永远固定悬浮在页面最上方"
-msgstr "Fixed: Always show on the top of the page"
+msgstr "常に固定: 常にページの上部に固定されます"
 
 #: settings.php:323
 msgid "滚动时自动折叠: 在页面向下滚动时隐藏顶栏，向上滚动时显示顶栏"
-msgstr ""
-"Collapse when scrolling: hide the top bar when the page is scrolling down, "
-"and show the top bar when scrolling up"
+msgstr "スクロール時に自動で折りたたむ: ページを下にスクロールするとトップバーが非表示になり、上にスクロールすると表示されます"
 
 #: settings.php:323
 msgid "不固定: 只有在滚动到页面最顶端时才显示顶栏"
-msgstr ""
-"Absolute: The top bar is only displayed when scrolled to the top of the page"
+msgstr "固定しない: ページの最上部にスクロールした場合にのみ表示されます"
 
 #: settings.php:326 settings.php:795
 msgid "标题"
-msgstr "Title"
+msgstr "タイトル"
 
 #: settings.php:328
 msgid "顶栏标题"
-msgstr "Toolbar Title"
+msgstr "トップバータイトル"
 
 #: settings.php:331
 msgid "留空则显示博客名称，输入 <code>--hidden--</code> 可以隐藏标题"
-msgstr ""
-"Leave it blank to display the blog name, enter <code>--hidden--</code> to "
-"hide the title"
+msgstr "空白の場合はブログ名が表示されます。タイトルを非表示にするには、<code>--hidden--</code> を入力します"
 
 #: settings.php:334
 msgid "顶栏图标"
-msgstr "Toolbar Icon"
+msgstr "トップバーアイコン"
 
 #: settings.php:336
 msgid "图标地址"
-msgstr "Icon URL"
+msgstr "アイコンのURL"
 
 #: settings.php:339
 msgid "图片地址，留空则不显示"
-msgstr "The URL of the icon, if this option is empty, it will not show."
+msgstr "画像のURL。空白の場合は表示されません"
 
 #: settings.php:343
 msgid "图标链接"
-msgstr "Icon Link"
+msgstr "アイコンのリンク"
 
 #: settings.php:346
 msgid "点击图标后会跳转到的链接，留空则不跳转"
-msgstr ""
-"The link that will jump to when clicking the icon, if this option is empty, "
-"it will not jump when clicking."
+msgstr "アイコンをクリックするとジャンプするリンク。空白の場合はジャンプしません"
 
 #: settings.php:349 settings.php:377 settings.php:898
 msgid "外观"
-msgstr "Appearance"
+msgstr "外観"
 
 #: settings.php:351
 msgid "顶栏毛玻璃效果"
-msgstr "Toolbar Blur Effect"
+msgstr "トップバーのぼかし効果"
 
 #: settings.php:358
 msgid "开启会带来微小的性能损失。"
-msgstr "There will be a small performance loss if turned it on."
+msgstr "有効にすると、わずかなパフォーマンスの低下があります。"
 
 #: settings.php:361
 msgid "顶部 Banner (封面)"
-msgstr "Banner"
+msgstr "バナー"
 
 #: settings.php:362
 msgid "内容"
-msgstr "Content"
+msgstr "コンテンツ"
 
 #: settings.php:364
 msgid "Banner 标题"
-msgstr "Banner Title"
+msgstr "バナータイトル"
 
 #: settings.php:367 settings.php:496
 msgid "留空则显示博客名称"
-msgstr "If this option is empty, theme will show the blog name."
+msgstr "空白の場合はブログ名が表示されます"
 
 #: settings.php:371
 msgid "Banner 副标题"
-msgstr "Banner Subtitle"
+msgstr "バナーサブタイトル"
 
 #: settings.php:374
 msgid "显示在 Banner 标题下，留空则不显示"
-msgstr ""
-"Show below the banner title, if this option is empty, it will not show."
+msgstr "バナータイトルの下に表示されます。空白の場合は表示されません"
 
 #: settings.php:379
 msgid "Banner 显示状态"
-msgstr "Banner Size"
+msgstr "バナーの表示状態"
 
 #: settings.php:383
 msgid "完整"
-msgstr "Full"
+msgstr "フル"
 
 #: settings.php:384
 msgid "迷你"
-msgstr "Mini"
+msgstr "ミニ"
+
 
 #: settings.php:385
 msgid "全屏"
-msgstr "Full screen"
+msgstr "フルスクリーン"
 
 #: settings.php:388
 msgid "完整: Banner 高度占用半屏"
-msgstr "Full: Banner takes up half the screen height"
+msgstr "完全: Bannerが半分の画面高さを占有"
 
 #: settings.php:388
 msgid "迷你: 减小 Banner 的内边距"
-msgstr "Mini: Reduce the padding of the banner"
+msgstr "ミニ: バナーのパディングを縮小"
 
 #: settings.php:388
 msgid "全屏: Banner 占用全屏作为封面（仅在首页生效）"
-msgstr ""
-"Full screen: Banner occupies the full screen as the cover (only active on "
-"the homepage)"
+msgstr "フルスクリーン: バナーがカバーとして全画面を占有（ホームページのみ有効）"
 
 #: settings.php:388
 msgid "隐藏: 完全隐藏 Banner"
-msgstr "Hide: Hide Banner"
+msgstr "非表示: バナーを完全に非表示"
 
 #: settings.php:392
 msgid "Banner 透明化"
-msgstr "Banner Transparent"
+msgstr "バナーの透明化"
 
 #: settings.php:402
 msgid "在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）"
-msgstr ""
-"Add a mask to the top bar, and add a shadow to the banner title (check when "
-"the background is too bright and affect text reading)"
+msgstr "トップバーに浅いマスクを追加し、バナータイトルに影を追加します（背景が明るすぎてテキストの読み取りに影響を与える場合にチェック）"
 
 #: settings.php:405
 msgid ""
 "Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置"
 "页面背景时生效。"
-msgstr ""
-"Banner transparent option can immerse the blog background. It is recommended "
-"to enable this option when setting the background. This option will only "
-"take effect when setting the page background."
+msgstr "バナーの透明化により、ブログの背景が没入感を持たせることができます。背景を設定する際には、このオプションを有効にすることをお勧めします。このオプションは、ページの背景を設定する場合にのみ有効です。"
 
 #: settings.php:405
 msgid "开启后，Banner 背景图和渐变背景选项将失效。"
-msgstr "When turned on, the Banner background options will be disabled."
+msgstr "有効にすると、バナーの背景画像とグラデーション背景のオプションは無効になります。"
 
 #: settings.php:409
 msgid "Banner 背景图 (地址)"
-msgstr "Banner Background URL"
+msgstr "バナーの背景画像（URL）"
 
 #: settings.php:412
 msgid "需带上 http(s) ，留空则显示默认背景"
-msgstr "With http(s) prefix, leave it blank to show the default background."
+msgstr "http(s) を含める必要があります。空白の場合はデフォルトの背景が表示されます。"
 
 #: settings.php:412 settings.php:503
 msgid "输入"
-msgstr "Input"
+msgstr "入力"
 
 #: settings.php:412
 msgid "调用必应每日一图"
-msgstr "to use everyday background of Bing."
+msgstr "Bingの毎日の画像を呼び出す"
 
 #: settings.php:416
 msgid "Banner 渐变背景样式"
-msgstr "Banner gradient background style"
+msgstr "バナーのグラデーション背景スタイル"
 
 #: settings.php:420 settings.php:421 settings.php:422 settings.php:423
 #: settings.php:424 settings.php:425 settings.php:426 settings.php:435
 #: settings.php:436 settings.php:437 settings.php:438 settings.php:439
 #: settings.php:440 settings.php:441
 msgid "样式"
-msgstr "Style"
+msgstr "スタイル"
 
 #: settings.php:430
 msgid "隐藏背景半透明圆"
-msgstr "Hide background semi-transparent circle"
+msgstr "背景の半透明円を非表示にする"
 
 #: settings.php:432
 msgid "如果设置了背景图则不生效"
-msgstr "If the background image is set, it will not take effect"
+msgstr "背景画像が設定されている場合は無効です"
 
 #: settings.php:433
 msgid "样式预览 (推荐选择前三个样式)"
-msgstr "Style preview (recommended to choose the first three styles)"
+msgstr "スタイルプレビュー（最初の3つのスタイルを選択することをお勧めします）"
 
 #: settings.php:450 settings.php:1213
 msgid "动画"
-msgstr "Animation"
+msgstr "アニメーション"
 
 #: settings.php:452
 msgid "Banner 标题打字动画"
-msgstr "Banner Title Typing Animation"
+msgstr "バナータイトルのタイピングアニメーション"
 
 #: settings.php:456 settings.php:932 settings.php:975 settings.php:1007
 #: settings.php:1233 settings.php:1504 settings.php:1553
 msgid "不启用"
-msgstr "Disabled"
+msgstr "無効"
 
 #: settings.php:457 settings.php:718 settings.php:933 settings.php:976
 #: settings.php:1061 settings.php:1113 settings.php:1137 settings.php:1234
 #: settings.php:1296 settings.php:1330 settings.php:1437 settings.php:1492
 #: settings.php:1503 settings.php:1554
 msgid "启用"
-msgstr "Enabled"
+msgstr "有効"
 
 #: settings.php:459
 msgid "启用后 Banner 标题会以打字的形式出现。"
-msgstr "When enabled, the Banner title will appear as typing effect."
+msgstr "有効にすると、バナータイトルがタイピングのように表示されます。"
 
 #: settings.php:463
 msgid "Banner 标题打字动画时长"
-msgstr "Banner Title Typing Animation Speed"
+msgstr "バナータイトルのタイピングアニメーションの速度"
 
 #: settings.php:465
 msgid "ms/字"
-msgstr "ms/letter"
+msgstr "ms/文字"
 
 #: settings.php:469 settings.php:471
 msgid "页面背景"
-msgstr "Page Background"
+msgstr "ページの背景"
 
 #: settings.php:474
 msgid ""
 "页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐开"
 "启 Banner 透明化。"
-msgstr ""
-"The URL of the page background, with http(s) prefix. Leave it blank to not "
-"set the page background. If the background is set. If background is set, it "
-"is recommended to turn on Banner Transparent."
+msgstr "ページの背景のURL。http(s)を含める必要があります。空白の場合はページの背景が設定されません。背景が設定されている場合は、バナーの透明化を有効にすることをお勧めします。"
 
 #: settings.php:478
 msgid "页面背景（夜间模式时）"
-msgstr "Page Background (Darkmode)"
+msgstr "ページの背景（ダークモード時）"
 
 #: settings.php:481
 msgid ""
 "夜间模式时页面背景的地址，需带上 http(s)。设置后日间模式和夜间模式会使用不同"
 "的背景。留空则跟随日间模式背景。该选项仅在设置了日间模式背景时生效。"
-msgstr ""
-"The URL of the page background at darkmode, with http(s) prefix. If set, day "
-"mode and night mode will use different backgrounds. Leave blank to follow "
-"the background of day mode. This option only takes effect when the day mode "
-"background is set."
+msgstr "ダークモード時のページの背景のURL。http(s)を含める必要があります。設定すると、デイモードとナイトモードで異なる背景が使用されます。空白の場合はデイモードの背景に従います。このオプションは、デイモードの背景が設定されている場合にのみ有効です。"
 
 #: settings.php:485
 msgid "背景不透明度"
-msgstr "Background Opacity"
+msgstr "背景の不透明度"
 
 #: settings.php:488
 msgid "0 ~ 1 的小数，越小透明度越高，默认为 1 不透明"
-msgstr ""
-"Decimal from 0 to 1, the smaller the higher the transparency, the default is "
-"1."
+msgstr "0から1の小数。小さいほど透明度が高くなります。デフォルトは1（不透明）です。"
 
 #: settings.php:491
 msgid "左侧栏"
-msgstr "Left Sidebar"
+msgstr "左サイドバー"
 
 #: settings.php:493
 msgid "左侧栏标题"
-msgstr "Left Sidebar Title"
+msgstr "左サイドバータイトル"
 
 #: settings.php:500
 msgid "左侧栏子标题（格言）"
-msgstr "Left Sidebar Subtitle"
+msgstr "左サイドバーサブタイトル"
 
 #: settings.php:503 settings.php:524
 msgid "留空则不显示"
-msgstr "Leave blank to not show."
+msgstr "空白の場合は表示されません"
 
 #: settings.php:503
 msgid "调用一言 API"
-msgstr "to use Hitokoto API."
+msgstr "Hitokoto APIを呼び出す"
 
 #: settings.php:507
 msgid "左侧栏作者名称"
-msgstr "Left Sidebar Author Name"
+msgstr "左サイドバーの作者名"
 
 #: settings.php:510
 msgid "留空则显示博客名"
-msgstr "If this option is empty, theme will show the blog name."
+msgstr "空白の場合はブログ名が表示されます"
 
 #: settings.php:514
 msgid "左侧栏作者头像地址"
-msgstr "Left Sidebar Author Avatar URL"
+msgstr "左サイドバーの作者のアバターURL"
 
 #: settings.php:517
 msgid "需带上 http(s) 开头"
-msgstr "With http(s) prefix"
+msgstr "http(s)を含める必要があります"
 
 #: settings.php:521
 msgid "左侧栏作者简介"
-msgstr "Left Sidebar Author Description"
+msgstr "左サイドバーの作者の紹介"
 
 #: settings.php:527
 msgid "博客公告"
-msgstr "Blog Announcement"
+msgstr "ブログのお知らせ"
 
 #: settings.php:529
 msgid "公告内容"
-msgstr "Announcement Content"
+msgstr "お知らせの内容"
 
 #: settings.php:532
 msgid "显示在左侧栏顶部，留空则不显示，支持 HTML 标签"
-msgstr ""
-"Display at the top of the left sidebar, leave blank to not display, HTML "
-"tags are supported."
+msgstr "左サイドバーの上部に表示されます。空白の場合は表示されません。HTMLタグがサポートされています"
 
 #: settings.php:535
 msgid "浮动操作按钮"
-msgstr "Float Action Buttons"
+msgstr "フローティングアクションボタン"
 
 #: settings.php:536
 msgid "浮动操作按钮位于页面右下角（或左下角）"
-msgstr ""
-"Floating action buttons is placed in the right bottom corner (or lower left "
-"corner) of the page."
+msgstr "フローティングアクションボタンはページの右下隅（または左下隅）に配置されます"
 
 #: settings.php:538
 msgid "显示设置按钮"
-msgstr "Show Settings Button"
+msgstr "設定ボタンを表示"
 
 #: settings.php:542 settings.php:554 settings.php:565 settings.php:625
 #: settings.php:672 settings.php:752 settings.php:904 settings.php:965
 #: settings.php:1462 settings.php:1574
 msgid "显示"
-msgstr "Show"
+msgstr "表示"
 
 #: settings.php:545
 msgid ""
 "是否在浮动操作按钮栏中显示设置按钮。点击设置按钮可以唤出设置菜单修改夜间模式/"
 "字体/滤镜等外观选项。"
 msgstr ""
-"Whether to display the setting button in the floating action buttons bar. "
-"Click the settings button to call up the settings menu to modify appearance "
-"options such as darkmode/font/filter."
+"フローティングアクションボタンバーに設定ボタンを表示するかどうか。設定ボタンをクリックすると、ダークモード/フォント/フィルタなどの外観オプションを変更するための設定メニューが表示されます。"
 
 #: settings.php:549
 msgid "显示夜间模式切换按钮"
-msgstr "Display Darkmode Switch Button"
+msgstr "ダークモード切り替えボタンを表示"
 
 #: settings.php:556
 msgid ""
 "如果开启了设置按钮显示，建议关闭此选项。（夜间模式选项在设置菜单中已经存在）"
 msgstr ""
-"If the setting button display option is turned on, it is recommended to turn "
-"off this option. (The darkmode option already exists in the settings menu)"
+"設定ボタンの表示オプションが有効になっている場合、このオプションを無効にすることをお勧めします。"
+"（ダークモードオプションは既に設定メニューに存在します）"
 
 #: settings.php:560
 msgid "显示跳转到评论按钮"
-msgstr "Show Jump To Comment Area Button"
+msgstr "コメントエリアへのジャンプボタンを表示"
 
 #: settings.php:567
 msgid "仅在允许评论的文章中显示"
-msgstr "Only show in articles that allow comments"
+msgstr "コメントが許可されている記事のみ表示"
 
 #: settings.php:572
 msgid "网站描述 (Description Meta 标签)"
-msgstr "SEO Description Meta"
+msgstr "サイトの説明（Description Meta タグ）"
 
 #: settings.php:575
 msgid "设置针对搜索引擎的 Description Meta 标签内容。"
-msgstr "Set the description meta content for the search engine spiders."
+msgstr "検索エンジン向けの説明メタタグの内容を設定します"
 
 #: settings.php:575
 msgid ""
 "在文章中，Argon 会自动根据文章内容生成描述。在其他页面中，Argon 将使用这里设"
 "置的内容。如不填，Argon 将不会在其他页面输出 Description Meta 标签。"
 msgstr ""
-"In the article, Argon will automatically generate a description based on the "
-"content of the article. In other pages, Argon will use the content set here. "
-"If you leave it blank, Argon will not output Description Meta tags on other "
-"pages."
+"記事中では、Argonは記事の内容に基づいて自動的に説明を生成します。他のページでは、Argonはここで設定した内容を使用します。"
+"空白の場合、Argonは他のページにDescription Metaタグを出力しません。"
 
 #: settings.php:579
 msgid "搜索引擎关键词（Keywords Meta 标签）"
-msgstr "SEO Keywords Meta tag"
+msgstr "検索エンジンのキーワード（Keywords Meta タグ）"
 
 #: settings.php:582
 msgid ""
 "设置针对搜索引擎使用的关键词（Keywords Meta 标签内容）。用英文逗号隔开。不设"
 "置则不输出该 Meta 标签。"
 msgstr ""
-"Set keyword meta tags for search engine spiders. Separate with commas. If "
-"not set, the meta tags will not be output."
+"検索エンジン向けのキーワード（Keywords Meta タグの内容）を設定します。英語の"
+"コンマで区切ります。設定しない場合、このメタタグは出力されません。"
 
 #: settings.php:585 sidebar.php:134
 msgid "文章"
-msgstr "Articles"
+msgstr "記事"
 
 #: settings.php:586
 msgid "文章 Meta 信息"
-msgstr "Article Meta Information"
+msgstr "記事のメタ情報"
 
 #: settings.php:588
 msgid "第一行"
-msgstr "First Line"
+msgstr "第1行"
 
 #: settings.php:623
 msgid "拖动来自定义文章 Meta 信息的显示和顺序"
-msgstr ""
-"Drag to customize the display and order of the meta information of the "
-"article."
+msgstr "ドラッグして記事のメタ情報の表示と順序をカスタマイズします"
 
 #: settings.php:631 settings.php:791 settings.php:875
 msgid "发布时间"
-msgstr "Post time"
+msgstr "投稿日時"
 
 #: settings.php:632 settings.php:792
 msgid "修改时间"
-msgstr "Edit time"
+msgstr "更新日時"
 
 #: settings.php:633
 msgid "浏览量"
-msgstr "Views"
+msgstr "閲覧数"
 
 #: settings.php:634
 msgid "评论数"
-msgstr "Comments"
+msgstr "コメント数"
 
 #: settings.php:635
 msgid "所属分类"
-msgstr "Categories"
+msgstr "カテゴリ"
 
 #: settings.php:636 settings.php:796
 msgid "作者"
-msgstr "Author"
+msgstr "著者"
 
 #: settings.php:666
 msgid "第二行"
-msgstr "Second Line"
+msgstr "2行目"
 
 #: settings.php:678
 msgid "每分钟阅读字数（中文）"
-msgstr "Number of CJK words read per minute"
+msgstr "1分間の読了文字数（中国語）"
 
 #: settings.php:681
 msgid "字/分钟"
-msgstr "words/minute"
+msgstr "文字/分"
 
 #: settings.php:686
 msgid "每分钟阅读单词数（英文）"
-msgstr "Number of English words read per minute"
+msgstr "1分間の読了単語数（英語）"
 
 #: settings.php:689
 msgid "单词/分钟"
-msgstr "words/minute"
+msgstr "単語/分"
 
 #: settings.php:693
 msgid "每分钟阅读代码行数"
-msgstr "Number of Code lines read per minute"
+msgstr "1分間の読了コード行数"
 
 #: settings.php:696
 msgid "行/分钟"
-msgstr "lines/minute"
+msgstr "行/分"
 
 #: settings.php:697
 msgid "预计阅读时间由每分钟阅读字数计算"
-msgstr ""
-"Estimated reading time is calculated by the number of words read per minute"
+msgstr "予想読了時間は1分間の読了文字数で計算されます"
 
 #: settings.php:700
 msgid "文章头图 (特色图片)"
-msgstr "Featured Picture"
+msgstr "記事ヘッダ画像（特徴画像）"
 
 #: settings.php:702
 msgid "文章头图的位置"
-msgstr "Featured Picture Position"
+msgstr "記事ヘッダ画像の位置"
 
 #: settings.php:706
 msgid "文章卡片顶端"
-msgstr "Top of article card"
+msgstr "記事カードの上部"
 
 #: settings.php:707
 msgid "Banner (顶部背景)"
-msgstr "Banner Background"
+msgstr "バナー（上部背景）"
 
 #: settings.php:709
 msgid "阅读界面中文章头图的位置"
-msgstr "The position of the article header image in the article page"
+msgstr "記事ページ内の記事ヘッダ画像の位置"
 
 #: settings.php:713
 msgid "默认使用文章中第一张图作为头图"
-msgstr "Use the first image of article as the thumbnail by default"
+msgstr "デフォルトでは記事の最初の画像をサムネイルとして使用します"
 
 #: settings.php:717 settings.php:1062 settings.php:1114 settings.php:1138
 #: settings.php:1172 settings.php:1245 settings.php:1297 settings.php:1329
 #: settings.php:1436 settings.php:1491 settings.php:1595 settings.php:1649
 #: settings.php:1660
 msgid "禁用"
-msgstr "Disabled"
+msgstr "無効"
 
 #: settings.php:720
 msgid "也可以针对每篇文章单独设置"
-msgstr "Also can be set separately for every article."
+msgstr "各記事ごとに個別に設定することもできます"
 
 #: settings.php:723
 msgid "脚注(引用)"
-msgstr "Footnote (References)"
+msgstr "脚注（引用）"
 
 #: settings.php:725
 msgid "脚注列表标题"
-msgstr "Footnote List Title"
+msgstr "脚注リストのタイトル"
 
 #: settings.php:728
 msgid ""
 "脚注列表显示在文末，在文章中有脚注的时候会显示。</br>使用 <code>ref</code> 短"
 "代码可以在文中插入脚注。"
 msgstr ""
-"The footnotes list is shown at the end of the post, and is displayed when "
-"there are footnotes in the article. </br> Use the <code>ref</code> shortcode "
-"to insert footnotes into the post."
+"脚注リストは記事の末尾に表示され、記事に脚注がある場合に表示されます。</br>"
+"<code>ref</code> ショートコードを使用して記事に脚注を挿入できます。"
 
 #: settings.php:731 template-parts/share.php:53
 msgid "分享"
-msgstr "Share"
+msgstr "シェア"
 
 #: settings.php:733
 msgid "显示文章分享按钮"
-msgstr "Show Share Button"
+msgstr "記事のシェアボタンを表示"
 
 #: settings.php:737
 msgid "显示全部社交媒体"
-msgstr "All social media"
+msgstr "すべてのソーシャルメディアを表示"
 
 #: settings.php:738
 msgid "显示国内社交媒体"
-msgstr "Chinese social media"
+msgstr "中国のソーシャルメディアを表示"
 
 #: settings.php:739
 msgid "显示国外社交媒体"
-msgstr "Non-Chinese social media"
+msgstr "中国以外のソーシャルメディアを表示"
 
 #: settings.php:745
 msgid "左侧栏文章目录"
-msgstr "Catalog In Left Sidebar"
+msgstr "サイドバーの記事目次"
 
 #: settings.php:747
 msgid "在目录中显示序号"
-msgstr "Show chapter number in the catalog"
+msgstr "目次に番号を表示"
 
 #: settings.php:754
 msgid "例：3.2.5"
-msgstr "For example: 3.2.5"
+msgstr "例：3.2.5"
 
 #: settings.php:757 template-parts/content-single.php:100
 msgid "赞赏"
-msgstr "Donate"
+msgstr "寄付"
 
 #: settings.php:759
 msgid "赞赏二维码图片链接"
-msgstr "Donating QR code image link"
+msgstr "寄付のQRコード画像リンク"
 
 #: settings.php:762
 msgid ""
 "赞赏二维码图片链接，填写后会在文章最后显示赞赏按钮，留空则不显示赞赏按钮"
 msgstr ""
-"After filling in, the donate button will be displayed at the end of the "
-"article, leave it blank to not display the donate button"
+"寄付のQRコード画像リンクを入力すると、記事の最後に寄付ボタンが表示されます。"
+"空白の場合は寄付ボタンは表示されません"
 
 #: settings.php:770
 msgid "将会显示在每篇文章末尾，支持 HTML 标签，留空则不显示。"
-msgstr ""
-"Will be displayed at the end of each article, support HTML tags, leave it "
-"blank to not display."
+msgstr "各記事の末尾に表示されます。HTMLタグがサポートされています。空白の場合は表示されません"
 
 #: settings.php:770
 msgid ""
@@ -1537,260 +1472,246 @@ msgid ""
 "面链接，<code>%title%</code> 来代替当前文章标题，<code>%author%</code> 来代替"
 "当前文章作者。"
 msgstr ""
-"Use <code>%url%</code> to replace the current page URL, <code>%link%</code> "
-"to replace the current page link, and <code>%title%</code> to replace the "
-"current article title,< code>%author%</code> to replace the current article "
-"author."
+"現在のページの URL には <code>%url%</code> を、現在のページのリンクには <code>%link%</code> を、現在の記事のタイトルには <code>%title%</code> を、現在の記事の著者には <code>%author%</code> を使用してください。"
 
 #: settings.php:773 settings.php:775
 msgid "相似文章推荐"
-msgstr "Related Posts Recommending"
+msgstr "関連記事の推薦"
 
 #: settings.php:780
 msgid "根据分类推荐"
-msgstr "Recommend by categories"
+msgstr "カテゴリに基づいて推薦"
 
 #: settings.php:781
 msgid "根据标签推荐"
-msgstr "Recommend by tags"
+msgstr "タグに基づいて推薦"
 
 #: settings.php:782
 msgid "根据分类和标签推荐"
-msgstr "Recommend by both tags and categories"
+msgstr "カテゴリとタグに基づいて推薦"
 
 #: settings.php:783
 msgid "显示在文章卡片后"
-msgstr "The related posts card will be displayed after post."
+msgstr "関連記事カードの後に表示"
 
 #: settings.php:787
 msgid "排序依据"
-msgstr "Sort by"
+msgstr "ソート基準"
 
 #: settings.php:793
 msgid "阅读量"
-msgstr "Views"
+msgstr "閲覧数"
 
 #: settings.php:797
 msgid "随机"
-msgstr "Random"
+msgstr "ランダム"
 
 #: settings.php:802
 msgid "顺序"
-msgstr "Order"
+msgstr "順序"
 
 #: settings.php:806
 msgid "倒序"
-msgstr "DESC"
+msgstr "逆順"
 
 #: settings.php:807
 msgid "正序"
-msgstr "ASC"
+msgstr "順順"
 
 #: settings.php:812
 msgid "推荐文章数"
-msgstr "Related Posts Limit"
+msgstr "関連記事の数"
 
 #: settings.php:815
 msgid "最多推荐多少篇文章"
-msgstr "The limit number of related posts."
+msgstr "関連記事の最大数"
 
 #: settings.php:818 settings.php:820
 msgid "文章内标题样式"
-msgstr "Header style in articles"
+msgstr "記事内の見出しスタイル"
 
 #: settings.php:824 settings.php:829
 msgid "默认样式"
-msgstr "Default Style"
+msgstr "デフォルトスタイル"
 
 #: settings.php:825 settings.php:830
 msgid "样式 1"
-msgstr "Style 1"
+msgstr "スタイル 1"
 
 #: settings.php:826 settings.php:831
 msgid "样式 2"
-msgstr "Style 2"
+msgstr "スタイル 2"
 
 #: settings.php:828
 msgid "样式预览"
-msgstr "Styles Preview"
+msgstr "スタイルプレビュー"
 
 #: settings.php:867
 msgid "其他"
-msgstr "Other"
+msgstr "その他"
 
 #: settings.php:869
 msgid "文章过时信息显示"
-msgstr "Article outdated information"
+msgstr "記事の古さ情報の表示"
 
 #: settings.php:871
 msgid "当一篇文章的"
-msgstr "When the"
+msgstr "記事の"
 
 #: settings.php:874
 msgid "最后修改时间"
-msgstr "Last Modified Time"
+msgstr "最終更新日時"
 
 #: settings.php:877
 msgid "距离现在超过"
-msgstr "of an article from now more then"
+msgstr "現在からの経過日数が"
 
 #: settings.php:879
 msgid "天时，用"
-msgstr "days, show a tip by"
+msgstr "日以上経過した場合、"
 
 #: settings.php:882
 msgid "在文章顶部显示信息条"
-msgstr "Showing a information bar at the top of the article"
+msgstr "記事の上部に情報バーを表示"
 
 #: settings.php:883
 msgid "在页面右上角弹出提示条"
-msgstr "Popping up a alert bar at the right top of the page"
+msgstr "ページの右上隅にアラートバーを表示"
 
 #: settings.php:885
 msgid "的方式提示"
-msgstr "."
+msgstr "で通知する"
 
 #: settings.php:887
 msgid ""
 "本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。"
 msgstr ""
-"This article was last updated %date_delta% days ago. The information in it "
-"may have been changed."
+"この記事は %date_delta% 日前に最後更新されました。情報は変更されている可能性があります。"
 
 #: settings.php:888
 msgid "天数为 -1 表示永不提示。"
-msgstr "Set days to -1 to never show it."
+msgstr "日数を -1 に設定すると、表示しないようになります。"
 
 #: settings.php:888
 msgid "表示文章发布/修改时间与当前时间的差距，"
-msgstr ""
-"means the gap between the post/modify time of the article and the current "
-"time,"
+msgstr "記事の投稿/更新時間と現在時刻の差を表します。"
 
 #: settings.php:888
 msgid "表示文章发布时间与当前时间的差距，"
-msgstr ""
-"means the gap between the post time of the article and the current time,"
+msgstr "記事の投稿時間と現在時刻の差を表します。"
 
 #: settings.php:888
 msgid "表示文章修改时间与当前时间的差距（单位: 天）。"
-msgstr ""
-"means the gap between the modify time of the article and the current time,"
+msgstr "記事の更新時間と現在時刻の差を表します。"
 
 #: settings.php:891
 msgid "归档页面"
-msgstr "Archive page"
+msgstr "アーカイブページ"
 
 #: settings.php:893
 msgid "介绍"
-msgstr "Description"
+msgstr "説明"
 
 #: settings.php:895
 msgid ""
 "新建一个页面，并将其模板设为 \"归档时间轴\"，即可创建一个归档页面。归档页面会"
 "按照时间顺序在时间轴上列出博客的所有文章。"
 msgstr ""
-"Create a new page and set its template to \"Archive Timeline\" to create an "
-"archive page. The archive page will list all the blog posts on the timeline "
-"in chronological order."
+"新しいページを作成し、テンプレートを \"アーカイブタイムライン\" に設定すると、アーカイブページが作成されます。アーカイブページは、タイムライン上にブログのすべての記事が時間順に表示されます。"
 
 #: settings.php:900
 msgid "在时间轴上显示月份"
-msgstr "Show month on timeline"
+msgstr "タイムラインに月を表示"
 
 #: settings.php:907
 msgid "关闭后，时间轴只会按年份分节"
-msgstr "If disabled, the timeline will only be divided into sections by year"
+msgstr "無効にすると、タイムラインは年ごとにセクション分割されます"
 
 #: settings.php:910
 msgid "配置"
-msgstr "Configuration"
+msgstr "設定"
 
 #: settings.php:912
 msgid "归档页面链接"
-msgstr "Archive page link"
+msgstr "アーカイブページのリンク"
 
 #: settings.php:915
 msgid ""
 "归档页面的 URL。点击左侧栏 \"博客概览\" 中的 \"博文总数\" 一栏时可跳转到该地"
 "址。"
 msgstr ""
-"The URL of the archive page. You can jump to this address when you click on "
-"the \"Total Number of Blog Posts\" column in the \"Blog Overview\" on the "
-"left column."
+"アーカイブページの URL。左側の \"ブログの概要\" の \"記事の総数\" 列をクリックすると、このアドレスにジャンプできます。"
 
 #: settings.php:918
 msgid "页脚"
-msgstr "Footer"
+msgstr "フッター"
 
 #: settings.php:920
 msgid "页脚内容"
-msgstr "Footer"
+msgstr "フッターの内容"
 
 #: settings.php:923 settings.php:1203 settings.php:1210
 msgid "HTML , 支持 script 等标签"
-msgstr "HTML, script and other tags are supported."
+msgstr "HTML、script などのタグがサポートされています。"
 
 #: settings.php:926
 msgid "代码高亮"
-msgstr "Code Highlight"
+msgstr "コードのハイライト"
 
 #: settings.php:928
 msgid "启用 Highlight.js 代码高亮"
-msgstr "Enable Highlight.js code highlighting"
+msgstr "Highlight.js のコードハイライトを有効にする"
 
 #: settings.php:935
 msgid "所有 pre 下的 code 标签会被自动解析"
-msgstr "All code tags under pre will be automatically parsed"
+msgstr "pre タグの下のすべての code タグが自動的に解析されます"
 
 #: settings.php:939
 msgid "高亮配色方案（主题）"
-msgstr "Highlight color scheme"
+msgstr "ハイライトのカラースキーム（テーマ）"
 
 #: settings.php:957
 msgid "查看所有主题预览"
-msgstr "View all color scheme previews"
+msgstr "すべてのテーマのプレビューを表示"
 
 #: settings.php:961
 msgid "默认显示行号"
-msgstr "Show Line Numbers as Default"
+msgstr "行番号をデフォルトで表示"
 
 #: settings.php:971
 msgid "默认启用自动折行"
-msgstr "Enable Line Break as Default"
+msgstr "自動改行をデフォルトで有効にする"
 
 #: settings.php:981
 msgid "行号背景透明"
-msgstr "Enable line number background transparent as Default"
+msgstr "行番号の背景を透明にする"
 
 #: settings.php:985
 msgid "不透明"
-msgstr "Opaque"
+msgstr "不透明"
 
 #: settings.php:986
 msgid "透明"
-msgstr "Transparent"
+msgstr "透明"
 
 #: settings.php:988
 msgid "适用于某些背景渐变的高亮主题"
-msgstr "For some highlight themes which has gradient background."
+msgstr "一部の背景グラデーションに適用されるハイライトテーマ"
 
 #: settings.php:992
 msgid ""
 "如果您想使用其他代码高亮插件，而非 Argon 自带高亮，请前往 \"杂项\" 打开 \"禁"
 "用 Argon 代码块样式\" 来防止样式冲突"
 msgstr ""
-"If you want to use other code highlighting plugins instead of Argon's "
-"highlighting, go to the Misc section and turn on \"Disable Argon code block "
-"styles\" to prevent style conflicts"
+"Argon のデフォルトのハイライトではなく、他のコードハイライトプラグインを使用したい場合は、\"その他\" に移動し、\"Argon のコードブロックスタイルを無効にする\" をオンにしてスタイルの競合を防止してください"
 
 #: settings.php:996
 msgid "数学公式"
-msgstr "Formulas Rendering"
+msgstr "数式の表示"
 
 #: settings.php:998
 msgid "数学公式渲染方案"
-msgstr "Formula rendering library"
+msgstr "数式のレンダリングライブラリ"
 
 #: settings.php:1017 settings.php:1030 settings.php:1043
 msgid "地址"
@@ -1798,196 +1719,186 @@ msgstr "URL"
 
 #: settings.php:1019 settings.php:1032
 msgid "，默认为"
-msgstr ", Default is"
+msgstr "、デフォルトは"
 
 #: settings.php:1045
 msgid "Argon 会同时引用"
-msgstr "Argon will import both"
+msgstr "Argon は次の両方を参照します"
 
 #: settings.php:1045
 msgid "和"
-msgstr "and"
+msgstr "と"
 
 #: settings.php:1045
 msgid ""
 "两个文件，所以在此填写的是上层的路径，而不是具体的文件。注意路径后要带一个斜"
 "杠。"
 msgstr ""
-"two files, so input the parent directory path in here, not the specific "
-"file. There is a slash after the path."
+"2つのファイルが同時にインポートされるため、ここには親ディレクトリのパスを入力します。具体的なファイルではありません。パスの後ろにスラッシュを付けることに注意してください。"
 
 #: settings.php:1045
 msgid "默认为"
-msgstr "Default is"
+msgstr "デフォルトは"
 
 #: settings.php:1057
 msgid "是否启用 Lazyload"
-msgstr "Enable Lazyload"
+msgstr "Lazyload を有効にする"
+
 
 #: settings.php:1064
 msgid "是否启用 Lazyload 加载文章内图片"
-msgstr "Lazyload will load images when the page is about to scroll to them."
+msgstr "記事内の画像の遅延読み込みを有効にします"
 
 #: settings.php:1068
 msgid "提前加载阈值"
-msgstr "Lazyload threshold"
+msgstr "遅延読み込みの閾値"
 
 #: settings.php:1071
 msgid "图片距离页面底部还有多少距离就开始提前加载"
-msgstr ""
-"The distance from the bottom of the screen when the image start loading."
+msgstr "画像がページの底部からどれだけの距離になったら遅延読み込みを開始するか"
 
 #: settings.php:1075
 msgid "LazyLoad 图片加载完成过渡"
-msgstr "Transition after the image is loaded"
+msgstr "画像の読み込みが完了した後の遷移効果"
 
 #: settings.php:1081
 msgid "不使用过渡"
-msgstr "No transitions"
+msgstr "遷移効果を使用しない"
 
 #: settings.php:1087
 msgid "LazyLoad 图片加载动效"
-msgstr "Lazyload Loading Animation"
+msgstr "遅延読み込みの画像読み込みアニメーション"
 
 #: settings.php:1091 settings.php:1092 settings.php:1093 settings.php:1094
 #: settings.php:1095 settings.php:1096 settings.php:1097 settings.php:1098
 #: settings.php:1099 settings.php:1100 settings.php:1101
 msgid "加载动画"
-msgstr "Loading Animation"
+msgstr "読み込みアニメーション"
 
 #: settings.php:1104
 msgid "在图片被加载之前显示的加载效果"
-msgstr "The loading animation displayed before the image is loaded."
+msgstr "画像が読み込まれる前に表示される読み込み効果"
 
 #: settings.php:1104
 msgid "预览所有效果"
-msgstr "Preview all animations"
+msgstr "すべての効果をプレビュー"
 
 #: settings.php:1107
 msgid "图片放大浏览"
-msgstr "Image zooming in"
+msgstr "画像の拡大表示"
 
 #: settings.php:1109
 msgid "是否启用图片放大浏览 (Fancybox)"
-msgstr "Enable Fancybox"
+msgstr "画像の拡大表示を有効にします (Fancybox)"
 
 #: settings.php:1116
 msgid "开启后，文章中图片被单击时会放大预览"
-msgstr ""
-"If enabled, the image in the article will be enlarged and previewed when "
-"clicked"
+msgstr "有効にすると、記事内の画像をクリックすると拡大表示されます"
 
 #: settings.php:1120
 msgid "展开旧版图片放大浏览 (Zoomify) 设置 ▼"
-msgstr "Expand Zoomify Settings (Old) ▼"
+msgstr "旧バージョンの画像拡大表示 (Zoomify) の設定を展開 ▼"
 
 #: settings.php:1133
 msgid "是否启用旧版图片放大浏览 (Zoomify)"
-msgstr "Enable Zoomify"
+msgstr "旧バージョンの画像拡大表示 (Zoomify) を有効にします"
 
 #: settings.php:1140
 msgid ""
 "自 Argon 1.1.0 版本后，图片缩放预览库由 Zoomify 更换为 Fancybox，如果您还想使"
 "用旧版图片预览，请开启此选项。注意: Zoomify 和 Fancybox 不能同时开启。"
 msgstr ""
-"Since Argon 1.1.0, the image zoom preview library has been replaced by "
-"Fancybox instead of Zoomify, so turn this option on if you still want to use "
-"the old image preview. Note: Zoomify and Fancybox cannot be turned on at the "
-"same time."
+"Argon 1.1.0 以降、画像の拡大表示ライブラリが Zoomify から Fancybox に変更されました。"
+"旧バージョンの画像プレビューを使用する場合は、このオプションを有効にしてください。"
+"注意: Zoomify と Fancybox は同時に有効にできません。"
 
 #: settings.php:1144
 msgid "缩放动画长度"
-msgstr "Zooming Transition Duration"
+msgstr "拡大表示のアニメーション時間"
 
 #: settings.php:1147
 msgid "图片被单击后缩放到全屏动画的时间长度"
-msgstr "The duration of the image is clicked to zoom to full screen animation"
+msgstr "画像がクリックされた後、フルスクリーンに拡大表示されるアニメーションの時間"
 
 #: settings.php:1151
 msgid "缩放动画曲线"
-msgstr "Zooming Transition Timing Function"
+msgstr "拡大表示のアニメーションカーブ"
 
 #: settings.php:1155
 msgid "例："
-msgstr "For example: "
+msgstr "例:"
 
 #: settings.php:1155
 msgid "如果你不知道这是什么，参考"
-msgstr "If you don‘t know what this is, see"
+msgstr "わからない場合は、参考"
 
 #: settings.php:1155
 msgid "这里"
-msgstr "here"
+msgstr "こちら"
 
 #: settings.php:1160
 msgid "图片最大缩放比例"
-msgstr "Image maximum zoom ratio"
+msgstr "画像の最大拡大比率"
 
 #: settings.php:1163
 msgid "图片相对于页面的最大缩放比例 (0 ~ 1 的小数)"
-msgstr ""
-"The maximum zoom ratio of the image relative to the page (decimal from 0 to "
-"1)"
+msgstr "画像のページに対する最大拡大比率 (0 ~ 1 の小数)"
 
 #: settings.php:1168
 msgid "启用 Pangu.js (自动在中英文之间添加空格)"
-msgstr "Enable Pangu.js (automatically add spaces between Chinese and English)"
+msgstr "Pangu.js を有効にします (中国語と英語の間に自動的にスペースを追加)"
 
 #: settings.php:1173
 msgid "格式化文章内容"
-msgstr "Format article content"
+msgstr "記事の内容を整形"
 
 #: settings.php:1174
 msgid "格式化说说"
-msgstr "Format essays"
+msgstr "エッセイの整形"
 
 #: settings.php:1175
 msgid "格式化评论区"
-msgstr "Format comments"
+msgstr "コメントエリアの整形"
 
 #: settings.php:1176
 msgid "格式化文章内容和评论区"
-msgstr "Format articles and comments"
+msgstr "記事とコメントエリアの整形"
 
 #: settings.php:1177
 msgid "格式化文章内容和说说"
-msgstr "Format articles and essays"
+msgstr "記事とエッセイの整形"
 
 #: settings.php:1178
 msgid "格式化说说和评论区"
-msgstr "Format essays and comments"
+msgstr "エッセイとコメントエリアの整形"
 
 #: settings.php:1179
 msgid "格式化文章内容、说说和评论区"
-msgstr "Format article, essays and comments"
+msgstr "記事、エッセイ、コメントエリアの整形"
 
 #: settings.php:1181
 msgid "开启后，会自动在中文和英文之间添加空格"
-msgstr ""
-"After opening, it will automatically add space between CJK Characters and "
-"English"
+msgstr "有効にすると、中国語と英語の間に自動的にスペースが追加されます"
 
 #: settings.php:1184
 msgid "脚本"
-msgstr "Scripts"
+msgstr "スクリプト"
 
 #: settings.php:1186
 msgid "注意"
-msgstr "Attention"
+msgstr "注意"
 
 #: settings.php:1188
 msgid ""
 "Argon 使用 pjax 方式加载页面 (无刷新加载) , 所以除非页面手动刷新，否则您的脚"
 "本只会被执行一次。"
 msgstr ""
-"Argon uses Pjax to load the page (loading without refresh), so unless the "
-"page is manually refreshed, your script will only be executed once."
+"Argon はページを Pjax で読み込むため (リフレッシュなしで読み込む)、ページを手動でリフレッシュしない限り、"
+"スクリプトは1回しか実行されません。"
 
 #: settings.php:1189
 msgid "如果您想让每次页面跳转(加载新页面)时都执行脚本，请将脚本写入"
-msgstr ""
-"If you want to execute the script every time loading a new page, please "
-"write the script into"
+msgstr "ページを読み込むたびにスクリプトを実行したい場合は、スクリプトを以下に記述してください"
 
 #: settings.php:1189
 msgid "中"
@@ -1995,151 +1906,146 @@ msgstr "function"
 
 #: settings.php:1189
 msgid "示例写法"
-msgstr "For example"
+msgstr "例:"
 
 #: settings.php:1192
 msgid "页面每次跳转都会执行这里的代码"
-msgstr "The code here will be executed every time the page loads"
+msgstr "ページを読み込むたびに、ここに記述されたコードが実行されます"
 
 #: settings.php:1196
 msgid "当页面第一次载入时，"
-msgstr "When the page loads for the first time, the script in"
+msgstr "ページが初めて読み込まれるとき、"
 
 #: settings.php:1196
 msgid "中的脚本不会执行，所以您可以手动执行"
-msgstr "will not be executed, so you can manually execute"
+msgstr "のスクリプトは実行されませんので、手動で実行できます"
 
 #: settings.php:1196
 msgid "来让页面初次加载时也执行脚本"
-msgstr "to execute the script when the page first loads."
+msgstr "ページが初めて読み込まれるときにもスクリプトを実行するため"
 
 #: settings.php:1200
 msgid "页头脚本"
-msgstr "Header script"
+msgstr "ヘッダースクリプト"
 
 #: settings.php:1203
 msgid "插入到 body 之前"
-msgstr "Will be inserted before body"
+msgstr "body の前に挿入されます"
 
 #: settings.php:1207
 msgid "页尾脚本"
-msgstr "Footer script"
+msgstr "フッタースクリプト"
 
 #: settings.php:1210
 msgid "插入到 body 之后"
-msgstr "Will be inserted after body"
+msgstr "body の後に挿入されます"
 
 #: settings.php:1215
 msgid "是否启用平滑滚动"
-msgstr "Enable Smooth Scroll"
+msgstr "スムーズスクロールを有効にします"
 
 #: settings.php:1219
 msgid "使用平滑滚动方案 1 (平滑) (推荐)"
-msgstr "Smooth Scroll Scheme 1 (Smooth)(Recommend)"
+msgstr "スムーズスクロールスキーム 1 (スムーズ) (推奨)"
 
 #: settings.php:1220
 msgid "使用平滑滚动方案 1 (脉冲式滚动) (仿 Edge) (推荐)"
-msgstr "Smooth Scroll Scheme 1 (Impulsive, Edge like)(Recommend)"
+msgstr "スムーズスクロールスキーム 1 (パルス式スクロール) (Edge 風) (推奨)"
 
 #: settings.php:1221
 msgid "使用平滑滚动方案 2 (较稳)"
-msgstr "Smooth Scroll Scheme 2"
+msgstr "スムーズスクロールスキーム 2 (安定)"
 
 #: settings.php:1222
 msgid "使用平滑滚动方案 3"
-msgstr "Smooth Scroll Scheme 3"
+msgstr "スムーズスクロールスキーム 3"
 
 #: settings.php:1223
 msgid "不使用平滑滚动"
-msgstr "Disabled"
+msgstr "スムーズスクロールを使用しない"
 
 #: settings.php:1225
 msgid ""
 "能增强浏览体验，但可能出现一些小问题，如果有问题请切换方案或关闭平滑滚动"
 msgstr ""
-"Can enhance the scrolling experience, but some minor problems may occur. If "
-"there is a problem, please switch the scheme or turn off smooth scrolling."
+"ブラウジング体験を向上させることができますが、一部の問題が発生する可能性があります。"
+"問題がある場合は、スキームを切り替えるか、スムーズスクロールを無効にしてください"
 
 #: settings.php:1229
 msgid "是否启用进入文章动画"
-msgstr "Enable Entering Article Animation"
+msgstr "記事への遷移アニメーションを有効にします"
 
 #: settings.php:1236
 msgid "从首页或分类目录进入文章时，使用平滑过渡（可能影响加载文章时的性能）"
-msgstr ""
-"Use transition when entering articles from the homepage or category "
-"directory (may affect the performance when loading articles)"
+msgstr "ホームページやカテゴリディレクトリから記事に遷移する際に、スムーズな遷移を使用します (記事の読み込みパフォーマンスに影響する可能性があります)"
 
 #: settings.php:1240
 msgid "禁用 Pjax 加载后的页面滚动动画"
-msgstr "Disable Pjax Scroll Animation"
+msgstr "Pjax 読み込み後のページスクロールアニメーションを無効にします"
 
 #: settings.php:1244 settings.php:1648 settings.php:1659
 msgid "不禁用"
-msgstr "Do not disable"
+msgstr "無効にしない"
 
 #: settings.php:1247
 msgid "Pjax 替换页面内容后会平滑滚动到页面顶部，如果你不喜欢，可以禁用这个选项"
-msgstr ""
-"Pjax will scroll to the top of the page smoothly after replacing the page "
-"content. If you don‘t like it, you can disable this option."
+msgstr "Pjax によるページコンテンツの置き換え後、ページのトップにスムーズにスクロールされます。"
+"このオプションを無効にすると、スクロールを無効にできます"
 
 #: settings.php:1251
 msgid "评论分页"
-msgstr "Comment pagination"
+msgstr "コメント分割"
 
 #: settings.php:1253
 msgid "评论分页方式"
-msgstr "Comment pagination"
+msgstr "コメントのページ分割"
 
 #: settings.php:1257
 msgid "无限加载"
-msgstr "Append"
+msgstr "追加"
 
 #: settings.php:1258
 msgid "页码"
-msgstr "Page Number"
+msgstr "ページ番号"
 
 #: settings.php:1261
 msgid "无限加载：点击 \"加载更多\" 按钮来加载更多评论。"
-msgstr "Append: Click the \"Load more\" button to load more comments."
+msgstr "追加：「もっと読み込む」ボタンをクリックして追加のコメントを読み込みます。"
 
 #: settings.php:1262
 msgid "页码：显示页码来分页。"
-msgstr "Page Number: Display the page number buttons."
+msgstr "ページ番号：ページ番号ボタンを表示してページ分割します。"
 
 #: settings.php:1263
 msgid ""
 "选择\"无限加载\"时，如果开启了评论分页，请将 Wordpress 的讨论设置设为 \"默认"
 "显示<b>最后</b>一页，在每个页面顶部显示<b>新的</b>评论\"。"
 msgstr ""
-"When selecting \"Append\", it is recommended to set the discussion setting "
-"item in WordPress settings to \"Display the last page by default, and "
-"display new comments at the top of each page\"."
+"「追加」を選択した場合、WordPressの設定でディスカッション設定項目を「デフォルトで"
+"最後のページを表示し、各ページのトップに新しいコメントを表示する」に設定することをお勧めします。"
 
 #: settings.php:1263
 #, fuzzy
 #| msgid "设置"
 msgid "去设置"
-msgstr "Settings"
+msgstr "設定"
 
 #: settings.php:1292
 msgid "评论表情面板"
-msgstr "Comment Emotions Keyboard"
+msgstr "コメントの絵文字パネル"
 
 #: settings.php:1299
 msgid "开启后评论支持插入表情，会在评论输入框下显示表情键盘按钮。"
 msgstr ""
-"When enabled, comments support inserting emoticons, and emoticon keyboard "
-"buttons will be displayed under the comment box."
+"有効にすると、コメントに絵文字を挿入することができ、コメント入力欄の下に絵文字キーボードボタンが表示されます。"
 
 #: settings.php:1299
 msgid "如何添加新的表情或修改已有表情列表？"
-msgstr "How to add new emoticons or modify default emoticon list?"
+msgstr "新しい絵文字を追加する方法や既存の絵文字リストを変更する方法は？"
 
 #: settings.php:1303
 msgid "是否隐藏 \"昵称\"、\"邮箱\"、\"网站\" 输入框"
-msgstr "Hide the \"name\", \"mail\", and \"website\" fields"
+msgstr "\"ニックネーム\"、\"メールアドレス\"、\"ウェブサイト\"の入力欄を非表示にするかどうか"
 
 #: settings.php:1310
 msgid ""
@@ -2147,275 +2053,255 @@ msgid ""
 "生效。如勾选了 \"评论作者必须填入姓名和电子邮件地址\"，则只有 \"网站\" 输入框"
 "会被隐藏。"
 msgstr ""
-"The option only takes effect if the option \"Settings-Comment-Comment author "
-"must fill in name and email address\" is not checked. If the \"Comment "
-"author must fill in the name and email address\" is checked, only the "
-"\"Website\" input box will be hidden."
+"このオプションは、\"設定-コメント-コメントの投稿者は名前とメールアドレスを入力する必要がある\" "
+"オプションがチェックされていない場合にのみ有効です。\"コメントの投稿者は名前とメールアドレスを入力する必要がある\" "
+"がチェックされている場合、\"ウェブサイト\"の入力欄のみが非表示になります。"
 
 #: settings.php:1314
 msgid "评论是否需要验证码"
-msgstr "Comment CAPTCHA"
+msgstr "コメントにCAPTCHAが必要かどうか"
 
 #: settings.php:1318
 msgid "需要"
-msgstr "Required"
+msgstr "必要"
 
 #: settings.php:1319
 msgid "不需要"
-msgstr "Not Required"
+msgstr "不要"
 
 #: settings.php:1325
 msgid "使用 Ajax 获取评论验证码"
-msgstr "Get CAPTCHA by ajax"
+msgstr "Ajaxを使用してコメントのCAPTCHAを取得する"
 
 #: settings.php:1332
 msgid "如果使用了 CDN 缓存，验证码不会刷新，请开启此选项，否则请不要开启。"
-msgstr ""
-"If the CAPTCHA is cached by the CDN and will not be refreshed, enable this "
-"option, otherwise please do not enable it."
+msgstr "CDNキャッシュを使用している場合、CAPTCHAは更新されませんので、このオプションを有効にしてください。それ以外の場合は、無効にしてください。"
 
 #: settings.php:1336
 msgid "是否允许在评论中使用 Markdown 语法"
-msgstr "Allow Markdown In Comment"
+msgstr "コメントでMarkdown構文を使用することを許可するかどうか"
 
 #: settings.php:1340 settings.php:1351 settings.php:1363 settings.php:1374
 #: settings.php:1391
 msgid "允许"
-msgstr "Allow"
+msgstr "許可"
 
 #: settings.php:1341 settings.php:1352 settings.php:1362 settings.php:1373
 #: settings.php:1390
 msgid "不允许"
-msgstr "Disallow"
+msgstr "不許可"
 
 #: settings.php:1347
 msgid "是否允许评论者再次编辑评论"
-msgstr "Allow Comment Editing"
+msgstr "コメント投稿者がコメントを再編集できるかどうか"
 
 #: settings.php:1354
 msgid "同一个评论者可以再次编辑评论。"
-msgstr "Commenter can edit the comment again."
+msgstr "同じコメント投稿者はコメントを再編集できます。"
 
 #: settings.php:1358
 msgid "是否允许评论者使用悄悄话模式"
-msgstr "Allow private comment mode"
+msgstr "コメント投稿者がプライベートモードを使用できるかどうか"
 
 #: settings.php:1365
 msgid "评论者使用悄悄话模式发送的评论和其下的所有回复只有发送者和博主能看到。"
-msgstr ""
-"Only the sender and blog owner can see the comment sent using the private "
-"comment mode and all the replies under it."
+msgstr "プライベートモードで送信されたコメントとその下のすべての返信は、送信者とブログオーナーのみが表示できます。"
 
 #: settings.php:1369
 msgid "是否允许评论者接收评论回复邮件提醒"
-msgstr "Allow comment reply email notification"
+msgstr "コメント投稿者がコメントの返信のメール通知を受け取ることを許可するかどうか"
 
 #: settings.php:1379
 msgid "评论时默认勾选 \"启用邮件通知\" 复选框"
-msgstr "check the \"Enable Email Notification\" checkbox by default"
+msgstr "コメント時にデフォルトで\"メール通知を有効にする\"チェックボックスをオンにする"
 
 #: settings.php:1382
 msgid "评论者开启邮件提醒后，其评论有回复时会有邮件通知。"
-msgstr ""
-"If the commenter enable the email notification, there will be an email "
-"notification when the comment has a reply."
+msgstr "コメント投稿者がメール通知を有効にした場合、コメントに返信があるとメール通知が届きます。"
 
 #: settings.php:1386
 msgid "允许评论者使用 QQ 头像"
-msgstr "Allow Using QQ Avatars"
+msgstr "コメント投稿者がQQアバターを使用できるかどうか"
 
 #: settings.php:1393
 msgid ""
 "开启后，评论者可以使用 QQ 号代替邮箱输入，头像会根据评论者的 QQ 号获取。"
-msgstr ""
-"If this option is enabled, commenters can use QQ number instead of email, "
-"and the avatar will auto get from the commenter‘s QQ number."
+msgstr "有効にすると、コメント投稿者はメールアドレスの代わりにQQ番号を使用でき、アバターはコメント投稿者のQQ番号に基づいて取得されます。"
 
 #: settings.php:1396
 msgid "评论区"
-msgstr "Comments"
+msgstr "コメント"
 
 #: settings.php:1398
 msgid "评论头像垂直位置"
-msgstr "Avatar vertical position"
+msgstr "コメントアバターの垂直位置"
 
 #: settings.php:1402
 msgid "居上"
-msgstr "Top"
+msgstr "上"
 
 #: settings.php:1403
 msgid "居中"
-msgstr "Middle"
+msgstr "中央"
 
 #: settings.php:1409
 msgid "谁可以查看评论编辑记录"
-msgstr "Who can see comment edit history"
+msgstr "コメントの編集履歴を誰が見ることができるか"
 
 #: settings.php:1413
 msgid "只有博主"
-msgstr "Only blog owner"
+msgstr "ブログオーナーのみ"
 
 #: settings.php:1414
 msgid "评论发送者和博主"
-msgstr "Comment sender and blog owner"
+msgstr "コメント投稿者とブログオーナー"
 
 #: settings.php:1415
 msgid "任何人"
-msgstr "Everyone"
+msgstr "誰でも"
 
 #: settings.php:1417
 msgid "点击评论右侧的 \"已编辑\" 标记来查看编辑记录"
-msgstr ""
-"Click the \"Edited\" mark on the right side of the comment to view the edit "
-"history"
+msgstr "コメントの右側の\"編集済み\"マークをクリックして編集履歴を表示します"
 
 #: settings.php:1421
 msgid "开启评论置顶功能"
-msgstr "Enable comment pinning"
+msgstr "コメントのピン留め機能を有効にする"
 
 #: settings.php:1428
 msgid ""
 "开启后，博主将可以置顶评论。已置顶的评论将会在评论区顶部显示。如果关闭，评论"
 "将以正常顺序显示。"
 msgstr ""
-"If enabled, blog owner can pin comments. Pinned comments will be displayed "
-"at the top of the comment block. If disabled, comments will appear in their "
-"normal order."
+"有効にすると、ブログオーナーはコメントをピン留めすることができます。ピン留めされたコメントはコメントエリアの上部に表示されます。無効にすると、コメントは通常の順序で表示されます。"
+"有効にすると、ブログの所有者はコメントを固定できます。固定されたコメントはコメントエリアの上部に表示されます。無効にすると、コメントは通常の順序で表示されます。"
 
 #: settings.php:1432
 msgid "评论点赞"
-msgstr "Comment Upvoting"
+msgstr "コメントのいいね"
 
 #: settings.php:1439
 msgid "开启后，每一条评论的头像下方会出现点赞按钮"
-msgstr "A upvote button will appear below the avatar of each comment."
+msgstr "有効にすると、各コメントのアバターの下にいいねボタンが表示されます"
 
 #: settings.php:1443
 msgid "评论者 UA 显示"
-msgstr "Show commenters' User Agent"
+msgstr "コメント者のUAを表示"
 
 #: settings.php:1448
 msgid "浏览器"
-msgstr "Browser"
+msgstr "ブラウザ"
 
 #: settings.php:1449
 msgid "浏览器+版本号"
-msgstr "Browser+Version"
+msgstr "ブラウザ+バージョン"
 
 #: settings.php:1450
 msgid "平台+浏览器+版本号"
-msgstr "Platform+Browser+Version"
+msgstr "プラットフォーム+ブラウザ+バージョン"
 
 #: settings.php:1451
 msgid "平台+浏览器"
-msgstr "Platform+Browser"
+msgstr "プラットフォーム+ブラウザ"
 
 #: settings.php:1452
 msgid "平台"
-msgstr "Platform"
+msgstr "プラットフォーム"
 
 #: settings.php:1454
 msgid "设置是否在评论区显示评论者 UA 及显示哪些部分"
-msgstr ""
-"Whether to display the commenter's UA in the comment area and which parts "
-"are displayed"
+msgstr "コメントエリアにコメント者のUAを表示するかどうか、および表示する部分を設定します"
 
 #: settings.php:1458
 msgid "在子评论中显示被回复者用户名"
-msgstr "Display respondent username in sub-comments"
+msgstr "子コメントで返信者のユーザー名を表示"
 
 #: settings.php:1465
 msgid ""
 "开启后，被回复的评论者昵称会显示在子评论中，鼠标移上后会高亮被回复的评论"
 msgstr ""
-"When enabled, the commenter's nickname will be displayed in the sub-"
-"comments, and the commented will be highlighted when the mouse is moved up"
+"有効にすると、返信されたコメントのニックネームが子コメントに表示され、マウスを移動すると返信されたコメントがハイライト表示されます"
 
 #: settings.php:1469
 msgid "折叠过长评论"
-msgstr "Fold Long Comments"
+msgstr "長いコメントを折りたたむ"
 
 #: settings.php:1473 settings.php:1584
 msgid "不折叠"
-msgstr "Do not fold"
+msgstr "折りたたまない"
 
 #: settings.php:1474 settings.php:1585
 msgid "折叠"
-msgstr "Fold"
+msgstr "折りたたむ"
 
 #: settings.php:1476
 msgid "开启后，过长的评论会被折叠，需要手动展开"
-msgstr "After opening, comments that are too long will be collapsed"
+msgstr "有効にすると、長すぎるコメントは折りたたまれ、手動で展開する必要があります"
 
 #: settings.php:1483
 msgid ""
 "使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。"
 msgstr ""
-"Use CDN to speed up Gravatar's access in some areas, fill in the CDN "
-"address, leave it blank to not use CDN."
+"一部の地域で Gravatar のアクセスを高速化するために CDN を使用します。CDNのアドレスを入力してください。空白の場合はCDNを使用しません。"
 
 #: settings.php:1483
 msgid "在中国速度较快的一些 CDN :"
-msgstr "Some CDN that are fast in China:"
+msgstr "中国で速度の速いいくつかのCDN:"
 
 #: settings.php:1487
 msgid "评论文字头像"
-msgstr "Comment Text Avatar"
+msgstr "コメントのテキストアバター"
 
 #: settings.php:1494
 msgid ""
 "在评论者没有设置 Gravatar 时自动生成文字头像，头像颜色由邮箱哈希计算。生成时"
 "会在 Console 中抛出 404 错误，但没有影响。"
 msgstr ""
-"When the commenter does not set Gravatar, theme will generate a text avatar "
-"for them. The color of the avatar is calculated by the hash of email. Error "
-"404 will be thrown in the Console but no problem."
+"コメント投稿者がGravatarを設定していない場合、テーマは自動的にテキストアバターを生成します。アバターの色はメールアドレスのハッシュによって計算されます。生成時に404エラーがコンソールに表示されますが、問題ありません。"
 
 #: settings.php:1497
 msgid "杂项"
-msgstr "Misc"
+msgstr "その他"
 
 #: settings.php:1499
 msgid "是否启用 Pjax"
-msgstr "Enable Pjax"
+msgstr "Pjaxを有効にするかどうか"
 
 #: settings.php:1506
 msgid "Pjax 可以增强页面的跳转体验"
-msgstr "Pjax can enhance the page jumping experience"
+msgstr "Pjaxはページのジャンプ体験を向上させることができます"
 
 #: settings.php:1510
 msgid "首页隐藏特定 分类/Tag 下的文章"
-msgstr "Hide specific categories/tags articles in home page"
+msgstr "ホームページで特定のカテゴリ/タグの記事を非表示にする"
 
 #: settings.php:1513
 msgid "输入要隐藏的 分类/Tag 的 ID，用英文逗号分隔，留空则不隐藏"
-msgstr ""
-"Enter the IDs of the categories/Tags to be hidden, separated by commas, "
-"leave blank to not hide"
+msgstr "非表示にするカテゴリ/タグのIDを入力してください。カンマで区切ってください。空白の場合は非表示にしません"
 
 #: settings.php:1513
 msgid "点此查看"
-msgstr "Click Here"
+msgstr "ここをクリックして"
 
 #: settings.php:1513
 msgid "所有分类和 Tag 的 ID"
-msgstr "to view IDs of all categories and tags"
+msgstr "すべてのカテゴリとタグのIDを表示"
 
 #: settings.php:1549
 msgid "美化登录界面"
-msgstr "Beautify the login page"
+msgstr "ログイン画面の装飾"
 
 #: settings.php:1556
 msgid "使用 Argon Design 风格的登录界面"
-msgstr "Use Argon Design Style login interface"
+msgstr "Argon Designスタイルのログイン画面を使用する"
 
 #: settings.php:1560
 msgid "美化后台界面"
-msgstr "Beautify the background interface"
+msgstr "バックエンドのインターフェースを美化する"
 
 #: settings.php:1563
 msgid "使用 Argon Design 风格的后台界面"
-msgstr "Use Argon Design Style background interface"
+msgstr "Argon Designスタイルのバックエンドインターフェースを使用する"
 
 #: settings.php:1564
 #, php-format
@@ -2423,459 +2309,449 @@ msgid ""
 "前往<a href=\"%s\" target=\"_blank\">个人资料</a>页面将 \"管理界面配色方案\" "
 "设为 \"Argon\" 即可开启。"
 msgstr ""
-"Go to the <a href=\"%s\" target=\"_blank\">profile</a> page and set the "
-"\"Admin UI Color Scheme\" to \"Argon\" to enable it."
+"<a href=\"%s\" target=\"_blank\">プロフィール</a>ページに移動し、「管理画面の配色スキーム」を「Argon」に設定すると、有効になります。"
 
 #: settings.php:1569
 msgid "博客首页是否显示说说"
-msgstr "Show essays on the homepage"
+msgstr "ホームページにエッセイを表示するかどうか"
 
 #: settings.php:1576
 msgid "开启后，博客首页文章和说说穿插显示"
-msgstr ""
-"If enabled, articles and essays will be displayed on the homepage at the "
-"same time"
+msgstr "有効にすると、ホームページに記事とエッセイが交互に表示されます"
 
 #: settings.php:1580
 msgid "折叠长说说"
-msgstr "Collapse long essay"
+msgstr "長いエッセイを折りたたむ"
 
 #: settings.php:1587
 msgid "开启后，长说说在预览状态下会被折叠，需要手动展开"
-msgstr "After opening, essay that are too long will be collapsed"
+msgstr "有効にすると、長いエッセイはプレビュー状態で折りたたまれ、手動で展開する必要があります"
 
 #: settings.php:1591
 msgid "搜索结果类型过滤器"
-msgstr "Search result type filter"
+msgstr "検索結果のタイプフィルター"
 
 #: settings.php:1596
 msgid "启用，默认不包括说说"
-msgstr "Enable, exclude essays by default"
+msgstr "有効にすると、デフォルトではエッセイは含まれません"
 
 #: settings.php:1597
 msgid "启用，默认包括说说"
-msgstr "Enable, include essays by default"
+msgstr "有効にする、デフォルトではエッセイを含む"
 
 #: settings.php:1598
 msgid "启用，隐藏说说分类"
-msgstr "Enable, hide essays checkbox"
+msgstr "有効にする、エッセイのカテゴリを非表示にする"
 
 #: settings.php:1600
 msgid "开启后，将会在搜索结果界面显示一个过滤器，支持搜索说说"
-msgstr ""
-"After enabling, a filter will be displayed on the search results page , "
-"which supports search essays"
+msgstr "有効にすると、検索結果ページにフィルターが表示され、エッセイの検索が可能になります"
 
 #: settings.php:1604
 msgid "是否修正时区错误"
-msgstr "Time zone fix"
+msgstr "タイムゾーンの修正"
 
 #: settings.php:1611
 msgid "如遇到时区错误（例如一条刚发的评论显示 8 小时前），这个选项"
-msgstr ""
-"If you encounter a time zone problem (for example, a comment is just posted "
-"but displays 8 hours ago), this option"
+msgstr "タイムゾーンの問題が発生した場合（例えば、コメントが投稿されたばかりで8時間前と表示される場合など）、このオプション"
 
 #: settings.php:1611
 msgid "可能"
-msgstr "may"
+msgstr "可能性があります"
 
 #: settings.php:1611
 msgid "可以修复这个问题"
-msgstr " can fix this problem"
+msgstr "この問題を修正することができます"
 
 #: settings.php:1615
 msgid "是否在文章列表内容预览中隐藏短代码"
-msgstr "Hide shortcodes in preview"
+msgstr "プレビューでショートコードを非表示にするかどうか"
 
 #: settings.php:1619 settings.php:1637
 msgid "否"
-msgstr "No"
+msgstr "いいえ"
 
 #: settings.php:1620 settings.php:1638
 msgid "是"
-msgstr "Yes"
+msgstr "はい"
 
 #: settings.php:1626
 msgid "文章内容预览截取字数"
-msgstr "Article Content Preview Trim Word Count"
+msgstr "記事のプレビューで切り取る文字数"
 
 #: settings.php:1629
 msgid "设为 0 来隐藏文章内容预览"
-msgstr "Set to 0 to hide article content preview."
+msgstr "0に設定すると、記事のプレビューが非表示になります"
 
 #: settings.php:1633
 msgid "是否允许移动端缩放页面"
-msgstr "Allow mobile browser zoom the page"
+msgstr "モバイルブラウザでのページの拡大縮小を許可するかどうか"
 
 #: settings.php:1644
 msgid "禁用 Google 字体"
-msgstr "Disable Google Fonts"
+msgstr "Googleフォントを無効にする"
 
 #: settings.php:1651
 msgid ""
 "Google 字体在中国大陆访问可能会阻塞，禁用可以解决页面加载被阻塞的问题。禁用"
 "后，Serif 字体将失效。"
 msgstr ""
-"Google Fonts may be blocked when accessed in mainland China, disabling it "
-"will fix the blocked page load. By disabling it, Serif Fonts will be "
-"disabled."
+"中国本土でGoogleフォントにアクセスするとブロックされる場合があります。これを無効にすると、ページの読み込みがブロックされる問題が解決されます。無効にすると、セリフ体フォントは無効になります。"
 
 #: settings.php:1655
 msgid "禁用 Argon 代码块样式"
-msgstr "Disable Argon code block styles"
+msgstr "Argonのコードブロックスタイルを無効にする"
 
 #: settings.php:1662
 msgid ""
 "如果您启用了其他代码高亮插件，发现代码块样式被 Argon 覆盖，出现了显示错误，请"
 "将此选项设为禁用"
 msgstr ""
-"If you enabled other code highlighting plugins and the code block style is "
-"covered by Argon, please disabled this option."
+"他のコードハイライトプラグインを有効にしていて、Argonによってコードブロックのスタイルが上書きされ、表示が正しくない場合は、このオプションを無効にしてください"
 
 #: settings.php:1666
 msgid "检测更新源"
-msgstr "Theme update source"
+msgstr "テーマの更新ソース"
 
 #: settings.php:1674
 msgid "暂停更新 (不推荐)"
-msgstr "Stop Update"
+msgstr "更新を一時停止（おすすめしません）"
 
 #: settings.php:1676
 msgid "如更新主题速度较慢，可考虑更换更新源。"
-msgstr "If updating theme is slow, you can changing the update source."
+msgstr "テーマの更新が遅い場合は、更新ソースを変更することを検討してください"
 
 #: settings.php:1680
 msgid "页脚附加内容"
-msgstr "Additional content in footer"
+msgstr "フッターに追加するコンテンツ"
 
 #: settings.php:1693
 msgid "保存更改"
-msgstr "Save Changes"
+msgstr "変更を保存"
 
 #: settings.php:1694
 msgid "导入设置"
-msgstr "Import"
+msgstr "設定のインポート"
 
 #: settings.php:1695
 msgid "导出设置"
-msgstr "Export"
+msgstr "設定のエクスポート"
 
 #: settings.php:1700
 msgid "收起"
-msgstr "Hide"
+msgstr "折りたたむ"
 
 #: settings.php:1703
 msgid "到顶部"
-msgstr "To the top"
+msgstr "トップへ"
 
 #: settings.php:1703
 msgid "到底部"
-msgstr "To the bottom"
+msgstr "ボトムへ"
 
 #: settings.php:1704
 msgid "请复制并保存导出后的 JSON"
-msgstr "Copy and save the JSON"
+msgstr "JSONをコピーして保存してください"
 
 #: settings.php:1704
 msgid "确定"
-msgstr "OK"
+msgstr "確定"
 
 #: settings.php:1781
 msgid "展开"
-msgstr "Show"
+msgstr "表示"
 
 #: settings.php:1947
 msgid "字段导入失败"
-msgstr "Option Import Failed"
+msgstr "オプションのインポートに失敗しました"
 
 #: settings.php:1958
 msgid "请输入要导入的备份 JSON"
-msgstr "Input JSON"
+msgstr "インポートするバックアップJSONを入力してください"
 
 #: settings.php:1961
 msgid "已导入，请保存更改"
-msgstr "Imported, Place save changes."
+msgstr "インポートされました。変更を保存してください"
 
 #: shuoshuo.php:21
 msgid "条说说"
-msgstr "Essays"
+msgstr "エッセイ"
 
 #: sidebar.php:9
 msgid "公告"
-msgstr "Announcement"
+msgstr "お知らせ"
 
 #: sidebar.php:83
 msgid "文章目录"
-msgstr "Catalog"
+msgstr "目次"
 
 #: sidebar.php:87
 msgid "站点概览"
-msgstr "Site"
+msgstr "サイト"
 
 #: sidebar.php:91
 msgid "功能"
-msgstr "Functions"
+msgstr "機能"
 
 #: sidebar.php:140 sidebar.php:232
 msgid "分类"
-msgstr "Categories"
+msgstr "カテゴリ"
 
 #: sidebar.php:146 sidebar.php:260
 msgid "标签"
-msgstr "Tags"
+msgstr "タグ"
 
 #: single.php:27
 msgid "上一篇"
-msgstr "Previous"
+msgstr "前の記事"
 
 #: single.php:32
 msgid "下一篇"
-msgstr "Next"
+msgstr "次の記事"
 
 #: single.php:86
 msgid "推荐文章"
-msgstr "Related Posts"
+msgstr "関連記事"
 
 #: template-parts/content-none-search.php:4
 msgid "没有搜索结果"
-msgstr "No Search Results"
+msgstr "検索結果はありません"
 
 #: template-parts/content-none-search.php:6
 msgid "似乎没有勾选任何分类"
-msgstr "No category seems to be checked"
+msgstr "カテゴリが選択されていないようです"
 
 #: template-parts/content-none-search.php:8
 msgid "换个关键词试试 ?"
-msgstr "Try another keyword?"
+msgstr "別のキーワードを試してみてください"
 
 #: template-parts/content-none-tag.php:4
 msgid "此分类没有文章"
-msgstr "No Posts In This Category"
+msgstr "このカテゴリには記事がありません"
 
 #: template-parts/content-none-tag.php:5
 msgid "这里什么都没有"
-msgstr "Nothing here."
+msgstr "何もありません"
 
 #: template-parts/content-page.php:60 template-parts/content-single.php:57
 #: template-parts/content-timeline.php:57
 msgid "这是一篇受密码保护的文章，您需要提供访问密码"
-msgstr "Password Required"
+msgstr "パスワードが必要です"
 
 #: template-parts/content-page.php:67 template-parts/content-single.php:64
 msgid "密码"
-msgstr "Password"
+msgstr "パスワード"
 
 #: template-parts/content-page.php:77 template-parts/content-single.php:74
 msgid "确认"
-msgstr "Submit"
+msgstr "確認"
 
 #: template-parts/content-preview-1.php:59
 #: template-parts/content-preview-2.php:29
 #: template-parts/content-preview-3.php:55
 msgid "这篇文章受密码保护，输入密码才能阅读"
-msgstr "This article requires a password to view."
+msgstr "この記事はパスワードで保護されています。パスワードを入力して閲覧してください"
 
 #: template-parts/content-preview-1.php:62
 #: template-parts/content-preview-2.php:32
 #: template-parts/content-preview-3.php:58
 msgid "这篇文章没有摘要"
-msgstr "No abstract."
+msgstr "この記事には要約がありません"
 
 #: template-parts/content-shuoshuo-details.php:5
 #: template-parts/content-shuoshuo-preview.php:13
 #: template-parts/content-shuoshuo.php:5
 msgid "月"
-msgstr "/"
+msgstr "月"
 
 #: template-parts/content-shuoshuo-details.php:6
 #: template-parts/content-shuoshuo-preview.php:14
 #: template-parts/content-shuoshuo.php:6
 msgid "日"
-msgstr " "
+msgstr "日"
 
 #: template-parts/share.php:4 template-parts/share.php:61
 msgid "分享到微信"
-msgstr "Share to Wechat"
+msgstr "WeChatで共有"
 
 #: template-parts/share.php:9
 msgid "分享到豆瓣"
-msgstr "Share To Douban"
+msgstr "豆瓣で共有"
 
 #: template-parts/share.php:14
 msgid "分享到 QQ"
-msgstr "Share To QQ"
+msgstr "QQで共有"
 
 #: template-parts/share.php:19
 msgid "分享到 QQ 空间"
-msgstr "Share To Qzone"
+msgstr "QQ空間で共有"
 
 #: template-parts/share.php:24
 msgid "分享到微博"
-msgstr "Share to Weibo"
+msgstr "Weiboで共有"
 
 #: template-parts/share.php:30
 msgid "分享到 Facebook"
-msgstr "Share To Facebook"
+msgstr "Facebookで共有"
 
 #: template-parts/share.php:35
 msgid "分享到 Twitter"
-msgstr "Share To Twitter"
+msgstr "Twitterで共有"
 
 #: template-parts/share.php:41
 msgid "分享到 Telegram"
-msgstr "Share To Telegram"
+msgstr "Telegramで共有"
 
 #: template-parts/share.php:47
 msgid "复制链接"
-msgstr "Copy Link"
+msgstr "リンクをコピー"
 
 #: template-parts/share.php:62
 msgid "微信扫描二维码"
-msgstr "Scan QR Code"
+msgstr "QRコードをスキャン"
 
 #: template-parts/share.php:77
 msgid "链接已复制"
-msgstr "Copied"
+msgstr "コピー済み"
 
 #: template-parts/share.php:78
 msgid "链接已复制到剪贴板"
-msgstr "The link has been copied to the clipboard."
+msgstr "リンクがクリップボードにコピーされました"
 
 #: template-parts/share.php:91
 msgid "复制失败"
-msgstr "Failed"
+msgstr "コピーに失敗しました"
 
 #: template-parts/share.php:92
 msgid "请手动复制链接"
-msgstr "Please copy the link manually."
+msgstr "リンクを手動でコピーしてください"
 
 #: template-parts/shuoshuo-operations.php:10
 msgid "已关闭"
-msgstr " Disabled"
+msgstr "無効"
 
 #: unsubscribe-comment-mailnotice.php:7
 msgid "参数错误"
-msgstr "Wrong parameters"
+msgstr "パラメータエラー"
 
 #: unsubscribe-comment-mailnotice.php:8 unsubscribe-comment-mailnotice.php:13
 msgid "错误"
-msgstr "Error"
+msgstr "エラー"
 
 #: unsubscribe-comment-mailnotice.php:9
 msgid "提供的参数错误"
-msgstr "Wrong parameters were given."
+msgstr "提供されたパラメータが間違っています"
 
 #: unsubscribe-comment-mailnotice.php:14 unsubscribe-comment-mailnotice.php:19
 msgid "评论 #"
-msgstr "Comment #"
+msgstr "コメント #"
 
 #: unsubscribe-comment-mailnotice.php:14
 msgid " 不存在"
-msgstr "not found"
+msgstr "は存在しません"
 
 #: unsubscribe-comment-mailnotice.php:17 unsubscribe-comment-mailnotice.php:18
 msgid "无需退订"
-msgstr "No Need To Unsubscribe"
+msgstr "退会の必要はありません"
 
 #: unsubscribe-comment-mailnotice.php:19
 msgid " 的邮件通知已被退订或没有开启邮件通知"
-msgstr " is already unsubscribed."
+msgstr " のメール通知は既に退会されています"
 
 #: unsubscribe-comment-mailnotice.php:22 unsubscribe-comment-mailnotice.php:23
 msgid "退订失败"
-msgstr "Unsubscribe Failed"
+msgstr "退会に失敗しました"
 
 #: unsubscribe-comment-mailnotice.php:24
 msgid "Token 不正确"
-msgstr "Wrong Token."
+msgstr "トークンが正しくありません"
 
 #: unsubscribe-comment-mailnotice.php:28 unsubscribe-comment-mailnotice.php:29
 msgid "退订成功"
-msgstr "Unsubscribed"
+msgstr "退会に成功しました"
 
 #: unsubscribe-comment-mailnotice.php:30
 msgid "您已成功退订评论 #"
-msgstr "Email notification of comment #"
+msgstr "コメント # の退会が成功しました"
 
 #: unsubscribe-comment-mailnotice.php:30
 msgid " 的邮件通知<br>该评论下有新回复时您将不会再收到通知"
-msgstr " is unsubscribed successfully."
+msgstr " のメール通知は退会されました。このコメントに新しい返信がある場合、通知は届きません"
 
 #~ msgid "自动折叠顶栏"
-#~ msgstr "Auto Fold Toolbar"
+#~ msgstr "トップバーを自動で折りたたむ"
 
 #, fuzzy
 #~| msgid "显示"
 #~ msgid "提示"
-#~ msgstr "Show"
+#~ msgstr "表示"
 
 #, fuzzy
 #~| msgid "主题色"
 #~ msgid "颜色"
-#~ msgstr "Theme Color"
+#~ msgstr "テーマカラー"
 
 #, fuzzy
 #~| msgid "发布时间"
 #~ msgid "时间"
-#~ msgstr "Post time"
+#~ msgstr "投稿時間"
 
 #~ msgid "菜单"
-#~ msgstr "Menu"
+#~ msgstr "メニュー"
 
 #~ msgid "是否使用 v2ex CDN 代理的 gravatar"
-#~ msgstr "Use V2EX CDN Gravatar"
+#~ msgstr "V2EX CDN Gravatarを使用するかどうか"
 
 #~ msgid "可以大幅增加国内 gravatar 头像加载的速度"
-#~ msgstr "Can increase the loading speed of gravatar in China."
+#~ msgstr "国内でのgravatarのロードスピードを大幅に向上させることができます"
 
 #, fuzzy
 #~| msgid "评论内容"
 #~ msgid "评论内容不能为空"
-#~ msgstr "Your comment..."
+#~ msgstr "あなたのコメント..."
 
 #, fuzzy
 #~| msgid "发送"
 #~ msgid "发送中"
-#~ msgstr "Send"
+#~ msgstr "送信
 
 #, fuzzy
 #~| msgid "编辑"
 #~ msgid "编辑中"
-#~ msgstr "Edit"
+#~ msgstr "編集"
 
 #, fuzzy
 #~| msgid "链接已复制到剪贴板"
 #~ msgid "代码已复制到剪贴板"
-#~ msgstr "The link has been copied to the clipboard."
+#~ msgstr "リンクがクリップボードにコピーされました"
 
 #, fuzzy
 #~| msgid "请手动复制链接"
 #~ msgid "请手动复制代码"
-#~ msgstr "Please copy the link manually."
+#~ msgstr "このリンクを手動でコピーしてください"
 
 #, fuzzy
 #~| msgid "分钟"
 #~ msgid "分钟前"
-#~ msgstr "minutes"
+#~ msgstr "分前"
 
 #, fuzzy
 #~| msgid "小时"
 #~ msgid "小时前"
-#~ msgstr "hour"
+#~ msgstr "時間前"
 
 #, fuzzy
 #~| msgid "前"
 #~ msgid "前天"
-#~ msgstr " ago"
+#~ msgstr "日前"
 
 #, fuzzy
 #~| msgid "前"
 #~ msgid "天前"
-#~ msgstr " ago"
+#~ msgstr "ヶ月前"
 
 #~ msgid "的评论"
-#~ msgstr "'s comment"
+#~ msgstr "のコメント"
 
 #~ msgid "您在xxx[的评论有了新的回复]"
-#~ msgstr "Has a New Reply"
+#~ msgstr "新しい返信があります"
