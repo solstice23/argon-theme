@@ -926,7 +926,7 @@ function themeoptions_page(){
                     <tr>
                         <th><label><?php _e('OpenAI API 密钥', 'argon');?></label></th>
                         <td>
-                            <input type="text" class="regular-text" name="argon_openai_api_key" placeholder="sk-..." pattern="^(sk-[0-9A-Za-z]{48})?$" value="<?php echo get_option('argon_openai_api_key', ''); ?>"/>
+                            <input type="text" class="regular-text" name="argon_openai_api_key" placeholder="sk-..." pattern="^(sk-[0-9A-Za-z-]{48})?$" value="<?php echo get_option('argon_openai_api_key', ''); ?>"/>
                             <p class="description"><?php _e('前往 <a href="https://platform.openai.com/account/api-keys" target="_blank">OpenAI 账户 API Key</a> 页面以申请一个 API Key。', 'argon')?></p>
                         </td>
 						<style> input[name='argon_openai_api_key']:invalid { background-color: lightpink; } </style>
