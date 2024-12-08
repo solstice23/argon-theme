@@ -78,6 +78,10 @@ function argon_meta_box_1(){
 	        <?php $argon_ai_extra_prompt = get_post_meta($post->ID, "argon_ai_extra_prompt", true);?>
             <textarea name="argon_ai_extra_prompt" id="argon_ai_extra_prompt" rows="5" cols="30" style="width:100%;"><?php if (!empty($argon_ai_extra_prompt)){echo $argon_ai_extra_prompt;} ?></textarea>
             <p style="margin-top: 15px;"><?php _e('发送给 ChatGPT 的额外 Prompt，将被以"system"的角色插入在文章信息后。', 'argon');?></p>
+            <h4><?php _e( "重新生成 AI 文章摘要", 'argon' ); ?>
+                <button id="regenerate_ai_post_summary" type="button" class="components-button is-primary"
+                        style="height: 22px"><?php _e( "重新生成", 'argon' ); ?></button>
+            </h4>
             <script>
                 let mode = document.getElementById('argon_ai_extra_prompt_mode');
                 let prompts = document.getElementById('argon_ai_extra_prompt');
@@ -143,11 +147,36 @@ function argon_meta_box_1(){
                     });
                 });
             }
-
             registerListener('argon_show_post_outdated_info', 'apply_show_post_outdated_info')
             registerListener('argon_ai_no_update_post_summary', 'apply_ai_no_update_post_summary')
             registerListener('argon_ai_extra_prompt_mode', 'apply_ai_extra_prompt_mode')
             registerListener('argon_ai_extra_prompt', 'apply_ai_extra_prompt_mode')
+
+            $(`#regenerate_ai_post_summary`).click(function(){
+                $(this).addClass("is-busy").attr("disabled", "disabled").css("opacity", "0.5");
+                const data = {
+                    action: 'regenerate_ai_post_summary',
+                    argon_meta_box_nonce: $("#argon_meta_box_nonce").val(),
+                    post_id: <?php echo $post->ID; ?>
+                };
+                $.ajax({
+                    url: ajaxurl,
+                    type: 'post',
+                    data: data,
+                    success: function(response) {
+                        $(`#regenerate_ai_post_summary`).removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
+                        if (response.status == "failed"){
+                            showAlert("failed", "<?php _e("重新生成失败", 'argon');?>");
+                            return;
+                        }
+                        showAlert("success", "<?php _e("重新生成成功", 'argon');?>");
+                    },
+                    error: function(response) {
+                        $(`#regenerate_ai_post_summary`).removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
+                        showAlert("failed", "<?php _e("重新生成失败", 'argon');?>");
+                    }
+                });
+            });
 		</script>
 	<?php
 }
@@ -222,3 +251,22 @@ function update_post_meta_ajax(){
 }
 add_action('wp_ajax_update_post_meta_ajax' , 'update_post_meta_ajax');
 add_action('wp_ajax_nopriv_update_post_meta_ajax' , 'update_post_meta_ajax');
+function regenerate_ai_post_summary(): void {
+	if (!isset($_POST['argon_meta_box_nonce'])){
+		return;
+	}
+	$nonce = $_POST['argon_meta_box_nonce'];
+	if (!wp_verify_nonce($nonce, 'argon_meta_box_nonce_action')){
+		return;
+	}
+	header('Content-Type:application/json; charset=utf-8');
+	$post_id = intval($_POST["post_id"]);
+
+    argon_update_ai_post_meta( $post_id );
+
+    exit(json_encode(array(
+        'status' => 'success'
+    )));
+}
+add_action('wp_ajax_regenerate_ai_post_summary', 'regenerate_ai_post_summary');
+add_action('wp_ajax_nopriv_regenerate_ai_post_summary', 'regenerate_ai_post_summary');
