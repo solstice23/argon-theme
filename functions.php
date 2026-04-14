@@ -2289,6 +2289,13 @@ function update_post_meta_ajax(){
 		return;
 	}
 	header('Content-Type:application/json; charset=utf-8');
+	if (!isset($_POST["post_id"]) || !isset($_POST["meta_key"]) || !isset($_POST["meta_value"])){
+		status_header(400);
+		exit(json_encode(array(
+			'status' => 'failed',
+			'message' => 'invalid_request'
+		)));
+	}
 	$post_id = intval($_POST["post_id"]);
 	$meta_key = $_POST["meta_key"];
 	$meta_value = $_POST["meta_value"];
@@ -2302,8 +2309,10 @@ function update_post_meta_ajax(){
 	);
 
 	if (!current_user_can('edit_post', $post_id) || !in_array($meta_key, $allowed_meta_keys, true)){
+		status_header(403);
 		exit(json_encode(array(
-			'status' => 'failed'
+			'status' => 'failed',
+			'message' => 'forbidden'
 		)));
 	}
 
