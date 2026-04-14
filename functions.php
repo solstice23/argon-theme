@@ -2292,6 +2292,21 @@ function update_post_meta_ajax(){
 	$post_id = intval($_POST["post_id"]);
 	$meta_key = $_POST["meta_key"];
 	$meta_value = $_POST["meta_value"];
+	$allowed_meta_keys = array(
+		'argon_hide_readingtime',
+		'argon_meta_simple',
+		'argon_first_image_as_thumbnail',
+		'argon_show_post_outdated_info',
+		'argon_after_post',
+		'argon_custom_css'
+	);
+
+	if (!current_user_can('edit_post', $post_id) || !in_array($meta_key, $allowed_meta_keys, true)){
+		exit(json_encode(array(
+			'status' => 'failed'
+		)));
+		return;
+	}
 
 	if (get_post_meta($post_id, $meta_key, true) == $meta_value){
 		exit(json_encode(array(
@@ -2313,7 +2328,6 @@ function update_post_meta_ajax(){
 	}
 }
 add_action('wp_ajax_update_post_meta_ajax' , 'update_post_meta_ajax');
-add_action('wp_ajax_nopriv_update_post_meta_ajax' , 'update_post_meta_ajax');
 //首页显示说说
 function argon_home_add_post_type_shuoshuo($query){
 	if (is_home() && $query -> is_main_query()){
