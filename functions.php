@@ -2305,14 +2305,12 @@ function update_post_meta_ajax(){
 		exit(json_encode(array(
 			'status' => 'failed'
 		)));
-		return;
 	}
 
 	if (get_post_meta($post_id, $meta_key, true) == $meta_value){
 		exit(json_encode(array(
 			'status' => 'success'
 		)));
-		return;
 	}
 
 	$result = update_post_meta($post_id, $meta_key, $meta_value);
