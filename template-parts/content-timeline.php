@@ -16,7 +16,9 @@
 				</style>";
 			}
 		?>
-		<a class="post-title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+		<h1 class="post-title-style-default">
+			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+		</h1>
 		<div class="post-meta">
 			<?php
 				$metaList = explode('|', get_option('argon_article_meta', 'time|views|comments|categories'));
@@ -98,7 +100,7 @@
 					<div class='argon-timeline-node'>
 						<div class='argon-timeline-time'><?php echo mysql2date('m-d', $post -> post_date); ?></div>
 						<div class='argon-timeline-card card bg-gradient-secondary archive-timeline-title'>
-							<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+							<h1 class="post-title-style-default"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
 						</div>
 					</div>
 					<?php

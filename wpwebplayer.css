@@ -1,0 +1,321 @@
+/* 重置播放器相关样式，避免与WordPress主题冲突 */
+.wp-music-player {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    width: 80px !important;
+    height: 80px !important;
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    overflow: hidden !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    cursor: pointer !important;
+    z-index: 9999 !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    box-sizing: border-box !important;
+}
+
+.wp-music-player:hover {
+    width: 320px !important;
+    height: 130px !important;
+    border-radius: 25px !important;
+}
+
+.wp-music-player .player-cover {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 80px !important;
+    height: 80px !important;
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    border-radius: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: height 0.4s ease, border-radius 0.4s ease !important;
+    z-index: 2 !important;
+}
+
+.wp-music-player:hover .player-cover {
+    height: 130px !important;
+    border-radius: 25px 0 0 25px !important;
+}
+
+.wp-music-player .play-btn {
+    width: 30px !important;
+    height: 30px !important;
+    background: white !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+    border: none !important;
+}
+
+.wp-music-player .play-btn:hover {
+    transform: scale(1.1) !important;
+}
+
+.wp-music-player .play-icon {
+    width: 0 !important;
+    height: 0 !important;
+    border-left: 8px solid #ff6b6b !important;
+    border-top: 6px solid transparent !important;
+    border-bottom: 6px solid transparent !important;
+    margin-left: 2px !important;
+    transition: all 0.3s ease !important;
+}
+
+.wp-music-player .play-icon.playing {
+    border: none !important;
+    width: 10px !important;
+    height: 10px !important;
+    background: #ff6b6b !important;
+    position: relative !important;
+    margin-left: 0 !important;
+}
+
+.wp-music-player .play-icon.playing::before,
+.wp-music-player .play-icon.playing::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 3px !important;
+    height: 10px !important;
+    background: #ff6b6b !important;
+    left: 0 !important;
+    top: 0 !important;
+}
+
+.wp-music-player .play-icon.playing::after {
+    left: 5px !important;
+}
+
+.wp-music-player .player-info {
+    position: absolute !important;
+    top: 0 !important;
+    left: 80px !important;
+    width: 240px !important;
+    height: 130px !important;
+    padding: 15px !important;
+    opacity: 0 !important;
+    transition: all 0.4s ease !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-radius: 0 25px 25px 0 !important;
+    backdrop-filter: blur(10px) !important;
+    box-sizing: border-box !important;
+}
+
+.wp-music-player:hover .player-info {
+    opacity: 1 !important;
+}
+
+.wp-music-player .song-title {
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #333 !important;
+    margin-bottom: 3px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 1.2 !important;
+}
+
+.wp-music-player .song-artist {
+    font-size: 11px !important;
+    color: #666 !important;
+    margin-bottom: 10px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 1.2 !important;
+}
+
+.wp-music-player .progress-container {
+    width: 100% !important;
+    height: 4px !important;
+    background: #e0e0e0 !important;
+    border-radius: 2px !important;
+    margin-bottom: 10px !important;
+    cursor: pointer !important;
+    position: relative !important;
+}
+
+.wp-music-player .progress-bar {
+    height: 100% !important;
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24) !important;
+    border-radius: 2px !important;
+    width: 0%;
+    transition: width 0.1s ease !important;
+}
+
+.wp-music-player .time-display {
+    display: flex !important;
+    justify-content: space-between !important;
+    font-size: 9px !important;
+    color: #888 !important;
+    margin-bottom: 8px !important;
+}
+
+.wp-music-player .controls {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.wp-music-player .control-btn {
+    width: 22px !important;
+    height: 22px !important;
+    border: none !important;
+    background: #f0f0f0 !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+    font-size: 11px !important;
+}
+
+.wp-music-player .control-btn:hover {
+    background: #e0e0e0 !important;
+    transform: scale(1.1) !important;
+}
+
+.wp-music-player .volume-slider {
+    width: 50px !important;
+    height: 3px !important;
+    background: #e0e0e0 !important;
+    border-radius: 1.5px !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    outline: none !important;
+    cursor: pointer !important;
+}
+
+.wp-music-player .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 12px !important;
+    height: 12px !important;
+    background: #ff6b6b !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+}
+
+.wp-music-player .volume-slider::-moz-range-thumb {
+    width: 12px !important;
+    height: 12px !important;
+    background: #ff6b6b !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    border: none !important;
+}
+
+.wp-music-player .volume-display {
+    font-size: 12px !important;
+    color: #666 !important;
+    min-width: 20px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+}
+
+/* 波浪动画 */
+.wp-music-player .wave-animation {
+    position: absolute !important;
+    bottom: -5px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 20px !important;
+    height: 20px !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.wp-music-player.playing .wave-animation {
+    opacity: 1 !important;
+}
+
+.wp-music-player .wave {
+    width: 3px !important;
+    height: 15px !important;
+    background: white !important;
+    margin: 0 1px !important;
+    border-radius: 1.5px !important;
+    display: inline-block !important;
+    animation: wp-music-wave 1s ease-in-out infinite !important;
+}
+
+.wp-music-player .wave:nth-child(2) { 
+    animation-delay: 0.1s !important; 
+}
+
+.wp-music-player .wave:nth-child(3) { 
+    animation-delay: 0.2s !important; 
+}
+
+.wp-music-player .wave:nth-child(4) { 
+    animation-delay: 0.3s !important; 
+}
+
+@keyframes wp-music-wave {
+    0%, 100% { transform: scaleY(0.5) !important; }
+    50% { transform: scaleY(1) !important; }
+}
+
+/* 旋转动画 */
+.wp-music-player.playing .player-cover {
+    animation: wp-music-rotate 3s linear infinite !important;
+}
+
+@keyframes wp-music-rotate {
+    from { transform: rotate(0deg) !important; }
+    to { transform: rotate(360deg) !important; }
+}
+
+/* 响应式设计 - 手机端适配 */
+@media (max-width: 768px) {
+    .wp-music-player {
+        width: 60px !important;
+        height: 60px !important;
+        bottom: 15px !important;
+        left: 15px !important;
+    }
+    
+    .wp-music-player:hover {
+        width: 280px !important;
+        height: 120px !important;
+    }
+    
+    .wp-music-player .player-cover {
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 15px !important;
+    }
+    
+    .wp-music-player:hover .player-cover {
+        height: 120px !important;
+        border-radius: 20px 0 0 20px !important;
+    }
+    
+    .wp-music-player .player-info {
+        left: 60px !important;
+        width: 220px !important;
+        height: 120px !important;
+        padding: 12px !important;
+    }
+    
+    .wp-music-player .play-btn {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    
+    .wp-music-player .play-icon {
+        border-left: 6px solid #ff6b6b !important;
+        border-top: 4px solid transparent !important;
+        border-bottom: 4px solid transparent !important;
+    }
+}

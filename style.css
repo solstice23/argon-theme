@@ -1333,6 +1333,14 @@ html.darkmode #leftbar_announcement {
 .leftbar-announcement-title {
 	font-size: 18px;
 }
+.leftbar-announcement-title,
+.leftbar-announcement-content {
+	color: #000 !important;
+}
+html.darkmode #leftbar_announcement .leftbar-announcement-title,
+html.darkmode #leftbar_announcement .leftbar-announcement-content {
+	color: #fff !important;
+}
 .leftbar-announcement-content {
 	font-size: 15px;
 	line-height: 1.8;
@@ -1449,6 +1457,17 @@ html.darkmode .wp-block-calendar tbody td {
 #footer a {
 	color: #fff;
 }
+
+/* Theme credit color: black in light, white in dark */
+#footer .footer-theme-credit,
+#footer .footer-theme-credit a {
+	color: #555;
+}
+html.darkmode #footer .footer-theme-credit,
+html.darkmode #footer .footer-theme-credit a {
+	color: #fff;
+}
+
 
 /*浮动按钮栏 (回顶等)*/
 #float_action_buttons {
@@ -1864,11 +1883,28 @@ html.filter-grayscale {
 .post-title:hover {
 	letter-spacing: 1px;
 }
+.post-title-style-default a {
+	letter-spacing: 0.5px;
+	transition: all 0.35s ease;
+	color: inherit;
+}
+.post-title-style-default a:hover {
+	letter-spacing: 1px;
+}
 #main.waterflow .post-title {
 	transition: all 0.3s ease;
 	display: inline-block;
 }
 #main.waterflow .post-title:hover {
+	letter-spacing: 0.5px;
+	transform: scale(1.02);
+	text-rendering: optimizeLegibility;
+}
+#main.waterflow .post-title-style-default a {
+	transition: all 0.3s ease;
+	display: inline-block;
+}
+#main.waterflow .post-title-style-default a:hover {
 	letter-spacing: 0.5px;
 	transform: scale(1.02);
 	text-rendering: optimizeLegibility;
@@ -1940,6 +1976,13 @@ html.filter-grayscale {
 .post-header.post-header-with-thumbnail .post-header-text-container .post-title {
 	color: rgba(255, 255, 255, 0.95) !important;
 	/*text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);*/
+	filter: drop-shadow(0px 1px 5px #0005);
+}
+.post-header .post-header-text-container .article-header-style-preview a,
+.post-header .post-header-text-container .post-title-style-default a,
+.post-header .post-header-text-container .post-title-style-1 a,
+.post-header .post-header-text-container .post-title-style-2 a {
+	color: rgba(255, 255, 255, 0.95) !important;
 	filter: drop-shadow(0px 1px 5px #0005);
 }
 .post-header.post-header-with-thumbnail .post-header-text-container .post-meta {
@@ -5235,4 +5278,90 @@ html.using-safari #blog_setting_card_radius_to_default:before {
 }
 html.using-safari .friend-link-description:after {
 	display: none;
+}
+
+/* Article Header Style Preview Classes */
+.article-header-style-preview {
+	font-size: 26px;
+	position: relative;
+}
+.article-header-style-preview.style-1:after {
+	content: '';
+	display: block;
+	position: absolute;
+	background: #5e72e4;
+	opacity: .25;
+	pointer-events: none;
+	border-radius: 15px;
+	left: -2px;
+	bottom: 0px;
+	width: 45px;
+	height: 13px;
+}
+.article-header-style-preview.style-2:before {
+	content: '';
+	display: inline-block;
+	background: #5e72e4;
+	opacity: 1;
+	pointer-events: none;
+	border-radius: 15px;
+	width: 6px;
+	vertical-align: middle;
+	height: 26px;
+	margin-right: 10px;
+	margin-bottom: 4px;
+}
+
+/* Independent Post Title Styles */
+.post-title-style-default {
+	font-size: 26px;
+	position: relative;
+}
+
+.article-header-style-1 article h1.post-title-style-default:after,
+.article-header-style-2 article h1.post-title-style-default:before {
+	display: none !important;
+	content: none !important;
+}
+
+.post-title-style-1 {
+	font-size: 26px;
+	position: relative;
+}
+.post-title-style-1:after {
+	content: '';
+	display: block;
+	position: absolute;
+	background: #5e72e4;
+	opacity: .25;
+	pointer-events: none;
+	border-radius: 15px;
+	left: -2px;
+	bottom: 0px;
+	width: 45px;
+	height: 13px;
+}
+
+.post-title-style-2 {
+	font-size: 26px;
+	position: relative;
+}
+.post-title-style-2:before {
+	content: '';
+	display: inline-block;
+	background: #5e72e4;
+	opacity: 1;
+	pointer-events: none;
+	border-radius: 15px;
+	width: 6px;
+	vertical-align: middle;
+	height: 26px;
+	margin-right: 10px;
+	margin-bottom: 4px;
+}
+
+/* Force homepage/post list title colors (no thumbnail overlay) */
+.post .post-title-style-default,
+.post .post-title-style-default a {
+	color: var(--color-text-deeper) !important;
 }

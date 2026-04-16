@@ -19,7 +19,7 @@
 	</div>
 	<article class="card shuoshuo-main shuoshuo-foldable bg-white shadow-sm border-0" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<?php if ( get_the_title() != '' ) : ?>
-			<a class="shuoshuo-title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+			<h1 class="post-title-style-default"><a class="shuoshuo-title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
 		<?php endif; ?>
 
 		<div class="shuoshuo-content">

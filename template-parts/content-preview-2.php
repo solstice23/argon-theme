@@ -13,7 +13,9 @@
 	</header>
 
 	<div class="post-content-container">
-		<a class="post-title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+		<h1 class="post-title-style-default">
+			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+		</h1>
 		<?php
 			$trim_words_count = get_option('argon_trim_words_count', 175);
 		?>
