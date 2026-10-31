@@ -36,8 +36,6 @@ Hexo 版本 : [github.com/solstice23/hexo-theme-argon](https://github.com/solsti
 
 在 [Release](https://github.com/solstice23/argon-theme/releases) 页面下载 .zip 文件，在 WordPress 后台 "主题" 页面上传并安装。
 
-如果你从 GitHub 仓库源码安装，需要先运行 `composer install` 安装依赖。详细安装说明请查看 [INSTALL.md](./INSTALL.md)。
-
 # 文档
 
 [Argon-Theme 文档 : https://argon-docs.solstice23.top](https://argon-docs.solstice23.top/)
