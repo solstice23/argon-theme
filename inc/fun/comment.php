@@ -263,7 +263,26 @@ $GLOBALS['argon_comment_options']['show_comment_parent_info'] = (get_option("arg
 function argon_comment_format($comment, $args, $depth){
 	global $comment_enable_upvote, $comment_enable_pinning;
 	$GLOBALS['comment'] = $comment;
+	// Check if user can view this comment (approval status + private mode)
+	$can_view = false;
 	if (!($comment -> placeholder) && user_can_view_comment(get_comment_ID())){
+		// If comment is approved, everyone can see it
+		if ($comment -> comment_approved === "1"){
+			$can_view = true;
+		}
+		// If comment is not approved, only the author or admin can see it
+		elseif ($comment -> comment_approved === "0"){
+			// Check if current user is the comment author (by token or user ID)
+			if (check_comment_token(get_comment_ID()) || check_login_user_same($comment -> user_id)){
+				$can_view = true;
+			}
+			// Check if current user is admin/moderator
+			elseif (current_user_can('moderate_comments')){
+				$can_view = true;
+			}
+		}
+	}
+	if ($can_view){
 	?>
 	<li class="comment-item" id="comment-<?php comment_ID(); ?>" data-id="<?php comment_ID(); ?>" data-use-markdown="<?php echo get_comment_meta(get_comment_ID(), "use_markdown", true);?>">
 		<div class="comment-item-left-wrapper">
@@ -339,7 +358,30 @@ function argon_comment_format($comment, $args, $depth){
 <?php }}
 //评论样式格式化 (说说预览界面)
 function argon_comment_shuoshuo_preview_format($comment, $args, $depth){
-	$GLOBALS['comment'] = $comment;?>
+	$GLOBALS['comment'] = $comment;
+	// Check if user can view this comment (approval status)
+	$can_view = false;
+	// If comment is approved, everyone can see it
+	if ($comment -> comment_approved === "1"){
+		$can_view = true;
+	}
+	// If comment is not approved, only the author, token holder, or admin can see it
+	elseif ($comment -> comment_approved === "0"){
+		// Check if current user is the comment author (by user ID)
+		if (check_login_user_same($comment -> user_id)){
+			$can_view = true;
+		}
+		// Check if the requester has a valid comment token (unauthenticated author)
+		elseif (check_comment_token(get_comment_ID())){
+			$can_view = true;
+		}
+		// Check if current user is admin/moderator
+		elseif (current_user_can('moderate_comments')){
+			$can_view = true;
+		}
+	}
+	if ($can_view){
+	?>
 	<li class="comment-item" id="comment-<?php comment_ID(); ?>">
 		<div class="comment-item-inner " id="comment-inner-<?php comment_ID();?>">
 			<span class="shuoshuo-comment-item-title">
@@ -358,7 +400,7 @@ function argon_comment_shuoshuo_preview_format($comment, $args, $depth){
 		</div>
 	</li>
 	<li>
-<?php }
+<?php }}
 function comment_author_link_filter($html){
 	return str_replace('href=', 'target="_blank" href=', $html);
 }
@@ -988,13 +1030,19 @@ function argon_comment_cmp($a, $b){
 	if ($b_pinned != "true"){
 		$b_pinned = "false";
 	}
+	// If both have same pinned status, sort by date
 	if ($a_pinned == $b_pinned){
-		return ($a -> comment_date_gmt) > ($b -> comment_date_gmt);
-	}else{
-		if ($a_pinned == "true"){
-			return ($GLOBALS['comment_order'] == 'desc');
+		if ($GLOBALS['comment_order'] == 'desc'){
+			return strcmp($b -> comment_date_gmt, $a -> comment_date_gmt);
 		}else{
-			return ($GLOBALS['comment_order'] != 'desc');
+			return strcmp($a -> comment_date_gmt, $b -> comment_date_gmt);
+		}
+	}else{
+		// Pinned comments come first (regardless of sort order)
+		if ($a_pinned == "true"){
+			return -1;
+		}else{
+			return 1;
 		}
 	}
 }
@@ -1032,7 +1080,7 @@ function argon_get_comments(){
 		return $comments;
 	}
 	if (!isset($_GET['fill_first_page']) && strpos(parse_url($_SERVER['REQUEST_URI'])['path'], 'comment-page-') !== false){
-		return null;
+		return array(); // Return empty array instead of null to avoid issues
 	}
 	$comments_per_page = get_option('comments_per_page');
 	$comments_count = 0; 

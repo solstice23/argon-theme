@@ -15,9 +15,16 @@ Template Name: 留言板 (请打开页面的评论功能)
 		<?php
 		while ( have_posts() ) :
 			the_post();
-			do_action( 'argon_single_content' );
-			do_action( 'argon_show_sharebtn' );
-			do_action( 'argon_show_comment' );
+
+			get_template_part( 'template-parts/content', 'page' );
+
+			if (get_option("argon_show_sharebtn") != 'false') {
+				get_template_part( 'template-parts/share' );
+			}
+
+			if (comments_open() || get_comments_number()) {
+				comments_template();
+			}
 
 		endwhile;
 		?>
@@ -32,7 +39,7 @@ Template Name: 留言板 (请打开页面的评论功能)
 	font-size: 0px;
 }
 .comments-area .comments-title:after {
-	content: '<?php _e("留言板", "argon"); ?>';
+	content: '<?php _e("留言板"); ?>';
 	font-size: 20px;
 }
 .comments-area .comments-title i {
@@ -43,7 +50,7 @@ Template Name: 留言板 (请打开页面的评论功能)
 	font-size: 0px;
 }
 .post-comment-title:after {
-	content: '<?php _e("发送留言", "argon"); ?>';
+	content: '<?php _e("发送留言"); ?>';
 	font-size: 20px;
 }
 .post-comment-title i {

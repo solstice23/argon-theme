@@ -71,7 +71,7 @@ if (version_compare($argon_last_version, $GLOBALS['theme_version'], '<' )){
 			update_option("argon_enable_zoomify", 'false');
 		}
 	}
-	if (version_compare($argon_last_version, '1.3.4', '<')){
+	if (version_compare($argon_last_version, '1.4.0', '<')){
 		switch (get_option('argon_search_post_filter', 'post,page')){
 			case 'post,page':
 				update_option("argon_enable_search_filters", 'true');

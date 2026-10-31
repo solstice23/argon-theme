@@ -107,16 +107,16 @@ html.darkmode body {
 html.darkmode.amoled-dark body,
 html.darkmode.amoled-dark.color-immersion body {
 	--color-background: #111;
-	--color-foreground: #000;
+	--color-foreground: #020211;
 	--color-widgets: #151515;
-	--color-widgets-disabled: #000;
+	--color-widgets-disabled: #020211;
 	--color-border: #222;
 	--color-border-on-foreground: #181818;
 	--color-border-on-foreground-deeper: #252525;
 	--color-text-deeper: #eee;
 	--color-selection: #607799;
 
-	--color-darkmode-toolbar: 0, 0, 0;
+	--color-darkmode-toolbar: 2, 2, 17;
 	--color-darkmode-banner: #131313;
 }
 
