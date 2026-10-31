@@ -20,7 +20,7 @@ function argon_parse_user_agent( $u_agent = null ) {
 	}
 
 	if( $u_agent === null ) {
-		throw new \InvalidArgumentException('parse_user_agent requires a user agent');
+		return array( 'platform' => null, 'browser' => null, 'version' => null );
 	}
 
 	$platform = null;

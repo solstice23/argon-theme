@@ -2109,6 +2109,9 @@ function argon_update_themeoptions(){
 		return;
 	}
 	if ($_POST['update_themeoptions'] == 'true'){
+		if (!current_user_can('edit_theme_options')){
+			wp_die(__('您没有权限修改主题设置', 'argon'));
+		}
 		if (!isset($_POST['argon_update_themeoptions_nonce'])){
 			return;
 		}

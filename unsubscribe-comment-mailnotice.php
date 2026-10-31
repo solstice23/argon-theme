@@ -1,5 +1,12 @@
 <?php
-	require(preg_replace('/wp-content(.*?)$/', '', dirname( __FILE__ )) . 'wp-blog-header.php');
+if (!defined('ABSPATH')) {
+	$wp_blog_header = preg_replace('/wp-content(.*?)$/', '', dirname( __FILE__ )) . 'wp-blog-header.php';
+	if (file_exists($wp_blog_header)) {
+		require($wp_blog_header);
+	} else {
+		exit;
+	}
+}
 	header('HTTP/1.1 200 OK');
 	$id = intval($_GET['comment'] ?? -1);
 	$token = $_GET['token'] ?? "";

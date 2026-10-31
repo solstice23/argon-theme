@@ -26,7 +26,7 @@ function argon_generate_article_summary( int $post_id, WP_Post $post ): string {
 		"please generate the summary of the given article ".
 		"with provided title and content, ".
 		"the language of the summary must equals to the article's mainly used language, ".
-		"do not write summary in third person.".
+		"do not write summary in third person.",
 		"system" );
 	$client->addMessage( "The title of the article：" . $post->post_title );
 

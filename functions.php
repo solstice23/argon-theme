@@ -36,8 +36,25 @@ switch ($argon_assets_path) {
 		$GLOBALS['assets_path'] = preg_replace('/%theme_version%/', $argon_version, $GLOBALS['assets_path']);
 		break;
     default:
-	    $GLOBALS['assets_path'] = get_bloginfo('template_url');
+	    $GLOBALS['assets_path'] = get_template_directory_uri();
 }
+
+function argon_enqueue_theme_scripts() {
+	$assets_path = !empty($GLOBALS['assets_path']) ? $GLOBALS['assets_path'] : get_template_directory_uri();
+	$theme_version = !empty($GLOBALS['theme_version']) ? $GLOBALS['theme_version'] : wp_get_theme()->get('Version');
+
+	wp_enqueue_style("argon_css_merged", $assets_path . "/assets/argon_css_merged.css", array(), $theme_version);
+	wp_enqueue_style("style", $assets_path . "/style.css", array("argon_css_merged"), $theme_version);
+	if (get_option('argon_disable_googlefont') != 'true') {
+		wp_enqueue_style("googlefont", "//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Serif+SC:300,600&display=swap", array(), null);
+	}
+	// 采用 WordPress 官方核心依赖：jquery, clipboard, wp-i18n
+	wp_enqueue_script("argon_js_merged", $assets_path . "/assets/argon_js_merged.js", array('jquery', 'clipboard'), $theme_version, false);
+	wp_enqueue_script("argonjs", $assets_path . "/assets/js/argon.min.js", array("argon_js_merged"), $theme_version, true);
+	wp_enqueue_script("argontheme", $assets_path . "/argontheme.js", array("jquery", "wp-i18n", "clipboard", "argon_js_merged", "argonjs"), $theme_version, true);
+	wp_set_script_translations("argontheme", "argon", get_template_directory() . "/languages");
+}
+add_action('wp_enqueue_scripts', 'argon_enqueue_theme_scripts');
 
 //翻译 Hook
 function argon_locate_filter($locate){
@@ -168,14 +185,17 @@ function post_analytics_info(){
 				)
 			)
 		);
-		$result = file_get_contents('http://api.solstice23.top/argon_analytics/index.php?domain=' . urlencode($_SERVER['HTTP_HOST']) . '&version='. urlencode($GLOBALS['theme_version']), false, $contexts);
+		$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
+		$version = isset($GLOBALS['theme_version']) ? $GLOBALS['theme_version'] : '';
+		$response = wp_remote_get('https://api.solstice23.top/argon_analytics/index.php?domain=' . urlencode($host) . '&version=' . urlencode($version), array('timeout' => 2));
+		$result = !is_wp_error($response) ? wp_remote_retrieve_body($response) : '';
 		update_option('argon_has_inited', 'true');
 		return $result;
 	}else{
 		update_option('argon_has_inited', 'true');
 	}
 }
-if (get_option('argon_has_inited') != 'true'){
+if (is_admin() && get_option('argon_has_inited') != 'true'){
 	post_analytics_info();
 }
 //时区修正
@@ -793,11 +813,11 @@ function send_mail($to, $subject, $content){
 	wp_mail($to, $subject, $content, array('Content-Type: text/html; charset=UTF-8'));
 }
 function check_email_address($email){
-	return (bool) preg_match( "/^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+(([.\-])[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/", $email );
+	return is_email($email) !== false;
 }
 //检验评论 Token 和用户 Token 是否一致
 function check_comment_token($id){
-	if (strlen($_COOKIE['argon_user_token']) != 32){
+	if (empty($_COOKIE['argon_user_token']) || strlen($_COOKIE['argon_user_token']) != 32){
 		return false;
 	}
 	if ($_COOKIE['argon_user_token'] != get_comment_meta($id, "user_token", true)){
@@ -827,7 +847,8 @@ function check_comment_userid($id){
 }
 //悄悄话
 function is_comment_private_mode($id){
-	if (strlen(get_comment_meta($id, "private_mode", true)) != 32){
+	$meta = get_comment_meta($id, "private_mode", true);
+	if (empty($meta) || strlen($meta) != 32){
 		return false;
 	}
 	return true;
@@ -839,7 +860,7 @@ function user_can_view_comment($id){
 	if (current_user_can("manage_options")){
 		return true;
 	}
-	if ($_COOKIE['argon_user_token'] == get_comment_meta($id, "private_mode", true)){
+	if (!empty($_COOKIE['argon_user_token']) && $_COOKIE['argon_user_token'] == get_comment_meta($id, "private_mode", true)){
 		return true;
 	}
 	return false;
@@ -933,10 +954,11 @@ add_action('wp_ajax_get_comment_edit_history', 'get_comment_edit_history');
 add_action('wp_ajax_nopriv_get_comment_edit_history', 'get_comment_edit_history');
 //是否可以置顶/取消置顶
 function is_comment_pinable($id){
-	if (get_comment($id) -> comment_approved != "1"){
+	$comment = get_comment($id);
+	if (!$comment || $comment->comment_approved != "1"){
 		return false;
 	}
-	if (get_comment($id) -> comment_parent != 0){
+	if ($comment->comment_parent != 0){
 		return false;
 	}
 	if (is_comment_private_mode($id)){
@@ -1026,7 +1048,7 @@ function upvote_comment(){
 		return;
 	}
 	header('Content-Type:application/json; charset=utf-8');
-	$ID = $_POST["comment_id"];
+	$ID = intval($_POST["comment_id"] ?? 0);
 	$comment = get_comment($ID);
 	if ($comment == null){
 		exit(json_encode(array(
@@ -1044,7 +1066,7 @@ function upvote_comment(){
 		)));
 	}
 	set_comment_upvotes($ID);
-	setcookie('argon_comment_upvoted', $upvotedList . $ID . "," , time() + 3153600000 , '/');
+	setcookie('argon_comment_upvoted', $upvotedList . $ID . "," , time() + YEAR_IN_SECONDS , '/');
 	exit(json_encode(array(
 		'ID' => $ID,
 		'status' => 'success',
@@ -1550,7 +1572,24 @@ function post_comment_updatemetas($id){
 }
 add_action('comment_post' , 'post_comment_updatemetas');
 add_action('comment_unapproved_to_approved', 'comment_mail_notify');
-add_rewrite_rule('^unsubscribe-comment-mailnotice/?(.*)$', '/wp-content/themes/argon/unsubscribe-comment-mailnotice.php$1', 'top');
+function argon_unsubscribe_query_vars($vars) {
+	$vars[] = 'argon_unsubscribe';
+	return $vars;
+}
+add_filter('query_vars', 'argon_unsubscribe_query_vars');
+
+function argon_unsubscribe_rewrite_rule() {
+	add_rewrite_rule('^unsubscribe-comment-mailnotice/?$', 'index.php?argon_unsubscribe=1', 'top');
+}
+add_action('init', 'argon_unsubscribe_rewrite_rule');
+
+function argon_unsubscribe_template_redirect() {
+	if (get_query_var('argon_unsubscribe')) {
+		include get_template_directory() . '/unsubscribe-comment-mailnotice.php';
+		exit;
+	}
+}
+add_action('template_redirect', 'argon_unsubscribe_template_redirect');
 //编辑评论
 function user_edit_comment(){
 	header('Content-Type:application/json; charset=utf-8');
@@ -1560,7 +1599,14 @@ function user_edit_comment(){
 			'msg' => __('博主关闭了编辑评论功能', 'argon')
 		)));
 	}
-	$id = $_POST["id"];
+	$id = intval($_POST["id"] ?? 0);
+	$comment = get_comment($id);
+	if (!$comment){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => __('评论不存在', 'argon')
+		)));
+	}
 	$content = $_POST["comment"];
 	$contentSource = $content;
 	if (!check_comment_token($id) && !check_login_user_same(get_comment_user_id_by_id($id))){
@@ -1627,7 +1673,14 @@ function pin_comment(){
 			'msg' => __('您没有权限进行此操作', 'argon')
 		)));
 	}
-	$id = $_POST["id"];
+	$id = intval($_POST["id"] ?? 0);
+	$comment = get_comment($id);
+	if (!$comment){
+		exit(json_encode(array(
+			'status' => 'failed',
+			'msg' => __('评论不存在', 'argon')
+		)));
+	}
 	$newPinnedStat = $_POST["pinned"] == "true";
 	$origPinnedStat = get_comment_meta($id, "pinned", true) == "true";
 	if ($newPinnedStat == $origPinnedStat){
@@ -1636,7 +1689,7 @@ function pin_comment(){
 			'msg' => $newPinnedStat ? __('评论已经是置顶状态', 'argon') : __('评论已经是取消置顶状态', 'argon')
 		)));
 	}
-	if (get_comment($id) -> comment_parent != 0){
+	if ($comment->comment_parent != 0){
 		exit(json_encode(array(
 			'status' => 'failed',
 			'msg' => __('不能置顶子评论', 'argon')
@@ -1655,7 +1708,7 @@ function pin_comment(){
 	)));
 }
 add_action('wp_ajax_pin_comment', 'pin_comment');
-add_action('wp_ajax_nopriv_pin_comment', 'pin_comment');
+
 //输出评论分页页码
 function get_argon_formatted_comment_paginate_links($maxPageNumbers, $extraClasses = ''){
 	$args = array(
@@ -1984,7 +2037,7 @@ function set_shuoshuo_upvotes($ID){
 }
 function upvote_shuoshuo(){
 	header('Content-Type:application/json; charset=utf-8');
-	$ID = $_POST["shuoshuo_id"];
+	$ID = intval($_POST["shuoshuo_id"] ?? 0);
 	$upvotedList = isset( $_COOKIE['argon_shuoshuo_upvoted'] ) ? $_COOKIE['argon_shuoshuo_upvoted'] : '';
 	if (in_array($ID, explode(',', $upvotedList))){
 		exit(json_encode(array(
@@ -1994,7 +2047,7 @@ function upvote_shuoshuo(){
 		)));
 	}
 	set_shuoshuo_upvotes($ID);
-	setcookie('argon_shuoshuo_upvoted', $upvotedList . $ID . "," , time() + 3153600000 , '/');
+	setcookie('argon_shuoshuo_upvoted', $upvotedList . $ID . "," , time() + YEAR_IN_SECONDS , '/');
 	exit(json_encode(array(
 		'ID' => $ID,
 		'status' => 'success',
@@ -2011,12 +2064,18 @@ function alert_footer_copyright_changed(){ ?>
 	</div>
 <?php }
 function check_footer_copyright(){
-	$footer = file_get_contents(get_theme_root() . "/" . wp_get_theme() -> template . "/footer.php");
+	$footer_file = get_template_directory() . "/footer.php";
+	if (!file_exists($footer_file)){
+		return;
+	}
+	$footer = file_get_contents($footer_file);
 	if ((strpos($footer, "github.com/solstice23/argon-theme") === false) && (strpos($footer, "solstice23.top") === false)){
 		add_action('admin_notices', 'alert_footer_copyright_changed');
 	}
 }
-check_footer_copyright();
+if (is_admin()){
+	check_footer_copyright();
+}
 //颜色计算
 function rgb2hsl($R,$G,$B){
 	$r = $R / 255;
@@ -2289,8 +2348,16 @@ function update_post_meta_ajax(){
 		return;
 	}
 	header('Content-Type:application/json; charset=utf-8');
-	$post_id = intval($_POST["post_id"]);
-	$meta_key = $_POST["meta_key"];
+	$post_id = intval($_POST["post_id"] ?? 0);
+	if (!current_user_can('edit_post', $post_id)){
+		exit(json_encode(array('status' => 'failed', 'msg' => __('您没有权限编辑此文章', 'argon'))));
+	}
+	$meta_key = sanitize_key($_POST["meta_key"] ?? '');
+	$allowed_keys = array('argon_hide_readingtime', 'argon_meta_simple', 'argon_first_image_as_thumbnail', 'argon_show_post_outdated_info', 'argon_after_post', 'argon_custom_css', 'argon_ai_summary', 'argon_ai_extra_prompt_mode', 'argon_ai_extra_prompt');
+	if (!in_array($meta_key, $allowed_keys, true)){
+		exit(json_encode(array('status' => 'failed', 'msg' => __('非法 Meta Key', 'argon'))));
+	}
+
 	$meta_value = $_POST["meta_value"];
 
 	if (get_post_meta($post_id, $meta_key, true) == $meta_value){
@@ -2313,7 +2380,7 @@ function update_post_meta_ajax(){
 	}
 }
 add_action('wp_ajax_update_post_meta_ajax' , 'update_post_meta_ajax');
-add_action('wp_ajax_nopriv_update_post_meta_ajax' , 'update_post_meta_ajax');
+
 //首页显示说说
 function argon_home_add_post_type_shuoshuo($query){
 	if (is_home() && $query -> is_main_query()){
@@ -2391,6 +2458,7 @@ function argon_init_gutenberg_blocks() {
 		)
 	);
 }
+wp_set_script_translations('argon-gutenberg-block-js', 'argon', get_template_directory() . '/languages');
 add_action('init', 'argon_init_gutenberg_blocks');
 function argon_add_gutenberg_category($block_categories, $editor_context) {
 	if (!empty($editor_context->post)){
@@ -3172,5 +3240,5 @@ function argon_login_page_style() {
 	wp_enqueue_style("argon_login_css", $GLOBALS['assets_path'] . "/login.css", null, $GLOBALS['theme_version']);
 }
 if (get_option('argon_enable_login_css') == 'true'){
-	add_action('login_head', 'argon_login_page_style');
+	add_action('login_enqueue_scripts', 'argon_login_page_style');
 }

@@ -1,3 +1,6 @@
+if (typeof window.$ === "undefined" && typeof window.jQuery !== "undefined") {
+	window.$ = window.jQuery;
+}
 if (typeof(argonConfig) == "undefined"){
 	var argonConfig = {};
 }
@@ -211,7 +214,13 @@ translation['zh_TW'] = {
 	"全屏": "全屏",
 	"退出全屏": "退出全屏"
 };
-function __(text){
+function __(text, domain = 'argon'){
+	if (window.wp && window.wp.i18n && typeof window.wp.i18n.__ === 'function') {
+		let translated = window.wp.i18n.__(text, domain);
+		if (translated && translated !== text) {
+			return translated;
+		}
+	}
 	let lang = argonConfig.language;
 	if (typeof(translation[lang]) == "undefined"){
 		return text;

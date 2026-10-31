@@ -7,7 +7,7 @@
 				</main>
 			</div>
 		</div>
-		<script src="<?php echo $GLOBALS['assets_path']; ?>/argontheme.js?v<?php echo $GLOBALS['theme_version']; ?>"></script>
+
 		<?php if (get_option('argon_math_render') == 'mathjax3') { /*Mathjax V3*/?>
 			<script>
 				window.MathJax = {
@@ -74,7 +74,7 @@
 	</div>
 </div>
 <?php 
-	wp_enqueue_script("argonjs", $GLOBALS['assets_path'] . "/assets/js/argon.min.js", null, $GLOBALS['theme_version'], true);
+
 ?>
 <?php wp_footer(); ?>
 </body>
