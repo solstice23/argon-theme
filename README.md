@@ -32,35 +32,6 @@ Hexo 版本 : [github.com/solstice23/hexo-theme-argon](https://github.com/solsti
 + **多语言** - 支持中文、英文、俄文等语言
 + **其他** - 自适应、精心优化的文章阅读界面 CSS、可切换衬线/非衬线字体、可自定义 CSS 和 JS、支持使用 CDN 加速静态文件访问、SEO 友好、Banner 打字动画、留言板页面、文章脚注等
 
-# 现代化改造与 WordPress 官方核心依赖接入
-
-针对现代 WordPress（6.x+）运行环境及 PHP 8.1~8.3 运行时，本分支完成了以下架构规范化与安全性加固改造：
-
-### 1. 全面接入 WordPress 官方核心依赖
-- **核心脚本绑定**：显式依赖 WordPress 官方维护的 `jquery`（3.7+）、`clipboard` 与 `wp-i18n` 运行时依赖。
-- **国际化（i18n）桥接**：注册 `wp_set_script_translations`，前端脚本优先通过 `window.wp.i18n` 执行多语言翻译并优雅回退，契合官方国际化生态。
-- **无缝兼容多插件环境**：在前端打包脚本中增加运行态环境守卫，当 WordPress 官方库存在时自动复用核心实例，杜绝因内置旧版本（jQuery 3.2.1 / 旧版 ClipboardJS）覆盖全局对象引发的第三方插件冲突。
-
-### 2. 生命周期与资源入列规范化
-- **标准动作挂钩**：移除模板文件中散落的脚本注入与硬编码引用，统一通过 `wp_enqueue_scripts` 钩子按依赖树规范加载静态资源。
-- **后台与登录页隔离**：登录页样式规范挂载至 `login_enqueue_scripts`；Gutenberg 区块资源改用主题标准 API（`get_theme_file_uri` / `get_theme_file_path`）进行加载与国际化绑定。
-
-### 3. 安全防护与鉴权加固
-- **AJAX 权限与白名单控制**：
-  - 置顶评论（`pin_comment`）：加入管理员鉴权与参数校验，移除未登录暴露接口。
-  - 文章 Meta 异步更新（`update_post_meta_ajax`）：接入 `current_user_can('edit_post', $post_id)` 权限检验，并采用严格 Meta 字段白名单过滤，阻止任意字段修改。
-  - 主题设置更新：补充 `current_user_can('edit_theme_options')` 鉴权与 Nonce 有效性验证。
-- **输出转义与 XSS 防护**：对评论列表、文章 Banner、属性 URL 及表单字段应用 `esc_attr()` 与 `esc_url()` 转义。
-- **重构语义化搜索表单**：符合 HTML5 规范与 Web 可访问性（a11y）标准，采用原生提交动作与安全 URL 转义。
-
-### 4. PHP 8.x 兼容与性能提升
-- **消除运行时弃用警告**：解决空 Cookie / 空参数传递至 `strlen()` 等字符串函数触发的 PHP 8.1+ 弃用警告；改用 WordPress 原生 `is_email()` 校验邮箱。
-- **Y2038 时间戳溢出防护**：点赞持久化过期时间改用官方标准常量 `YEAR_IN_SECONDS`，规避 32 位整型溢出风险。
-- **消除前台磁盘 I/O 与网络阻塞**：
-  - 版权校验限制在后台管理面板（`is_admin()`）按需执行，降低前台并发访问时的磁盘读取压力。
-  - 外链与分析请求改用 `wp_remote_get()` 并在后台分发，设置 2 秒硬超时，杜绝网络异常阻塞前台渲染。
-- **邮件退订解耦**：改用 WordPress 标准 `query_vars` 与 `template_redirect` 重写机制，消除直接访问主题内部 PHP 文件的架构弊端。
-
 # 安装
 
 在 [Release](https://github.com/solstice23/argon-theme/releases) 页面下载 .zip 文件，在 WordPress 后台 "主题" 页面上传并安装。
