@@ -1982,7 +1982,7 @@ $(document).on("click" , "#blog_categories .tag" , function(){
 	$(document).on("click" , "#sidebar_mask" , function(){
 		$("html").removeClass("leftbar-opened");
 	});
-	$(document).on("click" , "#leftbar a[href]:not([no-pjax]):not([href^='#'])" , function(){
+	$(document).on("click" , "#leftbar a[href]:not([no-pjax]):not([href^='#']):not([onclick*='return false'])" , function(){
 		$("html").removeClass("leftbar-opened");
 	});
 	$(document).on("click" , "#navbar_global.show .navbar-nav a[href]:not([no-pjax]):not([href^='#'])" , function(){
