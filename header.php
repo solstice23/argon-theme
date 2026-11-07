@@ -320,7 +320,11 @@
 						class toolbarMenuWalker extends Walker_Nav_Menu{
 							public function start_lvl( &$output, $depth = 0, $args = array() ) {
 								$indent = str_repeat("\t", $depth);
-								$output .= "\n$indent<div class=\"dropdown-menu\">\n";
+								if ($depth == 0){
+									$output .= "\n$indent<div class=\"dropdown-menu\">\n";
+								}else{
+									$output .= "\n$indent<div class=\"dropdown-group-panel\">\n";
+								}
 							}
 							public function end_lvl( &$output, $depth = 0, $args = array() ) {
 								$indent = str_repeat("\t", $depth);
@@ -344,12 +348,25 @@
 										  </a>";
 									}
 								}else if ($depth == 1){
-									$output .= "<a href='" . $object -> url . "' class='dropdown-item' target='" . $object -> target . "' title='" . $object -> description . "'>" . $object -> title . "</a>";
+									if ($args -> walker -> has_children == 1){
+										/* 三级菜单：二级渲染为可折叠分组标题（原版此处无 has_children 分支，三级子项直接丢失） */
+										$output .= "\n<div class='dropdown-group'>
+											<a href='" . $object -> url . "' class='dropdown-item dropdown-group-toggle' no-pjax onclick='return false;' title='" . $object -> description . "'>" . $object -> title . "
+												<i class='fa fa-angle-down dropdown-group-caret'></i>
+											</a>";
+									}else{
+										$output .= "<a href='" . $object -> url . "' class='dropdown-item' target='" . $object -> target . "' title='" . $object -> description . "'>" . $object -> title . "</a>";
+									}
+								}else{
+									/* 三级及更深：平铺为分组内子项 */
+									$output .= "<a href='" . $object -> url . "' class='dropdown-item dropdown-group-item' target='" . $object -> target . "' title='" . $object -> description . "'>" . $object -> title . "</a>";
 								}
 							}
 							public function end_el( &$output, $object, $depth = 0, $args = array(), $current_object_id = 0 ) {
 								if ($depth == 0){
 									$output .= "\n</li>";
+								}else if ($depth == 1 && $args -> walker -> has_children == 1){
+									$output .= "\n</div>";
 								}
 							}
 						}

@@ -3195,3 +3195,34 @@ function argon_login_page_style() {
 if (get_option('argon_enable_login_css') == 'true'){
 	add_action('login_head', 'argon_login_page_style');
 }
+
+/* 顶栏三级菜单分组折叠交互：
+   点击展开/收起（捕获阶段拦截，防止主题把手势误判为导航而关闭移动端抽屉），
+   同一下拉面板内手风琴互斥，面板关闭（鼠标移出）时重置分组状态。 */
+add_action('wp_footer', function () { ?>
+<script id="argon-toolbar-group-accordion">
+(function(){
+	document.addEventListener('click', function(e){
+		var t = e.target.closest && e.target.closest('a.dropdown-group-toggle');
+		if (!t) return;
+		e.preventDefault();
+		e.stopImmediatePropagation();
+		var g = t.parentNode;
+		var menu = g.closest('.dropdown-menu');
+		if (menu){
+			Array.prototype.forEach.call(menu.querySelectorAll('.dropdown-group.open'), function(x){
+				if (x !== g) x.classList.remove('open');
+			});
+		}
+		g.classList.toggle('open');
+	}, true);
+	document.addEventListener('mouseout', function(e){
+		if (!e.target.closest || !e.target.closest('.navbar .dropdown-menu')) return;
+		if (e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.navbar .dropdown-menu')) return;
+		Array.prototype.forEach.call(document.querySelectorAll('.navbar .dropdown-group.open'), function(g){
+			g.classList.remove('open');
+		});
+	}, true);
+})();
+</script>
+<?php }, 99 );
