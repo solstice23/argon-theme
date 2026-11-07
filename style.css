@@ -5236,3 +5236,46 @@ html.using-safari #blog_setting_card_radius_to_default:before {
 html.using-safari .friend-link-description:after {
 	display: none;
 }
+
+/* ============================================
+   顶栏三级菜单：分组平铺 + 手风琴折叠
+   （上游原版 walker 丢弃 depth>=2，本段配合
+   header.php 中 toolbarMenuWalker 的分组渲染）
+   颜色全部继承主题（color:inherit），自动适配暗色模式
+   ============================================ */
+.dropdown-menu .dropdown-group { list-style: none; }
+.dropdown-menu .dropdown-group-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: .8rem;
+	font-weight: 600;
+	color: inherit;
+	opacity: .75;
+}
+.dropdown-menu .dropdown-group-toggle .dropdown-group-caret {
+	font-size: .7em;
+	opacity: .6;
+	transition: transform .2s ease;
+}
+.dropdown-menu .dropdown-group.open .dropdown-group-caret {
+	transform: rotate(180deg);
+}
+.dropdown-menu .dropdown-group-panel {
+	display: none;
+	margin: 0 0 .35rem .6rem;
+	padding: 0 0 0 .5rem;
+	border-left: 1px solid rgba(0, 0, 0, .07);
+}
+.dropdown-menu .dropdown-group.open .dropdown-group-panel { display: block; }
+.dropdown-menu .dropdown-group-item {
+	font-size: .85rem;
+	color: inherit;
+	opacity: .85;
+	padding-left: 2.2rem;
+}
+html.darkmode .dropdown-menu .dropdown-group-panel { border-left-color: rgba(255, 255, 255, .12); }
+@media (max-width: 991.98px) {
+	.dropdown-menu .dropdown-group-toggle { min-height: 42px; }
+	.dropdown-menu .dropdown-group-item { min-height: 42px; display: flex; align-items: center; }
+}
