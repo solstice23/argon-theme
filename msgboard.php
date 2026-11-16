@@ -11,7 +11,7 @@ Template Name: 留言板 (请打开页面的评论功能)
 <?php get_sidebar(); ?>
 
 <div id="primary" class="content-area">
-	<main id="main" class="site-main" role="main">
+	<main id="main" tabindex="-1" class="site-main" role="main">
 		<?php
 		while ( have_posts() ) :
 			the_post();

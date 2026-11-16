@@ -2,7 +2,7 @@
 	return;
 } ?>
 <div id="sidebar_mask"></div>
-<aside id="leftbar" class="leftbar widget-area" role="complementary">
+<aside id="leftbar" class="leftbar widget-area" role="complementary" tabindex="-1">
 		<?php if (get_option('argon_sidebar_announcement') != '') { ?>
 			<div id="leftbar_announcement" class="card bg-white shadow-sm border-0">
 				<div class="leftbar-announcement-body">

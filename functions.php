@@ -45,6 +45,8 @@ function argon_enqueue_theme_scripts() {
 
 	wp_enqueue_style("argon_css_merged", $assets_path . "/assets/argon_css_merged.css", array(), $theme_version);
 	wp_enqueue_style("style", $assets_path . "/style.css", array("argon_css_merged"), $theme_version);
+	// Keep the UI styles paired with the local templates, even when the base theme uses a CDN.
+	wp_enqueue_style("argon-native-ui", get_template_directory_uri() . "/assets/css/native-ui.css", array("style"), "1");
 	if (get_option('argon_disable_googlefont') != 'true') {
 		wp_enqueue_style("googlefont", "//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Serif+SC:300,600&display=swap", array(), null);
 	}
@@ -52,6 +54,7 @@ function argon_enqueue_theme_scripts() {
 	wp_enqueue_script("argon_js_merged", $assets_path . "/assets/argon_js_merged.js", array('jquery', 'clipboard'), $theme_version, false);
 	wp_enqueue_script("argonjs", $assets_path . "/assets/js/argon.min.js", array("argon_js_merged"), $theme_version, true);
 	wp_enqueue_script("argontheme", $assets_path . "/argontheme.js", array("jquery", "wp-i18n", "clipboard", "argon_js_merged", "argonjs"), $theme_version, true);
+	wp_enqueue_script("argon-native-ui", get_template_directory_uri() . "/assets/js/native-ui.js", array("argontheme"), "1", true);
 	wp_set_script_translations("argontheme", "argon", get_template_directory() . "/languages");
 }
 add_action('wp_enqueue_scripts', 'argon_enqueue_theme_scripts');

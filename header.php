@@ -273,12 +273,13 @@
 </style>
 
 <body <?php body_class(); ?>>
+<a class="argon-skip-link" href="#main" no-pjax><?php esc_html_e( 'Skip to content' ); ?></a>
 <?php /*wp_body_open();*/ ?>
 <div id="toolbar">
 	<header class="header-global">
 		<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light bg-primary headroom--not-bottom headroom--not-top headroom--pinned">
 			<div class="container">
-				<button id="open_sidebar" class="navbar-toggler" type="button" aria-expanded="false" aria-label="Toggle sidebar">
+				<button id="open_sidebar" class="navbar-toggler" type="button" aria-expanded="false"<?php if (get_option('argon_page_layout', 'double') != 'single') echo ' aria-controls="leftbar"'; ?> aria-label="Toggle sidebar">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="navbar-brand mr-0">

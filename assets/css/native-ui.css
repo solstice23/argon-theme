@@ -1,0 +1,146 @@
+/* Keep the document scrollbar separate from embedded and third-party scrollers. */
+html {
+	--argon-scrollbar-thumb: #70798c;
+	--argon-scrollbar-track: #edf0f6;
+}
+
+html.darkmode,
+code[hljs-codeblock-inner] {
+	--argon-scrollbar-thumb: #a1acc1;
+	--argon-scrollbar-track: #252a34;
+}
+
+html,
+#leftbar,
+#leftbar_part2_inner,
+.emotion-keyboard-bar,
+.post-content pre,
+code[hljs-codeblock-inner] {
+	scrollbar-color: var(--argon-scrollbar-thumb) var(--argon-scrollbar-track);
+}
+
+body {
+	scrollbar-color: auto;
+}
+
+#leftbar,
+#leftbar_part2_inner,
+.emotion-keyboard-bar,
+.post-content pre,
+code[hljs-codeblock-inner] {
+	scrollbar-width: thin;
+}
+
+@supports not (scrollbar-color: auto) {
+	#leftbar,
+	#leftbar_part2_inner,
+	.emotion-keyboard-bar,
+	.post-content pre,
+	code[hljs-codeblock-inner] {
+		scrollbar-width: auto;
+	}
+
+	html::-webkit-scrollbar,
+	html #leftbar::-webkit-scrollbar,
+	html #leftbar_part2_inner::-webkit-scrollbar,
+	html .emotion-keyboard-bar::-webkit-scrollbar,
+	html .post-content pre::-webkit-scrollbar,
+	html code[hljs-codeblock-inner]::-webkit-scrollbar {
+		display: block;
+		width: 8px;
+		height: 8px;
+	}
+
+	html::-webkit-scrollbar-track,
+	html #leftbar::-webkit-scrollbar-track,
+	html #leftbar_part2_inner::-webkit-scrollbar-track,
+	html .emotion-keyboard-bar::-webkit-scrollbar-track,
+	html .post-content pre::-webkit-scrollbar-track {
+		background: var(--argon-scrollbar-track);
+	}
+
+	html::-webkit-scrollbar-thumb,
+	html #leftbar::-webkit-scrollbar-thumb,
+	html #leftbar_part2_inner::-webkit-scrollbar-thumb,
+	html .emotion-keyboard-bar::-webkit-scrollbar-thumb,
+	html .post-content pre::-webkit-scrollbar-thumb {
+		border: 1px solid var(--argon-scrollbar-track);
+		border-radius: 8px;
+		background: var(--argon-scrollbar-thumb);
+	}
+
+	/* Older copies of the base CSS served by CDNs set these with !important. */
+	html code[hljs-codeblock-inner]::-webkit-scrollbar-track {
+		background: var(--argon-scrollbar-track) !important;
+	}
+
+	html code[hljs-codeblock-inner]::-webkit-scrollbar-thumb {
+		border: 1px solid var(--argon-scrollbar-track) !important;
+		border-radius: 8px;
+		background: var(--argon-scrollbar-thumb) !important;
+	}
+}
+
+@media (forced-colors: active) {
+	html,
+	#leftbar,
+	#leftbar_part2_inner,
+	.emotion-keyboard-bar,
+	.post-content pre,
+	code[hljs-codeblock-inner] {
+		scrollbar-color: auto;
+		scrollbar-width: auto;
+	}
+}
+
+.argon-skip-link:not(:focus) {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.argon-skip-link:focus {
+	position: fixed;
+	inset-block-start: calc(0.75rem + var(--wp-admin--admin-bar--height, 0px));
+	inset-inline-start: 0.75rem;
+	z-index: 10000;
+	display: block;
+	padding: 0.65rem 1rem;
+	border-radius: 0.4rem;
+	background: #fff;
+	color: #28334f;
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+	text-decoration: underline;
+}
+
+html.darkmode .argon-skip-link:focus {
+	background: #252a34;
+	color: #f2f5fc;
+}
+
+@media screen and (max-width: 900px) {
+	html:not(.leftbar-opened) #leftbar {
+		visibility: hidden;
+	}
+}
+
+@media screen and (max-width: 900px) and (prefers-reduced-motion: reduce) {
+	#leftbar,
+	#sidebar_mask {
+		transition: none;
+	}
+}
+
+#main {
+	scroll-margin-block-start: calc(5rem + var(--wp-admin--admin-bar--height, 0px));
+}
+
+#main:focus-visible {
+	outline: 2px solid var(--themecolor, currentColor);
+	outline-offset: 4px;
+}

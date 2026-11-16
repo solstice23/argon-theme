@@ -115,23 +115,6 @@
 	white-space: nowrap;
 	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.06);
 	transform: scaleY(-1);
-
-	&::-webkit-scrollbar-track {
-		background: transparent;
-	}
-
-	&::-webkit-scrollbar {
-		height: 5px;
-	}
-
-	&::-webkit-scrollbar-thumb {
-		background-color: rgba(0, 0, 0, 0.2);
-		border: none;
-
-		&:hover {
-			background-color: var(--themecolor);
-		}
-	}
 }
 
 .emotion-group-name {
