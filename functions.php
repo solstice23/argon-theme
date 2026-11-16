@@ -46,15 +46,15 @@ function argon_enqueue_theme_scripts() {
 	wp_enqueue_style("argon_css_merged", $assets_path . "/assets/argon_css_merged.css", array(), $theme_version);
 	wp_enqueue_style("style", $assets_path . "/style.css", array("argon_css_merged"), $theme_version);
 	// Keep the UI styles paired with the local templates, even when the base theme uses a CDN.
-	wp_enqueue_style("argon-native-ui", get_template_directory_uri() . "/assets/css/native-ui.css", array("style"), "1");
+	wp_enqueue_style("argon-native-ui", get_template_directory_uri() . "/assets/css/native-ui.css", array("style"), $theme_version . ".2");
 	if (get_option('argon_disable_googlefont') != 'true') {
 		wp_enqueue_style("googlefont", "//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Serif+SC:300,600&display=swap", array(), null);
 	}
 	// 采用 WordPress 官方核心依赖：jquery, clipboard, wp-i18n
 	wp_enqueue_script("argon_js_merged", $assets_path . "/assets/argon_js_merged.js", array('jquery', 'clipboard'), $theme_version, false);
 	wp_enqueue_script("argonjs", $assets_path . "/assets/js/argon.min.js", array("argon_js_merged"), $theme_version, true);
-	wp_enqueue_script("argontheme", $assets_path . "/argontheme.js", array("jquery", "wp-i18n", "clipboard", "argon_js_merged", "argonjs"), $theme_version, true);
-	wp_enqueue_script("argon-native-ui", get_template_directory_uri() . "/assets/js/native-ui.js", array("argontheme"), "1", true);
+	wp_enqueue_script("argon-native-ui", get_template_directory_uri() . "/assets/js/native-ui.js", array(), $theme_version . ".2", true);
+	wp_enqueue_script("argontheme", get_template_directory_uri() . "/argontheme.js", array("jquery", "wp-i18n", "clipboard", "argon_js_merged", "argonjs", "argon-native-ui"), $theme_version . ".2", true);
 	wp_set_script_translations("argontheme", "argon", get_template_directory() . "/languages");
 }
 add_action('wp_enqueue_scripts', 'argon_enqueue_theme_scripts');
@@ -302,46 +302,84 @@ function format_number_in_kilos($number) {
 //表情包
 require_once(get_template_directory() . '/emotions.php');
 //文章特色图片
-function argon_get_first_image_of_article(){
-	global $post;
-	if (post_password_required()){
+function argon_get_first_image_of_article($post_id = 0){
+	$entry = get_post($post_id ?: null);
+	if (!$entry || post_password_required($entry)){
 		return false;
 	}
-	$post_content_full = apply_filters('the_content', preg_replace( '<!--more(.*?)-->', '', $post -> post_content));
+	$post_content_full = apply_filters('the_content', preg_replace( '<!--more(.*?)-->', '', $entry->post_content));
 	preg_match('/<img(.*?)(src|data-original)=[\"\']((http:|https:)?\/\/(.*?))[\"\'](.*?)\/?>/', $post_content_full, $match);
 	if (isset($match[3])){
 		return $match[3];
 	}
 	return false;
 }
+function argon_can_use_first_image($post_id){
+	$setting = get_post_meta($post_id, 'argon_first_image_as_thumbnail', true) ?: 'default';
+	return $setting === 'true' || ($setting === 'default' && get_option('argon_first_image_as_thumbnail_by_default', 'false') === 'true');
+}
 function argon_has_post_thumbnail($postID = 0){
-	if ($postID == 0){
-		global $post;
-		$postID = $post -> ID;
-	}
-	if (has_post_thumbnail()){
-		return true;
-	}
-	$argon_first_image_as_thumbnail = get_post_meta($postID, 'argon_first_image_as_thumbnail', true);
-	if ($argon_first_image_as_thumbnail == ""){
-		$argon_first_image_as_thumbnail = "default";
-	}
-	if ($argon_first_image_as_thumbnail == "true" || ($argon_first_image_as_thumbnail == "default" && get_option("argon_first_image_as_thumbnail_by_default", "false") == "true")){
-		if (argon_get_first_image_of_article() != false){
-			return true;
-		}
-	}
-	return false;
+	$postID = $postID ?: get_the_ID();
+	return has_post_thumbnail($postID)
+		|| (argon_can_use_first_image($postID) && (bool) argon_get_first_image_of_article($postID));
 }
 function argon_get_post_thumbnail($postID = 0){
-	if ($postID == 0){
-		global $post;
-		$postID = $post -> ID;
+	$postID = $postID ?: get_the_ID();
+	$source = has_post_thumbnail($postID) ? wp_get_attachment_image_src(get_post_thumbnail_id($postID), 'full') : false;
+	return apply_filters('argon_post_thumbnail', $source ? $source[0] : argon_get_first_image_of_article($postID));
+}
+
+function argon_post_cover_image($placement, $post_id = 0){
+	static $has_priority_card = false;
+	$post_id = $post_id ?: get_the_ID();
+	$has_thumbnail = has_post_thumbnail($post_id);
+	$attachment_id = $has_thumbnail ? get_post_thumbnail_id($post_id) : 0;
+	$attachment = $attachment_id ? wp_get_attachment_image_src($attachment_id, 'full') : false;
+	if ($attachment){
+		$source = $attachment[0];
+	} elseif (argon_can_use_first_image($post_id)){
+		$source = argon_get_first_image_of_article($post_id);
+		if (!$source) return '';
+	} elseif ($has_thumbnail){
+		$source = false;
+	} else {
+		return '';
 	}
-	if (has_post_thumbnail()){
-		return apply_filters("argon_post_thumbnail", wp_get_attachment_image_src(get_post_thumbnail_id($postID), "full")[0]);
+	$url = apply_filters('argon_post_thumbnail', $source);
+	if (!$url || !esc_url($url)){
+		return '';
 	}
-	return apply_filters("argon_post_thumbnail", argon_get_first_image_of_article());
+
+	$is_listing = $placement === 'card' || $placement === 'side-card';
+	$full_home_banner = is_home() && get_option('argon_banner_size', 'full') === 'fullscreen';
+	$is_near_top = $is_listing && in_the_loop() && $GLOBALS['wp_query']->current_post < 2;
+	$critical = !$is_listing || (!$has_priority_card && $is_near_top && !$full_home_banner);
+	if ($is_listing && $critical){
+		$has_priority_card = true;
+	}
+	$attrs = array(
+		'class' => $placement === 'banner' ? 'argon-banner-image' : 'post-thumbnail argon-post-cover',
+		'loading' => !$critical && get_option('argon_enable_lazyload') !== 'false' ? 'lazy' : 'eager',
+		'decoding' => 'async',
+		'fetchpriority' => $critical ? 'high' : false,
+	);
+	if ($attachment && $url === $attachment[0]){
+		$attrs['sizes'] = '100vw';
+		if ($placement === 'side-card'){
+			$attrs['sizes'] = '(max-width: 600px) 100vw, (max-width: 900px) 33vw, 400px';
+		} elseif ($placement !== 'banner'){
+			$attrs['sizes'] = '(max-width: 900px) 100vw, (max-width: 1450px) 80vw, 1200px';
+		}
+		if ($placement === 'banner'){
+			$attrs['alt'] = '';
+		}
+		return wp_get_attachment_image($attachment_id, 'full', false, $attrs);
+	}
+
+	// Filtered and external URLs have no reliable attachment size or srcset.
+	return sprintf('<img class="%s" src="%s" alt="" loading="%s" decoding="async"%s>',
+		esc_attr($attrs['class']), esc_url($url), esc_attr($attrs['loading']),
+		$critical ? ' fetchpriority="high"' : '');
 }
 //文末附加内容
 function get_additional_content_after_post(){

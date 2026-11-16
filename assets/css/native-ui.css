@@ -144,3 +144,183 @@ html.darkmode .argon-skip-link:focus {
 	outline: 2px solid var(--themecolor, currentColor);
 	outline-offset: 4px;
 }
+
+/* Give both identified and external cover images the same reserved crop. */
+.post-header .argon-post-cover {
+	display: block;
+	height: max(250px, 25vh);
+}
+
+.post-full .post-header .argon-post-cover {
+	height: max(250px, 30vh);
+}
+
+.post-preview-layout-3 .post-header .argon-post-cover {
+	height: max(250px, 20vh);
+}
+
+article.post-preview-layout-2 .post-header-with-thumbnail {
+	min-height: 250px;
+}
+
+article.post-preview-layout-2 .post-header .argon-post-cover {
+	position: absolute;
+	inset: 0;
+	height: 100%;
+}
+
+#banner {
+	isolation: isolate;
+}
+
+#argon_banner_cover,
+.argon-banner-background {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+}
+
+#argon_banner_cover {
+	z-index: -1;
+}
+
+.argon-banner-background {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.argon-banner-image {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#banner > .banner-container {
+	position: relative;
+}
+
+.post-content .argon-table-scroll,
+.post-content .wp-block-table,
+.post-content pre:not(.hljs-codeblock-fullscreen) {
+	min-inline-size: 0;
+	max-inline-size: 100%;
+	overflow-x: auto;
+}
+
+.argon-table-scroll:focus-visible {
+	outline: 2px solid var(--themecolor, currentColor);
+	outline-offset: 2px;
+}
+
+/* Keep author-specified wide classic tables inside the article without JS. */
+html.no-js .post-content {
+	overflow-x: auto;
+}
+
+@media screen and (max-width: 900px) {
+	html.argon-compact-mobile-banner:has(#main.argon-reading-page) #banner {
+		height: auto;
+		margin-bottom: 14px;
+		padding: 4.65rem 0 1.1rem;
+	}
+
+	html.argon-compact-mobile-banner:has(#main.argon-reading-page) #banner_container {
+		height: auto !important;
+	}
+
+	html.argon-compact-mobile-banner:has(#main.argon-reading-page) #banner .banner-title {
+		position: static;
+		transform: none;
+		padding-inline: 0.5rem;
+		font-size: clamp(1.125rem, 0.9rem + 1vw, 1.6rem);
+		overflow-wrap: anywhere;
+	}
+
+	html.argon-compact-mobile-banner:has(#main.argon-reading-page) #content {
+		margin-top: 0;
+	}
+
+	#primary,
+	#main,
+	.post-header,
+	.post-content,
+	.post-content-container {
+		min-inline-size: 0;
+	}
+
+	.post-header .post-title,
+	.post-content {
+		overflow-wrap: anywhere;
+	}
+
+	.post-content pre {
+		overflow-wrap: normal;
+	}
+
+	.post-full .post-header .post-title {
+		font-size: clamp(1.25rem, 1rem + 1.3vw, 1.65rem);
+		line-height: 1.35;
+	}
+
+	article.post .post-header .argon-post-cover {
+		height: clamp(9rem, 28vh, 15rem);
+		height: clamp(9rem, 28svh, 15rem);
+		min-height: 0;
+		max-height: none;
+	}
+
+	article.post-preview-layout-2 .post-header .argon-post-cover {
+		height: 100%;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	article.post-preview-layout-2 {
+		flex-direction: column;
+	}
+
+	article.post-preview-layout-2 .post-header.post-header-with-thumbnail {
+		width: 100%;
+		min-height: auto;
+		border-radius: var(--card-radius) var(--card-radius) 0 0;
+	}
+
+	article.post-preview-layout-2 .post-header .argon-post-cover {
+		position: static;
+		height: 10rem;
+	}
+
+	article.post-preview-layout-2 .post-content-container {
+		padding: 1rem;
+	}
+
+	.post-full .post-header.post-header-with-thumbnail .post-header-text-container {
+		position: static;
+		padding: 0.9rem 1rem 0;
+		opacity: 1;
+		background: none;
+		color: var(--color-text-deeper);
+	}
+
+	.post-full .post-header.post-header-with-thumbnail .post-header-text-container .post-title {
+		display: block;
+		margin-top: 0;
+		color: var(--color-text-deeper) !important;
+		filter: none;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	#fabtn_blog_settings_popup {
+		width: auto;
+		min-width: 0;
+		overflow-y: auto;
+	}
+
+	#fabtn_blog_settings_popup .blog-setting-item {
+		flex-wrap: wrap;
+		row-gap: 0.35rem;
+	}
+}

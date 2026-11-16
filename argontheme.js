@@ -1512,11 +1512,11 @@ $(document).on("click" , ".comment-edited.comment-edithistory-accessible" , func
 	showCommentEditHistory($(this).parent().parent().parent().parent().data("id"));
 });
 /*过长评论折叠*/
-function foldLongComments(){
+function foldLongComments(root = document){
 	if (argonConfig.fold_long_comments == false){
 		return;
 	}
-	$(".comment-item-inner").each(function(){
+	$(".comment-item-inner", root).each(function(){
 		if ($(this).hasClass("comment-unfolded")){
 			return;
 		}
@@ -1577,6 +1577,7 @@ $(window).on("load", function(){
 });
 /*需要密码的文章加载*/
 $(document).on("submit" , ".post-password-form" , function(){
+	if (argonConfig.disable_pjax) return;
 	$("input[type='submit']", this).attr("disabled", "disabled");
 	let url = $(this).attr("action");
 	$.pjax.form(this, {
@@ -1695,11 +1696,11 @@ function showPostOutdateToast(){
 showPostOutdateToast();
 
 /*Zoomify*/
-function zoomifyInit(){
+function zoomifyInit(root = document){
 	if (argonConfig.zoomify == false){
 		return;
 	}
-	$("article img").zoomify(argonConfig.zoomify);
+	$("article img", root).zoomify(argonConfig.zoomify);
 }
 zoomifyInit();
 
@@ -1737,14 +1738,14 @@ $.fancybox.defaults.i18n = {
 };
 
 /*Lazyload*/
-function lazyloadInit(){
+function lazyloadInit(root = document){
 	if (argonConfig.lazyload == false){
 		return;
 	}
 	if (argonConfig.lazyload.effect == "none"){
 		delete argonConfig.lazyload.effect;
 	}
-	$("article img.lazyload:not(.lazyload-loaded) , .related-post-thumbnail.lazyload:not(.lazyload-loaded) , .shuoshuo-preview-container img.lazyload:not(.lazyload-loaded)").lazyload(
+	$("article img.lazyload:not(.lazyload-loaded) , .related-post-thumbnail.lazyload:not(.lazyload-loaded) , .shuoshuo-preview-container img.lazyload:not(.lazyload-loaded)", root).lazyload(
 		Object.assign(argonConfig.lazyload, {
 			load: function () {
 				$(this).addClass("lazyload-loaded");
@@ -1752,52 +1753,39 @@ function lazyloadInit(){
 			}
 		})
 	);
-	$(".post-thumbnail.lazyload:not(.lazyload-loaded)").lazyload(
-		Object.assign({threshold: argonConfig.lazyload.threshold}, {
-			load: function () {
-				$(this).addClass("lazyload-loaded");
-				$(this).parent().removeClass("lazyload-container-unload");
-				waterflowInit();
-			}
-		})
-	);
-	$(".comment-item-text .comment-sticker.lazyload").lazyload(Object.assign(argonConfig.lazyload, {load: function(){$(this).removeClass("lazyload")}}));
+	$(".comment-item-text .comment-sticker.lazyload", root).lazyload(Object.assign(argonConfig.lazyload, {load: function(){$(this).removeClass("lazyload")}}));
 }
 lazyloadInit();
 
 /*Pangu.js*/
-function panguInit(){
-	if (argonConfig.pangu.indexOf("article") >= 0){
-		pangu.spacingElementByClassName('post-content');
-	}
-	if (argonConfig.pangu.indexOf("comment") >= 0){
-		pangu.spacingElementById('comments');
-	}
-	if (argonConfig.pangu.indexOf("shuoshuo") >= 0){
-		pangu.spacingElementByClassName('shuoshuo-content');
-	}
+function panguInit(root = document){
+	const groups = {article: ".post-content", comment: "#comments", shuoshuo: ".shuoshuo-content"};
+	Object.keys(groups).forEach(group => {
+		if (argonConfig.pangu.indexOf(group) >= 0){
+			root.querySelectorAll(groups[group]).forEach(node => pangu.spacingNode(node));
+		}
+	});
 }
 panguInit();
 
 /*Clamp.js*/
-function clampInit(){
-	$(".clamp").each(function(index, dom) {
+function clampInit(root = document){
+	$(".clamp", root).each(function(index, dom) {
 		$clamp(dom, {clamp: dom.getAttribute("clamp-line")});
 	});
 }
 clampInit();
 
 /*Tippy.js*/
-function tippyInit(){
+function tippyInit(root = document){
 	//Reference Popover
-	tippy('sup.reference[data-content]:not(.tippy-initialized)', {
+	tippy(Array.from(root.querySelectorAll('sup.reference[data-content]')).filter(reference => !reference._tippy), {
 		content: (reference) => reference.getAttribute('data-content'),
 		allowHTML: true,
 		interactive: true,theme: 'light scroll-y',
 		delay: [100, 250],
 		animation: 'fade'
 	});
-	$("sup.reference[data-content]:not(.tippy-initialized)").addClass("tippy-initialized");
 }
 tippyInit();
 
@@ -1853,17 +1841,14 @@ if ($("html").hasClass("banner-as-cover")){
 /*Pjax*/
 var pjaxScrollTop = 0, pjaxLoading = false;
 $.pjax.defaults.timeout = 10000;
-$.pjax.defaults.container = ['#primary', '#leftbar_part1_menu', '#leftbar_part2_inner', '.page-information-card-container', '#rightbar', '#wpadminbar'];
-$.pjax.defaults.fragment = ['#primary', '#leftbar_part1_menu', '#leftbar_part2_inner', '.page-information-card-container', '#rightbar', '#wpadminbar'];
+$.pjax.defaults.container = ['#primary', '#leftbar_part1_menu', '#leftbar_part2_inner', '.page-information-card-container', '#rightbar', '#wpadminbar', '#argon_banner_cover'];
+$.pjax.defaults.fragment = ['#primary', '#leftbar_part1_menu', '#leftbar_part2_inner', '.page-information-card-container', '#rightbar', '#wpadminbar', '#argon_banner_cover'];
 $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):not([download]):not(.reference-link):not(.reference-list-backlink)")
 .on('pjax:click', function(e, f, g){
 	if (argonConfig.disable_pjax == true){
 		e.preventDefault();
 		return;
 	}
-	NProgress.remove();
-	NProgress.start();
-	pjaxLoading = true;
 }).on('pjax:afterGetContainers', function(e, f, g) {
 	if (g.is("#main article.post-preview a.post-title")){
 		let $card = $(g.parents("article.post-preview")[0]);
@@ -1894,69 +1879,33 @@ $(document).pjax("a[href]:not([no-pjax]):not(.no-pjax):not([target='_blank']):no
 			pjaxScrollTop = $("#content").offset().top - 80;
 		}
 	}
-}).on('pjax:send', function() {
-	NProgress.set(0.618);
-}).on('pjax:beforeReplace', function(e, dom) {
-	if ($("#post_comment", dom[0]).length > 0){
-		$("#fabtn_go_to_comment").removeClass("d-none");
-	}else{
-		$("#fabtn_go_to_comment").addClass("d-none");
-	}
-	if ($("html").hasClass("banner-as-cover")){
-		if (!$("#main").hasClass("article-list-home")){
-			pjaxScrollTop = 0;
-		}
-	}
-}).on('pjax:complete', function() {
-	pjaxLoading = false;
-	NProgress.inc();
-	try{
-		if (MathJax != undefined){
-			if (MathJax.Hub != undefined){
-				MathJax.Hub.Typeset();
-			}else{
-				MathJax.typeset();
-			}
-		}
-	}catch (err){}
-	try{
-		if (renderMathInElement != undefined){
-			renderMathInElement(document.body,{
-				delimiters: [
-					{left: "$$", right: "$$", display: true},
-					{left: "$", right: "$", display: false},
-					{left: "\\(", right: "\\)", display: false}
-				]
-			});
-		}
-	}catch (err){}
+	f.scrollTo = Math.max(0, pjaxScrollTop);
+});
 
-	waterflowInit();
-	lazyloadInit();
-	zoomifyInit();
-	highlightJsRender();
-	panguInit();
-	clampInit();
-	tippyInit();
-	getGithubInfoCardContent();
-	showPostOutdateToast();
-	calcHumanTimesOnPage();
-	foldLongComments();
-	foldLongShuoshuo();
-	$("html").trigger("resize");
-
-	if (typeof(window.pjaxLoaded) == "function"){
-		try{
-			window.pjaxLoaded();
-		}catch (err){
-			console.error(err);
-		}
-	}
-
-	NProgress.done();
-}).on('pjax:end', function() {
-	waterflowInit();
-	lazyloadInit();
+window.argonInstallPjaxLifecycle($, {
+	start: function(){
+		pjaxLoading = true;
+		NProgress.start();
+		NProgress.set(0.618);
+	},
+	complete: function(){
+		pjaxLoading = false;
+		NProgress.done();
+	},
+	replace: function(primary, cached){
+		lazyloadInit(primary);
+		zoomifyInit(primary);
+		highlightJsRender(primary);
+		if (!cached) panguInit(primary);
+		clampInit(primary);
+		tippyInit(primary);
+		if (!cached) getGithubInfoCardContent(primary);
+		showPostOutdateToast();
+		calcHumanTimesOnPage(primary);
+		foldLongComments(primary);
+		foldLongShuoshuo(primary);
+		$("html").trigger("resize");
+	},
 });
 
 /*Reference 跳转*/
@@ -2016,8 +1965,8 @@ $(document).on("click" , ".collapse-block .collapse-block-title" , function(){
 });
 
 /*获得 Github Repo Shortcode 信息卡内容*/
-function getGithubInfoCardContent(){
-	$(".github-info-card").each(function(){
+function getGithubInfoCardContent(root = document){
+	$(".github-info-card", root).each(function(){
 		(function($this){
 			if ($this.attr("data-getdata") == "backend"){
 				$(".github-info-card-description" , $this).html($this.attr("data-description"));
@@ -2122,11 +2071,11 @@ $(document).on("click" , ".shuoshuo-upvote" , function(){
 	});
 });
 //折叠长说说
-function foldLongShuoshuo(){
+function foldLongShuoshuo(root = document){
 	if (argonConfig.fold_long_shuoshuo == false){
 		return;
 	}
-	$("#main .shuoshuo-foldable > .shuoshuo-content").each(function(){
+	$("#main .shuoshuo-foldable > .shuoshuo-content", root).each(function(){
 		if ($(this).hasClass("shuoshuo-unfolded")){
 			return;
 		}
@@ -2432,7 +2381,7 @@ function getCodeFromBlock(block){
 	codeOfBlocks[block.id] = res;
 	return res;
 }
-function highlightJsRender(){
+function highlightJsRender(root = document){
 	if (typeof(hljs) == "undefined"){
 		return;
 	}
@@ -2442,13 +2391,13 @@ function highlightJsRender(){
 	if (!argonConfig.code_highlight.enable){
 		return;
 	}
-	$("article pre.code").each(function(index, block) {
+	$("article pre.code:not(.hljs-codeblock)", root).each(function(index, block) {
 		if ($(block).hasClass("no-hljs")){
 			return;
 		}
 		$(block).html("<code>" + $(block).html() + "</code>");
 	});
-	$("article pre > code").each(function(index, block) {
+	$("article pre > code:not([hljs-codeblock-inner])", root).each(function(index, block) {
 		if ($(block).hasClass("no-hljs")){
 			return;
 		}
@@ -2606,8 +2555,8 @@ function humanTimeDiff(time){
 		return time.getDate() + "-" + (time.getMonth() + 1) + "-" + time.getFullYear();
 	}
 }
-function calcHumanTimesOnPage(){
-	$(".human-time").each(function(){
+function calcHumanTimesOnPage(root = document){
+	$(".human-time", root).each(function(){
 		$(this).text(humanTimeDiff(parseInt($(this).data("time")) * 1000));
 	});
 }

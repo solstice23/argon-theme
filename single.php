@@ -5,7 +5,7 @@
 <?php get_sidebar(); ?>
 
 <div id="primary" class="content-area">
-	<main id="main" tabindex="-1" class="site-main" role="main">
+	<main id="main" tabindex="-1" class="site-main argon-reading-page" role="main">
 		<?php
 		while ( have_posts() ) :
 			the_post();

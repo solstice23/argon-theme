@@ -1,21 +1,7 @@
+<?php $article_cover = get_option('argon_show_thumbnail_in_banner_in_content_page') === 'true' ? '' : argon_post_cover_image('article'); ?>
 <article class="post post-full card bg-white shadow-sm border-0" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="post-header text-center<?php if (argon_has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') != 'true'){echo " post-header-with-thumbnail";}?>">
-		<?php
-			if (argon_has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') != 'true'){
-				$thumbnail_url = argon_get_post_thumbnail();
-				echo "<img class='post-thumbnail' src='" . $thumbnail_url . "'></img>";
-				echo "<div class='post-header-text-container'>";
-			}
-			if (argon_has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') == 'true'){
-				$thumbnail_url = argon_get_post_thumbnail();
-				echo "
-				<style>
-					body section.banner {
-						background-image: url(" . $thumbnail_url . ") !important;
-					}
-				</style>";
-			}
-		?>
+	<header class="post-header text-center<?php if ($article_cover) echo ' post-header-with-thumbnail'; ?>">
+		<?php if ($article_cover){ echo $article_cover; echo '<div class="post-header-text-container">'; } ?>
 		<a class="post-title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 		<div class="post-meta">
 			<?php

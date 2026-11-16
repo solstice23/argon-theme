@@ -406,6 +406,16 @@ function themeoptions_page(){
 						</td>
 					</tr>
 					<tr>
+						<th><label for="argon_compact_mobile_article_banner"><?php _e('手机文章页使用紧凑 Banner', 'argon'); ?></label></th>
+						<td>
+							<select id="argon_compact_mobile_article_banner" name="argon_compact_mobile_article_banner">
+								<option value="true" <?php selected(get_option('argon_compact_mobile_article_banner', 'true'), 'true'); ?>><?php _e('是', 'argon'); ?></option>
+								<option value="false" <?php selected(get_option('argon_compact_mobile_article_banner', 'true'), 'false'); ?>><?php _e('否', 'argon'); ?></option>
+							</select>
+							<p class="description"><?php _e('仅在 Banner 设为完整时应用；首页不受影响。', 'argon'); ?></p>
+						</td>
+					</tr>
+					<tr>
 						<th><label><?php _e('Banner 透明化', 'argon');?></label></th>
 						<td>
 							<select name="argon_page_background_banner_style">
@@ -1756,17 +1766,6 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
-						<th><label><?php _e('是否允许移动端缩放页面', 'argon');?></label></th>
-						<td>
-							<select name="argon_enable_mobile_scale">
-								<?php $argon_enable_mobile_scale = get_option('argon_enable_mobile_scale'); ?>
-								<option value="false" <?php if ($argon_enable_mobile_scale=='false'){echo 'selected';} ?>><?php _e('否', 'argon');?></option>
-								<option value="true" <?php if ($argon_enable_mobile_scale=='true'){echo 'selected';} ?>><?php _e('是', 'argon');?></option>
-							</select>
-							<p class="description"></p>
-						</td>
-					</tr>
-					<tr>
 						<th><label><?php _e('禁用 Google 字体', 'argon');?></label></th>
 						<td>
 							<select name="argon_disable_googlefont">
@@ -2156,7 +2155,6 @@ function argon_update_themeoptions(){
 		argon_update_option_checkbox('argon_show_customize_theme_color_picker');
 		argon_update_option_allow_tags('argon_seo_description');
 		argon_update_option('argon_seo_keywords');
-		argon_update_option('argon_enable_mobile_scale');
 		argon_update_option('argon_page_background_url');
 		argon_update_option('argon_page_background_dark_url');
 		argon_update_option('argon_page_background_opacity');
@@ -2225,6 +2223,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_enable_comment_upvote');
 		argon_update_option('argon_article_list_waterflow');
 		argon_update_option('argon_banner_size');
+		argon_update_option('argon_compact_mobile_article_banner');
 		argon_update_option('argon_toolbar_blur');
 		argon_update_option('argon_archives_timeline_show_month');
 		argon_update_option('argon_archives_timeline_url');

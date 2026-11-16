@@ -29,6 +29,12 @@
 		$htmlclasses .= 'navbar-absolute ';
 	}
 	$banner_size = get_option('argon_banner_size', 'full');
+	if ($banner_size === 'full' && get_option('argon_compact_mobile_article_banner', 'true') === 'true'){
+		$htmlclasses .= 'argon-compact-mobile-banner ';
+	}
+	if (is_home()){
+		$htmlclasses .= 'is-home ';
+	}
 	if ($banner_size != 'full'){
 		if ($banner_size == 'mini'){
 			$htmlclasses .= 'banner-mini ';
@@ -71,11 +77,7 @@
 ?>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<?php if (get_option('argon_enable_mobile_scale') != 'true'){ ?>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<?php }else{ ?>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-	<?php } ?>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta property="og:title" content="<?php echo wp_get_document_title();?>">
 	<meta property="og:type" content="article">
 	<meta property="og:url" content="<?php echo home_url(add_query_arg(array(),$wp->request));?>">
@@ -415,6 +417,25 @@
 		<span></span>
 	</div>
 
+	<div id="argon_banner_cover" aria-hidden="true">
+		<?php
+		$transparent_banner = get_option('argon_page_background_banner_style') === 'transparent'
+			&& apply_filters('argon_page_background_url', get_option('argon_page_background_url')) != '';
+		if ($banner_size !== 'hide' && !$transparent_banner){
+			$cover = '';
+			if (is_singular(array('post', 'page')) && get_page_template_slug() !== 'shuoshuo.php'
+				&& get_option('argon_show_thumbnail_in_banner_in_content_page') === 'true'){
+				$cover = argon_post_cover_image('banner', get_queried_object_id());
+			}
+			if ($cover){
+				echo $cover;
+			} elseif (get_option('argon_banner_background_url') != ''){
+				$background = 'background-image: url(' . wp_json_encode(esc_url_raw(get_banner_background_url())) . ')';
+				echo '<div class="argon-banner-background" style="' . esc_attr($background) . '"></div>';
+			}
+		}
+		?>
+	</div>
 	<?php
 		$banner_title = get_option('argon_banner_title') == '' ? get_bloginfo('name') : get_option('argon_banner_title');
 		$enable_banner_title_typing_effect = get_option('argon_enable_banner_title_typing_effect') != 'true' ? "false" : get_option('argon_enable_banner_title_typing_effect');
@@ -428,13 +449,6 @@
 			<?php echo get_option('argon_banner_subtitle') == '' ? '' : '<span data-text="' . get_option('argon_banner_subtitle') . '" class="banner-subtitle d-block">&nbsp;</span>'; ?></div>
 		<?php }?>
 	</div>
-	<?php if (get_option('argon_banner_background_url') != '') { ?>
-		<style>
-			section.banner{
-				background-image: url(<?php echo get_banner_background_url(); ?>) !important;
-			}
-		</style>
-	<?php } ?>
 	<?php if ($banner_size == 'fullscreen') { ?>
 		<div class="cover-scroll-down">
 			<i class="fa fa-angle-down" aria-hidden="true"></i>

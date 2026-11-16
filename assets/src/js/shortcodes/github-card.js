@@ -1,6 +1,6 @@
 var $ = window.$;
-export const getGithubInfoCardContent = () => {
-	$(".github-info-card").each(function(){
+export const getGithubInfoCardContent = (root = document) => {
+	$(".github-info-card", root).each(function(){
 		(function($this){
 			if ($this.attr("data-getdata") == "backend"){
 				$(".github-info-card-description" , $this).html($this.attr("data-description"));
