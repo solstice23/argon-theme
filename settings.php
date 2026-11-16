@@ -105,18 +105,18 @@ function themeoptions_page(){
 					<tr>
 						<th><label><?php _e('沉浸式主题色', 'argon');?></label></th>
 						<td>
-							<select name="argon_enable_color_immersion">
-								<?php $argon_enable_color_immersion = get_option('argon_enable_color_immersion', 'false'); ?>
-								<option value="true" <?php if ($argon_enable_color_immersion=='true'){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
-								<option value="false" <?php if ($argon_enable_color_immersion=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
+							<select name="argon_enable_immersion_color">
+								<?php $argon_enable_immersion_color = get_option('argon_enable_immersion_color', 'false'); ?>
+								<option value="true" <?php if ($argon_enable_immersion_color=='true'){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
+								<option value="false" <?php if ($argon_enable_immersion_color=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('开启后，主题色将会全局沉浸。<br/>页面背景、卡片及页面上的其它元素会变为沉浸式主题色（气氛色）。类似 Material You。', 'argon');?><br/></p>
 							<div style="display: flex;flex-direction: row;flex-wrap: wrap;align-items: center;margin-top:15px;">
-								<div class="color-immersion-example" style="background: #f4f5f7;"><div class="color-immersion-example-card" style="background: #fff;"></div></div>
-								<div class="color-immersion-example-arrow"><span class="dashicons dashicons-arrow-right-alt"></span></div>
-								<div class="color-immersion-example" style="background: #e8ebfb;"><div class="color-immersion-example-card" style="background: #f2f4fd;"></div></div>
+								<div class="immersion-color-example" style="background: #f4f5f7;"><div class="immersion-color-example-card" style="background: #fff;"></div></div>
+								<div class="immersion-color-example-arrow"><span class="dashicons dashicons-arrow-right-alt"></span></div>
+								<div class="immersion-color-example" style="background: #e8ebfb;"><div class="immersion-color-example-card" style="background: #f2f4fd;"></div></div>
 							<div>
-							<style>.color-immersion-example {width: 250px;height: 150px;border-radius: 4px;display: inline-block;position: relative;box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);}.color-immersion-example-arrow {margin-left: 20px;margin-right: 20px;color: #646970;}.color-immersion-example-card {position: absolute;left: 40px;right: 40px;top: 35px;bottom: 35px;background: #fff;box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);}</style>
+							<style>.immersion-color-example {width: 250px;height: 150px;border-radius: 4px;display: inline-block;position: relative;box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);}.immersion-color-example-arrow {margin-left: 20px;margin-right: 20px;color: #646970;}.immersion-color-example-card {position: absolute;left: 40px;right: 40px;top: 35px;bottom: 35px;background: #fff;box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);}</style>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('夜间模式', 'argon');?></h3></th></tr>
@@ -284,7 +284,6 @@ function themeoptions_page(){
 								<option value="jsdelivr" <?php if ($argon_assets_path=='jsdelivr'){echo 'selected';} ?>>Jsdelivr</option>
 								<option value="fastgit" <?php if ($argon_assets_path=='fastgit'){echo 'selected';} ?>>Fastgit</option>
 								<option value="sourcegcdn" <?php if ($argon_assets_path=='sourcegcdn'){echo 'selected';} ?>>Source Global CDN</option>
-								<option value="fivecdn" <?php if ($argon_assets_path=='fivecdn'){echo 'selected';} ?>>FiveCDN</option>
 								<option value="jsdelivr_gcore" <?php if ($argon_assets_path=='jsdelivr_gcore'){echo 'selected';} ?>>Jsdelivr (gcore)</option>
 								<option value="jsdelivr_fastly" <?php if ($argon_assets_path=='jsdelivr_fastly'){echo 'selected';} ?>>Jsdelivr (fastly)</option>
 								<option value="jsdelivr_cf" <?php if ($argon_assets_path=='jsdelivr_cf'){echo 'selected';} ?>>Jsdelivr (cf)</option>
@@ -404,6 +403,16 @@ function themeoptions_page(){
 								<option value="hide" <?php if ($argon_banner_size=='hide'){echo 'selected';} ?>><?php _e('隐藏', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('完整: Banner 高度占用半屏', 'argon');?><br/><?php _e('迷你: 减小 Banner 的内边距', 'argon');?><br/><?php _e('全屏: Banner 占用全屏作为封面（仅在首页生效）', 'argon');?><br/><?php _e('隐藏: 完全隐藏 Banner', 'argon');?><br/></p>
+						</td>
+					</tr>
+					<tr>
+						<th><label for="argon_compact_mobile_article_banner"><?php _e('手机文章页使用紧凑 Banner', 'argon'); ?></label></th>
+						<td>
+							<select id="argon_compact_mobile_article_banner" name="argon_compact_mobile_article_banner">
+								<option value="true" <?php selected(get_option('argon_compact_mobile_article_banner', 'true'), 'true'); ?>><?php _e('是', 'argon'); ?></option>
+								<option value="false" <?php selected(get_option('argon_compact_mobile_article_banner', 'true'), 'false'); ?>><?php _e('否', 'argon'); ?></option>
+							</select>
+							<p class="description"><?php _e('仅在 Banner 设为完整时应用；首页不受影响。', 'argon'); ?></p>
 						</td>
 					</tr>
 					<tr>
@@ -540,14 +549,6 @@ function themeoptions_page(){
 						<td>
 							<input type="text" class="regular-text" name="argon_sidebar_author_description" value="<?php echo get_option('argon_sidebar_author_description'); ?>"/>
 							<p class="description"><?php _e('留空则不显示', 'argon');?></p>
-						</td>
-					</tr>
-					<tr>
-						<th><label><?php _e('左侧栏宽度', 'argon');?></label></th>
-						<td>
-							<input type="number" name="argon_sidebar_width" min="1" max="2000"  value="<?php echo get_option('argon_sidebar_width', 240); ?>"/>
-							px
-							<p class="description"><?php _e('默认为 240px，不建议更改', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('博客公告', 'argon');?></h2></th></tr>
@@ -890,101 +891,6 @@ function themeoptions_page(){
 							</p>
 						</td>
 					</tr>
-                    <tr><th class="subtitle"><h3><?php _e('AI 文章摘要', 'argon');?></h3></th></tr>
-                    <tr>
-                        <th><label><?php _e('启用 AI 文章摘要', 'argon');?></label></th>
-                        <td>
-                            <select name="argon_ai_post_summary">
-								<?php $argon_ai_post_summary = get_option('argon_ai_post_summary', false); ?>
-                                <option value="false" <?php if ($argon_ai_post_summary=='false'){echo 'selected';} ?>><?php _e('不启用', 'argon');?></option>
-                                <option value="true" <?php if ($argon_ai_post_summary=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
-                            </select>
-                            <p class="description"><?php _e('使用 ChatGPT 自动生成文章摘要。这将替换您主页的文章摘要，并在文章页面头部显示一个摘要卡片。', 'argon');?></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><label><?php _e('OpenAI API 地址', 'argon');?></label></th>
-                        <td>
-                            <select name="argon_openai_baseurl">
-								<?php $argon_openai_baseurl = get_option('argon_openai_baseurl'); ?>
-                                <option value="openai" <?php if ($argon_openai_baseurl=='openai'){echo 'selected';} ?>>OpenAI</option>
-                                <option value="custom" <?php if ($argon_openai_baseurl=='custom'){echo 'selected';} ?>><?php _e('自定义...', 'argon');?></option>
-                            </select>
-                            <input type="text" class="regular-text" name="argon_custom_openai_baseurl" placeholder="https://" value="<?php echo get_option('argon_custom_openai_baseurl', ''); ?>" autocomplete="off">
-                            <p class="description"><?php _e('自定义 OpenAI API 地址。', 'argon');?></p>
-                        </td>
-                        <script>
-                            $("select[name='argon_openai_baseurl']").change(function(){
-                                if ($(this).val() == 'custom') {
-                                    $("input[name='argon_custom_openai_baseurl']").css('display', '');
-                                } else {
-                                    $("input[name='argon_custom_openai_baseurl']").css('display', 'none');
-                                }
-                            }).change();
-                        </script>
-                    </tr>
-                    <tr>
-                        <th><label><?php _e('OpenAI API 密钥', 'argon');?></label></th>
-                        <td>
-                            <input type="text" class="regular-text" name="argon_openai_api_key" placeholder="sk-..." pattern="^(sk-[0-9A-Za-z-]{48})?$" value="<?php echo get_option('argon_openai_api_key', ''); ?>"/>
-                            <p class="description"><?php _e('前往 <a href="https://platform.openai.com/account/api-keys" target="_blank">OpenAI 账户 API Key</a> 页面以申请一个 API Key。', 'argon')?></p>
-                        </td>
-						<style> input[name='argon_openai_api_key']:invalid { background-color: lightpink; } </style>
-                    </tr>
-                    <tr>
-                        <th><label><?php _e('替换首页文章摘要', 'argon');?></label></th>
-                        <td>
-                            <select name="argon_ai_show_post_summary_in_home">
-			                    <?php $argon_ai_show_post_summary_in_home = get_option('argon_ai_show_post_summary_in_home', true); ?>
-                                <option value="true" <?php if ($argon_ai_show_post_summary_in_home=='true'){echo 'selected';} ?>><?php _e('替换', 'argon');?></option>
-                                <option value="false" <?php if ($argon_ai_show_post_summary_in_home=='false'){echo 'selected';} ?>><?php _e('不替换', 'argon');?></option>
-                            </select>
-                            <p class="description"><?php _e('替换后，首页文章摘要将会显示 AI 摘要，而不是文章开头内容。', 'argon');?></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><label><?php _e('对话模型', 'argon');?></label></th>
-                        <td>
-                            <input type="text" class="regular-text" name="argon_ai_model" value="<?php echo get_option('argon_ai_model', 'gpt-3.5-turbo'); ?>"/>
-                            <p class="description"><?php _e('生成文章摘要使用的对话模型，默认为 <code>gpt-3.5-turbo</code>', 'argon')?></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><label><?php _e('更新文章时不重复生成摘要', 'argon');?></label></th>
-                        <td>
-                            <select name="argon_ai_no_update_post_summary">
-			                    <?php $argon_ai_no_update_post_summary = get_option('argon_ai_no_update_post_summary', true); ?>
-                                <option value="true" <?php if ($argon_ai_no_update_post_summary=='true'){echo 'selected';} ?>><?php _e('不更新', 'argon');?></option>
-                                <option value="false" <?php if ($argon_ai_no_update_post_summary=='false'){echo 'selected';} ?>><?php _e('更新', 'argon');?></option>
-                            </select>
-                            <p class="description"><?php _e('设置本项为"不更新"以阻止摘要在更新文章时重新生成，避免产生高额的 API 调用开销。', 'argon');?></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><label><?php _e('启用异步生成文章摘要', 'argon');?></label></th>
-                        <td>
-                            <select name="argon_ai_async_generate">
-								<?php $argon_ai_async_generate = get_option('argon_ai_async_generate', true); ?>
-                                <option value="true" <?php if ($argon_ai_async_generate=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
-                                <option value="false" <?php if ($argon_ai_async_generate=='false'){echo 'selected';} ?>><?php _e('不启用', 'argon');?></option>
-                            </select>
-                            <p class="description"><?php _e('启用后，将大幅度增加文章发布时的响应速度，文章摘要信息会在稍后显示。', 'argon');?></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><label><?php _e( '额外 Prompt', 'argon' ); ?></label></th>
-                        <td>
-                            <textarea type="text" rows="15" cols="100" name="argon_ai_extra_prompt"><?php echo get_option( 'argon_ai_extra_prompt', '' ); ?></textarea>
-                            <p class="description"><?php _e( '发送给 ChatGPT 的额外 Prompt，将被以"system"的角色插入在文章信息后。', 'argon' ) ?></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><label><?php _e( '正文最大长度', 'argon' ); ?></label></th>
-                        <td>
-                            <input type="number" name="argon_ai_max_content_length" min="0" value="<?php echo get_option('argon_ai_max_content_length', 4000); ?>"/>
-                            <p class="description"><?php _e('发送给 ChatGPT 的最大正文长度，超出部分将会被截断，避免因正文过长产生高额的 API 调用开销。设为 0 以发送全文。', 'argon');?></p>
-                        </td>
-                    </tr>
 					<tr><th class="subtitle"><h3><?php _e('其他', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('文章过时信息显示', 'argon');?></label></th>
@@ -1619,7 +1525,7 @@ window.pjaxLoaded = function(){
 					<tr><th class="subtitle"><h3><?php _e('搜索过滤器', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('启用过滤器', 'argon');?></label></th>
-						<td>
+						<td>	
 							<select name="argon_enable_search_filters">
 								<?php $argon_enable_search_filters = get_option('argon_enable_search_filters', 'true'); ?>
 								<option value="true" <?php if ($argon_enable_search_filters=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
@@ -1628,7 +1534,7 @@ window.pjaxLoaded = function(){
 							<p class="description"><?php _e('开启后，将会在搜索结果界面显示一个过滤器，支持搜索说说及其他类型文章', 'argon');?></p>
 						</td>
 					</tr>
-					<script>
+					<script>	
 						$("select[name='argon_enable_search_filters']").change(function(){
 							if ($(this).val() == 'true') {
 								$(".argon-search-filters-type").css('display', '');
@@ -1687,7 +1593,7 @@ window.pjaxLoaded = function(){
 							<div class="search-filters-container">
 								<?php _e('不启用', 'argon');?>
 								<div id="search_filters_inactive">
-									<?php
+									<?php 
 										$all_post_types= get_post_types(array(
 											'public'   => true,
 										), 'objects');
@@ -1860,17 +1766,6 @@ window.pjaxLoaded = function(){
 						</td>
 					</tr>
 					<tr>
-						<th><label><?php _e('是否允许移动端缩放页面', 'argon');?></label></th>
-						<td>
-							<select name="argon_enable_mobile_scale">
-								<?php $argon_enable_mobile_scale = get_option('argon_enable_mobile_scale'); ?>
-								<option value="false" <?php if ($argon_enable_mobile_scale=='false'){echo 'selected';} ?>><?php _e('否', 'argon');?></option>
-								<option value="true" <?php if ($argon_enable_mobile_scale=='true'){echo 'selected';} ?>><?php _e('是', 'argon');?></option>
-							</select>
-							<p class="description"></p>
-						</td>
-					</tr>
-					<tr>
 						<th><label><?php _e('禁用 Google 字体', 'argon');?></label></th>
 						<td>
 							<select name="argon_disable_googlefont">
@@ -1892,17 +1787,6 @@ window.pjaxLoaded = function(){
 							<p class="description"><?php _e('如果您启用了其他代码高亮插件，发现代码块样式被 Argon 覆盖，出现了显示错误，请将此选项设为禁用', 'argon');?></p>
 						</td>
 					</tr>
-                    <tr>
-                        <th><label><?php _e('使用的页面阅读量统计 API', 'argon');?></label></th>
-                        <td>
-                            <select name="argon_view_counter">
-								<?php $argon_view_counter = get_option('argon_view_counter','default'); ?>
-                                <option value="default" <?php if ($argon_view_counter=='default'){echo 'selected';} ?>><?php _e('内建 API', 'argon');?></option>
-                                <option value="wp-statistics" <?php if ($argon_view_counter=='wp-statistics'){echo 'selected';} ?> <?php if(!function_exists( 'wp_statistics_pages' )) echo 'disabled' ?>><?php _e('WP Statistics', 'argon');?></option>
-                                <option value="post-views-counter" <?php if ($argon_view_counter=='post-views-counter'){echo 'selected';} ?> <?php if(!function_exists( 'pvc_get_post_views' )) echo 'disabled' ?>><?php _e('Post Views Counter', 'argon');?></option>
-                            </select>
-                        </td>
-                    </tr>
 					<tr>
 						<th><label><?php _e('检测更新源', 'argon');?></label></th>
 						<td>
@@ -2224,6 +2108,9 @@ function argon_update_themeoptions(){
 		return;
 	}
 	if ($_POST['update_themeoptions'] == 'true'){
+		if (!current_user_can('edit_theme_options')){
+			wp_die(__('您没有权限修改主题设置', 'argon'));
+		}
 		if (!isset($_POST['argon_update_themeoptions_nonce'])){
 			return;
 		}
@@ -2268,7 +2155,6 @@ function argon_update_themeoptions(){
 		argon_update_option_checkbox('argon_show_customize_theme_color_picker');
 		argon_update_option_allow_tags('argon_seo_description');
 		argon_update_option('argon_seo_keywords');
-		argon_update_option('argon_enable_mobile_scale');
 		argon_update_option('argon_page_background_url');
 		argon_update_option('argon_page_background_dark_url');
 		argon_update_option('argon_page_background_opacity');
@@ -2337,13 +2223,13 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_enable_comment_upvote');
 		argon_update_option('argon_article_list_waterflow');
 		argon_update_option('argon_banner_size');
+		argon_update_option('argon_compact_mobile_article_banner');
 		argon_update_option('argon_toolbar_blur');
 		argon_update_option('argon_archives_timeline_show_month');
 		argon_update_option('argon_archives_timeline_url');
-		argon_update_option('argon_enable_color_immersion');
+		argon_update_option('argon_enable_immersion_color');
 		argon_update_option('argon_enable_comment_pinning');
 		argon_update_option('argon_show_comment_parent_info');
-		argon_update_option('argon_sidebar_width');
 
 		//LazyLoad 相关
 		argon_update_option('argon_enable_lazyload');
@@ -2370,21 +2256,6 @@ function argon_update_themeoptions(){
 
 		//公告
 		argon_update_option_allow_tags('argon_sidebar_announcement');
-
-        // AI 文章摘要
-		argon_update_option('argon_ai_post_summary');
-		argon_update_option('argon_openai_baseurl');
-        argon_update_option('argon_custom_openai_baseurl');
-		argon_update_option('argon_openai_api_key');
-		argon_update_option('argon_ai_show_post_summary_in_home');
-        argon_update_option('argon_ai_model');
-        argon_update_option('argon_ai_no_update_post_summary');
-        argon_update_option('argon_ai_extra_prompt');
-        argon_update_option('argon_ai_max_content_length');
-        argon_update_option('argon_ai_async_generate');
-
-		// 集成
-		argon_update_option('argon_view_counter');
 	}
 }
 argon_update_themeoptions();

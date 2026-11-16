@@ -1,13 +1,10 @@
 import pangu from 'pangu';
-export const panguInit = () => {
-	if (window.argonConfig.pangu.indexOf("article") >= 0){
-		pangu.spacingElementByClassName('post-content');
-	}
-	if (window.argonConfig.pangu.indexOf("comment") >= 0){
-		pangu.spacingElementById('comments');
-	}
-	if (window.argonConfig.pangu.indexOf("shuoshuo") >= 0){
-		pangu.spacingElementByClassName('shuoshuo-content');
-	}
+export const panguInit = (root = document) => {
+	const groups = {article: ".post-content", comment: "#comments", shuoshuo: ".shuoshuo-content"};
+	Object.keys(groups).forEach(group => {
+		if (window.argonConfig.pangu.indexOf(group) >= 0){
+			root.querySelectorAll(groups[group]).forEach(node => pangu.spacingNode(node));
+		}
+	});
 }
 panguInit();

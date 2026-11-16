@@ -38,7 +38,7 @@
 					$prevPageUrl = get_argon_comment_paginate_links_prev_url();
 					if (!empty($prevPageUrl)){?>
 						<div class="comments-navigation-more">
-							<button id="comments_more" class="btn btn-lg btn-primary rounded-circle" href="<?php echo $prevPageUrl;?>">
+							<button id="comments_more" class="btn btn-lg btn-primary rounded-circle" data-href="<?php echo esc_url($prevPageUrl);?>" href="<?php echo esc_url($prevPageUrl);?>">
 								<span class="btn-inner--icon">
 									<i class="fa fa-angle-down" style="transform: translateY(2px);font-size: 19.2px;"></i>
 								</span>
@@ -123,7 +123,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-user-circle"></i></span>
 							</div>
-							<input id="post_comment_name" class="form-control" placeholder="<?php _e('昵称', 'argon');?>" type="text" name="author" value="<?php if (is_user_logged_in()) {echo (wp_get_current_user() -> user_login);} else {echo htmlspecialchars($current_commenter['comment_author']);} ?>">
+							<input id="post_comment_name" class="form-control" placeholder="<?php _e('昵称', 'argon');?>" type="text" name="author" value="<?php if (is_user_logged_in()) {echo esc_attr(wp_get_current_user() -> user_login);} else {echo esc_attr($current_commenter['comment_author']);} ?>">
 						</div>
 					</div>
 				</div>
@@ -133,7 +133,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-envelope"></i></span>
 							</div>
-							<input id="post_comment_email" class="form-control" placeholder="<?php _e('邮箱', 'argon');?><?php if ($enable_qq_avatar == 'true'){echo __(' / QQ 号', 'argon');} ?>" type="email" name="email" value="<?php if (is_user_logged_in()) {echo (wp_get_current_user() -> user_email);} else {echo htmlspecialchars($current_commenter['comment_author_email']);} ?>">
+							<input id="post_comment_email" class="form-control" placeholder="<?php _e('邮箱', 'argon');?><?php if ($enable_qq_avatar == 'true'){echo __(' / QQ 号', 'argon');} ?>" type="email" name="email" value="<?php if (is_user_logged_in()) {echo esc_attr(wp_get_current_user() -> user_email);} else {echo esc_attr($current_commenter['comment_author_email']);} ?>">
 						</div>
 					</div>
 				</div>
@@ -161,7 +161,6 @@
 										},
 										success : function(result){
 											$(".post-comment-captcha-container").attr("captcha", result['captcha']);
-											$("#post_comment_captcha_seed").val(result['captchaSeed']);
 										},
 										error : function(xhr){
 											$(".post-comment-captcha-container").attr("captcha", "<?php _e('获取验证码失败', 'argon');?>");
@@ -180,7 +179,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-link"></i></span>
 							</div>
-							<input id="post_comment_link" class="form-control" placeholder="<?php _e('网站', 'argon'); ?>" type="text" name="url" value="<?php echo htmlspecialchars($current_commenter['comment_author_url']); ?>">
+							<input id="post_comment_link" class="form-control" placeholder="<?php _e('网站', 'argon'); ?>" type="text" name="url" value="<?php echo esc_attr($current_commenter['comment_author_url']); ?>">
 						</div>
 					</div>
 				</div>
@@ -211,19 +210,19 @@
 							<label class="custom-control-label" for="comment_post_mailnotice"><?php _e('邮件提醒', 'argon');?></label>
 						</div>
 					<?php } ?>
-					<button id="post_comment_send" class="btn btn-icon btn-primary comment-btn float-right mr-0" type="button">
-						<span class="btn-inner--icon hide-on-comment-editing"><i class="fa fa-paper-plane"></i></span>
+					<button id="post_comment_send" class="btn btn-icon btn-primary comment-btn pull-right mr-0" type="button">
+						<span class="btn-inner--icon hide-on-comment-editing"><i class="fa fa-send"></i></span>
 						<span class="btn-inner--icon hide-on-comment-not-editing"><i class="fa fa-pencil"></i></span>
 						<span class="btn-inner--text hide-on-comment-editing" style="margin-right: 0;"><?php _e('发送', 'argon');?></span>
 						<span class="btn-inner--text hide-on-comment-not-editing" style="margin-right: 0;"><?php _e('编辑', 'argon');?></span>
 					</button>
-					<button id="post_comment_edit_cancel" class="btn btn-icon btn-danger comment-btn float-right hide-on-comment-not-editing" type="button" style="margin-right: 8px;">
+					<button id="post_comment_edit_cancel" class="btn btn-icon btn-danger comment-btn pull-right hide-on-comment-not-editing" type="button" style="margin-right: 8px;">
 						<span class="btn-inner--icon"><i class="fa fa-close"></i></span>
 						<span class="btn-inner--text"><?php _e('取消', 'argon');?></span>
 					</button>
 					<?php if (get_option("argon_comment_emotion_keyboard", "true") != "false"){ ?>
-						<button id="comment_emotion_btn" class="btn btn-icon btn-primary float-right" type="button" title="<?php _e('表情', 'argon');?>">
-							<i class="fa fa-regular fa-smile fa-smile-o" aria-hidden="true"></i>
+						<button id="comment_emotion_btn" class="btn btn-icon btn-primary pull-right" type="button" title="<?php _e('表情', 'argon');?>">
+							<i class="fa fa-smile-o" aria-hidden="true"></i>
 						</button>
 						<?php get_template_part( 'template-parts/emotion-keyboard' ); ?>
 					<?php } ?>

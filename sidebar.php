@@ -2,7 +2,7 @@
 	return;
 } ?>
 <div id="sidebar_mask"></div>
-<aside id="leftbar" class="leftbar widget-area" role="complementary">
+<aside id="leftbar" class="leftbar widget-area" role="complementary" tabindex="-1">
 		<?php if (get_option('argon_sidebar_announcement') != '') { ?>
 			<div id="leftbar_announcement" class="card bg-white shadow-sm border-0">
 				<div class="leftbar-announcement-body">
@@ -98,18 +98,6 @@
 						<?php if (have_catalog()) { ?>
 							<div class="tab-pane fade<?php if ($nowActiveTab == 0) { echo ' active show'; }?>" id="leftbar_tab_catalog" role="tabpanel" aria-labelledby="leftbar_tab_catalog_btn">
 								<div id="leftbar_catalog"></div>
-								<script type="text/javascript">
-									$(function () {
-										$(document).headIndex({
-											articleWrapSelector: '#post_content',
-											indexBoxSelector: '#leftbar_catalog',
-											subItemBoxClass: "index-subItem-box",
-											itemClass: "index-item",
-											linkClass: "index-link",
-											offset: 80,
-										});
-									})
-								</script>
 								<?php if (get_option('argon_show_headindex_number') == 'true') {?>
 									<style>
 										#leftbar_catalog ul {

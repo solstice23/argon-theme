@@ -23,7 +23,7 @@ function getCodeFromBlock(block){
 	codeOfBlocks[block.id] = res;
 	return res;
 }
-export const highlightJsRender = () => {
+export const highlightJsRender = (root = document) => {
 	if (typeof(hljs) == "undefined"){
 		return;
 	}
@@ -33,13 +33,13 @@ export const highlightJsRender = () => {
 	if (!window.argonConfig.code_highlight.enable){
 		return;
 	}
-	$("article pre.code").each(function(index, block) {
+	$("article pre.code:not(.hljs-codeblock)", root).each(function(index, block) {
 		if ($(block).hasClass("no-hljs")){
 			return;
 		}
 		$(block).html("<code>" + $(block).html() + "</code>");
 	});
-	$("article pre > code").each(function(index, block) {
+	$("article pre > code:not([hljs-codeblock-inner])", root).each(function(index, block) {
 		if ($(block).hasClass("no-hljs")){
 			return;
 		}

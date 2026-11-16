@@ -16,13 +16,13 @@
 function my_custom_block_cgb_block_assets() {
 	wp_register_style(
 		'argon-gutenberg-block-frontend-css',
-		plugins_url( 'dist/blocks.style.build.css', dirname( __FILE__ ) ), // Block style CSS.
+		get_theme_file_uri( 'gutenberg/dist/blocks.style.build.css' ), // Block style CSS.
 		is_admin() ? array( 'wp-editor' ) : null, // Dependency to include the CSS after it.
 		null // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.style.build.css' ) // Version: File modification time.
 	);
 	wp_register_script(
 		'argon-gutenberg-block-js', // Handle.
-		plugins_url( '/dist/blocks.build.js', dirname( __FILE__ ) ), // Block.build.js: We register the block here. Built with Webpack.
+		get_theme_file_uri( 'gutenberg/dist/blocks.build.js' ), // Block.build.js: We register the block here. Built with Webpack.
 		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ), // Dependencies, defined above.
 		null, // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ), // Version: filemtime — Gets file modification time.
 		true // Enqueue the script in the footer.
@@ -31,17 +31,17 @@ function my_custom_block_cgb_block_assets() {
 	// Register block editor styles for backend.
 	wp_register_style(
 		'argon-gutenberg-block-backend-css',
-		plugins_url( 'dist/blocks.editor.build.css', dirname( __FILE__ ) ),
+		get_theme_file_uri( 'gutenberg/dist/blocks.editor.build.css' ),
 		array( 'wp-edit-blocks' ),
 		filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' )
 		//null // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
 	);
 	wp_localize_script(
-		'my_custom_block-cgb-block-js',
+		'argon-gutenberg-block-js',
 		'cgbGlobal',
 		[
-			'pluginDirPath' => plugin_dir_path( __DIR__ ),
-			'pluginDirUrl'  => plugin_dir_url( __DIR__ ),
+			'pluginDirPath' => get_theme_file_path( 'gutenberg' ),
+			'pluginDirUrl'  => get_theme_file_uri( 'gutenberg' ),
 		]
 	);
 	register_block_type(

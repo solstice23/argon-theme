@@ -1,11 +1,11 @@
 import __ from './i18n';
 import {waterflowInit} from './waterflow';
 var $ = window.$;
-export const foldLongShuoshuo = () => {
+export const foldLongShuoshuo = (root = document) => {
 	if (window.argonConfig.fold_long_shuoshuo == false){
 		return;
 	}
-	$("#main .shuoshuo-foldable > .shuoshuo-content").each(function(){
+	$("#main .shuoshuo-foldable > .shuoshuo-content", root).each(function(){
 		if ($(this).hasClass("shuoshuo-unfolded")){
 			return;
 		}

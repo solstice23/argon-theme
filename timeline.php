@@ -11,16 +11,20 @@ Template Name: 归档时间轴
 <?php get_sidebar(); ?>
 
 <div id="primary" class="content-area">
-	<main id="main" class="site-main" role="main">
+	<main id="main" tabindex="-1" class="site-main" role="main">
 		<?php
 			while ( have_posts() ) :
 				the_post();
-				
-				do_action( 'argon_single_content', 'timeline' );
 
-				do_action( 'argon_show_sharebtn' );
-				do_action( 'argon_show_comment' );
+				get_template_part( 'template-parts/content', 'timeline' );
 
+				if (get_option("argon_show_sharebtn") != 'false') {
+					get_template_part( 'template-parts/share' );
+				}
+
+				if (comments_open() || get_comments_number()) {
+					comments_template();
+				}
 			endwhile;
 		?>
 

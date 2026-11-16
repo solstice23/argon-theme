@@ -66,8 +66,8 @@ function humanTimeDiff(time){
 		return time.getDate() + "-" + (time.getMonth() + 1) + "-" + time.getFullYear();
 	}
 }
-export const calcHumanTimesOnPage = () => {
-	$(".human-time").each(function(){
+export const calcHumanTimesOnPage = (root = document) => {
+	$(".human-time", root).each(function(){
 		$(this).text(humanTimeDiff(parseInt($(this).data("time")) * 1000));
 	});
 }

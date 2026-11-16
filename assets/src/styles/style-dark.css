@@ -39,12 +39,6 @@ html.darkmode a:hover {
 	color: var(--themecolor);
 }
 
-html.darkmode ::-webkit-scrollbar {
-	background-color: rgba(255, 255, 255, 0);
-}
-html.darkmode ::-webkit-scrollbar-thumb {
-	background-color: rgba(255, 255, 255, 0.25);
-}
 
 html.darkmode .btn-secondary {
 	color: #eee;
@@ -155,10 +149,6 @@ html.darkmode.amoled-dark .leftbar-banner {
 	background: var(--color-foreground);
 }
 html.darkmode.amoled-dark .github-info-card {
-	background: #000 !important;
+	background: #020211 !important;
 	border: 1px solid #222;
-}
-html.darkmode.amoled-dark #content:before,
-html.darkmode.amoled-dark #content:after {
-	display: none;
 }

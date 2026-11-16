@@ -1,9 +1,9 @@
 var $ = window.$;
-export const foldLongComments = () => {
+export const foldLongComments = (root = document) => {
 	if (window.argonConfig.fold_long_comments == false){
 		return;
 	}
-	$(".comment-item-inner").each(function(){
+	$(".comment-item-inner", root).each(function(){
 		if ($(this).hasClass("comment-unfolded")){
 			return;
 		}

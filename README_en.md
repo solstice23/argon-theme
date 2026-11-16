@@ -28,6 +28,8 @@ Argon - A light, simple and beautiful WordPress theme
 
 Download the .zip file on the [Release](https://github.com/solstice23/argon-theme/releases) page, upload and install it on the "Theme" page of the WordPress backend.
 
+If you install from GitHub repository source code, you need to run `composer install` first to install dependencies. See [INSTALL.md](./INSTALL.md) for detailed installation instructions.
+
 # Documentation
 
 [Argon-Theme Document : https://argon-docs.solstice23.top](https://argon-docs.solstice23.top/) (Chinese version)

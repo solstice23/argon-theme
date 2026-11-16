@@ -36,6 +36,19 @@ Hexo 版本 : [github.com/solstice23/hexo-theme-argon](https://github.com/solsti
 
 在 [Release](https://github.com/solstice23/argon-theme/releases) 页面下载 .zip 文件，在 WordPress 后台 "主题" 页面上传并安装。
 
+## 安装本地改造版
+
+将本目录完整复制到测试站的 wp-content/themes/argon-theme/，按 [源码安装说明](INSTALL.md#for-developers-installing-from-source) 配置原有 PHP 依赖，再在后台「外观 → 主题」启用 Argon。已有 Argon 站点请在测试副本中沿用原主题目录名，以便保留当前设置。
+
+- 用 Tab 键进入页面时，可以选择「跳至内容」，直接把焦点移到正文；手机侧栏打开后，按 Esc 可关闭并回到菜单按钮。
+- 页面、目录、代码块和表情栏使用浏览器原生滚动条，适配日间与夜间模式；较早的 WebKit 浏览器仍有样式可用。
+- 受保护内容仍通过 WordPress 的文章密码解锁；输入框有独立标签和必填提示，也可用于 WordPress 安装在子目录的站点。
+
+- 手机文章页默认使用紧凑 Banner；可在「Argon 主题选项 → Banner」关闭。首页、迷你／全屏／隐藏模式保持原样。手机始终允许页面缩放。
+- 首屏封面可在 JavaScript 关闭时显示。媒体库特色图按屏幕选择尺寸，外链和正文取图沿用原有来源。
+
+主题交互脚本和改造样式从本地主题目录加载，以便和模板一同升级；其余基础静态资源仍按已配置的 CDN 加载。
+
 # 文档
 
 [Argon-Theme 文档 : https://argon-docs.solstice23.top](https://argon-docs.solstice23.top/)
