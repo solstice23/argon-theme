@@ -921,7 +921,7 @@ function get_comment_edit_history(){
 						" . ($edition -> isfirst ? "<span class='badge badge-primary badge-admin'>" . __("最初版本", 'argon') . "</span>" : "") . "
 					</div>
 					<div class='comment-edit-history-time'>" . date('Y-m-d H:i:s', $edition -> time) . "</div>
-					<div class='comment-edit-history-content'>" . str_replace("\n", "</br>", $edition -> content) . "</div>
+					<div class='comment-edit-history-content'>" . str_replace("\n", "</br>", ($edition -> isfirst ? htmlspecialchars($edition -> content) : $edition -> content)) . "</div>
 				</div>";
 	}
 	exit(json_encode(array(
